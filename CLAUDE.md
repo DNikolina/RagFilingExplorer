@@ -6,10 +6,15 @@ understanding, not just a working demo.
 
 ## Build plan
 
-See @docs/Implementation_Plan.md for the full plan: ground rules, prerequisites, repo
-structure, and step-by-step instructions (Steps 1–8). Follow it directly rather than re-deriving
-decisions already made there — the technical choices in it (stack, models, fallback strategies) were
-validated against Microsoft's own documentation, not just general assumptions.
+See @docs/Implementation_Plan.md for the current-state reference: ground rules, prerequisites, the
+pipeline as it ships, live constraints, and already-validated facts. Follow it directly rather than
+re-deriving decisions already made there — the technical choices in it (stack, models, fallback
+strategies) were validated against Microsoft's own documentation, not just general assumptions.
+
+The full history behind those decisions (each step's outcome, every dead end and bug, how each was
+found) is in `docs/Decision-Log.md`. It's deliberately not auto-loaded — read the relevant section
+before revisiting a decision, and record new follow-ups there, adding a one-line summary to the plan's
+Status or Live constraints only if the follow-up changes them.
 
 ## Working style for this project
 
@@ -23,11 +28,11 @@ validated against Microsoft's own documentation, not just general assumptions.
 
 - .NET SDK, Ollama installed and running
 - Models already pulled: `nomic-embed-text`, `llama3.1:8b` (the shipped default), and `qwen3.5:2b`
-  (a local reasoning model, pulled to test as a reference — see Implementation_Plan.md's "Follow-up:
+  (a local reasoning model, pulled to test as a reference — see Decision-Log.md's "Follow-up:
   reasoning-model support" for what that required)
 - Hardware: 12th Gen Intel i7-12800H, 32GB RAM, Intel UHD integrated graphics — CPU-only inference,
   no GPU acceleration
-- Python 3.12 + the `markitdown` pip package are also installed (added during Step 3 — see the plan's
-  Step 3 outcome for why). The pip Scripts directory is on the user PATH, so `markitdown` resolves as
+- Python 3.12 + the `markitdown` pip package are also installed (added during Step 3 — see
+  Decision-Log.md's Step 3 outcome for why). The pip Scripts directory is on the user PATH, so `markitdown` resolves as
   a bare command; a freshly started shell picks this up, but a shell already open when it was added
   won't until restarted.

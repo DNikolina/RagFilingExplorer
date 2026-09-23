@@ -1,12 +1,12 @@
 # Manual test questions
 
-Step 7 in [Implementation_Plan.md](Implementation_Plan.md) verified 6 questions (3 number-lookups, one
+Step 7 in [Decision-Log.md](Decision-Log.md) verified 6 questions (3 number-lookups, one
 per filing; one prose fact; one prose description; one negative test) and got 6/6 after the
 statement-type filtering fix. This is a second, broader round for manual testing before publishing -
 it deliberately covers statement types and companies the original 6 didn't touch, especially
 `comprehensive_income`, which only just got a keyword mapping in `QueryIntentResolver`.
 
-Netflix (`NFLX-10K-2025.html`) was added later, alongside MSFT/ORCL/NDAQ - see Implementation_Plan.md's
+Netflix (`NFLX-10K-2025.html`) was added later, alongside MSFT/ORCL/NDAQ - see Decision-Log.md's
 "Follow-up: onboarding a new filer (NFLX)" for the three real bugs that surfaced onboarding it. Its
 questions (17-20 below) are the regression check for that work.
 
@@ -22,52 +22,78 @@ result worth flagging even if the final answer is correct.
 
 **1. What were Microsoft's total assets?**
 Expected: **$758,376 million** (FY2026; $619,003 million FY2025).
-Source: `MSFT-10K-2026.chunks.txt:2031`. Filter: `MSFT-10K-2026.html`, `balance_sheet`.
+Source: `MSFT-10K-2026.chunks.txt:2039`. Filter: `MSFT-10K-2026.html`, `balance_sheet`.
 
 **2. What was Oracle's total stockholders' equity?**
-Expected: **$43,056 million** (FY2026; $20,969 million FY2025).
-Source: `ORCL-10K-2026.chunks.txt:2475`. Filter: `ORCL-10K-2026.html`, `balance_sheet`.
-(Careful: ORCL's chunks also contain an unrelated "Total assets" fair-value table around line 3209 -
+Expected: **$43,056 million** "Total stockholders' equity" (FY2026; $20,969 million FY2025) - or
+**$42,508 million** "Total Oracle Corporation stockholders' equity" (excluding noncontrolling interests),
+if cited to that line. Source: `ORCL-10K-2026.chunks.txt:2475`. Filter: `ORCL-10K-2026.html`,
+`balance_sheet`.
+History: this failed from the initial commit onward while "stockholders' equity" routed to the equity
+statement - ORCL's is a wide roll-forward split into 15 near-identical fragments, and the one holding
+the closing balance (`ORCL-10K-2026.chunks.txt:2731`) ranked 8th-9th, outside the top 5. Period-end
+equity questions now route to the balance sheet's single total row (see Decision-Log.md, "equity
+routing").
+(Careful: ORCL's chunks also contain an unrelated "Total assets" fair-value table around line 3218 -
 a wrong retrieval landing there instead of the real balance sheet is worth noting.)
 
 **3. What were Nasdaq's total liabilities?**
 Expected: **$18,821 million** (2025; $19,195 million 2024).
-Source: `NDAQ-10K-2025.chunks.txt:12440`. Filter: `NDAQ-10K-2025.html`, `balance_sheet`.
+Source: `NDAQ-10K-2025.chunks.txt:12430`. Filter: `NDAQ-10K-2025.html`, `balance_sheet`.
 
 ## Cash flow statement
 
 **4. What was Microsoft's net cash from operations?**
 Expected: **$182,935 million** (FY2026; $136,162 million FY2025; $118,548 million FY2024).
-Source: `MSFT-10K-2026.chunks.txt:2127`. Filter: `MSFT-10K-2026.html`, `cash_flow_statement`.
+Source: `MSFT-10K-2026.chunks.txt:2133`. Filter: `MSFT-10K-2026.html`, `cash_flow_statement`.
 
 **5. What was Oracle's net cash provided by operating activities?**
 Expected: **$31,977 million** (FY2026; $20,821 million FY2025; $18,673 million FY2024).
-Source: `ORCL-10K-2026.chunks.txt:2770`. Filter: `ORCL-10K-2026.html`, `cash_flow_statement`.
+Source: `ORCL-10K-2026.chunks.txt:2778`. Filter: `ORCL-10K-2026.html`, `cash_flow_statement`.
 
 **6. What was Nasdaq's net cash provided by operating activities in 2025?**
 Expected: **$2,255 million** (2025; $1,939 million 2024; $1,696 million 2023).
-Source: `NDAQ-10K-2025.chunks.txt:12681`. Filter: `NDAQ-10K-2025.html`, `cash_flow_statement`.
+Source: `NDAQ-10K-2025.chunks.txt:12665`. Filter: `NDAQ-10K-2025.html`, `cash_flow_statement`.
 
 ## Equity statement
 
 **7. What was Microsoft's total stockholders' equity?**
 Expected: **$442,387 million** (FY2026; $343,479 million FY2025; $268,477 million FY2024).
-Source: `MSFT-10K-2026.chunks.txt:2239`. Filter: `MSFT-10K-2026.html`, `equity_statement`.
+Source: `MSFT-10K-2026.chunks.txt:2082` (balance sheet). Filter: `MSFT-10K-2026.html`, `balance_sheet`.
+(The balance sheet shows two years; the equity statement's three-year row, including FY2024, is at
+`MSFT-10K-2026.chunks.txt:2245`.)
+
+**23. What was Nasdaq's total stockholders' equity?** (added later - regression check)
+Expected: **$12,227 million** "Total Nasdaq stockholders' equity" (2025; $11,191 million 2024;
+$10,816 million 2023) - or **$12,232 million** "Total equity" including noncontrolling interests, if
+cited to that line - but not $12,232 million labelled as "Nasdaq stockholders' equity", which an
+earlier run did. Source: `NDAQ-10K-2025.chunks.txt:12441` (balance sheet). Filter: `NDAQ-10K-2025.html`,
+`balance_sheet`.
+Before the second review this returned "(no results)": NDAQ titles its statement "Statements of
+*Changes in* Stockholders' Equity", which the detector didn't recognize, so no NDAQ chunk was tagged
+`equity_statement` at all.
+
+**24. What did Microsoft's statement of stockholders' equity show for common stock cash dividends in fiscal year 2026?**
+Expected: **$27,034 million** (dividends *declared*, from the equity statement) - not $26,445 million,
+which is dividends *paid*, from the cash flow statement (`MSFT-10K-2026.chunks.txt:2148`,
+"Common stock cash dividends paid"). Source: `MSFT-10K-2026.chunks.txt:2224`. Filter:
+`MSFT-10K-2026.html`, `equity_statement` - checks that questions about *changes* in equity still route
+to the equity statement after period-end equity questions moved to the balance sheet.
 
 ## Comprehensive income (new filter - watch this one closely)
 
 **8. What was Microsoft's comprehensive income?**
 Expected: **$133,812 million** (FY2026; $104,075 million FY2025; $88,889 million FY2024).
-Source: `MSFT-10K-2026.chunks.txt:1986`. Filter: `MSFT-10K-2026.html`, `comprehensive_income`.
+Source: `MSFT-10K-2026.chunks.txt:1994`. Filter: `MSFT-10K-2026.html`, `comprehensive_income`.
 
 **9. What was Oracle's comprehensive income?**
 Expected: **$16,882 million** (FY2026; $12,700 million FY2025; $10,557 million FY2024).
-Source: `ORCL-10K-2026.chunks.txt:2577`. Filter: `ORCL-10K-2026.html`, `comprehensive_income`.
+Source: `ORCL-10K-2026.chunks.txt:2579`. Filter: `ORCL-10K-2026.html`, `comprehensive_income`.
 
 **10. What was Nasdaq's total comprehensive income for 2025?**
 Expected: **$2,113 million** (or **$2,114 million** "attributable to Nasdaq" - either figure, if cited
 correctly to the right line, counts as correct; 2024 was $940M / $942M).
-Source: `NDAQ-10K-2025.chunks.txt:12549-12551`. Filter: `NDAQ-10K-2025.html`, `comprehensive_income`.
+Source: `NDAQ-10K-2025.chunks.txt:12536-12538`. Filter: `NDAQ-10K-2025.html`, `comprehensive_income`.
 
 ## Prose facts (not previously tested)
 
@@ -95,7 +121,7 @@ Note: the citation will say `PART IV > Item 16. Form 10-K Summary`, not `Item 8`
 not a bug. Netflix's actual financial statement pages are physically attached later in the converted
 document than its `Item 8` heading line, so `SectionSplitter` attributes them to whichever Item
 heading came last in document order (the same "Item 8 is a stub, the real pages live elsewhere"
-pattern already seen with ORCL's Item 15). See Implementation_Plan.md's "Follow-up: onboarding a new
+pattern already seen with ORCL's Item 15). See Decision-Log.md's "Follow-up: onboarding a new
 filer (NFLX)" for the full explanation - and don't mistake this label for a sign the wrong number came
 back; check the dollar figure itself.
 

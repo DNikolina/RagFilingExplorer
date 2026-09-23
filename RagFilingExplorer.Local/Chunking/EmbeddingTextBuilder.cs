@@ -12,7 +12,7 @@ namespace RagFilingExplorer.Local.Chunking;
 /// this specifically to help distinguish "the revenue table" from "the balance sheet table" from "the
 /// equity table" in filings with many similarly-shaped tables (e.g. an "Item 15" appendix), but on its
 /// own it did **not** move the needle on the actual blocking questions (documented in
-/// Implementation_Plan.md's "Follow-up: retrieval quality" as "tried and found insufficient"). The fix
+/// Decision-Log.md's "Follow-up: retrieval quality" as "tried and found insufficient"). The fix
 /// that actually solved that problem was metadata filtering - <see cref="StatementTypeDetector"/> +
 /// <c>QueryIntentResolver</c> narrowing the vector search itself. This class is kept as a cheap,
 /// still-reasonable secondary signal alongside that filtering, not as the fix in its own right.

@@ -40,7 +40,7 @@ Statements and Supplementary Data), Microsoft's total revenue for fiscal year 20
   ```
 - **Python 3.12 + `pip install markitdown`** — the app shells out to the `markitdown` CLI to convert
   filing HTML to text before chunking. This wasn't in the original plan; see
-  [docs/Implementation_Plan.md](docs/Implementation_Plan.md) (Step 3) for why it became necessary.
+  [docs/Decision-Log.md](docs/Decision-Log.md) (Step 3) for why it became necessary.
 
 No API keys, no `dotnet user-secrets`, no cloud account of any kind.
 
@@ -62,12 +62,33 @@ models were chosen specifically because they run acceptably on CPU alone.
 dotnet run --project RagFilingExplorer.Local
 ```
 
-- `--rebuild` — deletes `rag.db` and rebuilds from scratch. Use this after changing any
-  chunking/embedding logic; otherwise persistence means only the very first run ever does that work.
+Works from any directory - `data/`, `chunk-review/` and `rag.db` are located relative to the repo
+root, not the directory you launch from.
+
+- `--rebuild` — deletes `rag.db` and rebuilds from scratch. Needed after changing chunking/embedding
+  *code*; changes to settings or filings are detected automatically (see below).
 - `--verbose` — also prints the full ranked candidate list for each question (score, filing, statement
   type, heading, snippet). Useful when diagnosing a bad retrieval; not needed for normal use.
 
 Type a question at the `>` prompt; a blank line or `exit` quits.
+
+### Startup checks
+
+Before doing any work, the app checks for the problems most likely to trip up a fresh clone, and
+exits with a one-line fix instead of a stack trace:
+
+- Ollama isn't reachable at the configured URL, or either configured model isn't pulled (the error
+  prints the exact `ollama pull` command).
+- The `markitdown` CLI isn't on `PATH` (only checked when an index build is actually needed).
+- **`rag.db` can't be trusted.** A build writes `rag.db.manifest.json` only after every chunk has been
+  embedded. It records the embedding model, the chunking settings, and a SHA-256 hash of every filing.
+  If `rag.db` has no manifest, the last build was interrupted or failed. If the manifest doesn't match
+  the current `appsettings.json` and `data/`, the index is stale. Either way the app says exactly what's
+  wrong and asks for `--rebuild` rather than silently answering from a partial or mismatched index.
+  (A changed embedding model is the worst case: query vectors from the new model compared against
+  stored vectors from the old one retrieve noise with no error at all.)
+- A filing in `data/` with no `QueryIntentResolver.CompanyToFiling` entry is reported as a warning
+  (see "Adding a new filing" below); `dotnet test` also fails on it.
 
 ## Configuration (`appsettings.json`)
 
@@ -85,7 +106,7 @@ multi-record batch — reproducible on the very first batch against an empty tab
 duplicate-key issue in the data. It's a known, already-fixed upstream `sqlite-vec` bug that the NuGet
 package just hasn't picked up yet. Full details, including why manually swapping in the newer native
 `vec0.dll` was considered and rejected, are in
-[docs/Implementation_Plan.md](docs/Implementation_Plan.md) ("Follow-up: persisted vector store"). If
+[docs/Decision-Log.md](docs/Decision-Log.md) ("Follow-up: persisted vector store"). If
 this project ever upgrades past that SqliteVec version, re-check whether the fix landed before raising
 this value — batching does meaningfully reduce embedding calls otherwise.
 
@@ -126,15 +147,16 @@ capability, so `ReasoningEffort` never applies to it regardless of question or c
 
 ### Adding a new filing
 
-Dropping a new `.html` file into `data/` and running `--rebuild` is necessary but **not sufficient** -
-onboarding Netflix (`NFLX-10K-2025.html`) surfaced three real bugs, all fixed generically rather than
+Dropping a new `.html` file into `data/` (the app will then ask for `--rebuild`) is necessary but **not sufficient** -
+onboarding Netflix (`NFLX-10K-2025.html`) surfaced three real bugs (and a later review found a fourth, in Nasdaq's filing), all fixed generically rather than
 with filer-specific code, but worth checking for explicitly with any new filing:
 
 1. **Register the company.** `QueryIntentResolver.CompanyToFiling` doesn't discover filings
    automatically - a new company/ticker needs its own entry mapping to the filename, or every question
    naming it runs **unfiltered across every filing** (the exact cross-company contamination metadata
    filtering exists to prevent). This was the most consequential of the three: it caused a hallucinated
-   figure, not just a missed answer.
+   figure, not just a missed answer. The app now warns about an unregistered filing at startup, and a
+   unit test fails on one, but the entry itself still has to be added by hand.
 2. **Don't assume the source is UTF-8.** A raw EDGAR download usually is, but a browser-saved copy can
    declare (and genuinely be encoded as) something else entirely - Netflix's was `windows-1252`.
    `MarkItDownConverter.DetectEncoding` handles this automatically now (BOM, then the file's own
@@ -145,9 +167,13 @@ with filer-specific code, but worth checking for explicitly with any new filing:
    `SectionSplitter.TitledItemHeaderRegex` now tolerates both, but a filer with a still-different
    convention could reintroduce this class of bug. Check `chunk-review/<new-filing>.chunks.txt` for a
    complete, correctly-nested Item outline before trusting the citations it produces.
+4. **Statement titles vary too.** Statement-type filtering only works if each financial statement's
+   title line is recognized - Nasdaq's "Consolidated Statements of *Changes in* Stockholders' Equity"
+   wasn't at first, so every Nasdaq equity question found nothing. After a first run, check that `rag.db`
+   tags each of the new filing's statements (see `docs/Implementation_Plan.md`, "Live constraints").
 
 Full diagnostic detail, including how each bug was actually found, is in
-[docs/Implementation_Plan.md](docs/Implementation_Plan.md) ("Follow-up: onboarding a new filer (NFLX)").
+[docs/Decision-Log.md](docs/Decision-Log.md) ("Follow-up: onboarding a new filer (NFLX)").
 
 ## Testing
 
@@ -155,12 +181,13 @@ Full diagnostic detail, including how each bug was actually found, is in
 dotnet test
 ```
 
-Runs `RagFilingExplorer.Local.Tests` (NUnit + Moq) — 90 tests, fully offline, no live Ollama instance
+Runs `RagFilingExplorer.Local.Tests` (NUnit + Moq) — 127 tests, fully offline, no live Ollama instance
 or populated vector store required. Covers chunking, section splitting, statement-type detection,
-query-intent resolution, and the retrieve+generate orchestration (mocked).
+query-intent resolution, settings loading/validation, index-manifest staleness detection, and the
+retrieve+generate orchestration (mocked).
 
 This is separate from, and doesn't replace, the real-question retrieval-quality testing documented as
-Step 7 in the implementation plan — that required manually verifying actual answers against the source
+Step 7 in the decision log — that required manually verifying actual answers against the source
 filings, and is what actually caught this project's real bugs.
 [docs/Manual-Test-Questions.md](docs/Manual-Test-Questions.md) has a broader set of questions (balance
 sheet, cash flow, equity, comprehensive income, plus edge cases) for exactly that kind of manual pass,
@@ -173,7 +200,7 @@ and was deliberately tried before being abandoned — not skipped. In short: MED
 don't handle raw HTML directly, its heading-based chunkers have nothing to key off because SEC EDGAR
 HTML has zero real `<h1>`–`<h6>` heading tags, and its hardcoded Markdig math extension crashes on
 dollar-figures in financial tables. The full diagnostic path is in
-[docs/Implementation_Plan.md](docs/Implementation_Plan.md) (Step 3).
+[docs/Decision-Log.md](docs/Decision-Log.md) (Step 3).
 
 What ships instead is a small hand-written pipeline: `markitdown` (the CLI) for HTML→text conversion,
 then pattern-matching over the converted text for section boundaries and table-aware token chunking.
@@ -185,13 +212,14 @@ RagFilingExplorer.Local/                the app - chunking, retrieval, vector st
 RagFilingExplorer.Local.Tests/          NUnit + Moq test suite
 data/                                   source 10-K filings (HTML, from sec.gov/edgar)
 chunk-review/                           full per-chunk text dumps, one file per filing, for manual review
-docs/Implementation_Plan.md             the full build plan, every decision point, and the debugging history
+docs/Implementation_Plan.md             current-state reference: ground rules, pipeline, live constraints
+docs/Decision-Log.md                    the full build history: every step, decision point, and debugging path
 docs/Manual-Test-Questions.md           a broader question set for manual retrieval-quality testing
 ```
 
 ## Further reading
 
-[docs/Implementation_Plan.md](docs/Implementation_Plan.md) has the complete build plan and decision
-log — every dead end and bug found along the way (MEDI's abandonment, a SqliteVec upsert bug, the
+[docs/Implementation_Plan.md](docs/Implementation_Plan.md) is the short current-state reference;
+[docs/Decision-Log.md](docs/Decision-Log.md) has the complete build history and decision log — every dead end and bug found along the way (MEDI's abandonment, a SqliteVec upsert bug, the
 statement-type detector false positives that silently mistagged 96 chunks, three real bugs found
 onboarding a fourth filing, and more). This README is deliberately the short version.
