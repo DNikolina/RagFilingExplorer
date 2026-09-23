@@ -1,0 +1,197 @@
+# RagFilingExplorer
+
+A local, retrieval-augmented Q&A tool for SEC 10-K filings, built in C#/.NET.
+
+**Zero cost, no API keys, no accounts.** Embedding, vector search, and answer generation all run
+locally via [Ollama](https://ollama.com/) — nothing is sent to a hosted LLM API, and there's nothing
+to sign up for.
+
+Ask a natural-language question about one of the included filings and get an answer grounded in, and
+cited to, the actual filing text — not the model's general knowledge.
+
+```
+> What was Microsoft's total revenue for fiscal year 2026?
+(filtering to MSFT-10K-2026.html, statement type: income_statement)
+
+--- Answer ---
+According to the provided context [1] (Source: MSFT-10K-2026.html, PART II > Item 8. Financial
+Statements and Supplementary Data), Microsoft's total revenue for fiscal year 2026 was $331,839 million.
+```
+
+## Stack
+
+- **C# / .NET 10** — console app, top-level statements
+- **Microsoft.Extensions.AI** + **Microsoft.Extensions.VectorData** — `IChatClient` /
+  `IEmbeddingGenerator` / vector store abstractions
+- **[OllamaSharp](https://github.com/awaescher/OllamaSharp)** — talks to a local Ollama instance;
+  implements those abstractions directly, no custom wrapper
+- **CommunityToolkit.VectorData.SqliteVec** — persistent, on-disk vector store (`rag.db`)
+- **Microsoft.ML.Tokenizers** (offline Tiktoken, `cl100k_base`) — token-bounded chunking
+- **Local models**: `nomic-embed-text` (274MB, embeddings) and `llama3.1:8b` (4.9GB, answer generation)
+- **Source data**: public [SEC EDGAR](https://www.sec.gov/edgar) 10-K filings (raw HTML)
+
+## Prerequisites — zero *cost*, not zero *setup*
+
+- .NET SDK `10.0.400` (pinned via `global.json`)
+- [Ollama](https://ollama.com/) installed and running, with both models pulled:
+  ```
+  ollama pull nomic-embed-text
+  ollama pull llama3.1:8b
+  ```
+- **Python 3.12 + `pip install markitdown`** — the app shells out to the `markitdown` CLI to convert
+  filing HTML to text before chunking. This wasn't in the original plan; see
+  [docs/Implementation_Plan.md](docs/Implementation_Plan.md) (Step 3) for why it became necessary.
+
+No API keys, no `dotnet user-secrets`, no cloud account of any kind.
+
+## Hardware expectations
+
+Developed and tested on a 12th Gen Intel i7-12800H, 32GB RAM, **CPU-only inference** (no GPU) — both
+models were chosen specifically because they run acceptably on CPU alone.
+
+- **First run** converts, chunks, and embeds every filing in `data/` and builds `rag.db` from scratch.
+  On the hardware above, that's roughly **10 minutes** for ~1,479 chunks across the 4 included filings.
+- **Every run after that** finds the existing `rag.db` and skips straight to the interactive loop —
+  well under a minute to start.
+- Each answer involves one local `llama3.1:8b` generation call, CPU-only — expect roughly tens of
+  seconds per question.
+
+## Running it
+
+```
+dotnet run --project RagFilingExplorer.Local
+```
+
+- `--rebuild` — deletes `rag.db` and rebuilds from scratch. Use this after changing any
+  chunking/embedding logic; otherwise persistence means only the very first run ever does that work.
+- `--verbose` — also prints the full ranked candidate list for each question (score, filing, statement
+  type, heading, snippet). Useful when diagnosing a bad retrieval; not needed for normal use.
+
+Type a question at the `>` prompt; a blank line or `exit` quits.
+
+## Configuration (`appsettings.json`)
+
+The tunable knobs — model names, Ollama's base URL/timeout, chunk size/overlap, tokenizer model,
+vector-store upsert batch size, and retrieval top-K/temperature — live in
+[`RagFilingExplorer.Local/appsettings.json`](RagFilingExplorer.Local/appsettings.json), not hardcoded
+in `Program.cs`. Every key is required: the app validates on startup that each one is actually present
+and fails with a clear error naming the missing key, rather than silently falling back to some other
+default hiding in code.
+
+**Do not change `VectorStore.UpsertBatchSize` above `1`** as long as this project is pinned to
+`CommunityToolkit.VectorData.SqliteVec` `1.0.1-preview` (see the `.csproj`). That version's `vec0`
+upsert workaround throws `SQLite Error 1: 'UNIQUE constraint failed on vec_chunks primary key'` on any
+multi-record batch — reproducible on the very first batch against an empty table, so it isn't a real
+duplicate-key issue in the data. It's a known, already-fixed upstream `sqlite-vec` bug that the NuGet
+package just hasn't picked up yet. Full details, including why manually swapping in the newer native
+`vec0.dll` was considered and rejected, are in
+[docs/Implementation_Plan.md](docs/Implementation_Plan.md) ("Follow-up: persisted vector store"). If
+this project ever upgrades past that SqliteVec version, re-check whether the fix landed before raising
+this value — batching does meaningfully reduce embedding calls otherwise.
+
+### Reasoning-model support
+
+Models like `deepseek-r1`, `phi4-reasoning`, or `qwen3.5` emit an internal chain-of-thought ("thinking")
+separately from their final answer. This app supports that deliberately, not just tolerates it, after
+`qwen3.5:2b` (tested as a reference model, not the shipped default) exposed two real bugs:
+
+1. Given this app's longer retrieved-context prompts, the model burned its entire generation budget on
+   chain-of-thought and produced **no answer at all** — Ollama's own streaming response keeps `thinking`
+   and `content` in genuinely separate fields, and OllamaSharp maps `thinking` into a distinct
+   `TextReasoningContent` item that `ChatResponseUpdate.Text` doesn't include, so nothing upstream even
+   noticed.
+2. Naively sending a "think" request to a model that doesn't support reasoning at all doesn't get
+   ignored — Ollama rejects it outright with a hard error (`"<model>" does not support thinking`), which
+   took down the entire interactive session the first time it happened.
+
+What ships now, in `RagAnswerService` and `Program.cs`:
+
+- **`Retrieval.ReasoningEffort`** (one of `None`/`Low`/`Medium`/`High`/`ExtraHigh`) is only applied to
+  questions `QueryIntentResolver.RequiresSynthesis` flags as needing genuine multi-step reasoning
+  (comparisons, ratios, trends) — a plain single-fact lookup always uses `Effort.None`, so reasoning is
+  never wasted on a task that doesn't need it.
+- **Capability check at startup**: `Program.cs` calls Ollama's own `/api/show` for the configured
+  `ChatModel` and only ever routes a question to reasoning if `"thinking"` is actually in that model's
+  capability list — never assumed from the model name.
+- **`Retrieval.MaxOutputTokens`** gives a reasoning model explicit room to think *and* answer, instead of
+  relying on Ollama's own default, which is exactly what let the budget-exhaustion bug happen silently.
+- **A starved-response guard**: if a model still hits that ceiling without ever producing real answer
+  text, the app fails with a clear, specific error instead of showing an empty answer.
+- **The interactive loop no longer dies on one bad turn**: any failure during a single question's
+  generation (a starved response, an unsupported request, a dropped connection) is caught, reported, and
+  the session continues to the next question.
+
+All of this is a no-op for a non-reasoning model like `llama3.1:8b` — it reports no `"thinking"`
+capability, so `ReasoningEffort` never applies to it regardless of question or configuration.
+
+### Adding a new filing
+
+Dropping a new `.html` file into `data/` and running `--rebuild` is necessary but **not sufficient** -
+onboarding Netflix (`NFLX-10K-2025.html`) surfaced three real bugs, all fixed generically rather than
+with filer-specific code, but worth checking for explicitly with any new filing:
+
+1. **Register the company.** `QueryIntentResolver.CompanyToFiling` doesn't discover filings
+   automatically - a new company/ticker needs its own entry mapping to the filename, or every question
+   naming it runs **unfiltered across every filing** (the exact cross-company contamination metadata
+   filtering exists to prevent). This was the most consequential of the three: it caused a hallucinated
+   figure, not just a missed answer.
+2. **Don't assume the source is UTF-8.** A raw EDGAR download usually is, but a browser-saved copy can
+   declare (and genuinely be encoded as) something else entirely - Netflix's was `windows-1252`.
+   `MarkItDownConverter.DetectEncoding` handles this automatically now (BOM, then the file's own
+   `<meta charset>`, then a UTF-8 fallback), but it's worth spot-checking `chunk-review/*.chunks.txt`
+   for stray `�` characters after a first run regardless.
+3. **Item-heading punctuation varies by filer.** Netflix's converted output has no space after the
+   period in most Item headings (`"Item 1.Business"` vs. the usual `"Item 1. Business"`) -
+   `SectionSplitter.TitledItemHeaderRegex` now tolerates both, but a filer with a still-different
+   convention could reintroduce this class of bug. Check `chunk-review/<new-filing>.chunks.txt` for a
+   complete, correctly-nested Item outline before trusting the citations it produces.
+
+Full diagnostic detail, including how each bug was actually found, is in
+[docs/Implementation_Plan.md](docs/Implementation_Plan.md) ("Follow-up: onboarding a new filer (NFLX)").
+
+## Testing
+
+```
+dotnet test
+```
+
+Runs `RagFilingExplorer.Local.Tests` (NUnit + Moq) — 90 tests, fully offline, no live Ollama instance
+or populated vector store required. Covers chunking, section splitting, statement-type detection,
+query-intent resolution, and the retrieve+generate orchestration (mocked).
+
+This is separate from, and doesn't replace, the real-question retrieval-quality testing documented as
+Step 7 in the implementation plan — that required manually verifying actual answers against the source
+filings, and is what actually caught this project's real bugs.
+[docs/Manual-Test-Questions.md](docs/Manual-Test-Questions.md) has a broader set of questions (balance
+sheet, cash flow, equity, comprehensive income, plus edge cases) for exactly that kind of manual pass,
+each with an expected answer sourced directly from the filings.
+
+## Why MarkItDown, not Microsoft.Extensions.DataIngestion
+
+`Microsoft.Extensions.DataIngestion` (MEDI) was the original plan for document reading and chunking,
+and was deliberately tried before being abandoned — not skipped. In short: MEDI's document readers
+don't handle raw HTML directly, its heading-based chunkers have nothing to key off because SEC EDGAR
+HTML has zero real `<h1>`–`<h6>` heading tags, and its hardcoded Markdig math extension crashes on
+dollar-figures in financial tables. The full diagnostic path is in
+[docs/Implementation_Plan.md](docs/Implementation_Plan.md) (Step 3).
+
+What ships instead is a small hand-written pipeline: `markitdown` (the CLI) for HTML→text conversion,
+then pattern-matching over the converted text for section boundaries and table-aware token chunking.
+
+## Project structure
+
+```
+RagFilingExplorer.Local/                the app - chunking, retrieval, vector store, interactive loop
+RagFilingExplorer.Local.Tests/          NUnit + Moq test suite
+data/                                   source 10-K filings (HTML, from sec.gov/edgar)
+chunk-review/                           full per-chunk text dumps, one file per filing, for manual review
+docs/Implementation_Plan.md             the full build plan, every decision point, and the debugging history
+docs/Manual-Test-Questions.md           a broader question set for manual retrieval-quality testing
+```
+
+## Further reading
+
+[docs/Implementation_Plan.md](docs/Implementation_Plan.md) has the complete build plan and decision
+log — every dead end and bug found along the way (MEDI's abandonment, a SqliteVec upsert bug, the
+statement-type detector false positives that silently mistagged 96 chunks, three real bugs found
+onboarding a fourth filing, and more). This README is deliberately the short version.

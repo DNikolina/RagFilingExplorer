@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="RagFilingExplorer.Local.Tests/RagFilingExplorer.Local.Tests.csproj" />
+  <Project Path="RagFilingExplorer.Local/RagFilingExplorer.Local.csproj" />
+</Solution>
