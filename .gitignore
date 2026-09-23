@@ -5,3 +5,4 @@ obj/
 rag.db
 rag.db-shm
 rag.db-wal
+rag.db.manifest.json

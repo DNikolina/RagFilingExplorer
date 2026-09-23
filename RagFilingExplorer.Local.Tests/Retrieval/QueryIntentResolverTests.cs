@@ -68,4 +68,43 @@ public class QueryIntentResolverTests
     {
         Assert.That(QueryIntentResolver.RequiresSynthesis(question), Is.False);
     }
+
+    private static readonly string[] RegisteredFilings =
+        ["MSFT-10K-2026.html", "ORCL-10K-2026.html", "NDAQ-10K-2025.html", "NFLX-10K-2025.html"];
+
+    [Test]
+    public void FindRegistrationProblems_EveryFilingRegistered_ReturnsNothing()
+    {
+        Assert.That(QueryIntentResolver.FindRegistrationProblems(RegisteredFilings), Is.Empty);
+    }
+
+    [Test]
+    public void FindRegistrationProblems_UnregisteredFiling_IsReported()
+    {
+        List<string> problems = QueryIntentResolver.FindRegistrationProblems([.. RegisteredFilings, "AAPL-10K-2026.html"]);
+
+        Assert.That(problems, Has.Count.EqualTo(1));
+        Assert.That(problems[0], Does.Contain("AAPL-10K-2026.html").And.Contain("no entry"));
+    }
+
+    [Test]
+    public void FindRegistrationProblems_RegisteredFilingMissingFromData_IsReported()
+    {
+        List<string> problems = QueryIntentResolver.FindRegistrationProblems(RegisteredFilings.Where(f => f != "NFLX-10K-2025.html"));
+
+        Assert.That(problems, Has.Count.EqualTo(1));
+        Assert.That(problems[0], Does.Contain("NFLX-10K-2025.html").And.Contain("isn't in data/"));
+    }
+
+    // Guards the real data/ folder, not a fixture: adding a filing without registering it (the NFLX
+    // onboarding bug) now fails `dotnet test`, not just a startup warning.
+    [Test]
+    public void FindRegistrationProblems_ActualDataFolder_HasNoProblems()
+    {
+        DirectoryInfo dataDirectory = new(Path.Combine(RepoPaths.FindRoot(AppContext.BaseDirectory).FullName, "data"));
+        string[] filings = dataDirectory.GetFiles("*.html").Select(f => f.Name).ToArray();
+
+        Assert.That(filings, Is.Not.Empty);
+        Assert.That(QueryIntentResolver.FindRegistrationProblems(filings), Is.Empty);
+    }
 }

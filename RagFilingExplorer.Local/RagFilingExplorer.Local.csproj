@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.VectorData.InMemory" Version="1.0.1" />
     <PackageReference Include="CommunityToolkit.VectorData.SqliteVec" Version="1.0.1-preview" />
     <PackageReference Include="Microsoft.Bcl.Memory" Version="10.0.12" />
     <PackageReference Include="Microsoft.Extensions.AI" Version="10.10.0" />

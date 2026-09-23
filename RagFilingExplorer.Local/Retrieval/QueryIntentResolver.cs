@@ -24,6 +24,7 @@ internal static class QueryIntentResolver
     // and the search runs unfiltered across every filing instead. Confirmed the hard way onboarding
     // NFLX-10K-2025.html: every Netflix question searched all four filings' income_statement chunks at
     // once (the exact cross-company contamination this filter exists to prevent) until this was added.
+    // FindRegistrationProblems (checked at startup) now warns about exactly this.
     private static readonly Dictionary<string, string> CompanyToFiling = new(StringComparer.OrdinalIgnoreCase)
     {
         ["Microsoft"] = "MSFT-10K-2026.html",
@@ -67,6 +68,33 @@ internal static class QueryIntentResolver
             .ToArray();
 
         return matched.Length == 1 ? matched[0] : null;
+    }
+
+    /// <summary>
+    /// Cross-checks <see cref="CompanyToFiling"/> against the filings actually present in data/, so the
+    /// NFLX onboarding bug (a filing with no entry here quietly running every question unfiltered) is
+    /// reported at startup instead of discovered through a hallucinated answer. Also flags entries
+    /// pointing at a filing that no longer exists, which would filter a search down to zero chunks.
+    /// </summary>
+    public static List<string> FindRegistrationProblems(IEnumerable<string> filingNames)
+    {
+        HashSet<string> present = new(filingNames, StringComparer.OrdinalIgnoreCase);
+        HashSet<string> registered = new(CompanyToFiling.Values, StringComparer.OrdinalIgnoreCase);
+        List<string> problems = new();
+
+        foreach (string filing in present.Where(f => !registered.Contains(f)).Order())
+        {
+            problems.Add($"data/{filing} has no entry in QueryIntentResolver.CompanyToFiling - questions naming "
+                + "this company will search every filing unfiltered. Add its company name and ticker there.");
+        }
+
+        foreach (string filing in registered.Where(f => !present.Contains(f)).Order())
+        {
+            problems.Add($"QueryIntentResolver.CompanyToFiling maps to {filing}, which isn't in data/ - questions "
+                + "naming that company will be filtered to a filing with no chunks.");
+        }
+
+        return problems;
     }
 
     public static string? ResolveStatementType(string question)

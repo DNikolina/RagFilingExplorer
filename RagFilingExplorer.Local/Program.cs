@@ -1,6 +1,5 @@
 using CommunityToolkit.VectorData.SqliteVec;
 using Microsoft.Extensions.AI;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.VectorData;
 using Microsoft.ML.Tokenizers;
 using OllamaSharp;
@@ -9,109 +8,183 @@ using RagFilingExplorer.Local.Chunking;
 using RagFilingExplorer.Local.Retrieval;
 using RagFilingExplorer.Local.VectorStore;
 
-AppSettings settings = LoadSettings();
-
-string dbPath = Path.Combine(Directory.GetCurrentDirectory(), "..", "rag.db");
-bool verbose = args.Contains("--verbose");
-
-if (args.Contains("--rebuild"))
+// Startup problems the user can fix themselves (Ollama not running, a model not pulled, a stale or
+// incomplete index, ...) are reported as one clear message instead of a stack trace.
+try
 {
-    DeleteDatabaseFiles(dbPath);
+    await RunAsync(args);
+    return 0;
+}
+catch (StartupException ex)
+{
+    Console.Error.WriteLine();
+    Console.Error.WriteLine($"[startup] {ex.Message}");
+    return 1;
 }
 
-bool dbExisted = File.Exists(dbPath);
-
-IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator =
-    new OllamaApiClient(CreateOllamaHttpClient(settings.Ollama), settings.Ollama.EmbeddingModel);
-
-SqliteVectorStore vectorStore = new($"Data Source={dbPath}", new() { EmbeddingGenerator = embeddingGenerator });
-VectorStoreCollection<int, FilingChunkRecord> collection = vectorStore.GetCollection<int, FilingChunkRecord>("chunks");
-await collection.EnsureCollectionExistsAsync();
-
-if (dbExisted)
+static async Task RunAsync(string[] args)
 {
-    Console.WriteLine($"Found existing {dbPath} - skipping chunking and embedding. Run with --rebuild to force a fresh build.");
+    AppSettings settings = LoadSettings();
+
+    DirectoryInfo repoRoot = RepoPaths.FindRoot(AppContext.BaseDirectory);
+    string dbPath = Path.Combine(repoRoot.FullName, "rag.db");
+    string manifestPath = dbPath + ".manifest.json";
+    bool verbose = args.Contains("--verbose");
+
+    DirectoryInfo dataDirectory = new(Path.Combine(repoRoot.FullName, "data"));
+    FileInfo[] filings = dataDirectory.Exists ? dataDirectory.GetFiles("*.html").OrderBy(f => f.Name).ToArray() : [];
+    if (filings.Length == 0)
+    {
+        throw new StartupException($"No *.html filings found in {dataDirectory.FullName}.");
+    }
+
+    foreach (string problem in QueryIntentResolver.FindRegistrationProblems(filings.Select(f => f.Name)))
+    {
+        Console.WriteLine($"[warning] {problem}");
+    }
+
+    OllamaApiClient embeddingApiClient = new(CreateOllamaHttpClient(settings.Ollama), settings.Ollama.EmbeddingModel);
+    OllamaApiClient chatApiClient = new(CreateOllamaHttpClient(settings.Ollama), settings.Ollama.ChatModel);
+    await EnsureOllamaReadyAsync(chatApiClient, settings.Ollama);
+
+    if (args.Contains("--rebuild"))
+    {
+        DeleteIndexFiles(dbPath, manifestPath);
+    }
+
+    IndexManifest currentManifest = IndexManifest.Create(settings, filings);
+    bool indexExists = File.Exists(dbPath);
+    if (indexExists)
+    {
+        EnsureIndexIsCurrent(dbPath, manifestPath, currentManifest);
+    }
+    else
+    {
+        // A manifest without its rag.db (e.g. the .db was deleted by hand) must not vouch for the next one.
+        DeleteIndexFiles(dbPath, manifestPath);
+    }
+
+    SqliteVectorStore vectorStore = new($"Data Source={dbPath}", new() { EmbeddingGenerator = embeddingApiClient });
+    VectorStoreCollection<int, FilingChunkRecord> collection = vectorStore.GetCollection<int, FilingChunkRecord>("chunks");
+    await collection.EnsureCollectionExistsAsync();
+
+    if (indexExists)
+    {
+        Console.WriteLine($"Found an up-to-date {dbPath} - skipping chunking and embedding. Run with --rebuild to force a fresh build.");
+    }
+    else
+    {
+        try
+        {
+            await BuildIndexAsync(collection, settings, filings, Path.Combine(repoRoot.FullName, "chunk-review"));
+        }
+        catch (Exception ex)
+        {
+            throw new StartupException(
+                $"Building the index failed: {ex.Message}\nThe partial rag.db has no manifest, so it won't be used - "
+                + "fix the problem above and run again with --rebuild.", ex);
+        }
+
+        // Written last, only once every chunk is in: its presence is what marks rag.db as complete.
+        currentManifest.Save(manifestPath);
+    }
+
+    // Ollama doesn't quietly ignore a "think" request for a model that can't reason - it throws a hard
+    // OllamaException ("<model> does not support thinking"), confirmed directly when routing tried to send
+    // one to llama3.1:8b and crashed the whole app on the first synthesis question. Checked once here via
+    // Ollama's own /api/show capabilities list, rather than assumed, so RagAnswerService only ever engages
+    // reasoning for a model that genuinely supports it.
+    bool chatModelSupportsThinking = await ChatModelSupportsThinkingAsync(chatApiClient, settings.Ollama.ChatModel);
+
+    // Metadata filtering (Microsoft's own retrieval-quality guidance ranks this above chunk-size/text
+    // tweaks): if a question clearly names exactly one company (and/or points at one specific financial
+    // statement), restrict the vector search accordingly before ranking runs. Directly targets the
+    // cross-company/cross-statement contamination seen repeatedly in Step 7 testing (e.g. an MSFT-specific
+    // question pulling in ORCL chunks, or a single filing's many similarly-shaped "Item 15" tables burying
+    // the right one). See RagAnswerService/QueryIntentResolver for the actual resolution + search + prompt
+    // + generation flow - extracted out of this loop so it can be unit-tested with mocked dependencies.
+    RagAnswerService ragAnswerService = new(collection, chatApiClient, settings.Retrieval, chatModelSupportsThinking);
+
+    await RunInteractiveLoopAsync(ragAnswerService, verbose, settings.Retrieval);
 }
-else
-{
-    await BuildIndexAsync(collection, settings);
-}
-
-OllamaApiClient chatApiClient = new(CreateOllamaHttpClient(settings.Ollama), settings.Ollama.ChatModel);
-IChatClient chatClient = chatApiClient;
-
-// Ollama doesn't quietly ignore a "think" request for a model that can't reason - it throws a hard
-// OllamaException ("<model> does not support thinking"), confirmed directly when routing tried to send
-// one to llama3.1:8b and crashed the whole app on the first synthesis question. Checked once here via
-// Ollama's own /api/show capabilities list, rather than assumed, so RagAnswerService only ever engages
-// reasoning for a model that genuinely supports it.
-bool chatModelSupportsThinking = await ChatModelSupportsThinkingAsync(chatApiClient, settings.Ollama.ChatModel);
-
-// Metadata filtering (Microsoft's own retrieval-quality guidance ranks this above chunk-size/text
-// tweaks): if a question clearly names exactly one company (and/or points at one specific financial
-// statement), restrict the vector search accordingly before ranking runs. Directly targets the
-// cross-company/cross-statement contamination seen repeatedly in Step 7 testing (e.g. an MSFT-specific
-// question pulling in ORCL chunks, or a single filing's many similarly-shaped "Item 15" tables burying
-// the right one). See RagAnswerService/QueryIntentResolver for the actual resolution + search + prompt
-// + generation flow - extracted out of this loop so it can be unit-tested with mocked dependencies.
-ReasoningEffort reasoningEffort = Enum.Parse<ReasoningEffort>(settings.Retrieval.ReasoningEffort, ignoreCase: true);
-RagAnswerService ragAnswerService = new(
-    collection, chatClient, settings.Retrieval.GenerationTopK, settings.Retrieval.ChatTemperature,
-    reasoningEffort, settings.Retrieval.MaxOutputTokens, chatModelSupportsThinking);
-
-await RunInteractiveLoopAsync(ragAnswerService, verbose, settings.Retrieval);
 
 // ===== Setup helpers =====
 
 // appsettings.json holds the tunable knobs (model names, chunk size, timeouts, top-K) - see
-// AppSettings.cs for what's deliberately NOT here (keyword lists, regexes - domain logic, not config).
+// AppSettings.cs for what's deliberately NOT here (keyword lists, regexes - domain logic, not config),
+// and for why presence of every key is checked explicitly.
 static AppSettings LoadSettings()
 {
-    IConfigurationRoot configuration = new ConfigurationBuilder()
-        .SetBasePath(AppContext.BaseDirectory)
-        .AddJsonFile("appsettings.json", optional: false)
-        .Build();
-
-    AppSettings settings = configuration.Get<AppSettings>()
-        ?? throw new InvalidOperationException("appsettings.json is missing or failed to bind to AppSettings.");
-
-    EnsureAllKeysPresent(configuration);
-    return settings;
-}
-
-// AppSettings' properties are declared `required`, but that's compile-time-only: it constrains code
-// that constructs AppSettings via `new AppSettings { ... }` (an object initializer), not
-// ConfigurationBinder.Get<T>(), which builds the instance via reflection (Activator.CreateInstance +
-// property setters) and never checks RequiredMemberAttribute at all - confirmed by testing directly
-// against a deployed appsettings.json with a key removed, which started up with that value silently
-// null instead of failing. This checks presence against the raw configuration tree instead of the
-// bound values, specifically so a legitimately-zero setting (e.g. OverlapTokens: 0, ChatTemperature: 0)
-// is never mistaken for "missing".
-static void EnsureAllKeysPresent(IConfiguration configuration)
-{
-    string[] requiredKeys =
-    [
-        "Ollama:BaseUrl", "Ollama:TimeoutMinutes", "Ollama:EmbeddingModel", "Ollama:ChatModel",
-        "Chunking:TokenizerModel", "Chunking:MaxTokensPerChunk", "Chunking:OverlapTokens",
-        "VectorStore:UpsertBatchSize",
-        "Retrieval:DefaultSearchTopK", "Retrieval:VerboseSearchTopK", "Retrieval:GenerationTopK", "Retrieval:ChatTemperature",
-        "Retrieval:ReasoningEffort", "Retrieval:MaxOutputTokens",
-    ];
-
-    string[] missing = requiredKeys.Where(key => configuration[key] is null).ToArray();
-    if (missing.Length > 0)
+    try
     {
-        throw new InvalidOperationException($"appsettings.json is missing required key(s): {string.Join(", ", missing)}.");
+        return AppSettings.Load(AppContext.BaseDirectory);
+    }
+    catch (InvalidOperationException ex)
+    {
+        throw new StartupException(ex.Message, ex);
     }
 }
 
-// --rebuild forces a fresh chunk+embed cycle - the only way to pick up a chunking/embedding change,
-// since persistence otherwise means only the first-ever run does that work.
-static void DeleteDatabaseFiles(string dbPath)
+// Fails fast, before any chunking, with the exact fix - otherwise a cloner without Ollama running (or
+// without a model pulled) gets a raw HttpRequestException stack trace, and during a first build only
+// after every filing has already been converted.
+static async Task EnsureOllamaReadyAsync(OllamaApiClient client, OllamaSettings ollama)
 {
-    foreach (string suffix in new[] { "", "-shm", "-wal" })
+    List<string> installed;
+    try
     {
-        string path = dbPath + suffix;
+        installed = (await client.ListLocalModelsAsync()).Select(m => m.Name).ToList();
+    }
+    catch (HttpRequestException ex)
+    {
+        throw new StartupException(
+            $"Could not reach Ollama at {ollama.BaseUrl} ({ex.Message}). Is it installed and running? "
+            + "Start it with 'ollama serve' or the Ollama app.", ex);
+    }
+
+    // Ollama reports an untagged pull ("nomic-embed-text") as "nomic-embed-text:latest".
+    string[] missing = new[] { ollama.EmbeddingModel, ollama.ChatModel }
+        .Where(model => !installed.Any(name => name == model || name == $"{model}:latest"))
+        .Distinct()
+        .ToArray();
+
+    if (missing.Length > 0)
+    {
+        throw new StartupException(
+            $"Ollama is running but doesn't have these model(s) pulled: {string.Join(", ", missing)}. Run: "
+            + string.Join(" && ", missing.Select(m => $"ollama pull {m}")));
+    }
+}
+
+// An existing rag.db is only trusted if it has a manifest (written only after a build finishes) that
+// matches the current settings and filings - see IndexManifest for the two failure modes this closes.
+static void EnsureIndexIsCurrent(string dbPath, string manifestPath, IndexManifest currentManifest)
+{
+    IndexManifest? builtManifest = IndexManifest.TryLoad(manifestPath);
+    if (builtManifest is null)
+    {
+        throw new StartupException(
+            $"{dbPath} exists but has no build manifest ({Path.GetFileName(manifestPath)}), so it can't be "
+            + "trusted as complete - an earlier build was interrupted or failed, or it predates manifests. "
+            + "Run with --rebuild.");
+    }
+
+    List<string> differences = builtManifest.DescribeDifferences(currentManifest);
+    if (differences.Count > 0)
+    {
+        throw new StartupException(
+            $"{dbPath} is out of date:\n"
+            + string.Concat(differences.Select(d => $"  - {d}\n"))
+            + "Run with --rebuild to rebuild it (this re-embeds every chunk and takes several minutes).");
+    }
+}
+
+// --rebuild forces a fresh chunk+embed cycle - the only way to pick up a chunking/embedding *code*
+// change (settings and filing changes are detected automatically via the manifest).
+static void DeleteIndexFiles(string dbPath, string manifestPath)
+{
+    foreach (string path in new[] { dbPath, dbPath + "-shm", dbPath + "-wal", manifestPath })
+    {
         if (File.Exists(path))
         {
             File.Delete(path);
@@ -133,13 +206,12 @@ static async Task<bool> ChatModelSupportsThinkingAsync(OllamaApiClient client, s
 
 // ===== Index building (chunking + embedding), skipped when rag.db already exists =====
 
-static async Task BuildIndexAsync(VectorStoreCollection<int, FilingChunkRecord> collection, AppSettings settings)
+static async Task BuildIndexAsync(
+    VectorStoreCollection<int, FilingChunkRecord> collection, AppSettings settings, FileInfo[] filings, string reviewDirectoryPath)
 {
-    DirectoryInfo dataDirectory = new(Path.Combine(Directory.GetCurrentDirectory(), "..", "data"));
-    DirectoryInfo reviewDirectory = new(Path.Combine(Directory.GetCurrentDirectory(), "..", "chunk-review"));
+    DirectoryInfo reviewDirectory = new(reviewDirectoryPath);
     reviewDirectory.Create();
 
-    FileInfo[] filings = dataDirectory.GetFiles("*.html").OrderBy(f => f.Name).ToArray();
     Tokenizer tokenizer = TiktokenTokenizer.CreateForModel(settings.Chunking.TokenizerModel);
     int maxTokensPerChunk = settings.Chunking.MaxTokensPerChunk;
     int overlapTokens = settings.Chunking.OverlapTokens;

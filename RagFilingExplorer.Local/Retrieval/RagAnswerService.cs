@@ -20,15 +20,16 @@ internal sealed record RagAnswer(
 /// context prompt, and calling the chat model. Extracted out of Program.cs's interactive loop so the
 /// two real dependencies (<see cref="VectorStoreCollection{TKey, TRecord}"/> and <see cref="IChatClient"/>)
 /// can be mocked in tests instead of requiring a live Ollama instance and a populated vector store.
+///
+/// Tunables come in as <see cref="RetrievalSettings"/> with no defaults of their own - an earlier version
+/// had constructor defaults that duplicated appsettings.json, and one (maxOutputTokens = 2048 vs. 4096)
+/// had already drifted.
 /// </summary>
 internal sealed class RagAnswerService(
     VectorStoreCollection<int, FilingChunkRecord> collection,
     IChatClient chatClient,
-    int generationTopK = 5,
-    float chatTemperature = 0.2f,
-    ReasoningEffort reasoningEffort = ReasoningEffort.None,
-    int maxOutputTokens = 2048,
-    bool chatModelSupportsThinking = true)
+    RetrievalSettings retrieval,
+    bool chatModelSupportsThinking)
 {
     private const string SystemPrompt = """
         You are a financial research assistant answering questions about SEC 10-K filings.
@@ -39,7 +40,7 @@ internal sealed class RagAnswerService(
         to answer the question, say so explicitly instead of guessing or relying on prior knowledge.
         """;
 
-    public async Task<RagAnswer> AskAsync(string question, int searchTopK = 5, CancellationToken cancellationToken = default)
+    public async Task<RagAnswer> AskAsync(string question, int searchTopK, CancellationToken cancellationToken = default)
     {
         string? targetFiling = QueryIntentResolver.ResolveFiling(question);
         string? targetStatementType = QueryIntentResolver.ResolveStatementType(question);
@@ -64,7 +65,7 @@ internal sealed class RagAnswerService(
             results.Add(result);
         }
 
-        List<VectorSearchResult<FilingChunkRecord>> topForGeneration = results.Take(generationTopK).ToList();
+        List<VectorSearchResult<FilingChunkRecord>> topForGeneration = results.Take(retrieval.GenerationTopK).ToList();
         StringBuilder contextBuilder = new();
         for (int i = 0; i < topForGeneration.Count; i++)
         {
@@ -82,7 +83,7 @@ internal sealed class RagAnswerService(
 
         // Reasoning is only worth its cost (extra latency, extra output-token budget) for questions that
         // actually need multi-step synthesis - a plain single-fact lookup gets Effort.None regardless of
-        // the configured reasoningEffort. This is what stops a reasoning model from spending its whole
+        // the configured ReasoningEffort. This is what stops a reasoning model from spending its whole
         // generation budget "thinking" about a simple question and never reaching the answer, which is
         // exactly what happened testing qwen3.5:2b as a reference model before this routing existed.
         //
@@ -92,13 +93,13 @@ internal sealed class RagAnswerService(
         // app on the first synthesis question. Program.cs checks the configured chat model's real
         // capabilities via Ollama's own /api/show once at startup, rather than assuming.
         ReasoningEffort effectiveReasoningEffort = chatModelSupportsThinking && QueryIntentResolver.RequiresSynthesis(question)
-            ? reasoningEffort
+            ? retrieval.ReasoningEffort
             : ReasoningEffort.None;
         ChatOptions chatOptions = new()
         {
-            Temperature = chatTemperature,
+            Temperature = retrieval.ChatTemperature,
             Reasoning = new ReasoningOptions { Effort = effectiveReasoningEffort },
-            MaxOutputTokens = maxOutputTokens,
+            MaxOutputTokens = retrieval.MaxOutputTokens,
         };
 
         IAsyncEnumerable<ChatResponseUpdate> rawStream = chatClient.GetStreamingResponseAsync(chatMessages, chatOptions, cancellationToken);

@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -91,7 +92,19 @@ internal static partial class MarkItDownConverter
             startInfo.ArgumentList.Add(tempFilePath);
 
             using Process process = new() { StartInfo = startInfo };
-            process.Start();
+
+            // Without this, a missing markitdown surfaces as a bare "The system cannot find the file
+            // specified" that never names what's missing.
+            try
+            {
+                process.Start();
+            }
+            catch (Win32Exception ex)
+            {
+                throw new InvalidOperationException(
+                    "Could not run the `markitdown` CLI - is it installed and on PATH? It needs Python 3.12+ and "
+                    + "`pip install markitdown` (a shell opened before installing it may need restarting).", ex);
+            }
 
             // Read both streams concurrently, not sequentially - a process that fills its stderr buffer
             // while we're still draining stdout (or vice versa) would otherwise deadlock.

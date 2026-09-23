@@ -15,6 +15,30 @@ namespace RagFilingExplorer.Local.Tests.Retrieval;
 [TestFixture]
 public class RagAnswerServiceTests
 {
+    private const int SearchTopK = 5;
+
+    // Fixture values for the service's tunables - RagAnswerService itself has no defaults (production
+    // always passes appsettings.json's RetrievalSettings), so each test states only what it cares about.
+    private static RagAnswerService CreateService(
+        Mock<VectorStoreCollection<int, FilingChunkRecord>> collection,
+        Mock<IChatClient> chatClient,
+        ReasoningEffort reasoningEffort = ReasoningEffort.None,
+        int maxOutputTokens = 2048,
+        bool chatModelSupportsThinking = true)
+    {
+        RetrievalSettings retrieval = new()
+        {
+            DefaultSearchTopK = SearchTopK,
+            VerboseSearchTopK = 25,
+            GenerationTopK = 5,
+            ChatTemperature = 0.2f,
+            ReasoningEffort = reasoningEffort,
+            MaxOutputTokens = maxOutputTokens,
+        };
+
+        return new RagAnswerService(collection.Object, chatClient.Object, retrieval, chatModelSupportsThinking);
+    }
+
     private static async IAsyncEnumerable<VectorSearchResult<FilingChunkRecord>> AsAsync(IEnumerable<VectorSearchResult<FilingChunkRecord>> items)
     {
         foreach (VectorSearchResult<FilingChunkRecord> item in items)
@@ -80,8 +104,8 @@ public class RagAnswerServiceTests
         VectorSearchOptions<FilingChunkRecord>? captured = null;
         (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks(onSearch: o => captured = o);
 
-        RagAnswerService service = new(collection.Object, chatClient.Object);
-        RagAnswer answer = await service.AskAsync("What was Microsoft's revenue?");
+        RagAnswerService service = CreateService(collection, chatClient);
+        RagAnswer answer = await service.AskAsync("What was Microsoft's revenue?", SearchTopK);
 
         Assert.That(answer.MatchedFiling, Is.EqualTo("MSFT-10K-2026.html"));
         Assert.That(captured, Is.Not.Null);
@@ -94,8 +118,8 @@ public class RagAnswerServiceTests
         VectorSearchOptions<FilingChunkRecord>? captured = null;
         (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks(onSearch: o => captured = o);
 
-        RagAnswerService service = new(collection.Object, chatClient.Object);
-        RagAnswer answer = await service.AskAsync("What does the company do?");
+        RagAnswerService service = CreateService(collection, chatClient);
+        RagAnswer answer = await service.AskAsync("What does the company do?", SearchTopK);
 
         Assert.That(answer.MatchedFiling, Is.Null);
         Assert.That(answer.MatchedStatementType, Is.Null);
@@ -112,8 +136,8 @@ public class RagAnswerServiceTests
         ];
         (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks(searchResults: results);
 
-        RagAnswerService service = new(collection.Object, chatClient.Object);
-        RagAnswer answer = await service.AskAsync("What was total revenue?");
+        RagAnswerService service = CreateService(collection, chatClient);
+        RagAnswer answer = await service.AskAsync("What was total revenue?", SearchTopK);
 
         Assert.That(answer.RetrievedChunks, Has.Count.EqualTo(1));
         Assert.That(answer.RetrievedChunks[0].Record.Content, Is.EqualTo("Total revenues $100"));
@@ -124,8 +148,8 @@ public class RagAnswerServiceTests
     {
         (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks();
 
-        RagAnswerService service = new(collection.Object, chatClient.Object);
-        RagAnswer answer = await service.AskAsync("What was total revenue?");
+        RagAnswerService service = CreateService(collection, chatClient);
+        RagAnswer answer = await service.AskAsync("What was total revenue?", SearchTopK);
 
         List<string> chunks = new();
         await foreach (ChatResponseUpdate update in answer.AnswerStream)
@@ -147,8 +171,8 @@ public class RagAnswerServiceTests
         (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) =
             MakeMocks(searchResults: results, onChat: m => capturedMessages = m.ToList());
 
-        RagAnswerService service = new(collection.Object, chatClient.Object);
-        await service.AskAsync("What was Microsoft's total revenue for fiscal year 2026?");
+        RagAnswerService service = CreateService(collection, chatClient);
+        await service.AskAsync("What was Microsoft's total revenue for fiscal year 2026?", SearchTopK);
 
         Assert.That(capturedMessages, Is.Not.Null);
         string userMessage = capturedMessages!.Single(m => m.Role == ChatRole.User).Text;
@@ -157,20 +181,20 @@ public class RagAnswerServiceTests
         Assert.That(userMessage, Does.Contain("What was Microsoft's total revenue for fiscal year 2026?"));
     }
 
-    // Baseline case: with no reasoningEffort configured and a non-synthesis question, ChatOptions.Reasoning
+    // Baseline case: with ReasoningEffort configured as None and a non-synthesis question, ChatOptions.Reasoning
     // must still be explicitly set to Effort.None (not left null) - Microsoft.Extensions.AI's ChatOptions.
     // Reasoning maps through OllamaSharp to Ollama's think field, and leaving it unset lets a reasoning
     // model default to thinking on its own. See the tests below for the fuller routing/gating story
     // (RequiresSynthesis, chatModelSupportsThinking) this default composes with.
     [Test]
-    public async Task AskAsync_DefaultConstructor_SetsReasoningEffortNoneOnChatOptions()
+    public async Task AskAsync_NoReasoningConfigured_SetsReasoningEffortNoneOnChatOptions()
     {
         ChatOptions? captured = null;
         (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) =
             MakeMocks(onChatOptions: o => captured = o);
 
-        RagAnswerService service = new(collection.Object, chatClient.Object);
-        await service.AskAsync("What was total revenue?");
+        RagAnswerService service = CreateService(collection, chatClient);
+        await service.AskAsync("What was total revenue?", SearchTopK);
 
         Assert.That(captured?.Reasoning?.Effort, Is.EqualTo(ReasoningEffort.None));
     }
@@ -185,8 +209,8 @@ public class RagAnswerServiceTests
         (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) =
             MakeMocks(onChatOptions: o => captured = o);
 
-        RagAnswerService service = new(collection.Object, chatClient.Object, reasoningEffort: ReasoningEffort.High);
-        RagAnswer answer = await service.AskAsync("Compare Microsoft's and Oracle's revenue.");
+        RagAnswerService service = CreateService(collection, chatClient, reasoningEffort: ReasoningEffort.High);
+        RagAnswer answer = await service.AskAsync("Compare Microsoft's and Oracle's revenue.", SearchTopK);
 
         Assert.That(captured?.Reasoning?.Effort, Is.EqualTo(ReasoningEffort.High));
         Assert.That(answer.UsedReasoningEffort, Is.EqualTo(ReasoningEffort.High));
@@ -199,8 +223,8 @@ public class RagAnswerServiceTests
         (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) =
             MakeMocks(onChatOptions: o => captured = o);
 
-        RagAnswerService service = new(collection.Object, chatClient.Object, reasoningEffort: ReasoningEffort.High);
-        RagAnswer answer = await service.AskAsync("What was total revenue?");
+        RagAnswerService service = CreateService(collection, chatClient, reasoningEffort: ReasoningEffort.High);
+        RagAnswer answer = await service.AskAsync("What was total revenue?", SearchTopK);
 
         Assert.That(captured?.Reasoning?.Effort, Is.EqualTo(ReasoningEffort.None), "a plain lookup must not pay for reasoning");
         Assert.That(answer.UsedReasoningEffort, Is.EqualTo(ReasoningEffort.None));
@@ -218,9 +242,8 @@ public class RagAnswerServiceTests
         (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) =
             MakeMocks(onChatOptions: o => captured = o);
 
-        RagAnswerService service = new(
-            collection.Object, chatClient.Object, reasoningEffort: ReasoningEffort.High, chatModelSupportsThinking: false);
-        RagAnswer answer = await service.AskAsync("Compare Microsoft's and Oracle's revenue.");
+        RagAnswerService service = CreateService(collection, chatClient, reasoningEffort: ReasoningEffort.High, chatModelSupportsThinking: false);
+        RagAnswer answer = await service.AskAsync("Compare Microsoft's and Oracle's revenue.", SearchTopK);
 
         Assert.That(captured?.Reasoning?.Effort, Is.EqualTo(ReasoningEffort.None), "must never request thinking from a model that can't do it");
         Assert.That(answer.UsedReasoningEffort, Is.EqualTo(ReasoningEffort.None));
@@ -233,8 +256,8 @@ public class RagAnswerServiceTests
         (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) =
             MakeMocks(onChatOptions: o => captured = o);
 
-        RagAnswerService service = new(collection.Object, chatClient.Object, maxOutputTokens: 4096);
-        await service.AskAsync("What was total revenue?");
+        RagAnswerService service = CreateService(collection, chatClient, maxOutputTokens: 4096);
+        await service.AskAsync("What was total revenue?", SearchTopK);
 
         Assert.That(captured?.MaxOutputTokens, Is.EqualTo(4096));
     }
@@ -258,8 +281,8 @@ public class RagAnswerServiceTests
 
         Assert.ThrowsAsync<InvalidOperationException>(async () =>
         {
-            RagAnswerService service = new(collection.Object, chatClient.Object);
-            RagAnswer answer = await service.AskAsync("What was total revenue?");
+            RagAnswerService service = CreateService(collection, chatClient);
+            RagAnswer answer = await service.AskAsync("What was total revenue?", SearchTopK);
             await foreach (ChatResponseUpdate _ in answer.AnswerStream)
             {
             }
@@ -279,8 +302,8 @@ public class RagAnswerServiceTests
                 new ChatResponseUpdate(ChatRole.Assistant, "The answer.") { FinishReason = ChatFinishReason.Length },
             ]));
 
-        RagAnswerService service = new(collection.Object, chatClient.Object);
-        RagAnswer answer = await service.AskAsync("What was total revenue?");
+        RagAnswerService service = CreateService(collection, chatClient);
+        RagAnswer answer = await service.AskAsync("What was total revenue?", SearchTopK);
 
         List<string> chunks = new();
         await foreach (ChatResponseUpdate update in answer.AnswerStream)
