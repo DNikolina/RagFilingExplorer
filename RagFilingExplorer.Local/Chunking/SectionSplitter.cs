@@ -36,8 +36,11 @@ internal static partial class SectionSplitter
     // A lone page number - matches unconditionally wherever it appears, not just when adjacent to a
     // "---" thematic break (there's no adjacency check in Split; this regex alone decides). Assumes a
     // standalone 1-4 digit line is always pagination noise (a page number or footer) and never real
-    // filing content.
-    [GeneratedRegex(@"^\d{1,4}$")]
+    // filing content. The optional "F-" covers financial-statement page numbers ("F-3"): NDAQ has 45
+    // of them, the only other page-marker style found across all four filings, and they were landing
+    // in chunks - one even carried forward as a chunk's overlap text. Lone roman numerals (NDAQ's
+    // "i"-"iv") are deliberately not matched: a lone "x" can be a real checkbox mark on a cover page.
+    [GeneratedRegex(@"^(?:F-)?\d{1,4}$")]
     private static partial Regex PageNumberRegex();
 
     // A decorative rule line - e.g. a run of Markdown-escaped underscores ("\_\_\_...") used by some
@@ -91,6 +94,19 @@ internal static partial class SectionSplitter
                     currentItem = string.Empty;
                 }
 
+                continue;
+            }
+
+            // A statement title (or the Notes boundary) starts a new section under the same heading, so
+            // it always opens a fresh chunk. BuildRecords tags each chunk with the last statement title
+            // seen *within* it, so without this, text before a mid-chunk title - the previous
+            // statement's page footer, or auditor-report prose (NDAQ) - inherited the next statement's
+            // tag. Safe to split on: across all four filings each of these lines matches only the real
+            // title, never a table-of-contents entry, so this adds no tiny stray sections.
+            if (StatementTypeDetector.IsStatementTypeBoundary(line))
+            {
+                FlushSection();
+                currentBody.Append(lines[i]).Append('\n');
                 continue;
             }
 

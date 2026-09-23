@@ -32,8 +32,19 @@ public class QueryIntentResolverTests
     [TestCase("What was the gross margin?", "income_statement")]
     [TestCase("What were total assets?", "balance_sheet")]
     [TestCase("What was cash flow from operating activities?", "cash_flow_statement")]
-    [TestCase("What was total stockholders' equity?", "equity_statement")]
     [TestCase("What was other comprehensive income?", "comprehensive_income")]
+    // Period-end equity values route to the balance sheet's single total row, not the wide equity
+    // roll-forward (where ORCL's closing balance ranked outside the top 5).
+    [TestCase("What was total stockholders' equity?", "balance_sheet")]
+    [TestCase("What was Oracle's total stockholders' equity?", "balance_sheet")]
+    [TestCase("What was Nasdaq's total equity?", "balance_sheet")]
+    [TestCase("What were total liabilities and stockholders' equity?", "balance_sheet")]
+    // Questions about changes in equity still go to the equity statement - the longer keyword wins over
+    // the "stockholders' equity" it contains.
+    [TestCase("What did the statement of stockholders' equity show for dividends?", "equity_statement")]
+    [TestCase("Summarize the changes in stockholders' equity.", "equity_statement")]
+    // MSFT's own line label, which previously matched no keyword at all.
+    [TestCase("What was Microsoft's net cash from operations?", "cash_flow_statement")]
     public void ResolveStatementType_QuestionMatchesExactlyOneType_ReturnsThatType(string question, string expectedType)
     {
         Assert.That(QueryIntentResolver.ResolveStatementType(question), Is.EqualTo(expectedType));

@@ -17,7 +17,8 @@ namespace RagFilingExplorer.Local.Chunking;
 ///   "CONSOLIDATED STATEMENTS OF CASH FLOWS", "CONSOLIDATED STATEMENTS OF STOCKHOLDERS' EQUITY"
 /// - MSFT: "INCOME STATEMENTS", "BALANCE SHEETS", "CASH FLOWS STATEMENTS",
 ///   "STOCKHOLDERS' EQUITY STATEMENTS" - no "CONSOLIDATED" prefix at all, different word order.
-/// - NDAQ: "Consolidated Statements of Income" - title case, and "Income" instead of "Operations".
+/// - NDAQ: "Consolidated Statements of Income" - title case, and "Income" instead of "Operations";
+///   "Consolidated Statements of Changes in Stockholders' Equity" for the equity statement.
 /// </summary>
 internal static partial class StatementTypeDetector
 {
@@ -45,7 +46,13 @@ internal static partial class StatementTypeDetector
     // Same "STATEMENTS" requirement, applied precautionarily - the real titles observed always
     // include it ("...STATEMENTS OF STOCKHOLDERS' EQUITY" / "STOCKHOLDERS' EQUITY STATEMENTS"), so
     // there's no evidence-based reason to leave it optional here either.
-    [GeneratedRegex(@"^(CONSOLIDATED\s+)?(STATEMENTS?\s+OF\s+(STOCKHOLDERS|SHAREHOLDERS).{0,3}\s+EQUITY|(STOCKHOLDERS|SHAREHOLDERS).{0,3}\s+EQUITY\s+STATEMENTS?)$", RegexOptions.IgnoreCase)]
+    //
+    // "CHANGES IN" is optional after "OF": NDAQ titles its statement "Consolidated Statements of
+    // Changes in Stockholders' Equity", which the pattern originally didn't allow - so NDAQ's equity
+    // statement was never detected, its chunks inherited the preceding comprehensive_income tag, and
+    // an NDAQ equity question filtered to equity_statement found zero chunks ("(no results)",
+    // confirmed live against rag.db before this fix).
+    [GeneratedRegex(@"^(CONSOLIDATED\s+)?(STATEMENTS?\s+OF\s+(CHANGES\s+IN\s+)?(STOCKHOLDERS|SHAREHOLDERS).{0,3}\s+EQUITY|(STOCKHOLDERS|SHAREHOLDERS).{0,3}\s+EQUITY\s+STATEMENTS?)$", RegexOptions.IgnoreCase)]
     private static partial Regex EquityRegex();
 
     // "STATEMENTS" must appear somewhere (prefix "STATEMENTS OF X" or suffix "X STATEMENTS") - the
@@ -73,6 +80,13 @@ internal static partial class StatementTypeDetector
     // equity_statement, burying the real equity-statement numbers among hundreds of unrelated chunks.
     [GeneratedRegex(@"^NOTES\s+TO\s+(CONSOLIDATED\s+)?FINANCIAL\s+STATEMENTS$", RegexOptions.IgnoreCase)]
     private static partial Regex NotesToFinancialStatementsRegex();
+
+    /// <summary>
+    /// True if this line is either a statement title or the Notes boundary - i.e. a line where the
+    /// carried-forward statement type changes. SectionSplitter starts a new section at each one, so the
+    /// chunk it opens is tagged correctly from its first line.
+    /// </summary>
+    public static bool IsStatementTypeBoundary(string line) => Detect(line) is not null || IsNotesToFinancialStatementsBoundary(line);
 
     /// <summary>
     /// True if this line is the "Notes to (Consolidated) Financial Statements" boundary - the caller

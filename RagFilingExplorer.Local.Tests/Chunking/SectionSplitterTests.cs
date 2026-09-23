@@ -100,4 +100,48 @@ public class SectionSplitterTests
         Assert.That(sections, Has.Count.EqualTo(1));
         Assert.That(sections[0].Heading, Is.EqualTo("PART I > Item 2. Properties"));
     }
+
+    // Regression coverage for the mid-chunk-title tagging problem: a statement title must start a new
+    // section (same heading), so the chunk it opens gets the right StatementType from its first line and
+    // the previous page's footer stays with the statement it belongs to.
+    [Test]
+    public void Split_StatementTitle_StartsNewSectionUnderSameHeading()
+    {
+        string markdown = "PART II\nItem 8. Financial Statements\nSee accompanying notes.\nCONSOLIDATED BALANCE SHEETS\n| Total assets | 100 |\n";
+
+        List<DocumentSection> sections = SectionSplitter.Split(markdown);
+
+        Assert.That(sections, Has.Count.EqualTo(2));
+        Assert.That(sections.Select(s => s.Heading), Is.All.EqualTo("PART II > Item 8. Financial Statements"));
+        Assert.That(sections[0].Body, Is.EqualTo("See accompanying notes."));
+        Assert.That(sections[1].Body, Does.StartWith("CONSOLIDATED BALANCE SHEETS"));
+    }
+
+    [Test]
+    public void Split_NotesBoundary_AlsoStartsNewSection()
+    {
+        string markdown = "PART II\nItem 8. Financial Statements\n| Total equity | 5 |\nNOTES TO FINANCIAL STATEMENTS\nNote 1 text.\n";
+
+        List<DocumentSection> sections = SectionSplitter.Split(markdown);
+
+        Assert.That(sections, Has.Count.EqualTo(2));
+        Assert.That(sections[1].Body, Does.StartWith("NOTES TO FINANCIAL STATEMENTS"));
+    }
+
+    [TestCase("F-3")]
+    [TestCase("F-12")]
+    public void Split_FinancialStatementPageMarker_IsDropped(string marker)
+    {
+        List<DocumentSection> sections = SectionSplitter.Split($"PART I\nItem 1. Business\nText.\n{marker}\nMore text.\n");
+
+        Assert.That(sections[0].Body, Does.Not.Contain(marker));
+    }
+
+    [Test]
+    public void Split_LineMerelyStartingWithPageMarkerPattern_IsKept()
+    {
+        List<DocumentSection> sections = SectionSplitter.Split("PART I\nItem 1. Business\nForm F-3 registration statement.\n");
+
+        Assert.That(sections[0].Body, Does.Contain("Form F-3 registration statement."));
+    }
 }

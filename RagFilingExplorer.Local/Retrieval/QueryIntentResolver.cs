@@ -40,9 +40,25 @@ internal static class QueryIntentResolver
     private static readonly Dictionary<string, string[]> StatementTypeKeywords = new(StringComparer.OrdinalIgnoreCase)
     {
         ["income_statement"] = ["revenue", "revenues", "gross margin", "gross profit", "cost of revenue", "operating income", "operating margin", "net income", "earnings per share"],
-        ["balance_sheet"] = ["total assets", "total liabilities", "balance sheet"],
-        ["cash_flow_statement"] = ["cash flow", "operating activities", "financing activities", "investing activities"],
-        ["equity_statement"] = ["stockholders equity", "shareholders equity", "stockholders' equity", "shareholders' equity"],
+        // A plain "(total) stockholders' equity" question is about a period-end value, which the balance
+        // sheet states as one clean "Total stockholders' equity" row in every filing. It used to route to
+        // the equity statement, a wide roll-forward table: ORCL's splits into 15 near-identical
+        // fragments, and the one holding the closing balance ranked 8th-9th of 17, outside the top 5 -
+        // so "What was Oracle's total stockholders' equity?" failed, both before and after the second
+        // review's changes (confirmed by rebuilding the initial commit's index side by side). Questions
+        // about *changes* in equity still go to the equity statement; ResolveStatementType's
+        // longest-match rule lets "changes in stockholders' equity" win over the "stockholders' equity"
+        // it contains.
+        ["balance_sheet"] = ["total assets", "total liabilities", "balance sheet", "stockholders equity", "shareholders equity", "stockholders' equity", "shareholders' equity", "total equity"],
+        // "cash from operations" covers MSFT's own line label ("Net cash from operations"), which none
+        // of the other phrases matched - that question used to run with no statement filter at all.
+        ["cash_flow_statement"] = ["cash flow", "operating activities", "financing activities", "investing activities", "cash from operations"],
+        ["equity_statement"] =
+        [
+            "changes in stockholders equity", "changes in shareholders equity", "changes in stockholders' equity",
+            "changes in shareholders' equity", "changes in equity", "statement of stockholders' equity",
+            "statements of stockholders' equity", "stockholders' equity statement", "equity statement",
+        ],
         ["comprehensive_income"] = ["comprehensive income", "other comprehensive income"],
     };
 
@@ -97,11 +113,21 @@ internal static class QueryIntentResolver
         return problems;
     }
 
+    // Longest match wins: a matched keyword that is part of a longer matched keyword is ignored, so
+    // "changes in stockholders' equity" (equity_statement) isn't made ambiguous by the
+    // "stockholders' equity" (balance_sheet) inside it. Genuinely different matches ("revenue" and
+    // "total assets") still make the question ambiguous and resolve to null, as before.
     public static string? ResolveStatementType(string question)
     {
-        string[] matched = StatementTypeKeywords
-            .Where(kvp => kvp.Value.Any(keyword => question.Contains(keyword, StringComparison.OrdinalIgnoreCase)))
-            .Select(kvp => kvp.Key)
+        (string Type, string Keyword)[] matches = StatementTypeKeywords
+            .SelectMany(kvp => kvp.Value.Select(keyword => (Type: kvp.Key, Keyword: keyword)))
+            .Where(m => question.Contains(m.Keyword, StringComparison.OrdinalIgnoreCase))
+            .ToArray();
+
+        string[] matched = matches
+            .Where(m => !matches.Any(other => other.Keyword.Length > m.Keyword.Length
+                && other.Keyword.Contains(m.Keyword, StringComparison.OrdinalIgnoreCase)))
+            .Select(m => m.Type)
             .Distinct()
             .ToArray();
 

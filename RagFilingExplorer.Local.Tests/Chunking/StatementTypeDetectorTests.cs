@@ -26,6 +26,7 @@ public class StatementTypeDetectorTests
     [TestCase("CASH FLOWS STATEMENTS", "cash_flow_statement")] // MSFT
     [TestCase("CONSOLIDATED STATEMENTS OF STOCKHOLDERS' EQUITY", "equity_statement")] // ORCL
     [TestCase("STOCKHOLDERS' EQUITY STATEMENTS", "equity_statement")] // MSFT
+    [TestCase("Consolidated Statements of Changes in Stockholders’ Equity", "equity_statement")] // NDAQ - was undetected
     [TestCase("STATEMENTS OF COMPREHENSIVE INCOME", "comprehensive_income")]
     [TestCase("COMPREHENSIVE INCOME STATEMENTS", "comprehensive_income")]
     [TestCase("consolidated statements of operations", "income_statement")] // case-insensitivity
@@ -77,5 +78,14 @@ public class StatementTypeDetectorTests
     public void IsNotesToFinancialStatementsBoundary_NonBoundaryLine_ReturnsFalse(string line)
     {
         Assert.That(StatementTypeDetector.IsNotesToFinancialStatementsBoundary(line), Is.False);
+    }
+
+    [TestCase("CONSOLIDATED BALANCE SHEETS", true)]
+    [TestCase("NOTES TO CONSOLIDATED FINANCIAL STATEMENTS", true)]
+    [TestCase("OPERATIONS", false)]
+    [TestCase("We had strong operations this year.", false)]
+    public void IsStatementTypeBoundary_TitleOrNotesBoundaryOnly(string line, bool expected)
+    {
+        Assert.That(StatementTypeDetector.IsStatementTypeBoundary(line), Is.EqualTo(expected));
     }
 }

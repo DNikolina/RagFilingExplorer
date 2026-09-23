@@ -12,6 +12,11 @@ namespace RagFilingExplorer.Local.Chunking;
 /// </summary>
 internal static class TokenChunker
 {
+    // A pending lead-in at most this long (a statement title, "(in millions)", a one-line caption)
+    // directly before an oversized table is attached to the table's first piece instead of becoming a
+    // chunk of its own - see the oversized-block branch in Chunk.
+    private const int MaxCaptionTokens = 100;
+
     private static readonly Regex CommaGroupedNumberRegex = new(@"\d{1,3}(,\d{3})+", RegexOptions.Compiled);
 
     public static List<(string Content, int Tokens)> Chunk(string body, Tokenizer tokenizer, int maxTokens, int overlapTokens)
@@ -39,12 +44,27 @@ internal static class TokenChunker
 
             if (blockTokens > maxTokens)
             {
-                FlushCurrent();
+                // A short lead-in right before an oversized table (e.g. "CONSOLIDATED STATEMENTS OF
+                // STOCKHOLDERS' EQUITY" + "For the Years Ended ...") used to be flushed as a near-empty
+                // chunk of its own. Once statement titles started their own sections (SectionSplitter),
+                // those title-only chunks landed in the top 5 for statement questions - rank 1 or 2 for
+                // the MSFT, NDAQ and ORCL equity questions, confirmed with --verbose - wasting a context
+                // slot on no data. It now becomes the first table piece's caption instead.
+                string? caption = null;
+                if (isTable && current.Count > 0 && currentTokens <= MaxCaptionTokens && !current.Any(b => b.TrimStart().StartsWith('|')))
+                {
+                    caption = string.Join("\n\n", current);
+                }
+                else
+                {
+                    FlushCurrent();
+                }
+
                 current.Clear();
                 currentTokens = 0;
 
                 IEnumerable<string> pieces = isTable
-                    ? SplitOversizedTable(block.Split('\n').ToList(), tokenizer, maxTokens)
+                    ? SplitOversizedTable(block.Split('\n').ToList(), tokenizer, maxTokens, caption)
                     : SplitOversizedText(block, tokenizer, maxTokens);
 
                 foreach (string piece in pieces)
@@ -143,11 +163,12 @@ internal static class TokenChunker
         return blocks;
     }
 
-    private static IEnumerable<string> SplitOversizedTable(List<string> lines, Tokenizer tokenizer, int maxTokens)
+    private static IEnumerable<string> SplitOversizedTable(List<string> lines, Tokenizer tokenizer, int maxTokens, string? caption)
     {
+        string captionPrefix = caption is null ? string.Empty : caption + "\n\n";
         if (lines.Count < 3)
         {
-            yield return string.Join('\n', lines);
+            yield return captionPrefix + string.Join('\n', lines);
             yield break;
         }
 
@@ -170,7 +191,9 @@ internal static class TokenChunker
         string header = string.Join('\n', lines.Take(headerEnd));
         int headerTokens = tokenizer.CountTokens(header);
         List<string> currentRows = new();
-        int currentTokens = headerTokens;
+
+        // The caption rides on the first piece only, so only the first piece's row budget shrinks.
+        int currentTokens = headerTokens + (caption is null ? 0 : tokenizer.CountTokens(captionPrefix));
 
         // Financial tables use "label-only" rows (e.g. "Revenue:", "Cost of revenue:") to group the
         // rows that follow. If a split falls between such a row and its numbers, the numbers lose
@@ -184,7 +207,8 @@ internal static class TokenChunker
 
             if (currentTokens + rowTokens > maxTokens && currentRows.Count > 0)
             {
-                yield return BuildTablePiece(header, currentRowGroupLabel, currentRows);
+                yield return captionPrefix + BuildTablePiece(header, currentRowGroupLabel, currentRows);
+                captionPrefix = string.Empty;
                 currentRows.Clear();
                 currentTokens = headerTokens + (currentRowGroupLabel is null ? 0 : tokenizer.CountTokens(currentRowGroupLabel));
             }
@@ -200,7 +224,7 @@ internal static class TokenChunker
 
         if (currentRows.Count > 0)
         {
-            yield return BuildTablePiece(header, currentRowGroupLabel, currentRows);
+            yield return captionPrefix + BuildTablePiece(header, currentRowGroupLabel, currentRows);
         }
     }
 

@@ -157,4 +157,41 @@ public class TokenChunkerTests
         Assert.That(chunks[1].Content, Does.StartWith(paragraphB), "the last block before the flush should carry forward as overlap");
         Assert.That(chunks[1].Content, Does.Contain(paragraphC));
     }
+
+    private static string BigTable(int dataRows) => string.Join('\n',
+        new[] { "| Item | 2026 | 2025 |", "| --- | --- | --- |" }
+            .Concat(Enumerable.Range(1, dataRows).Select(i => $"| Line item number {i} | $1,{i:000} | $2,{i:000} |")));
+
+    // Regression coverage for the near-empty title chunks: once statement titles started their own
+    // sections, "TITLE" + "For the Years Ended ..." before an oversized table became a chunk of its own
+    // and took a top-5 slot for statement questions. It must ride on the first table piece instead.
+    [Test]
+    public void ShortLeadInBeforeOversizedTable_BecomesFirstPiecesCaption_NotItsOwnChunk()
+    {
+        const string title = "CONSOLIDATED STATEMENTS OF STOCKHOLDERS' EQUITY";
+        const string subtitle = "For the Years Ended May 31, 2026, 2025 and 2024";
+        string body = string.Join("\n\n", title, subtitle, BigTable(60));
+        const int maxTokens = 200;
+
+        List<(string Content, int Tokens)> chunks = TokenChunker.Chunk(body, _tokenizer, maxTokens, overlapTokens: 50);
+
+        Assert.That(chunks, Has.Count.GreaterThan(1), "the table must still be split");
+        Assert.That(chunks[0].Content, Does.StartWith(title));
+        Assert.That(chunks[0].Content, Does.Contain(subtitle).And.Contain("| Line item number 1 |"), "caption and first rows share a chunk");
+        Assert.That(chunks.Skip(1).Select(c => c.Content), Has.None.Contain(title), "caption rides on the first piece only");
+        Assert.That(chunks.Select(c => c.Tokens), Has.All.LessThanOrEqualTo(maxTokens), "the caption comes out of the first piece's row budget");
+    }
+
+    [Test]
+    public void LongParagraphBeforeOversizedTable_StillGetsItsOwnChunk()
+    {
+        string paragraph = string.Join(' ', Enumerable.Repeat("This narrative sentence discusses results at length.", 20));
+        string body = string.Join("\n\n", paragraph, BigTable(60));
+
+        List<(string Content, int Tokens)> chunks = TokenChunker.Chunk(body, _tokenizer, maxTokens: 400, overlapTokens: 50);
+
+        Assert.That(_tokenizer.CountTokens(paragraph), Is.GreaterThan(100), "precondition: longer than the caption cap");
+        Assert.That(chunks[0].Content, Is.EqualTo(paragraph));
+        Assert.That(chunks[1].Content, Does.StartWith("| Item |"));
+    }
 }
