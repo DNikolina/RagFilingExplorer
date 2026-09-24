@@ -1117,6 +1117,42 @@ a heuristic - linearization makes it uniform, not solved.
 2. Spike (no pipeline change): standalone linearizer over all four filings, reporting coverage, the XBRL
    consistency check, token impact, and samples of the hard cases (MSFT no-`colspan`, NFLX `colspan`,
    multi-row equity headers, negatives, percentages). **Check-in: go/no-go on the numbers.**
+   **Done (2026-09-24) - user decision: go.** `HtmlTableLinearizer` (in the app project, not yet wired
+   in), `tools/LinearizeSpike` (runner, outside the solution), `tools/xbrl_column_check.py` (oracle).
+   AngleSharp 1.8.2 added; `dotnet list package --vulnerable --include-transitive` clean.
+
+   | | MSFT | NDAQ | NFLX | ORCL |
+   |---|---|---|---|---|
+   | Non-empty tables | 88 | 116 | 80 | 87 |
+   | Fallback (kept as Markdown) | 1 | 1 | 2 | 1 |
+   | Primary statements linearized | 5/5 | 5/5 | 5/5 | 5/5 |
+   | Tokens vs Markdown, full format | -39% | +36% | -10% | -4% |
+   | Tokens vs Markdown, compact (no nil `—`, shared caption once) | -49% | +5% | -27% | -23% |
+
+   - Fallbacks: 4 exhibit indexes + 1 small NDAQ table (5 of 371) - content preserved as Markdown.
+   - XBRL oracle: primary statements **1,458/1,470** tagged values aligned; the 12 are NFLX's equity
+     statement, verified correct by hand - NFLX tags share repurchases with `CommonStockMember` while the
+     rest of that column uses `CommonStockIncludingAdditionalPaidInCapitalMember` (a filer tagging
+     inconsistency, i.e. an oracle false positive). All tables: 5,060/5,143 (98.4%); every one of the 24
+     flagged tables was read and renders correctly (arithmetic spot-checked on four) - the flags are
+     layouts the oracle can't model (quarter rows, fair-value levels, inconsistently tagged segments).
+     Year-in-label vs XBRL period: 0/327 mismatches. Blind spot: untagged (mostly MD&A) values, ~30%,
+     verified by reading only.
+   - **The oracle itself needed two corrections before it could be trusted:** "any constant aspect"
+     was vacuous (plain statements have no dimensions, so every column was trivially dimension-constant)
+     - replaced by the aspect (or pair of aspects, incl. unit) that *distinguishes* columns; and
+     roll-forwards mix a duration with its opening/closing instants, now mapped to that duration.
+   - Layout patterns found by reading real output, each fixed with a general rule, not per filer:
+     units row spanning every column (NFLX/NDAQ) swallowed all columns into one; a year row placed
+     *below* Shares/Amount (MSFT repurchases) collapsed into a caption; group labels wider than the label
+     column (NDAQ) read as headers - label column now decided by where a cell starts; one header over two
+     values (amount / %: NFLX "Change", tax-rate tables) now sub-columns, not a conflict; a period row in
+     the label column ("June 30, 2026") now stays on every row path; a units cell among headers is the
+     units, and a table whose only header was units reads "Label: value".
+   - Known rough edges: tables of contents read awkwardly ("Page: Business / 1"); group-label scoping is
+     still heuristic; `HtmlTableLinearizer` has no unit tests yet (step 4). The spike measured table
+     fidelity only - retrieval/answer impact is measured in step 4.
+   - Compact rendering is the chosen format; each chunk must then repeat title + units + shared caption.
 3. `Linearized` strategy: HTML pre-pass -> `markitdown` -> sections -> row-atomic chunks with a repeated
    title/units line; fallback tables via the existing table code.
 4. Verify both strategies side by side: unit tests from real rows of each filer, the StatementType

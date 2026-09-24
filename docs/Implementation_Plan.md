@@ -63,9 +63,9 @@ remainders, per-company search, table-piece headers".
 **In progress / planned** (the user chose to do these before the manual pass and push; details and
 decisions in Decision-Log.md):
 - **Linearized tables as a second chunking strategy** - `Chunking:Strategy` selects `Markdown` (original,
-  default) or `Linearized`, each with its own index and dumps. Refactor first (Markdown output
-  byte-identical), then a spike with a go/no-go check-in. AngleSharp for HTML; inline XBRL as a test
-  oracle only.
+  default) or `Linearized`, each with its own index and dumps. Refactor done; spike done (go: 20/20
+  primary statements, 5/371 tables fall back, compact format -23% to -49% tokens except NDAQ +5%); next
+  the `Linearized` strategy itself. AngleSharp for HTML; inline XBRL as a test oracle only.
 - **Embedding-model comparison, after linearization** - rank-based replay metric first, then
   `nomic-embed-text` vs `qwen3-embedding:0.6b` vs `embeddinggemma` on both strategies.
 

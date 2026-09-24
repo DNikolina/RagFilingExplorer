@@ -1,6 +1,7 @@
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("RagFilingExplorer.Local.Tests")]
+[assembly: InternalsVisibleTo("LinearizeSpike")] // tools/LinearizeSpike - the linearization spike runner
 
 // Moq mocks VectorStoreCollection<int, FilingChunkRecord> via Castle DynamicProxy, which generates the
 // mock into its own dynamic assembly ("DynamicProxyGenAssembly2"). Because FilingChunkRecord is an
