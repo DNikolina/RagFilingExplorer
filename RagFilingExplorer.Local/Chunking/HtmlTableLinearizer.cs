@@ -107,6 +107,7 @@ internal static partial class HtmlTableLinearizer
         List<string> tableCaptions = new(); // above every header row, e.g. "June 30, 2026" - kept for the whole table
         List<string> captions = new();      // label-column text of the current header block's rows
         List<Leaf> leaves = new();
+        List<string> unconsumedHeaderRows = new(); // header rows not yet followed by a data row
         bool lastWasData = false;
         List<LinearizedRow> output = new();
 
@@ -162,6 +163,8 @@ internal static partial class HtmlTableLinearizer
                     leaves.Clear();
                 }
 
+                unconsumedHeaderRows.Add(string.Join(" | ", row.Select(c => c.Text)));
+
                 if (label.Length > 0)
                 {
                     if (units is null && UnitsRegex().IsMatch(label))
@@ -192,6 +195,7 @@ internal static partial class HtmlTableLinearizer
             }
 
             lastWasData = true;
+            unconsumedHeaderRows.Clear(); // they label this row's columns
 
             List<LinearizedValue> values = new();
             if (leaves.Count == 0)
@@ -243,7 +247,19 @@ internal static partial class HtmlTableLinearizer
             }
         }
 
-        return new LinearizedTable(LinearizedTableKind.Financial, null, units, output, []);
+        // Rows read as headers that no data row ever followed aren't headers at all - MSFT's exhibit index
+        // ends with text-only rows ("31.1 | Certification of Chief Executive Officer ... | X"), which were
+        // silently dropped until kept here as plain lines.
+        output.AddRange(unconsumedHeaderRows.Select(text => new LinearizedRow(null, text, [])));
+
+        LinearizedTable linearized = new(LinearizedTableKind.Financial, null, units, output, []);
+
+        // Safety net for whatever rule misses next: every cell's text must survive somewhere in the
+        // rendered output (row paths, column labels, values, units), or the table falls back to Markdown,
+        // where nothing is lost. Silent content loss becomes a counted fallback with a reason.
+        string rendered = string.Join('\n', Render(linearized));
+        string? lost = nonEmptyRows.SelectMany(r => r).Select(c => c.Text).Distinct().FirstOrDefault(t => !rendered.Contains(t, StringComparison.Ordinal));
+        return lost is null ? linearized : Fallback($"cell text lost: '{(lost.Length > 60 ? lost[..60] + "..." : lost)}'");
 
         LinearizedTable Fallback(string reason) => new(LinearizedTableKind.Fallback, reason, null, [], []);
     }
@@ -266,6 +282,26 @@ internal static partial class HtmlTableLinearizer
             yield return caption;
         }
 
+        foreach (string line in RenderRows(table, omitNil, caption))
+        {
+            yield return line;
+        }
+    }
+
+    /// <summary>
+    /// The form the Linearized strategy ships, chosen in the spike: nil "—" values omitted, and the units
+    /// plus a caption shared by every column ("Year Ended June 30,") written once, as the block's context
+    /// line - which TokenChunker repeats on every piece if the block has to be split.
+    /// </summary>
+    public static RowBlock ToRowBlock(LinearizedTable table)
+    {
+        string caption = SharedCaption(table);
+        string context = string.Join(" ", new[] { table.Units ?? string.Empty, caption }.Where(s => s.Length > 0));
+        return new RowBlock(context.Length == 0 ? null : context, RenderRows(table, omitNil: true, caption).ToList());
+    }
+
+    private static IEnumerable<string> RenderRows(LinearizedTable table, bool omitNil, string caption)
+    {
         foreach (string line in table.TextLines)
         {
             yield return line;

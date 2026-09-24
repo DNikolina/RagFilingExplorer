@@ -66,9 +66,17 @@ internal static partial class MarkItDownConverter
     {
         byte[] sourceBytes = await File.ReadAllBytesAsync(source.FullName, cancellationToken).ConfigureAwait(false);
         string html = DetectEncoding(sourceBytes).GetString(sourceBytes);
-        string cleanedHtml = StripIxHeader(html);
+        return await ConvertHtmlAsync(StripIxHeader(html), source.Name, cancellationToken).ConfigureAwait(false);
+    }
 
-        string tempFilePath = Path.Combine(Path.GetTempPath(), $"{Path.GetFileNameWithoutExtension(source.Name)}-{Guid.NewGuid():N}.html");
+    /// <summary>
+    /// Converts already-decoded, already-cleaned HTML - for a strategy that rewrites the HTML first (the
+    /// Linearized strategy replaces tables before conversion). <paramref name="sourceName"/> is only used
+    /// for the temp file name and error messages.
+    /// </summary>
+    public static async Task<string> ConvertHtmlAsync(string cleanedHtml, string sourceName, CancellationToken cancellationToken = default)
+    {
+        string tempFilePath = Path.Combine(Path.GetTempPath(), $"{Path.GetFileNameWithoutExtension(sourceName)}-{Guid.NewGuid():N}.html");
         await File.WriteAllTextAsync(tempFilePath, cleanedHtml, cancellationToken).ConfigureAwait(false);
 
         try
@@ -117,7 +125,7 @@ internal static partial class MarkItDownConverter
             if (process.ExitCode != 0)
             {
                 throw new InvalidOperationException(
-                    $"markitdown failed with exit code {process.ExitCode} for '{source.Name}':\n{error}");
+                    $"markitdown failed with exit code {process.ExitCode} for '{sourceName}':\n{error}");
             }
 
             return output;

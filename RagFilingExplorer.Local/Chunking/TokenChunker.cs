@@ -36,6 +36,12 @@ internal static class TokenChunker
         // since - the only case where a trailing remainder is merged back (see the end of this method).
         bool lastChunkIsOversizedTablePiece = false;
 
+        // Linearized tables (RowBlock, Linearized strategy only) are table-like everywhere a Markdown table
+        // is: never carried as overlap, never counted as a lead-in. The Markdown strategy has none, so for
+        // it IsTableLike is exactly IsTableBlock.
+        HashSet<string> rowBlockTexts = new();
+        bool IsTableLike(string b) => IsTableBlock(b) || rowBlockTexts.Contains(b);
+
         void FlushCurrent()
         {
             if (current.Count == 0)
@@ -48,12 +54,18 @@ internal static class TokenChunker
             lastChunkIsOversizedTablePiece = false;
         }
 
-        foreach (string block in blocks)
+        foreach (string rawBlock in blocks)
         {
-            bool isTable = block.TrimStart().StartsWith('|');
+            RowBlock? rowBlock = RowBlock.TryParse(rawBlock);
+            string block = rowBlock?.Text ?? rawBlock;
+            bool isTable = rowBlock is not null || IsTableBlock(block);
             int blockTokens = tokenizer.CountTokens(block);
+            bool shortLeadIn = current.Count > 0 && currentTokens <= MaxAttachedTextTokens && !current.Any(IsTableLike);
 
-            if (blockTokens > maxTokens)
+            // A row block that doesn't fit after its short lead-in (a statement title, "(In millions)") goes
+            // the oversized route too, so the lead-in travels with it as a caption instead of being flushed
+            // as a title-only chunk - the same problem the caption rule below fixed for Markdown tables.
+            if (blockTokens > maxTokens || (rowBlock is not null && shortLeadIn && currentTokens + blockTokens > maxTokens))
             {
                 // A short lead-in right before an oversized table (e.g. "CONSOLIDATED STATEMENTS OF
                 // STOCKHOLDERS' EQUITY" + "For the Years Ended ...") used to be flushed as a near-empty
@@ -62,7 +74,7 @@ internal static class TokenChunker
                 // the MSFT, NDAQ and ORCL equity questions, confirmed with --verbose - wasting a context
                 // slot on no data. It now becomes the first table piece's caption instead.
                 string? caption = null;
-                if (isTable && current.Count > 0 && currentTokens <= MaxAttachedTextTokens && !current.Any(IsTableBlock))
+                if (isTable && shortLeadIn)
                 {
                     caption = string.Join("\n\n", current);
                 }
@@ -74,9 +86,11 @@ internal static class TokenChunker
                 current.Clear();
                 currentTokens = 0;
 
-                IEnumerable<string> pieces = isTable
-                    ? SplitOversizedTable(block.Split('\n').ToList(), tokenizer, maxTokens, caption)
-                    : SplitOversizedText(block, tokenizer, maxTokens);
+                IEnumerable<string> pieces = rowBlock is not null
+                    ? SplitRowBlock(rowBlock, tokenizer, maxTokens, caption)
+                    : isTable
+                        ? SplitOversizedTable(block.Split('\n').ToList(), tokenizer, maxTokens, caption)
+                        : SplitOversizedText(block, tokenizer, maxTokens);
 
                 foreach (string piece in pieces)
                 {
@@ -94,7 +108,7 @@ internal static class TokenChunker
                 // Light overlap: carry the previous chunk's last block forward, unless it's a table
                 // (never duplicate a whole table) or too big to count as "overlap".
                 string lastBlock = current[^1];
-                bool lastIsTable = IsTableBlock(lastBlock);
+                bool lastIsTable = IsTableLike(lastBlock);
                 current.Clear();
                 currentTokens = 0;
 
@@ -111,6 +125,10 @@ internal static class TokenChunker
 
             current.Add(block);
             currentTokens += blockTokens;
+            if (rowBlock is not null)
+            {
+                rowBlockTexts.Add(block);
+            }
         }
 
         // A short trailing remainder right after an oversized table's last piece - a statement's "See
@@ -120,7 +138,7 @@ internal static class TokenChunker
         // last table piece instead, where it belongs. Deliberately limited to this case: the short final
         // paragraph of an ordinary narrative section is left alone.
         string remainderText = string.Join("\n\n", current);
-        if (lastChunkIsOversizedTablePiece && current.Count > 0 && !current.Any(IsTableBlock)
+        if (lastChunkIsOversizedTablePiece && current.Count > 0 && !current.Any(IsTableLike)
             && tokenizer.CountTokens(remainderText) <= MaxAttachedTextTokens)
         {
             string merged = chunks[^1].Content + "\n\n" + remainderText;
@@ -135,6 +153,38 @@ internal static class TokenChunker
     }
 
     private static bool IsTableBlock(string block) => block.TrimStart().StartsWith('|');
+
+    // Rows are atomic and self-contained, so a row block splits between any two rows. Every piece repeats
+    // the caption (the statement title and units that preceded the table) and the block's context line:
+    // a row says which line item and which period, but not which statement - exactly what MSFT's
+    // comprehensive income total lacked on its second Markdown piece, when the model answered with the
+    // titled first piece's Net income instead. A single row over budget is emitted alone, never cut.
+    private static IEnumerable<string> SplitRowBlock(RowBlock block, Tokenizer tokenizer, int maxTokens, string? caption)
+    {
+        string header = (caption is null ? string.Empty : caption + "\n\n") + (block.Context is null ? string.Empty : block.Context + "\n");
+        int headerTokens = tokenizer.CountTokens(header);
+        List<string> piece = new();
+        int pieceTokens = headerTokens;
+
+        foreach (string row in block.Rows)
+        {
+            int rowTokens = tokenizer.CountTokens(row);
+            if (pieceTokens + rowTokens > maxTokens && piece.Count > 0)
+            {
+                yield return header + string.Join('\n', piece);
+                piece.Clear();
+                pieceTokens = headerTokens;
+            }
+
+            piece.Add(row);
+            pieceTokens += rowTokens;
+        }
+
+        if (piece.Count > 0)
+        {
+            yield return header + string.Join('\n', piece);
+        }
+    }
 
     private static List<string> SplitIntoBlocks(string body)
     {

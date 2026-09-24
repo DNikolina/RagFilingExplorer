@@ -57,6 +57,7 @@ internal static partial class SectionSplitter
         string currentPart = string.Empty;
         string currentItem = string.Empty;
         StringBuilder currentBody = new();
+        bool inFence = false;
 
         void FlushSection()
         {
@@ -74,6 +75,24 @@ internal static partial class SectionSplitter
         for (int i = 0; i < lines.Length; i++)
         {
             string line = lines[i].Trim();
+
+            // A fenced block is a linearized table (see RowBlock), copied through untouched. Its rows can
+            // look like headings: a table of contents linearizes to "PART I" / "Item 1. — Page: ..." lines,
+            // and "PART I" only counts as a boundary the first time it's seen, so a TOC read as headings
+            // would hijack every Part heading after it. The Markdown strategy's output has no fences (no
+            // filing has a <pre>), so this changes nothing there.
+            if (line.StartsWith(RowBlock.Fence, StringComparison.Ordinal))
+            {
+                inFence = !inFence;
+                currentBody.Append(lines[i]).Append('\n');
+                continue;
+            }
+
+            if (inFence)
+            {
+                currentBody.Append(lines[i]).Append('\n');
+                continue;
+            }
 
             // Lone page numbers and thematic-break markers ("---") are pagination artifacts with no
             // content value - if left in, they end up as their own noise-only chunk when a page break

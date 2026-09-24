@@ -47,6 +47,16 @@ static async Task RunAsync(string[] args)
         Console.WriteLine($"[warning] {problem}");
     }
 
+    // --chunks-only: chunk every filing and write chunk-review/<strategy>/, nothing else - no Ollama, no
+    // index. Reading the real chunk output is how nearly every chunking bug here was found; this makes that
+    // a one-minute loop instead of a ten-minute re-embed.
+    if (args.Contains("--chunks-only"))
+    {
+        List<FilingChunk> chunks = await ChunkFilingsAsync(settings, filings, Path.Combine(repoRoot.FullName, "chunk-review", strategyName));
+        Console.WriteLine($"Total chunks across all filings: {chunks.Count} (--chunks-only: index not touched)");
+        return;
+    }
+
     OllamaApiClient embeddingApiClient = new(CreateOllamaHttpClient(settings.Ollama), settings.Ollama.EmbeddingModel);
     OllamaApiClient chatApiClient = new(CreateOllamaHttpClient(settings.Ollama), settings.Ollama.ChatModel);
     await EnsureOllamaReadyAsync(chatApiClient, settings.Ollama);
@@ -213,6 +223,17 @@ static async Task<bool> ChatModelSupportsThinkingAsync(OllamaApiClient client, s
 static async Task BuildIndexAsync(
     VectorStoreCollection<int, FilingChunkRecord> collection, AppSettings settings, FileInfo[] filings, string reviewDirectoryPath)
 {
+    List<FilingChunk> allChunks = await ChunkFilingsAsync(settings, filings, reviewDirectoryPath);
+
+    Console.WriteLine("=== Vector storage ===");
+    Console.WriteLine($"Total chunks across all filings: {allChunks.Count}");
+
+    List<FilingChunkRecord> records = BuildRecords(allChunks);
+    await UpsertRecordsAsync(collection, records, settings.VectorStore.UpsertBatchSize);
+}
+
+static async Task<List<FilingChunk>> ChunkFilingsAsync(AppSettings settings, FileInfo[] filings, string reviewDirectoryPath)
+{
     DirectoryInfo reviewDirectory = new(reviewDirectoryPath);
     reviewDirectory.Create();
 
@@ -224,11 +245,7 @@ static async Task BuildIndexAsync(
         allChunks.AddRange(await IngestFilingAsync(filing, strategy, reviewDirectory));
     }
 
-    Console.WriteLine("=== Vector storage ===");
-    Console.WriteLine($"Total chunks across all filings: {allChunks.Count}");
-
-    List<FilingChunkRecord> records = BuildRecords(allChunks);
-    await UpsertRecordsAsync(collection, records, settings.VectorStore.UpsertBatchSize);
+    return allChunks;
 }
 
 // Converts one filing to chunks, prints its section/chunk stats, and writes its chunk-review dump.

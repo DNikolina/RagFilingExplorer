@@ -71,6 +71,8 @@ index in use.
   *code*; changes to settings or filings are detected automatically (see below).
 - `--verbose` — also prints the full ranked candidate list for each question (score, filing, statement
   type, heading, snippet). Useful when diagnosing a bad retrieval; not needed for normal use.
+- `--chunks-only` — chunks every filing and writes `chunk-review/<strategy>/`, then exits: no Ollama, no
+  index. The fast way to read real chunk output after a chunking change.
 
 Type a question at the `>` prompt; a blank line or `exit` quits.
 
@@ -121,6 +123,13 @@ a one-line settings change with no re-embedding - which is what makes side-by-si
 - **`Markdown`** (default) - `markitdown` converts the whole filing to Markdown, sections are found from
   the plain-text Item headings, and oversized Markdown tables are split with their header, fiscal-period
   row and row-group labels repeated on every piece.
+- **`Linearized`** - each HTML table is first turned into self-contained lines ("Comprehensive income —
+  2026: $133,812 | 2025: $104,075") by `HtmlTableLinearizer`, working from the HTML because `markitdown`
+  discards `colspan`. A split table repeats its statement title, units and period caption on every piece.
+  A table it can't linearize unambiguously - or would lose any cell text from - falls back to the
+  Markdown handling. 994 chunks vs 1,440; ties `Markdown` on the current test questions (see
+  [docs/Decision-Log.md](docs/Decision-Log.md), "linearized tables", for the numbers and why that tie
+  doesn't settle which is better yet).
 
 Everything after chunking (statement-type tagging, embedding, retrieval, generation) is shared, so a
 strategy only has to implement `IChunkingStrategy`.
@@ -196,7 +205,7 @@ Full diagnostic detail, including how each bug was actually found, is in
 dotnet test
 ```
 
-Runs `RagFilingExplorer.Local.Tests` (NUnit + Moq) — 141 tests, fully offline, no live Ollama instance
+Runs `RagFilingExplorer.Local.Tests` (NUnit + Moq) — 159 tests, fully offline, no live Ollama instance
 or populated vector store required. Covers chunking, section splitting, statement-type detection,
 query-intent resolution, settings loading/validation, index-manifest staleness detection, and the
 retrieve+generate orchestration (mocked).

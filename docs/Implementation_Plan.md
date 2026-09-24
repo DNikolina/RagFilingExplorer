@@ -48,24 +48,25 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; 24/24 manual questions; 139 offline unit tests |
+| 7. Testing | Done — 6/6 on the Step 7 questions; 24/24 manual questions (both strategies); 159 offline unit tests |
 | 8. Publish | README written; **push on hold** until the user's manual pass (`docs/Manual-Test-Questions.md`) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, the project is
 complete. Report that clearly and stop — nothing further is assumed or owed.
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
-expected; `tools/replay_recall.py` 22/22 answerable questions with the figure in the top-5 context
-(deterministic, no LLM - see its header); 139 unit tests. `Retrieval.ChatTemperature` is 0 so a changed
+expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the
+figure in the top-5 context on both (deterministic, no LLM - see its header); 159 unit tests. `Retrieval.ChatTemperature` is 0 so a changed
 answer can be attributed to a code change rather than sampling. Details in Decision-Log.md, "trailing
 remainders, per-company search, table-piece headers".
 
 **In progress / planned** (the user chose to do these before the manual pass and push; details and
 decisions in Decision-Log.md):
-- **Linearized tables as a second chunking strategy** - `Chunking:Strategy` selects `Markdown` (original,
-  default) or `Linearized`, each with its own index and dumps. Refactor done; spike done (go: 20/20
-  primary statements, 5/371 tables fall back, compact format -23% to -49% tokens except NDAQ +5%); next
-  the `Linearized` strategy itself. AngleSharp for HTML; inline XBRL as a test oracle only.
+- **Linearized tables as a second chunking strategy** - built and verified: `Chunking:Strategy` =
+  `Linearized` gives 994 chunks vs 1,440, 22/22 replay and 24/24 answers - a tie with `Markdown`, which
+  stays the default. Next: a rank metric in `replay_recall.py` plus ~10 targeted questions (mid-table
+  figures, MD&A tables) run on both, then decide the default. Known, not fixed: group-label scope (a
+  group only closes at "Total ..."); measure first with indentation as a test oracle if pursued.
 - **Embedding-model comparison, after linearization** - rank-based replay metric first, then
   `nomic-embed-text` vs `qwen3-embedding:0.6b` vs `embeddinggemma` on both strategies.
 
@@ -79,13 +80,17 @@ nomic-embed-text's context, so harmless in practice; the budget is approximate b
 
 ```
 data/*.html
+  → [Linearized only]     HtmlTableLinearizer: each table it can linearize → <pre> RowBlock of
+                          self-contained row lines (content guard: any lost cell text → keep table)
   → MarkItDownConverter   detect encoding, strip <ix:header>, shell out to `markitdown`
   → SectionSplitter       "PART I > Item 1. Business" heading paths from plain-text patterns;
-                          a new section (same heading) at every statement title / Notes boundary
+                          a new section (same heading) at every statement title / Notes boundary;
+                          fenced row blocks copied through, never read as headings
   → TokenChunker          ~500-token chunks (cl100k), 50 overlap; tables atomic, headers +
                           fiscal-period row + in-force row-group label repeated across
                           splits; a short lead-in (title, "(in millions)") rides on an
-                          oversized table's first piece, a short footer on its last
+                          oversized table's first piece, a short footer on its last; a row
+                          block splits between rows, every piece repeating title/units/context
   → BuildRecords          StatementType tagged by carrying the last statement title forward,
                           reset at "Notes to Financial Statements" and on filing change
   → SqliteVec index       rag.<strategy>.db; nomic-embed-text, "search_document:" prefix, EmbeddingTextBuilder text

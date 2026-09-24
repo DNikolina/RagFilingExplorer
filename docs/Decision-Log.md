@@ -1159,6 +1159,88 @@ a heuristic - linearization makes it uniform, not solved.
    transition check, `replay_recall.py`, the full 24-question run, reading the dumps.
 5. Decision-Log outcome, README, plan.
 
+**Steps 3-4 done (2026-09-24). Default stays `Markdown` - see "Why the default didn't change".**
+
+**How it's built.** `LinearizedChunkingStrategy` replaces each table `HtmlTableLinearizer` can linearize
+with a `<pre>` holding a `RowBlock` (`#rows` marker, optional `#context` line = units + shared caption,
+one line per row). Checked directly that markitdown turns `<pre>` into a fenced block with no Markdown
+escaping (`$`, `*`, `_`, `<` and line breaks survive). Fallback tables stay HTML and reach TokenChunker as
+Markdown tables. Shared code gained, all inert for the Markdown strategy:
+- `SectionSplitter` copies fenced blocks through untouched: a linearized table of contents reads
+  "PART I" / "Item 1. — Page: ...", and "PART I" only counts as a boundary the first time it's seen, so
+  a TOC read as headings would hijack every Part heading after it. No filing contains `<pre>`, so the
+  Markdown output has no fences.
+- `TokenChunker` treats a row block as table-like (never overlap, never a lead-in). An oversized one
+  splits between rows only, and **every piece repeats the lead-in (statement title, units) and the
+  context line** - the context MSFT's Q8 total lacked on its second Markdown piece. A row block that fits
+  alone but not after its short lead-in takes the lead-in along instead of leaving a title-only chunk.
+- `MarkItDownConverter.ConvertHtmlAsync` (HTML already decoded and cleaned) split out of `ConvertAsync`.
+- `--chunks-only`: chunk every filing and write `chunk-review/<strategy>/`, no Ollama, no index - a
+  one-minute loop for reading real chunk output instead of a ten-minute re-embed.
+
+**A real bug the spike's checks couldn't catch.** Comparing the two strategies' dumps showed 8 MSFT
+exhibit numbers missing: the exhibit rows after 10.17 ("31.1 | Certification of Chief Executive
+Officer ... | X") carry no numbers, were read as a header block, and no data row followed to consume it -
+silently dropped. The XBRL oracle only sees tagged numbers, and the spike compared figures, not text.
+Fixes: header rows no data row follows are kept as plain lines; and a **content guard** - every non-empty
+cell's text must appear in the rendered output, or the table falls back to Markdown (content intact).
+Across all 371 tables the guard fired once more (the same MSFT exhibit table's "Filed Herewith" header,
+over non-numeric "X" marks - now a fallback): no other table loses any cell text. XBRL results unchanged.
+
+**Verified:**
+- `dotnet test` **159/159** (18 new: `HtmlTableLinearizerTests` - one fixture per layout rule, each
+  reduced from the filing that needed it, column positions kept - and `LinearizedStrategyTests`: RowBlock
+  round trip, HTML rewrite, fenced rows never headings, row-block splitting).
+- Markdown strategy after all shared-code changes: dumps **byte-identical** to HEAD, 1,440 chunks.
+- Linearized dumps: section outline identical to Markdown's in all four filings; every figure in the
+  Markdown dumps present (0 missing); every visible word present - the only differing "words" are link
+  targets (`#item_10_directors_executive_ficers_corpo`, EDGAR exhibit URLs); no leftover fences/markers,
+  no U+FFFD. StatementType transitions identical to Markdown's (five statements, then the Notes reset,
+  every filing).
+
+| | Markdown | Linearized |
+|---|---|---|
+| Chunks | 1,440 | **994** (-31%) |
+| Embedding time | 587 s | **377 s** |
+| Statement chunks (e.g. ORCL / NFLX equity) | 16 / 13 | 4 / 3 |
+| `replay_recall.py` (figure in top-5 context) | 22/22 | 22/22 |
+| Top-1 distance closer to the query | 6 questions | 15 (3 equal) |
+| Full 24-question run (temperature 0) | 24/24 | 24/24, one framing slip |
+
+- MSFT's comprehensive income statement is now one chunk with title, units and years - the Q8 failure
+  class (a total split away from its title and years) is structurally gone.
+- The framing slip: Q5 (ORCL operating cash) gives the right figures but says they're in the "Changes in
+  operating assets and liabilities" section; Q17's citation shows the same path. Cause: the group-label
+  heuristic (a group closes only at a "Total ..." row) - shared with the Markdown strategy, but more
+  visible when the group path is written on every row.
+
+**Why the default didn't change.** The plan said `Markdown` stays default until `Linearized` wins on the
+numbers; this is a tie on answers, and the tie says little:
+- The question set is saturated (22/22 and 24/24 on both) and was written and debugged against the
+  Markdown strategy - every fix tuned until these questions passed.
+- It's almost all headline totals. Linearization's claimed advantage - figures a split used to separate
+  from their context, mid-table rows, MD&A tables - is barely exercised (Q8 only, already fixed on
+  Markdown).
+- Top-1 distance measures how close the best chunk is, not whether it's the right one.
+- A rank metric (recall@1, MRR) on 22 questions still moves by noise-sized steps.
+- Linearized's residual risk isn't covered by any automatic check: a value under the wrong header in an
+  *untagged* table (~30% of values, verified by reading only). Its rules also came from these four
+  filings - better safety nets than Markdown's (content guard, fallback), same "derived from what we've
+  seen" caveat.
+
+**Next:** rank metric in `replay_recall.py` plus ~10 targeted questions aimed at what linearization
+claims to fix (mid-table figures, year-below-subcolumn layouts, amount/% pairs, MD&A tables), expected
+figures from the source, run on both strategies; then decide the default. If still a tie, keep
+`Markdown` and record the tie - a measured "no difference" is a legitimate result.
+
+**Known, not fixed - group-label scope.** The obvious rule "a row starting with Net or Total closes the
+group" is wrong on this data: MSFT's OCI group *contains* "Net change related to derivatives" / "... to
+investments". Layout has no reliable end-of-group signal (NDAQ has no indentation; `$` marks first rows
+and totals alike); XBRL's calculation structure would, but stays out of runtime. Plan if pursued:
+measure the leak first, using indentation as a *test* oracle for the three filers that indent (a row
+indented no deeper than its group label is outside it), and fix only if the rate and its effect on
+answers warrant it.
+
 ## Follow-up: embedding-model comparison — PLANNED, after linearization
 
 **Why not now.** Retrieval isn't what's failing: `replay_recall.py` has 22/22 answerable questions with
