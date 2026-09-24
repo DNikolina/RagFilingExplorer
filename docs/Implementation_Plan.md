@@ -22,7 +22,7 @@ revisiting any decision summarized here.
    rather than silently switching approach — a one-line note is enough, this isn't a permission gate.
 4. **Verify against real output, not summary stats.** Nearly every real bug in this project (the
    statement-type false positives, the lost row-group labels, the NFLX encoding corruption) was found by
-   reading actual chunk output or querying `rag.db` directly, not by trusting that code looked right.
+   reading actual chunk output or querying the index (`rag.<strategy>.db`) directly, not by trusting that code looked right.
 
 ---
 
@@ -45,7 +45,7 @@ revisiting any decision summarized here.
 | 1. Source data | Done — MSFT, ORCL, NDAQ 10-Ks from EDGAR; NFLX added later |
 | 2. Project setup | Done |
 | 3. Chunking | Done — hand-written pipeline; MEDI tried and abandoned |
-| 4. Vector storage | Done — now SqliteVec-persisted (`rag.db` + build manifest) |
+| 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
 | 7. Testing | Done — 6/6 on the Step 7 questions; 24/24 manual questions; 139 offline unit tests |
@@ -58,7 +58,16 @@ complete. Report that clearly and stop — nothing further is assumed or owed.
 expected; `tools/replay_recall.py` 22/22 answerable questions with the figure in the top-5 context
 (deterministic, no LLM - see its header); 139 unit tests. `Retrieval.ChatTemperature` is 0 so a changed
 answer can be attributed to a code change rather than sampling. Details in Decision-Log.md, "trailing
-remainders, per-company search, table-piece headers". Next: the user's manual pass, then push.
+remainders, per-company search, table-piece headers".
+
+**In progress / planned** (the user chose to do these before the manual pass and push; details and
+decisions in Decision-Log.md):
+- **Linearized tables as a second chunking strategy** - `Chunking:Strategy` selects `Markdown` (original,
+  default) or `Linearized`, each with its own index and dumps. Refactor first (Markdown output
+  byte-identical), then a spike with a go/no-go check-in. AngleSharp for HTML; inline XBRL as a test
+  oracle only.
+- **Embedding-model comparison, after linearization** - rank-based replay metric first, then
+  `nomic-embed-text` vs `qwen3-embedding:0.6b` vs `embeddinggemma` on both strategies.
 
 **Known, not planned:** chunks routinely exceed the 500-token budget (up to ~800 for NFLX's widest
 tables) - rows and blocks are counted separately, without the separators joining them. Well inside
@@ -79,7 +88,7 @@ data/*.html
                           oversized table's first piece, a short footer on its last
   → BuildRecords          StatementType tagged by carrying the last statement title forward,
                           reset at "Notes to Financial Statements" and on filing change
-  → SqliteVec rag.db      nomic-embed-text, "search_document:" prefix, EmbeddingTextBuilder text
+  → SqliteVec index       rag.<strategy>.db; nomic-embed-text, "search_document:" prefix, EmbeddingTextBuilder text
   → RagAnswerService      QueryIntentResolver filter (company + statement type) → top-K search
                           (one per company, interleaved, when 2+ are named) →
                           citation prompt → llama3.1:8b (reasoning only for synthesis questions
@@ -102,8 +111,8 @@ Packages: `Microsoft.Extensions.AI`, `Microsoft.Extensions.VectorData.Abstractio
 - **A new filing needs a `QueryIntentResolver.CompanyToFiling` entry**, or questions naming it run
   unfiltered across every filing (this produced a hallucinated figure for NFLX). Startup warns and a
   unit test fails on an unregistered filing, but the entry is still manual. Also spot-check its
-  `chunk-review/*.chunks.txt` for `�` and a complete Item outline.
-- **A new filer's statement titles must actually be detected.** After onboarding, check `rag.db` for
+  `chunk-review/<strategy>/*.chunks.txt` for `�` and a complete Item outline.
+- **A new filer's statement titles must actually be detected.** After onboarding, check the index for
   one `StatementType` transition per primary statement plus the Notes reset
   (`SELECT Key, StatementType FROM chunks WHERE SourceFiling = ... ORDER BY Key`). NDAQ's "Statements of
   Changes in Stockholders' Equity" went undetected until the second review: 0 `equity_statement`
@@ -113,7 +122,7 @@ Packages: `Microsoft.Extensions.AI`, `Microsoft.Extensions.VectorData.Abstractio
   gets lost among near-identical fragments (ORCL: rank 8-9 of 17). "Changes in ... equity" questions
   still go to the equity statement via `ResolveStatementType`'s longest-match rule.
 - **Chunking/embedding *code* changes need `--rebuild`.** Settings and filing changes are detected
-  automatically via `rag.db.manifest.json`; code changes can't be.
+  automatically via `rag.<strategy>.db.manifest.json`; code changes can't be.
 - **Statement-type regexes must require "STATEMENTS"** (except balance sheet) — without it, bare
   headings like "OPERATIONS" or "Cash Flows" mistagged up to 96 consecutive chunks.
 - **Never send a reasoning ("think") request to a model without the `thinking` capability** — Ollama
@@ -165,6 +174,13 @@ Packages: `Microsoft.Extensions.AI`, `Microsoft.Extensions.VectorData.Abstractio
   chunks can exceed it. Construct it with an explicit `HttpClient { Timeout = ... }` (5 minutes worked
   for 1,073 chunks) instead of the URI-only constructor, and upsert in smaller batches (25 at a time
   here) rather than one giant call, for both resilience and visible progress.
+- **HTML parsing:** Microsoft Learn names no preferred .NET HTML parser (none built in; the Microsoft HTML
+  DOM APIs are IE-backed WinForms or .NET-Framework-only Razor internals); Microsoft's own ASP.NET Core
+  integration-test docs use AngleSharp. See Decision-Log.md, "linearized tables as a second chunking
+  strategy".
+- **Embedding prefixes are per model family, not universal:** `search_query:`/`search_document:` is the
+  Nomic convention (mandatory for v1.5); qwen3-embedding, embeddinggemma and mxbai use different
+  templates, two with no document prefix. Full table in Decision-Log.md, "embedding-model comparison".
 - These were checked directly against Microsoft's own documentation, not just general web search —
   treat them as reliable unless something has changed since. The MEDI-specific findings in this list came
   from direct experimentation against this project's actual filings, not from documentation.

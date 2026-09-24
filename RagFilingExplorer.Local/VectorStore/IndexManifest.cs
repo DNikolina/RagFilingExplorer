@@ -4,9 +4,9 @@ using System.Text.Json;
 namespace RagFilingExplorer.Local.VectorStore;
 
 /// <summary>
-/// Records what a finished rag.db was built from: the embedding model, the chunking settings, and a
-/// SHA-256 hash of every filing. Written next to rag.db only after every chunk has been upserted, so it
-/// doubles as a completion marker.
+/// Records what a finished rag.&lt;strategy&gt;.db was built from: the embedding model, the chunking
+/// strategy and settings, and a SHA-256 hash of every filing. Written next to the index only after
+/// every chunk has been upserted, so it doubles as a completion marker.
 ///
 /// It closes two gaps in the old "rag.db exists => skip the build" check:
 /// - An interrupted or failed build (Ctrl+C during the ~10-minute embedding pass, markitdown missing,
@@ -23,6 +23,10 @@ internal sealed class IndexManifest
     private static readonly JsonSerializerOptions JsonOptions = new() { WriteIndented = true };
 
     public required string EmbeddingModel { get; init; }
+
+    // Each strategy has its own index file, so this normally can't differ - recorded anyway so an index
+    // renamed or copied by hand is caught rather than silently answering from the wrong chunks.
+    public required string ChunkingStrategy { get; init; }
     public required string TokenizerModel { get; init; }
     public required int MaxTokensPerChunk { get; init; }
     public required int OverlapTokens { get; init; }
@@ -33,6 +37,7 @@ internal sealed class IndexManifest
     public static IndexManifest Create(AppSettings settings, IEnumerable<FileInfo> filings) => new()
     {
         EmbeddingModel = settings.Ollama.EmbeddingModel,
+        ChunkingStrategy = settings.Chunking.Strategy.ToString(),
         TokenizerModel = settings.Chunking.TokenizerModel,
         MaxTokensPerChunk = settings.Chunking.MaxTokensPerChunk,
         OverlapTokens = settings.Chunking.OverlapTokens,
@@ -78,6 +83,7 @@ internal sealed class IndexManifest
         }
 
         Compare("Ollama:EmbeddingModel", EmbeddingModel, current.EmbeddingModel);
+        Compare("Chunking:Strategy", ChunkingStrategy, current.ChunkingStrategy);
         Compare("Chunking:TokenizerModel", TokenizerModel, current.TokenizerModel);
         Compare("Chunking:MaxTokensPerChunk", MaxTokensPerChunk, current.MaxTokensPerChunk);
         Compare("Chunking:OverlapTokens", OverlapTokens, current.OverlapTokens);

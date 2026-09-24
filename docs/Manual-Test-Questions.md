@@ -10,8 +10,9 @@ Netflix (`NFLX-10K-2025.html`) was added later, alongside MSFT/ORCL/NDAQ - see D
 "Follow-up: onboarding a new filer (NFLX)" for the three real bugs that surfaced onboarding it. Its
 questions (17-20 below) are the regression check for that work.
 
-Every expected answer below was pulled directly from `chunk-review/*.chunks.txt` (the actual converted
-filing text, not memory/prior knowledge), same as Step 7's own verification method. The "Source"
+Every expected answer below was pulled directly from `chunk-review/markdown/*.chunks.txt` (the actual
+converted filing text, not memory/prior knowledge), same as Step 7's own verification method. Line
+references are into the `Markdown` chunking strategy's dumps - the shipped default. The "Source"
 line is where to check the figure yourself if an answer looks off.
 
 For each question, also check that the printed `(filtering to ..., statement type: ...)` line

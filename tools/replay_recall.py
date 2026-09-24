@@ -1,14 +1,16 @@
 # Retrieval recall check: for each question in tools/manual-questions.txt, replays the app's retrieval
-# against rag.db - the stored vectors, the same filters the app printed, the same cosine distance, the
+# against a strategy's index (rag.<strategy>.db) - the stored vectors, the same filters the app printed, the same cosine distance, the
 # same per-company interleave for multi-company questions - and reports whether the expected figure is
 # in the top-5 context sent to the model. Deterministic (no LLM), so unlike a full question run it
 # isn't affected by the chat model's run-to-run variation: it separates "retrieval missed it" from
 # "the model misread it". Verified to reproduce the app's own --verbose scores exactly.
 #
 # The filters are read from a --verbose run's log rather than re-derived, so QueryIntentResolver's
-# logic isn't duplicated here. From the repo root, with Ollama running and rag.db built:
+# logic isn't duplicated here. From the repo root, with Ollama running and the index built:
 #   dotnet run --project RagFilingExplorer.Local -- --verbose < tools/manual-questions.txt > run.log
-#   python tools/replay_recall.py run.log tools/manual-questions.txt
+#   python tools/replay_recall.py run.log tools/manual-questions.txt [rag.<strategy>.db]
+# The index defaults to rag.markdown.db; pass the one matching the run's Chunking:Strategy (the log's
+# first line names it).
 #
 # `expect` below is keyed by line number in manual-questions.txt (Q1-Q13 and Q17-Q22 follow
 # docs/Manual-Test-Questions.md's order, then its edge cases, then Q23-Q24) - keep them in sync.
@@ -16,7 +18,8 @@
 import sqlite3, json, urllib.request, math, re, struct, glob, sys
 
 log_path, questions_path = sys.argv[1], sys.argv[2]
-c = sqlite3.connect('file:rag.db?mode=ro', uri=True)
+db_path = sys.argv[3] if len(sys.argv) > 3 else 'rag.markdown.db'
+c = sqlite3.connect(f'file:{db_path}?mode=ro', uri=True)
 c.enable_load_extension(True)
 c.load_extension(glob.glob('RagFilingExplorer.Local/bin/**/win-x64/native/vec0.dll', recursive=True)[0][:-4])
 vec = {k: struct.unpack('768f', b) for k, b in c.execute('select Key, Text from vec_chunks')}

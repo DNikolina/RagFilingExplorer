@@ -25,7 +25,7 @@ Statements and Supplementary Data), Microsoft's total revenue for fiscal year 20
   `IEmbeddingGenerator` / vector store abstractions
 - **[OllamaSharp](https://github.com/awaescher/OllamaSharp)** — talks to a local Ollama instance;
   implements those abstractions directly, no custom wrapper
-- **CommunityToolkit.VectorData.SqliteVec** — persistent, on-disk vector store (`rag.db`)
+- **CommunityToolkit.VectorData.SqliteVec** — persistent, on-disk vector store (`rag.<strategy>.db`)
 - **Microsoft.ML.Tokenizers** (offline Tiktoken, `cl100k_base`) — token-bounded chunking
 - **Local models**: `nomic-embed-text` (274MB, embeddings) and `llama3.1:8b` (4.9GB, answer generation)
 - **Source data**: public [SEC EDGAR](https://www.sec.gov/edgar) 10-K filings (raw HTML)
@@ -49,9 +49,10 @@ No API keys, no `dotnet user-secrets`, no cloud account of any kind.
 Developed and tested on a 12th Gen Intel i7-12800H, 32GB RAM, **CPU-only inference** (no GPU) — both
 models were chosen specifically because they run acceptably on CPU alone.
 
-- **First run** converts, chunks, and embeds every filing in `data/` and builds `rag.db` from scratch.
-  On the hardware above, that's roughly **10 minutes** for ~1,479 chunks across the 4 included filings.
-- **Every run after that** finds the existing `rag.db` and skips straight to the interactive loop —
+- **First run** converts, chunks, and embeds every filing in `data/` and builds the index
+  (`rag.markdown.db` for the default chunking strategy) from scratch. On the hardware above, that's
+  roughly **10 minutes** for ~1,440 chunks across the 4 included filings.
+- **Every run after that** finds the existing index and skips straight to the interactive loop —
   well under a minute to start.
 - Each answer involves one local `llama3.1:8b` generation call, CPU-only — expect roughly tens of
   seconds per question.
@@ -62,10 +63,11 @@ models were chosen specifically because they run acceptably on CPU alone.
 dotnet run --project RagFilingExplorer.Local
 ```
 
-Works from any directory - `data/`, `chunk-review/` and `rag.db` are located relative to the repo
-root, not the directory you launch from.
+Works from any directory - `data/`, `chunk-review/` and the index are located relative to the repo
+root, not the directory you launch from. The first line of output names the chunking strategy and
+index in use.
 
-- `--rebuild` — deletes `rag.db` and rebuilds from scratch. Needed after changing chunking/embedding
+- `--rebuild` — deletes the current strategy's index and rebuilds from scratch. Needed after changing chunking/embedding
   *code*; changes to settings or filings are detected automatically (see below).
 - `--verbose` — also prints the full ranked candidate list for each question (score, filing, statement
   type, heading, snippet). Useful when diagnosing a bad retrieval; not needed for normal use.
@@ -80,9 +82,9 @@ exits with a one-line fix instead of a stack trace:
 - Ollama isn't reachable at the configured URL, or either configured model isn't pulled (the error
   prints the exact `ollama pull` command).
 - The `markitdown` CLI isn't on `PATH` (only checked when an index build is actually needed).
-- **`rag.db` can't be trusted.** A build writes `rag.db.manifest.json` only after every chunk has been
-  embedded. It records the embedding model, the chunking settings, and a SHA-256 hash of every filing.
-  If `rag.db` has no manifest, the last build was interrupted or failed. If the manifest doesn't match
+- **The index can't be trusted.** A build writes `rag.<strategy>.db.manifest.json` only after every
+  chunk has been embedded. It records the embedding model, the chunking strategy and settings, and a
+  SHA-256 hash of every filing. If the index has no manifest, the last build was interrupted or failed. If the manifest doesn't match
   the current `appsettings.json` and `data/`, the index is stale. Either way the app says exactly what's
   wrong and asks for `--rebuild` rather than silently answering from a partial or mismatched index.
   (A changed embedding model is the worst case: query vectors from the new model compared against
@@ -109,6 +111,19 @@ package just hasn't picked up yet. Full details, including why manually swapping
 [docs/Decision-Log.md](docs/Decision-Log.md) ("Follow-up: persisted vector store"). If
 this project ever upgrades past that SqliteVec version, re-check whether the fix landed before raising
 this value — batching does meaningfully reduce embedding calls otherwise.
+
+### Chunking strategies
+
+`Chunking.Strategy` selects how filings are turned into chunks. Each strategy builds its own index
+(`rag.<strategy>.db`) and chunk dumps (`chunk-review/<strategy>/`), so once both are built, switching is
+a one-line settings change with no re-embedding - which is what makes side-by-side comparison practical.
+
+- **`Markdown`** (default) - `markitdown` converts the whole filing to Markdown, sections are found from
+  the plain-text Item headings, and oversized Markdown tables are split with their header, fiscal-period
+  row and row-group labels repeated on every piece.
+
+Everything after chunking (statement-type tagging, embedding, retrieval, generation) is shared, so a
+strategy only has to implement `IChunkingStrategy`.
 
 ### Reasoning-model support
 
@@ -160,16 +175,16 @@ with filer-specific code, but worth checking for explicitly with any new filing:
 2. **Don't assume the source is UTF-8.** A raw EDGAR download usually is, but a browser-saved copy can
    declare (and genuinely be encoded as) something else entirely - Netflix's was `windows-1252`.
    `MarkItDownConverter.DetectEncoding` handles this automatically now (BOM, then the file's own
-   `<meta charset>`, then a UTF-8 fallback), but it's worth spot-checking `chunk-review/*.chunks.txt`
+   `<meta charset>`, then a UTF-8 fallback), but it's worth spot-checking `chunk-review/<strategy>/*.chunks.txt`
    for stray `�` characters after a first run regardless.
 3. **Item-heading punctuation varies by filer.** Netflix's converted output has no space after the
    period in most Item headings (`"Item 1.Business"` vs. the usual `"Item 1. Business"`) -
    `SectionSplitter.TitledItemHeaderRegex` now tolerates both, but a filer with a still-different
-   convention could reintroduce this class of bug. Check `chunk-review/<new-filing>.chunks.txt` for a
+   convention could reintroduce this class of bug. Check `chunk-review/<strategy>/<new-filing>.chunks.txt` for a
    complete, correctly-nested Item outline before trusting the citations it produces.
 4. **Statement titles vary too.** Statement-type filtering only works if each financial statement's
    title line is recognized - Nasdaq's "Consolidated Statements of *Changes in* Stockholders' Equity"
-   wasn't at first, so every Nasdaq equity question found nothing. After a first run, check that `rag.db`
+   wasn't at first, so every Nasdaq equity question found nothing. After a first run, check that the index
    tags each of the new filing's statements (see `docs/Implementation_Plan.md`, "Live constraints").
 
 Full diagnostic detail, including how each bug was actually found, is in
@@ -181,7 +196,7 @@ Full diagnostic detail, including how each bug was actually found, is in
 dotnet test
 ```
 
-Runs `RagFilingExplorer.Local.Tests` (NUnit + Moq) — 127 tests, fully offline, no live Ollama instance
+Runs `RagFilingExplorer.Local.Tests` (NUnit + Moq) — 141 tests, fully offline, no live Ollama instance
 or populated vector store required. Covers chunking, section splitting, statement-type detection,
 query-intent resolution, settings loading/validation, index-manifest staleness detection, and the
 retrieve+generate orchestration (mocked).
@@ -211,7 +226,8 @@ then pattern-matching over the converted text for section boundaries and table-a
 RagFilingExplorer.Local/                the app - chunking, retrieval, vector store, interactive loop
 RagFilingExplorer.Local.Tests/          NUnit + Moq test suite
 data/                                   source 10-K filings (HTML, from sec.gov/edgar)
-chunk-review/                           full per-chunk text dumps, one file per filing, for manual review
+chunk-review/<strategy>/                full per-chunk text dumps, one file per filing, for manual review
+tools/                                  manual-question list + replay_recall.py (deterministic retrieval check)
 docs/Implementation_Plan.md             current-state reference: ground rules, pipeline, live constraints
 docs/Decision-Log.md                    the full build history: every step, decision point, and debugging path
 docs/Manual-Test-Questions.md           a broader question set for manual retrieval-quality testing

@@ -1054,3 +1054,114 @@ equity statement.
 "Other income (expense):" group ends at "Income before income taxes", so that label is still repeated
 above Net income on the next piece (Q15 answered correctly regardless). No reliable, filer-independent
 rule for such closers was found; a guessed one would be worse than a visible stale label.
+
+## Follow-up: linearized tables as a second chunking strategy — PLANNED, in progress
+
+**Why.** Every new filer so far has surfaced at least one table-chunking bug (NFLX: three; NDAQ: the
+equity title; MSFT: the "(In millions)" header cut-off). No chunking code names a company - the rules are
+about 10-K / US GAAP layout - but they reverse-engineer structure from `markitdown`'s Markdown, which
+loses it: tables arrive with empty header rows, `$` and `)` in cells of their own, and spacer columns, and
+the chunker guesses which row holds the periods, which rows are group labels, and where a group ends.
+
+**Evidence from the raw HTML** (all four filings): 68-83 tables per filing use `colspan`, which
+`markitdown` discards - the reason NFLX's Markdown rows are misaligned. 65-80% of numeric tables carry
+inline-XBRL tags (MD&A tables mostly don't). Indentation styles are filer-specific (NDAQ has none), so
+row hierarchy can't come from indentation.
+
+**Approach.** Linearize tables from the HTML (with `colspan` expanded into a real grid) before
+`markitdown`: each row becomes one self-contained line, e.g.
+`Comprehensive income — Year Ended June 30, 2026: $133,812 | 2025: $104,075 | 2024: $88,889`, and each
+chunk repeats its statement title and units. Split points stop mattering, which removes the whole
+header-repeat / label-carry class of bugs. Group-label scoping ("label row, closed by a Total row") stays
+a heuristic - linearization makes it uniform, not solved.
+
+**Decisions (user-approved):**
+- **A second strategy, not a replacement.** `Chunking:Strategy` selects `Markdown` (the original,
+  untouched) or `Linearized`; each has its own `rag.<strategy>.db` and `chunk-review/<strategy>/`, so
+  switching needs no re-embed and both can be compared side by side. Tables the linearizer can't convert
+  fall back to the Markdown strategy's table code (reused, not copied). `Markdown` stays the default
+  until `Linearized` wins on the numbers.
+- **AngleSharp for HTML parsing.** Microsoft Learn names no preferred HTML parser: .NET has none built
+  in; the only Microsoft HTML DOM APIs are the IE-backed WinForms `HtmlDocument` and .NET-Framework-only
+  `System.Web.Razor.Parser.HtmlMarkupParser` ("not intended to be used directly"); MEDI still ships only
+  MarkItDown and Markdig readers (`10.9.0-preview`). Microsoft's own ASP.NET Core integration-testing docs
+  use AngleSharp to parse HTML. AngleSharp: .NET Foundation project (per its repo README and the
+  foundation's older project page; the current listing loads dynamically and couldn't be confirmed), MIT,
+  WHATWG-compliant parser; NuGet 1.8.2 (2026-09-18), targets net10.0 with no dependencies, no
+  vulnerability/deprecation flags. Pin 1.8.2 and run the vulnerable-package check when adding it.
+- **Inline XBRL as a test oracle only, not at runtime.** Using it to align columns would make the check
+  circular (verifying the linearizer with its own input). Design, to avoid the oracle's own heuristics:
+  - Label-free consistency: values the linearizer puts in the same column must share an XBRL context
+    (period + dimensions), values in different columns must not - no matching of header text to dates.
+  - Dimensions matter: 95-98% of contexts are dimensional (the equity statement's columns are
+    components, not periods).
+  - Report coverage next to accuracy - untagged (mostly MD&A) tables get no automatic check.
+  - Scope first to the five primary statements; a Python tool beside `replay_recall.py`.
+  - XBRL is also less filer-independent than it looks: 5-16% of facts use company extension concepts
+    (`ndaq:` 255, `orcl:` 186), the same idea maps to different concepts (revenue: `us-gaap:Revenues` at
+    NFLX, `RevenueFromContractWithCustomerExcludingAssessedTax` at MSFT/NDAQ, both at ORCL), and the tag
+    syntax varies by filing agent (NFLX lowercases its tags). Runtime XBRL (question -> concept lookup)
+    is a different, text-to-query project.
+
+**Steps:**
+1. Refactor: `IChunkingStrategy`, `Chunking:Strategy`, per-strategy index/dumps; the `Markdown` strategy's
+   output must be byte-identical to the committed dumps.
+   **Done (2026-09-24):** `MarkdownChunkingStrategy` holds the original convert/split/chunk code, moved
+   verbatim from `Program.IngestFilingAsync`; `Chunking:Strategy` binds to an enum (a typo fails at load);
+   the manifest records the strategy; dumps moved to `chunk-review/markdown/` with `git mv`. Verified: 141/141
+   tests (two new: strategy change detected by the manifest, misspelled strategy fails at load); a fresh
+   `rag.markdown.db` build regenerated all four dumps **byte-identical to HEAD** (git blob hashes) - 1,440
+   chunks; `replay_recall.py` (now taking the index path) 22/22; the full 24-question run's answers and
+   filter lines identical, word for word, to the pre-refactor 24/24 run. The old single `rag.db` was
+   deleted.
+2. Spike (no pipeline change): standalone linearizer over all four filings, reporting coverage, the XBRL
+   consistency check, token impact, and samples of the hard cases (MSFT no-`colspan`, NFLX `colspan`,
+   multi-row equity headers, negatives, percentages). **Check-in: go/no-go on the numbers.**
+3. `Linearized` strategy: HTML pre-pass -> `markitdown` -> sections -> row-atomic chunks with a repeated
+   title/units line; fallback tables via the existing table code.
+4. Verify both strategies side by side: unit tests from real rows of each filer, the StatementType
+   transition check, `replay_recall.py`, the full 24-question run, reading the dumps.
+5. Decision-Log outcome, README, plan.
+
+## Follow-up: embedding-model comparison — PLANNED, after linearization
+
+**Why not now.** Retrieval isn't what's failing: `replay_recall.py` has 22/22 answerable questions with
+the figure in the top-5 context, and every recent wrong answer had the right chunk in context. But a
+saturated in/out-of-top-5 metric can't show a better embedder as better - and `EmbeddingTextBuilder`'s
+row-label summary exists because sparse pipe tables embed poorly with `nomic-embed-text`, so there's
+plausibly headroom.
+
+**Order matters.** Linearization changes *what* gets embedded (self-contained rows read like the prose
+embedders are trained on), likely a bigger effect than the model, and the two interact - so compare
+embedders on both strategies, after linearization.
+
+**Steps:**
+1. Make the metric discriminating: `replay_recall.py` reports the rank of the first chunk containing the
+   expected figure - recall@1, recall@3, MRR - not only in/out of the top 5.
+2. Make the embedder swappable: the query/document templates (today `search_query: ` /
+   `search_document: ` in `RagAnswerService` and `BuildRecords`) and the vector dimension (today
+   `[VectorStoreVector(dimensions: 768)]` on `FilingChunkRecord`) move to settings beside
+   `Ollama:EmbeddingModel`; `replay_recall.py` reads them instead of hardcoding nomic and `768f`. The
+   manifest already refuses an index built with a different embedding model. A wrong template fails
+   silently (worse retrieval, no error) - add it to Live constraints once it's configurable.
+3. Index per combination (e.g. `rag.<strategy>.<embedder>.db`) so every combination stays built.
+4. Compare `nomic-embed-text` (baseline) vs `qwen3-embedding:0.6b` vs `embeddinggemma` on both strategies:
+   the rank metrics, then the full 24-question run for the best candidates. Record embed time too - it's
+   CPU-only.
+
+**Candidate facts** (checked against each model's Hugging Face card, 2026-09-24 - don't re-derive):
+
+| Model | Query template | Document template | Max tokens | Dim |
+|---|---|---|---|---|
+| `nomic-embed-text` v1.5 (current) | `search_query: {q}` | `search_document: {d}` | 2048 native, scalable to 8192 | 768 |
+| `nomic-embed-text-v2-moe` | `search_query: {q}` | `search_document: {d}` | **512** | not checked |
+| `qwen3-embedding:0.6b` | `Instruct: {task}` + newline + `Query: {q}` | none | 32K | up to 1024 |
+| `embeddinggemma` (300M) | `task: search result \| query: {q}` | `title: none \| text: {d}` | 2048 | 768 |
+| `mxbai-embed-large` (335M) | `Represent this sentence for searching relevant passages: {q}` | none | 512 (Ollama's model page) | not stated |
+
+- Nomic's card makes the prefix mandatory ("the text prompt *must* include a task instruction prefix").
+  Qwen's says omitting the query instruction costs ~1-5% - a wrong template degrades silently, never errors.
+- **Excluded for now: 512-token models** (`nomic-embed-text-v2-moe`, `mxbai-embed-large`). Current chunks
+  reach ~800 cl100k tokens, more under other tokenizers, so table rows would be silently truncated.
+  Reconsider only with smaller linearized chunks.
+- Qwen3 4b/8b are impractical for a ~10-minute CPU-only build; 0.6b is already ~4x nomic's size.

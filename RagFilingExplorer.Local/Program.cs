@@ -1,7 +1,6 @@
 using CommunityToolkit.VectorData.SqliteVec;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.VectorData;
-using Microsoft.ML.Tokenizers;
 using OllamaSharp;
 using RagFilingExplorer.Local;
 using RagFilingExplorer.Local.Chunking;
@@ -27,9 +26,14 @@ static async Task RunAsync(string[] args)
     AppSettings settings = LoadSettings();
 
     DirectoryInfo repoRoot = RepoPaths.FindRoot(AppContext.BaseDirectory);
-    string dbPath = Path.Combine(repoRoot.FullName, "rag.db");
+
+    // Each chunking strategy has its own index and chunk dumps, so switching Chunking:Strategy back and
+    // forth never forces a re-embed - see IChunkingStrategy.
+    string strategyName = ChunkingStrategies.FileName(settings.Chunking.Strategy);
+    string dbPath = Path.Combine(repoRoot.FullName, $"rag.{strategyName}.db");
     string manifestPath = dbPath + ".manifest.json";
     bool verbose = args.Contains("--verbose");
+    Console.WriteLine($"Chunking strategy: {settings.Chunking.Strategy} (index: {Path.GetFileName(dbPath)})");
 
     DirectoryInfo dataDirectory = new(Path.Combine(repoRoot.FullName, "data"));
     FileInfo[] filings = dataDirectory.Exists ? dataDirectory.GetFiles("*.html").OrderBy(f => f.Name).ToArray() : [];
@@ -60,7 +64,7 @@ static async Task RunAsync(string[] args)
     }
     else
     {
-        // A manifest without its rag.db (e.g. the .db was deleted by hand) must not vouch for the next one.
+        // A manifest without its index (e.g. the .db was deleted by hand) must not vouch for the next one.
         DeleteIndexFiles(dbPath, manifestPath);
     }
 
@@ -76,16 +80,16 @@ static async Task RunAsync(string[] args)
     {
         try
         {
-            await BuildIndexAsync(collection, settings, filings, Path.Combine(repoRoot.FullName, "chunk-review"));
+            await BuildIndexAsync(collection, settings, filings, Path.Combine(repoRoot.FullName, "chunk-review", strategyName));
         }
         catch (Exception ex)
         {
             throw new StartupException(
-                $"Building the index failed: {ex.Message}\nThe partial rag.db has no manifest, so it won't be used - "
+                $"Building the index failed: {ex.Message}\nThe partial {Path.GetFileName(dbPath)} has no manifest, so it won't be used - "
                 + "fix the problem above and run again with --rebuild.", ex);
         }
 
-        // Written last, only once every chunk is in: its presence is what marks rag.db as complete.
+        // Written last, only once every chunk is in: its presence is what marks the index as complete.
         currentManifest.Save(manifestPath);
     }
 
@@ -156,7 +160,7 @@ static async Task EnsureOllamaReadyAsync(OllamaApiClient client, OllamaSettings 
     }
 }
 
-// An existing rag.db is only trusted if it has a manifest (written only after a build finishes) that
+// An existing index is only trusted if it has a manifest (written only after a build finishes) that
 // matches the current settings and filings - see IndexManifest for the two failure modes this closes.
 static void EnsureIndexIsCurrent(string dbPath, string manifestPath, IndexManifest currentManifest)
 {
@@ -204,7 +208,7 @@ static async Task<bool> ChatModelSupportsThinkingAsync(OllamaApiClient client, s
     return info.Capabilities?.Contains("thinking") ?? false;
 }
 
-// ===== Index building (chunking + embedding), skipped when rag.db already exists =====
+// ===== Index building (chunking + embedding), skipped when the strategy's index already exists =====
 
 static async Task BuildIndexAsync(
     VectorStoreCollection<int, FilingChunkRecord> collection, AppSettings settings, FileInfo[] filings, string reviewDirectoryPath)
@@ -212,14 +216,12 @@ static async Task BuildIndexAsync(
     DirectoryInfo reviewDirectory = new(reviewDirectoryPath);
     reviewDirectory.Create();
 
-    Tokenizer tokenizer = TiktokenTokenizer.CreateForModel(settings.Chunking.TokenizerModel);
-    int maxTokensPerChunk = settings.Chunking.MaxTokensPerChunk;
-    int overlapTokens = settings.Chunking.OverlapTokens;
+    IChunkingStrategy strategy = ChunkingStrategies.Create(settings.Chunking);
 
     List<FilingChunk> allChunks = new();
     foreach (FileInfo filing in filings)
     {
-        allChunks.AddRange(await IngestFilingAsync(filing, tokenizer, maxTokensPerChunk, overlapTokens, reviewDirectory));
+        allChunks.AddRange(await IngestFilingAsync(filing, strategy, reviewDirectory));
     }
 
     Console.WriteLine("=== Vector storage ===");
@@ -230,22 +232,11 @@ static async Task BuildIndexAsync(
 }
 
 // Converts one filing to chunks, prints its section/chunk stats, and writes its chunk-review dump.
-static async Task<List<FilingChunk>> IngestFilingAsync(
-    FileInfo filing, Tokenizer tokenizer, int maxTokensPerChunk, int overlapTokens, DirectoryInfo reviewDirectory)
+static async Task<List<FilingChunk>> IngestFilingAsync(FileInfo filing, IChunkingStrategy strategy, DirectoryInfo reviewDirectory)
 {
     Console.WriteLine($"=== {filing.Name} ===");
 
-    string raw = await MarkItDownConverter.ConvertAsync(filing);
-    List<DocumentSection> sections = SectionSplitter.Split(raw);
-
-    List<FilingChunk> chunks = new();
-    foreach (DocumentSection section in sections)
-    {
-        foreach ((string content, int tokens) in TokenChunker.Chunk(section.Body, tokenizer, maxTokensPerChunk, overlapTokens))
-        {
-            chunks.Add(new FilingChunk(filing.Name, section.Heading, content, tokens));
-        }
-    }
+    (List<DocumentSection> sections, List<FilingChunk> chunks) = await strategy.ChunkAsync(filing);
 
     int[] tokenCounts = chunks.Select(c => c.Tokens).ToArray();
     Console.WriteLine($"Sections detected: {sections.Count}");

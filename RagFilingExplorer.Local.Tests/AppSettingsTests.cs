@@ -1,4 +1,5 @@
 using Microsoft.Extensions.AI;
+using RagFilingExplorer.Local.Chunking;
 
 namespace RagFilingExplorer.Local.Tests;
 
@@ -33,6 +34,7 @@ public class AppSettingsTests
 
         Assert.That(settings.Ollama.ChatModel, Is.Not.Empty);
         Assert.That(settings.Retrieval.ReasoningEffort, Is.EqualTo(ReasoningEffort.Medium), "enum binds from its name");
+        Assert.That(settings.Chunking.Strategy, Is.EqualTo(ChunkingStrategyKind.Markdown), "enum binds from its name");
     }
 
     [Test]
@@ -40,9 +42,10 @@ public class AppSettingsTests
     {
         string[] keys = AppSettings.RequiredConfigurationKeys().ToArray();
 
-        Assert.That(keys, Has.Length.EqualTo(14));
+        Assert.That(keys, Has.Length.EqualTo(15));
         Assert.That(keys, Does.Contain("Ollama:ChatModel"));
         Assert.That(keys, Does.Contain("Retrieval:ReasoningEffort"));
+        Assert.That(keys, Does.Contain("Chunking:Strategy"));
         Assert.That(keys, Does.Not.Contain("Ollama"), "a section is not a leaf key");
     }
 
@@ -61,9 +64,8 @@ public class AppSettingsTests
     [Test]
     public void Load_ZeroValuedKeys_AreNotMistakenForMissing()
     {
-        WriteTempSettings(ShippedJson()
-            .Replace("\"OverlapTokens\": 50", "\"OverlapTokens\": 0")
-            .Replace("\"ChatTemperature\": 0.2", "\"ChatTemperature\": 0"));
+        // ChatTemperature already ships as 0, so the shipped value itself is the zero case for it.
+        WriteTempSettings(ShippedJson().Replace("\"OverlapTokens\": 50", "\"OverlapTokens\": 0"));
 
         AppSettings settings = AppSettings.Load(_tempDirectory);
 
@@ -75,6 +77,14 @@ public class AppSettingsTests
     public void Load_MisspelledReasoningEffort_FailsAtLoadTime()
     {
         WriteTempSettings(ShippedJson().Replace("\"ReasoningEffort\": \"Medium\"", "\"ReasoningEffort\": \"Medum\""));
+
+        Assert.Throws<InvalidOperationException>(() => AppSettings.Load(_tempDirectory));
+    }
+
+    [Test]
+    public void Load_MisspelledChunkingStrategy_FailsAtLoadTime()
+    {
+        WriteTempSettings(ShippedJson().Replace("\"Strategy\": \"Markdown\"", "\"Strategy\": \"Markdwon\""));
 
         Assert.Throws<InvalidOperationException>(() => AppSettings.Load(_tempDirectory));
     }

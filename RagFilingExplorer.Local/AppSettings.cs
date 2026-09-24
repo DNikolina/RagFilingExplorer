@@ -1,6 +1,7 @@
 using System.Reflection;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
+using RagFilingExplorer.Local.Chunking;
 
 namespace RagFilingExplorer.Local;
 
@@ -82,6 +83,10 @@ internal sealed class OllamaSettings
 
 internal sealed class ChunkingSettings
 {
+    // Which IChunkingStrategy builds the index - bound straight to the enum, so a typo fails at startup.
+    // Each strategy has its own rag.<strategy>.db and chunk-review/<strategy>/, so switching is instant
+    // once both have been built.
+    public required ChunkingStrategyKind Strategy { get; set; }
     public required string TokenizerModel { get; set; }
     public required int MaxTokensPerChunk { get; set; }
     public required int OverlapTokens { get; set; }

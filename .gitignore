@@ -1,8 +1,13 @@
 bin/
 obj/
 
-# Persisted vector store (Step 4 follow-up) - generated, derived entirely from data/, can grow large.
+# Persisted vector stores (Step 4 follow-up), one per chunking strategy (rag.<strategy>.db) - generated,
+# derived entirely from data/, can grow large. rag.db* covers the pre-strategy single index.
 rag.db
 rag.db-shm
 rag.db-wal
 rag.db.manifest.json
+rag.*.db
+rag.*.db-shm
+rag.*.db-wal
+rag.*.db.manifest.json

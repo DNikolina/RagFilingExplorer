@@ -18,9 +18,11 @@ public class IndexManifestTests
     public void TearDown() => Directory.Delete(_tempDirectory, recursive: true);
 
     private static IndexManifest Make(
-        string embeddingModel = "nomic-embed-text", int maxTokens = 500, int overlap = 50, SortedDictionary<string, string>? hashes = null) => new()
+        string embeddingModel = "nomic-embed-text", int maxTokens = 500, int overlap = 50, SortedDictionary<string, string>? hashes = null,
+        string strategy = "Markdown") => new()
     {
         EmbeddingModel = embeddingModel,
+        ChunkingStrategy = strategy,
         TokenizerModel = "gpt-4",
         MaxTokensPerChunk = maxTokens,
         OverlapTokens = overlap,
@@ -52,6 +54,17 @@ public class IndexManifestTests
         Assert.That(differences, Has.Count.EqualTo(2));
         Assert.That(differences, Has.Some.Contain("Chunking:MaxTokensPerChunk"));
         Assert.That(differences, Has.Some.Contain("Chunking:OverlapTokens"));
+    }
+
+    // Each strategy has its own index file, but one renamed or copied by hand must not answer silently
+    // from the other strategy's chunks.
+    [Test]
+    public void DescribeDifferences_ChunkingStrategyChanged_IsReported()
+    {
+        List<string> differences = Make().DescribeDifferences(Make(strategy: "Linearized"));
+
+        Assert.That(differences, Has.Count.EqualTo(1));
+        Assert.That(differences[0], Does.Contain("Chunking:Strategy").And.Contain("Linearized"));
     }
 
     [Test]
