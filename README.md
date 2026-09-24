@@ -127,9 +127,10 @@ a one-line settings change with no re-embedding - which is what makes side-by-si
   2026: $133,812 | 2025: $104,075") by `HtmlTableLinearizer`, working from the HTML because `markitdown`
   discards `colspan`. A split table repeats its statement title, units and period caption on every piece.
   A table it can't linearize unambiguously - or would lose any cell text from - falls back to the
-  Markdown handling. 994 chunks vs 1,440; ties `Markdown` on the current test questions (see
-  [docs/Decision-Log.md](docs/Decision-Log.md), "linearized tables", for the numbers and why that tie
-  doesn't settle which is better yet).
+  Markdown handling. 994 chunks vs 1,440. Ties `Markdown` on the original 24 questions; on 10 targeted
+  questions (mid-table rows, split layouts, MD&A/notes tables) it gets the answer into the model's
+  context for 7 vs 4 and answers 5 vs 4 correctly, with named trade-offs - see
+  [docs/Decision-Log.md](docs/Decision-Log.md), "targeted questions and a rank metric".
 
 Everything after chunking (statement-type tagging, embedding, retrieval, generation) is shared, so a
 strategy only has to implement `IChunkingStrategy`.
@@ -236,7 +237,9 @@ RagFilingExplorer.Local/                the app - chunking, retrieval, vector st
 RagFilingExplorer.Local.Tests/          NUnit + Moq test suite
 data/                                   source 10-K filings (HTML, from sec.gov/edgar)
 chunk-review/<strategy>/                full per-chunk text dumps, one file per filing, for manual review
-tools/                                  manual-question list + replay_recall.py (deterministic retrieval check)
+tools/                                  manual-question list; replay_recall.py (deterministic retrieval ranks);
+                                        LinearizeSpike + xbrl_column_check.py (table linearization + its XBRL check)
+.claude/                                Claude Code config: filer-onboarding-checker subagent, test-convention rule
 docs/Implementation_Plan.md             current-state reference: ground rules, pipeline, live constraints
 docs/Decision-Log.md                    the full build history: every step, decision point, and debugging path
 docs/Manual-Test-Questions.md           a broader question set for manual retrieval-quality testing

@@ -1283,3 +1283,91 @@ embedders on both strategies, after linearization.
   reach ~800 cl100k tokens, more under other tokenizers, so table rows would be silently truncated.
   Reconsider only with smaller linearized chunks.
 - Qwen3 4b/8b are impractical for a ~10-minute CPU-only build; 0.6b is already ~4x nomic's size.
+
+## Follow-up: targeted questions and a rank metric - Markdown vs Linearized — DONE, outcome below
+
+**Why.** The 24-question set was saturated on both strategies (22/22 replay, 24/24 answers), written and
+debugged against Markdown, and almost all headline totals - it couldn't tell the strategies apart. Two
+additions, both in `tools/`:
+- **Rank metric** in `replay_recall.py`: recall@1/@3/@5 and MRR per question group (Q1-Q24, T1-T10,
+  R1-R2), from the rank of the first chunk holding the expected figure(s).
+- **12 new questions** (`tools/manual-questions.txt` lines 25-36; expected answers, traps and sources in
+  `docs/Manual-Test-Questions.md`): T1-T10 aimed at what linearization claims to fix - mid-table rows,
+  split layouts, MD&A/notes tables - and R1-R2, routing tests whose keyword route excludes every chunk
+  holding the answer. Each expected figure was confirmed present in both strategies' dumps, and each
+  question's route was taken from the real `QueryIntentResolver` (run via reflection), not predicted -
+  predicting had already been wrong once (T10).
+
+**Before trusting the tools:** the rank metric reproduced the earlier recall@5 22/22 on both indexes. A
+parsing bug surfaced mid-analysis: the model once wrote an answer line as a Markdown blockquote ("> Share
+repurchase program - ..."), which the replay read as a question prompt, shifting every later question
+onto the wrong log block (T9 appeared to run unfiltered). Fixed: a block counts as a question only if it
+opens with the filter line or the retrieved-chunks header. Temperature 0 held: the Q1-Q24 answers of
+both strategies were identical to their previous runs.
+
+**Results (both indexes, 36 questions, temperature 0; filter lines identical between strategies):**
+
+| Retrieval | Markdown | Linearized |
+|---|---|---|
+| Q1-Q24: recall@1 / @3 / @5, MRR | 12 / 19 / 22 of 22, 0.714 | 14 / 21 / 22 of 22, 0.784 |
+| **T1-T10: recall@1 / @3 / @5, MRR** | 3 / 4 / **4** of 10, 0.391 | 3 / 5 / **7** of 10, 0.463 |
+| R1-R2 | 0/2 | 0/2 |
+
+| Answer | Markdown | Linearized |
+|---|---|---|
+| T1 MSFT OCI FY25 ($2,243M) | right, but *computed* as CI minus NI ("not explicitly stated") | right, read from the row |
+| T2 MSFT Q2 FY25 repurchases ($3,500M) | declined (rank >25) | **right** |
+| T3 NFLX T&D change (+16%) | declined (rank 16) | declined (rank 8) |
+| T4 ORCL FY28 operating leases ($3,603M) | right (rank 2) | **declined (rank 18)** |
+| T5 MSFT U.S. govt securities ($48,562M) | **wrong: $19,100M** - another table's "government and agency" row | declined |
+| T6 NDAQ FinTech goodwill ($7,952M) | declined (rank 25) | **wrong: $5,933M** - the Adenza acquisition's goodwill, with the right chunk at rank 1 |
+| T7 MSFT Ireland rate effect ((2.6)%) | right | right |
+| T8 NDAQ Nov 2025 avg price ($91.47) | declined (rank 6) | **right** |
+| T9 ORCL FY25 dividends ($4,743M) | wrong year | wrong year ($5,725M is FY26) |
+| T10 NFLX 2024 hedge reclass ($(96,795)K) | right | right |
+| **T1-T10** | **4 right, 4 declined, 2 wrong** | **5 right, 3 declined, 2 wrong** |
+| R1-R2 | declined | declined |
+
+Every wrong answer or decline in the Markdown run had the answer outside the top 5 - these questions
+test retrieval, as intended.
+
+**Reading it critically.** Linearized's retrieval advantage is now visible on the class of question it
+was built for (7 vs 4 of 10 in the model's context) and slightly on the original set. The answer gain is
++1 of 10 - within noise at this size - because one regression and one generation error offset it:
+- **T4 - a real trade-off of denser chunks.** Linearized rows are compact, so one 500-token chunk now
+  holds two small ORCL tables (supplemental lease cash flows *and* lease maturities); the mixed chunk
+  embeds as the former and ranks 18th. In Markdown the maturities table was its own chunk, caption first.
+- **T6 - generation, not retrieval.** The right chunk ranked first; `llama3.1:8b` took a similar-looking
+  goodwill figure from an acquisition table instead. Better retrieval can't fix that.
+- Wrong answers are 2 each; the Markdown ones are confident misreads of other tables (T5) - Linearized
+  declined there instead.
+
+**Decision (user): record both strategies with this comparison and stop; `Markdown` stays the default.**
+The project was one manual pass away from done before this work; each further round adds scope. The
+comparison itself - a measured, modest retrieval gain for tables, with the trade-offs named - is the
+result.
+
+**Known, not fixed (follow-ups if the work resumes):**
+- **Roll-forward period gap (both strategies, T9).** An equity roll-forward row doesn't carry its fiscal
+  year - it's implied by the "Balances as of May 31, 20xx" row above it. Possible fix: treat such balance
+  rows as period markers and put the period on the following rows.
+- **Table mixing in Linearized chunks (T4).** Possible fix: a row block never shares a chunk with another
+  table block (costs chunk count; measure with the replay).
+- **Keyword routing is substring matching over a hard filter.** "Deferred revenues" contains "revenues"
+  and routes to the income statement, so R1 can never find the balance-sheet figure; "operating income"
+  does the same for segment tables (R2). Colliding keywords silently drop the filter instead: "cash flow
+  hedge" contains "cash flow", so T10 ran with no statement filter. The statement filter is also coarse -
+  93% (Markdown) / 95% (Linearized) of chunks are `narrative`. Considered, measured, not built: a soft
+  filter (filtered + company-wide results merged), and hybrid keyword + vector search - `IKeywordHybridSearchable`
+  exists in MEVD, but `CommunityToolkit.VectorData.SqliteVec` 1.0.1-preview (the latest) doesn't
+  implement it; SQLite FTS5 does work in the app's SQLite (3.50.4, checked), so it would be an own FTS5
+  table plus rank fusion. Ollama has no rerank endpoint (checked in its API docs), so cross-encoder
+  reranking isn't available locally.
+- **Embedding-model comparison** (planned above) - deferred with the rest; its first step, the rank
+  metric, now exists.
+
+**Tooling added alongside (Claude Code, not the app):** `.claude/agents/filer-onboarding-checker.md`, a
+read-only subagent that runs the onboarding checklist on a new filing and reports PASS/FAIL with
+evidence (`omitClaudeMd: true` - it reads only the plan's Live constraints section instead of reloading
+~19 KB of CLAUDE.md + plan); and the test conventions moved from CLAUDE.md into the path-scoped
+`.claude/rules/testing.md`, loaded only when a test file is read.

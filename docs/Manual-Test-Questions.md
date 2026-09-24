@@ -170,3 +170,67 @@ model should say the context doesn't contain this information, **not** guess or 
 Negative test (repeat of Step 7's original out-of-scope check, kept here for completeness) - Apple
 isn't one of the filings in `data/`. Expected: an explicit "not in the provided context" style
 answer, not an answer from the model's own training knowledge.
+
+## Targeted questions (T1-T10) and routing tests (R1-R2) - added later
+
+T1-T10 aim at what the table-chunking work claims to fix - mid-table rows, split layouts, MD&A and notes
+tables - where the original questions are mostly headline totals. R1-R2 are *routing* tests: their
+keyword route (`QueryIntentResolver`) excludes every chunk holding the answer, so both miss by design
+until routing changes. Lines 25-36 of `tools/manual-questions.txt`; results for both chunking strategies
+are in Decision-Log.md, "targeted questions and a rank metric". "Traps" are the nearby figures a wrong
+answer tends to pick. "Filter" is the route the real resolver takes (checked, not predicted).
+
+**T1. What was Microsoft's other comprehensive income for fiscal year 2025?**
+Expected: **$2,243 million**. Traps: 63 (FY2026), 753 (FY2024), 104,075 (comprehensive income).
+Source: `MSFT-10K-2026.chunks.txt:2009`. Filter: `MSFT-10K-2026.html`, `comprehensive_income`.
+Reading it off the row counts; computing it as comprehensive income minus net income means the row wasn't found.
+
+**T2. How much did Microsoft spend repurchasing its shares in the second quarter of fiscal year 2025?**
+Expected: **$3,500 million** (8 million shares). Traps: 5,964 (Q2 FY2026), 2,800 (Q2 FY2024).
+Source: `MSFT-10K-2026.chunks.txt:4976` (the year row sits *below* Shares/Amount in the HTML). Filter: `MSFT-10K-2026.html` only.
+
+**T3. By what percentage did Netflix's technology and development expenses change in 2025 compared to 2024?**
+Expected: **+16%** (+$466,095 thousand). Traps: the raw totals 3,391,390 / 2,925,295.
+Source: `NFLX-10K-2025.chunks.txt:1005` (MD&A, an amount / % pair under one header). Filter: `NFLX-10K-2025.html` only (flagged as a synthesis question - "compared").
+
+**T4. How much are Oracle's operating lease payments due in fiscal 2028?**
+Expected: **$3,603 million**. Trap: 676 (finance leases).
+Source: `ORCL-10K-2026.chunks.txt:3967`. Filter: `ORCL-10K-2026.html` only.
+
+**T5. What was the recorded basis of Microsoft's U.S. government securities as of June 30, 2026?**
+Expected: **$48,562 million**. Traps: 51,487 (the June 30, 2025 table), 49,714 (adjusted cost basis),
+19,100 (a different table's "U.S. government and agency securities" row).
+Source: `MSFT-10K-2026.chunks.txt:2752`. Filter: `MSFT-10K-2026.html` only.
+
+**T6. What was the goodwill balance of Nasdaq's Financial Technology segment at December 31, 2025?**
+Expected: **$7,952 million**. Traps: 4,285 / 2,134 (other segments), 14,371 (total), 5,933 (goodwill
+recognized in the Adenza acquisition, also "assigned to" Financial Technology).
+Source: `NDAQ-10K-2025.chunks.txt:15709`. Filter: `NDAQ-10K-2025.html` only.
+
+**T7. What was the effect of the Ireland statutory tax rate difference on Microsoft's effective tax rate in fiscal year 2026?**
+Expected: **(2.6)%** - a $4,301 million reduction. Trap: 21.0% (federal statutory rate).
+Source: `MSFT-10K-2026.chunks.txt:4471`. Filter: `MSFT-10K-2026.html` only.
+
+**T8. What average price per share did Nasdaq pay for shares it repurchased in November 2025?**
+Expected: **$91.47** (760,264 shares). Traps: 88.59 (October), 89.24 (December), 89.40 (quarter).
+Source: `NDAQ-10K-2025.chunks.txt:7781`. Filter: `NDAQ-10K-2025.html` only.
+
+**T9. According to Oracle's statement of stockholders' equity, how much in common stock dividends did Oracle declare in fiscal 2025?**
+Expected: **$4,743 million** ($1.70 per share). Traps: 4,391 (FY2024), 5,725 (FY2026).
+Source: `ORCL-10K-2026.chunks.txt:2654`. Filter: `ORCL-10K-2026.html`, `equity_statement`.
+A known gap in both strategies: a roll-forward row doesn't state its fiscal year - it follows only from
+the "Balances as of May 31, 2024" row above it.
+
+**T10. In Netflix's statement of comprehensive income, how much in cash flow hedge gains was reclassified in 2024?**
+Expected: **$(96,795) thousand** - net gains of about $96.8 million. Traps: 68,962 (2025), 7,113 (fair
+value hedges, 2024). Source: `NFLX-10K-2025.chunks.txt:1596`. Filter: `NFLX-10K-2025.html` only - "cash
+flow hedge" contains the cash-flow-statement keyword, so the two statement keywords collide and the
+statement filter is dropped.
+
+**R1. What were Oracle's current deferred revenues as of May 31, 2026?** (routing test)
+Expected: **$9,916 million**. Source: `ORCL-10K-2026.chunks.txt:2433` (balance sheet). Filter:
+`ORCL-10K-2026.html`, `income_statement` - "revenues" routes it there, where the figure doesn't exist.
+
+**R2. What was the operating income of Nasdaq's Capital Access Platforms segment in 2025?** (routing test)
+Expected: **$1,274 million**. Source: `NDAQ-10K-2025.chunks.txt:18805` (segment note). Filter:
+`NDAQ-10K-2025.html`, `income_statement` - "operating income" routes it away from the segment note.

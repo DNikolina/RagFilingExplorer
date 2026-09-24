@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; 24/24 manual questions (both strategies); 159 offline unit tests |
+| 7. Testing | Done — 6/6 on the Step 7 questions; 24/24 manual questions (both strategies); targeted T1-T10: Markdown 4, Linearized 5 right; 159 offline unit tests |
 | 8. Publish | README written; **push on hold** until the user's manual pass (`docs/Manual-Test-Questions.md`) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, the project is
@@ -60,17 +60,16 @@ figure in the top-5 context on both (deterministic, no LLM - see its header); 15
 answer can be attributed to a code change rather than sampling. Details in Decision-Log.md, "trailing
 remainders, per-company search, table-piece headers".
 
-**In progress / planned** (the user chose to do these before the manual pass and push; details and
-decisions in Decision-Log.md):
-- **Linearized tables as a second chunking strategy** - built and verified: `Chunking:Strategy` =
-  `Linearized` gives 994 chunks vs 1,440, 22/22 replay and 24/24 answers - a tie with `Markdown`, which
-  stays the default. Next: a rank metric in `replay_recall.py` plus ~10 targeted questions (mid-table
-  figures, MD&A tables) run on both, then decide the default. Known, not fixed: group-label scope (a
-  group only closes at "Total ..."); measure first with indentation as a test oracle if pursued.
-- **Embedding-model comparison, after linearization** - rank-based replay metric first, then
-  `nomic-embed-text` vs `qwen3-embedding:0.6b` vs `embeddinggemma` on both strategies.
+**Chunking strategies - done, recorded (2026-09-24):** `Markdown` (default) and `Linearized` both ship
+and are switchable. Compared on 10 targeted questions plus 2 routing tests: Linearized puts the answer in
+the model's context for 7/10 vs 4/10, answers 5 vs 4 right, 2 wrong each. The user chose to record this
+and stop; `Markdown` stays the default. Follow-ups (roll-forward periods, table mixing, soft filter /
+hybrid search, embedding-model comparison) are listed, not planned - Decision-Log.md, "targeted
+questions and a rank metric". **Next: the user's manual pass, then push.**
 
-**Known, not planned:** chunks routinely exceed the 500-token budget (up to ~800 for NFLX's widest
+**Known, not planned:** statement routing is keyword *substring* matching over a hard filter - "deferred
+revenues" routes to the income statement and can't reach the balance sheet (R1); colliding keywords
+drop the filter ("cash flow hedge", T10). Chunks routinely exceed the 500-token budget (up to ~800 for NFLX's widest
 tables) - rows and blocks are counted separately, without the separators joining them. Well inside
 nomic-embed-text's context, so harmless in practice; the budget is approximate by design.
 
