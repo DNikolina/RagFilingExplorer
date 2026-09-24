@@ -48,18 +48,17 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — now SqliteVec-persisted (`rag.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; 127 offline unit tests |
+| 7. Testing | Done — 6/6 on the Step 7 questions; 24/24 manual questions; 139 offline unit tests |
 | 8. Publish | README written; **push on hold** until the user's manual pass (`docs/Manual-Test-Questions.md`) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, the project is
 complete. Report that clearly and stop — nothing further is assumed or owed.
 
-**Next up** (see Decision-Log.md, "equity routing and title captions"):
-- Short trailing remainders - statement footers ("See accompanying notes..."), one-line footnotes - end
-  up as tiny chunks of their own and take top-5 slots (rank 1 for all five NFLX statement questions),
-  wasting context. Merge them into the preceding chunk of the same section. Needs a rebuild.
-- Comparison questions naming 2+ companies run unfiltered, sharing 5 slots across all filings (Q20 lost
-  ORCL's revenue chunk to rank 10). Run one company-filtered search per named company and merge.
+**Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
+expected; `tools/replay_recall.py` 22/22 answerable questions with the figure in the top-5 context
+(deterministic, no LLM - see its header); 139 unit tests. `Retrieval.ChatTemperature` is 0 so a changed
+answer can be attributed to a code change rather than sampling. Details in Decision-Log.md, "trailing
+remainders, per-company search, table-piece headers". Next: the user's manual pass, then push.
 
 **Known, not planned:** chunks routinely exceed the 500-token budget (up to ~800 for NFLX's widest
 tables) - rows and blocks are counted separately, without the separators joining them. Well inside
@@ -75,12 +74,14 @@ data/*.html
   → SectionSplitter       "PART I > Item 1. Business" heading paths from plain-text patterns;
                           a new section (same heading) at every statement title / Notes boundary
   → TokenChunker          ~500-token chunks (cl100k), 50 overlap; tables atomic, headers +
-                          row-group labels repeated across splits; a short lead-in (title,
-                          "(in millions)") rides on an oversized table's first piece
+                          fiscal-period row + in-force row-group label repeated across
+                          splits; a short lead-in (title, "(in millions)") rides on an
+                          oversized table's first piece, a short footer on its last
   → BuildRecords          StatementType tagged by carrying the last statement title forward,
                           reset at "Notes to Financial Statements" and on filing change
   → SqliteVec rag.db      nomic-embed-text, "search_document:" prefix, EmbeddingTextBuilder text
-  → RagAnswerService      QueryIntentResolver filter (company + statement type) → top-K search →
+  → RagAnswerService      QueryIntentResolver filter (company + statement type) → top-K search
+                          (one per company, interleaved, when 2+ are named) →
                           citation prompt → llama3.1:8b (reasoning only for synthesis questions
                           on a model that reports the "thinking" capability)
 ```

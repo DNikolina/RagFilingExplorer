@@ -83,6 +83,92 @@ public class TokenChunkerTests
     }
 
     [Test]
+    public void OversizedTable_RepeatsPeriodRow_EvenBelowALabelOnlyUnitsRow()
+    {
+        // MSFT's layout: "(In millions)" has text in the first cell only, so it reads as a row-group
+        // label and used to end the header scan - dropping "Year Ended June 30, ... 2026 ... 2025" from
+        // every piece after the first, so the comprehensive income total reached the model without years.
+        const string header1 = "|  |  |  |";
+        const string header2 = "| --- | --- | --- |";
+        const string units = "| (In millions) |  |  |";
+        const string period = "| Year Ended June 30, | 2026 | 2025 |";
+        List<string> dataRows = Enumerable.Range(1, 6).Select(i => $"| Line item {i} | $ 1,00{i} | $ 90{i} |").ToList();
+
+        string table = string.Join('\n', new[] { header1, header2, units, period }.Concat(dataRows));
+        int headerTokens = _tokenizer.CountTokens(string.Join('\n', header1, header2, units, period));
+        int maxTokens = headerTokens + 2 * dataRows.Max(r => _tokenizer.CountTokens(r));
+
+        List<(string Content, int Tokens)> chunks = TokenChunker.Chunk(table, _tokenizer, maxTokens, overlapTokens: 0);
+
+        Assert.That(chunks, Has.Count.GreaterThan(1));
+        foreach ((string content, _) in chunks)
+        {
+            Assert.That(content, Does.Contain(period), "every split piece must keep the fiscal-period row");
+        }
+    }
+
+    [TestCase(2)]
+    [TestCase(3)]
+    [TestCase(4)]
+    public void OversizedTable_EveryRowSitsUnderItsOwnRowGroupLabel(int rowsPerPiece)
+    {
+        // NFLX's comprehensive income statement: the label repeated at a piece's top used to be read when
+        // the piece was emitted - i.e. the piece's own *last* label ("Fair value hedges:" heading the cash
+        // flow hedge rows, "Cash flow hedges:" above Net income) - and was never closed by a total, so
+        // "Comprehensive income" came out under "Fair value hedges:". Checked as an invariant at several
+        // budgets rather than against one exact set of split points.
+        const string header1 = "| Item | 2025 | 2024 |";
+        const string header2 = "| --- | --- | --- |";
+        const string cashFlowLabel = "| Cash flow hedges: |  |  |";
+        const string fairValueLabel = "| Fair value hedges: |  |  |";
+        (string Row, string? Label)[] body =
+        {
+            ("| Net income | $ 10,981 | $ 8,711 |", null),
+            (cashFlowLabel, null),
+            ("| Net unrealized gains | $ 1,071 | $ 921 |", cashFlowLabel),
+            ("| Reclassification of net gains | $ 6,896 | $ 9,679 |", cashFlowLabel),
+            ("| Net change | $ 1,002 | $ 8,244 |", cashFlowLabel),
+            (fairValueLabel, null),
+            ("| Net change excluded | $ 9,838 | $ 7,113 |", fairValueLabel),
+            ("| Total other comprehensive loss | $ 9,425 | $ 5,861 |", fairValueLabel),
+            ("| Comprehensive income | $ 10,038 | $ 9,297 |", null),
+        };
+
+        string table = string.Join('\n', new[] { header1, header2 }.Concat(body.Select(b => b.Row)));
+        int headerTokens = _tokenizer.CountTokens(header1 + "\n" + header2);
+        int maxRowTokens = body.Max(b => _tokenizer.CountTokens(b.Row));
+        int maxTokens = headerTokens + rowsPerPiece * maxRowTokens;
+
+        List<(string Content, int Tokens)> chunks = TokenChunker.Chunk(table, _tokenizer, maxTokens, overlapTokens: 0);
+
+        Assert.That(chunks, Has.Count.GreaterThan(1));
+        foreach ((string content, _) in chunks)
+        {
+            string? labelAbove = null;
+            foreach (string line in content.Split('\n'))
+            {
+                if (line == cashFlowLabel || line == fairValueLabel)
+                {
+                    labelAbove = line;
+                    continue;
+                }
+
+                int index = Array.FindIndex(body, b => b.Row == line);
+                if (index >= 0)
+                {
+                    Assert.That(labelAbove, Is.EqualTo(body[index].Label), $"wrong label above '{line}' in piece:\n{content}");
+                }
+
+                // Read the piece the way the chunker groups rows: a total closes the group above it.
+                if (line.StartsWith("| Total", StringComparison.Ordinal))
+                {
+                    labelAbove = null;
+                }
+            }
+        }
+    }
+
+    [Test]
     public void ContentFreeTable_ProducesNoChunks()
     {
         // A purely decorative table (e.g. a bordered blank-cell divider) - every row has nothing left
@@ -180,6 +266,50 @@ public class TokenChunkerTests
         Assert.That(chunks[0].Content, Does.Contain(subtitle).And.Contain("| Line item number 1 |"), "caption and first rows share a chunk");
         Assert.That(chunks.Skip(1).Select(c => c.Content), Has.None.Contain(title), "caption rides on the first piece only");
         Assert.That(chunks.Select(c => c.Tokens), Has.All.LessThanOrEqualTo(maxTokens), "the caption comes out of the first piece's row budget");
+    }
+
+    // Regression coverage for the tiny footer chunks: a statement's "See accompanying notes..." footer
+    // after its oversized table's last piece used to become a chunk of its own and took top-5 slots.
+    [Test]
+    public void ShortFooterAfterOversizedTable_IsAppendedToLastTablePiece()
+    {
+        const string footer = "See accompanying notes to consolidated financial statements.";
+        string body = string.Join("\n\n", BigTable(60), footer);
+
+        List<(string Content, int Tokens)> chunks = TokenChunker.Chunk(body, _tokenizer, maxTokens: 200, overlapTokens: 50);
+
+        Assert.That(chunks, Has.Count.GreaterThan(1));
+        Assert.That(chunks[^1].Content, Does.StartWith("| Item |").And.EndWith(footer), "footer rides on the last table piece");
+        Assert.That(chunks.Select(c => c.Content), Has.None.EqualTo(footer));
+        Assert.That(chunks[^1].Tokens, Is.EqualTo(_tokenizer.CountTokens(chunks[^1].Content)), "token count reflects the merged content");
+    }
+
+    // Deliberately narrow: an ordinary narrative section's short final paragraph is left as its own
+    // chunk - only a remainder right after an oversized table is merged back.
+    [Test]
+    public void ShortFinalParagraphAfterOrdinaryText_IsNotMerged()
+    {
+        string longParagraph = string.Join(' ', Enumerable.Repeat("This narrative sentence discusses results at length.", 12));
+        const string shortTail = "That concludes the discussion.";
+        string body = string.Join("\n\n", longParagraph, longParagraph, shortTail);
+        // Fits both long paragraphs but not the tail too, so the tail starts a new chunk.
+        int maxTokens = _tokenizer.CountTokens(longParagraph) * 2 + _tokenizer.CountTokens(shortTail) - 1;
+
+        List<(string Content, int Tokens)> chunks = TokenChunker.Chunk(body, _tokenizer, maxTokens, overlapTokens: 0);
+
+        Assert.That(chunks, Has.Count.EqualTo(2));
+        Assert.That(chunks[1].Content, Is.EqualTo(shortTail));
+    }
+
+    [Test]
+    public void LongParagraphAfterOversizedTable_StillGetsItsOwnChunk()
+    {
+        string paragraph = string.Join(' ', Enumerable.Repeat("This narrative sentence discusses results at length.", 20));
+        string body = string.Join("\n\n", BigTable(60), paragraph);
+
+        List<(string Content, int Tokens)> chunks = TokenChunker.Chunk(body, _tokenizer, maxTokens: 400, overlapTokens: 50);
+
+        Assert.That(chunks[^1].Content, Is.EqualTo(paragraph));
     }
 
     [Test]

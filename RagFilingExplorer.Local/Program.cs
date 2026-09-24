@@ -464,17 +464,24 @@ static async Task StreamAnswerAsync(IAsyncEnumerable<ChatResponseUpdate> answerS
 
 static void PrintMatchedFilter(RagAnswer answer)
 {
-    if (answer.MatchedFiling is not null && answer.MatchedStatementType is not null)
+    List<string> parts = new();
+    if (answer.MatchedFilings.Count == 1)
     {
-        Console.WriteLine($"(filtering to {answer.MatchedFiling}, statement type: {answer.MatchedStatementType})");
+        parts.Add($"filtering to {answer.MatchedFilings[0]}");
     }
-    else if (answer.MatchedFiling is not null)
+    else if (answer.MatchedFilings.Count > 1)
     {
-        Console.WriteLine($"(filtering to {answer.MatchedFiling})");
+        parts.Add($"searching {string.Join(" and ", answer.MatchedFilings)} separately");
     }
-    else if (answer.MatchedStatementType is not null)
+
+    if (answer.MatchedStatementType is not null)
     {
-        Console.WriteLine($"(filtering to statement type: {answer.MatchedStatementType})");
+        parts.Add(parts.Count == 0 ? $"filtering to statement type: {answer.MatchedStatementType}" : $"statement type: {answer.MatchedStatementType}");
+    }
+
+    if (parts.Count > 0)
+    {
+        Console.WriteLine($"({string.Join(", ", parts)})");
     }
 }
 

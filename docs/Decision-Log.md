@@ -987,3 +987,70 @@ title-only chunks remain.
   (the boundary change moved them off the next title's chunk) and rank high - rank 1 for all five NFLX
   statement questions, rank 1 for Q20. No wrong answer traced to them this run, but they waste a
   context slot. Planned fix: merge short trailing remainders into the preceding chunk.
+
+## Follow-up: trailing remainders, per-company search, table-piece headers — DONE, outcome below
+
+Fixes for the two side effects observed in the previous run (Q20, tiny footer chunks), one further
+retrieval miss found while fixing them, then - after pinning temperature to 0 - two table-splitting bugs
+behind the remaining generation errors. Question numbers here are line numbers in
+`tools/manual-questions.txt` (the same numbering as the entries above); `Manual-Test-Questions.md` numbers
+NFLX as 17-22 and the edge cases as 14-16.
+
+**Retrieval fixes:**
+- **Trailing remainders** (`TokenChunker`): a remainder of at most 100 tokens with no table in it,
+  directly after an oversized table's last piece (a "See accompanying notes..." footer, a one-line
+  footnote), is appended to that piece instead of becoming its own chunk. Deliberately limited to that
+  case - the short last paragraph of an ordinary narrative section is left alone. 1,454 → 1,433 chunks.
+- **Per-company search** (`QueryIntentResolver.ResolveFilings` + `RagAnswerService`): a question naming
+  2+ registered companies runs one company-filtered search per company (same statement-type filter) and
+  interleaves the results by rank, instead of one unfiltered search sharing 5 slots across all filings.
+  The printed filter line reads `(searching A and B separately, ...)`.
+- **Row-label summary for captioned tables** (`EmbeddingTextBuilder`): the summary of a table's row labels
+  was only added to chunks *starting* with `|`. The title caption added in the previous follow-up had
+  silently disabled it for every statement table's first piece - which is what dropped ORCL's revenue
+  piece out of Q20's context. It now applies to any chunk containing a table.
+
+**Retrieval replay tool** (`tools/replay_recall.py`): replays the app's retrieval against `rag.db` - the
+stored vectors, the filters a `--verbose` run printed, the same cosine distance and per-company
+interleave - and reports whether each answerable question's expected figure is in the top-5 context. No
+LLM involved, so it separates "retrieval missed it" from "the model misread it"; verified to reproduce the
+app's own `--verbose` scores exactly. After the three fixes: **22/22** answerable questions in context, up
+from 21/22 (Q20). The remaining wrong answers (Q8, Q10, Q18 - all comprehensive income) had the right
+figure in context and flipped between runs.
+
+**Temperature 0.2 → 0** (`Retrieval.ChatTemperature`): with the answer varying run to run, a changed
+result couldn't be attributed to a code change. Not part of the index manifest, so no rebuild. Full run at
+0: **21/24 correct**; Q8 now *reliably* wrong, Q18 and Q24 right figure but wrongly framed:
+- **Q8 (MSFT comprehensive income) → $133,749M, the Net income row.** The statement is split in two
+  pieces. The first had the title, the years and Net income $133,749 as its first figure; the second held
+  only "Other comprehensive income" and the **Comprehensive income $133,812** total, with no title and no
+  years. The model quoted both numbers and chose the one with context. Cause: the repeated header stops at
+  the first row-group label, and MSFT's `(In millions)` row (text in the first cell only) reads as one -
+  so `Year Ended June 30, ... 2026 ... 2025 ... 2024`, below it, was body text and never repeated.
+  NFLX keeps its years only because its `(in thousands)` is a paragraph outside the table.
+- **Q18 (NFLX comprehensive income) → right figure, called "comprehensive income for fair value
+  hedges".** The label repeated at a piece's top was read when the piece was *emitted*, so each piece got
+  its own last label: `Cash flow hedges:` above Net income on the first piece, `Fair value hedges:` heading
+  the cash flow hedge rows on the second - and, never closed, over the Comprehensive income total on the
+  third. The same bug put `Other comprehensive income (loss), net of tax:` above `(In millions)` in MSFT's
+  first piece.
+- **Q24 (MSFT dividends, equity statement) → right $27,034M, but claimed the equity statement "is not
+  explicitly shown".** Same headerless-continuation pattern as Q8.
+
+**Table-piece fixes** (`TokenChunker.SplitOversizedTable`):
+- The header extends through the last fiscal-period row (`... ended`, or 2+ bare-year cells) found before
+  the first data row, so a label-like units row above it no longer cuts it off.
+- The label repeated at a piece's top is the one in force where the piece *starts*; none if the piece
+  starts on a new label row. A `Total ...` row closes the current group.
+
+**Verified:** `dotnet test` 139/139 (two new tests: period row below a units row; every row under its own
+label, checked as an invariant at three budgets). Rebuild: 1,433 → 1,440 chunks (MSFT +8, from the longer
+header now on 87 continuation pieces; NFLX -1, from injected labels no longer taking room). 0 distinct
+content lines lost or gained in any filing. Replay: **22/22**. Full run (`--verbose`, temperature 0):
+**24/24**, all with the expected filter - Q8 $133,812M, Q18 without the hedge label, Q24 citing the
+equity statement.
+
+**Known, not fixed:** a group closed by something other than a `Total ...` row stays open. NFLX's
+"Other income (expense):" group ends at "Income before income taxes", so that label is still repeated
+above Net income on the next piece (Q15 answered correctly regardless). No reliable, filer-independent
+rule for such closers was found; a guessed one would be worse than a visible stale label.

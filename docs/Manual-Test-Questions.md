@@ -22,52 +22,52 @@ result worth flagging even if the final answer is correct.
 
 **1. What were Microsoft's total assets?**
 Expected: **$758,376 million** (FY2026; $619,003 million FY2025).
-Source: `MSFT-10K-2026.chunks.txt:2039`. Filter: `MSFT-10K-2026.html`, `balance_sheet`.
+Source: `MSFT-10K-2026.chunks.txt:2058`. Filter: `MSFT-10K-2026.html`, `balance_sheet`.
 
 **2. What was Oracle's total stockholders' equity?**
 Expected: **$43,056 million** "Total stockholders' equity" (FY2026; $20,969 million FY2025) - or
 **$42,508 million** "Total Oracle Corporation stockholders' equity" (excluding noncontrolling interests),
-if cited to that line. Source: `ORCL-10K-2026.chunks.txt:2475`. Filter: `ORCL-10K-2026.html`,
+if cited to that line. Source: `ORCL-10K-2026.chunks.txt:2465`. Filter: `ORCL-10K-2026.html`,
 `balance_sheet`.
 History: this failed from the initial commit onward while "stockholders' equity" routed to the equity
 statement - ORCL's is a wide roll-forward split into 15 near-identical fragments, and the one holding
-the closing balance (`ORCL-10K-2026.chunks.txt:2731`) ranked 8th-9th, outside the top 5. Period-end
+the closing balance (`ORCL-10K-2026.chunks.txt:2717`) ranked 8th-9th, outside the top 5. Period-end
 equity questions now route to the balance sheet's single total row (see Decision-Log.md, "equity
 routing").
-(Careful: ORCL's chunks also contain an unrelated "Total assets" fair-value table around line 3218 -
+(Careful: ORCL's chunks also contain an unrelated "Total assets" fair-value table around line 3201 -
 a wrong retrieval landing there instead of the real balance sheet is worth noting.)
 
 **3. What were Nasdaq's total liabilities?**
 Expected: **$18,821 million** (2025; $19,195 million 2024).
-Source: `NDAQ-10K-2025.chunks.txt:12430`. Filter: `NDAQ-10K-2025.html`, `balance_sheet`.
+Source: `NDAQ-10K-2025.chunks.txt:12426`. Filter: `NDAQ-10K-2025.html`, `balance_sheet`.
 
 ## Cash flow statement
 
 **4. What was Microsoft's net cash from operations?**
 Expected: **$182,935 million** (FY2026; $136,162 million FY2025; $118,548 million FY2024).
-Source: `MSFT-10K-2026.chunks.txt:2133`. Filter: `MSFT-10K-2026.html`, `cash_flow_statement`.
+Source: `MSFT-10K-2026.chunks.txt:2175`. Filter: `MSFT-10K-2026.html`, `cash_flow_statement`.
 
 **5. What was Oracle's net cash provided by operating activities?**
 Expected: **$31,977 million** (FY2026; $20,821 million FY2025; $18,673 million FY2024).
-Source: `ORCL-10K-2026.chunks.txt:2778`. Filter: `ORCL-10K-2026.html`, `cash_flow_statement`.
+Source: `ORCL-10K-2026.chunks.txt:2762`. Filter: `ORCL-10K-2026.html`, `cash_flow_statement`.
 
 **6. What was Nasdaq's net cash provided by operating activities in 2025?**
 Expected: **$2,255 million** (2025; $1,939 million 2024; $1,696 million 2023).
-Source: `NDAQ-10K-2025.chunks.txt:12665`. Filter: `NDAQ-10K-2025.html`, `cash_flow_statement`.
+Source: `NDAQ-10K-2025.chunks.txt:12654`. Filter: `NDAQ-10K-2025.html`, `cash_flow_statement`.
 
 ## Equity statement
 
 **7. What was Microsoft's total stockholders' equity?**
 Expected: **$442,387 million** (FY2026; $343,479 million FY2025; $268,477 million FY2024).
-Source: `MSFT-10K-2026.chunks.txt:2082` (balance sheet). Filter: `MSFT-10K-2026.html`, `balance_sheet`.
+Source: `MSFT-10K-2026.chunks.txt:2109` (balance sheet). Filter: `MSFT-10K-2026.html`, `balance_sheet`.
 (The balance sheet shows two years; the equity statement's three-year row, including FY2024, is at
-`MSFT-10K-2026.chunks.txt:2245`.)
+`MSFT-10K-2026.chunks.txt:2335`.)
 
 **23. What was Nasdaq's total stockholders' equity?** (added later - regression check)
 Expected: **$12,227 million** "Total Nasdaq stockholders' equity" (2025; $11,191 million 2024;
 $10,816 million 2023) - or **$12,232 million** "Total equity" including noncontrolling interests, if
 cited to that line - but not $12,232 million labelled as "Nasdaq stockholders' equity", which an
-earlier run did. Source: `NDAQ-10K-2025.chunks.txt:12441` (balance sheet). Filter: `NDAQ-10K-2025.html`,
+earlier run did. Source: `NDAQ-10K-2025.chunks.txt:12437` (balance sheet). Filter: `NDAQ-10K-2025.html`,
 `balance_sheet`.
 Before the second review this returned "(no results)": NDAQ titles its statement "Statements of
 *Changes in* Stockholders' Equity", which the detector didn't recognize, so no NDAQ chunk was tagged
@@ -75,8 +75,8 @@ Before the second review this returned "(no results)": NDAQ titles its statement
 
 **24. What did Microsoft's statement of stockholders' equity show for common stock cash dividends in fiscal year 2026?**
 Expected: **$27,034 million** (dividends *declared*, from the equity statement) - not $26,445 million,
-which is dividends *paid*, from the cash flow statement (`MSFT-10K-2026.chunks.txt:2148`,
-"Common stock cash dividends paid"). Source: `MSFT-10K-2026.chunks.txt:2224`. Filter:
+which is dividends *paid*, from the cash flow statement (`MSFT-10K-2026.chunks.txt:2194`,
+"Common stock cash dividends paid"). Source: `MSFT-10K-2026.chunks.txt:2300`. Filter:
 `MSFT-10K-2026.html`, `equity_statement` - checks that questions about *changes* in equity still route
 to the equity statement after period-end equity questions moved to the balance sheet.
 
@@ -84,16 +84,16 @@ to the equity statement after period-end equity questions moved to the balance s
 
 **8. What was Microsoft's comprehensive income?**
 Expected: **$133,812 million** (FY2026; $104,075 million FY2025; $88,889 million FY2024).
-Source: `MSFT-10K-2026.chunks.txt:1994`. Filter: `MSFT-10K-2026.html`, `comprehensive_income`.
+Source: `MSFT-10K-2026.chunks.txt:2012`. Filter: `MSFT-10K-2026.html`, `comprehensive_income`.
 
 **9. What was Oracle's comprehensive income?**
 Expected: **$16,882 million** (FY2026; $12,700 million FY2025; $10,557 million FY2024).
-Source: `ORCL-10K-2026.chunks.txt:2579`. Filter: `ORCL-10K-2026.html`, `comprehensive_income`.
+Source: `ORCL-10K-2026.chunks.txt:2565`. Filter: `ORCL-10K-2026.html`, `comprehensive_income`.
 
 **10. What was Nasdaq's total comprehensive income for 2025?**
 Expected: **$2,113 million** (or **$2,114 million** "attributable to Nasdaq" - either figure, if cited
 correctly to the right line, counts as correct; 2024 was $940M / $942M).
-Source: `NDAQ-10K-2025.chunks.txt:12536-12538`. Filter: `NDAQ-10K-2025.html`, `comprehensive_income`.
+Source: `NDAQ-10K-2025.chunks.txt:12529-12531`. Filter: `NDAQ-10K-2025.html`, `comprehensive_income`.
 
 ## Prose facts (not previously tested)
 
@@ -108,7 +108,7 @@ Source: `ORCL-10K-2026.chunks.txt:35`. No statement-type filter expected.
 
 **13. Who is Nasdaq's independent registered public accounting firm?**
 Expected: **Ernst & Young LLP**.
-Source: `NDAQ-10K-2025.chunks.txt:11414`. No statement-type filter expected.
+Source: `NDAQ-10K-2025.chunks.txt:11412`. No statement-type filter expected.
 
 ## Netflix (added later - regression check for the onboarding fixes)
 
@@ -151,10 +151,12 @@ No statement-type filter expected (narrative chunk).
 ## Edge cases
 
 **14. Compare Microsoft's and Oracle's total revenue.**
-Two companies named -> `QueryIntentResolver.ResolveFiling` should return `null` (ambiguous), so this
-should run **unfiltered** - worth confirming the `(filtering to ...)` line does NOT appear, and that
-the answer still correctly cites both MSFT ($331,839M) and ORCL ($67,357M) figures rather than only
-whichever chunk happened to rank first. This question also matches `RequiresSynthesis` (contains
+Two companies named -> `QueryIntentResolver.ResolveFilings` returns both filings, so this runs one
+company-filtered search per company, interleaved by rank - the printed line should read `(searching
+MSFT-10K-2026.html and ORCL-10K-2026.html separately, statement type: income_statement)`. The answer
+should cite both MSFT ($331,839M) and ORCL ($67,357M) figures. (Before this, the question ran unfiltered
+with 5 slots shared across all four filings, and ORCL's revenue chunk fell to rank 10 - see
+Decision-Log.md, "trailing remainders, per-company search, table-piece headers".) This question also matches `RequiresSynthesis` (contains
 "Compare") - with the shipped default (`llama3.1:8b`, no reasoning support) that's a no-op and no
 `(reasoning: ...)` line should appear, but if testing against a reasoning-capable `ChatModel`
 (e.g. `qwen3.5:2b`) with `Retrieval.ReasoningEffort` set above `None`, expect to see one.

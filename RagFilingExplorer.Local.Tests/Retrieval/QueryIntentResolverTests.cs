@@ -12,21 +12,25 @@ public class QueryIntentResolverTests
     [TestCase("What are Nasdaq's total assets?", "NDAQ-10K-2025.html")]
     [TestCase("What was Netflix's total revenue?", "NFLX-10K-2025.html")]
     [TestCase("What was NFLX's total revenue?", "NFLX-10K-2025.html")]
-    public void ResolveFiling_QuestionNamesExactlyOneCompany_ReturnsThatFiling(string question, string expectedFiling)
+    public void ResolveFilings_QuestionNamesExactlyOneCompany_ReturnsThatFiling(string question, string expectedFiling)
     {
-        Assert.That(QueryIntentResolver.ResolveFiling(question), Is.EqualTo(expectedFiling));
+        Assert.That(QueryIntentResolver.ResolveFilings(question), Is.EqualTo(new[] { expectedFiling }));
     }
 
     [Test]
-    public void ResolveFiling_QuestionNamesNoCompany_ReturnsNull()
+    public void ResolveFilings_QuestionNamesNoCompany_ReturnsEmpty()
     {
-        Assert.That(QueryIntentResolver.ResolveFiling("What was the total revenue?"), Is.Null);
+        Assert.That(QueryIntentResolver.ResolveFilings("What was the total revenue?"), Is.Empty);
     }
 
-    [Test]
-    public void ResolveFiling_QuestionNamesMultipleCompanies_ReturnsNull()
+    // Both names and tickers resolve, deduplicated, in stable ordinal order regardless of the order the
+    // question names them in - RagAnswerService searches each one separately.
+    [TestCase("Compare Microsoft and Oracle's revenue.")]
+    [TestCase("Compare ORCL and MSFT revenue.")]
+    [TestCase("Compare Oracle (ORCL) and Microsoft (MSFT) revenue.")]
+    public void ResolveFilings_QuestionNamesMultipleCompanies_ReturnsEachFilingOnce(string question)
     {
-        Assert.That(QueryIntentResolver.ResolveFiling("Compare Microsoft and Oracle's revenue."), Is.Null);
+        Assert.That(QueryIntentResolver.ResolveFilings(question), Is.EqualTo(new[] { "MSFT-10K-2026.html", "ORCL-10K-2026.html" }));
     }
 
     [TestCase("What was the gross margin?", "income_statement")]

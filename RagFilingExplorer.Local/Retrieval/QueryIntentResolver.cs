@@ -2,16 +2,17 @@ namespace RagFilingExplorer.Local.Retrieval;
 
 /// <summary>
 /// Resolves a user's question two ways before <see cref="RagAnswerService"/> acts on it: to a metadata
-/// filter (which filing, which financial statement) via <see cref="ResolveFiling"/> and
+/// filter (which filings, which financial statement) via <see cref="ResolveFilings"/> and
 /// <see cref="ResolveStatementType"/>, and to a reasoning-worthiness signal via
 /// <see cref="RequiresSynthesis"/>.
 ///
 /// Metadata filtering (Microsoft's own retrieval-quality guidance ranks this above chunk-size/text
 /// tweaks) directly targets the cross-company and cross-statement contamination seen repeatedly in
 /// Step 7 testing (e.g. an MSFT-specific question pulling in ORCL chunks, or a single filing's many
-/// similarly-shaped "Item 15" tables burying the right one). <c>ResolveFiling</c> and
-/// <c>ResolveStatementType</c> both require exactly one match to act - zero or ambiguous (2+) matches
-/// resolve to null, leaving the search unfiltered rather than guessing.
+/// similarly-shaped "Item 15" tables burying the right one). <c>ResolveFilings</c> returns every named
+/// filing (RagAnswerService searches each one separately); <c>ResolveStatementType</c> requires exactly
+/// one statement type to act - zero or ambiguous matches resolve to null, leaving that dimension
+/// unfiltered rather than guessing.
 ///
 /// <c>RequiresSynthesis</c> has different semantics on purpose: it's an any-match keyword check (not
 /// exactly-one), used to decide whether a reasoning model's "thinking" phase is worth its cost for this
@@ -20,7 +21,7 @@ namespace RagFilingExplorer.Local.Retrieval;
 internal static class QueryIntentResolver
 {
     // Adding a filing to data/ is not enough on its own for company-scoped filtering to work for it -
-    // it also needs an entry here, or ResolveFiling silently returns null for every question naming it
+    // it also needs an entry here, or ResolveFilings silently returns nothing for every question naming it
     // and the search runs unfiltered across every filing instead. Confirmed the hard way onboarding
     // NFLX-10K-2025.html: every Netflix question searched all four filings' income_statement chunks at
     // once (the exact cross-company contamination this filter exists to prevent) until this was added.
@@ -75,16 +76,16 @@ internal static class QueryIntentResolver
     public static bool RequiresSynthesis(string question) =>
         SynthesisKeywords.Any(keyword => question.Contains(keyword, StringComparison.OrdinalIgnoreCase));
 
-    public static string? ResolveFiling(string question)
-    {
-        string[] matched = CompanyToFiling
-            .Where(kvp => question.Contains(kvp.Key, StringComparison.OrdinalIgnoreCase))
-            .Select(kvp => kvp.Value)
-            .Distinct()
-            .ToArray();
-
-        return matched.Length == 1 ? matched[0] : null;
-    }
+    // Every filing the question names, in a stable (ordinal) order. Used to return null for 2+ matches,
+    // which ran a comparison question unfiltered across all filings with 5 shared slots - "Compare
+    // Microsoft's and Oracle's total revenue" lost ORCL's revenue chunk to rank 10. RagAnswerService now
+    // searches each named filing separately instead.
+    public static string[] ResolveFilings(string question) => CompanyToFiling
+        .Where(kvp => question.Contains(kvp.Key, StringComparison.OrdinalIgnoreCase))
+        .Select(kvp => kvp.Value)
+        .Distinct()
+        .Order(StringComparer.Ordinal)
+        .ToArray();
 
     /// <summary>
     /// Cross-checks <see cref="CompanyToFiling"/> against the filings actually present in data/, so the

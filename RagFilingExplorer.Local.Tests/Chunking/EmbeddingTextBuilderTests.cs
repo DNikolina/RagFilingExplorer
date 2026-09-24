@@ -30,6 +30,24 @@ public class EmbeddingTextBuilderTests
         Assert.That(result, Does.Contain(table));
     }
 
+    // Regression coverage: TokenChunker prefixes an oversized table's first piece with its caption (the
+    // statement title), and a "starts with |" check skipped exactly those pieces - the ones holding the
+    // headline rows. Any chunk containing a table gets the summary, caption or not.
+    [TestCase("CONSOLIDATED STATEMENTS OF OPERATIONS\n\nFor the Years Ended May 31, 2026\n\n")]
+    [TestCase("The following table shows revenue by segment:\n\n")]
+    public void Build_LeadInTextThenTable_StillIncludesLabelSummary(string leadIn)
+    {
+        string content = leadIn + string.Join('\n',
+            "| | 2026 | 2025 |",
+            "| --- | --- | --- |",
+            "| Total revenues | $67,357 | $57,399 |");
+
+        string result = EmbeddingTextBuilder.Build("PART IV > Item 15", content);
+
+        Assert.That(result, Does.Contain("Financial data table with rows: Total revenues."));
+        Assert.That(result, Does.EndWith(content));
+    }
+
     [Test]
     public void Build_TableWithNoExtractableLabels_FallsBackToGenericSummary()
     {

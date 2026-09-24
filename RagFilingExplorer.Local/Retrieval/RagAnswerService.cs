@@ -8,7 +8,7 @@ namespace RagFilingExplorer.Local.Retrieval;
 
 /// <summary>Result of a single retrieve+generate turn.</summary>
 internal sealed record RagAnswer(
-    string? MatchedFiling,
+    IReadOnlyList<string> MatchedFilings,
     string? MatchedStatementType,
     ReasoningEffort UsedReasoningEffort,
     IReadOnlyList<VectorSearchResult<FilingChunkRecord>> RetrievedChunks,
@@ -42,27 +42,31 @@ internal sealed class RagAnswerService(
 
     public async Task<RagAnswer> AskAsync(string question, int searchTopK, CancellationToken cancellationToken = default)
     {
-        string? targetFiling = QueryIntentResolver.ResolveFiling(question);
+        string[] targetFilings = QueryIntentResolver.ResolveFilings(question);
         string? targetStatementType = QueryIntentResolver.ResolveStatementType(question);
 
-        VectorSearchOptions<FilingChunkRecord> searchOptions = new();
-        if (targetFiling is not null && targetStatementType is not null)
+        List<VectorSearchResult<FilingChunkRecord>> results;
+        if (targetFilings.Length <= 1)
         {
-            searchOptions.Filter = r => r.SourceFiling == targetFiling && r.StatementType == targetStatementType;
+            results = await SearchAsync(question, searchTopK, targetFilings.SingleOrDefault(), targetStatementType, cancellationToken);
         }
-        else if (targetFiling is not null)
+        else
         {
-            searchOptions.Filter = r => r.SourceFiling == targetFiling;
-        }
-        else if (targetStatementType is not null)
-        {
-            searchOptions.Filter = r => r.StatementType == targetStatementType;
-        }
+            // A question naming 2+ companies gets one filtered search per company, interleaved by rank
+            // (A1, B1, A2, B2, ...), so every named company is represented in the top results. A single
+            // unfiltered search shared its slots across all filings, and "Compare Microsoft's and
+            // Oracle's total revenue" lost ORCL's revenue chunk to rank 10.
+            int perFilingTopK = (int)Math.Ceiling(searchTopK / (double)targetFilings.Length);
+            List<List<VectorSearchResult<FilingChunkRecord>>> perFiling = new();
+            foreach (string filing in targetFilings)
+            {
+                perFiling.Add(await SearchAsync(question, perFilingTopK, filing, targetStatementType, cancellationToken));
+            }
 
-        List<VectorSearchResult<FilingChunkRecord>> results = new();
-        await foreach (VectorSearchResult<FilingChunkRecord> result in collection.SearchAsync($"search_query: {question}", searchTopK, searchOptions, cancellationToken))
-        {
-            results.Add(result);
+            results = Enumerable.Range(0, perFilingTopK)
+                .SelectMany(rank => perFiling.Where(list => rank < list.Count).Select(list => list[rank]))
+                .Take(searchTopK)
+                .ToList();
         }
 
         List<VectorSearchResult<FilingChunkRecord>> topForGeneration = results.Take(retrieval.GenerationTopK).ToList();
@@ -105,7 +109,33 @@ internal sealed class RagAnswerService(
         IAsyncEnumerable<ChatResponseUpdate> rawStream = chatClient.GetStreamingResponseAsync(chatMessages, chatOptions, cancellationToken);
         IAsyncEnumerable<ChatResponseUpdate> guardedStream = GuardAgainstStarvedResponse(rawStream, cancellationToken);
 
-        return new RagAnswer(targetFiling, targetStatementType, effectiveReasoningEffort, results, guardedStream);
+        return new RagAnswer(targetFilings, targetStatementType, effectiveReasoningEffort, results, guardedStream);
+    }
+
+    private async Task<List<VectorSearchResult<FilingChunkRecord>>> SearchAsync(
+        string question, int top, string? filing, string? statementType, CancellationToken cancellationToken)
+    {
+        VectorSearchOptions<FilingChunkRecord> searchOptions = new();
+        if (filing is not null && statementType is not null)
+        {
+            searchOptions.Filter = r => r.SourceFiling == filing && r.StatementType == statementType;
+        }
+        else if (filing is not null)
+        {
+            searchOptions.Filter = r => r.SourceFiling == filing;
+        }
+        else if (statementType is not null)
+        {
+            searchOptions.Filter = r => r.StatementType == statementType;
+        }
+
+        List<VectorSearchResult<FilingChunkRecord>> results = new();
+        await foreach (VectorSearchResult<FilingChunkRecord> result in collection.SearchAsync($"search_query: {question}", top, searchOptions, cancellationToken))
+        {
+            results.Add(result);
+        }
+
+        return results;
     }
 
     // A reasoning model can spend its entire MaxOutputTokens budget on "thinking" (see

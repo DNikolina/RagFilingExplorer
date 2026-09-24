@@ -12,12 +12,18 @@ namespace RagFilingExplorer.Local.Chunking;
 /// </summary>
 internal static class TokenChunker
 {
-    // A pending lead-in at most this long (a statement title, "(in millions)", a one-line caption)
-    // directly before an oversized table is attached to the table's first piece instead of becoming a
-    // chunk of its own - see the oversized-block branch in Chunk.
-    private const int MaxCaptionTokens = 100;
+    // Short text at most this long is attached to a neighbouring chunk instead of becoming a near-empty
+    // chunk of its own: a lead-in before an oversized table (a statement title, "(in millions)", a
+    // one-line caption) rides forward on the table's first piece, and a trailing remainder right after
+    // an oversized table's last piece (a statement footer, a one-line footnote) is appended to it.
+    // Either can push that chunk past maxTokens by up to this much - accepted, since the budget is
+    // already approximate (separators between rows and blocks aren't counted) and a tiny chunk costs a
+    // whole top-5 retrieval slot.
+    private const int MaxAttachedTextTokens = 100;
 
     private static readonly Regex CommaGroupedNumberRegex = new(@"\d{1,3}(,\d{3})+", RegexOptions.Compiled);
+    private static readonly Regex PeriodEndedRegex = new(@"\b(years?|months|weeks|quarters?)\s+ended\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private static readonly Regex BareYearCellRegex = new(@"^(fiscal\s+)?(19|20)\d{2}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
     public static List<(string Content, int Tokens)> Chunk(string body, Tokenizer tokenizer, int maxTokens, int overlapTokens)
     {
@@ -25,6 +31,10 @@ internal static class TokenChunker
         List<(string Content, int Tokens)> chunks = new();
         List<string> current = new();
         int currentTokens = 0;
+
+        // True while the most recent chunk is the last piece of an oversized table, with nothing flushed
+        // since - the only case where a trailing remainder is merged back (see the end of this method).
+        bool lastChunkIsOversizedTablePiece = false;
 
         void FlushCurrent()
         {
@@ -35,6 +45,7 @@ internal static class TokenChunker
 
             string content = string.Join("\n\n", current);
             chunks.Add((content, tokenizer.CountTokens(content)));
+            lastChunkIsOversizedTablePiece = false;
         }
 
         foreach (string block in blocks)
@@ -51,7 +62,7 @@ internal static class TokenChunker
                 // the MSFT, NDAQ and ORCL equity questions, confirmed with --verbose - wasting a context
                 // slot on no data. It now becomes the first table piece's caption instead.
                 string? caption = null;
-                if (isTable && current.Count > 0 && currentTokens <= MaxCaptionTokens && !current.Any(b => b.TrimStart().StartsWith('|')))
+                if (isTable && current.Count > 0 && currentTokens <= MaxAttachedTextTokens && !current.Any(IsTableBlock))
                 {
                     caption = string.Join("\n\n", current);
                 }
@@ -72,6 +83,7 @@ internal static class TokenChunker
                     chunks.Add((piece, tokenizer.CountTokens(piece)));
                 }
 
+                lastChunkIsOversizedTablePiece = isTable;
                 continue;
             }
 
@@ -82,7 +94,7 @@ internal static class TokenChunker
                 // Light overlap: carry the previous chunk's last block forward, unless it's a table
                 // (never duplicate a whole table) or too big to count as "overlap".
                 string lastBlock = current[^1];
-                bool lastIsTable = lastBlock.TrimStart().StartsWith('|');
+                bool lastIsTable = IsTableBlock(lastBlock);
                 current.Clear();
                 currentTokens = 0;
 
@@ -101,9 +113,28 @@ internal static class TokenChunker
             currentTokens += blockTokens;
         }
 
-        FlushCurrent();
+        // A short trailing remainder right after an oversized table's last piece - a statement's "See
+        // accompanying notes..." footer, a one-line footnote - used to become a tiny chunk of its own.
+        // Those ranked in the top 5 for statement questions (rank 1 for all five NFLX statement
+        // questions, confirmed with --verbose), wasting a context slot on no data. It's appended to that
+        // last table piece instead, where it belongs. Deliberately limited to this case: the short final
+        // paragraph of an ordinary narrative section is left alone.
+        string remainderText = string.Join("\n\n", current);
+        if (lastChunkIsOversizedTablePiece && current.Count > 0 && !current.Any(IsTableBlock)
+            && tokenizer.CountTokens(remainderText) <= MaxAttachedTextTokens)
+        {
+            string merged = chunks[^1].Content + "\n\n" + remainderText;
+            chunks[^1] = (merged, tokenizer.CountTokens(merged));
+        }
+        else
+        {
+            FlushCurrent();
+        }
+
         return chunks;
     }
+
+    private static bool IsTableBlock(string block) => block.TrimStart().StartsWith('|');
 
     private static List<string> SplitIntoBlocks(string body)
     {
@@ -188,6 +219,20 @@ internal static class TokenChunker
             headerEnd++;
         }
 
+        // A label-only row can still sit above the fiscal-period row: MSFT's statements put
+        // "(In millions)" (text in the first cell only, so it reads as a row-group label) above
+        // "Year Ended June 30, ... 2026 ... 2025 ... 2024". Stopping there dropped the years from every
+        // piece after the first - the right "Comprehensive income" total then reached the model with no
+        // year and no title, and it picked the titled piece's first figure (Net income) instead. So the
+        // header extends through the last period row found before the first data row.
+        for (int i = headerEnd; i < lines.Count && i < 12 && !LooksLikeDataRow(lines[i]); i++)
+        {
+            if (IsPeriodHeaderRow(lines[i]))
+            {
+                headerEnd = i + 1;
+            }
+        }
+
         string header = string.Join('\n', lines.Take(headerEnd));
         int headerTokens = tokenizer.CountTokens(header);
         List<string> currentRows = new();
@@ -197,8 +242,12 @@ internal static class TokenChunker
 
         // Financial tables use "label-only" rows (e.g. "Revenue:", "Cost of revenue:") to group the
         // rows that follow. If a split falls between such a row and its numbers, the numbers lose
-        // their label - so the nearest one is carried into the next piece along with the header.
+        // their label - so the label in force where a piece starts is repeated at its top. That has to
+        // be captured when the piece starts, not when it's emitted: reading it at emit time put each
+        // piece's own last label at its top instead (NFLX's "Fair value hedges:" heading its cash flow
+        // hedge rows). A "Total ..." row closes the group, so its label isn't carried past it.
         string? currentRowGroupLabel = null;
+        string? pieceStartLabel = null;
 
         for (int i = headerEnd; i < lines.Count; i++)
         {
@@ -207,10 +256,11 @@ internal static class TokenChunker
 
             if (currentTokens + rowTokens > maxTokens && currentRows.Count > 0)
             {
-                yield return captionPrefix + BuildTablePiece(header, currentRowGroupLabel, currentRows);
+                yield return captionPrefix + BuildTablePiece(header, pieceStartLabel, currentRows);
                 captionPrefix = string.Empty;
                 currentRows.Clear();
-                currentTokens = headerTokens + (currentRowGroupLabel is null ? 0 : tokenizer.CountTokens(currentRowGroupLabel));
+                pieceStartLabel = IsRowGroupLabel(row) ? null : currentRowGroupLabel;
+                currentTokens = headerTokens + (pieceStartLabel is null ? 0 : tokenizer.CountTokens(pieceStartLabel));
             }
 
             currentRows.Add(row);
@@ -220,18 +270,21 @@ internal static class TokenChunker
             {
                 currentRowGroupLabel = row;
             }
+            else if (IsTotalRow(row))
+            {
+                currentRowGroupLabel = null;
+            }
         }
 
         if (currentRows.Count > 0)
         {
-            yield return captionPrefix + BuildTablePiece(header, currentRowGroupLabel, currentRows);
+            yield return captionPrefix + BuildTablePiece(header, pieceStartLabel, currentRows);
         }
     }
 
     private static string BuildTablePiece(string header, string? rowGroupLabel, List<string> rows)
     {
-        bool needsLabel = rowGroupLabel is not null && (rows.Count == 0 || rows[0] != rowGroupLabel);
-        string prefix = needsLabel ? header + "\n" + rowGroupLabel : header;
+        string prefix = rowGroupLabel is null ? header : header + "\n" + rowGroupLabel;
         return prefix + "\n" + string.Join('\n', rows);
     }
 
@@ -240,6 +293,15 @@ internal static class TokenChunker
         string[] cells = row.Trim().Trim('|').Split('|');
         return cells.Length > 1 && cells[0].Trim().Length > 0 && cells.Skip(1).All(string.IsNullOrWhiteSpace);
     }
+
+    private static bool IsTotalRow(string row)
+        => row.Trim().Trim('|').TrimStart().StartsWith("Total", StringComparison.OrdinalIgnoreCase);
+
+    // "Year Ended June 30," / "Three Months Ended", or a row carrying two or more bare years
+    // ("2026 | 2025 | 2024", "Fiscal 2026 | Fiscal 2025").
+    private static bool IsPeriodHeaderRow(string row)
+        => PeriodEndedRegex.IsMatch(row)
+           || row.Split('|').Count(cell => BareYearCellRegex.IsMatch(cell.Trim())) >= 2;
 
     private static bool LooksLikeDataRow(string row)
         => row.Contains('$') || row.Contains("](") || CommaGroupedNumberRegex.IsMatch(row);

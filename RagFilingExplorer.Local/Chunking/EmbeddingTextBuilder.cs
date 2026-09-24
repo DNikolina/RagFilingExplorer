@@ -19,9 +19,15 @@ namespace RagFilingExplorer.Local.Chunking;
 /// </summary>
 internal static class EmbeddingTextBuilder
 {
+    // Applies to any chunk that *contains* a table, not just one that starts with a table row. The
+    // original "starts with |" check silently skipped the first piece of every oversized table once
+    // TokenChunker started prefixing it with a short caption (the statement title) - and the first piece
+    // is exactly the one holding the headline rows. ORCL's revenue piece dropped to last of its income
+    // statement's 4 chunks, out of Q20's context. It also skipped the prose-plus-table chunks that had
+    // always started with a lead-in sentence ("The following table shows...").
     public static string Build(string heading, string content)
     {
-        if (!content.TrimStart().StartsWith('|'))
+        if (!content.Split('\n').Any(line => line.TrimStart().StartsWith('|')))
         {
             return $"{heading}\n\n{content}";
         }

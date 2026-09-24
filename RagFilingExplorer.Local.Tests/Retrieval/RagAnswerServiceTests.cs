@@ -107,7 +107,7 @@ public class RagAnswerServiceTests
         RagAnswerService service = CreateService(collection, chatClient);
         RagAnswer answer = await service.AskAsync("What was Microsoft's revenue?", SearchTopK);
 
-        Assert.That(answer.MatchedFiling, Is.EqualTo("MSFT-10K-2026.html"));
+        Assert.That(answer.MatchedFilings, Is.EqualTo(new[] { "MSFT-10K-2026.html" }));
         Assert.That(captured, Is.Not.Null);
         Assert.That(captured!.Filter, Is.Not.Null, "a question naming one company must produce a search filter");
     }
@@ -121,10 +121,48 @@ public class RagAnswerServiceTests
         RagAnswerService service = CreateService(collection, chatClient);
         RagAnswer answer = await service.AskAsync("What does the company do?", SearchTopK);
 
-        Assert.That(answer.MatchedFiling, Is.Null);
+        Assert.That(answer.MatchedFilings, Is.Empty);
         Assert.That(answer.MatchedStatementType, Is.Null);
         Assert.That(captured, Is.Not.Null);
         Assert.That(captured!.Filter, Is.Null, "an unfiltered question must not restrict the search");
+    }
+
+    // A comparison question used to run one unfiltered search with 5 slots shared across every filing,
+    // and "Compare Microsoft's and Oracle's total revenue" lost ORCL's revenue chunk to rank 10. It now
+    // runs one filtered search per named company and interleaves them by rank. The mock applies each
+    // search's real filter expression to a record pool, so this also checks the filters themselves.
+    [Test]
+    public async Task AskAsync_QuestionNamingTwoCompanies_SearchesEachSeparatelyAndInterleaves()
+    {
+        VectorSearchResult<FilingChunkRecord>[] pool =
+        [
+            MakeResult("MSFT-10K-2026.html", "H", "m1", "income_statement"),
+            MakeResult("MSFT-10K-2026.html", "H", "m2", "income_statement"),
+            MakeResult("MSFT-10K-2026.html", "H", "m3", "income_statement"),
+            MakeResult("MSFT-10K-2026.html", "H", "m-balance", "balance_sheet"),
+            MakeResult("ORCL-10K-2026.html", "H", "o1", "income_statement"),
+            MakeResult("ORCL-10K-2026.html", "H", "o2", "income_statement"),
+            MakeResult("ORCL-10K-2026.html", "H", "o3", "income_statement"),
+            MakeResult("NDAQ-10K-2025.html", "H", "n1", "income_statement"),
+        ];
+        List<int> requestedTops = new();
+        (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks();
+        collection
+            .Setup(c => c.SearchAsync<string>(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<VectorSearchOptions<FilingChunkRecord>>(), It.IsAny<CancellationToken>()))
+            .Returns((string _, int top, VectorSearchOptions<FilingChunkRecord> options, CancellationToken _) =>
+            {
+                requestedTops.Add(top);
+                Func<FilingChunkRecord, bool> filter = options.Filter!.Compile();
+                return AsAsync(pool.Where(r => filter(r.Record)).Take(top));
+            });
+
+        RagAnswerService service = CreateService(collection, chatClient);
+        RagAnswer answer = await service.AskAsync("Compare Microsoft's and Oracle's total revenue.", SearchTopK);
+
+        Assert.That(answer.MatchedFilings, Is.EqualTo(new[] { "MSFT-10K-2026.html", "ORCL-10K-2026.html" }));
+        Assert.That(answer.MatchedStatementType, Is.EqualTo("income_statement"));
+        Assert.That(requestedTops, Is.EqualTo(new[] { 3, 3 }), "one search per company, ceil(5 / 2) each");
+        Assert.That(answer.RetrievedChunks.Select(r => r.Record.Content), Is.EqualTo(new[] { "m1", "o1", "m2", "o2", "m3" }));
     }
 
     [Test]
