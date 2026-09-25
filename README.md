@@ -18,6 +18,9 @@ According to the provided context [1] (Source: MSFT-10K-2026.html, PART II > Ite
 Statements and Supplementary Data), Microsoft's total revenue for fiscal year 2026 was $331,839 million.
 ```
 
+**Why it's built this way** - why not XBRL, PDF, `Microsoft.Extensions.DataIngestion`, reranking, or a
+bigger model - is answered briefly in [docs/Design-FAQ.md](docs/Design-FAQ.md).
+
 ## Stack
 
 - **C# / .NET 10** — console app, top-level statements
@@ -211,8 +214,8 @@ Full diagnostic detail, including how each bug was actually found, is in
   Answers that live elsewhere in the filing can't be retrieved: segment or regional breakdowns, MD&A
   explanations, accounting policies, or a term from a different statement ("deferred revenue" is on
   the balance sheet). In testing the model declined these rather than guess, but the miss is by design.
-  A soft filter was measured and not built - see [docs/Decision-Log.md](docs/Decision-Log.md),
-  "pre-manual-pass review".
+  A soft filter was measured and not built; a planned v2 targets this with XBRL section labels - see
+  [docs/Design-FAQ.md](docs/Design-FAQ.md) and [docs/Decision-Log.md](docs/Decision-Log.md), "XBRL hybrid (v2)".
 
 ## Testing
 
@@ -257,6 +260,7 @@ tools/                                  manual-question list; replay_recall.py (
 docs/Implementation_Plan.md             current-state reference: ground rules, pipeline, live constraints
 docs/Decision-Log.md                    the full build history: every step, decision point, and debugging path
 docs/Manual-Test-Questions.md           a broader question set for manual retrieval-quality testing
+docs/Design-FAQ.md                      short answers to "why not X?" design questions, linked to the log
 ```
 
 ## Further reading

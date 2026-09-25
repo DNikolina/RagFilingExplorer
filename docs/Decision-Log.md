@@ -6,7 +6,39 @@ dead end - in the order they happened. Section headings are unchanged, so existi
 "Follow-up: persisted vector store" still find the right section here.
 
 "Above"/"below" references inside each section refer to this file. The "already-validated facts" list
-and the live constraints stay in [Implementation_Plan.md](Implementation_Plan.md).
+and the live constraints stay in [Implementation_Plan.md](Implementation_Plan.md). Short answers to the
+"why not X?" questions, each pointing back here, are in [Design-FAQ.md](Design-FAQ.md).
+
+## Index
+
+One line per section, in file order. Quote a section's name to reference it - names never change.
+
+- **Step 1: Source data** - MSFT, ORCL, NDAQ 10-Ks from EDGAR (NFLX added later).
+- **Step 2: Project setup** - SDK pinned; the package set, with pointers to what later follow-ups changed.
+- **Step 3: Chunking** - done. MEDI tried and abandoned; hand-written markitdown -> sections -> token-chunker pipeline.
+- **Step 4: Vector storage** - done, superseded in part (in-memory store); the `Content`/`Text` and timeout fixes still hold.
+- **Step 5: Retrieval** - superseded: retrieval now runs filtered, in `RagAnswerService`.
+- **Step 6: Answer generation** - citation-grounded prompt to `llama3.1:8b`.
+- **Step 7: Testing** - done: 6/6, from 2/6 (the path is in "retrieval quality").
+- **Step 8: Publish** - README written; push on hold until the user's manual pass.
+- **Completion checkpoint** - Steps 7 and 8 done means the project is complete.
+- **Follow-up: persisted vector store** - done. SqliteVec on disk; an upstream multi-record upsert bug forces batch size 1.
+- **Follow-up: retrieval quality** - done. Prefixes, enrichment and smaller chunks didn't help; company + statement-type filtering did, after fixing a detector false positive that mistagged 96 chunks.
+- **Considered and declined: PDF instead of HTML as the source format** - declined: cohesive tables, but ~15x slower and no fix for the hard problems.
+- **Follow-up: unit test coverage** - done. Offline NUnit + Moq suite for the logic every earlier bug lived in.
+- **Follow-up: repository review and Program.cs refactor** - done. `comprehensive_income` routing, `--verbose`, markitdown stderr, Program.cs restructured.
+- **Follow-up: configurable settings** - done. `appsettings.json`, every key required and validated at startup.
+- **Follow-up: reasoning-model support** - done. Thinking content handled, capability check at startup, starved-response guard, a failed turn no longer ends the session.
+- **Follow-up: onboarding a new filer (NFLX)** - done. Three bugs: Item headings without a space, windows-1252 encoding, a missing company registration.
+- **Follow-up: second repository review** - done. Repo-root paths, build manifest (interrupted or stale index), registration warning, config cleanup, readable startup errors.
+- **Follow-up: statement-boundary chunking** - done. Statement titles start sections; NDAQ's equity statement had never been detected.
+- **Follow-up: equity routing and title captions** - done. Period-end equity routes to the balance sheet; titles ride on a table's first piece.
+- **Follow-up: trailing remainders, per-company search, table-piece headers** - done. Footer chunks merged, one search per named company, temperature 0.2 -> 0, two table-splitting fixes.
+- **Follow-up: linearized tables as a second chunking strategy** - done. Tables linearized from the HTML (colspan-aware); XBRL as a test oracle only, not at runtime.
+- **Follow-up: embedding-model comparison** - deferred; candidate models and their templates recorded.
+- **Follow-up: targeted questions and a rank metric** - done. Linearized puts the answer in context 7/10 vs 4/10 but answers only one more right; `Markdown` stays default; scope stops here.
+- **Follow-up: pre-manual-pass review** - done. Lost first chunk (key 0), back-matter headings, output ceiling; soft filter measured, not built; Program.cs split.
+- **Follow-up: XBRL hybrid (v2)** - planned, after the v1 push: XBRL section labels, then figure lookup, then a router - phased, measured.
 
 ---
 
@@ -47,6 +79,11 @@ package set. What Step 3 actually added instead:
   tokenizer data package resolved to a version (`9.0.4`) with a known high-severity vulnerability
   (GHSA-73j8-2gch-69rq); pinning to the newer GA version silences it. Check `dotnet list package
   --vulnerable --include-transitive` after any future package changes.
+
+**Update after later follow-ups:** `CommunityToolkit.VectorData.InMemory` was replaced by
+`CommunityToolkit.VectorData.SqliteVec` ("persisted vector store"), and `Microsoft.Extensions.Configuration`
+("configurable settings") and `AngleSharp` ("linearized tables as a second chunking strategy") were added.
+The current package set is in Implementation_Plan.md, "Pipeline as it ships".
 
 No API keys, no `dotnet user-secrets` needed — everything runs locally.
 
@@ -137,6 +174,12 @@ row across the whole block is blank.
 
 ## Step 4: Vector storage — DONE, outcome below
 
+**Superseded in part - read as history.** The in-memory store, the batches of 25, the code sample and the
+1,073-chunk count below were all replaced later: the index is persisted with SqliteVec, one per chunking
+strategy, and upserted one record at a time ("persisted vector store"); records carry `StatementType`
+("retrieval quality"); keys start at 1 ("pre-manual-pass review"). The two corrections below - `Content`
+vs `Text`, and the `HttpClient` timeout - still hold.
+
 Uses `Microsoft.Extensions.VectorData`'s `InMemoryVectorStore`, configured with an
 `IEmbeddingGenerator<string, Embedding<float>>` backed by `OllamaSharp` + `nomic-embed-text`, as
 planned. `nomic-embed-text`'s 768-dimension output was directly confirmed via Ollama's own API
@@ -201,6 +244,11 @@ retrieve-readable-text) works end to end. This was a plumbing check, not Step 7'
 validation — that's still separate work.
 
 ## Step 5: Retrieval
+
+**Superseded - read as history.** Retrieval now runs in `RagAnswerService`, filtered by company and
+statement type from `QueryIntentResolver` ("retrieval quality"), with one search per company when a
+question names several ("trailing remainders, per-company search, table-piece headers").
+
 ```csharp
 await foreach (var result in collection.SearchAsync(userQuestion, top: 5))
 {
@@ -1055,7 +1103,7 @@ equity statement.
 above Net income on the next piece (Q15 answered correctly regardless). No reliable, filer-independent
 rule for such closers was found; a guessed one would be worse than a visible stale label.
 
-## Follow-up: linearized tables as a second chunking strategy — PLANNED, in progress
+## Follow-up: linearized tables as a second chunking strategy — DONE, outcome below (decision in "targeted questions and a rank metric")
 
 **Why.** Every new filer so far has surfaced at least one table-chunking bug (NFLX: three; NDAQ: the
 equity title; MSFT: the "(In millions)" header cut-off). No chunking code names a company - the rules are
@@ -1241,7 +1289,7 @@ measure the leak first, using indentation as a *test* oracle for the three filer
 indented no deeper than its group label is outside it), and fix only if the rate and its effect on
 answers warrant it.
 
-## Follow-up: embedding-model comparison — PLANNED, after linearization
+## Follow-up: embedding-model comparison — DEFERRED (its first step, the rank metric, done; comparison not run)
 
 **Why not now.** Retrieval isn't what's failing: `replay_recall.py` has 22/22 answerable questions with
 the figure in the top-5 context, and every recent wrong answer had the right chunk in context. But a
@@ -1464,3 +1512,59 @@ index's paths, `EnsureCurrent`, `Delete` - replacing a dbPath/manifestPath strin
 checks and `replay_recall.py` parses - so its format is now unit-tested (6 cases, 176 tests). Verified as a
 pure move: `--chunks-only` dumps byte-identical on both strategies, and an end-to-end `--verbose` run
 against the existing index gave the same filter lines and answers (MSFT total assets; the Apple decline).
+
+**Docs restructured alongside (no code change).** Added `docs/Design-FAQ.md`: short answers to the "why
+not X?" questions (XBRL, PDF/OCR, MEDI, the hard filter, reranking, the chat and embedding models,
+temperature, batch size), each pointing to its section here, with no counts that go stale. It is the only
+record of the 2026-09-25 Print-to-PDF and OCR tests, by the user's choice. This log was not shortened -
+its sections back the FAQ's claims - but gained an index, two corrected status headings (the linearized
+strategy read "PLANNED, in progress" after it was done; the embedding comparison read "PLANNED" after it
+was deferred), and superseded-pointers on Steps 2, 4 and 5.
+
+**Correction - hybrid search was never measured.** The "targeted questions and a rank metric" entry lists
+hybrid keyword + vector search under "Considered, measured, not built". Only its feasibility was checked;
+its effect was never measured. Re-verified 2026-09-25: `IKeywordHybridSearchable<TRecord>` exists in
+`Microsoft.Extensions.VectorData.Abstractions` 10.10.0, but no type in `CommunityToolkit.VectorData.SqliteVec`
+1.0.1-preview implements it (reflection; the live collection also returns null from `GetService`), 1.0.1-preview
+is still the newest NuGet release, and Microsoft's SQLite connector page lists "HybridSearch supported? No"
+and "IsFullTextIndexed supported? No". FTS5 is compiled into the bundled SQLite 3.50.4 (`MATCH` + `bm25`
+checked), so a hand-built FTS5 table plus rank fusion remains the only local route. Why it wasn't built:
+scope - it was listed as a follow-up when the user chose to stop adding scope before the manual pass.
+The same connector page lists "IsIndexed supported? No", while `FilingChunkRecord` marks its filter
+properties `IsIndexed = true` with a comment calling that required for filtering - unverified which is
+stale; harmless either way, since the filters demonstrably work.
+
+## Follow-up: XBRL hybrid (v2) — PLANNED, after the v1 push
+
+**Why.** The hard statement filter can't reach answers outside the primary statements (segment and
+regional figures, policies, MD&A drivers), and pure RAG over tables is the weakest way to answer headline
+figures. The filings carry structure that addresses both, checked 2026-09-25 in all four:
+- **Section-level tags.** Each filing tags 67-91 blocks of text (notes, policies, schedules) as inline-XBRL
+  text blocks, ~75% under standard `us-gaap` names shared across filers - e.g. all four tag their segment
+  table `us-gaap:ScheduleOfSegmentReportingInformationBySegmentTextBlock`; three tag the revenue policy
+  `RevenueFromContractWithCustomerPolicyTextBlock`, NFLX `RevenueRecognitionPolicyTextBlock`. That labels
+  note topics filer-independently - including ORCL's unnumbered notes, which heading patterns can't.
+- **Tagged facts.** Headline figures are standard concepts; the linearizer already pairs each tagged value
+  with its row label, column label and concept (that's how the XBRL oracle works), so a label -> concept
+  mapping can be derived per filing instead of hand-written. Segment figures are dimensional, with
+  company-specific members (`msft:IntelligentCloudMember`, `ndaq:CapitalAccessPlatformsMember`, ...), whose
+  names can be turned into labels.
+
+This doesn't reverse the "linearized tables" decision to keep XBRL out of runtime: that was about aligning
+table columns (circular with the oracle) and about a general question -> concept lookup. Text-block labels
+are a separate use; the figure lookup (phase B) is the text-to-query problem that entry flagged, now scoped.
+
+**Decisions (user, 2026-09-25):**
+- **v1 first.** Manual pass and push of the current state; v2 on a branch.
+- **Phased, stop on bad numbers.** Each phase is spiked and measured (replay, both strategies, Q1-Q24 as the
+  no-regression bar) before it's built; stop after any phase whose numbers don't justify the next.
+- **Section labels as a setting on both strategies**, not a third chunking strategy - so a gain is
+  attributable to the labels, not to the chunking.
+
+**Phases:**
+- **A - XBRL section labels on chunks**, used for routing (e.g. "segment" -> the segment text block).
+  Main unknown: carrying HTML text-block regions through markitdown onto chunks.
+- **B - figure lookup from tagged facts** for headline statement items, passed to the model as cited
+  context. Unknowns: period resolution per fiscal-year end, dimensional (segment) facts.
+- **C - router** between B and retrieval; fallback to retrieval when no fact matches. Carries today's
+  misrouting risk, so measured like the statement filter.

@@ -16,6 +16,9 @@ found) is in `docs/Decision-Log.md`. It's deliberately not auto-loaded — read 
 before revisiting a decision, and record new follow-ups there, adding a one-line summary to the plan's
 Status or Live constraints only if the follow-up changes them.
 
+`docs/Design-FAQ.md` answers the "why not X?" questions a reviewer is likely to ask. When a decision it
+covers changes, update its answer in the same change; keep it to stable facts and decisions, not counts.
+
 ## Working style for this project
 
 - Correctness over speed. This is not a race against any deadline.

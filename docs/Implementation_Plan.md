@@ -51,8 +51,9 @@ revisiting any decision summarized here.
 | 7. Testing | Done — 6/6 on the Step 7 questions; 24/24 manual questions (both strategies); targeted T1-T10: Markdown 4, Linearized 5 right; 176 offline unit tests |
 | 8. Publish | README written; **push on hold** until the user's manual pass (`docs/Manual-Test-Questions.md`) |
 
-**Completion checkpoint:** once the manual pass is done and the repo is pushed, the project is
-complete. Report that clearly and stop — nothing further is assumed or owed.
+**Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
+report that clearly. The only further work is v2, the XBRL hybrid the user asked for (2026-09-25), built on
+a branch in measured phases - nothing else is assumed or owed. Decision-Log.md, "XBRL hybrid (v2)".
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the
@@ -70,7 +71,11 @@ and are switchable. Compared on 10 targeted questions plus 2 routing tests: Line
 the model's context for 7/10 vs 4/10, answers 5 vs 4 right, 2 wrong each. The user chose to record this
 and stop; `Markdown` stays the default. Follow-ups (roll-forward periods, table mixing, soft filter /
 hybrid search, embedding-model comparison) are listed, not planned - Decision-Log.md, "targeted
-questions and a rank metric". **Next: the user's manual pass, then push.**
+questions and a rank metric". Hybrid search was checked for feasibility only, never measured (corrected
+in "pre-manual-pass review").
+
+**Next: the user's manual pass, then push v1. Then v2 - XBRL section labels, figure lookup, router - on a
+branch, each phase measured before the next.**
 
 **Known, not planned:** statement routing is keyword *substring* matching over a hard filter - "deferred
 revenues" routes to the income statement and can't reach the balance sheet (R1); colliding keywords
