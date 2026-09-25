@@ -1371,3 +1371,85 @@ read-only subagent that runs the onboarding checklist on a new filing and report
 evidence (`omitClaudeMd: true` - it reads only the plan's Live constraints section instead of reloading
 ~19 KB of CLAUDE.md + plan); and the test conventions moved from CLAUDE.md into the path-scoped
 `.claude/rules/testing.md`, loaded only when a test file is read.
+
+## Follow-up: pre-manual-pass review — lost first chunk, back-matter headings, output ceiling — DONE, outcome below
+
+**Why.** A critical review before the manual pass, checking the code against the real indexes and the
+SEC's own Form 10-K instructions (the form PDF: Items 1-16, cover-page fields, Part III incorporated by
+reference from the proxy statement) rather than against the test set.
+
+**Bug 1 - the first chunk of every build was silently dropped.** `BuildRecords` keyed records from 0, and
+an `int` key of 0 is the vector store's "generate a key" value: SqliteVec stored chunk 0 under a generated
+key 1, and the real key-1 chunk then overwrote it. Found by comparing row counts: 1,439 rows vs 1,440
+dumped chunks (Markdown), 993 vs 994 (Linearized), key 0 absent from both and key 1 holding chunk 2.
+Confirmed with a standalone repro against `CommunityToolkit.VectorData.SqliteVec` 1.0.1-preview (upsert
+keys 0, 1, 2 -> `Get(0)` null, `Get(1)` = "chunk 1"). The lost chunk was MSFT's cover page: its street
+address, state of incorporation, I.R.S. number, commission file number and registered-securities table
+("STATE OF INCORPORATION" appeared nowhere in either index). "Where is Microsoft headquartered?" was
+*not* affected - Item 2 ("Our corporate headquarters are located in Redmond") ranks 1st either way. No
+test question touched MSFT's cover page, so the suite couldn't catch it.
+Fix: `BuildRecords` moved out of `Program.cs` into `VectorStore/FilingChunkRecords.cs` (testable), keys
+start at 1; and after upserting, the build counts the stored records (`GetAsync(r => true, ...)`) and fails
+before writing the manifest if any are missing.
+
+**Bug 2 - NFLX's and NDAQ's financial statements were headed "Item 16. Form 10-K Summary".** Form 10-K
+lets a filer put the financial statement pages after Part IV (referenced from Item 8/15). NFLX and NDAQ
+do, right after "Item 16. Form 10-K Summary - None.", and `SectionSplitter` kept the last heading it saw:
+249 NFLX and 110 NDAQ chunks - every statement, auditor's report and Note - carried that heading into the
+embedding text and the model's citations. ORCL's exhibit index and every filer's signatures landed there
+too. Found by tabulating chunks per Item per filing against the form's item list.
+Fix: in Part IV only, the standalone titles "INDEX TO (CONSOLIDATED) FINANCIAL STATEMENTS", "SIGNATURES"
+and "EXHIBIT INDEX"/"INDEX OF EXHIBITS" start their own heading ("PART IV > Financial Statements" /
+"Signatures" / "Exhibit Index"). Each appears only as back matter in all four filings (checked in the
+dumps); the auditor's report title isn't usable as a signal - it also appears inside Items 8 and 9A. Part
+IV only, because an index to the statements inside a filer's Item 8 is already headed correctly.
+
+**Config fix - `Retrieval.MaxOutputTokens` 4096 -> 768.** It applies to every chat model, not only
+reasoning ones (`RagAnswerService` sets it unconditionally; OllamaSharp maps it to `num_predict` - read in
+its `AbstractionMapper`). The app never sets `num_ctx`, so Ollama's default 4,096-token window holds prompt
+*and* output: a 4096 output ceiling could never be reached. Ollama's server log showed seven runaway
+`llama3.1:8b` answers on 2026-09-23 (before temperature 0) generating 1,375-1,673 tokens until the window
+filled, with `truncated = 1` and `n_keep = 4` - Ollama then drops the oldest tokens, i.e. the system prompt
+and the top-ranked chunks. From the 2026-09-24 runs (243 answers): answers at most 274 tokens (p95 172),
+prompts at most ~2,980. 768 is ~3x the longest answer and leaves ~350 tokens spare (1,024 would have left
+92). A reasoning model gets little room to think within 4,096; that needs `num_ctx` raised. Added to the
+plan's Live constraints, with a unit test on the shipped value.
+
+**Soft statement filter - now actually measured** (the "Keyword routing" follow-up above said "considered,
+measured, not built"; only the narrative share had been measured). Simulated retrieval-only against both
+indexes with a Python port of the routing, validated by reproducing the replay's hard-filter numbers
+exactly. Top-5 recall:
+
+| | Hard (shipped) | No statement filter | Soft (filtered/unfiltered interleaved) |
+|---|---|---|---|
+| Q1-Q24, Markdown / Linearized | 22/22 / 22/22 | 11/22 / 15/22 | 21/22 / 21/22 |
+| T1-T10, Markdown / Linearized | 4/10 / 7/10 | 3/10 / 6/10 | 4/10 / 6/10 |
+| 8 new probes (segment revenue, revenue recognition, drivers, cash-flow risk, ...) | 1/8 | 6/8 | 5-6/8 |
+
+The statement filter is load-bearing (removing it halves Q1-Q24). Soft filtering trades one curated
+question (Q20 to rank 6; T9 on Linearized) for 3-5 probe questions - and the probes were written after
+seeing the failure, two with loose needles. It can't buy slots back with a larger `GenerationTopK`:
+prompts already reach ~3,000 of the 4,096-token window. Section (Item) routing was also considered and
+not pursued: questions it would target (Q11-Q13, Q19) already rank 1-4 unfiltered. Reading company
+identity from the cover page's `dei:` inline-XBRL tags (all four carry them) was considered for automatic
+`CompanyToFiling` registration and declined: registration is two lines per filing and already guarded;
+deriving aliases ("MICROSOFT CORPORATION" -> "Microsoft", ORCL's several trading symbols) adds a new silent
+failure mode. Not built; recorded here.
+
+**Verified after `--rebuild` of both indexes:** 1,444 / 999 records stored, keys 1..N, matching the dumps;
+MSFT's cover page at key 1; one statement-type run per primary statement in every filing, same chunk
+counts as before; NFLX/NDAQ statement chunks headed "PART IV > Financial Statements". Replay (retrieval
+only, no LLM) top-5 totals unchanged: Q1-Q24 22/22 both, T1-T10 4/10 and 7/10, R1-R2 0/2. 170 unit tests.
+The full question run with answers wasn't repeated - the manual pass covers it.
+
+**Docs updated alongside.** README gained a "Known limitations" entry for the hard filter. Checked before
+writing it, on the rebuilt indexes: the misses aren't only narrative questions - segment and regional
+revenue, operating margin and deferred revenue are figure questions that rank 1-6 unfiltered and are
+unreachable routed. Asked live, the model declined segment and regional revenue and *computed* NFLX's
+operating margin from the income statement (29.5%, matching the MD&A's figure). New routing test **R3**
+("Microsoft's Intelligent Cloud segment revenue", expected: a decline; the figure is $137,791 million)
+in `docs/Manual-Test-Questions.md`, line 37 of `tools/manual-questions.txt` (before the session-ending
+blank line) and `replay_recall.py`. The rebuild shifted seven NDAQ/NFLX line citations in
+`Manual-Test-Questions.md` by 1-6 lines (back-matter title lines removed, boundaries moved); each was
+re-pointed and checked against the new dumps, and Q17's note now expects the `PART IV > Financial
+Statements` citation.

@@ -4,7 +4,7 @@ namespace RagFilingExplorer.Local.Chunking;
 
 /// <summary>
 /// Turns one filing into sections and chunks - the only part of the pipeline that differs between
-/// strategies. Everything downstream (statement-type tagging in BuildRecords, embedding, retrieval) only
+/// strategies. Everything downstream (statement-type tagging in FilingChunkRecords, embedding, retrieval) only
 /// sees the resulting <see cref="FilingChunk"/>s, so strategies can be swapped via Chunking:Strategy in
 /// appsettings.json. Each strategy builds its own index (rag.&lt;strategy&gt;.db) and chunk dumps
 /// (chunk-review/&lt;strategy&gt;/), so switching back and forth never forces a re-embed.

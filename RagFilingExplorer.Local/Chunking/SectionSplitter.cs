@@ -48,6 +48,15 @@ internal static partial class SectionSplitter
     [GeneratedRegex(@"^(?:\\?[_\-*=~.]){3,}$")]
     private static partial Regex DecorativeRuleRegex();
 
+    // Back matter after the last Item - the financial statement pages, signatures, exhibit index. Form 10-K
+    // lets a filer place the financial statements after Part IV, referenced from Item 8/15: NFLX and NDAQ
+    // do, right after "Item 16. Form 10-K Summary - None.", so every statement, auditor's report and Note
+    // (249 NFLX chunks, 110 NDAQ) was headed "Item 16. Form 10-K Summary" - in the embedding text and in
+    // the model's citations. Each title here is a standalone line that appears only as back matter across
+    // all four filings (the auditor's report title isn't usable: it also appears inside Items 8 and 9A).
+    [GeneratedRegex(@"^(?:(?<fs>INDEX\s+TO\s+(?:CONSOLIDATED\s+)?FINANCIAL\s+STATEMENTS)|(?<sig>SIGNATURES)|(?<ex>EXHIBIT\s+INDEX|INDEX\s+OF\s+EXHIBITS))$", RegexOptions.IgnoreCase)]
+    private static partial Regex BackMatterRegex();
+
     public static List<DocumentSection> Split(string markdown)
     {
         string[] lines = markdown.Replace("\r\n", "\n").Split('\n');
@@ -117,7 +126,7 @@ internal static partial class SectionSplitter
             }
 
             // A statement title (or the Notes boundary) starts a new section under the same heading, so
-            // it always opens a fresh chunk. BuildRecords tags each chunk with the last statement title
+            // it always opens a fresh chunk. FilingChunkRecords tags each chunk with the last statement title
             // seen *within* it, so without this, text before a mid-chunk title - the previous
             // statement's page footer, or auditor-report prose (NDAQ) - inherited the next statement's
             // tag. Safe to split on: across all four filings each of these lines matches only the real
@@ -134,6 +143,18 @@ internal static partial class SectionSplitter
             {
                 FlushSection();
                 currentItem = $"Item {itemMatch.Groups[1].Value}. {itemMatch.Groups[2].Value}";
+                continue;
+            }
+
+            // Only once Part IV has started: that's where the form puts back matter, and an "Index to
+            // Financial Statements" inside a filer's Item 8 is correctly headed by Item 8 already.
+            Match backMatterMatch = currentPart == "PART IV" ? BackMatterRegex().Match(line) : Match.Empty;
+            if (backMatterMatch.Success)
+            {
+                FlushSection();
+                currentItem = backMatterMatch.Groups["fs"].Success ? "Financial Statements"
+                    : backMatterMatch.Groups["sig"].Success ? "Signatures"
+                    : "Exhibit Index";
                 continue;
             }
 

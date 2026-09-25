@@ -40,7 +40,7 @@ a wrong retrieval landing there instead of the real balance sheet is worth notin
 
 **3. What were Nasdaq's total liabilities?**
 Expected: **$18,821 million** (2025; $19,195 million 2024).
-Source: `NDAQ-10K-2025.chunks.txt:12426`. Filter: `NDAQ-10K-2025.html`, `balance_sheet`.
+Source: `NDAQ-10K-2025.chunks.txt:12420`. Filter: `NDAQ-10K-2025.html`, `balance_sheet`.
 
 ## Cash flow statement
 
@@ -54,7 +54,7 @@ Source: `ORCL-10K-2026.chunks.txt:2762`. Filter: `ORCL-10K-2026.html`, `cash_flo
 
 **6. What was Nasdaq's net cash provided by operating activities in 2025?**
 Expected: **$2,255 million** (2025; $1,939 million 2024; $1,696 million 2023).
-Source: `NDAQ-10K-2025.chunks.txt:12654`. Filter: `NDAQ-10K-2025.html`, `cash_flow_statement`.
+Source: `NDAQ-10K-2025.chunks.txt:12648`. Filter: `NDAQ-10K-2025.html`, `cash_flow_statement`.
 
 ## Equity statement
 
@@ -68,7 +68,7 @@ Source: `MSFT-10K-2026.chunks.txt:2109` (balance sheet). Filter: `MSFT-10K-2026.
 Expected: **$12,227 million** "Total Nasdaq stockholders' equity" (2025; $11,191 million 2024;
 $10,816 million 2023) - or **$12,232 million** "Total equity" including noncontrolling interests, if
 cited to that line - but not $12,232 million labelled as "Nasdaq stockholders' equity", which an
-earlier run did. Source: `NDAQ-10K-2025.chunks.txt:12437` (balance sheet). Filter: `NDAQ-10K-2025.html`,
+earlier run did. Source: `NDAQ-10K-2025.chunks.txt:12431` (balance sheet). Filter: `NDAQ-10K-2025.html`,
 `balance_sheet`.
 Before the second review this returned "(no results)": NDAQ titles its statement "Statements of
 *Changes in* Stockholders' Equity", which the detector didn't recognize, so no NDAQ chunk was tagged
@@ -94,7 +94,7 @@ Source: `ORCL-10K-2026.chunks.txt:2565`. Filter: `ORCL-10K-2026.html`, `comprehe
 **10. What was Nasdaq's total comprehensive income for 2025?**
 Expected: **$2,113 million** (or **$2,114 million** "attributable to Nasdaq" - either figure, if cited
 correctly to the right line, counts as correct; 2024 was $940M / $942M).
-Source: `NDAQ-10K-2025.chunks.txt:12529-12531`. Filter: `NDAQ-10K-2025.html`, `comprehensive_income`.
+Source: `NDAQ-10K-2025.chunks.txt:12523-12525`. Filter: `NDAQ-10K-2025.html`, `comprehensive_income`.
 
 ## Prose facts (not previously tested)
 
@@ -118,13 +118,11 @@ Expected: **$45,183,036 thousand** (~$45.18 billion; FY2024: $39,000,966 thousan
 $33,723,297 thousand).
 Source: `NFLX-10K-2025.chunks.txt` (Consolidated Statements of Operations). Filter:
 `NFLX-10K-2025.html`, `income_statement`.
-Note: the citation will say `PART IV > Item 16. Form 10-K Summary`, not `Item 8` - that's expected,
-not a bug. Netflix's actual financial statement pages are physically attached later in the converted
-document than its `Item 8` heading line, so `SectionSplitter` attributes them to whichever Item
-heading came last in document order (the same "Item 8 is a stub, the real pages live elsewhere"
-pattern already seen with ORCL's Item 15). See Decision-Log.md's "Follow-up: onboarding a new
-filer (NFLX)" for the full explanation - and don't mistake this label for a sign the wrong number came
-back; check the dollar figure itself.
+Note: the citation will say `PART IV > Financial Statements`, not `Item 8` - that's expected, not a bug.
+Netflix's financial statement pages come after Part IV's last Item (its `Item 8` only points to them),
+so `SectionSplitter` heads them by the back-matter title that opens them ("INDEX TO FINANCIAL
+STATEMENTS"). NDAQ's statements are headed the same way. Before the pre-manual-pass review they were
+headed `PART IV > Item 16. Form 10-K Summary` - see Decision-Log.md, "pre-manual-pass review".
 
 **18. What was Netflix's net income for 2025?**
 Expected: **$10,981,201 thousand** (FY2024: $8,711,631 thousand; FY2023: $5,407,990 thousand).
@@ -171,12 +169,12 @@ Negative test (repeat of Step 7's original out-of-scope check, kept here for com
 isn't one of the filings in `data/`. Expected: an explicit "not in the provided context" style
 answer, not an answer from the model's own training knowledge.
 
-## Targeted questions (T1-T10) and routing tests (R1-R2) - added later
+## Targeted questions (T1-T10) and routing tests (R1-R3) - added later
 
 T1-T10 aim at what the table-chunking work claims to fix - mid-table rows, split layouts, MD&A and notes
-tables - where the original questions are mostly headline totals. R1-R2 are *routing* tests: their
-keyword route (`QueryIntentResolver`) excludes every chunk holding the answer, so both miss by design
-until routing changes. Lines 25-36 of `tools/manual-questions.txt`; results for both chunking strategies
+tables - where the original questions are mostly headline totals. R1-R3 are *routing* tests: their
+keyword route (`QueryIntentResolver`) excludes every chunk holding the answer, so all three miss by design
+until routing changes. Lines 25-37 of `tools/manual-questions.txt`; results for both chunking strategies
 are in Decision-Log.md, "targeted questions and a rank metric". "Traps" are the nearby figures a wrong
 answer tends to pick. "Filter" is the route the real resolver takes (checked, not predicted).
 
@@ -205,7 +203,7 @@ Source: `MSFT-10K-2026.chunks.txt:2752`. Filter: `MSFT-10K-2026.html` only.
 **T6. What was the goodwill balance of Nasdaq's Financial Technology segment at December 31, 2025?**
 Expected: **$7,952 million**. Traps: 4,285 / 2,134 (other segments), 14,371 (total), 5,933 (goodwill
 recognized in the Adenza acquisition, also "assigned to" Financial Technology).
-Source: `NDAQ-10K-2025.chunks.txt:15709`. Filter: `NDAQ-10K-2025.html` only.
+Source: `NDAQ-10K-2025.chunks.txt:15703`. Filter: `NDAQ-10K-2025.html` only.
 
 **T7. What was the effect of the Ireland statutory tax rate difference on Microsoft's effective tax rate in fiscal year 2026?**
 Expected: **(2.6)%** - a $4,301 million reduction. Trap: 21.0% (federal statutory rate).
@@ -223,7 +221,7 @@ the "Balances as of May 31, 2024" row above it.
 
 **T10. In Netflix's statement of comprehensive income, how much in cash flow hedge gains was reclassified in 2024?**
 Expected: **$(96,795) thousand** - net gains of about $96.8 million. Traps: 68,962 (2025), 7,113 (fair
-value hedges, 2024). Source: `NFLX-10K-2025.chunks.txt:1596`. Filter: `NFLX-10K-2025.html` only - "cash
+value hedges, 2024). Source: `NFLX-10K-2025.chunks.txt:1595`. Filter: `NFLX-10K-2025.html` only - "cash
 flow hedge" contains the cash-flow-statement keyword, so the two statement keywords collide and the
 statement filter is dropped.
 
@@ -232,5 +230,13 @@ Expected: **$9,916 million**. Source: `ORCL-10K-2026.chunks.txt:2433` (balance s
 `ORCL-10K-2026.html`, `income_statement` - "revenues" routes it there, where the figure doesn't exist.
 
 **R2. What was the operating income of Nasdaq's Capital Access Platforms segment in 2025?** (routing test)
-Expected: **$1,274 million**. Source: `NDAQ-10K-2025.chunks.txt:18805` (segment note). Filter:
+Expected: **$1,274 million**. Source: `NDAQ-10K-2025.chunks.txt:18799` (segment note). Filter:
 `NDAQ-10K-2025.html`, `income_statement` - "operating income" routes it away from the segment note.
+
+**R3. What was Microsoft's Intelligent Cloud segment revenue?** (routing test - added in the pre-manual-pass review)
+Expected: **a decline** - "revenue" routes it to the income statement, which reports only product and
+service revenue, never segments. The figure exists elsewhere: **$137,791 million** (FY2026; $106,265
+million FY2025). Source: `MSFT-10K-2026.chunks.txt:1312` (MD&A) and `:5405` (segment note). Filter:
+`MSFT-10K-2026.html`, `income_statement`. A decline ("the excerpts ... do not break down revenue by
+segment", as observed) is the correct outcome; any figure other than $137,791 million is a failure.
+It's the README's "statement routing is a hard filter" limitation - see Decision-Log.md, "pre-manual-pass review".

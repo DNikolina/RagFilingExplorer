@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; 24/24 manual questions (both strategies); targeted T1-T10: Markdown 4, Linearized 5 right; 159 offline unit tests |
+| 7. Testing | Done — 6/6 on the Step 7 questions; 24/24 manual questions (both strategies); targeted T1-T10: Markdown 4, Linearized 5 right; 170 offline unit tests |
 | 8. Publish | README written; **push on hold** until the user's manual pass (`docs/Manual-Test-Questions.md`) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, the project is
@@ -59,6 +59,11 @@ expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable
 figure in the top-5 context on both (deterministic, no LLM - see its header); 159 unit tests. `Retrieval.ChatTemperature` is 0 so a changed
 answer can be attributed to a code change rather than sampling. Details in Decision-Log.md, "trailing
 remainders, per-company search, table-piece headers".
+
+**Pre-manual-pass review (2026-09-25):** fixed the silently dropped first chunk (MSFT's cover page; int key
+0), NFLX/NDAQ statements headed "Item 16", and `MaxOutputTokens` exceeding the context window (4096 -> 768).
+Both indexes rebuilt; replay top-5 unchanged; 170 unit tests. Soft filter measured, not built. Details in
+Decision-Log.md, "pre-manual-pass review".
 
 **Chunking strategies - done, recorded (2026-09-24):** `Markdown` (default) and `Linearized` both ship
 and are switchable. Compared on 10 targeted questions plus 2 routing tests: Linearized puts the answer in
@@ -84,13 +89,15 @@ data/*.html
   → MarkItDownConverter   detect encoding, strip <ix:header>, shell out to `markitdown`
   → SectionSplitter       "PART I > Item 1. Business" heading paths from plain-text patterns;
                           a new section (same heading) at every statement title / Notes boundary;
+                          Part IV back matter gets its own heading ("Financial Statements",
+                          "Signatures", "Exhibit Index"), not the last Item's;
                           fenced row blocks copied through, never read as headings
   → TokenChunker          ~500-token chunks (cl100k), 50 overlap; tables atomic, headers +
                           fiscal-period row + in-force row-group label repeated across
                           splits; a short lead-in (title, "(in millions)") rides on an
                           oversized table's first piece, a short footer on its last; a row
                           block splits between rows, every piece repeating title/units/context
-  → BuildRecords          StatementType tagged by carrying the last statement title forward,
+  → FilingChunkRecords    StatementType tagged by carrying the last statement title forward,
                           reset at "Notes to Financial Statements" and on filing change
   → SqliteVec index       rag.<strategy>.db; nomic-embed-text, "search_document:" prefix, EmbeddingTextBuilder text
   → RagAnswerService      QueryIntentResolver filter (company + statement type) → top-K search
@@ -131,6 +138,9 @@ Packages: `Microsoft.Extensions.AI`, `Microsoft.Extensions.VectorData.Abstractio
   headings like "OPERATIONS" or "Cash Flows" mistagged up to 96 consecutive chunks.
 - **Never send a reasoning ("think") request to a model without the `thinking` capability** — Ollama
   hard-errors rather than ignoring it. The capability comes from `/api/show` at startup, never the name.
+- **Prompt + `Retrieval.MaxOutputTokens` must fit Ollama's `num_ctx`** (4096 by default; the app doesn't
+  set it). Past it, Ollama silently drops the oldest tokens - the system prompt and the top-ranked chunks.
+  Prompts reach ~3,000 tokens, so raising `MaxOutputTokens` or `GenerationTopK` needs `num_ctx` raised too.
 - **Config values live only in `appsettings.json`** — no duplicate defaults in code (this has drifted
   twice). Presence of every key is validated at load, since `required` doesn't apply to the binder.
 - After any package change, run `dotnet list package --vulnerable --include-transitive`

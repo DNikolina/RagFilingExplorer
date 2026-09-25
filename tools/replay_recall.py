@@ -7,7 +7,7 @@
 #
 # Reported per question group - the original 24 (Q1-Q24), the targeted questions aimed at what the
 # Linearized strategy claims to fix (T1-T10), and the routing tests whose keyword route excludes the
-# answer (R1-R2, misses by design until routing changes):
+# answer (R1-R3, misses by design until routing changes):
 #   recall@1/@3/@5 - share of answerable questions whose expected figure(s) are all within the top k
 #   MRR            - mean of 1/rank (0 beyond the top 25); a question with several expected figures
 #                    (Q20's two companies) ranks at its *last* figure's position
@@ -22,7 +22,7 @@
 # first line names it).
 #
 # `expect` below is keyed by line number in manual-questions.txt (Q1-Q13 and Q17-Q22 follow
-# docs/Manual-Test-Questions.md's order, then its edge cases, then Q23-Q24, then T1-T10 and R1-R2) -
+# docs/Manual-Test-Questions.md's order, then its edge cases, then Q23-Q24, then T1-T10 and R1-R3) -
 # keep them in sync. Requires the app to have been built once (it loads the sqlite-vec extension from bin/).
 import sqlite3, json, urllib.request, math, re, struct, glob, sys
 
@@ -71,12 +71,12 @@ expect = {1: ['758,376'], 2: ['43,056'], 3: ['18,821'], 4: ['182,935'], 5: ['31,
           # T1-T10: targeted at mid-table rows, split layouts and MD&A/notes tables
           25: ['2,243'], 26: ['3,500'], 27: ['466,095'], 28: ['3,603'], 29: ['48,562'], 30: ['7,952'],
           31: ['4,301'], 32: ['91.47'], 33: ['4,743'], 34: ['96,795'],
-          # R1-R2: routing tests - the keyword route excludes every chunk holding the answer
-          35: ['9,916'], 36: ['1,274']}
+          # R1-R3: routing tests - the keyword route excludes every chunk holding the answer
+          35: ['9,916'], 36: ['1,274'], 37: ['137,791']}
 
 
 def group_of(i):
-    return 'Q1-Q24' if i <= 24 else 'T1-T10' if i <= 34 else 'R1-R2'
+    return 'Q1-Q24' if i <= 24 else 'T1-T10' if i <= 34 else 'R1-R3'
 
 
 def name_of(i):
@@ -112,7 +112,7 @@ for i, (q, b) in enumerate(zip(questions, blocks), 1):
           f"filter={where}  top1={top1}")
 
 print()
-for group in ('Q1-Q24', 'T1-T10', 'R1-R2'):
+for group in ('Q1-Q24', 'T1-T10', 'R1-R3'):
     rs = [r for i, r in ranks.items() if group_of(i) == group]
     if not rs:
         continue

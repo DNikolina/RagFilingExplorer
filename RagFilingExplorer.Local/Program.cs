@@ -228,7 +228,7 @@ static async Task BuildIndexAsync(
     Console.WriteLine("=== Vector storage ===");
     Console.WriteLine($"Total chunks across all filings: {allChunks.Count}");
 
-    List<FilingChunkRecord> records = BuildRecords(allChunks);
+    List<FilingChunkRecord> records = FilingChunkRecords.Build(allChunks);
     await UpsertRecordsAsync(collection, records, settings.VectorStore.UpsertBatchSize);
 }
 
@@ -288,64 +288,6 @@ static async Task WriteChunkReviewFileAsync(string path, List<FilingChunk> chunk
     }
 }
 
-// nomic-embed-text expects task-specific prefixes for good retrieval matching: "search_document: "
-// on stored text, "search_query: " on the query text at search time. EmbeddingTextBuilder enriches
-// table chunks with their row labels as plain text before that prefix, since sparse tables otherwise
-// embed poorly - see its doc comment. Content stays exactly as chunked - only Text (the embedding
-// input) changes.
-//
-// StatementType is tracked in document order (chunks appear filing-by-filing, in original order):
-// once a statement-title line (e.g. "CONSOLIDATED STATEMENTS OF OPERATIONS") is seen, that type
-// carries forward to subsequent chunks until a new title line appears, the "Notes to Financial
-// Statements" boundary resets it to narrative (see StatementTypeDetector.IsNotesToFinancialStatementsBoundary
-// - without this, whichever statement was detected last leaks across every Note for the rest of the
-// filing), or the filing changes - the same "carry the nearest marker forward" pattern already used
-// for row-group labels in TokenChunker.
-static List<FilingChunkRecord> BuildRecords(List<FilingChunk> allChunks)
-{
-    List<FilingChunkRecord> records = new();
-    string? currentStatementType = null;
-    string? previousFiling = null;
-
-    for (int i = 0; i < allChunks.Count; i++)
-    {
-        FilingChunk chunk = allChunks[i];
-
-        if (chunk.SourceFiling != previousFiling)
-        {
-            currentStatementType = null;
-            previousFiling = chunk.SourceFiling;
-        }
-
-        foreach (string line in chunk.Content.Split('\n'))
-        {
-            if (StatementTypeDetector.IsNotesToFinancialStatementsBoundary(line))
-            {
-                currentStatementType = null;
-                continue;
-            }
-
-            string? detected = StatementTypeDetector.Detect(line);
-            if (detected is not null)
-            {
-                currentStatementType = detected;
-            }
-        }
-
-        records.Add(new FilingChunkRecord
-        {
-            Key = i,
-            SourceFiling = chunk.SourceFiling,
-            Heading = chunk.Heading,
-            StatementType = currentStatementType ?? "narrative",
-            Content = chunk.Content,
-            Text = $"search_document: {EmbeddingTextBuilder.Build(chunk.Heading, chunk.Content)}",
-        });
-    }
-
-    return records;
-}
-
 static async Task UpsertRecordsAsync(VectorStoreCollection<int, FilingChunkRecord> collection, List<FilingChunkRecord> records, int batchSize)
 {
     Console.WriteLine("Embedding and upserting all chunks (this calls Ollama for every chunk - may take a few minutes)...");
@@ -365,6 +307,20 @@ static async Task UpsertRecordsAsync(VectorStoreCollection<int, FilingChunkRecor
     }
 
     Console.WriteLine($"Upserted {records.Count} records in {(DateTime.UtcNow - start).TotalSeconds:F0}s.");
+
+    // Upserts report no per-record outcome, so a record lost in the store is otherwise silent - a key-0
+    // record overwritten by key 1 went unnoticed through every build until the index was queried directly.
+    // Thrown before the manifest is written, so a short index is never trusted.
+    int stored = 0;
+    await foreach (FilingChunkRecord _ in collection.GetAsync(r => true, records.Count + 1))
+    {
+        stored++;
+    }
+
+    if (stored != records.Count)
+    {
+        throw new InvalidOperationException($"the index holds {stored} records after upserting {records.Count}.");
+    }
 }
 
 // ===== Interactive retrieval + answer generation =====

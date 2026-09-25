@@ -127,7 +127,7 @@ a one-line settings change with no re-embedding - which is what makes side-by-si
   2026: $133,812 | 2025: $104,075") by `HtmlTableLinearizer`, working from the HTML because `markitdown`
   discards `colspan`. A split table repeats its statement title, units and period caption on every piece.
   A table it can't linearize unambiguously - or would lose any cell text from - falls back to the
-  Markdown handling. 994 chunks vs 1,440. Ties `Markdown` on the original 24 questions; on 10 targeted
+  Markdown handling. 999 chunks vs 1,444. Ties `Markdown` on the original 24 questions; on 10 targeted
   questions (mid-table rows, split layouts, MD&A/notes tables) it gets the answer into the model's
   context for 7 vs 4 and answers 5 vs 4 correctly, with named trade-offs - see
   [docs/Decision-Log.md](docs/Decision-Log.md), "targeted questions and a rank metric".
@@ -159,16 +159,20 @@ What ships now, in `RagAnswerService` and `Program.cs`:
 - **Capability check at startup**: `Program.cs` calls Ollama's own `/api/show` for the configured
   `ChatModel` and only ever routes a question to reasoning if `"thinking"` is actually in that model's
   capability list — never assumed from the model name.
-- **`Retrieval.MaxOutputTokens`** gives a reasoning model explicit room to think *and* answer, instead of
-  relying on Ollama's own default, which is exactly what let the budget-exhaustion bug happen silently.
+- **`Retrieval.MaxOutputTokens`** sets an explicit output ceiling for every chat model (thinking plus
+  answer, for a reasoning model), instead of relying on Ollama's own default, which is exactly what let
+  the budget-exhaustion bug happen silently. It shares Ollama's context window (`num_ctx`, 4096 by
+  default) with the prompt, so it's sized at 768: a reasoning model gets little room to think unless
+  `num_ctx` is raised too.
 - **A starved-response guard**: if a model still hits that ceiling without ever producing real answer
   text, the app fails with a clear, specific error instead of showing an empty answer.
 - **The interactive loop no longer dies on one bad turn**: any failure during a single question's
   generation (a starved response, an unsupported request, a dropped connection) is caught, reported, and
   the session continues to the next question.
 
-All of this is a no-op for a non-reasoning model like `llama3.1:8b` — it reports no `"thinking"`
-capability, so `ReasoningEffort` never applies to it regardless of question or configuration.
+Apart from the output ceiling, all of this is a no-op for a non-reasoning model like `llama3.1:8b` — it
+reports no `"thinking"` capability, so `ReasoningEffort` never applies to it regardless of question or
+configuration.
 
 ### Adding a new filing
 
@@ -200,13 +204,23 @@ with filer-specific code, but worth checking for explicitly with any new filing:
 Full diagnostic detail, including how each bug was actually found, is in
 [docs/Decision-Log.md](docs/Decision-Log.md) ("Follow-up: onboarding a new filer (NFLX)").
 
+## Known limitations
+
+- **Statement routing is a hard filter.** A question containing a financial-statement term (revenue,
+  net income, operating margin, total assets, cash flow, …) is searched only within that statement.
+  Answers that live elsewhere in the filing can't be retrieved: segment or regional breakdowns, MD&A
+  explanations, accounting policies, or a term from a different statement ("deferred revenue" is on
+  the balance sheet). In testing the model declined these rather than guess, but the miss is by design.
+  A soft filter was measured and not built - see [docs/Decision-Log.md](docs/Decision-Log.md),
+  "pre-manual-pass review".
+
 ## Testing
 
 ```
 dotnet test
 ```
 
-Runs `RagFilingExplorer.Local.Tests` (NUnit + Moq) — 159 tests, fully offline, no live Ollama instance
+Runs `RagFilingExplorer.Local.Tests` (NUnit + Moq) — 170 tests, fully offline, no live Ollama instance
 or populated vector store required. Covers chunking, section splitting, statement-type detection,
 query-intent resolution, settings loading/validation, index-manifest staleness detection, and the
 retrieve+generate orchestration (mocked).

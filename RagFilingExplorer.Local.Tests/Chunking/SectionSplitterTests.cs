@@ -5,6 +5,40 @@ namespace RagFilingExplorer.Local.Tests.Chunking;
 [TestFixture]
 public class SectionSplitterTests
 {
+    // NFLX and NDAQ place their financial statements after "Item 16. Form 10-K Summary - None.", so every
+    // statement, auditor's report and Note (249 NFLX chunks, 110 NDAQ) was headed "Item 16. Form 10-K
+    // Summary" - in the embedding text and in the model's citations. ORCL's exhibit index and every
+    // filer's signatures landed there too.
+    [TestCase("INDEX TO FINANCIAL STATEMENTS", "PART IV > Financial Statements")] // NFLX
+    [TestCase("INDEX TO CONSOLIDATED FINANCIAL STATEMENTS", "PART IV > Financial Statements")] // NDAQ
+    [TestCase("SIGNATURES", "PART IV > Signatures")]
+    [TestCase("EXHIBIT INDEX", "PART IV > Exhibit Index")] // NFLX
+    [TestCase("INDEX OF EXHIBITS", "PART IV > Exhibit Index")] // ORCL
+    public void Split_BackMatterTitleAfterLastItem_StartsItsOwnHeading(string title, string expectedHeading)
+    {
+        string markdown = $"PART IV\nItem 16. Form 10-K Summary\nNone.\n{title}\nBack matter text.\n";
+
+        List<DocumentSection> sections = SectionSplitter.Split(markdown);
+
+        Assert.That(sections.Select(s => s.Heading), Is.EqualTo(new[] { "PART IV > Item 16. Form 10-K Summary", expectedHeading }));
+        Assert.That(sections[0].Body, Is.EqualTo("None."));
+        Assert.That(sections[1].Body, Is.EqualTo("Back matter text."));
+    }
+
+    // Only Part IV holds back matter: an index to the financial statements inside Item 8 is already
+    // headed correctly by Item 8.
+    [Test]
+    public void Split_BackMatterTitleBeforePartIV_StaysUnderItsItem()
+    {
+        string markdown = "PART II\nItem 8. Financial Statements\nINDEX TO FINANCIAL STATEMENTS\nReport of Independent Registered Public Accounting Firm\n";
+
+        List<DocumentSection> sections = SectionSplitter.Split(markdown);
+
+        Assert.That(sections, Has.Count.EqualTo(1));
+        Assert.That(sections[0].Heading, Is.EqualTo("PART II > Item 8. Financial Statements"));
+        Assert.That(sections[0].Body, Does.StartWith("INDEX TO FINANCIAL STATEMENTS"));
+    }
+
     [Test]
     public void Split_SinglePartAndItem_ProducesOneSectionWithCombinedHeading()
     {

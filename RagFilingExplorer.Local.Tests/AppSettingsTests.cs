@@ -37,6 +37,21 @@ public class AppSettingsTests
         Assert.That(settings.Chunking.Strategy, Is.EqualTo(ChunkingStrategyKind.Markdown), "enum binds from its name");
     }
 
+    // MaxOutputTokens shipped as 4096 - Ollama's whole default context window, which the prompt shares, so
+    // the ceiling could never be reached: runaway llama3.1:8b answers (1,400-1,700 tokens, in Ollama's
+    // server log) filled the window first, and Ollama then dropped the oldest tokens - the system prompt
+    // and the top-ranked chunks. The largest prompt measured in that log was ~3,000 tokens.
+    [Test]
+    public void Load_ShippedAppSettings_OutputCeilingLeavesRoomForThePromptInOllamasDefaultContext()
+    {
+        const int OllamaDefaultContextTokens = 4096;
+        const int LargestMeasuredPromptTokens = 3000;
+
+        AppSettings settings = LoadShippedSettings();
+
+        Assert.That(settings.Retrieval.MaxOutputTokens + LargestMeasuredPromptTokens, Is.LessThanOrEqualTo(OllamaDefaultContextTokens));
+    }
+
     [Test]
     public void RequiredConfigurationKeys_CoversEveryLeafSetting_AndNoSections()
     {

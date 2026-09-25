@@ -1,0 +1,71 @@
+using RagFilingExplorer.Local.Chunking;
+
+namespace RagFilingExplorer.Local.VectorStore;
+
+/// <summary>
+/// Turns chunks (every filing's, in document order) into the records stored in the index.
+///
+/// nomic-embed-text expects task-specific prefixes for good retrieval matching: "search_document: "
+/// on stored text, "search_query: " on the query text at search time. EmbeddingTextBuilder enriches
+/// table chunks with their row labels as plain text before that prefix, since sparse tables otherwise
+/// embed poorly - see its doc comment. Content stays exactly as chunked - only Text (the embedding
+/// input) changes.
+///
+/// StatementType is tracked in document order: once a statement-title line (e.g. "CONSOLIDATED
+/// STATEMENTS OF OPERATIONS") is seen, that type carries forward to subsequent chunks until a new title
+/// line appears, the "Notes to Financial Statements" boundary resets it to narrative (see
+/// StatementTypeDetector.IsNotesToFinancialStatementsBoundary - without this, whichever statement was
+/// detected last leaks across every Note for the rest of the filing), or the filing changes - the same
+/// "carry the nearest marker forward" pattern already used for row-group labels in TokenChunker.
+/// </summary>
+internal static class FilingChunkRecords
+{
+    public static List<FilingChunkRecord> Build(IReadOnlyList<FilingChunk> allChunks)
+    {
+        List<FilingChunkRecord> records = new();
+        string? currentStatementType = null;
+        string? previousFiling = null;
+
+        for (int i = 0; i < allChunks.Count; i++)
+        {
+            FilingChunk chunk = allChunks[i];
+
+            if (chunk.SourceFiling != previousFiling)
+            {
+                currentStatementType = null;
+                previousFiling = chunk.SourceFiling;
+            }
+
+            foreach (string line in chunk.Content.Split('\n'))
+            {
+                if (StatementTypeDetector.IsNotesToFinancialStatementsBoundary(line))
+                {
+                    currentStatementType = null;
+                    continue;
+                }
+
+                string? detected = StatementTypeDetector.Detect(line);
+                if (detected is not null)
+                {
+                    currentStatementType = detected;
+                }
+            }
+
+            records.Add(new FilingChunkRecord
+            {
+                // Keys start at 1: an int key of 0 is the vector store's "generate a key" value. SqliteVec
+                // stored the first chunk (MSFT's cover page) under a generated key 1, which the real key-1
+                // chunk then overwrote - so every index silently lacked that chunk, confirmed by querying
+                // both rag.<strategy>.db files and a standalone repro against the same package version.
+                Key = i + 1,
+                SourceFiling = chunk.SourceFiling,
+                Heading = chunk.Heading,
+                StatementType = currentStatementType ?? "narrative",
+                Content = chunk.Content,
+                Text = $"search_document: {EmbeddingTextBuilder.Build(chunk.Heading, chunk.Content)}",
+            });
+        }
+
+        return records;
+    }
+}

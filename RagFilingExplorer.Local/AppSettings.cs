@@ -115,11 +115,12 @@ internal sealed class RetrievalSettings
     // MaxOutputTokens below for the other half of the fix (giving reasoning room to actually finish).
     public required ReasoningEffort ReasoningEffort { get; set; }
 
-    // Ceiling for ChatOptions.MaxOutputTokens (Ollama's num_predict). Previously left unset, which meant
-    // Ollama's own default governed - the same qwen3.5:2b bug above meant the model could exhaust that
-    // default while thinking and never reach the answer, with no error, just silence. Sized generously
-    // enough to cover a full reasoning trace plus the answer for a synthesis question; a simple lookup
-    // uses nowhere near this much. See RagAnswerService's starved-response guard for what happens if a
-    // model still hits this ceiling without producing real answer text - it now fails loudly instead.
+    // Ceiling for ChatOptions.MaxOutputTokens (Ollama's num_predict), applied to every question and every
+    // chat model. Previously left unset, which meant Ollama's own default governed - the same qwen3.5:2b
+    // bug above meant the model could exhaust that default while thinking and never reach the answer, with
+    // no error, just silence. Bounded by the context window: prompt + this must fit Ollama's num_ctx
+    // (4096 by default; this app doesn't set it) - see appsettings.json for the measured sizing. See
+    // RagAnswerService's starved-response guard for what happens if a model still hits this ceiling
+    // without producing real answer text - it now fails loudly instead.
     public required int MaxOutputTokens { get; set; }
 }

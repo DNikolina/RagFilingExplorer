@@ -72,7 +72,7 @@ internal static partial class StatementTypeDetector
 
     // All three filings title the section right after the five primary statements "NOTES TO
     // (CONSOLIDATED) FINANCIAL STATEMENTS" - a consistent, filer-agnostic reset point. Without this,
-    // the "carry the last detected type forward" logic in Program.cs's BuildRecords has nothing to
+    // the "carry the last detected type forward" logic in FilingChunkRecords.Build has nothing to
     // reset on: whichever statement type was detected last (typically the equity statement, since it's
     // conventionally the final one of the five) silently "leaks" across every Note chunk for the rest
     // of the filing - confirmed by inspecting a --verbose retrieval dump directly, where Notes chunks
