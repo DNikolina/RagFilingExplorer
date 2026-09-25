@@ -1453,3 +1453,14 @@ blank line) and `replay_recall.py`. The rebuild shifted seven NDAQ/NFLX line cit
 `Manual-Test-Questions.md` by 1-6 lines (back-matter title lines removed, boundaries moved); each was
 re-pointed and checked against the new dumps, and Q17's note now expects the `PART IV > Financial
 Statements` citation.
+
+**Program.cs split (same day, before the manual pass).** `Program.cs` had grown to 465 lines, of which ~100
+were the startup flow. Moved without behavior changes, each comment travelling with its code:
+`OllamaSetup` (HTTP client, readiness and thinking-capability checks), `VectorStore/IndexFiles` (the
+index's paths, `EnsureCurrent`, `Delete` - replacing a dbPath/manifestPath string pair),
+`VectorStore/IndexBuilder` (chunking, dumps, upsert and the stored-count check) and `InteractiveSession`
+(the question loop and its output). `Program.cs` is now 131 lines. `PrintMatchedFilter` became
+`InteractiveSession.FormatMatchedFilter`, returning the "(filtering to ...)" line - the line the manual pass
+checks and `replay_recall.py` parses - so its format is now unit-tested (6 cases, 176 tests). Verified as a
+pure move: `--chunks-only` dumps byte-identical on both strategies, and an end-to-end `--verbose` run
+against the existing index gave the same filter lines and answers (MSFT total assets; the Apple decline).

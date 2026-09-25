@@ -94,7 +94,7 @@ internal sealed class RagAnswerService(
         // chatModelSupportsThinking gates this further, and matters just as much: Ollama doesn't quietly
         // ignore a think request for a model that can't do it - it throws a hard OllamaException
         // ("<model> does not support thinking"), confirmed directly when llama3.1:8b crashed the whole
-        // app on the first synthesis question. Program.cs checks the configured chat model's real
+        // app on the first synthesis question. OllamaSetup.ChatModelSupportsThinkingAsync checks the chat model's real
         // capabilities via Ollama's own /api/show once at startup, rather than assuming.
         ReasoningEffort effectiveReasoningEffort = chatModelSupportsThinking && QueryIntentResolver.RequiresSynthesis(question)
             ? retrieval.ReasoningEffort

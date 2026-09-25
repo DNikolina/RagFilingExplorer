@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; 24/24 manual questions (both strategies); targeted T1-T10: Markdown 4, Linearized 5 right; 170 offline unit tests |
+| 7. Testing | Done — 6/6 on the Step 7 questions; 24/24 manual questions (both strategies); targeted T1-T10: Markdown 4, Linearized 5 right; 176 offline unit tests |
 | 8. Publish | README written; **push on hold** until the user's manual pass (`docs/Manual-Test-Questions.md`) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, the project is

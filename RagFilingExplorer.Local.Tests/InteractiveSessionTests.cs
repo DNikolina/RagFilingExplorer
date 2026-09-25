@@ -1,0 +1,36 @@
+using Microsoft.Extensions.AI;
+using RagFilingExplorer.Local.Retrieval;
+
+namespace RagFilingExplorer.Local.Tests;
+
+[TestFixture]
+public class InteractiveSessionTests
+{
+    private static async IAsyncEnumerable<ChatResponseUpdate> NoUpdates()
+    {
+        await Task.CompletedTask;
+        yield break;
+    }
+
+    private static RagAnswer Answer(string[] filings, string? statementType) =>
+        new(filings, statementType, ReasoningEffort.None, [], NoUpdates());
+
+    // The manual pass checks this line on every question, and tools/replay_recall.py parses the filings and
+    // "statement type: <type>" back out of a --verbose run log - a format change would silently break both.
+    [TestCase(new[] { "MSFT-10K-2026.html" }, null, "(filtering to MSFT-10K-2026.html)")]
+    [TestCase(new[] { "MSFT-10K-2026.html" }, "balance_sheet", "(filtering to MSFT-10K-2026.html, statement type: balance_sheet)")]
+    [TestCase(new string[0], "income_statement", "(filtering to statement type: income_statement)")]
+    [TestCase(new[] { "MSFT-10K-2026.html", "ORCL-10K-2026.html" }, null, "(searching MSFT-10K-2026.html and ORCL-10K-2026.html separately)")]
+    [TestCase(new[] { "MSFT-10K-2026.html", "ORCL-10K-2026.html" }, "income_statement",
+        "(searching MSFT-10K-2026.html and ORCL-10K-2026.html separately, statement type: income_statement)")]
+    public void FormatMatchedFilter_ResolvedFilter_ReadsAsTheFilterLine(string[] filings, string? statementType, string expected)
+    {
+        Assert.That(InteractiveSession.FormatMatchedFilter(Answer(filings, statementType)), Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void FormatMatchedFilter_NoFilter_IsNull()
+    {
+        Assert.That(InteractiveSession.FormatMatchedFilter(Answer([], null)), Is.Null);
+    }
+}

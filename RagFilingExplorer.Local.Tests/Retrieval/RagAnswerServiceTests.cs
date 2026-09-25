@@ -272,7 +272,7 @@ public class RagAnswerServiceTests
     // routing above: Ollama doesn't quietly ignore a "think" request for a model that can't reason - it
     // throws a hard OllamaException ("<model> does not support thinking"), which crashed the whole app
     // the first time a synthesis question tried to route llama3.1:8b to Effort.Medium. chatModelSupportsThinking
-    // (set from Ollama's own /api/show capabilities in Program.cs, not assumed) must gate the routing too.
+    // (set from Ollama's own /api/show capabilities by OllamaSetup at startup, not assumed) must gate the routing too.
     [Test]
     public async Task AskAsync_SynthesisQuestion_ButModelDoesNotSupportThinking_UsesNone()
     {

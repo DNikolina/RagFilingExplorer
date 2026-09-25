@@ -150,13 +150,13 @@ separately from their final answer. This app supports that deliberately, not jus
    ignored — Ollama rejects it outright with a hard error (`"<model>" does not support thinking`), which
    took down the entire interactive session the first time it happened.
 
-What ships now, in `RagAnswerService` and `Program.cs`:
+What ships now, in `RagAnswerService`, `OllamaSetup` and `InteractiveSession`:
 
 - **`Retrieval.ReasoningEffort`** (one of `None`/`Low`/`Medium`/`High`/`ExtraHigh`) is only applied to
   questions `QueryIntentResolver.RequiresSynthesis` flags as needing genuine multi-step reasoning
   (comparisons, ratios, trends) — a plain single-fact lookup always uses `Effort.None`, so reasoning is
   never wasted on a task that doesn't need it.
-- **Capability check at startup**: `Program.cs` calls Ollama's own `/api/show` for the configured
+- **Capability check at startup**: `OllamaSetup` calls Ollama's own `/api/show` for the configured
   `ChatModel` and only ever routes a question to reasoning if `"thinking"` is actually in that model's
   capability list — never assumed from the model name.
 - **`Retrieval.MaxOutputTokens`** sets an explicit output ceiling for every chat model (thinking plus
@@ -220,7 +220,7 @@ Full diagnostic detail, including how each bug was actually found, is in
 dotnet test
 ```
 
-Runs `RagFilingExplorer.Local.Tests` (NUnit + Moq) — 170 tests, fully offline, no live Ollama instance
+Runs `RagFilingExplorer.Local.Tests` (NUnit + Moq) — 176 tests, fully offline, no live Ollama instance
 or populated vector store required. Covers chunking, section splitting, statement-type detection,
 query-intent resolution, settings loading/validation, index-manifest staleness detection, and the
 retrieve+generate orchestration (mocked).

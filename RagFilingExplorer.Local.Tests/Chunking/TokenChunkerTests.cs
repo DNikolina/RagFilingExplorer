@@ -5,7 +5,7 @@ namespace RagFilingExplorer.Local.Tests.Chunking;
 
 /// <summary>
 /// Uses the real GPT-4 tokenizer (offline via Microsoft.ML.Tokenizers.Data.Cl100kBase, same as
-/// Program.cs) rather than a fake token counter - it's fast and deterministic, so there's nothing to
+/// ChunkingStrategies.Create) rather than a fake token counter - it's fast and deterministic, so there's nothing to
 /// mock. Split-boundary tests compute their own token thresholds from the same tokenizer instance
 /// instead of hand-guessing counts, so they stay correct regardless of exact tokenization details.
 /// </summary>
