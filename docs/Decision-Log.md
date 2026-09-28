@@ -1749,6 +1749,37 @@ are presentation: dividends shown "(4,743)" are stored positive; `sign="-"` mark
 continuation chains, a missing continuation throws, nil), and the four real filings (counts, known figures,
 cover facts, statements, labels).
 
+**Cross-checked against EDGAR's extracted instance (2026-09-28, the user found the file).** EDGAR publishes each
+filing's facts extracted from its inline XBRL as plain XML (`msft-20260630_htm.xml`, ~11 MB). Not a replacement
+for the HTML as the RAG source: it holds only tagged facts (no Item 1/1A/7 prose, no untagged tables, no
+headings) and loses where each fact sits, which 1b-iii's labels need; notes come as escaped HTML strings. But it
+is the SEC's own reading of the same tags, so `FilingXbrlTests.Read_MatchesEdgarsExtractedInstance` compares the
+reader against it fact by fact, both ways. MSFT: same 446 contexts, 6 units, 1,869 facts; **all 1,583 numbers
+equal**; every text fact equal except the SEC's cover codes, where the reader keeps the displayed name by design
+("Washington"/"Nasdaq" vs "WA"/"NASDAQ" - excluded by name). It found one real bug: `ixt-sec:duryear` "2.3" is
+P2Y3M18D, not P2.3Y (a fractional year becomes months and days; fixed, tested). The files are an oracle only:
+`.gitignore`d (~45 MB for four), the test skips a filing without one. NDAQ, NFLX, ORCL still to be checked - NFLX,
+the browser-saved non-XHTML copy, is the likeliest to differ.
+
+**Step 1b-ii measured (2026-09-28, `eval/structured-1b-ii/`, against `structured-1c-early`):** one "Cover Page"
+chunk per filing (~100 tokens) from the cover facts - name, fiscal year, common stock symbol and exchange (paired
+by context: ORCL lists "ORCL PRD" first, NDAQ four note issues), principal executive offices, state of
+incorporation, auditor. Every other chunk byte-identical (948 chunks).
+
+| | 1c-early | 1b-ii |
+|---|---|---|
+| Main Q1-Q24 / targeted / routing / variants, reliable | 22/24, 5/10, 3/3, 1/3 | same |
+| Held-out, reliable | 10/15 | **11/15** (H11 fixed) |
+| Replay main: recall@5 / MRR | 22/22, 0.784 | 22/22, **0.814** |
+| Replay held-out: recall@5 / MRR | 8/13, 0.427 | **9/13, 0.495** (H11 rank 17 -> 1) |
+
+37/40 main and 14/15 held-out answers are word for word the same; Q12, Q13 and Q22 stay right and now cite the
+Cover Page; H11 answers "151 W. 42nd Street, New York, New York 10036". The risk named in the plan didn't
+materialise: the profile reached the top 5 for 6 of 55 questions - the four it targets (Q12, Q13, Q22, H11)
+and two employee-count questions (Q11, H12, rank 2 - both still right). No figure question: statement-filtered
+questions can't retrieve it (it's narrative), and none of the unfiltered ones ranked it. H10 dropped one rank
+(18 -> 19), outside the top 5 either way. Largest prompt 2,950 tokens, no truncation.
+
 Kept out of 1b: **registration from `EntityRegistrantName` + `TradingSymbol`** replacing the hand-written
 `CompanyToFiling` entry - it changes routing (`QueryIntentResolver`), not chunks, so it's its own small step
 after 1b-ii, verified by the resolver returning the same filings for every existing question; and the **facts

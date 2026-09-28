@@ -20,5 +20,8 @@ tables as text rows, text-table column names on every piece), run 2026-09-28: ma
 routing 3/3, variants 1/3 - the same as Linearized; held-out 10/15 against Linearized's 11/15 (H11). H10 carries
 the user's decision on the identical Linearized answer.
 
+**`structured-1b-ii/`** - plus step 1b-ii's filing-profile chunk ("Cover Page", from the tagged cover facts), run
+2026-09-28: main 22/24 (unchanged), held-out **11/15** (H11 fixed). H10 carries the earlier decision on the same answer.
+
 Temperature 0 is deterministic here: the baseline's 40 main answers are word-for-word identical to the
 2026-09-25 run on the same code, so a changed answer means a changed input, not sampling.

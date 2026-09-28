@@ -60,7 +60,7 @@ internal static partial class IxTransformations
             "date-year-month-day" => ParseDate(t, "yyyy-MM-dd").ToString("yyyy-MM-dd"),
             "date-monthname-year-en" => ParseDate(t, "MMMM yyyy").ToString("yyyy-MM"),
             "date-monthname-day-en" => "--" + ParseDate(t + " 2000", "MMMM d yyyy").ToString("MM-dd"),
-            "duryear" => $"P{WordsToNumber(t)}Y",
+            "duryear" => YearsToDuration(WordsToNumber(t)),
             "durmonth" => $"P{WordsToNumber(t)}M",
             "durday" => $"P{WordsToNumber(t)}D",
             "durwordsen" => DurationFromWords(t),
@@ -91,6 +91,19 @@ internal static partial class IxTransformations
 
         int index = Array.IndexOf(NumberWords, t);
         return index >= 0 ? index : throw new FormatException($"'{text}' isn't a supported number word");
+    }
+
+    // A fractional number of years becomes years, months and days, as EDGAR's own extraction does: MSFT's "2.3"
+    // (remaining performance obligation duration) is P2Y3M18D - 0.3 years = 3.6 months = 3 months and 18 days,
+    // a month counted as 30 days. Found by comparing every fact against EDGAR's extracted instance.
+    private static string YearsToDuration(decimal years)
+    {
+        int whole = (int)Math.Floor(years);
+        decimal months = (years - whole) * 12m;
+        int wholeMonths = (int)Math.Floor(months);
+        int days = (int)Math.Round((months - wholeMonths) * 30m, MidpointRounding.AwayFromZero);
+        string duration = (whole > 0 ? $"{whole}Y" : "") + (wholeMonths > 0 ? $"{wholeMonths}M" : "") + (days > 0 ? $"{days}D" : "");
+        return "P" + (duration.Length > 0 ? duration : "0Y");
     }
 
     // "six years" -> P6Y, "15 years" -> P15Y, "one year and six months" -> P1Y6M. A hyphen counts as a space:

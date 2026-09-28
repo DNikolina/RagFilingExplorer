@@ -23,6 +23,7 @@ public class IxTransformationsTests
     [TestCase("ixt:date-monthname-year-en", "September 2026", "2026-09")]
     [TestCase("ixt:date-monthname-day-en", "June 30", "--06-30")]
     [TestCase("ixt-sec:duryear", "15", "P15Y")]
+    [TestCase("ixt-sec:duryear", "2.3", "P2Y3M18D")]
     [TestCase("ixt-sec:durday", "268", "P268D")]
     [TestCase("ixt-sec:durwordsen", "six years", "P6Y")]
     [TestCase("ixt-sec:boolballotbox", "☒", "true")]

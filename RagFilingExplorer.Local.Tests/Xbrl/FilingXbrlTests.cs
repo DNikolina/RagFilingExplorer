@@ -148,6 +148,53 @@ public class FilingXbrlTests
         Assert.That(profile, Does.EndWith(auditor));
     }
 
+    // The SEC's cover-page codes map a displayed name to an EDGAR code ("Washington" -> "WA", "Nasdaq" -> "NASDAQ");
+    // IxTransformations keeps the displayed text for these by design, so they're compared as not applicable.
+    private static readonly HashSet<string> SecCodeConcepts =
+        ["dei:EntityIncorporationStateCountryCode", "dei:EntityAddressStateOrProvince", "dei:SecurityExchangeName", "dei:EntityFilerCategory"];
+
+    // EDGAR publishes each filing's facts extracted from its inline XBRL as plain XML (<name>_htm.xml) - the SEC's
+    // own reading of the same tags. Every fact must match both ways, by concept, context and value (numbers as
+    // numbers). HTML-valued facts (notes and policies, escape="true") and the SEC code concepts are left out.
+    // This comparison found the fractional-year duration bug (MSFT's "2.3" is P2Y3M18D, not P2.3Y).
+    // Runs for each filing whose extracted instance is in data/ (MSFT so far).
+    [TestCaseSource(nameof(Filings))]
+    public void Read_MatchesEdgarsExtractedInstance(string filing)
+    {
+        XbrlDocument x = _read[filing].Xbrl;
+        string ns = System.Xml.Linq.XDocument.Load(TaxonomyReader.FindForFiling(_read[filing].Page, _data)!.FullName).Root!.Attribute("targetNamespace")!.Value;
+        FileInfo? instance = _data.GetFiles("*_htm.xml").FirstOrDefault(f => System.Xml.Linq.XDocument.Load(f.FullName).Root!
+            .Attributes().Any(a => a.IsNamespaceDeclaration && a.Value == ns));
+        if (instance is null)
+        {
+            Assert.Ignore($"No extracted instance for {filing} in data/.");
+        }
+
+        System.Xml.Linq.XElement root = System.Xml.Linq.XDocument.Load(instance.FullName).Root!;
+        System.Xml.Linq.XName nil = System.Xml.Linq.XNamespace.Get("http://www.w3.org/2001/XMLSchema-instance") + "nil";
+        HashSet<string> htmlValued = x.Facts.Where(f => f.IsTextBlock).Select(f => f.Concept).ToHashSet();
+        bool Compared(string concept) => !htmlValued.Contains(concept) && !SecCodeConcepts.Contains(concept);
+
+        HashSet<string> edgar = root.Elements()
+            .Where(e => e.Attribute("contextRef") is not null && e.Attribute(nil)?.Value != "true")
+            .Select(e => (Concept: $"{root.GetPrefixOfNamespace(e.Name.Namespace)}:{e.Name.LocalName}", Element: e))
+            .Where(p => Compared(p.Concept))
+            .Select(p => $"{p.Concept}|{p.Element.Attribute("contextRef")!.Value}|"
+                + (p.Element.Attribute("unitRef") is not null ? Num(decimal.Parse(p.Element.Value, System.Globalization.CultureInfo.InvariantCulture)) : Normalize(p.Element.Value)))
+            .ToHashSet();
+        HashSet<string> ours = x.Facts
+            .Where(f => !f.IsNil && Compared(f.Concept))
+            .Select(f => $"{f.Concept}|{f.ContextRef}|{(f.IsNumeric ? Num(f.Number!.Value) : Normalize(f.Text!))}")
+            .ToHashSet();
+
+        Assert.That(ours.Count, Is.GreaterThan(1_500));
+        Assert.That(ours.Except(edgar).Take(5), Is.Empty, "facts read differently from EDGAR");
+        Assert.That(edgar.Except(ours).Take(5), Is.Empty, "EDGAR facts not read");
+
+        static string Normalize(string s) => string.Join(" ", s.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries));
+        static string Num(decimal d) => d.ToString("0.############################", System.Globalization.CultureInfo.InvariantCulture);
+    }
+
     // NFLX's browser-saved copy lost its schemaRef; the taxonomy is found by the namespace the page declares.
     [Test]
     public void FindForFiling_NflxWithoutSchemaRef_IsFoundByNamespace()
