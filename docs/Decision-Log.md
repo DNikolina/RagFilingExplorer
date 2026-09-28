@@ -1646,8 +1646,8 @@ sqlite-vec + reciprocal rank fusion in code. See Design-FAQ.md, "Why no rerankin
   answer, as `replay_recall.py` does for retrieval); v1's per-question results saved as the baseline file; then
   the second-model run.
 - **1. Ingestion, in parts:** 1a DOM parse (no markitdown) with today's chunking, and the interface decision;
-  1b structure labels (Item path, XBRL text-block topic, statement type from concepts); 1c one table per chunk +
-  compact display text; 1d embedding text with company and section context.
+  1b structure labels (Item path, XBRL text-block topic, statement type from concepts) - split into 1b-i to
+  1b-iii below; 1c one table per chunk + compact display text; 1d embedding text with company and section context.
 - **2. Hybrid search** - FTS5 `bm25()` + sqlite-vec + rank fusion; statement labels as soft boosts.
 - **2b. Reranking spike** - can a small cross-encoder rerank the top 20-25 before the top 5 go to the model,
   locally? Ollama has no rerank endpoint, so the candidates are an ONNX cross-encoder run from .NET or the chat
@@ -1664,6 +1664,42 @@ sqlite-vec + reciprocal rank fusion in code. See Design-FAQ.md, "Why no rerankin
 - **4. Facts table + router** - only if steps 1-3 leave headline-figure failures that it would fix.
 - **5. Answer skills selected by code** - the answer kinds above, minus "headline figure" if step 4 is skipped.
 - **6. Model-selected skills** - only if step 5 leaves a gap.
+
+**Step 1b, detailed 2026-09-28 (user; prompted by the user spotting `dei:EntityAddressAddressLine1` and the
+many `contextRef`/`id` attributes in the HTML).** An inventory of all four filings: each tags 1,292-1,855
+numbers and 176-340 text facts, against 382-545 contexts and 6-14 units declared in the hidden `<ix:header>` -
+the official mapping, per filing (the IDs themselves are arbitrary: MSFT's are GUIDs). Both v1 strategies and
+1a delete that header unread. Every filing also tags a full cover page: registrant name, address
+(`EntityAddressAddressLine1`, city, state, ZIP), ticker and exchange, state of incorporation, fiscal year end and
+focus, shares outstanding, public float, and the auditor (`AuditorName`, `AuditorLocation`, `AuditorFirmId`).
+Three sub-steps, so an infrastructure change and two answer-changing ones are measured apart:
+- **1b-i. The XBRL header map - changes no chunk.** Contexts (period: start/end or instant; dimensions:
+  `explicitMember` and `typedMember`), units (incl. `divide` - USD per share), and per fact `name`, `scale`,
+  `decimals`, `format` (`ixt:fixed-zero` for "-", `ixt-sec:numwordsen` for "three"), `xsi:nil` and **`sign="-"`**
+  (106-144 per filing: the stored value is negative while the page shows no minus - miss it and outflows read
+  positive), plus a resolver for **`ix:continuation` chains** (58-186 per filing: a text block that starts in
+  one place and continues elsewhere - without it only a note's first piece gets its topic). Verified against the
+  filings, no question run: every `contextRef`/`unitRef` resolves, every chain completes, values spot-checked
+  against the chunk dumps (the `sign="-"` ones included), unit tests.
+- **1b-ii. A filing-profile chunk from the cover facts - measured.** One short chunk per filing in plain
+  sentences, cited as the cover page: registrant and ticker/exchange, "principal executive offices" (the
+  filing's wording, not "headquarters"), state of incorporation, fiscal year end and the fiscal year covered,
+  the auditor. Values cleaned (trailing commas, MSFT's capitals); checkbox facts (&#9746;/&#9744;) left out - their
+  meaning depends on which box carries the tag (MSFT's `EntityShellCompany` sits on the ticked "No"); number
+  facts scaled (MSFT's public float is "3.6" at trillions scale). Targets H11, Q12, Q13, Q22. Risk to watch in the
+  replay: a chunk naming the company and fiscal year may also rank for ordinary figure questions and take one of
+  the model's 5 slots - if main-set ranks drop, tighter wording or a filter.
+- **1b-iii. Structure labels - measured.** Note/policy topic from the text block enclosing each chunk (through
+  the continuation chains) and statement type from the concepts in a table, with the fiscal calendar
+  (`DocumentPeriodEndDate`, `DocumentFiscalYearFocus`) for period labels. The widest-reaching change.
+Kept out of 1b: **registration from `EntityRegistrantName` + `TradingSymbol`** replacing the hand-written
+`CompanyToFiling` entry - it changes routing (`QueryIntentResolver`), not chunks, so it's its own small step
+after 1b-ii, verified by the resolver returning the same filings for every existing question; and the **facts
+table** - cheaper once the header map exists, but still behind step 4's go/no-go. Not needed from the files:
+fact `id`s (only link targets for continuations and footnotes), `ix:footnote`/`ix:relationship` (0-23 per
+filing, text visible on the page), the company taxonomy behind `link:schemaRef` (a separate file, not in the
+HTML - member names are readable split, "Intelligent Cloud"), official us-gaap labels (a separate FASB download),
+`xml:lang`/`order`, and the HTML `id`s and `href="#..."` anchors (filer conventions the project doesn't rely on).
 
 Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
 Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation
