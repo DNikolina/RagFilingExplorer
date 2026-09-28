@@ -1,4 +1,5 @@
 using AngleSharp.Html.Parser;
+using Microsoft.ML.Tokenizers;
 using RagFilingExplorer.Local.Chunking;
 
 namespace RagFilingExplorer.Local.Tests.Chunking;
@@ -85,6 +86,33 @@ public class StructuredStrategyTests
 
         Assert.That(text, Does.Not.Contain("| --- |"));
         Assert.That(text, Does.Contain("```\n#rows\n2026\nRevenue | 100 | 200\n```"));
+    }
+
+    // MSFT chunk 198: a continuation piece of an exhibit-index page read "4.24 | Description of Securities | 10-K |
+    // 6/30/2024 | 4.26 | 7/30/2024" with no column names above it. The filers mark column names only by bold text
+    // (no <thead>, no <th>), so leading all-bold rows become the row block's context, repeated on every piece.
+    [Test]
+    public void ConvertToText_TextTableWithBoldHeaderRows_RepeatsThemOnEveryPiece()
+    {
+        string bold = "style=\"font-weight:bold\"";
+        string rows = string.Concat(Enumerable.Range(1, 30).Select(i => $"<tr><td>4.{i}</td><td>Supplemental Indenture number {i} between the Company and the Trustee</td><td>8-K</td></tr>"));
+        string html = $"<html><body><table><tr><td><span {bold}>Exhibit Number</span></td><td><span {bold}>Exhibit Description</span></td><td><span {bold}>Form</span></td></tr>{rows}</table></body></html>";
+
+        string text = StructuredChunkingStrategy.ConvertToText(html);
+        List<(string Content, int Tokens)> chunks = TokenChunker.Chunk(text, TiktokenTokenizer.CreateForModel("gpt-4"), maxTokens: 150, overlapTokens: 0);
+
+        Assert.That(chunks, Has.Count.GreaterThan(2));
+        Assert.That(chunks.All(c => c.Content.StartsWith("Exhibit Number | Exhibit Description | Form\n")), Is.True);
+    }
+
+    [Test]
+    public void LeadingBoldRowCount_BoldThroughout_IsNoHeader()
+    {
+        // A bold cover-page box: every row bold, so none of them is a column-name row.
+        var table = (AngleSharp.Html.Dom.IHtmlTableElement)new HtmlParser().ParseDocument(
+            "<table><tr><td><b>Washington</b></td></tr><tr><td><b>D.C. 20549</b></td></tr></table>").QuerySelector("table")!;
+
+        Assert.That(HtmlTableLinearizer.LeadingBoldRowCount(table), Is.EqualTo(0));
     }
 
     [Test]

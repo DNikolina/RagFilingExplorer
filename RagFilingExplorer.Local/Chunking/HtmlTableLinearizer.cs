@@ -308,6 +308,43 @@ internal static partial class HtmlTableLinearizer
         return new LinearizedTable(lines.Count == 0 ? LinearizedTableKind.Empty : LinearizedTableKind.Text, null, null, [], lines);
     }
 
+    /// <summary>
+    /// How many of a table's leading non-empty rows are column names, read from the only marker these filers
+    /// use - bold text (no filing uses &lt;thead&gt; or &lt;th&gt;): the leading rows whose text is all bold,
+    /// or 0 if every row is (a bold cover-page box has no header). For a text table's continuation pieces
+    /// (StructuredChunkingStrategy); a bold title row is caught too ("Critical audit matter" tables), which only
+    /// puts the title on every piece.
+    /// </summary>
+    public static int LeadingBoldRowCount(IHtmlTableElement table)
+    {
+        List<IHtmlTableRowElement> rows = table.Rows.Where(r => r.Cells.Any(c => c.TextContent.Trim().Length > 0)).ToList();
+        int count = rows.TakeWhile(r => r.Cells.Where(c => c.TextContent.Trim().Length > 0).All(IsAllTextBold)).Count();
+        return count == rows.Count ? 0 : count;
+    }
+
+    private static bool IsAllTextBold(IHtmlTableCellElement cell) =>
+        cell.Descendants<IText>().Where(t => t.Data.Trim().Length > 0).All(t => BoldBetween(t.ParentElement, cell));
+
+    // Bold if the text's own element or any ancestor up to the cell is <b>/<strong> or styled font-weight bold/700.
+    private static bool BoldBetween(IElement? element, IElement cell)
+    {
+        for (IElement? e = element; e is not null; e = e.ParentElement)
+        {
+            string style = (e.GetAttribute("style") ?? string.Empty).Replace(" ", string.Empty).ToLowerInvariant();
+            if (e.LocalName is "b" or "strong" || style.Contains("font-weight:bold") || style.Contains("font-weight:700"))
+            {
+                return true;
+            }
+
+            if (e == cell)
+            {
+                return false;
+            }
+        }
+
+        return false;
+    }
+
     public static RowBlock ToRowBlock(LinearizedTable table)
     {
         string caption = SharedCaption(table);

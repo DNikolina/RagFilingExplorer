@@ -77,7 +77,8 @@ internal sealed class StructuredChunkingStrategy(Tokenizer tokenizer, int maxTok
                 continue;
             }
 
-            RowBlock block = HtmlTableLinearizer.ToRowBlock(result);
+            RowBlock block = result.Kind == LinearizedTableKind.Text ? TextRowBlock(result, HtmlTableLinearizer.LeadingBoldRowCount(table))
+                : HtmlTableLinearizer.ToRowBlock(result);
             if (block.Rows.Count == 0)
             {
                 continue;
@@ -87,5 +88,18 @@ internal sealed class StructuredChunkingStrategy(Tokenizer tokenizer, int maxTok
             pre.TextContent = block.Format();
             table.Replace(pre);
         }
+    }
+
+    /// <summary>
+    /// A text table's column-name rows go in the row block's context line, which TokenChunker repeats on every
+    /// piece of a split block (step 1c's second change). MSFT chunk 198 was "4.24 | Description of Securities |
+    /// 10-K | 6/30/2024 | 4.26 | 7/30/2024" with no "Exhibit Number | ... | Form | ... | Exhibit" above it.
+    /// </summary>
+    internal static RowBlock TextRowBlock(LinearizedTable table, int headerRows)
+    {
+        IReadOnlyList<string> lines = table.TextLines;
+        return headerRows > 0 && headerRows < lines.Count
+            ? new RowBlock(string.Join(" / ", lines.Take(headerRows)), lines.Skip(headerRows).ToList())
+            : new RowBlock(null, lines);
     }
 }

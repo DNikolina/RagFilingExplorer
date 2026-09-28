@@ -1710,8 +1710,16 @@ referenced exhibit, "10.4") - and fell back ("two values ... map to one column",
 Herewith'") to pipe tables of mostly empty cells, while the other five pages came out as text rows.
 `HtmlTableLinearizer.LinearizeAsText` (new, additive - Linearized's behaviour is unchanged) is used in
 `Structured` instead: 504 pipe-table rows -> 0 across the four filings, 999 -> 944 chunks, outlines unchanged.
-Follow-ups for 1c: a text table's continuation pieces don't repeat its column-name row (chunk 197 has the
-exhibits, not "Exhibit Number | Exhibit Description | ..."). Small app fix noted: the app doesn't set
+**Step 1c's second change, also early:** a text table's column names are repeated on every piece. A split
+text table's continuation pieces carried rows only - MSFT chunk 198: "4.24 | Description of Securities | 10-K |
+6/30/2024 | 4.26 | 7/30/2024", with no "Form" or "Exhibit" column names in sight. No filer uses `<thead>` or
+`<th>`; MSFT, NFLX and ORCL mark column names only by bold text, so a text table's leading all-bold rows
+(`HtmlTableLinearizer.LeadingBoldRowCount`, additive; 0 when every row is bold, as in cover-page boxes) become
+the row block's context line, which TokenChunker already repeats on every piece. Checked across all text and
+fallback tables: it finds the exhibit, signature and officer headers; a bold title row in a few one-chunk
+tables ("Critical audit matter") is caught too, harmlessly. Effect: only the exhibit indexes change (header on
+12 of MSFT's pieces instead of 7, NFLX 7 instead of 3, ORCL 8 instead of 5); every other chunk is word for word
+the same. 187 tests. Small app fix noted: the app doesn't set
 `Console.OutputEncoding`, so redirected logs carry the console code page for non-ASCII characters
 ("Management�s", a non-breaking space as 0xFF); the grader now reads logs with `errors='replace'`.
 

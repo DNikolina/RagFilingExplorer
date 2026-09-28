@@ -2394,8 +2394,7 @@ Also on January 19, 2026, in connection with the Amended and Restated Merger Agr
 [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)
 
 --- Chunk 184/192 | heading: PART IV > Exhibit Index | tokens: 491 ---
-Exhibit Number | Exhibit Description | Incorporated by Reference | Filed Herewith
-Form | File No. | Exhibit | Filing Date
+Exhibit Number | Exhibit Description | Incorporated by Reference | Filed Herewith / Form | File No. | Exhibit | Filing Date
 2.1+ | Amended and Restated Agreement and Plan of Merger, dated as of January 19, 2026, by and among Netflix, Inc., Nightingale Sub, Inc., Warner Bros. Discovery, Inc. and New Topco 25, Inc. | 8-K | 001-35727 | 2.1 | January 20, 2026
 3.1 | Amended and Restated Certificate of Incorporation | 8-K | 001-35727 | 3.1 | June 8, 2022
 3.2 | Certificate of Amendment of Amended and Restated Certificate of Incorporation | 8-K | 001-35727 | 3.1 | November 14, 2025
@@ -2406,16 +2405,18 @@ Form | File No. | Exhibit | Filing Date
 4.4 | Indenture, dated as of October 26, 2017, by and between the Company and Wells Fargo Bank National Association, as Trustee | 8-K | 001-35727 | 4.1 | October 26, 2017
 4.5 | Indenture, dated as of April 26, 2018, by and between the Company and Wells Fargo Bank National Association, as Trustee | 8-K | 001-35727 | 4.1 | April 26, 2018
 
---- Chunk 185/192 | heading: PART IV > Exhibit Index | tokens: 481 ---
+--- Chunk 185/192 | heading: PART IV > Exhibit Index | tokens: 446 ---
+Exhibit Number | Exhibit Description | Incorporated by Reference | Filed Herewith / Form | File No. | Exhibit | Filing Date
 4.6 | Indenture, dated as of October 26, 2018, by and between the Company and Wells Fargo Bank National Association, as Trustee (6.375% Senior Notes due 2029) | 8-K | 001-35727 | 4.1 | October 26, 2018
 4.7 | Indenture, dated as of October 26, 2018, by and between the Company and Wells Fargo Bank National Association, as Trustee (4.625% Senior Notes due 2029) | 8-K | 001-35727 | 4.3 | October 26, 2018
 4.8 | Indenture, dated as of April 29, 2019, by and between the Company and Wells Fargo Bank National Association, as Trustee (5.375% Senior Notes due 2029) | 8-K | 001-35727 | 4.1 | April 29, 2019
 4.9 | Indenture, dated as of April 29, 2019, by and between the Company and Wells Fargo Bank National Association, as Trustee (3.875% Senior Notes due 2029) | 8-K | 001-35727 | 4.3 | April 29, 2019
 4.10 | Indenture, dated as of October 25, 2019, by and between the Company and Wells Fargo Bank National Association, as Trustee (4.875% Senior Notes due 2030) | 8-K | 001-35727 | 4.1 | October 25, 2019
 4.11 | Indenture, dated as of October 25, 2019, by and between the Company and Wells Fargo Bank National Association, as Trustee (3.625% Senior Notes due 2030) | 8-K | 001-35727 | 4.3 | October 25, 2019
-4.12 | Indenture, dated as of July 29, 2024, by and between the Company and Computershare Trust Company, National Association, as Trustee. | S-3 | 333-281071 | 4.1 | July 29, 2024
 
---- Chunk 186/192 | heading: PART IV > Exhibit Index | tokens: 284 ---
+--- Chunk 186/192 | heading: PART IV > Exhibit Index | tokens: 373 ---
+Exhibit Number | Exhibit Description | Incorporated by Reference | Filed Herewith / Form | File No. | Exhibit | Filing Date
+4.12 | Indenture, dated as of July 29, 2024, by and between the Company and Computershare Trust Company, National Association, as Trustee. | S-3 | 333-281071 | 4.1 | July 29, 2024
 4.13 | Supplemental Indenture, dated as of August 1, 2024, by and between the Company and Computershare Trust Company, National Association, as Trustee. | 8-K | 001-35727 | 4.2 | August 1, 2024
 4.14 | Description of the Registrant's Securities Registered Pursuant to Section 12 of the Securities Exchange Act of 1934 | X
 10.1† | Form of Indemnification Agreement entered into by the registrant with each of its executive officers and directors | S-1/A | 333-83878 | 10.1 | March 20, 2002
@@ -2428,8 +2429,7 @@ Form | File No. | Exhibit | Filing Date
 --- Chunk 187/192 | heading: PART IV > Exhibit Index | tokens: 436 ---
 [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)
 
-Exhibit Number | Exhibit Description | Incorporated by Reference | Filed Herewith
-Form | File No. | Exhibit | Filing Date
+Exhibit Number | Exhibit Description | Incorporated by Reference | Filed Herewith / Form | File No. | Exhibit | Filing Date
 10.7† | Form of Stock Option Agreement under the 2020 Stock Plan | 10-K | 001-35727 | 10.11 | January 26, 2023
 10.8† | Form of Stock Option Agreement under the 2020 Stock Plan (Options Subject to Vesting) | 8-K | 001-35727 | 10.1 | December 23, 2022
 10.9† | Netflix, Inc. 2020 Stock Plan Form of Restricted Stock Unit Award Agreement | 8-K | 001-35727 | 10.1 | December 8, 2023
@@ -2439,9 +2439,10 @@ Form | File No. | Exhibit | Filing Date
 10.13† | Form Consent Letter to Amendment of the Netflix, Inc. Executive Officer Severance Plan | 8-K | 001-35727 | 10.2 | November 4, 2025
 10.14† | Form of Award Amendment Consent Letter | 8-K | 001-35727 | 10.3 | November 4, 2025
 
---- Chunk 188/192 | heading: PART IV > Exhibit Index | tokens: 496 ---
+--- Chunk 188/192 | heading: PART IV > Exhibit Index | tokens: 491 ---
 [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)
 
+Exhibit Number | Exhibit Description | Incorporated by Reference | Filed Herewith / Form | File No. | Exhibit | Filing Date
 10.15 | Commitment Letter, dated as of December 4, 2025, by and among Netflix, Inc., Wells Fargo Bank, National Association, Wells Fargo Strategic Capital, Inc., Wells Fargo Securities, LLC, BNP Paribas, BNP Paribas Securities Corp., HSBC Bank USA, National Association, HSBC Continental Europe, HSBC Bank plc, HSBC Bank Middle East Limited and HSBC Securities (USA) Inc. | 8-K | 001-35727 | 10.1 | December 5, 2025
 10.16 | Senior Unsecured Revolving Credit Agreement, dated as of December 19, 2025, among Netflix, Inc., the lenders party thereto and Wells Fargo Bank, National Association, as the administrative agent. | 8-K | 001-35727 | 10.1 | December 22, 2025
 10.17 | Senior Unsecured Delayed Draw Term Loan Credit Agreement, dated as of December 19, 2025, among Netflix, Inc., the lenders party thereto and Wells Fargo Bank, National Association, as the administrative agent. | 8-K | 001-35727 | 10.2 | December 22, 2025
@@ -2450,11 +2451,12 @@ Form | File No. | Exhibit | Filing Date
 21.1 | List of Significant Subsidiaries | X
 23.1 | Consent of Ernst & Young LLP | X
 24 | Power of Attorney (see signature page)
-31.1 | Certification of Co-Chief Executive Officer Pursuant to Section 302 of the Sarbanes-Oxley Act of 2002 | X
 
---- Chunk 189/192 | heading: PART IV > Exhibit Index | tokens: 196 ---
+--- Chunk 189/192 | heading: PART IV > Exhibit Index | tokens: 256 ---
 [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)
 
+Exhibit Number | Exhibit Description | Incorporated by Reference | Filed Herewith / Form | File No. | Exhibit | Filing Date
+31.1 | Certification of Co-Chief Executive Officer Pursuant to Section 302 of the Sarbanes-Oxley Act of 2002 | X
 31.2 | Certification of Co-Chief Executive Officer Pursuant to Section 302 of the Sarbanes-Oxley Act of 2002 | X
 31.3 | Certification of Chief Financial Officer Pursuant to Section 302 of the Sarbanes-Oxley Act of 2002 | X
 32.1* | Certifications of Co-Chief Executive Officers and Chief Financial Officer Pursuant to Section 906 of the Sarbanes-Oxley Act of 2002 | X
@@ -2463,8 +2465,7 @@ Form | File No. | Exhibit | Filing Date
 --- Chunk 190/192 | heading: PART IV > Exhibit Index | tokens: 404 ---
 [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)
 
-Exhibit Number | Exhibit Description | Incorporated by Reference | Filed Herewith
-Form | File No. | Exhibit | Filing Date
+Exhibit Number | Exhibit Description | Incorporated by Reference | Filed Herewith / Form | File No. | Exhibit | Filing Date
 101 | The following financial statements from the Company's Annual Report on Form 10-K for the year ended December 31, 2025, formatted in Inline XBRL: (i) Consolidated Statements of Operations, (ii) Consolidated Statements of Comprehensive Income, (iii) Consolidated Statements of Cash Flows, (iv) Consolidated Balance Sheets, (v) Consolidated Statements of Stockholders' Equity and (vi) Notes to Consolidated Financial Statements, tagged as blocks of text and including detailed tags | X
 104 | The cover page from the Company's Annual Report on Form 10-K for the year ended December 31, 2025, formatted in Inline XBRL | X
 
