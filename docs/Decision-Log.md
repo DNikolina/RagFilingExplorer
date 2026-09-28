@@ -1725,7 +1725,7 @@ Role descriptions follow EDGAR's "sort code - type - title" convention on all fo
   MSFT and ORCL use `ixt` 2022-02-16, NDAQ and NFLX 2020-02-12, all four `ixt-sec` 2015-08-31. An unknown format
   code fails loudly instead of guessing. No classes generated from the XSDs (the header uses a handful of element
   types). NFLX's browser-saved HTML isn't XHTML (no `<?xml`), so the HTML side stays on AngleSharp.
-- The ten files are committed like the filings (~9.9 MB next to ~27 MB of HTML), so a clone still runs offline;
+- The twelve files (four schemas, NDAQ's and NFLX's four linkbases each) are committed like the filings (~9.9 MB next to ~27 MB of HTML), so a clone still runs offline;
   the app reads only `data/*.html`, so neither v1 strategy is affected.
 Kept out of 1b: **registration from `EntityRegistrantName` + `TradingSymbol`** replacing the hand-written
 `CompanyToFiling` entry - it changes routing (`QueryIntentResolver`), not chunks, so it's its own small step
