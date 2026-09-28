@@ -24,6 +24,9 @@ internal enum ChunkingStrategyKind
 
     /// <summary>Tables linearized from the HTML into self-contained row lines first, then the same pipeline.</summary>
     Linearized,
+
+    /// <summary>v2: the filing read as a DOM, no markitdown; built up in measured steps (see StructuredChunkingStrategy).</summary>
+    Structured,
 }
 
 internal static class ChunkingStrategies
@@ -33,6 +36,8 @@ internal static class ChunkingStrategies
         ChunkingStrategyKind.Markdown => new MarkdownChunkingStrategy(
             TiktokenTokenizer.CreateForModel(settings.TokenizerModel), settings.MaxTokensPerChunk, settings.OverlapTokens),
         ChunkingStrategyKind.Linearized => new LinearizedChunkingStrategy(
+            TiktokenTokenizer.CreateForModel(settings.TokenizerModel), settings.MaxTokensPerChunk, settings.OverlapTokens),
+        ChunkingStrategyKind.Structured => new StructuredChunkingStrategy(
             TiktokenTokenizer.CreateForModel(settings.TokenizerModel), settings.MaxTokensPerChunk, settings.OverlapTokens),
         _ => throw new ArgumentOutOfRangeException(nameof(settings), settings.Strategy, "Unknown chunking strategy."),
     };
