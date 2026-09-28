@@ -49,7 +49,7 @@ revisiting any decision summarized here.
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
 | 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 176 offline unit tests |
-| 8. Publish | README written; manual pass done; **push pending the user's go-ahead** |
+| 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
 report that clearly. The only further work is v2, the XBRL hybrid the user asked for (2026-09-25), built on
@@ -79,7 +79,7 @@ in "pre-manual-pass review").
 moved failures around rather than removing them and weren't kept; `Markdown` stays the default (Linearized
 regressed on T4 and Q2). Largest prompt 3,103 + 768 output of 4,096. Details in Decision-Log.md, "manual pass (v1)".
 
-**Next: push v1. Then v2 - a new ingestion built on the form structure and
+**v1 is complete (2026-09-28, tag `v1.0`). Next: v2 - a new ingestion built on the form structure and
 inline XBRL (Decision-Log.md, "XBRL hybrid (v2)") - on a branch, each step measured before the next.**
 
 **Known, not planned:** statement routing is keyword *substring* matching over a hard filter - "deferred
