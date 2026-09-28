@@ -59,6 +59,20 @@ def has_number(text, value):
     return any(t == value for t, _, _ in tokens(text))
 
 
+def rounded_billions(answer, value, unit):
+    """True if the answer states `value` (in millions) in billions, rounded to the digits it gives - the
+    filing's own wording is often "$3.1 billion" for 3,074 million (H4)."""
+    if unit != 'million':
+        return False
+    expected = float(value.replace(',', '')) / 1000
+    for t, _, e in tokens(answer):
+        if re.match(r'\s*billion', answer[e:e + 10], re.I):
+            decimals = len(t.split('.')[1]) if '.' in t else 0
+            if decimals and round(expected, decimals) == float(t.replace(',', '')):
+                return True
+    return False
+
+
 def unit_status(answer, value, unit):
     """'ok', 'missing' or 'wrong' for the first occurrence of `value` that carries a unit, else the first."""
     if unit is None:
@@ -114,6 +128,8 @@ def grade(entry, answer):
     for alt in entry.get('accept', []):
         if not found and has_number(answer, alt['value']) and alt['if_label'].lower() in answer.lower():
             found, expect = [alt['value']], [alt['value']]
+    if expect and not found and all(rounded_billions(answer, e, unit) for e in expect):
+        return 'reliable', 'rounded, in billions'
     if len(found) == len(expect) and expect:
         units = [unit_status(answer, e, unit) for e in expect]
         conflict = [c for c in entry.get('conflicts', []) if c not in expect and has_number(answer, c)]
@@ -159,7 +175,7 @@ def main():
         status, note = grade(entry, a)
         results.append({'id': entry['id'], 'kind': entry['kind'], 'status': status, 'note': note, 'answer': a})
         line = f"{entry['id']:>4}  {status:<11} {note}"
-        if status not in ('reliable', 'decline-ok'):
+        if status not in ('reliable', 'decline-ok') or note:
             line += f"\n      > {' '.join(a.split())[:300]}"
         print(line)
 

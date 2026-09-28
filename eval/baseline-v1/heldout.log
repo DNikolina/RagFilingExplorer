@@ -1,0 +1,401 @@
+Chunking strategy: Markdown (index: rag.markdown.db)
+Found an up-to-date C:\Projects\RagFilingExplorer\rag.markdown.db - skipping chunking and embedding. Run with --rebuild to force a fresh build.
+
+=== Retrieval + answer generation ===
+Ask a question about the filings (blank line or 'exit' to quit).
+
+> (filtering to MSFT-10K-2026.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.2238 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | •  Operating expenses increased $940 million or 6% driven by impairment and other related 
+[2] score=0.2600 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Reportable Segments  Fiscal Year 2026 Compared with Fiscal Year 2025  Productivity and Bus
+[3] score=0.2665 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Our Microsoft Cloud revenue, which includes Microsoft 365 Commercial cloud, Azure and othe
+[4] score=0.2737 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | The following Management’s Discussion and Analysis of Financial Condition and Results of O
+[5] score=0.2947 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | During fiscal years 2026, 2025, and 2024, depreciation expense was $34.3 billion, $22.0 bi
+[6] score=0.2962 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Other income (expense), net included $6.5 billion of net gains and $4.8 billion of net los
+[7] score=0.3050 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Other income (expense), net included $6.5 billion of net gains, $4.8 billion of net losses
+[8] score=0.3117 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Industry Trends and Opportunities  Our industry is dynamic and highly competitive, with fr
+[9] score=0.3138 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Following are the supplemental consolidated financial results of Microsoft Corporation on 
+[10] score=0.3176 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | •  Enterprise and partner services, including Enterprise Support Services, Industry Soluti
+[11] score=0.3183 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Changes in unearned revenue were as follows:  |  |  |  |  |  | | --- | --- | --- | --- | -
+[12] score=0.3189 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Adjusted net income and adjusted diluted earnings per share (“EPS”) are non-GAAP financial
+[13] score=0.3189 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | (a)  Refer to Note 5 – Derivatives for further information on the interest rate swaps rela
+[14] score=0.3237 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | General and Administrative  |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | -
+[15] score=0.3244 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Sales and Marketing  |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --
+[16] score=0.3245 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --- | --- | --- |
+[17] score=0.3250 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Debt Proceeds  We issue debt to take advantage of favorable pricing and liquidity in the d
+[18] score=0.3263 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | •  Server products and cloud services revenue increased $31.0 billion or 31% driven by Azu
+[19] score=0.3264 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Assets Recognized from Costs to Obtain a Contract with a Customer  We recognize an asset f
+[20] score=0.3407 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Includes 1 million of PSUs granted at target and performance adjustments above target leve
+[21] score=0.3408 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --- | --- | --- |
+[22] score=0.3411 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | (a)  Refer to Note 10 – Debt of the Notes to Financial Statements (Part II, Item 8 of this
+[23] score=0.3423 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --- | --- | --- |
+[24] score=0.3438 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Unearned revenue by segment was as follows:  |  |  |  |  |  |  |  |  |  | | --- | --- | --
+[25] score=0.3447 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Intangible assets amortization expense was $4.7 billion, $6.0 billion, and $4.8 billion fo
+
+--- Answer ---
+Microsoft's research and development expenses in fiscal year 2026 were $35,562 million. (Source: MSFT-10K-2026.html, PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS)
+
+> (filtering to MSFT-10K-2026.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.2549 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Reportable Segments  Fiscal Year 2026 Compared with Fiscal Year 2025  Productivity and Bus
+[2] score=0.2654 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Our Microsoft Cloud revenue, which includes Microsoft 365 Commercial cloud, Azure and othe
+[3] score=0.2734 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Other income (expense), net included $6.5 billion of net gains and $4.8 billion of net los
+[4] score=0.3036 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | The decrease from the federal statutory rate in fiscal years 2026, 2025, and 2024 is prima
+[5] score=0.3042 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | The following Management’s Discussion and Analysis of Financial Condition and Results of O
+[6] score=0.3114 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | •  Operating expenses increased $940 million or 6% driven by impairment and other related 
+[7] score=0.3138 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Effective Tax Rate  We adopted Accounting Standards Update 2023-09, Income Taxes (Topic 74
+[8] score=0.3224 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Income taxes paid, net of refunds, were $28.7 billion, and $23.4 billion in fiscal years 2
+[9] score=0.3255 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Adjusted net income and adjusted diluted earnings per share (“EPS”) are non-GAAP financial
+[10] score=0.3277 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Following are the supplemental consolidated financial results of Microsoft Corporation on 
+[11] score=0.3283 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | •  Enterprise and partner services, including Enterprise Support Services, Industry Soluti
+[12] score=0.3362 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Unearned revenue by segment was as follows:  |  |  |  |  |  |  |  |  |  | | --- | --- | --
+[13] score=0.3363 | MSFT-10K-2026.html | narrative | PART IV > Signatures | Pursuant to the requirements of Section 13 or 15(d) of the Securities Exchange Act of 1934
+[14] score=0.3371 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --- | --- | --- |
+[15] score=0.3399 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Changes in unearned revenue were as follows:  |  |  |  |  |  | | --- | --- | --- | --- | -
+[16] score=0.3424 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | During fiscal years 2026, 2025, and 2024, depreciation expense was $34.3 billion, $22.0 bi
+[17] score=0.3429 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Debt Proceeds  We issue debt to take advantage of favorable pricing and liquidity in the d
+[18] score=0.3439 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | •  Server products and cloud services revenue increased $31.0 billion or 31% driven by Azu
+[19] score=0.3440 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | No sales to an individual customer or country other than the United States accounted for m
+[20] score=0.3461 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | (a)  Refer to Note 5 – Derivatives for further information on the interest rate swaps rela
+[21] score=0.3468 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Opinion on the Financial Statements  We have audited the accompanying consolidated balance
+[22] score=0.3493 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Industry Trends and Opportunities  Our industry is dynamic and highly competitive, with fr
+[23] score=0.3499 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Metrics related to our Productivity and Business Processes and Intelligent Cloud segments 
+[24] score=0.3500 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Other income (expense), net included $6.5 billion of net gains, $4.8 billion of net losses
+[25] score=0.3517 | MSFT-10K-2026.html | narrative | PART I > Item 1. BUSINESS | •  Leveraging Windows to fuel our cloud business, grow our share of the PC market, and dri
+
+--- Answer ---
+Microsoft's effective tax rate for fiscal year 2026 was 19% (Source: MSFT-10K-2026.html, PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS).
+
+> (filtering to MSFT-10K-2026.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.2217 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Includes 1 million of PSUs granted at target and performance adjustments above target leve
+[2] score=0.2230 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | NOTE 17 — EMPLOYEE STOCK AND SAVINGS PLANS  We grant stock-based compensation to employees
+[3] score=0.2491 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Our Microsoft Cloud revenue, which includes Microsoft 365 Commercial cloud, Azure and othe
+[4] score=0.2669 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | •  Operating expenses increased $940 million or 6% driven by impairment and other related 
+[5] score=0.2674 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Reportable Segments  Fiscal Year 2026 Compared with Fiscal Year 2025  Productivity and Bus
+[6] score=0.2794 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Following are the supplemental consolidated financial results of Microsoft Corporation on 
+[7] score=0.2802 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Other income (expense), net included $6.5 billion of net gains, $4.8 billion of net losses
+[8] score=0.2848 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | During fiscal years 2026, 2025, and 2024, depreciation expense was $34.3 billion, $22.0 bi
+[9] score=0.2880 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | During fiscal year 2026, the following activity occurred under our stock plans:  |  |  |  
+[10] score=0.2918 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | The following Management’s Discussion and Analysis of Financial Condition and Results of O
+[11] score=0.2935 | MSFT-10K-2026.html | narrative | PART II > Item 5. MARKET FOR REGISTRANT’S COMMON EQUITY, RELATED STOCKHOLDER MATTERS, AND ISSUER PURCHASES OF EQUITY SECURITIES | MARKET AND STOCKHOLDERS  Our common stock is traded on the NASDAQ Stock Market under the s
+[12] score=0.2963 | MSFT-10K-2026.html | narrative | (no heading) | If securities are registered pursuant to Section 12(b) of the Act, indicate by check mark 
+[13] score=0.2977 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Changes in unearned revenue were as follows:  |  |  |  |  |  | | --- | --- | --- | --- | -
+[14] score=0.3001 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Other income (expense), net included $6.5 billion of net gains and $4.8 billion of net los
+[15] score=0.3012 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Adjusted net income and adjusted diluted earnings per share (“EPS”) are non-GAAP financial
+[16] score=0.3020 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --- | --- | --- |
+[17] score=0.3030 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Opinion on the Financial Statements  We have audited the accompanying consolidated balance
+[18] score=0.3035 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Stock-Based Compensation  Compensation cost for stock awards, which include restricted sto
+[19] score=0.3047 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Employees purchased the following shares during the periods presented:  |  |  |  |  |  |  
+[20] score=0.3069 | MSFT-10K-2026.html | narrative | (no heading) | UNITED STATES  SECURITIES AND EXCHANGE COMMISSION  Washington, D.C. 20549  FORM 10-K  |  |
+[21] score=0.3082 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Assets Recognized from Costs to Obtain a Contract with a Customer  We recognize an asset f
+[22] score=0.3095 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- |
+[23] score=0.3114 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Long-lived assets, excluding financial instruments and tax assets, classified by the locat
+[24] score=0.3125 | MSFT-10K-2026.html | narrative | PART II > Item 5. MARKET FOR REGISTRANT’S COMMON EQUITY, RELATED STOCKHOLDER MATTERS, AND ISSUER PURCHASES OF EQUITY SECURITIES | All share repurchases were made using cash resources. Our share repurchases may occur thro
+[25] score=0.3139 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Net recognized gains (losses) on debt investments were as follows:  |  |  |  |  |  |  |  |
+
+--- Answer ---
+Microsoft recorded $12,405 million in stock-based compensation expense for the year ended June 30, 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA).
+
+> (filtering to MSFT-10K-2026.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.2130 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Reportable Segments  Fiscal Year 2026 Compared with Fiscal Year 2025  Productivity and Bus
+[2] score=0.2223 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | •  Operating expenses increased $940 million or 6% driven by impairment and other related 
+[3] score=0.2718 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Our Microsoft Cloud revenue, which includes Microsoft 365 Commercial cloud, Azure and othe
+[4] score=0.2793 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | The following Management’s Discussion and Analysis of Financial Condition and Results of O
+[5] score=0.2828 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Other income (expense), net included $6.5 billion of net gains and $4.8 billion of net los
+[6] score=0.2952 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | •  Server products and cloud services revenue increased $31.0 billion or 31% driven by Azu
+[7] score=0.3003 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | During fiscal years 2026, 2025, and 2024, depreciation expense was $34.3 billion, $22.0 bi
+[8] score=0.3055 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Industry Trends and Opportunities  Our industry is dynamic and highly competitive, with fr
+[9] score=0.3084 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Other income (expense), net included $6.5 billion of net gains, $4.8 billion of net losses
+[10] score=0.3093 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Adjusted net income and adjusted diluted earnings per share (“EPS”) are non-GAAP financial
+[11] score=0.3160 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Following are the supplemental consolidated financial results of Microsoft Corporation on 
+[12] score=0.3194 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | General and Administrative  |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | -
+[13] score=0.3211 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | (a)  Refer to Note 5 – Derivatives for further information on the interest rate swaps rela
+[14] score=0.3230 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Sales and Marketing  |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --
+[15] score=0.3310 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | •  Enterprise and partner services, including Enterprise Support Services, Industry Soluti
+[16] score=0.3378 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Assets Recognized from Costs to Obtain a Contract with a Customer  We recognize an asset f
+[17] score=0.3384 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Changes in unearned revenue were as follows:  |  |  |  |  |  | | --- | --- | --- | --- | -
+[18] score=0.3389 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Debt Proceeds  We issue debt to take advantage of favorable pricing and liquidity in the d
+[19] score=0.3406 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Income taxes paid, net of refunds, were $28.7 billion, and $23.4 billion in fiscal years 2
+[20] score=0.3408 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | The decrease from the federal statutory rate in fiscal years 2026, 2025, and 2024 is prima
+[21] score=0.3441 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | Unearned revenue by segment was as follows:  |  |  |  |  |  |  |  |  |  | | --- | --- | --
+[22] score=0.3451 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --- | --- | --- |
+[23] score=0.3492 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | No sales to an individual customer or country other than the United States accounted for m
+[24] score=0.3527 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --- | --- | --- |
+[25] score=0.3536 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --- | --- | --- |
+
+--- Answer ---
+Microsoft's research and development expenses increased $3.1 billion or 9% in fiscal 2026 compared to fiscal 2025. (Source: MSFT-10K-2026.html, PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS)
+
+> (filtering to ORCL-10K-2026.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.2017 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --- | --- |
+[2] score=0.2539 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | We promote regular career conversations between leaders and employees, focused on helping 
+[3] score=0.2882 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Each year, through our volunteering and giving programs, Oracle employees donate tens of t
+[4] score=0.2913 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Our executive officers are listed below:  |  |  |  | | --- | --- | --- | |  |  |  | | Name
+[5] score=0.2955 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Research and Development  We develop the substantial majority of our products and services
+[6] score=0.3061 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Ms. Catz, 64, has been our Executive Vice Chair of the Board since September 2025. She ser
+[7] score=0.3123 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Mr. Sicilia, 55, has been our Chief Executive Officer since September 2025. He served as o
+[8] score=0.3200 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | [Table of Contents](#toc_page)  support contracts that migrated to the Oracle Cloud contri
+[9] score=0.3241 | ORCL-10K-2026.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | We begin Management’s Discussion and Analysis of Financial Condition and Results of Operat
+[10] score=0.3255 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules | NOTES TO CONSOLIDATED FINANCIAL STATEMENTS  May 31, 2026  1.  ORGANIZATION AND SIGNIFICANT
+[11] score=0.3334 | ORCL-10K-2026.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | o  software support revenues, which are generated by providing Oracle software support ser
+[12] score=0.3342 | ORCL-10K-2026.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | Cloud and Software Business  Our cloud and software business, which represented 87% and 86
+[13] score=0.3345 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | We have three businesses: cloud and software (formerly referred to as cloud and license); 
+[14] score=0.3354 | ORCL-10K-2026.html | narrative | PART I > Item 2. Properties | Our properties consist of owned and leased facilities for cloud operations, sales, support
+[15] score=0.3363 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules | Defined Contribution and Other Postretirement Plans  We offer various defined contribution
+[16] score=0.3381 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Oracle provides products and services that build, run and support enterprise information t
+[17] score=0.3429 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | •  the ease of deployment, use, transacting for and maintenance of our products and servic
+[18] score=0.3441 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | For analytics workloads, Oracle Autonomous AI Database is designed to provide customers wi
+[19] score=0.3446 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | OCA offerings are built upon open industry standards such as SQL, Java and HTML5 for easie
+[20] score=0.3449 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Oracle hardware products include Oracle Engineered Systems, servers, storage and industry-
+[21] score=0.3505 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Oracle Cloud Applications (OCA)  The broad spectrum of OCA offerings provides customers wi
+[22] score=0.3521 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Oracle Cloud Operations  Oracle Cloud Operations deliver our Oracle Cloud offerings to cus
+[23] score=0.3550 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Oracle Middleware, which is a broad family of integrated application infrastructure softwa
+[24] score=0.3553 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | •  OCI Sovereign Cloud, which is designed to enable customers to utilize OCI services whil
+[25] score=0.3567 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Oracle customers and partners utilize OCI offerings for platform-related services that are
+
+--- Answer ---
+As of May 31, 2026, Oracle employed approximately 141,000 full-time employees (Source: ORCL-10K-2026.html, PART I > Item 1. Business).
+
+> (filtering to ORCL-10K-2026.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.2400 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules | Fiscal 2024 Oracle Restructuring Plan  During fiscal 2024, our management approved, commit
+[2] score=0.2405 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules | |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --- | --- | --- |
+[3] score=0.2542 | ORCL-10K-2026.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | (1)  Comprises Europe, the Middle East and Africa  Total revenues increased by $10.0 billi
+[4] score=0.2616 | ORCL-10K-2026.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | Interest expense increased in fiscal 2026 relative to fiscal 2025 primarily due to higher 
+[5] score=0.2623 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  
+[6] score=0.2630 | ORCL-10K-2026.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | Research and Development Expenses:  Research and development expenses consist primarily of
+[7] score=0.2642 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  
+[8] score=0.2647 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules | Defined Contribution and Other Postretirement Plans  We offer various defined contribution
+[9] score=0.2702 | ORCL-10K-2026.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | We begin Management’s Discussion and Analysis of Financial Condition and Results of Operat
+[10] score=0.2763 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  
+[11] score=0.2768 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules | Fiscal 2025 Activity  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+[12] score=0.2803 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  
+[13] score=0.2809 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  
+[14] score=0.2820 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  
+[15] score=0.2820 | ORCL-10K-2026.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | o  software support revenues, which are generated by providing Oracle software support ser
+[16] score=0.2837 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules | NOTES TO CONSOLIDATED FINANCIAL STATEMENTS  May 31, 2026  1.  ORGANIZATION AND SIGNIFICANT
+[17] score=0.2845 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Research and Development  We develop the substantial majority of our products and services
+[18] score=0.2845 | ORCL-10K-2026.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | Cloud and Software Business  Our cloud and software business, which represented 87% and 86
+[19] score=0.2857 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules | Fiscal 2024 Activity  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+[20] score=0.2867 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules | As of May 31, 2026, 2025 and 2024, $4.9 billion, $4.5 billion and $4.2 billion, respective
+[21] score=0.2869 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Each year, through our volunteering and giving programs, Oracle employees donate tens of t
+[22] score=0.2878 | ORCL-10K-2026.html | balance_sheet | PART IV > Item 15. Exhibits and Financial Statement Schedules | |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --- | --- | --- | --- | |  | 
+[23] score=0.2908 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- |
+[24] score=0.2910 | ORCL-10K-2026.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | (1)  Excludes stock-based compensation and certain expense allocations. Also excludes amor
+[25] score=0.2926 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Oracle hardware products include Oracle Engineered Systems, servers, storage and industry-
+
+--- Answer ---
+Oracle's total research and development expenses in fiscal 2026 increased by $412 million in reported currency relative to fiscal 2025, but the unit is not stated. (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+
+> (filtering to ORCL-10K-2026.html, statement type: income_statement)
+
+--- Retrieved chunks (top 4, compact, for diagnosis) ---
+[1] score=0.2462 | ORCL-10K-2026.html | income_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --- | --- | --- |
+[2] score=0.3479 | ORCL-10K-2026.html | income_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED STATEMENTS OF OPERATIONS  For the Years Ended May 31, 2026, 2025 and 2024  | 
+[3] score=0.3716 | ORCL-10K-2026.html | income_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --- | --- | --- |
+[4] score=0.3787 | ORCL-10K-2026.html | income_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --- | --- | --- |
+
+--- Answer ---
+Oracle's diluted earnings per share for fiscal 2026 were $5.83. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)
+
+> (filtering to ORCL-10K-2026.html, statement type: income_statement)
+
+--- Retrieved chunks (top 4, compact, for diagnosis) ---
+[1] score=0.3493 | ORCL-10K-2026.html | income_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED STATEMENTS OF OPERATIONS  For the Years Ended May 31, 2026, 2025 and 2024  | 
+[2] score=0.3501 | ORCL-10K-2026.html | income_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --- | --- | --- |
+[3] score=0.3874 | ORCL-10K-2026.html | income_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --- | --- | --- |
+[4] score=0.4208 | ORCL-10K-2026.html | income_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --- | --- | --- |
+
+--- Answer ---
+The unit is not stated.
+
+> (filtering to NDAQ-10K-2025.html, statement type: income_statement)
+
+--- Retrieved chunks (top 2, compact, for diagnosis) ---
+[1] score=0.2940 | NDAQ-10K-2025.html | income_statement | PART IV > Financial Statements | |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --- | |  |  |  |  |  |  | |  | Year En
+[2] score=0.2981 | NDAQ-10K-2025.html | income_statement | PART IV > Financial Statements | Consolidated Statements of Income  (in millions, except per share amounts)  |  |  |  |  | 
+
+--- Answer ---
+Nasdaq's revenues less transaction-based expenses in 2025 were $5,249 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements)
+
+> (filtering to NDAQ-10K-2025.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.2528 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | supporting career satisfaction and internal mobility.  To reward our employees at various 
+[2] score=0.2819 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | Flexible and Hybrid Workplace  The majority of our employees balance their time between  s
+[3] score=0.2831 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | employees are granted annual, long-term equity awards,  enabling them to be owners of the 
+[4] score=0.2857 | NDAQ-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of | Financial Condition and Results of Operations  The following discussion and analysis of th
+[5] score=0.2922 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements | As discussed in “Other Credit Facilities,” of Note 9, “Debt  Obligations,” we also have cr
+[6] score=0.2997 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | 1,414 on The Nasdaq Capital Market.  In the U.S., we seek new listings from companies cond
+[7] score=0.3005 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | for $882 billion in AUM. Our flagship index, the Nasdaq-100  Index, or NDX, includes the t
+[8] score=0.3009 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | OVERVIEW  Nasdaq is a leading technology platform that powers the  world’s economies. We a
+[9] score=0.3047 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | trading surveillance for the Finnish, Icelandic, Danish and  Swedish markets has been cent
+[10] score=0.3162 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements | Notes to Consolidated Financial Statements  1. ORGANIZATION AND NATURE OF OPERATIONS  Nasd
+[11] score=0.3179 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements | given to our employees.  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --- | |  |  |
+[12] score=0.3186 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements | December 31, 2025, 451 ETPs listed on 27 exchanges in over  20 countries tracked a Nasdaq 
+[13] score=0.3209 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements | contributions and margin deposits were as follows:  |  |  |  |  |  |  | | --- | --- | --- 
+[14] score=0.3210 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements | positions are planned to take place by the end of the first  quarter of 2026. We expect to
+[15] score=0.3216 | NDAQ-10K-2025.html | narrative | PART IV > Signatures | Pursuant to the requirements of Section 13 or 15(d) of the  Securities Exchange Act of 193
+[16] score=0.3222 | NDAQ-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of | Net cash used in financing activities increased for the year  ended December 31, 2025 as c
+[17] score=0.3242 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements | completed in June 2025. See Note 4, “Acquisition and  Divestitures,” for further discussio
+[18] score=0.3252 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | cloud‑ready market technology solutions with standardized  APIs with proven interoperabili
+[19] score=0.3268 | NDAQ-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of | Listing Services business:  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --- | |  |
+[20] score=0.3274 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements | Report of Independent Registered Public Accounting  Firm  To the Stockholders and the Boar
+[21] score=0.3308 | NDAQ-10K-2025.html | narrative | PART II > Item 5. Market for Registrant’s Common Equity, Related | Stockholder Matters and Issuer Purchases of Equity  Securities  Market Information  Our co
+[22] score=0.3314 | NDAQ-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of | operations, see “Segment Operating Results” below.  |  |  |  |  |  |  |  |  |  | | --- | -
+[23] score=0.3316 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | Impact: Empowering Purpose, Strengthening Communities.”  As part of our commitment to driv
+[24] score=0.3322 | NDAQ-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of | See “Cash Dividends on Common Stock,” of Note 12,  “Nasdaq Stockholders’ Equity,” to the c
+[25] score=0.3330 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | regarding sustainability matters. During 2025, we continued  our corporate, community and 
+
+--- Answer ---
+The global female employee base in 2025 was approximately 36%, and the minority representation in the U.S. was approximately 33% (Source: NDAQ-10K-2025.html, PART I > Item 1. Business). However, the total number of employees is not stated in the provided excerpts.
+
+> (filtering to NDAQ-10K-2025.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.2422 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | OVERVIEW  Nasdaq is a leading technology platform that powers the  world’s economies. We a
+[2] score=0.2708 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements | Notes to Consolidated Financial Statements  1. ORGANIZATION AND NATURE OF OPERATIONS  Nasd
+[3] score=0.2765 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | Impact: Empowering Purpose, Strengthening Communities.”  As part of our commitment to driv
+[4] score=0.2909 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | U.S. Tape plans. The plan administrators sell quotation and  last sale information for all
+[5] score=0.2910 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | trading surveillance for the Finnish, Icelandic, Danish and  Swedish markets has been cent
+[6] score=0.2912 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | for $882 billion in AUM. Our flagship index, the Nasdaq-100  Index, or NDX, includes the t
+[7] score=0.2926 | NDAQ-10K-2025.html | narrative | (no heading) | UNITED STATES SECURITIES AND EXCHANGE COMMISSION  Washington, D.C. 20549  FORM 10-K  |  | 
+[8] score=0.2987 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | owners as well as insight solutions. Our strengths in  technology, proprietary data, analy
+[9] score=0.3024 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements | As discussed in “Other Credit Facilities,” of Note 9, “Debt  Obligations,” we also have cr
+[10] score=0.3025 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | revenues as a distributor of our own, as well as select third-  party, content. We provide
+[11] score=0.3029 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | cloud‑ready market technology solutions with standardized  APIs with proven interoperabili
+[12] score=0.3070 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | 1,414 on The Nasdaq Capital Market.  In the U.S., we seek new listings from companies cond
+[13] score=0.3092 | NDAQ-10K-2025.html | narrative | (no heading) | ii  About this Form 10-K  Throughout this Form 10-K, unless otherwise specified:  •“Nasdaq
+[14] score=0.3104 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | supporting career satisfaction and internal mobility.  To reward our employees at various 
+[15] score=0.3116 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | companies, government organizations, law firms, privately  held entities, and various non-
+[16] score=0.3172 | NDAQ-10K-2025.html | narrative | PART I > Item 2. Properties | We conduct our business operations in leased facilities. We  do not own any real property.
+[17] score=0.3207 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | Flexible and Hybrid Workplace  The majority of our employees balance their time between  s
+[18] score=0.3218 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | regarding sustainability matters. During 2025, we continued  our corporate, community and 
+[19] score=0.3249 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | agree to trades in fixed income derivatives through bilateral  negotiations and then repor
+[20] score=0.3254 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | continue to advance our AI features, machine‑learning  techniques and extensive market dat
+[21] score=0.3255 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | fulfilling all regulatory obligations for which FINRA does  not have responsibility under 
+[22] score=0.3271 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements | December 31, 2025, 451 ETPs listed on 27 exchanges in over  20 countries tracked a Nasdaq 
+[23] score=0.3274 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | compliance with trading participation rules, financial  instrument compliance with relevan
+[24] score=0.3274 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | cross‑asset, front‑to‑back trading, treasury, risk and collateral  management solutions, i
+[25] score=0.3311 | NDAQ-10K-2025.html | narrative | PART I > Item 1A. Risk Factors | among exchanges and other execution venues has become  more intense. Marketplaces in both 
+
+--- Answer ---
+The unit is not stated.
+
+> (filtering to NFLX-10K-2025.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.3264 | NFLX-10K-2025.html | narrative | PART I > Item 1. Business | ABOUT US  Netflix, Inc. (“Netflix”, the “Company”, “registrant”, “we”, or “us”) is one of 
+[2] score=0.3374 | NFLX-10K-2025.html | narrative | PART I > Item 1. Business | We care about the health and well-being of our employees and their families and provide a 
+[3] score=0.3420 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nfl
+[4] score=0.3449 | NFLX-10K-2025.html | narrative | PART I > Item 1. Business | HUMAN CAPITAL  Our business is to entertain the world across different countries, cultures
+[5] score=0.3587 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | NOTES TO CONSOLIDATED FINANCIAL STATEMENTS  1.Organization and Summary of Significant Acco
+[6] score=0.3624 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | In December 2025, the Company completed an acquisition which was accounted for as a busine
+[7] score=0.3639 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | Acquisitions  On December 4, 2025, the Company entered into a definitive agreement and pla
+[8] score=0.3761 | NFLX-10K-2025.html | narrative | PART IV > Item 16. Form 10–K Summary | None.  [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000
+[9] score=0.3844 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nfl
+[10] score=0.3885 | NFLX-10K-2025.html | narrative | PART I > Item 1A. Risk Factors | Our agreements with our partners are typically between one and three years in duration and
+[11] score=0.3909 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | (1) During the year ended December 31, 2025, we discontinued the reporting of membership n
+[12] score=0.3934 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  
+[13] score=0.4000 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | (1) Includes interest income of $295 million, $294 million and $281 million for the years 
+[14] score=0.4019 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | Revenues for the year ended December 31, 2025 increased 16% as compared to the year ended 
+[15] score=0.4047 | NFLX-10K-2025.html | comprehensive_income | PART IV > Financial Statements | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --
+[16] score=0.4056 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  
+[17] score=0.4074 | NFLX-10K-2025.html | equity_statement | PART IV > Financial Statements | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  
+[18] score=0.4077 | NFLX-10K-2025.html | narrative | PART II > Item 9B. Other Information | |  |  |  | | --- | --- | --- | |  |  |  | | (1) Aggregated shares covered have been adjust
+[19] score=0.4109 | NFLX-10K-2025.html | narrative | PART IV > Exhibit Index | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  
+[20] score=0.4110 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | Other Planned Uses of Cash and Debt Capital  On December 4, 2025, we entered into a defini
+[21] score=0.4184 | NFLX-10K-2025.html | narrative | (no heading) | Indicate by check mark whether the registrant is a shell company (as defined in Rule 12b-2
+[22] score=0.4220 | NFLX-10K-2025.html | narrative | PART II > Item 9A. Controls and Procedures | (b)Management’s Annual Report on Internal Control Over Financial Reporting  Our management
+[23] score=0.4222 | NFLX-10K-2025.html | narrative | PART II > Item 9B. Other Information | |  |  |  | | --- | --- | --- | |  |  |  | | (4) Upon termination of Mr. Peters' prior plan
+[24] score=0.4241 | NFLX-10K-2025.html | narrative | PART IV > Exhibit Index | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  
+[25] score=0.4259 | NFLX-10K-2025.html | narrative | PART IV > Signatures | Pursuant to the requirements of Section 13 or 15(d) of the Securities Exchange Act of 1934
+
+--- Answer ---
+As of December 31, 2025, Netflix had approximately 16,000 full-time employees. (Source: NFLX-10K-2025.html, PART I > Item 1. Business > HUMAN CAPITAL)
+
+> (filtering to NFLX-10K-2025.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.2729 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | Acquisitions  On December 4, 2025, the Company entered into a definitive agreement and pla
+[2] score=0.2757 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | Cash, cash equivalents, restricted cash and short-term investments decreased $518 million 
+[3] score=0.2882 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | Other Planned Uses of Cash and Debt Capital  On December 4, 2025, we entered into a defini
+[4] score=0.2908 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | Net cash provided by operating activities for the year ended December 31, 2025 increased $
+[5] score=0.2918 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | In December 2025, the Company completed an acquisition which was accounted for as a busine
+[6] score=0.3001 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | Revenues for the year ended December 31, 2025 increased 16% as compared to the year ended 
+[7] score=0.3080 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | NOTES TO CONSOLIDATED FINANCIAL STATEMENTS  1.Organization and Summary of Significant Acco
+[8] score=0.3101 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nfl
+[9] score=0.3121 | NFLX-10K-2025.html | equity_statement | PART IV > Financial Statements | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  
+[10] score=0.3146 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nfl
+[11] score=0.3186 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | (1) During the year ended December 31, 2025, we discontinued the reporting of membership n
+[12] score=0.3207 | NFLX-10K-2025.html | narrative | PART IV > Item 16. Form 10–K Summary | None.  [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000
+[13] score=0.3217 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | The increase in cost of revenues for the year ended December 31, 2025 as compared to the y
+[14] score=0.3250 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | Liquidity and Capital Resources  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  
+[15] score=0.3278 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | As of December 31, 2025, approximately $6,381 million, $2,280 million, and $1,469 million 
+[16] score=0.3286 | NFLX-10K-2025.html | cash_flow_statement | PART IV > Financial Statements | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- |
+[17] score=0.3333 | NFLX-10K-2025.html | narrative | PART I > Item 1A. Risk Factors | Our agreements with our partners are typically between one and three years in duration and
+[18] score=0.3393 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | Share Repurchases  In September 2023, the Board of Directors authorized the repurchase of 
+[19] score=0.3411 | NFLX-10K-2025.html | narrative | PART I > Item 1. Business | ABOUT US  Netflix, Inc. (“Netflix”, the “Company”, “registrant”, “we”, or “us”) is one of 
+[20] score=0.3413 | NFLX-10K-2025.html | narrative | PART I > Item 1. Business | We care about the health and well-being of our employees and their families and provide a 
+[21] score=0.3441 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | The following table summarizes the potential shares of common stock excluded from the dilu
+[22] score=0.3451 | NFLX-10K-2025.html | comprehensive_income | PART IV > Financial Statements | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --
+[23] score=0.3460 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  
+[24] score=0.3466 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | Our material cash requirements from known contractual and other obligations primarily rela
+[25] score=0.3508 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | The following table presents selected financial information with respect to the Company’s 
+
+--- Answer ---
+The unit is not stated.
+
+> (filtering to NFLX-10K-2025.html, statement type: income_statement)
+
+--- Retrieved chunks (top 4, compact, for diagnosis) ---
+[1] score=0.4023 | NFLX-10K-2025.html | income_statement | PART IV > Financial Statements | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- |
+[2] score=0.4265 | NFLX-10K-2025.html | income_statement | PART IV > Financial Statements | CONSOLIDATED STATEMENTS OF OPERATIONS  (in thousands, except per share data)  |  |  |  |  
+[3] score=0.4645 | NFLX-10K-2025.html | income_statement | PART IV > Financial Statements | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- |
+[4] score=0.4747 | NFLX-10K-2025.html | income_statement | PART IV > Financial Statements | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- |
+
+--- Answer ---
+The unit is not stated.
+
+> (filtering to NFLX-10K-2025.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.2872 | NFLX-10K-2025.html | narrative | PART I > Item 1. Business | ABOUT US  Netflix, Inc. (“Netflix”, the “Company”, “registrant”, “we”, or “us”) is one of 
+[2] score=0.3047 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | (1) During the year ended December 31, 2025, we discontinued the reporting of membership n
+[3] score=0.3277 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | Acquisitions  On December 4, 2025, the Company entered into a definitive agreement and pla
+[4] score=0.3341 | NFLX-10K-2025.html | narrative | PART I > Item 1A. Risk Factors | Our agreements with our partners are typically between one and three years in duration and
+[5] score=0.3348 | NFLX-10K-2025.html | narrative | PART I > Item 1. Business | We care about the health and well-being of our employees and their families and provide a 
+[6] score=0.3349 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | In December 2025, the Company completed an acquisition which was accounted for as a busine
+[7] score=0.3361 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nfl
+[8] score=0.3371 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | NOTES TO CONSOLIDATED FINANCIAL STATEMENTS  1.Organization and Summary of Significant Acco
+[9] score=0.3472 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | Revenues for the year ended December 31, 2025 increased 16% as compared to the year ended 
+[10] score=0.3490 | NFLX-10K-2025.html | narrative | PART IV > Item 16. Form 10–K Summary | None.  [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000
+[11] score=0.3573 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nfl
+[12] score=0.3628 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  
+[13] score=0.3686 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | Deferred revenue consists of membership fees billed that have not been recognized, as well
+[14] score=0.3737 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | (1) Includes interest income of $295 million, $294 million and $281 million for the years 
+[15] score=0.3776 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | As of December 31, 2025, approximately $6,381 million, $2,280 million, and $1,469 million 
+[16] score=0.3825 | NFLX-10K-2025.html | equity_statement | PART IV > Financial Statements | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  
+[17] score=0.3825 | NFLX-10K-2025.html | narrative | (no heading) | Indicate by check mark whether the registrant is a shell company (as defined in Rule 12b-2
+[18] score=0.3833 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | Other Planned Uses of Cash and Debt Capital  On December 4, 2025, we entered into a defini
+[19] score=0.3836 | NFLX-10K-2025.html | narrative | PART I > Item 1. Business | HUMAN CAPITAL  Our business is to entertain the world across different countries, cultures
+[20] score=0.3836 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | Acquisitions  The Company uses its best estimates and assumptions to assign fair value to 
+[21] score=0.3839 | NFLX-10K-2025.html | narrative | PART II > Item 9B. Other Information | |  |  |  | | --- | --- | --- | |  |  |  | | (1) Aggregated shares covered have been adjust
+[22] score=0.3850 | NFLX-10K-2025.html | narrative | PART IV > Exhibit Index | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  
+[23] score=0.3857 | NFLX-10K-2025.html | narrative | PART I > Item 1A. Risk Factors | The long-term and largely fixed cost nature of our content commitments may limit our opera
+[24] score=0.3868 | NFLX-10K-2025.html | comprehensive_income | PART IV > Financial Statements | |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | | --- | --- | --- | --- | --- | --
+[25] score=0.3871 | NFLX-10K-2025.html | narrative | PART I > Item 1A. Risk Factors | As of December 31, 2025, we had the equivalent of $14.5 billion aggregate principal amount
+
+--- Answer ---
+The unit is not stated.
+
+> 

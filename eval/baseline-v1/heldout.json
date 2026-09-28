@@ -1,0 +1,117 @@
+{
+ "log": "eval/baseline-v1/heldout.log",
+ "questions": "tools/heldout-questions.txt",
+ "results": [
+  {
+   "id": "H1",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's research and development expenses in fiscal year 2026 were $35,562 million. (Source: MSFT-10K-2026.html, PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS)"
+  },
+  {
+   "id": "H2",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's effective tax rate for fiscal year 2026 was 19% (Source: MSFT-10K-2026.html, PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS)."
+  },
+  {
+   "id": "H3",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft recorded $12,405 million in stock-based compensation expense for the year ended June 30, 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)."
+  },
+  {
+   "id": "H4",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "rounded, in billions",
+   "answer": "Microsoft's research and development expenses increased $3.1 billion or 9% in fiscal 2026 compared to fiscal 2025. (Source: MSFT-10K-2026.html, PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS)"
+  },
+  {
+   "id": "H5",
+   "kind": "fact",
+   "status": "reliable",
+   "note": "",
+   "answer": "As of May 31, 2026, Oracle employed approximately 141,000 full-time employees (Source: ORCL-10K-2026.html, PART I > Item 1. Business)."
+  },
+  {
+   "id": "H6",
+   "kind": "figure",
+   "status": "wrong",
+   "note": "declines but states 412",
+   "answer": "Oracle's total research and development expenses in fiscal 2026 increased by $412 million in reported currency relative to fiscal 2025, but the unit is not stated. (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)",
+   "graded": "check",
+   "resolution": "gives the $412 million increase, not the $10,272 million total",
+   "resolved_by": "user, 2026-09-28"
+  },
+  {
+   "id": "H7",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Oracle's diluted earnings per share for fiscal 2026 were $5.83. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)"
+  },
+  {
+   "id": "H8",
+   "kind": "negative",
+   "status": "malformed",
+   "note": "the units rule as the whole answer",
+   "answer": "The unit is not stated."
+  },
+  {
+   "id": "H9",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Nasdaq's revenues less transaction-based expenses in 2025 were $5,249 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements)"
+  },
+  {
+   "id": "H10",
+   "kind": "fact",
+   "status": "declined",
+   "note": "declines but states figures",
+   "answer": "The global female employee base in 2025 was approximately 36%, and the minority representation in the U.S. was approximately 33% (Source: NDAQ-10K-2025.html, PART I > Item 1. Business). However, the total number of employees is not stated in the provided excerpts.",
+   "graded": "check",
+   "resolution": "no headcount; fills in unrelated percentages",
+   "resolved_by": "user, 2026-09-28"
+  },
+  {
+   "id": "H11",
+   "kind": "fact",
+   "status": "malformed",
+   "note": "the units rule as the whole answer",
+   "answer": "The unit is not stated."
+  },
+  {
+   "id": "H12",
+   "kind": "fact",
+   "status": "reliable",
+   "note": "",
+   "answer": "As of December 31, 2025, Netflix had approximately 16,000 full-time employees. (Source: NFLX-10K-2025.html, PART I > Item 1. Business > HUMAN CAPITAL)"
+  },
+  {
+   "id": "H13",
+   "kind": "figure",
+   "status": "malformed",
+   "note": "the units rule as the whole answer",
+   "answer": "The unit is not stated."
+  },
+  {
+   "id": "H14",
+   "kind": "figure",
+   "status": "malformed",
+   "note": "the units rule as the whole answer",
+   "answer": "The unit is not stated."
+  },
+  {
+   "id": "H15",
+   "kind": "negative",
+   "status": "malformed",
+   "note": "the units rule as the whole answer",
+   "answer": "The unit is not stated.\n\n>"
+  }
+ ]
+}

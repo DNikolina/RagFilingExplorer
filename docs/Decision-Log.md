@@ -1664,7 +1664,23 @@ were found this way and fixed (a decline stating "$0" read as a decline; "not *e
 What it can't settle it marks "check" instead of guessing: a decline that still states a figure (T8's $85.47,
 T9's "$0", v2's invented R2 calculation). One stricter call: v1 Markdown's T3 ("a $438 million increase in
 personnel costs", no percentage) grades wrong. The period isn't checked - the hand grading didn't enforce it.
-Still to do: v1's baseline file, the second-model run.
+
+**v1 baseline recorded 2026-09-28** (`eval/baseline-v1/`, tag `v1.0` code, Markdown): main 22/24 reliable,
+targeted 4/10, routing 3/3, variants 1/3; **held-out 8/15**. The 40 main answers are word-for-word identical to
+the 2026-09-25 run - temperature 0 is deterministic on this setup, so a later change in score is a code change.
+Largest prompt 3,095 tokens, no truncation. Three "check" answers resolved by the user: T9 wrong ("$0"), H6
+wrong (the $412M increase, not the $10,272M total), H10 declined. One grader fix from it: "$3.1 billion" now
+counts for 3,074 million when it rounds right (H4 - the filing's own wording).
+- **The held-out set caught what the main set hid.** Five of 15 held-out answers are prompt v1's malformed
+  decline, "The unit is not stated." - both negatives (H8, H15) and three answerable questions (H11, H13, H14) -
+  against 1 of 24 on the main set (Q15). The main set flattered prompt v1; this is evidence for v2's fixed
+  decline form (prompt v2 had it) and for answer skills, not a reason to tune on H1-H15.
+- **Lookups that reach the right chunk work:** H1-H3, H5, H7, H9, H12, including three traps (H3's lookalike
+  945, H9's jargon label, H4's rounding).
+- **Routing again:** H14 (NFLX deferred revenue) routed to the income statement on "revenue", like R1; H10's
+  headcount sits in wrapped prose and wasn't retrieved.
+Still to do: the second-model run (candidates `granite4.1:8b`, non-reasoning, 5.3 GB; `qwen3.5:9b`, reasoning,
+6.6 GB - the user is deciding).
 
 **Decisions (user, 2026-09-25, still in force):** v1 first, v2 on a branch; each step measured, stop on bad
 numbers; the Q1-Q24 no-regression bar - now the strict 22/24 reliable (review point 5).
