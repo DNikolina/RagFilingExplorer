@@ -84,6 +84,16 @@ inline XBRL (Decision-Log.md, "XBRL hybrid (v2)") - on a branch, each step measu
 starting with step 0: a held-out question set, an automatic answer grader and v1's baseline results. Storage
 stays SQLite (PostgreSQL considered and declined); the no-regression bar is the strict 22/24 reliable.**
 
+**v2 status (end of 2026-09-28, branch `v2`):** a third strategy, `Structured`, built step by step - 0 done
+(held-out H1-H15, `tools/grade_answers.py`, `eval/baseline-v1/`), 1a done (DOM parse, no markitdown), two 1c
+table fixes done early, 1b-i done (XBRL reader + taxonomy reader, matching EDGAR's extraction fact for fact on
+all four filings), 1b-ii done and measured (filing-profile chunk: main 22/24, held-out 11/15 - see
+`eval/structured-1b-ii/`). **Next: 1b-iii, structure labels** - statement type from the filer's Statement roles
+(a small title rule, cross-checked against the role's concepts), note topic from the Disclosure roles through
+the continuation chains, period labels from the contexts; measured against `eval/structured-1b-ii/`. Then
+registration from the cover facts (its own step), 1c's remaining table work, 1d. Still open: the second-model run
+(step 0), the `Console.OutputEncoding` fix. Details: Decision-Log.md, "XBRL hybrid (v2)".
+
 **Known, not planned:** statement routing is keyword *substring* matching over a hard filter - "deferred
 revenues" routes to the income statement and can't reach the balance sheet (R1); colliding keywords
 drop the filter ("cash flow hedge", T10). Chunks routinely exceed the 500-token budget (up to ~800 for NFLX's widest
