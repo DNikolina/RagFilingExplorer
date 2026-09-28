@@ -23,7 +23,8 @@ result worth flagging even if the final answer is correct.
 the answer names (a right number under a near-identical line's name is wrong, as in Q10); **Complete** - the
 unit is stated and the period is clear (NFLX reports in *thousands*, the others in millions). Declines are a
 third outcome: correct for negative and routing tests, otherwise "declined". Results are in Decision-Log.md,
-"manual pass".
+"manual pass". `tools/grade_answers.py` applies these rules to a run log (expected answers in
+`tools/expected-answers.json`); answers it can't settle alone are marked "check" for a reader.
 
 ## Balance sheet
 

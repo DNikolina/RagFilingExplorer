@@ -1656,7 +1656,15 @@ sqlite-vec + reciprocal rank fusion in code. See Design-FAQ.md, "Why no rerankin
 
 **Step 0 progress.** Held-out set written 2026-09-28: 15 questions (H1-H15) chosen by the user from 20
 drafted candidates, none run before selection; `tools/heldout-questions.txt`, expected answers in
-Manual-Test-Questions.md. Still to do: the answer grader, v1's baseline file, the second-model run.
+Manual-Test-Questions.md.
+Answer grader written 2026-09-28: `tools/grade_answers.py` + `tools/expected-answers.json` (all 55 questions,
+keyed by question text). Validated against the four hand-graded runs (prompt v1 on both strategies, v2, v3 on
+Markdown): every group total matches the hand grades - main 22/22/20/23, targeted 4/5/4/2 reliable. Two bugs
+were found this way and fixed (a decline stating "$0" read as a decline; "not *explicitly* stated" missed).
+What it can't settle it marks "check" instead of guessing: a decline that still states a figure (T8's $85.47,
+T9's "$0", v2's invented R2 calculation). One stricter call: v1 Markdown's T3 ("a $438 million increase in
+personnel costs", no percentage) grades wrong. The period isn't checked - the hand grading didn't enforce it.
+Still to do: v1's baseline file, the second-model run.
 
 **Decisions (user, 2026-09-25, still in force):** v1 first, v2 on a branch; each step measured, stop on bad
 numbers; the Q1-Q24 no-regression bar - now the strict 22/24 reliable (review point 5).
