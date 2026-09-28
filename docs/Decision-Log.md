@@ -38,7 +38,7 @@ One line per section, in file order. Quote a section's name to reference it - na
 - **Follow-up: embedding-model comparison** - deferred; candidate models and their templates recorded.
 - **Follow-up: targeted questions and a rank metric** - done. Linearized puts the answer in context 7/10 vs 4/10 but answers only one more right; `Markdown` stays default; scope stops here.
 - **Follow-up: pre-manual-pass review** - done. Lost first chunk (key 0), back-matter headings, output ceiling; soft filter measured, not built; Program.cs split.
-- **Follow-up: XBRL hybrid (v2)** - planned, after the v1 push: a new ingestion built on the 10-K's regulated layers (form structure, inline XBRL facts with unit/scale/period, standard text-block labels), one table per chunk, a facts table, hybrid search. First (phased) plan superseded, kept.
+- **Follow-up: XBRL hybrid (v2)** - planned, after the v1 push: a new ingestion built on the 10-K's regulated layers (form structure, inline XBRL facts with unit/scale/period, standard text-block labels), one table per chunk, a facts table, hybrid search, a calculator tool, then per-answer-kind instruction sections ("answer skills"). First (phased) plan superseded, kept.
 - **Follow-up: manual pass (v1)** - done. Main set 23/24 correct, 16/24 reliable (units); targeted 3/10; routing and negatives all declined. Prompt change re-run: 22/24 reliable on both strategies; two further prompt revisions tried and not kept; `Markdown` stays default.
 
 ---
@@ -1592,6 +1592,27 @@ per filer; none of it is measured yet.
 service and the test conventions - what makes it possible to show v2 beats v1 rather than assume it. Estimate:
 one to two weeks at this project's verification standard. The v1 decisions stay: filer-independent rules only,
 verify against real output, measure before switching.
+
+**Answer skills - added 2026-09-28 (user's question after the manual pass).** One generic `SystemPrompt`
+serves every question, and its rules leak across question types: the units rule became a whole decline (Q15,
+T2), the arithmetic rule was read both ways (R2 invented a calculation, V3 refused a requested one). v2 answers
+come in distinct kinds - a headline figure from the facts table, a retrieved passage or table, a calculation
+via the calculator tool, a decline - so each gets its own instruction section on a small base prompt, in the
+spirit of Agent Skills (instructions loaded only when relevant). Placed late, deliberately:
+- **After ingestion.** XBRL supplies unit and scale for tagged figures, so the rule that failed most in v1
+  (units, 7 of 24) largely disappears; instructions written earlier would target problems v2 removes.
+- **After the compact display text.** Dropping the empty-cell padding (30-63% of statement tokens) frees the
+  context room that sections and tool definitions need; v1 runs at 3,871 of 4,096.
+- **Code selects first.** The router (facts vs retrieval) and `RequiresSynthesis` already know the answer kind,
+  so the section is added without an extra model call; a misclassification only drops a rule. The calculator
+  uses `Microsoft.Extensions.AI` function calling, already in the stack.
+- **Model selection only if measured.** Microsoft Agent Framework's `AgentSkillsProvider` (`SKILL.md` files,
+  `load_skill` / `run_skill_script` tools) is the model-chosen form. Check first: its package status, whether
+  `llama3.1:8b` picks the right skill, and the cost of the extra round trips (~50 s per cold prompt on this CPU).
+
+**Order, each step measured on the question set before the next:** (1) ingestion, (2) hybrid search, (3) facts
+table + router, (4) calculator tool, (5) answer skills selected by code, (6) model-selected skills only if (5)
+leaves a gap.
 
 **Decisions (user, 2026-09-25, still in force):** v1 first, v2 on a branch; each step measured, stop on bad
 numbers; the Q1-Q24 no-regression bar.
