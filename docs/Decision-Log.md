@@ -1829,6 +1829,9 @@ not the expected source ranked lower - retrieval of every expected figure is ide
 answer step, is the held-out bottleneck on every strategy: H6, H10, H11, H13 and H14 are outside the top 5
 everywhere (Markdown's MRR 0.356, the linearized two 0.427) - what 1b, 1d and hybrid search target.
 `replay_recall.py` now scores H1-H15 too (`expect_heldout`; H4 at the row holding both inputs).
+**Decision (user, 2026-09-28): H11 accepted** - Linearized's answer came from a lucky secondary source, the
+expected one reaches the top 5 on neither, and 1b-ii's filing profile targets exactly this question. The
+no-regression bar stays; this one is recorded as explained, not ignored.
 
 Small app fix noted: the app doesn't set
 `Console.OutputEncoding`, so redirected logs carry the console code page for non-ASCII characters
