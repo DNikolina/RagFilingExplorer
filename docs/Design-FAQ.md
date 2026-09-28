@@ -19,8 +19,9 @@ checks that the linearized tables put each value under the right column - kept o
 check isn't circular. Decision-Log.md, "linearized tables as a second chunking strategy".
 
 The filings also tag whole sections of text (notes, policies, schedules) under standard names shared across
-filers, which would label chunks for routing more reliably than heading patterns. That, a figure lookup
-for headline items, and a router between the two are planned as v2, each measured before the next.
+filers, which would label chunks for routing more reliably than heading patterns, and every tagged number
+carries its own unit, scale and period. v2 plans a new ingestion built on those regulated layers - a facts
+table for headline figures, structure labels for every chunk - each step measured before the next.
 Decision-Log.md, "XBRL hybrid (v2)".
 
 ### Why HTML as the source, not PDF - or OCR?

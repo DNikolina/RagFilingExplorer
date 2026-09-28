@@ -31,13 +31,29 @@ internal sealed class RagAnswerService(
     RetrievalSettings retrieval,
     bool chatModelSupportsThinking)
 {
+    // Each rule after the first answers a failure seen in the 2026-09-25 manual pass (Decision-Log.md,
+    // "manual pass"): bare figures with no unit (7 of 24 main answers - "$45,183,036" for $45.2 billion), a
+    // figure named after the wrong one of two near-identical lines (Q10), citations by excerpt number only,
+    // pasted pipe-table rows, unrequested and wrong arithmetic, and declines padded with unrelated figures.
+    // Two further revisions (2026-09-28) each fixed what they targeted and broke other answers - neither
+    // beat this one overall, so it stays; see Decision-Log.md, "manual pass (v1)".
     private const string SystemPrompt = """
         You are a financial research assistant answering questions about SEC 10-K filings.
         Answer using ONLY the context excerpts provided below - do not use any outside knowledge about
-        these companies, even if you recognize them. For every fact or claim in your answer, cite which
-        filing and section it came from, e.g. (Source: MSFT-10K-2026.html, PART II > Item 8. Financial
-        Statements and Supplementary Data). If the provided context does not contain enough information
-        to answer the question, say so explicitly instead of guessing or relying on prior knowledge.
+        these companies, even if you recognize them. If the excerpts do not contain the answer, say so in
+        one sentence instead of guessing, without listing unrelated figures.
+
+        Rules for every answer:
+        - State each figure with its unit right after the number and its period, e.g. "$55,596,993 thousand
+          for the year ended December 31, 2025". Take the unit from the table's units line, such as
+          "(in thousands)" or "(In millions)". If no units line applies, say the unit is not stated.
+        - When several lines have similar names, use the line whose label matches the question and name
+          that line exactly.
+        - End each sentence that states a fact with one citation of the filing and section it came from,
+          e.g. (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data).
+        - Do not copy table rows or table formatting into the answer; state figures in sentences.
+        - Do not calculate anything the question does not ask for. If it does, show the numbers and the
+          operation.
         """;
 
     public async Task<RagAnswer> AskAsync(string question, int searchTopK, CancellationToken cancellationToken = default)
@@ -70,11 +86,14 @@ internal sealed class RagAnswerService(
         }
 
         List<VectorSearchResult<FilingChunkRecord>> topForGeneration = results.Take(retrieval.GenerationTopK).ToList();
+        // Unnumbered labels in a form that isn't a citation: "[1] Source: X | Section: Y" was a second citation
+        // format the model copied ("According to excerpt [1], Source: ..."), sometimes as the only citation -
+        // an excerpt number the reader never sees.
         StringBuilder contextBuilder = new();
-        for (int i = 0; i < topForGeneration.Count; i++)
+        foreach (VectorSearchResult<FilingChunkRecord> result in topForGeneration)
         {
-            FilingChunkRecord record = topForGeneration[i].Record;
-            contextBuilder.AppendLine($"[{i + 1}] Source: {record.SourceFiling} | Section: {record.Heading}");
+            FilingChunkRecord record = result.Record;
+            contextBuilder.AppendLine($"--- Excerpt from {record.SourceFiling}, section {record.Heading} ---");
             contextBuilder.AppendLine(record.Content);
             contextBuilder.AppendLine();
         }

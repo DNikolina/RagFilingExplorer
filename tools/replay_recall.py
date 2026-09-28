@@ -72,15 +72,19 @@ expect = {1: ['758,376'], 2: ['43,056'], 3: ['18,821'], 4: ['182,935'], 5: ['31,
           25: ['2,243'], 26: ['3,500'], 27: ['466,095'], 28: ['3,603'], 29: ['48,562'], 30: ['7,952'],
           31: ['4,301'], 32: ['91.47'], 33: ['4,743'], 34: ['96,795'],
           # R1-R3: routing tests - the keyword route excludes every chunk holding the answer
-          35: ['9,916'], 36: ['1,274'], 37: ['137,791']}
+          35: ['9,916'], 36: ['1,274'], 37: ['137,791'],
+          # V1-V3: found in the 2026-09-25 manual pass - Q10's mislabel for 2024 (the right line is 940,
+          # not the 'attributable to Nasdaq' 942; 1,124 is the same row's 2023 value, format-independent), a real
+          # year absent from the filing, and asked-for arithmetic
+          38: ['1,124'], 39: [], 40: ['10,149,273']}
 
 
 def group_of(i):
-    return 'Q1-Q24' if i <= 24 else 'T1-T10' if i <= 34 else 'R1-R3'
+    return 'Q1-Q24' if i <= 24 else 'T1-T10' if i <= 34 else 'R1-R3' if i <= 37 else 'V1-V3'
 
 
 def name_of(i):
-    return f'Q{i}' if i <= 24 else f'T{i - 24}' if i <= 34 else f'R{i - 34}'
+    return f'Q{i}' if i <= 24 else f'T{i - 24}' if i <= 34 else f'R{i - 34}' if i <= 37 else f'V{i - 37}'
 
 
 ranks = {}
@@ -112,7 +116,7 @@ for i, (q, b) in enumerate(zip(questions, blocks), 1):
           f"filter={where}  top1={top1}")
 
 print()
-for group in ('Q1-Q24', 'T1-T10', 'R1-R3'):
+for group in ('Q1-Q24', 'T1-T10', 'R1-R3', 'V1-V3'):
     rs = [r for i, r in ranks.items() if group_of(i) == group]
     if not rs:
         continue

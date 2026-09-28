@@ -214,7 +214,9 @@ public class RagAnswerServiceTests
 
         Assert.That(capturedMessages, Is.Not.Null);
         string userMessage = capturedMessages!.Single(m => m.Role == ChatRole.User).Text;
-        Assert.That(userMessage, Does.Contain("Source: MSFT-10K-2026.html | Section: PART II > Item 8. Financial Statements"));
+        Assert.That(userMessage, Does.Contain("--- Excerpt from MSFT-10K-2026.html, section PART II > Item 8. Financial Statements ---"));
+        // Numbered labels ("[1] Source: ...") were copied into answers as citations the reader can't resolve.
+        Assert.That(userMessage, Does.Not.Contain("[1]"));
         Assert.That(userMessage, Does.Contain("Total revenues $331,839 million"));
         Assert.That(userMessage, Does.Contain("What was Microsoft's total revenue for fiscal year 2026?"));
     }

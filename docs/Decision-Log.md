@@ -38,7 +38,8 @@ One line per section, in file order. Quote a section's name to reference it - na
 - **Follow-up: embedding-model comparison** - deferred; candidate models and their templates recorded.
 - **Follow-up: targeted questions and a rank metric** - done. Linearized puts the answer in context 7/10 vs 4/10 but answers only one more right; `Markdown` stays default; scope stops here.
 - **Follow-up: pre-manual-pass review** - done. Lost first chunk (key 0), back-matter headings, output ceiling; soft filter measured, not built; Program.cs split.
-- **Follow-up: XBRL hybrid (v2)** - planned, after the v1 push: XBRL section labels, then figure lookup, then a router - phased, measured.
+- **Follow-up: XBRL hybrid (v2)** - planned, after the v1 push: a new ingestion built on the 10-K's regulated layers (form structure, inline XBRL facts with unit/scale/period, standard text-block labels), one table per chunk, a facts table, hybrid search. First (phased) plan superseded, kept.
+- **Follow-up: manual pass (v1)** - done. Main set 23/24 correct, 16/24 reliable (units); targeted 3/10; routing and negatives all declined. Prompt change re-run: 22/24 reliable on both strategies; two further prompt revisions tried and not kept; `Markdown` stays default.
 
 ---
 
@@ -1536,35 +1537,198 @@ stale; harmless either way, since the filters demonstrably work.
 
 ## Follow-up: XBRL hybrid (v2) — PLANNED, after the v1 push
 
-**Why.** The hard statement filter can't reach answers outside the primary statements (segment and
-regional figures, policies, MD&A drivers), and pure RAG over tables is the weakest way to answer headline
-figures. The filings carry structure that addresses both, checked 2026-09-25 in all four:
-- **Section-level tags.** Each filing tags 67-91 blocks of text (notes, policies, schedules) as inline-XBRL
-  text blocks, ~75% under standard `us-gaap` names shared across filers - e.g. all four tag their segment
-  table `us-gaap:ScheduleOfSegmentReportingInformationBySegmentTextBlock`; three tag the revenue policy
-  `RevenueFromContractWithCustomerPolicyTextBlock`, NFLX `RevenueRecognitionPolicyTextBlock`. That labels
-  note topics filer-independently - including ORCL's unnumbered notes, which heading patterns can't.
-- **Tagged facts.** Headline figures are standard concepts; the linearizer already pairs each tagged value
-  with its row label, column label and concept (that's how the XBRL oracle works), so a label -> concept
-  mapping can be derived per filing instead of hand-written. Segment figures are dimensional, with
-  company-specific members (`msft:IntelligentCloudMember`, `ndaq:CapitalAccessPlatformsMember`, ...), whose
-  names can be turned into labels.
+**Rewritten 2026-09-25, after the manual pass** (the first, phased plan is kept at the end of this section).
+The pass showed that most failures trace to how the filings are turned into chunks - lost column structure,
+units and titles only on a table's first piece, ~50% empty-cell padding - plus model habits no ingestion
+fixes. So v2 is a new *ingestion* design built from first principles, not a layer on the Markdown path.
 
-This doesn't reverse the "linearized tables" decision to keep XBRL out of runtime: that was about aligning
-table columns (circular with the oracle) and about a general question -> concept lookup. Text-block labels
-are a separate use; the figure lookup (phase B) is the text-to-query problem that entry flagged, now scoped.
+**Principle: build on what the SEC standardizes, not on how the page looks.** A 10-K has three layers:
+- the **Form 10-K structure** (Parts, Items 1-16) - fixed by regulation;
+- **inline XBRL** - every financial number tagged with concept, period (context), unit and scale; notes and
+  policies tagged as text blocks with ~75% standard `us-gaap` names; cover facts (company, fiscal year end).
+  Checked 2026-09-25: every tagged number carries `scale` (6 = millions; 3 = thousands for 901 NFLX facts;
+  -2 = percent) and `unitRef` (USD, shares, pure); 1,292-1,855 tagged numbers per filing, in 45-57 of each
+  filing's 82-117 tables;
+- the **visual HTML** - prose and tables, different for every filing agent.
+Current pipelines, this one's included, rebuild structure from the visual layer. v2 starts from the regulated
+layers and uses the visual layer only for what they don't cover (prose, untagged tables).
 
-**Decisions (user, 2026-09-25):**
-- **v1 first.** Manual pass and push of the current state; v2 on a branch.
-- **Phased, stop on bad numbers.** Each phase is spiked and measured (replay, both strategies, Q1-Q24 as the
-  no-regression bar) before it's built; stop after any phase whose numbers don't justify the next.
-- **Section labels as a setting on both strategies**, not a third chunking strategy - so a gain is
-  attributable to the labels, not to the chunking.
+**Pipeline:**
+1. Parse the HTML once as a DOM (AngleSharp); read the hidden XBRL header (contexts, units) before dropping it.
+   No markitdown - which also removes the Python dependency.
+2. **Facts table** from every tagged number: concept, value x scale, unit, period, dimensions (segment
+   members), sign, and the row label beside it. Company identity and fiscal year end from the cover facts.
+3. Blocks in reading order - headings (the form's PART/Item patterns plus generic short-bold-line rules),
+   paragraphs, tables; page artifacts dropped by generic rules.
+4. **Structure labels on every block:** Item path; note/policy topic from the enclosing XBRL text block;
+   statement type from the *concepts* in a table (`us-gaap:Assets` -> balance sheet), replacing title regexes.
+5. **Tables:** expand merged cells, drop spacer columns, keep **one table per chunk** (the T4 lesson), split
+   between rows with title, units and period repeated. Units and periods from XBRL for tagged cells, from the
+   caption/header for untagged ones.
+6. **Two texts per chunk:** an embedding text (company, filing, section path, topic label, row labels) and a
+   compact display text for the model.
+7. One SQLite file: vectors, an FTS5 keyword index, and the facts table - still local and zero-cost.
+Retrieval: statement/section labels as soft boosts rather than hard filters; hybrid (keyword + vector) search;
+exact headline figures from the facts table; arithmetic in code (a calculator tool - `llama3.1:8b` supports
+tool calling), never by the model.
 
-**Phases:**
-- **A - XBRL section labels on chunks**, used for routing (e.g. "segment" -> the segment text block).
-  Main unknown: carrying HTML text-block regions through markitdown onto chunks.
-- **B - figure lookup from tagged facts** for headline statement items, passed to the model as cited
-  context. Unknowns: period resolution per fiscal-year end, dimensional (segment) facts.
-- **C - router** between B and retrieval; fallback to retrieval when no fact matches. Carries today's
-  misrouting risk, so measured like the statement filter.
+**Measured choices, not assumptions** (each settled on the question set before it's kept):
+- What the model sees for a table: self-contained row lines vs cleaned HTML table markup (what Microsoft's
+  Content Understanding uses for merged cells) vs a clean grid for simple tables - HTML keeps structure but
+  costs tokens, and reading tokens is the CPU bottleneck (~45 tokens/s).
+- Model-written table summaries as embedding text - the strongest retrieval aid in the guidance, but one model
+  call per table: ~370 tables x ~40 s ~ 4 hours per build on this hardware. Try on a subset first.
+- Company/filing context on every chunk's embedding text (Microsoft's chunking guidance: append the document
+  title to mid-document chunks).
+Rejected: Azure Document Intelligence / Content Understanding themselves - paid cloud services; the techniques
+are what's useful.
+
+**Risks:** untagged tables (a third to a half of all tables, mostly MD&A and schedules) still need layout-based
+parsing - the hardest part, with no XBRL help; XBRL isn't perfectly uniform (company extension concepts, tag
+spelling by filing agent, dimensional complexity); heading detection without heading tags needs rules validated
+per filer; none of it is measured yet.
+
+**Carries over from v1:** the question set (Q, T, R, V), `replay_recall.py`, the index manifest, the retrieval
+service and the test conventions - what makes it possible to show v2 beats v1 rather than assume it. Estimate:
+one to two weeks at this project's verification standard. The v1 decisions stay: filer-independent rules only,
+verify against real output, measure before switching.
+
+**Decisions (user, 2026-09-25, still in force):** v1 first, v2 on a branch; each step measured, stop on bad
+numbers; the Q1-Q24 no-regression bar.
+
+**First plan (superseded 2026-09-25, kept for the record):**
+
+> **Why.** The hard statement filter can't reach answers outside the primary statements (segment and
+> regional figures, policies, MD&A drivers), and pure RAG over tables is the weakest way to answer headline
+> figures. The filings carry structure that addresses both, checked 2026-09-25 in all four:
+> - **Section-level tags.** Each filing tags 67-91 blocks of text (notes, policies, schedules) as inline-XBRL
+>   text blocks, ~75% under standard `us-gaap` names shared across filers - e.g. all four tag their segment
+>   table `us-gaap:ScheduleOfSegmentReportingInformationBySegmentTextBlock`; three tag the revenue policy
+>   `RevenueFromContractWithCustomerPolicyTextBlock`, NFLX `RevenueRecognitionPolicyTextBlock`. That labels
+>   note topics filer-independently - including ORCL's unnumbered notes, which heading patterns can't.
+> - **Tagged facts.** Headline figures are standard concepts; the linearizer already pairs each tagged value
+>   with its row label, column label and concept (that's how the XBRL oracle works), so a label -> concept
+>   mapping can be derived per filing instead of hand-written. Segment figures are dimensional, with
+>   company-specific members (`msft:IntelligentCloudMember`, `ndaq:CapitalAccessPlatformsMember`, ...), whose
+>   names can be turned into labels.
+>
+> This doesn't reverse the "linearized tables" decision to keep XBRL out of runtime: that was about aligning
+> table columns (circular with the oracle) and about a general question -> concept lookup. Text-block labels
+> are a separate use; the figure lookup (phase B) is the text-to-query problem that entry flagged, now scoped.
+>
+> **Decisions (user, 2026-09-25):**
+> - **v1 first.** Manual pass and push of the current state; v2 on a branch.
+> - **Phased, stop on bad numbers.** Each phase is spiked and measured (replay, both strategies, Q1-Q24 as the
+>   no-regression bar) before it's built; stop after any phase whose numbers don't justify the next.
+> - **Section labels as a setting on both strategies**, not a third chunking strategy - so a gain is
+>   attributable to the labels, not to the chunking.
+>
+> **Phases:**
+> - **A - XBRL section labels on chunks**, used for routing (e.g. "segment" -> the segment text block).
+>   Main unknown: carrying HTML text-block regions through markitdown onto chunks.
+> - **B - figure lookup from tagged facts** for headline statement items, passed to the model as cited
+>   context. Unknowns: period resolution per fiscal-year end, dimensional (segment) facts.
+> - **C - router** between B and retrieval; fallback to retrieval when no fact matches. Carries today's
+>   misrouting risk, so measured like the statement filter.
+
+## Follow-up: manual pass (v1) — DONE, outcome below
+
+**What.** The user's manual pass through `docs/Manual-Test-Questions.md` (2026-09-25), Markdown strategy,
+`llama3.1:8b`, temperature 0, after the pre-manual-pass fixes - each answer pasted and graded against the doc's
+expected figure, filter line and citation, plus ~25 variants the user tried.
+
+**Grading (user's decisions).** Two columns: **Correct** - the number matches the line the answer names (a right
+number under a near-identical line's name is wrong); **Complete** - unit stated, period clear. Declines are a third
+outcome. (An interim rule scored a missing unit as a plain fail; replaced because it lumped a presentation gap
+with a genuinely wrong number.)
+
+**Results:**
+
+| Set | Correct | Complete | Reliable (both) | Declined | Wrong |
+|---|---|---|---|---|---|
+| Main (Q1-Q24) | 23/24 | 17/24 | 16/24 | 0 (Q15, Q16 negatives declined correctly) | Q10 |
+| Targeted (T1-T10) | 3/10 | 2/10 | 2/10 | 6 | T5 |
+| Routing (R1-R3) | all declined as expected, no substituted figure | | | 3 | 0 |
+
+By company (main): MSFT 6/6, ORCL 4/4 reliable; NDAQ 4/5 correct, 3/5 reliable; NFLX 6/6 correct, 1/6 reliable.
+
+**Findings (each checked against the chunks or the index, not assumed):**
+- **Grounding holds.** Every negative - including real years absent from the filing (MSFT and ORCL fiscal 2023),
+  which the model may know from training - and every routing test declined; R1/R2 declined with lookalike figures
+  (income-statement revenue, segment revenue) in context.
+- **Units were the main presentation gap:** missing on 7 of 24 main answers, all NDAQ/NFLX. Two causes: the unit
+  was in the same chunk and dropped (Q17, Q19 - NFLX revenue and total assets sit on the statement's first piece,
+  under "(in thousands, ...)"), or the chunk had no units line at all (Q18 key 859, Q20 key 867 - continuation
+  pieces; only a statement's first piece carries units). "Add the units after the number" in the question fixed
+  both, carrying "thousands" across excerpts when the statement's first piece was also retrieved (Q20 variant).
+- **Two wrong figures, both near-identical lines:** Q10 stated $2,114M ("attributable to Nasdaq", the only line
+  printed with "$") as total comprehensive income ($2,113M) - reproduced for 2024 ($942M vs $940M). T5 answered
+  the $19,100M "U.S. government and agency securities, fair value" row from another table - a retrieval miss plus
+  a lookalike label, stated with a detailed citation; the same trap as the 2026-09-24 run.
+- **Q3 (NDAQ total liabilities)** first presented a subtotal sum ($18,118) as "total liabilities", then the right
+  $18,821 - reproducible. Retrieval was right (the total's chunk ranked 1st); the total sits on an untitled
+  continuation piece and the model started from the titled piece.
+- **Targeted declines are mostly retrieval:** T2, T3, T6, T8, T9 had the answer's chunk at rank 6-25+ on Markdown;
+  T1's row was in context and missed. T4 (Markdown's measured win over Linearized) and T7 passed.
+- **Arithmetic is unreliable:** asked to sum three 8-digit operating cash flows, the model gave 24,785,938 and
+  24,785,038 across four phrasings, never 24,784,938 - "add the numbers correctly" changed nothing. Q14's 6-digit
+  difference was right. Derived figures need code (a calculator tool - v2).
+- **Presentation habits:** citations by excerpt number only ("excerpt [1]", no filing/section - three of six
+  headquarters variants), doubled citations, pasted pipe-table rows, the section paraphrased. Brevity instructions
+  worked for "just the location", not for "just the square feet".
+- **Problems follow filing layout, not onboarding history:** NDAQ was an original filing and still had the most
+  issues; MSFT/ORCL share a filing-agent style, NDAQ and NFLX each differ (statements after Item 16, near-identical
+  total lines, thousands).
+- **Speed:** a cold question takes ~75 s (~52 s reading ~2,400 prompt tokens at ~45 tokens/s, ~20 s writing);
+  repeats and overlapping questions are fast because Ollama keeps an 8 GB RAM prompt cache (up to 41 full prefix
+  matches in one day). No conversation history is sent between questions.
+- **Padding:** empty table cells are ~30-63% of statement-chunk tokens per filing (character-based estimate) -
+  reading time and noise.
+
+**Prompt change (shipped).** A new `SystemPrompt` answering the findings above - unit right after every figure,
+the line named exactly, one filing + section citation, no pasted table rows, no unrequested arithmetic, no
+unrelated figures in a decline - plus unnumbered excerpt labels ("--- Excerpt from <filing>, section <heading>
+---"; the old "[n] Source: ..." label was being copied as a citation). Three variants (V1-V3) were added to the
+question set. Re-run on all 40 questions, both strategies, temperature 0:
+
+| Prompt v1 | Markdown | Linearized |
+|---|---|---|
+| Main (Q1-Q24), reliable | 22/24 - misses Q10, Q15 | 22/24 - misses Q2, Q10 |
+| Targeted (T1-T10), correct and complete | 4/10 (T1, T4, T7, T10) | 5/10 (T1, T2, T7, T8, T10) |
+| Wrong figures, all 40 | 5 (Q10, T5, T9, V1, V3) | 5 (Q2, Q10, T9, V1, V3) |
+| Routing (R1-R3) | all declined | all declined |
+| Time, 40 questions | 2,459 s | 2,056 s |
+
+All seven unit failures of the pass were fixed on both; Q3's subtotal answer was gone. New failures: the
+units rule leaked into declines as the whole answer ("The unit for the figures is not stated." - Q15, T2 on
+Markdown; T3, T4 on Linearized); T9 answered "$0" from a line that wasn't in context. Q2 on Linearized named
+"Total Oracle Corporation stockholders' equity" ($42,508M) as total stockholders' equity ($43,056M). Largest
+prompt 3,103 tokens, + 768 output = 3,871 of 4,096 - no truncation; `AppSettingsTests` updated from ~3,000.
+
+**Two further prompt revisions - tried 2026-09-28, not kept.** Measured on Markdown only:
+
+| | v1 (shipped) | v2 | v3 |
+|---|---|---|---|
+| Main, reliable | 22/24 | 20/24 | 23/24 |
+| Targeted, correct and complete | 4/10 | 4/10 | 2/10 |
+| Wrong figures, all 40 | 5 | 5 | 6 |
+| Largest prompt + output, of 4,096 | 3,871 | 3,941 | 3,984 |
+
+- **v2** added a fixed decline form ("The excerpts don't contain <what was asked>."), "a missing line is not
+  zero", and "quote the row label exactly". Declines became clean one-liners and T9 stopped answering "$0", but Q3
+  became "$18,821 thousand" (NDAQ reports millions - the prompt's only unit example was "thousand"), Q18/Q21 lost
+  their units, R2 invented a calculation (-$4,709M), and V3 refused the sum it was asked for. Q10 was unchanged.
+- **v3** gave one example per unit and split the arithmetic rule (calculate only when asked; never calculate a
+  figure asked for by name). Every main-set unit was right, but T1 declined (v1 and v2 answered it), T10 became
+  "$(96,795) million" (NFLX reports thousands), R2 named a revenue line as operating income, and six main answers
+  dropped the period.
+- **Why v1 stays (user's decision).** Each revision fixed what it targeted and moved failures elsewhere, even at
+  temperature 0 - `llama3.1:8b` is sensitive to prompt wording, and every round tuned against the same 40
+  questions. The failures left aren't prompt-shaped: near-identical rows (Q10, V1), a chunk without its units line
+  (NFLX continuation pieces), arithmetic (V3), keyword routing (R1-R3). They belong to v2's design (XBRL facts with
+  unit and scale, a calculator tool, hybrid search) - "XBRL hybrid (v2)" above.
+
+**Default strategy: `Markdown` stays (user's decision).** The agreed rule was to switch to Linearized only if it
+didn't regress anywhere, T4 included. It ties on the main set, answers one more targeted question and runs ~16%
+faster, but regressed on T4 (declined - operating and finance lease rows mixed in one chunk) and Q2 (the
+lookalike equity line), both of which Markdown answers. Both strategies stay switchable.

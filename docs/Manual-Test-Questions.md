@@ -8,7 +8,7 @@ it deliberately covers statement types and companies the original 6 didn't touch
 
 Netflix (`NFLX-10K-2025.html`) was added later, alongside MSFT/ORCL/NDAQ - see Decision-Log.md's
 "Follow-up: onboarding a new filer (NFLX)" for the three real bugs that surfaced onboarding it. Its
-questions (17-20 below) are the regression check for that work.
+questions (17-22 below) are the regression check for that work.
 
 Every expected answer below was pulled directly from `chunk-review/markdown/*.chunks.txt` (the actual
 converted filing text, not memory/prior knowledge), same as Step 7's own verification method. Line
@@ -18,6 +18,12 @@ line is where to check the figure yourself if an answer looks off.
 For each question, also check that the printed `(filtering to ..., statement type: ...)` line
 matches the expected filter - a wrong filter that happens to still retrieve the right chunk is a
 result worth flagging even if the final answer is correct.
+
+**Grading (from the 2026-09-25 pass).** Two columns per answer: **Correct** - the number matches the line
+the answer names (a right number under a near-identical line's name is wrong, as in Q10); **Complete** - the
+unit is stated and the period is clear (NFLX reports in *thousands*, the others in millions). Declines are a
+third outcome: correct for negative and routing tests, otherwise "declined". Results are in Decision-Log.md,
+"manual pass".
 
 ## Balance sheet
 
@@ -105,7 +111,9 @@ Source: `MSFT-10K-2026.chunks.txt:487`. No statement-type filter expected (narra
 
 **12. Where is Oracle headquartered?**
 Expected: **Austin, Texas** (address of principal executive offices).
-Source: `ORCL-10K-2026.chunks.txt:35`. No statement-type filter expected.
+Source: `ORCL-10K-2026.chunks.txt:35` (cover page) - an answer from Item 2. Properties ("Our headquarters
+facility consists of approximately 0.9 million square feet in Austin, Texas") is equally correct, and is
+what the model cited in the pass. No statement-type filter expected.
 
 **13. Who is Nasdaq's independent registered public accounting firm?**
 Expected: **Ernst & Young LLP**.
@@ -144,7 +152,8 @@ Expected: **$10,038,657 thousand** (2025; $9,297,738 thousand 2024; $5,401,351 t
 Filter: `NFLX-10K-2025.html`, `comprehensive_income`.
 
 **22. Where is Netflix headquartered?**
-Expected: **Los Gatos, California**.
+Expected: **Los Gatos, California**. Source: the cover page or Item 2. Properties ("leased principal
+properties in ... Los Gatos, California, which is the location of our corporate headquarters").
 No statement-type filter expected (narrative chunk).
 
 ## Edge cases
@@ -240,3 +249,23 @@ million FY2025). Source: `MSFT-10K-2026.chunks.txt:1312` (MD&A) and `:5405` (seg
 `MSFT-10K-2026.html`, `income_statement`. A decline ("the excerpts ... do not break down revenue by
 segment", as observed) is the correct outcome; any figure other than $137,791 million is a failure.
 It's the README's "statement routing is a hard filter" limitation - see Decision-Log.md, "pre-manual-pass review".
+
+## Variants (V1-V3) - added from the 2026-09-25 manual pass
+
+Lines 38-40 of `tools/manual-questions.txt`. Each reproduced a finding of the pass.
+
+**V1. What was Nasdaq's total comprehensive income for 2024?**
+Expected: **$940 million** ("Comprehensive income"). Trap: **$942 million**, the "Comprehensive income
+attributable to Nasdaq" line below it - the only line printed with "$", which the model took as the total for
+both 2025 (Q10) and 2024 in the pass. Source: `NDAQ-10K-2025.chunks.txt:12523-12525`. Filter:
+`NDAQ-10K-2025.html`, `comprehensive_income`.
+
+**V2. What was Microsoft's comprehensive income for 2023?**
+Negative test: fiscal 2023 is a real year the model may know from training, but the FY2026 filing covers
+fiscal 2024-2026 only. Expected: a decline, ideally naming the years covered - not a figure from memory.
+Filter: `MSFT-10K-2026.html`, `comprehensive_income`.
+
+**V3. What was Netflix's net cash provided by operating activities, sum up the numbers?**
+Asked-for arithmetic. The three figures ($10,149,273 / $7,361,364 / $7,274,301 thousand) sum to **$24,784,938
+thousand**. In the pass `llama3.1:8b` produced 24,785,938 and 24,785,038 across four phrasings, never the right
+sum; the operation should be shown so an error is visible. Filter: `NFLX-10K-2025.html`, `cash_flow_statement`.

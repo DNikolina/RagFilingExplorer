@@ -48,8 +48,8 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; 24/24 manual questions (both strategies); targeted T1-T10: Markdown 4, Linearized 5 right; 176 offline unit tests |
-| 8. Publish | README written; **push on hold** until the user's manual pass (`docs/Manual-Test-Questions.md`) |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 176 offline unit tests |
+| 8. Publish | README written; manual pass done; **push pending the user's go-ahead** |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
 report that clearly. The only further work is v2, the XBRL hybrid the user asked for (2026-09-25), built on
@@ -74,8 +74,13 @@ hybrid search, embedding-model comparison) are listed, not planned - Decision-Lo
 questions and a rank metric". Hybrid search was checked for feasibility only, never measured (corrected
 in "pre-manual-pass review").
 
-**Next: the user's manual pass, then push v1. Then v2 - XBRL section labels, figure lookup, router - on a
-branch, each phase measured before the next.**
+**Manual pass (2026-09-25/28):** strict grading exposed missing units (7/24) and near-identical-line swaps
+(Q10); a new `SystemPrompt` fixed the units - 22/24 reliable on both strategies. Two further prompt revisions
+moved failures around rather than removing them and weren't kept; `Markdown` stays the default (Linearized
+regressed on T4 and Q2). Largest prompt 3,103 + 768 output of 4,096. Details in Decision-Log.md, "manual pass (v1)".
+
+**Next: push v1. Then v2 - a new ingestion built on the form structure and
+inline XBRL (Decision-Log.md, "XBRL hybrid (v2)") - on a branch, each step measured before the next.**
 
 **Known, not planned:** statement routing is keyword *substring* matching over a hard filter - "deferred
 revenues" routes to the income statement and can't reach the balance sheet (R1); colliding keywords

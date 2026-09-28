@@ -57,8 +57,10 @@ models were chosen specifically because they run acceptably on CPU alone.
   roughly **10 minutes** for ~1,440 chunks across the 4 included filings.
 - **Every run after that** finds the existing index and skips straight to the interactive loop —
   well under a minute to start.
-- Each answer involves one local `llama3.1:8b` generation call, CPU-only — expect roughly tens of
-  seconds per question.
+- Each answer involves one local `llama3.1:8b` generation call, CPU-only. A question whose excerpts the model
+  hasn't read before takes **about a minute or more**: on the hardware above, ~50 s to read a ~2,400-token prompt
+  (~45 tokens/s) and ~20 s to write the answer (~6 tokens/s). Repeated or overlapping questions are much faster,
+  because Ollama keeps already-read prompts in a RAM cache and skips re-reading a shared beginning.
 
 ## Running it
 
@@ -133,7 +135,9 @@ a one-line settings change with no re-embedding - which is what makes side-by-si
   Markdown handling. 999 chunks vs 1,444. Ties `Markdown` on the original 24 questions; on 10 targeted
   questions (mid-table rows, split layouts, MD&A/notes tables) it gets the answer into the model's
   context for 7 vs 4 and answers 5 vs 4 correctly, with named trade-offs - see
-  [docs/Decision-Log.md](docs/Decision-Log.md), "targeted questions and a rank metric".
+  [docs/Decision-Log.md](docs/Decision-Log.md), "targeted questions and a rank metric". The final manual
+  pass confirmed it (22/24 reliable on both, 5 vs 4 targeted) but Linearized missed two questions `Markdown`
+  answers, so `Markdown` stays the default ("manual pass (v1)").
 
 Everything after chunking (statement-type tagging, embedding, retrieval, generation) is shared, so a
 strategy only has to implement `IChunkingStrategy`.
@@ -209,6 +213,14 @@ Full diagnostic detail, including how each bug was actually found, is in
 
 ## Known limitations
 
+- **Derived figures aren't reliable.** Sums, differences and ratios are computed by the model, which predicts
+  digits rather than calculating: asked to add three 8-digit figures, it gave a slightly wrong total every time,
+  across four phrasings. Check any figure the filing doesn't state directly.
+
+- **Near-identical lines can be swapped.** Where a table has two lines for almost the same thing - Nasdaq's
+  "Comprehensive income" and "Comprehensive income attributable to Nasdaq" - the model sometimes gives the
+  other line's figure under the asked-for name. Three prompt wordings didn't fix it; check the cited line.
+
 - **Statement routing is a hard filter.** A question containing a financial-statement term (revenue,
   net income, operating margin, total assets, cash flow, …) is searched only within that statement.
   Answers that live elsewhere in the filing can't be retrieved: segment or regional breakdowns, MD&A
@@ -216,6 +228,26 @@ Full diagnostic detail, including how each bug was actually found, is in
   the balance sheet). In testing the model declined these rather than guess, but the miss is by design.
   A soft filter was measured and not built; a planned v2 targets this with XBRL section labels - see
   [docs/Design-FAQ.md](docs/Design-FAQ.md) and [docs/Decision-Log.md](docs/Decision-Log.md), "XBRL hybrid (v2)".
+
+## What I'd do differently
+
+- **Start from the data, not the tool.** The pipeline was chosen before the filings were studied: a document
+  library first, and when that failed, its Markdown converter. An hour with the source would have shown that
+  every 10-K follows a structure fixed by regulation (Parts and Items) and tags every financial figure in inline
+  XBRL with its concept, period, unit and scale. Much of the later work - recovering table structure, carrying
+  units onto split tables, detecting statements from their titles - rebuilds information the filings already
+  state. The v2 plan starts there ([Decision-Log.md](docs/Decision-Log.md), "XBRL hybrid (v2)").
+- **Pick the stack from strengths, the pipeline from the data.** .NET was the right choice and covers every part
+  of that design. The assumption was the conversion step - which is also what brought in Python.
+- **Keep what's searched separate from what the model reads.** Tables were embedded and shown in the same
+  Markdown form; roughly half of a financial statement's tokens turned out to be empty cells, slowing every answer
+  and giving the model noise to count through.
+- **Build the evaluation early, and grade strictly from the start.** The question set and the retrieval replay
+  are what made every decision here measurable. But an earlier, looser grading scored the main questions 24/24;
+  requiring the unit and the exact line exposed eight problems. And no question touched Microsoft's cover page,
+  so a bug that silently dropped it survived every test.
+- **Keep arithmetic out of the model.** It predicts digits rather than calculating; sums and ratios belong in
+  code, called as a tool.
 
 ## Testing
 
