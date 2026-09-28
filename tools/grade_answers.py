@@ -36,7 +36,10 @@ def answers_from_log(path, count):
     # unfiltered --verbose question, the retrieved-chunks header; a "> " the model wrote as a Markdown
     # blockquote is merged back into the block before it.
     blocks = []
-    for b in open(path, encoding='utf-8').read().split('\n> ')[1:]:
+    # errors='replace': the app doesn't set Console.OutputEncoding, so a redirected run can carry the console
+    # code page's bytes for non-ASCII characters (a non-breaking space as 0xFF in a chunk preview). Figures,
+    # units and the grader's patterns are ASCII, so a replaced character never changes a grade.
+    for b in open(path, encoding='utf-8', errors='replace').read().split('\n> ')[1:]:
         if b.startswith('(') or b.startswith('--- Retrieved chunks') or not blocks:
             blocks.append(b)
         else:

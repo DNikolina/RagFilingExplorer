@@ -1681,6 +1681,39 @@ counts for 3,074 million when it rounds right (H4 - the filing's own wording).
   headcount sits in wrapped prose and wasn't retrieved.
 Still to do: the second-model run (candidates `granite4.1:8b`, non-reasoning, 5.3 GB; `qwen3.5:9b`, reasoning,
 6.6 GB - the user is deciding).
+**Linearized on the held-out set (2026-09-28): 11/15 reliable vs Markdown's 8/15** - none of Markdown's five
+"The unit is not stated." answers (H8, H11, H13-H15 became two correct declines, one right answer, one clean
+decline, one wrong). Its two wrong answers take lookalike lines: H6 $2,805M (stock-based compensation within
+R&D, not the $10,272M total), H13 $9,067,872 thousand (cash "and short-term investments"). H10 declines the
+headcount after an unrelated share count - "check", awaiting the user's call. Doesn't reopen v1's default (the
+rule was the main set, where Linearized regressed on T4 and Q2), but favours building v2 on the linearizer.
+
+**Naming (user, 2026-09-28):** v2 is a **new, third strategy, `Structured`** - Markdown and Linearized stay
+frozen as the reference (markitdown with them). "Hybrid" is kept for the keyword + vector search. Steps 1a-1d
+build `Structured` up, each measured against a v1 strategy.
+
+**Step 1a done (2026-09-28): DOM parse, no markitdown.** `HtmlTextConverter` (AngleSharp) reproduces
+markitdown's text shape - one paragraph per block element, links, fenced `<pre>`, markdownify's pipe tables
+(made-up empty header row, merged cells padded). Tables go through `HtmlTableLinearizer`, so 1a's reference is
+Linearized (the plan's "expand merged cells" / reuse-the-linearizer already decided it). Against Linearized's
+chunks: same section outlines and every distinct line in all four filings; 999 chunks each, 989 word for word
+(the other 10 are the same text with a boundary moved by markitdown's doubled spaces). Chunking all four takes
+~7 s. Three converter bugs found by that comparison, each now a test: links whose text sits in a `<span>` came
+out empty (ORCL's 131 "Table of Contents" links, and with them "Item 6. [Reserved]"), a `<div>` inside a table
+cell joined words ("ExhibitNumber"), and the made-up header row was missing. Full question run skipped
+(proposed - chunks near-identical); measured from 1b on.
+
+**Step 1c's first change, made early (the user found it reviewing MSFT chunk 197):** a table the linearizer
+falls back on becomes text rows, not a pipe table. MSFT's exhibit index is seven tables, one per page; the two
+holding management-contract exhibits ("10.6*") read as financial - a text label beside a number (the
+referenced exhibit, "10.4") - and fell back ("two values ... map to one column", "cell text lost: 'Filed
+Herewith'") to pipe tables of mostly empty cells, while the other five pages came out as text rows.
+`HtmlTableLinearizer.LinearizeAsText` (new, additive - Linearized's behaviour is unchanged) is used in
+`Structured` instead: 504 pipe-table rows -> 0 across the four filings, 999 -> 944 chunks, outlines unchanged.
+Follow-ups for 1c: a text table's continuation pieces don't repeat its column-name row (chunk 197 has the
+exhibits, not "Exhibit Number | Exhibit Description | ..."). Small app fix noted: the app doesn't set
+`Console.OutputEncoding`, so redirected logs carry the console code page for non-ASCII characters
+("Management�s", a non-breaking space as 0xFF); the grader now reads logs with `errors='replace'`.
 
 **Decisions (user, 2026-09-25, still in force):** v1 first, v2 on a branch; each step measured, stop on bad
 numbers; the Q1-Q24 no-regression bar - now the strict 22/24 reliable (review point 5).

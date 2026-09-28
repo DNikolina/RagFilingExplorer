@@ -71,6 +71,22 @@ public class StructuredStrategyTests
             "|  |  |  |\n| --- | --- | --- |\n| Exhibit Number | Incorporated by Reference | |\n| 3.1 | Form | Date |\n"));
     }
 
+    // MSFT: two of the exhibit index's seven page tables read as financial ("10.6*" beside the number "10.4") and
+    // fell back to pipe tables of mostly empty cells, while the other five came out as text rows. Across the four
+    // filings the fallback left 504 pipe-table rows; with the text path as fallback, none.
+    [Test]
+    public void ConvertToText_TableTheLinearizerFallsBackOn_BecomesTextRowsNotAPipeTable()
+    {
+        // The same ambiguous table the Linearized strategy keeps as HTML (LinearizedStrategyTests).
+        string html = "<html><body><table><tr><td></td><td></td><td>2026</td><td></td><td></td></tr>"
+            + "<tr><td>Revenue</td><td></td><td></td><td>100</td><td>200</td></tr></table></body></html>";
+
+        string text = StructuredChunkingStrategy.ConvertToText(html);
+
+        Assert.That(text, Does.Not.Contain("| --- |"));
+        Assert.That(text, Does.Contain("```\n#rows\n2026\nRevenue | 100 | 200\n```"));
+    }
+
     [Test]
     public void ConvertToText_RemovesTheHiddenXbrlHeader()
     {

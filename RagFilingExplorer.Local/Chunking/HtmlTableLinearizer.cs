@@ -293,6 +293,21 @@ internal static partial class HtmlTableLinearizer
     /// plus a caption shared by every column ("Year Ended June 30,") written once, as the block's context
     /// line - which TokenChunker repeats on every piece if the block has to be split.
     /// </summary>
+    /// <summary>
+    /// The text path alone, for any table: each non-empty row's cells joined with " | ", as <see cref="Linearize"/>
+    /// does for a table with no numeric data rows. It keeps every cell's text by construction, so the Structured
+    /// strategy uses it where <see cref="Linearize"/> falls back (see StructuredChunkingStrategy).
+    /// </summary>
+    public static LinearizedTable LinearizeAsText(IHtmlTableElement table)
+    {
+        List<string> lines = table.Rows.Select(ReadRow)
+            .Select(r => r.Where(c => c.Text.Length > 0).ToList())
+            .Where(r => r.Count > 0)
+            .Select(r => string.Join(" | ", r.Select(c => c.Text)))
+            .ToList();
+        return new LinearizedTable(lines.Count == 0 ? LinearizedTableKind.Empty : LinearizedTableKind.Text, null, null, [], lines);
+    }
+
     public static RowBlock ToRowBlock(LinearizedTable table)
     {
         string caption = SharedCaption(table);
