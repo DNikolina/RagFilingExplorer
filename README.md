@@ -255,10 +255,11 @@ Full diagnostic detail, including how each bug was actually found, is in
 dotnet test
 ```
 
-Runs `RagFilingExplorer.Local.Tests` (NUnit + Moq) — 176 tests, fully offline, no live Ollama instance
+Runs `RagFilingExplorer.Local.Tests` (NUnit + Moq) — 239 tests, fully offline, no live Ollama instance
 or populated vector store required. Covers chunking, section splitting, statement-type detection,
-query-intent resolution, settings loading/validation, index-manifest staleness detection, and the
-retrieve+generate orchestration (mocked).
+query-intent resolution, settings loading/validation, index-manifest staleness detection, the
+retrieve+generate orchestration (mocked), and the v2 inline XBRL reader - checked against the filings in `data/`,
+read-only.
 
 This is separate from, and doesn't replace, the real-question retrieval-quality testing documented as
 Step 7 in the decision log — that required manually verifying actual answers against the source

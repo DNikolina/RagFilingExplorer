@@ -1727,6 +1727,28 @@ Role descriptions follow EDGAR's "sort code - type - title" convention on all fo
   types). NFLX's browser-saved HTML isn't XHTML (no `<?xml`), so the HTML side stays on AngleSharp.
 - The twelve files (four schemas, NDAQ's and NFLX's four linkbases each) are committed like the filings (~9.9 MB next to ~27 MB of HTML), so a clone still runs offline;
   the app reads only `data/*.html`, so neither v1 strategy is affected.
+**Step 1b-i done (2026-09-28).** `Xbrl/`: `InlineXbrlReader` (header contexts and units, every fact, from the
+DOM), `IxTransformations` (the format codes), `TaxonomyReader` (roles, presentation, labels; both layouts;
+finds a filing's taxonomy by the namespace its page declares - NFLX's saved copy has no schemaRef), and
+`XbrlModel`. Not wired into chunking, so no chunk and no index changed. Verified on all four filings: every
+contextRef and unitRef resolves; every continuation chain completes (43/104/38/33 facts continued); 106-144
+negated facts per filing; five primary statements each; 434-585 of 449-590 fact concepts carry an official
+label. Known figures come out exactly, stored in dollars from each fact's scale - MSFT total assets
+758,376,000,000; NFLX total assets 55,596,993,000 (thousands); NDAQ's **total** comprehensive income is
+`...IncludingPortionAttributableToNoncontrollingInterest` = 2,113M (2024: 940M) and "attributable to Nasdaq" is
+`ComprehensiveIncomeNetOfTax` = 2,114M (942M) - the Q10/V1 mix-up is two concepts; ORCL's dividends declared
+4,743M carry the period 2024-06-01..2025-05-31 - the fiscal year T9's roll-forward row doesn't show. Parentheses
+are presentation: dividends shown "(4,743)" are stored positive; `sign="-"` marks values that are negative
+(ORCL's accumulated deficit "4,309" -> -4,309M). Found building it:
+- **Facts nest.** MSFT's `dei:DocumentPeriodEndDate` wraps the "June 30" and "2026" facts; its value is the
+  whole text. A pattern-based inventory stopped at the inner closing tag and missed a format code
+  (`ixt:date-monthname-day-en`) - the reader works from the DOM, and an unknown code throws.
+- **The fail-loudly rule caught one:** NDAQ's "one- year" (hyphenated across a line break) as a worded duration.
+- `xsi:nil="true"` facts (2-3 per filing) have no value, not zero.
+52 tests (239): transformations per code, the reader's rules on fixtures (scale and sign, nested facts,
+continuation chains, a missing continuation throws, nil), and the four real filings (counts, known figures,
+cover facts, statements, labels).
+
 Kept out of 1b: **registration from `EntityRegistrantName` + `TradingSymbol`** replacing the hand-written
 `CompanyToFiling` entry - it changes routing (`QueryIntentResolver`), not chunks, so it's its own small step
 after 1b-ii, verified by the resolver returning the same filings for every existing question; and the **facts
