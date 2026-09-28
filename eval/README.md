@@ -15,5 +15,10 @@ findings in `docs/Decision-Log.md`, "XBRL hybrid (v2)", step 0. `linearized-held
 Linearized strategy, held-out only: 11/15 - the reference for the Structured strategy's steps (its main-set
 reference is the 2026-09-25 prompt-v1 Linearized run: 22/24, targeted 5/10).
 
+**`structured-1c-early/`** - the Structured strategy after step 1a and 1c's two early table changes (fallback
+tables as text rows, text-table column names on every piece), run 2026-09-28: main 22/24, targeted 5/10,
+routing 3/3, variants 1/3 - the same as Linearized; held-out 10/15 against Linearized's 11/15 (H11). H10 carries
+the user's decision on the identical Linearized answer.
+
 Temperature 0 is deterministic here: the baseline's 40 main answers are word-for-word identical to the
 2026-09-25 run on the same code, so a changed answer means a changed input, not sampling.

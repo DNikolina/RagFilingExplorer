@@ -38,7 +38,7 @@ One line per section, in file order. Quote a section's name to reference it - na
 - **Follow-up: embedding-model comparison** - deferred; candidate models and their templates recorded.
 - **Follow-up: targeted questions and a rank metric** - done. Linearized puts the answer in context 7/10 vs 4/10 but answers only one more right; `Markdown` stays default; scope stops here.
 - **Follow-up: pre-manual-pass review** - done. Lost first chunk (key 0), back-matter headings, output ceiling; soft filter measured, not built; Program.cs split.
-- **Follow-up: XBRL hybrid (v2)** - planned, after the v1 push: a new ingestion built on the 10-K's regulated layers (form structure, inline XBRL facts with unit/scale/period, standard text-block labels), one table per chunk, hybrid search (SQLite FTS5 + vectors; PostgreSQL declined), a calculator tool, a facts table only if needed, then per-answer-kind instruction sections ("answer skills"). Reviewed 2026-09-28: evaluation first (held-out set, auto grader), ingestion split into measured parts. First (phased) plan superseded, kept.
+- **Follow-up: XBRL hybrid (v2)** - planned, after the v1 push: a new ingestion built on the 10-K's regulated layers (form structure, inline XBRL facts with unit/scale/period, standard text-block labels), one table per chunk, hybrid search (SQLite FTS5 + vectors; PostgreSQL declined), a reranking spike, a calculator tool, answer verification + tracing, a facts table only if needed, then per-answer-kind instruction sections ("answer skills"). Reviewed 2026-09-28: evaluation first (held-out set, auto grader), ingestion split into measured parts. First (phased) plan superseded, kept.
 - **Follow-up: manual pass (v1)** - done. Main set 23/24 correct, 16/24 reliable (units); targeted 3/10; routing and negatives all declined. Prompt change re-run: 22/24 reliable on both strategies; two further prompt revisions tried and not kept; `Markdown` stays default.
 
 ---
@@ -1649,10 +1649,26 @@ sqlite-vec + reciprocal rank fusion in code. See Design-FAQ.md, "Why no rerankin
   1b structure labels (Item path, XBRL text-block topic, statement type from concepts); 1c one table per chunk +
   compact display text; 1d embedding text with company and section context.
 - **2. Hybrid search** - FTS5 `bm25()` + sqlite-vec + rank fusion; statement labels as soft boosts.
+- **2b. Reranking spike** - can a small cross-encoder rerank the top 20-25 before the top 5 go to the model,
+  locally? Ollama has no rerank endpoint, so the candidates are an ONNX cross-encoder run from .NET or the chat
+  model as a reranker (likely too slow at ~45 tokens/s). Spike first: CPU time per question and replay rank
+  gains; build only if both are acceptable. Targets the retrieval misses (T2, T6, T8, H10).
 - **3. Calculator tool** - `Microsoft.Extensions.AI` function calling.
+- **3b. Answer verification + observability** - before an answer is shown, code checks that every figure it
+  states appears in the context it was given (or comes from the calculator); an unsupported figure is flagged
+  or the answer becomes a decline. Deterministic and measurable with the grader - it targets figures inferred
+  from absence (T9's "$0") and invented calculations (prompt v2's R2). With it, per-request tracing
+  (`Microsoft.Extensions.AI`'s OpenTelemetry support: retrieved chunks, prompt tokens, latency) replaces reading
+  verbose logs and Ollama's server log by hand, and Ollama's context window is set explicitly instead of
+  relying on the 4,096 default the prompts now fill to 3,984.
 - **4. Facts table + router** - only if steps 1-3 leave headline-figure failures that it would fix.
 - **5. Answer skills selected by code** - the answer kinds above, minus "headline figure" if step 4 is skipped.
 - **6. Model-selected skills** - only if step 5 leaves a gap.
+
+Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
+Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation
+memory (follow-up questions), query decomposition beyond per-company search, an API or UI. Automated onboarding
+(registering a filer from its XBRL cover facts) fits naturally into 1b.
 
 **Step 0 progress.** Held-out set written 2026-09-28: 15 questions (H1-H15) chosen by the user from 20
 drafted candidates, none run before selection; `tools/heldout-questions.txt`, expected answers in
@@ -1720,7 +1736,30 @@ the row block's context line, which TokenChunker already repeats on every piece.
 fallback tables: it finds the exhibit, signature and officer headers; a bold title row in a few one-chunk
 tables ("Critical audit matter") is caught too, harmlessly. Effect: only the exhibit indexes change (header on
 12 of MSFT's pieces instead of 7, NFLX 7 instead of 3, ORCL 8 instead of 5); every other chunk is word for word
-the same. 187 tests. Small app fix noted: the app doesn't set
+the same. 187 tests.
+
+**Measured 2026-09-28 (`eval/structured-1c-early/`, against Linearized):**
+
+| | Linearized | Structured |
+|---|---|---|
+| Main Q1-Q24, reliable | 22/24 | 22/24 |
+| Targeted / routing / variants | 5/10, 3/3, 1/3 | 5/10, 3/3, 1/3 |
+| Held-out, reliable | 11/15 | **10/15** (H11) |
+| Replay, main: recall@5 / MRR | 22/22, 0.784 | 22/22, 0.784 |
+| Replay, held-out: recall@5 / MRR | 8/13, 0.427 | 8/13, 0.427 |
+
+38 of 40 main and 13 of 15 held-out answers are word for word the same; Q22, T8 and H12 differ in wording
+only. Largest prompt 3,101 tokens, no truncation. **H11 is the one real change, and our table change caused it:**
+Linearized answered from the cover page ("151 W. 42nd Street, New York, New York 10036", rank 2), not from the
+expected Item 2 sentence (rank 16-17 on both). NDAQ's cover-page address is one of the five fallback tables;
+as text rows instead of a pipe table its chunk embeds differently and left the top 5, and the model, given no
+address, produced prompt v1's malformed "The unit is not stated." So the held-out loss is a lucky source lost,
+not the expected source ranked lower - retrieval of every expected figure is identical. Retrieval, not the
+answer step, is the held-out bottleneck on every strategy: H6, H10, H11, H13 and H14 are outside the top 5
+everywhere (Markdown's MRR 0.356, the linearized two 0.427) - what 1b, 1d and hybrid search target.
+`replay_recall.py` now scores H1-H15 too (`expect_heldout`; H4 at the row holding both inputs).
+
+Small app fix noted: the app doesn't set
 `Console.OutputEncoding`, so redirected logs carry the console code page for non-ASCII characters
 ("Management�s", a non-breaking space as 0xFF); the grader now reads logs with `errors='replace'`.
 
