@@ -96,7 +96,9 @@ internal static class InlineXbrlReader
             next = part.GetAttribute("continuedat");
         }
 
-        string displayText = string.Join(" ", elements.Select(VisibleText)).Trim();
+        // A continued fact's value is its pieces concatenated in order with nothing added (Inline XBRL 1.1, 4.1.1) - as EDGAR
+        // extracts it: ORCL's CODM description reads "assessed.We have" where one piece ends and the next begins.
+        string displayText = Collapse(string.Concat(elements.Select(RawText)));
         decimal? number = null;
         string? text = null;
         if (!isNil)
@@ -118,8 +120,8 @@ internal static class InlineXbrlReader
     }
 
     // The fact's text as displayed: all nested text (nested facts included - they're part of the value), minus
-    // ix:exclude content (Inline XBRL 1.1, 4.1.3), with whitespace collapsed.
-    private static string VisibleText(IElement element)
+    // ix:exclude content (Inline XBRL 1.1, 4.1.3), whitespace as in the source - see Collapse.
+    private static string RawText(IElement element)
     {
         StringBuilder text = new();
         foreach (IText node in element.Descendants<IText>())
@@ -130,7 +132,14 @@ internal static class InlineXbrlReader
             }
         }
 
-        return string.Join(" ", text.ToString().Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries));
+        return text.ToString();
+    }
+
+    // Whitespace collapsed only after the pieces are joined: each piece keeps its own edges, so "five" + " years" across
+    // a continuation is "five years", while "assessed." + "We" stays "assessed.We" (ORCL) - both as EDGAR has them.
+    private static string Collapse(string text)
+    {
+        return string.Join(" ", text.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries));
     }
 
     private static bool InsideExclude(IText node, IElement fact)

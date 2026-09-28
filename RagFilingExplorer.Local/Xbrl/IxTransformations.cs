@@ -93,15 +93,17 @@ internal static partial class IxTransformations
         return index >= 0 ? index : throw new FormatException($"'{text}' isn't a supported number word");
     }
 
-    // A fractional number of years becomes years, months and days, as EDGAR's own extraction does: MSFT's "2.3"
-    // (remaining performance obligation duration) is P2Y3M18D - 0.3 years = 3.6 months = 3 months and 18 days,
-    // a month counted as 30 days. Found by comparing every fact against EDGAR's extracted instance.
+    // A fractional number of years becomes years, months and days, as EDGAR's own extraction does: the fraction of a
+    // year times 12 gives months; the fraction of a month times an average month (365.25 / 12 = 30.4375 days),
+    // truncated, gives days. Fitted to all seven fractional durations in the four filings: MSFT 2.3 = P2Y3M18D,
+    // NFLX 1.53 = P1Y6M10D, ORCL 7.58 = P7Y6M29D, NDAQ 2.1 / 3.2 / 8.4 = 6, 12, 24 days - a 30-day month got ORCL
+    // wrong (28D) and rounding got NFLX wrong (11D). Found by comparing every fact against EDGAR's extracted instance.
     private static string YearsToDuration(decimal years)
     {
         int whole = (int)Math.Floor(years);
         decimal months = (years - whole) * 12m;
         int wholeMonths = (int)Math.Floor(months);
-        int days = (int)Math.Round((months - wholeMonths) * 30m, MidpointRounding.AwayFromZero);
+        int days = (int)Math.Floor((months - wholeMonths) * 365.25m / 12m);
         string duration = (whole > 0 ? $"{whole}Y" : "") + (wholeMonths > 0 ? $"{wholeMonths}M" : "") + (days > 0 ? $"{days}D" : "");
         return "P" + (duration.Length > 0 ? duration : "0Y");
     }

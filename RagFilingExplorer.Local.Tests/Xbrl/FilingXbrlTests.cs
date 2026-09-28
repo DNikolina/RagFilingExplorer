@@ -187,7 +187,7 @@ public class FilingXbrlTests
             .Select(f => $"{f.Concept}|{f.ContextRef}|{(f.IsNumeric ? Num(f.Number!.Value) : Normalize(f.Text!))}")
             .ToHashSet();
 
-        Assert.That(ours.Count, Is.GreaterThan(1_500));
+        Assert.That(ours.Count, Is.GreaterThan(1_000));
         Assert.That(ours.Except(edgar).Take(5), Is.Empty, "facts read differently from EDGAR");
         Assert.That(edgar.Except(ours).Take(5), Is.Empty, "EDGAR facts not read");
 

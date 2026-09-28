@@ -60,7 +60,8 @@ public class InlineXbrlReaderTests
     }
 
     // A text block (a whole note) continues elsewhere through ix:continuation; without following the chain only
-    // the note's first piece would carry its topic.
+    // the note's first piece would carry its topic. The value is the pieces concatenated in order with nothing
+    // added (Inline XBRL 1.1) - as EDGAR extracts it (ORCL: "assessed.We have" across a piece boundary).
     [Test]
     public void Read_TextBlockWithContinuations_JoinsTheChainInOrder()
     {
@@ -72,7 +73,7 @@ public class InlineXbrlReaderTests
         XbrlFact note = x.Facts.Single();
         Assert.That(note.IsTextBlock, Is.True);
         Assert.That(note.Elements, Has.Count.EqualTo(3));
-        Assert.That(note.Text, Is.EqualTo("INCOME TAXES Deferred taxes Uncertain positions"));
+        Assert.That(note.Text, Is.EqualTo("INCOME TAXESDeferred taxesUncertain positions"));
     }
 
     [Test]

@@ -1758,8 +1758,18 @@ reader against it fact by fact, both ways. MSFT: same 446 contexts, 6 units, 1,8
 equal**; every text fact equal except the SEC's cover codes, where the reader keeps the displayed name by design
 ("Washington"/"Nasdaq" vs "WA"/"NASDAQ" - excluded by name). It found one real bug: `ixt-sec:duryear` "2.3" is
 P2Y3M18D, not P2.3Y (a fractional year becomes months and days; fixed, tested). The files are an oracle only:
-`.gitignore`d (~45 MB for four), the test skips a filing without one. NDAQ, NFLX, ORCL still to be checked - NFLX,
-the browser-saved non-XHTML copy, is the likeliest to differ.
+`.gitignore`d (~27 MB for four), the test skips a filing without one.
+**All four checked (the user downloaded the other three):** every fact now matches EDGAR on all four filings,
+NFLX's browser-saved copy included. Two more rules came out of it, both fixed:
+- **Fractional-year durations:** the day count is the fraction of a month times an average month (365.25 / 12
+  = 30.4375 days), truncated - fitted to all seven fractional durations in the four filings (MSFT 2.3, NFLX 1.53,
+  ORCL 7.58, NDAQ 2.1 / 1.5 / 3.2 / 8.4). A 30-day month got ORCL's 7.58 wrong (28D, not 29D); rounding got
+  NFLX's 1.53 wrong (11D, not 10D) - MSFT's single case fitted all three rules.
+- **Continued facts are the pieces concatenated with nothing added** (Inline XBRL 1.1), keeping each piece's
+  own whitespace and collapsing it only after joining: ORCL's CODM description reads "assessed.We have" across
+  a piece boundary (a space had been inserted), and a worded duration split as "five" + " years" must stay
+  "five years" (trimming each piece first gave "fiveyears", which the fail-loudly rule caught).
+The `Structured` chunks are unchanged by both (only the profile reads facts), so 1b-ii's measurement stands.
 
 **Step 1b-ii measured (2026-09-28, `eval/structured-1b-ii/`, against `structured-1c-early`):** one "Cover Page"
 chunk per filing (~100 tokens) from the cover facts - name, fiscal year, common stock symbol and exchange (paired
