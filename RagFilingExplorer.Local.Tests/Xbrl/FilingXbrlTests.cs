@@ -123,6 +123,31 @@ public class FilingXbrlTests
         Assert.That(_read[filing].Taxonomy.Labels[concept], Is.EqualTo(label));
     }
 
+    // Step 1b-ii's profile, built from the cover facts. ORCL lists its preferred depositary shares ("ORCL PRD") first
+    // and NDAQ four note issues besides its common stock: the symbol comes from the common stock's own context.
+    // MSFT's all-capital cover values and NDAQ's "New York," (a comma inside the tag) are cleaned.
+    [TestCase("MSFT-10K-2026.html", "Microsoft Corporation - annual report on Form 10-K for the fiscal year ended June 30, 2026 (fiscal year 2026).",
+        "Common stock trading symbol: MSFT, on the Nasdaq.", "Address of principal executive offices: One Microsoft Way, Redmond, Washington 98052-6399.",
+        "Independent registered public accounting firm (auditor): Deloitte & Touche LLP, Seattle, Washington (PCAOB ID 34).")]
+    [TestCase("NDAQ-10K-2025.html", "Nasdaq, Inc. - annual report on Form 10-K for the fiscal year ended December 31, 2025 (fiscal year 2025).",
+        "Common stock trading symbol: NDAQ, on the Nasdaq Stock Market.", "Address of principal executive offices: 151 W. 42nd Street, New York, New York 10036.",
+        "Independent registered public accounting firm (auditor): Ernst & Young LLP, New York, New York (PCAOB ID 42).")]
+    [TestCase("NFLX-10K-2025.html", "Netflix, Inc. - annual report on Form 10-K for the fiscal year ended December 31, 2025 (fiscal year 2025).",
+        "Common stock trading symbol: NFLX, on the NASDAQ Global Select Market.", "Address of principal executive offices: 121 Albright Way, Los Gatos, California 95032.",
+        "Independent registered public accounting firm (auditor): Ernst & Young LLP, San Jose, California (PCAOB ID 42).")]
+    [TestCase("ORCL-10K-2026.html", "Oracle Corporation - annual report on Form 10-K for the fiscal year ended May 31, 2026 (fiscal year 2026).",
+        "Common stock trading symbol: ORCL, on the New York Stock Exchange.", "Address of principal executive offices: 2300 Oracle Way, Austin, Texas 78741.",
+        "Independent registered public accounting firm (auditor): Ernst & Young LLP, San Jose, California (PCAOB ID 42).")]
+    public void FilingProfile_FromCoverFacts(string filing, string identity, string symbol, string address, string auditor)
+    {
+        string profile = FilingProfile.Build(_read[filing].Xbrl)!;
+
+        Assert.That(profile, Does.StartWith(identity));
+        Assert.That(profile, Does.Contain(symbol));
+        Assert.That(profile, Does.Contain(address));
+        Assert.That(profile, Does.EndWith(auditor));
+    }
+
     // NFLX's browser-saved copy lost its schemaRef; the taxonomy is found by the namespace the page declares.
     [Test]
     public void FindForFiling_NflxWithoutSchemaRef_IsFoundByNamespace()

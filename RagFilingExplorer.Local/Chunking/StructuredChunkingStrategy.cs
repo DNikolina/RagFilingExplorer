@@ -1,6 +1,7 @@
 using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
 using Microsoft.ML.Tokenizers;
+using RagFilingExplorer.Local.Xbrl;
 
 namespace RagFilingExplorer.Local.Chunking;
 
@@ -10,6 +11,8 @@ namespace RagFilingExplorer.Local.Chunking;
 /// linearized by the Linearized strategy's <see cref="HtmlTableLinearizer"/>. So 1a differed from Linearized in
 /// one thing only - who converts the prose - and matched its chunks (989 of 999 identical). Step 1c's first
 /// change: a table the linearizer falls back on becomes text rows (see <see cref="LinearizeTables"/>).
+/// Step 1b-ii: the filing's inline XBRL is read before its header is removed, and a profile built from the
+/// tagged cover facts becomes the first section, "Cover Page" (<see cref="FilingProfile"/>).
 /// Sections, chunking and statement-type tagging are the shared v1 code, unchanged.
 /// </summary>
 internal sealed class StructuredChunkingStrategy(Tokenizer tokenizer, int maxTokensPerChunk, int overlapTokens) : IChunkingStrategy
@@ -17,9 +20,13 @@ internal sealed class StructuredChunkingStrategy(Tokenizer tokenizer, int maxTok
     public async Task<ChunkedFiling> ChunkAsync(FileInfo filing)
     {
         byte[] bytes = await File.ReadAllBytesAsync(filing.FullName);
-        string html = MarkItDownConverter.DetectEncoding(bytes).GetString(bytes);
-        string text = ConvertToText(html);
-        List<DocumentSection> sections = SectionSplitter.Split(text);
+        IHtmlDocument document = new HtmlParser().ParseDocument(MarkItDownConverter.DetectEncoding(bytes).GetString(bytes));
+        XbrlDocument xbrl = InlineXbrlReader.Read(document);
+        List<DocumentSection> sections = SectionSplitter.Split(ConvertToText(document));
+        if (FilingProfile.Build(xbrl) is { } profile)
+        {
+            sections.Insert(0, new DocumentSection(FilingProfile.Heading, profile));
+        }
 
         List<FilingChunk> chunks = new();
         foreach (DocumentSection section in sections)
@@ -37,10 +44,11 @@ internal sealed class StructuredChunkingStrategy(Tokenizer tokenizer, int maxTok
     /// Decoded filing HTML to the section/chunk input text. The hidden inline-XBRL header is removed as a DOM
     /// element here rather than by regex - it's the part of the filing v2's later steps will read.
     /// </summary>
-    internal static string ConvertToText(string html)
+    internal static string ConvertToText(string html) => ConvertToText(new HtmlParser().ParseDocument(html));
+
+    /// <summary>As <see cref="ConvertToText(string)"/>, on an already-parsed page - read its XBRL first: this removes the header.</summary>
+    internal static string ConvertToText(IHtmlDocument document)
     {
-        HtmlParser parser = new();
-        IHtmlDocument document = parser.ParseDocument(html);
         foreach (AngleSharp.Dom.IElement header in document.QuerySelectorAll("*").Where(e => e.LocalName == "ix:header").ToList())
         {
             header.Remove();
