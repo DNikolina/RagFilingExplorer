@@ -1654,6 +1654,10 @@ sqlite-vec + reciprocal rank fusion in code. See Design-FAQ.md, "Why no rerankin
 - **5. Answer skills selected by code** - the answer kinds above, minus "headline figure" if step 4 is skipped.
 - **6. Model-selected skills** - only if step 5 leaves a gap.
 
+**Step 0 progress.** Held-out set written 2026-09-28: 15 questions (H1-H15) chosen by the user from 20
+drafted candidates, none run before selection; `tools/heldout-questions.txt`, expected answers in
+Manual-Test-Questions.md. Still to do: the answer grader, v1's baseline file, the second-model run.
+
 **Decisions (user, 2026-09-25, still in force):** v1 first, v2 on a branch; each step measured, stop on bad
 numbers; the Q1-Q24 no-regression bar - now the strict 22/24 reliable (review point 5).
 

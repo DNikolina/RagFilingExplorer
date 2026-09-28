@@ -269,3 +269,33 @@ Filter: `MSFT-10K-2026.html`, `comprehensive_income`.
 Asked-for arithmetic. The three figures ($10,149,273 / $7,361,364 / $7,274,301 thousand) sum to **$24,784,938
 thousand**. In the pass `llama3.1:8b` produced 24,785,938 and 24,785,038 across four phrasings, never the right
 sum; the operation should be shown so an error is visible. Filter: `NFLX-10K-2025.html`, `cash_flow_statement`.
+
+## Held-out questions (H1-H15) - v2 step 0, written 2026-09-28
+
+`tools/heldout-questions.txt`, same order. Written before any v2 output, from topics the questions above don't
+touch, and chosen by the user from 20 drafted candidates without running any of them first. **Rules: never tune
+against these** - no prompt, routing or chunking change is made because of a held-out answer; they are run only to
+measure, alongside the main set. Expected filters are deliberately not recorded (predicting them means studying
+v1's routing). Expected answers and traps come from `chunk-review/markdown/*.chunks.txt`, like the rest of this doc.
+
+| # | Question | Expected | Traps | Source |
+|---|---|---|---|---|
+| H1 | What were Microsoft's research and development expenses in fiscal year 2026? | **$35,562 million** | 32,488 (FY2025) | MSFT `:1925` |
+| H2 | What was Microsoft's effective tax rate for fiscal year 2026? | **19%** | 21% (federal statutory), 18% (FY2025) | MSFT `:1566` |
+| H3 | How much stock-based compensation expense did Microsoft record in fiscal year 2026? | **$12,405 million** | 945 (a same-named deferred tax asset line) | MSFT `:5218` |
+| H4 | How much did Microsoft's research and development expenses increase in fiscal 2026 compared to fiscal 2025, in dollars? | **$3,074 million** (35,562 - 32,488) | 9% (the stated change) | MSFT `:1925` |
+| H5 | How many full-time employees did Oracle have? | **~141,000** as of May 31, 2026 (~49,000 U.S., ~92,000 international) | - | ORCL `:459` |
+| H6 | What were Oracle's total research and development expenses in fiscal 2026? | **$10,272 million** | 7,467 (MD&A, excluding stock-based compensation), 2,805 | ORCL `:2503`, `:1843` |
+| H7 | What were Oracle's diluted earnings per share for fiscal 2026? | **$5.83** | 2,914 (diluted shares), 4.34 (FY2025) | ORCL `:2533` |
+| H8 | What was Oracle's total revenue in fiscal 2023? | **Decline** - the filing covers fiscal 2024-2026 | a figure from training data | ORCL (no FY2023 revenue) |
+| H9 | What were Nasdaq's revenues less transaction-based expenses in 2025? | **$5,249 million** | total revenues (same statement) | NDAQ `:12459` |
+| H10 | How many employees did Nasdaq have at the end of 2025? | **9,525** (Dec 31, 2025) | 9,162 (2024) | NDAQ `:8825` |
+| H11 | Where is Nasdaq's U.S. headquarters? | **New York, New York** | Stockholm (European HQ) | NDAQ `:7672` |
+| H12 | How many full-time employees did Netflix have at the end of 2025? | **~16,000** (~10,900 in the U.S. and Canada) | - | NFLX `:242` |
+| H13 | What were Netflix's cash and cash equivalents at December 31, 2025? | **$9,033,681 thousand** | 7,804,733 (2024) | NFLX `:1740` |
+| H14 | What was Netflix's total deferred revenue as of December 31, 2025? | **$1,776 million** (prose, in millions) | "thousand" carried over from the statements | NFLX `:2104` |
+| H15 | How many paid memberships did Netflix have at the end of 2025? | **Decline** - the filing reports no membership count | a figure from training data | NFLX (no count) |
+
+Types: lookalike labels H3, H6, H9, H11; units H13, H14; requested calculation H4; declines H8, H15; prose facts
+H2, H5, H10, H12; plain figures H1, H7. Line numbers are into the v1 Markdown dumps and will move with v2's
+ingestion; the figures won't.
