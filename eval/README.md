@@ -11,7 +11,9 @@ than remembered scores.
 
 **`baseline-v1/`** - tag `v1.0` code (Markdown strategy, prompt v1, `llama3.1:8b`, temperature 0), run
 2026-09-28. Main set reliable 22/24, targeted 4/10, routing 3/3, variants 1/3; held-out 8/15. Details and
-findings in `docs/Decision-Log.md`, "XBRL hybrid (v2)", step 0.
+findings in `docs/Decision-Log.md`, "XBRL hybrid (v2)", step 0. `linearized-heldout.*` is the same code on the
+Linearized strategy, held-out only: 11/15 - the reference for the Structured strategy's steps (its main-set
+reference is the 2026-09-25 prompt-v1 Linearized run: 22/24, targeted 5/10).
 
 Temperature 0 is deterministic here: the baseline's 40 main answers are word-for-word identical to the
 2026-09-25 run on the same code, so a changed answer means a changed input, not sampling.

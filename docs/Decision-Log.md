@@ -1685,7 +1685,8 @@ Still to do: the second-model run (candidates `granite4.1:8b`, non-reasoning, 5.
 "The unit is not stated." answers (H8, H11, H13-H15 became two correct declines, one right answer, one clean
 decline, one wrong). Its two wrong answers take lookalike lines: H6 $2,805M (stock-based compensation within
 R&D, not the $10,272M total), H13 $9,067,872 thousand (cash "and short-term investments"). H10 declines the
-headcount after an unrelated share count - "check", awaiting the user's call. Doesn't reopen v1's default (the
+headcount after an unrelated, correctly labelled share count - graded declined by the user, like Markdown's H10.
+Saved as `eval/baseline-v1/linearized-heldout.*`. Doesn't reopen v1's default (the
 rule was the main set, where Linearized regressed on T4 and Q2), but favours building v2 on the linearizer.
 
 **Naming (user, 2026-09-28):** v2 is a **new, third strategy, `Structured`** - Markdown and Linearized stay
