@@ -76,6 +76,13 @@ so hybrid search would mean an own FTS5 table plus rank fusion. Its feasibility 
 it was listed as a follow-up when the project stopped adding scope before the manual pass, and never
 measured. Decision-Log.md, "targeted questions and a rank metric" and "pre-manual-pass review".
 
+PostgreSQL doesn't change this. Vectors need the `pgvector` extension (compiled on Windows, or Docker),
+its built-in keyword ranking (`ts_rank`) isn't BM25 as FTS5's `bm25()` is, and its .NET connector
+(`CommunityToolkit.VectorData.PgVector`, preview) doesn't implement hybrid search either ("HybridSearch
+supported? No"). Hybrid would be the same hand-written query plus rank fusion, on a server to install and
+run, where SQLite is one file. Its index (HNSW) pays off at a scale far beyond ~1,000-1,450 chunks.
+Considered for v2 and declined (2026-09-28).
+
 ### Why `llama3.1:8b`?
 
 The hardware is CPU-only (integrated graphics, no GPU acceleration), which rules out larger local models

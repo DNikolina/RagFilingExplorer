@@ -38,7 +38,7 @@ One line per section, in file order. Quote a section's name to reference it - na
 - **Follow-up: embedding-model comparison** - deferred; candidate models and their templates recorded.
 - **Follow-up: targeted questions and a rank metric** - done. Linearized puts the answer in context 7/10 vs 4/10 but answers only one more right; `Markdown` stays default; scope stops here.
 - **Follow-up: pre-manual-pass review** - done. Lost first chunk (key 0), back-matter headings, output ceiling; soft filter measured, not built; Program.cs split.
-- **Follow-up: XBRL hybrid (v2)** - planned, after the v1 push: a new ingestion built on the 10-K's regulated layers (form structure, inline XBRL facts with unit/scale/period, standard text-block labels), one table per chunk, a facts table, hybrid search, a calculator tool, then per-answer-kind instruction sections ("answer skills"). First (phased) plan superseded, kept.
+- **Follow-up: XBRL hybrid (v2)** - planned, after the v1 push: a new ingestion built on the 10-K's regulated layers (form structure, inline XBRL facts with unit/scale/period, standard text-block labels), one table per chunk, hybrid search (SQLite FTS5 + vectors; PostgreSQL declined), a calculator tool, a facts table only if needed, then per-answer-kind instruction sections ("answer skills"). Reviewed 2026-09-28: evaluation first (held-out set, auto grader), ingestion split into measured parts. First (phased) plan superseded, kept.
 - **Follow-up: manual pass (v1)** - done. Main set 23/24 correct, 16/24 reliable (units); targeted 3/10; routing and negatives all declined. Prompt change re-run: 22/24 reliable on both strategies; two further prompt revisions tried and not kept; `Markdown` stays default.
 
 ---
@@ -1603,19 +1603,59 @@ spirit of Agent Skills (instructions loaded only when relevant). Placed late, de
   (units, 7 of 24) largely disappears; instructions written earlier would target problems v2 removes.
 - **After the compact display text.** Dropping the empty-cell padding (30-63% of statement tokens) frees the
   context room that sections and tool definitions need; v1 runs at 3,871 of 4,096.
-- **Code selects first.** The router (facts vs retrieval) and `RequiresSynthesis` already know the answer kind,
+- **Code selects first.** The router (facts vs retrieval, if step 4 is built) and `RequiresSynthesis` know the answer kind,
   so the section is added without an extra model call; a misclassification only drops a rule. The calculator
   uses `Microsoft.Extensions.AI` function calling, already in the stack.
 - **Model selection only if measured.** Microsoft Agent Framework's `AgentSkillsProvider` (`SKILL.md` files,
   `load_skill` / `run_skill_script` tools) is the model-chosen form. Check first: its package status, whether
   `llama3.1:8b` picks the right skill, and the cost of the extra round trips (~50 s per cold prompt on this CPU).
 
-**Order, each step measured on the question set before the next:** (1) ingestion, (2) hybrid search, (3) facts
-table + router, (4) calculator tool, (5) answer skills selected by code, (6) model-selected skills only if (5)
-leaves a gap.
+**Storage stays SQLite - PostgreSQL considered 2026-09-28 and declined.** Postgres has no built-in hybrid
+search: vectors need `pgvector`, `ts_rank` isn't BM25, and its .NET connector
+(`CommunityToolkit.VectorData.PgVector`, preview) doesn't implement hybrid search per Microsoft Learn's connector
+page - so hybrid is the same own query + rank fusion either way. SQLite's FTS5 (with `bm25()`) is already
+confirmed working in the app's SQLite; Postgres would add a server, a compiled extension (or Docker) and a
+second preview connector for no capability gain at ~1,000-1,450 chunks. Hybrid search in v2 = FTS5 `bm25()` +
+sqlite-vec + reciprocal rank fusion in code. See Design-FAQ.md, "Why no reranking or hybrid search?".
+
+**Plan review (2026-09-28, before implementation; all five points applied by the user's decision).**
+1. **Step 1 bundled too much to measure.** DOM parse, facts, block detection, structure labels, table handling,
+   two texts per chunk and new storage in one step leave a changed score unattributable - the reason the first
+   plan made section labels a setting. Split into 1a-1d, each measured.
+2. **The evaluation set is small and already tuned against** (40 questions, 4 filings, three prompt rounds), and
+   v2 is designed around its failures, so v2 could beat v1 on it without being better. Grading is manual (~40 min
+   of runs per strategy plus reading). Hence step 0.
+3. **The facts table targets what already works.** Headline figures pass 22/24; the targeted losses are mostly
+   retrieval (T2, T3, T6, T8, T9 - answer chunk ranked 6-25+). The facts table's hard part - question to
+   concept + period + dimension - is the text-to-query problem flagged in "linearized tables", and mainly fixes
+   Q10. Moved after hybrid search and the calculator, with its own go/no-go.
+4. **Reuse v1's tested parts; settle the interface.** `HtmlTableLinearizer` already parses the DOM with
+   AngleSharp (a dependency already) and handles `colspan`; `tools/xbrl_column_check.py` already reads inline
+   XBRL. "From first principles" is the design, not a rewrite - untagged tables, the hardest part, are where the
+   linearizer helps most. `IChunkingStrategy` returns only sections and chunks; v2 also produces facts and two
+   texts per chunk, so step 1a decides: extend the interface, or a separate ingestion path sharing retrieval and
+   evaluation.
+5. **Separate model limits from pipeline limits.** Lookalike lines (Q10, V1) and arithmetic may be
+   `llama3.1:8b` itself; one run on a second small model (to be pulled - only `qwen3.5:2b`, a reasoning model,
+   is local) bounds what pipeline work can gain. The no-regression bar is the strict grading: **22/24
+   reliable** (unit + exact line), not the looser 24/24.
+
+**Order, each step measured on the question set before the next:**
+- **0. Evaluation first.** A held-out set of ~15 new questions with expected answers, written before any v2
+  output and never tuned against; an automatic answer grader for figure questions (expected digits + unit in the
+  answer, as `replay_recall.py` does for retrieval); v1's per-question results saved as the baseline file; then
+  the second-model run.
+- **1. Ingestion, in parts:** 1a DOM parse (no markitdown) with today's chunking, and the interface decision;
+  1b structure labels (Item path, XBRL text-block topic, statement type from concepts); 1c one table per chunk +
+  compact display text; 1d embedding text with company and section context.
+- **2. Hybrid search** - FTS5 `bm25()` + sqlite-vec + rank fusion; statement labels as soft boosts.
+- **3. Calculator tool** - `Microsoft.Extensions.AI` function calling.
+- **4. Facts table + router** - only if steps 1-3 leave headline-figure failures that it would fix.
+- **5. Answer skills selected by code** - the answer kinds above, minus "headline figure" if step 4 is skipped.
+- **6. Model-selected skills** - only if step 5 leaves a gap.
 
 **Decisions (user, 2026-09-25, still in force):** v1 first, v2 on a branch; each step measured, stop on bad
-numbers; the Q1-Q24 no-regression bar.
+numbers; the Q1-Q24 no-regression bar - now the strict 22/24 reliable (review point 5).
 
 **First plan (superseded 2026-09-25, kept for the record):**
 

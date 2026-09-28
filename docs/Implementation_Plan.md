@@ -80,7 +80,9 @@ moved failures around rather than removing them and weren't kept; `Markdown` sta
 regressed on T4 and Q2). Largest prompt 3,103 + 768 output of 4,096. Details in Decision-Log.md, "manual pass (v1)".
 
 **v1 is complete (2026-09-28, tag `v1.0`). Next: v2 - a new ingestion built on the form structure and
-inline XBRL (Decision-Log.md, "XBRL hybrid (v2)") - on a branch, each step measured before the next.**
+inline XBRL (Decision-Log.md, "XBRL hybrid (v2)") - on a branch, each step measured before the next,
+starting with step 0: a held-out question set, an automatic answer grader and v1's baseline results. Storage
+stays SQLite (PostgreSQL considered and declined); the no-regression bar is the strict 22/24 reliable.**
 
 **Known, not planned:** statement routing is keyword *substring* matching over a hard filter - "deferred
 revenues" routes to the income statement and can't reach the balance sheet (R1); colliding keywords
