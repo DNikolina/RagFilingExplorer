@@ -1690,8 +1690,43 @@ Three sub-steps, so an infrastructure change and two answer-changing ones are me
   replay: a chunk naming the company and fiscal year may also rank for ordinary figure questions and take one of
   the model's 5 slots - if main-set ranks drop, tighter wording or a filter.
 - **1b-iii. Structure labels - measured.** Note/policy topic from the text block enclosing each chunk (through
-  the continuation chains) and statement type from the concepts in a table, with the fiscal calendar
+  the continuation chains) and statement type from the filer's own taxonomy (below), with the fiscal calendar
   (`DocumentPeriodEndDate`, `DocumentFiscalYearFocus`) for period labels. The widest-reaching change.
+
+**The filers' taxonomies - checked 2026-09-28, added to `data/` (user downloaded them from each filing's EDGAR
+"Data Files").** Scripted EDGAR access is refused without a User-Agent carrying a contact email (SEC fair
+access: "Undeclared Automated Tool"), so onboarding a filing means downloading its HTML and taxonomy by hand.
+Each taxonomy holds the filing's official structure - the role list, and per role which concepts it presents:
+
+| Filing | Layout | Roles: Document / Statement / Disclosure | Labels | Statement roles (primary + parenthetical) |
+|---|---|---|---|---|
+| MSFT | linkbases embedded in the `.xsd` (DFIN) | 1 / 6 / 109 | 1,922 | 5 + 1, 6-40 concepts each |
+| NDAQ | `.xsd` + `_pre`/`_lab`/`_cal`/`_def.xml` | 2 / 6 / 107 | 2,224 | 5 + 1, 7-52 |
+| NFLX | `.xsd` + four files | 2 / 7 / 79 | 1,734 | 5 + 2, 5-38 |
+| ORCL | embedded | 1 / 7 / 89 | 2,521 | 5 + 2, 9-46 |
+
+Role descriptions follow EDGAR's "sort code - type - title" convention on all four, so "Statement" and
+"Disclosure" are read the same way for any filer. What that changes in 1b:
+- **Statement type from the Statement roles**, replacing v1's title regexes: every filing declares exactly its
+  five primary statements - NDAQ's "Consolidated Statements of Changes in Stockholders' Equity", which v1's
+  patterns missed until the second review (0 `equity_statement` chunks), is simply a Statement role here.
+  Parentheticals are excluded by title. The roles don't say *which* statement each is ("INCOME STATEMENTS",
+  "Statements of Income", "STATEMENTS OF OPERATIONS"), so a small title rule maps each role to the five types,
+  cross-checked against the concepts it presents (a role with `us-gaap:Assets` and `us-gaap:Liabilities` is the
+  balance sheet) - on 5-7 clean titles per filing, not the page text, and a disagreement fails loudly. A table
+  gets the role its tagged concepts overlap most (a concept like net income appears in several statements).
+- **Note topics from the Disclosure roles** (79-109 per filing: "Revenue from Contracts with Customers",
+  "Goodwill and Acquired Intangible Assets", ...), and **official labels** for company members ("Intelligent
+  Cloud [Member]", "Capital Access Platforms") - no name-splitting, no FASB download.
+- **1b-i reads the taxonomy too**, in either layout (the `.xsd`'s `linkbaseRef`s say which), with an XML parser:
+  the two layouts differ in attribute order and titles carry entities ("Stockholders&amp;#8217; Equity"), which
+  broke a regex check. The header parser follows the specifications the filings declare - Inline XBRL 1.1,
+  XBRL 2.1, Dimensions 1.0 - not just the shapes these four use, and the Transformation Registry for `format`:
+  MSFT and ORCL use `ixt` 2022-02-16, NDAQ and NFLX 2020-02-12, all four `ixt-sec` 2015-08-31. An unknown format
+  code fails loudly instead of guessing. No classes generated from the XSDs (the header uses a handful of element
+  types). NFLX's browser-saved HTML isn't XHTML (no `<?xml`), so the HTML side stays on AngleSharp.
+- The ten files are committed like the filings (~9.9 MB next to ~27 MB of HTML), so a clone still runs offline;
+  the app reads only `data/*.html`, so neither v1 strategy is affected.
 Kept out of 1b: **registration from `EntityRegistrantName` + `TradingSymbol`** replacing the hand-written
 `CompanyToFiling` entry - it changes routing (`QueryIntentResolver`), not chunks, so it's its own small step
 after 1b-ii, verified by the resolver returning the same filings for every existing question; and the **facts

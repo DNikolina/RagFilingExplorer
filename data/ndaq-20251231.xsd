@@ -1,0 +1,912 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--XBRL Document Created with the Workiva Platform-->
+<!--Copyright 2026 Workiva-->
+<!--r:f7dc9268-703b-42a0-b9b8-0bcde92c9ef8,g:4a1c9967-e212-41d9-a6de-5716adb3ee27-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:link="http://www.xbrl.org/2003/linkbase" xmlns:ndaq="http://www.nasdaq.com/20251231" xmlns:xbrli="http://www.xbrl.org/2003/instance" xmlns:dtr-types="http://www.xbrl.org/dtr/type/2024-01-31" xmlns:xbrldt="http://xbrl.org/2005/xbrldt" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.nasdaq.com/20251231">
+  <xs:import namespace="http://fasb.org/srt/2025" schemaLocation="https://xbrl.fasb.org/srt/2025/elts/srt-2025.xsd"/>
+  <xs:import namespace="http://fasb.org/us-gaap/2025" schemaLocation="https://xbrl.fasb.org/us-gaap/2025/elts/us-gaap-2025.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2003/instance" schemaLocation="http://www.xbrl.org/2003/xbrl-instance-2003-12-31.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/2003/linkbase" schemaLocation="http://www.xbrl.org/2003/xbrl-linkbase-2003-12-31.xsd"/>
+  <xs:import namespace="http://www.xbrl.org/dtr/type/2024-01-31" schemaLocation="https://www.xbrl.org/dtr/type/2024-01-31/types.xsd"/>
+  <xs:import namespace="http://xbrl.org/2005/xbrldt" schemaLocation="http://www.xbrl.org/2005/xbrldt-2005.xsd"/>
+  <xs:import namespace="http://xbrl.sec.gov/country/2025" schemaLocation="https://xbrl.sec.gov/country/2025/country-2025.xsd"/>
+  <xs:import namespace="http://xbrl.sec.gov/cyd-af-sub/2025" schemaLocation="https://xbrl.sec.gov/cyd/2025/cyd-af-sub-2025.xsd"/>
+  <xs:import namespace="http://xbrl.sec.gov/dei/2025" schemaLocation="https://xbrl.sec.gov/dei/2025/dei-2025.xsd"/>
+  <xs:import namespace="http://xbrl.sec.gov/ecd/2025" schemaLocation="https://xbrl.sec.gov/ecd/2025/ecd-2025.xsd"/>
+  <xs:annotation>
+    <xs:appinfo>
+      <link:linkbaseRef xmlns:xlink="http://www.w3.org/1999/xlink" xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="ndaq-20251231_pre.xml" xlink:role="http://www.xbrl.org/2003/role/presentationLinkbaseRef" xlink:type="simple"/>
+      <link:linkbaseRef xmlns:xlink="http://www.w3.org/1999/xlink" xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="ndaq-20251231_def.xml" xlink:role="http://www.xbrl.org/2003/role/definitionLinkbaseRef" xlink:type="simple"/>
+      <link:linkbaseRef xmlns:xlink="http://www.w3.org/1999/xlink" xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="ndaq-20251231_lab.xml" xlink:role="http://www.xbrl.org/2003/role/labelLinkbaseRef" xlink:type="simple"/>
+      <link:linkbaseRef xmlns:xlink="http://www.w3.org/1999/xlink" xlink:arcrole="http://www.w3.org/1999/xlink/properties/linkbase" xlink:href="ndaq-20251231_cal.xml" xlink:role="http://www.xbrl.org/2003/role/calculationLinkbaseRef" xlink:type="simple"/>
+      <link:roleType id="Cover" roleURI="http://www.nasdaq.com/role/Cover">
+        <link:definition>0000001 - Document - Cover</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AuditInformation" roleURI="http://www.nasdaq.com/role/AuditInformation">
+        <link:definition>0000002 - Document - Audit Information</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ConsolidatedBalanceSheets" roleURI="http://www.nasdaq.com/role/ConsolidatedBalanceSheets">
+        <link:definition>9952151 - Statement - Consolidated Balance Sheets</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ConsolidatedBalanceSheetsParenthetical" roleURI="http://www.nasdaq.com/role/ConsolidatedBalanceSheetsParenthetical">
+        <link:definition>9952152 - Statement - Consolidated Balance Sheets (Parenthetical)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ConsolidatedStatementsofIncome" roleURI="http://www.nasdaq.com/role/ConsolidatedStatementsofIncome">
+        <link:definition>9952153 - Statement - Consolidated Statements of Income</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ConsolidatedStatementsofComprehensiveIncome" roleURI="http://www.nasdaq.com/role/ConsolidatedStatementsofComprehensiveIncome">
+        <link:definition>9952154 - Statement - Consolidated Statements of Comprehensive Income</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ConsolidatedStatementsofChangesinStockholdersEquity" roleURI="http://www.nasdaq.com/role/ConsolidatedStatementsofChangesinStockholdersEquity">
+        <link:definition>9952155 - Statement - Consolidated Statements of Changes in Stockholders&#8217; Equity</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ConsolidatedStatementsofCashFlows" roleURI="http://www.nasdaq.com/role/ConsolidatedStatementsofCashFlows">
+        <link:definition>9952156 - Statement - Consolidated Statements of Cash Flows</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="OrganizationandNatureofOperations" roleURI="http://www.nasdaq.com/role/OrganizationandNatureofOperations">
+        <link:definition>9952157 - Disclosure - Organization and Nature of Operations</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SummaryofSignificantAccountingPolicies" roleURI="http://www.nasdaq.com/role/SummaryofSignificantAccountingPolicies">
+        <link:definition>9952158 - Disclosure - Summary of Significant Accounting Policies</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="RevenuefromContractswithCustomers" roleURI="http://www.nasdaq.com/role/RevenuefromContractswithCustomers">
+        <link:definition>9952159 - Disclosure - Revenue from Contracts with Customers</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AcquisitionandDivestitures" roleURI="http://www.nasdaq.com/role/AcquisitionandDivestitures">
+        <link:definition>9952160 - Disclosure - Acquisition and Divestitures</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="GoodwillandAcquiredIntangibleAssets" roleURI="http://www.nasdaq.com/role/GoodwillandAcquiredIntangibleAssets">
+        <link:definition>9952161 - Disclosure - Goodwill and Acquired Intangible Assets</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="Investments" roleURI="http://www.nasdaq.com/role/Investments">
+        <link:definition>9952162 - Disclosure - Investments</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="PropertyandEquipmentNet" roleURI="http://www.nasdaq.com/role/PropertyandEquipmentNet">
+        <link:definition>9952163 - Disclosure - Property and Equipment, Net</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="DeferredRevenue" roleURI="http://www.nasdaq.com/role/DeferredRevenue">
+        <link:definition>9952164 - Disclosure - Deferred Revenue</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="DebtObligations" roleURI="http://www.nasdaq.com/role/DebtObligations">
+        <link:definition>9952165 - Disclosure - Debt Obligations</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="RetirementPlans" roleURI="http://www.nasdaq.com/role/RetirementPlans">
+        <link:definition>9952166 - Disclosure - Retirement Plans</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ShareBasedCompensation" roleURI="http://www.nasdaq.com/role/ShareBasedCompensation">
+        <link:definition>9952167 - Disclosure - Share-Based Compensation</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="NasdaqStockholdersEquity" roleURI="http://www.nasdaq.com/role/NasdaqStockholdersEquity">
+        <link:definition>9952168 - Disclosure - Nasdaq Stockholders&#8217; Equity</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="EarningsPerShare" roleURI="http://www.nasdaq.com/role/EarningsPerShare">
+        <link:definition>9952169 - Disclosure - Earnings Per Share</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FairValueofFinancialInstruments" roleURI="http://www.nasdaq.com/role/FairValueofFinancialInstruments">
+        <link:definition>9952170 - Disclosure - Fair Value of Financial Instruments</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ClearingOperations" roleURI="http://www.nasdaq.com/role/ClearingOperations">
+        <link:definition>9952171 - Disclosure - Clearing Operations</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="Leases" roleURI="http://www.nasdaq.com/role/Leases">
+        <link:definition>9952172 - Disclosure - Leases</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IncomeTaxes" roleURI="http://www.nasdaq.com/role/IncomeTaxes">
+        <link:definition>9952173 - Disclosure - Income Taxes</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="CommitmentsContingenciesandGuarantees" roleURI="http://www.nasdaq.com/role/CommitmentsContingenciesandGuarantees">
+        <link:definition>9952174 - Disclosure - Commitments, Contingencies and Guarantees</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BusinessSegments" roleURI="http://www.nasdaq.com/role/BusinessSegments">
+        <link:definition>9952175 - Disclosure - Business Segments</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="RestructuringCharges" roleURI="http://www.nasdaq.com/role/RestructuringCharges">
+        <link:definition>9952176 - Disclosure - Restructuring Charges</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SummaryofSignificantAccountingPoliciesPolicies" roleURI="http://www.nasdaq.com/role/SummaryofSignificantAccountingPoliciesPolicies">
+        <link:definition>9955511 - Disclosure - Summary of Significant Accounting Policies (Policies)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="RevenuefromContractswithCustomersTables" roleURI="http://www.nasdaq.com/role/RevenuefromContractswithCustomersTables">
+        <link:definition>9955512 - Disclosure - Revenue from Contracts with Customers (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AcquisitionandDivestituresTables" roleURI="http://www.nasdaq.com/role/AcquisitionandDivestituresTables">
+        <link:definition>9955513 - Disclosure - Acquisition and Divestitures (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="GoodwillandAcquiredIntangibleAssetsTables" roleURI="http://www.nasdaq.com/role/GoodwillandAcquiredIntangibleAssetsTables">
+        <link:definition>9955514 - Disclosure - Goodwill and Acquired Intangible Assets (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="InvestmentsTables" roleURI="http://www.nasdaq.com/role/InvestmentsTables">
+        <link:definition>9955515 - Disclosure - Investments (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="PropertyandEquipmentNetTables" roleURI="http://www.nasdaq.com/role/PropertyandEquipmentNetTables">
+        <link:definition>9955516 - Disclosure - Property and Equipment, Net (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="DeferredRevenueTables" roleURI="http://www.nasdaq.com/role/DeferredRevenueTables">
+        <link:definition>9955517 - Disclosure - Deferred Revenue (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="DebtObligationsTables" roleURI="http://www.nasdaq.com/role/DebtObligationsTables">
+        <link:definition>9955518 - Disclosure - Debt Obligations (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="RetirementPlansTables" roleURI="http://www.nasdaq.com/role/RetirementPlansTables">
+        <link:definition>9955519 - Disclosure - Retirement Plans (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ShareBasedCompensationTables" roleURI="http://www.nasdaq.com/role/ShareBasedCompensationTables">
+        <link:definition>9955520 - Disclosure - Share-Based Compensation (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="NasdaqStockholdersEquityTables" roleURI="http://www.nasdaq.com/role/NasdaqStockholdersEquityTables">
+        <link:definition>9955521 - Disclosure - Nasdaq Stockholders&#8217; Equity (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="EarningsPerShareTables" roleURI="http://www.nasdaq.com/role/EarningsPerShareTables">
+        <link:definition>9955522 - Disclosure - Earnings Per Share (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FairValueofFinancialInstrumentsTables" roleURI="http://www.nasdaq.com/role/FairValueofFinancialInstrumentsTables">
+        <link:definition>9955523 - Disclosure - Fair Value of Financial Instruments (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ClearingOperationsTables" roleURI="http://www.nasdaq.com/role/ClearingOperationsTables">
+        <link:definition>9955524 - Disclosure - Clearing Operations (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="LeasesTables" roleURI="http://www.nasdaq.com/role/LeasesTables">
+        <link:definition>9955525 - Disclosure - Leases (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IncomeTaxesTables" roleURI="http://www.nasdaq.com/role/IncomeTaxesTables">
+        <link:definition>9955526 - Disclosure - Income Taxes (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BusinessSegmentsTables" roleURI="http://www.nasdaq.com/role/BusinessSegmentsTables">
+        <link:definition>9955527 - Disclosure - Business Segments (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="RestructuringChargesTables" roleURI="http://www.nasdaq.com/role/RestructuringChargesTables">
+        <link:definition>9955528 - Disclosure - Restructuring Charges (Tables)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="OrganizationandNatureofOperationsDetails" roleURI="http://www.nasdaq.com/role/OrganizationandNatureofOperationsDetails">
+        <link:definition>9955529 - Disclosure - Organization and Nature of Operations (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="SummaryofSignificantAccountingPoliciesNarrativeDetails" roleURI="http://www.nasdaq.com/role/SummaryofSignificantAccountingPoliciesNarrativeDetails">
+        <link:definition>9955530 - Disclosure - Summary of Significant Accounting Policies (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="RevenuefromContractswithCustomersRevenuebyProductServiceandSegmentDetails" roleURI="http://www.nasdaq.com/role/RevenuefromContractswithCustomersRevenuebyProductServiceandSegmentDetails">
+        <link:definition>9955531 - Disclosure - Revenue from Contracts with Customers (Revenue by Product, Service and Segment) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="RevenuefromContractswithCustomersNarrativeDetails" roleURI="http://www.nasdaq.com/role/RevenuefromContractswithCustomersNarrativeDetails">
+        <link:definition>9955532 - Disclosure - Revenue from Contracts with Customers (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="RevenuefromContractswithCustomersRemainingPerformanceObligationDetails" roleURI="http://www.nasdaq.com/role/RevenuefromContractswithCustomersRemainingPerformanceObligationDetails">
+        <link:definition>9955533 - Disclosure - Revenue from Contracts with Customers (Remaining Performance Obligation) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="RevenuefromContractswithCustomersRemainingPerformanceObligationDetails_1" roleURI="http://www.nasdaq.com/role/RevenuefromContractswithCustomersRemainingPerformanceObligationDetails_1">
+        <link:definition>9955533 - Disclosure - Revenue from Contracts with Customers (Remaining Performance Obligation) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AcquisitionandDivestituresNarrativeDetails" roleURI="http://www.nasdaq.com/role/AcquisitionandDivestituresNarrativeDetails">
+        <link:definition>9955534 - Disclosure - Acquisition and Divestitures (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AcquisitionandDivestituresPurchasesConsiderationDetails" roleURI="http://www.nasdaq.com/role/AcquisitionandDivestituresPurchasesConsiderationDetails">
+        <link:definition>9955535 - Disclosure - Acquisition and Divestitures (Purchases Consideration) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AcquisitionandDivestituresPreliminaryPurchasePriceAcquisitionDetails" roleURI="http://www.nasdaq.com/role/AcquisitionandDivestituresPreliminaryPurchasePriceAcquisitionDetails">
+        <link:definition>9955536 - Disclosure - Acquisition and Divestitures (Preliminary Purchase Price Acquisition) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AcquisitionandDivestituresScheduleofIntangibleAssetsDetails" roleURI="http://www.nasdaq.com/role/AcquisitionandDivestituresScheduleofIntangibleAssetsDetails">
+        <link:definition>9955537 - Disclosure - Acquisition and Divestitures (Schedule of Intangible Assets) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AcquisitionandDivestituresProFormaResultsandAcquisitionDetails" roleURI="http://www.nasdaq.com/role/AcquisitionandDivestituresProFormaResultsandAcquisitionDetails">
+        <link:definition>9955538 - Disclosure - Acquisition and Divestitures (Pro Forma Results and Acquisition) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="AcquisitionandDivestituresScheduleofUnauditedProFormaDetails" roleURI="http://www.nasdaq.com/role/AcquisitionandDivestituresScheduleofUnauditedProFormaDetails">
+        <link:definition>9955539 - Disclosure - Acquisition and Divestitures ( Schedule of Unaudited Pro Forma ) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="GoodwillandAcquiredIntangibleAssetsScheduleofChangesinGoodwillDetails" roleURI="http://www.nasdaq.com/role/GoodwillandAcquiredIntangibleAssetsScheduleofChangesinGoodwillDetails">
+        <link:definition>9955540 - Disclosure - Goodwill and Acquired Intangible Assets (Schedule of Changes in Goodwill) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="GoodwillandAcquiredIntangibleAssetsNarrativeDetails" roleURI="http://www.nasdaq.com/role/GoodwillandAcquiredIntangibleAssetsNarrativeDetails">
+        <link:definition>9955541 - Disclosure - Goodwill and Acquired Intangible Assets (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="GoodwillandAcquiredIntangibleAssetsFiniteLivedIntangibleAssetsDetails" roleURI="http://www.nasdaq.com/role/GoodwillandAcquiredIntangibleAssetsFiniteLivedIntangibleAssetsDetails">
+        <link:definition>9955542 - Disclosure - Goodwill and Acquired Intangible Assets (Finite-Lived Intangible Assets) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="GoodwillandAcquiredIntangibleAssetsFiniteLivedIntangibleAssetsAmortizationExpenseDetails" roleURI="http://www.nasdaq.com/role/GoodwillandAcquiredIntangibleAssetsFiniteLivedIntangibleAssetsAmortizationExpenseDetails">
+        <link:definition>9955543 - Disclosure - Goodwill and Acquired Intangible Assets (Finite-Lived Intangible Assets Amortization Expense) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="GoodwillandAcquiredIntangibleAssetsEstimatedFutureAmortizationExpenseDetails" roleURI="http://www.nasdaq.com/role/GoodwillandAcquiredIntangibleAssetsEstimatedFutureAmortizationExpenseDetails">
+        <link:definition>9955544 - Disclosure - Goodwill and Acquired Intangible Assets (Estimated Future Amortization Expense) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="InvestmentsScheduleofInvestmentsDetails" roleURI="http://www.nasdaq.com/role/InvestmentsScheduleofInvestmentsDetails">
+        <link:definition>9955545 - Disclosure - Investments (Schedule of Investments) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="InvestmentsNarrativeDetails" roleURI="http://www.nasdaq.com/role/InvestmentsNarrativeDetails">
+        <link:definition>9955546 - Disclosure - Investments (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="PropertyandEquipmentNetScheduleofPropertyandEquipmentNetDetails" roleURI="http://www.nasdaq.com/role/PropertyandEquipmentNetScheduleofPropertyandEquipmentNetDetails">
+        <link:definition>9955547 - Disclosure - Property and Equipment, Net (Schedule of Property and Equipment, Net) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="PropertyandEquipmentNetNarrativeDetails" roleURI="http://www.nasdaq.com/role/PropertyandEquipmentNetNarrativeDetails">
+        <link:definition>9955548 - Disclosure - Property and Equipment, Net (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="DeferredRevenueChangesinDeferredRevenueDetails" roleURI="http://www.nasdaq.com/role/DeferredRevenueChangesinDeferredRevenueDetails">
+        <link:definition>9955549 - Disclosure - Deferred Revenue (Changes in Deferred Revenue) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="DeferredRevenueEstimatedDeferredRevenueDetails" roleURI="http://www.nasdaq.com/role/DeferredRevenueEstimatedDeferredRevenueDetails">
+        <link:definition>9955550 - Disclosure - Deferred Revenue (Estimated Deferred Revenue) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="DebtObligationsChangesinDebtObligationsDetails" roleURI="http://www.nasdaq.com/role/DebtObligationsChangesinDebtObligationsDetails">
+        <link:definition>9955551 - Disclosure - Debt Obligations (Changes in Debt Obligations) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="DebtObligationsSeniorUnsecuredNotesandNetInvestmentHedgeDetails" roleURI="http://www.nasdaq.com/role/DebtObligationsSeniorUnsecuredNotesandNetInvestmentHedgeDetails">
+        <link:definition>9955552 - Disclosure - Debt Obligations (Senior Unsecured Notes and Net Investment Hedge) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="DebtObligationsCreditFacilitiesDetails" roleURI="http://www.nasdaq.com/role/DebtObligationsCreditFacilitiesDetails">
+        <link:definition>9955553 - Disclosure - Debt Obligations (Credit Facilities) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="DebtObligationsOtherCreditFacilitiesDetails" roleURI="http://www.nasdaq.com/role/DebtObligationsOtherCreditFacilitiesDetails">
+        <link:definition>9955554 - Disclosure - Debt Obligations (Other Credit Facilities) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="RetirementPlansNarrativeDetails" roleURI="http://www.nasdaq.com/role/RetirementPlansNarrativeDetails">
+        <link:definition>9955555 - Disclosure - Retirement Plans (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="RetirementPlansCostofRetirementPlansDetails" roleURI="http://www.nasdaq.com/role/RetirementPlansCostofRetirementPlansDetails">
+        <link:definition>9955556 - Disclosure - Retirement Plans (Cost of Retirement Plans) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ShareBasedCompensationNarrativeDetails" roleURI="http://www.nasdaq.com/role/ShareBasedCompensationNarrativeDetails">
+        <link:definition>9955557 - Disclosure - Share-Based Compensation (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ShareBasedCompensationScheduleofShareBasedCompensationExpenseDetails" roleURI="http://www.nasdaq.com/role/ShareBasedCompensationScheduleofShareBasedCompensationExpenseDetails">
+        <link:definition>9955558 - Disclosure - Share-Based Compensation (Schedule of Share-Based Compensation Expense) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ShareBasedCompensationScheduleofRestrictedStockActivityDetails" roleURI="http://www.nasdaq.com/role/ShareBasedCompensationScheduleofRestrictedStockActivityDetails">
+        <link:definition>9955559 - Disclosure - Share-Based Compensation (Schedule of Restricted Stock Activity) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ShareBasedCompensationScheduleofWeightedAverageAssumptionsUsedtoDetermineWeightedAverageFairValuesDetails" roleURI="http://www.nasdaq.com/role/ShareBasedCompensationScheduleofWeightedAverageAssumptionsUsedtoDetermineWeightedAverageFairValuesDetails">
+        <link:definition>9955560 - Disclosure - Share-Based Compensation (Schedule of Weighted- Average Assumptions Used to Determine Weighted-Average Fair Values) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ShareBasedCompensationScheduleofPSUActivityDetails" roleURI="http://www.nasdaq.com/role/ShareBasedCompensationScheduleofPSUActivityDetails">
+        <link:definition>9955561 - Disclosure - Share-Based Compensation (Schedule of PSU Activity) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ShareBasedCompensationScheduleofStockOptionActivityDetails" roleURI="http://www.nasdaq.com/role/ShareBasedCompensationScheduleofStockOptionActivityDetails">
+        <link:definition>9955562 - Disclosure - Share-Based Compensation (Schedule of Stock Option Activity) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ShareBasedCompensationScheduleofEmployeeStockPurchasePlanDetails" roleURI="http://www.nasdaq.com/role/ShareBasedCompensationScheduleofEmployeeStockPurchasePlanDetails">
+        <link:definition>9955563 - Disclosure - Share-Based Compensation (Schedule of Employee Stock Purchase Plan) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="NasdaqStockholdersEquityNarrativeDetails" roleURI="http://www.nasdaq.com/role/NasdaqStockholdersEquityNarrativeDetails">
+        <link:definition>9955564 - Disclosure - Nasdaq Stockholders' Equity (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="NasdaqStockholdersEquityCommonStockinTreasuryDetails" roleURI="http://www.nasdaq.com/role/NasdaqStockholdersEquityCommonStockinTreasuryDetails">
+        <link:definition>9955565 - Disclosure - Nasdaq Stockholders' Equity (Common Stock in Treasury) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="NasdaqStockholdersEquityScheduleofDividendsDeclaredDetails" roleURI="http://www.nasdaq.com/role/NasdaqStockholdersEquityScheduleofDividendsDeclaredDetails">
+        <link:definition>9955566 - Disclosure - Nasdaq Stockholders' Equity (Schedule of Dividends Declared) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="EarningsPerShareDetails" roleURI="http://www.nasdaq.com/role/EarningsPerShareDetails">
+        <link:definition>9955567 - Disclosure - Earnings Per Share (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FairValueofFinancialInstrumentsScheduleofFinancialAssetsandLiabilitiesMeasuredatFairValueonRecurringBasisDetails" roleURI="http://www.nasdaq.com/role/FairValueofFinancialInstrumentsScheduleofFinancialAssetsandLiabilitiesMeasuredatFairValueonRecurringBasisDetails">
+        <link:definition>9955568 - Disclosure - Fair Value of Financial Instruments (Schedule of Financial Assets and Liabilities Measured at Fair Value on Recurring Basis) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="FairValueofFinancialInstrumentsNarrativeDetails" roleURI="http://www.nasdaq.com/role/FairValueofFinancialInstrumentsNarrativeDetails">
+        <link:definition>9955569 - Disclosure - Fair Value of Financial Instruments (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ClearingOperationsScheduleofClearingMemberDefaultFundContributionsAndMarginDepositsDetails" roleURI="http://www.nasdaq.com/role/ClearingOperationsScheduleofClearingMemberDefaultFundContributionsAndMarginDepositsDetails">
+        <link:definition>9955570 - Disclosure - Clearing Operations (Schedule of Clearing Member Default Fund Contributions And Margin Deposits) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ClearingOperationsNarrativeDetails" roleURI="http://www.nasdaq.com/role/ClearingOperationsNarrativeDetails">
+        <link:definition>9955571 - Disclosure - Clearing Operations (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ClearingOperationsInvestmentPolicyDetails" roleURI="http://www.nasdaq.com/role/ClearingOperationsInvestmentPolicyDetails">
+        <link:definition>9955572 - Disclosure - Clearing Operations (Investment Policy) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="ClearingOperationsScheduleofDerivativeContractsDetails" roleURI="http://www.nasdaq.com/role/ClearingOperationsScheduleofDerivativeContractsDetails">
+        <link:definition>9955573 - Disclosure - Clearing Operations (Schedule of Derivative Contracts) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="LeasesSummaryofSupplementalBalanceSheetInformationRelatedtoOperatingLeasesDetails" roleURI="http://www.nasdaq.com/role/LeasesSummaryofSupplementalBalanceSheetInformationRelatedtoOperatingLeasesDetails">
+        <link:definition>9955574 - Disclosure - Leases (Summary of Supplemental Balance Sheet Information Related to Operating Leases) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="LeasesLeasesCostDetails" roleURI="http://www.nasdaq.com/role/LeasesLeasesCostDetails">
+        <link:definition>9955575 - Disclosure - Leases (Leases Cost) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="LeasesNarrativeDetails" roleURI="http://www.nasdaq.com/role/LeasesNarrativeDetails">
+        <link:definition>9955576 - Disclosure - Leases (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="LeasesOperatingLeaseMaturityDetails" roleURI="http://www.nasdaq.com/role/LeasesOperatingLeaseMaturityDetails">
+        <link:definition>9955577 - Disclosure - Leases (Operating Lease Maturity) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="LeasesOperatingLeaseMaturityDetails_1" roleURI="http://www.nasdaq.com/role/LeasesOperatingLeaseMaturityDetails_1">
+        <link:definition>9955577 - Disclosure - Leases (Operating Lease Maturity) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="LeasesLeasesTermsandDiscountRateDetails" roleURI="http://www.nasdaq.com/role/LeasesLeasesTermsandDiscountRateDetails">
+        <link:definition>9955578 - Disclosure - Leases (Leases Terms and Discount Rate) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="LeasesSupplementalCashFlowInformationDetails" roleURI="http://www.nasdaq.com/role/LeasesSupplementalCashFlowInformationDetails">
+        <link:definition>9955579 - Disclosure - Leases (Supplemental Cash Flow Information) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IncomeTaxesScheduleofIncomebeforeIncomeTaxDomesticandForeignDetails" roleURI="http://www.nasdaq.com/role/IncomeTaxesScheduleofIncomebeforeIncomeTaxDomesticandForeignDetails">
+        <link:definition>9955580 - Disclosure - Income Taxes (Schedule of Income before Income Tax, Domestic and Foreign) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IncomeTaxesScheduleofIncomeTaxProvisionandEffectiveTaxRateDetails" roleURI="http://www.nasdaq.com/role/IncomeTaxesScheduleofIncomeTaxProvisionandEffectiveTaxRateDetails">
+        <link:definition>9955581 - Disclosure - Income Taxes (Schedule of Income Tax Provision and Effective Tax Rate) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IncomeTaxesScheduleofEffectiveIncomeTaxRateReconciliationDetails" roleURI="http://www.nasdaq.com/role/IncomeTaxesScheduleofEffectiveIncomeTaxRateReconciliationDetails">
+        <link:definition>9955582 - Disclosure - Income Taxes (Schedule of Effective Income Tax Rate Reconciliation) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IncomeTaxesNarrativeDetails" roleURI="http://www.nasdaq.com/role/IncomeTaxesNarrativeDetails">
+        <link:definition>9955583 - Disclosure - Income Taxes (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IncomeTaxesScheduleofCashFlowSupplementalDisclosuresDetails" roleURI="http://www.nasdaq.com/role/IncomeTaxesScheduleofCashFlowSupplementalDisclosuresDetails">
+        <link:definition>9955584 - Disclosure - Income Taxes (Schedule of Cash Flow, Supplemental Disclosures) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IncomeTaxesScheduleofDeferredTaxAssetsandLiabilitiesDetails" roleURI="http://www.nasdaq.com/role/IncomeTaxesScheduleofDeferredTaxAssetsandLiabilitiesDetails">
+        <link:definition>9955585 - Disclosure - Income Taxes (Schedule of Deferred Tax Assets and Liabilities) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IncomeTaxesScheduleofDeferredTaxAssetsandLiabilitiesDetails_1" roleURI="http://www.nasdaq.com/role/IncomeTaxesScheduleofDeferredTaxAssetsandLiabilitiesDetails_1">
+        <link:definition>9955585 - Disclosure - Income Taxes (Schedule of Deferred Tax Assets and Liabilities) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IncomeTaxesNetOperatingLossesandCreditsDetails" roleURI="http://www.nasdaq.com/role/IncomeTaxesNetOperatingLossesandCreditsDetails">
+        <link:definition>9955586 - Disclosure - Income Taxes (Net Operating Losses and Credits) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="IncomeTaxesReconciliationofUnrecognizedTaxBenefitsDetails" roleURI="http://www.nasdaq.com/role/IncomeTaxesReconciliationofUnrecognizedTaxBenefitsDetails">
+        <link:definition>9955587 - Disclosure - Income Taxes (Reconciliation of Unrecognized Tax Benefits) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="CommitmentsContingenciesandGuaranteesDetails" roleURI="http://www.nasdaq.com/role/CommitmentsContingenciesandGuaranteesDetails">
+        <link:definition>9955588 - Disclosure - Commitments, Contingencies and Guarantees (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BusinessSegmentsNarrativeDetails" roleURI="http://www.nasdaq.com/role/BusinessSegmentsNarrativeDetails">
+        <link:definition>9955589 - Disclosure - Business Segments (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BusinessSegmentsScheduleofOperatingSegmentsDetails" roleURI="http://www.nasdaq.com/role/BusinessSegmentsScheduleofOperatingSegmentsDetails">
+        <link:definition>9955590 - Disclosure - Business Segments (Schedule of Operating Segments) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BusinessSegmentsCorporateItemsDetails" roleURI="http://www.nasdaq.com/role/BusinessSegmentsCorporateItemsDetails">
+        <link:definition>9955591 - Disclosure - Business Segments (Corporate Items) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="BusinessSegmentsGeographicDataDetails" roleURI="http://www.nasdaq.com/role/BusinessSegmentsGeographicDataDetails">
+        <link:definition>9955592 - Disclosure - Business Segments (Geographic Data) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="RestructuringChargesNarrativeDetails" roleURI="http://www.nasdaq.com/role/RestructuringChargesNarrativeDetails">
+        <link:definition>9955593 - Disclosure - Restructuring Charges (Narrative) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+      <link:roleType id="RestructuringChargesSummaryofRestructuringPlanDetails" roleURI="http://www.nasdaq.com/role/RestructuringChargesSummaryofRestructuringPlanDetails">
+        <link:definition>9955594 - Disclosure - Restructuring Charges (Summary of Restructuring Plan) (Details)</link:definition>
+        <link:usedOn>link:presentationLink</link:usedOn>
+        <link:usedOn>link:calculationLink</link:usedOn>
+        <link:usedOn>link:definitionLink</link:usedOn>
+      </link:roleType>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element id="ndaq_CommonStock.01parvaluepershareMember" abstract="true" name="CommonStock.01parvaluepershareMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_FourPointFiveZeroZeroSeniorNotesDue2032Member" abstract="true" name="FourPointFiveZeroZeroSeniorNotesDue2032Member" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_ZeroPointNineZeroZeroSeniorUnsecuredNotesDue2033Member" abstract="true" name="ZeroPointNineZeroZeroSeniorUnsecuredNotesDue2033Member" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_ZeroPointEightSevenFivePercentSeniorNotesDue2030Member" abstract="true" name="ZeroPointEightSevenFivePercentSeniorNotesDue2030Member" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_OnePointSevenFivePercentSeniorNotesDue2029Member" abstract="true" name="OnePointSevenFivePercentSeniorNotesDue2029Member" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_AuditorInformationAbstract" abstract="true" name="AuditorInformationAbstract" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_DefaultFundsAndMarginDepositsAssets" abstract="false" name="DefaultFundsAndMarginDepositsAssets" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_SectionThirtyOneFeesPayable" abstract="false" name="SectionThirtyOneFeesPayable" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_DefaultFundsAndMarginDepositsLiabilities" abstract="false" name="DefaultFundsAndMarginDepositsLiabilities" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_RestrictedCashAndEquivalentsInDefaultFundsAndMarginDeposits" abstract="false" name="RestrictedCashAndEquivalentsInDefaultFundsAndMarginDeposits" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_CapitalAccessPlatformsMember" abstract="true" name="CapitalAccessPlatformsMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_FinancialTechnologyMember" abstract="true" name="FinancialTechnologyMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_MarketServicesMember" abstract="true" name="MarketServicesMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_TransactionRebatesMember" abstract="true" name="TransactionRebatesMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_BrokerageClearanceAndExchangeFeesMember" abstract="true" name="BrokerageClearanceAndExchangeFeesMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_RegulatoryExpenses" abstract="false" name="RegulatoryExpenses" nillable="true" xbrli:periodType="duration" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_TotalEquityMember" abstract="true" name="TotalEquityMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_ShareRepurchaseProgramMember" abstract="true" name="ShareRepurchaseProgramMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_ExtinguishmentOfDebtAndBridgeFees" abstract="false" name="ExtinguishmentOfDebtAndBridgeFees" nillable="true" xbrli:periodType="duration" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_IncreaseDecreaseInSection31FeesPayable" abstract="false" name="IncreaseDecreaseInSection31FeesPayable" nillable="true" xbrli:periodType="duration" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_PaymentsForProceedsFromDefaultFundsAndMarginDeposits" abstract="false" name="PaymentsForProceedsFromDefaultFundsAndMarginDeposits" nillable="true" xbrli:periodType="duration" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_IncreaseDecreaseInDefaultFundContributionsAndMarginDeposits" abstract="false" name="IncreaseDecreaseInDefaultFundContributionsAndMarginDeposits" nillable="true" xbrli:periodType="duration" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_DefaultFundsAndMarginDepositsPolicyTextBlock" abstract="false" name="DefaultFundsAndMarginDepositsPolicyTextBlock" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:textBlockItemType"/>
+  <xs:element id="ndaq_ScheduleofInvestmentsTableTextBlock" abstract="false" name="ScheduleofInvestmentsTableTextBlock" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:textBlockItemType"/>
+  <xs:element id="ndaq_EstimatedDeferredRevenueTableTextBlock" abstract="false" name="EstimatedDeferredRevenueTableTextBlock" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:textBlockItemType"/>
+  <xs:element id="ndaq_ScheduleOfShareBasedCompensationExpenseResultingFromEquityAwardsTableTextBlock" abstract="false" name="ScheduleOfShareBasedCompensationExpenseResultingFromEquityAwardsTableTextBlock" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:textBlockItemType"/>
+  <xs:element id="ndaq_ScheduleOfDefaultFundContributionsTableTableTextBlock" abstract="false" name="ScheduleOfDefaultFundContributionsTableTableTextBlock" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:textBlockItemType"/>
+  <xs:element id="ndaq_ScheduleofDerivativeContractsClearedTableTextBlock" abstract="false" name="ScheduleofDerivativeContractsClearedTableTextBlock" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:textBlockItemType"/>
+  <xs:element id="ndaq_AssetsandLiabilitiesLesseeTableTextBlock" abstract="false" name="AssetsandLiabilitiesLesseeTableTextBlock" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:textBlockItemType"/>
+  <xs:element id="ndaq_OrganizationAndBasisOfPresentationTable" abstract="true" name="OrganizationAndBasisOfPresentationTable" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrldt:hypercubeItem" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_FinancialCrimeManagementTechnologyMember" abstract="true" name="FinancialCrimeManagementTechnologyMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_OrganizationAndBasisOfPresentationLineItems" abstract="true" name="OrganizationAndBasisOfPresentationLineItems" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_TotalNumberOfListedCompaniesWithinUSNordicAndBalticExchanges" abstract="false" name="TotalNumberOfListedCompaniesWithinUSNordicAndBalticExchanges" nillable="true" xbrli:periodType="instant" substitutionGroup="xbrli:item" type="xbrli:integerItemType"/>
+  <xs:element id="ndaq_TotalNumberOfListedCompanies" abstract="false" name="TotalNumberOfListedCompanies" nillable="true" xbrli:periodType="instant" substitutionGroup="xbrli:item" type="xbrli:integerItemType"/>
+  <xs:element id="ndaq_ApproximateCombinedMarketCapitalization" abstract="false" name="ApproximateCombinedMarketCapitalization" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_NumberOfExchangeTradedProductsLicensed" abstract="false" name="NumberOfExchangeTradedProductsLicensed" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:integerItemType"/>
+  <xs:element id="ndaq_NumberOfEquityExchanges" abstract="false" name="NumberOfEquityExchanges" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:integerItemType"/>
+  <xs:element id="ndaq_ServicesProvidedOverNumberOfCountries" abstract="false" name="ServicesProvidedOverNumberOfCountries" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:integerItemType"/>
+  <xs:element id="ndaq_AssetsUnderManagement" abstract="false" name="AssetsUnderManagement" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_DataProcessingEquipmentAndSoftwareMember" abstract="true" name="DataProcessingEquipmentAndSoftwareMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_FurnitureAndEquipmentMember" abstract="true" name="FurnitureAndEquipmentMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_DataServicesMember" abstract="true" name="DataServicesMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_ListingServicesMember" abstract="true" name="ListingServicesMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_IndexMember" abstract="true" name="IndexMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_WorkflowInsightsMember" abstract="true" name="WorkflowInsightsMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_AxiomSLSolutionsMember" abstract="true" name="AxiomSLSolutionsMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_SurveillanceMember" abstract="true" name="SurveillanceMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_CapitalMarketsTechnologyMember" abstract="true" name="CapitalMarketsTechnologyMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_TradeManagementServicesMemberMember" abstract="true" name="TradeManagementServicesMemberMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_RenewalFeeRecognitionPeriod" abstract="false" name="RenewalFeeRecognitionPeriod" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:durationItemType"/>
+  <xs:element id="ndaq_NumberOfTypesOfLicenseAgreements" abstract="false" name="NumberOfTypesOfLicenseAgreements" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:integerItemType"/>
+  <xs:element id="ndaq_SubscriptionAgreementPeriod" abstract="false" name="SubscriptionAgreementPeriod" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:durationItemType"/>
+  <xs:element id="ndaq_ShareBasedCompensationArrangementBySharebasedPaymentAwardPurchasePeriod" abstract="false" name="ShareBasedCompensationArrangementBySharebasedPaymentAwardPurchasePeriod" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:durationItemType"/>
+  <xs:element id="ndaq_GrossProfitPercentage" abstract="false" name="GrossProfitPercentage" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:percentItemType"/>
+  <xs:element id="ndaq_PercentageofFairMarketValueOfCommonStock" abstract="false" name="PercentageofFairMarketValueOfCommonStock" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:percentItemType"/>
+  <xs:element id="ndaq_PercentageofDiscountToEmployeesOnPurchaseOfCommonStockUnderEmployeeStockPurchasePlan" abstract="false" name="PercentageofDiscountToEmployeesOnPurchaseOfCommonStockUnderEmployeeStockPurchasePlan" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:percentItemType"/>
+  <xs:element id="ndaq_DataListingServicesMember" abstract="true" name="DataListingServicesMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_RegulatoryTechnologyMember" abstract="true" name="RegulatoryTechnologyMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_MarketServicesSegmentMember" abstract="true" name="MarketServicesSegmentMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_AdenzaHoldingsIncMember" abstract="true" name="AdenzaHoldingsIncMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_ThomaBravoMember" abstract="true" name="ThomaBravoMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_NoncontrollingInterestPercentageOfSharesOwned" abstract="false" name="NoncontrollingInterestPercentageOfSharesOwned" nillable="true" xbrli:periodType="instant" substitutionGroup="xbrli:item" type="dtr-types:percentItemType"/>
+  <xs:element id="ndaq_BusinessCombinationProvisionalInformationInitialAccountingIncompleteAdjustmentReceivablesNet" abstract="false" name="BusinessCombinationProvisionalInformationInitialAccountingIncompleteAdjustmentReceivablesNet" nillable="true" xbrli:periodType="duration" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_BusinessCombinationProvisionalInformationInitialAccountingIncompleteAdjustmentDeferredRevenue" abstract="false" name="BusinessCombinationProvisionalInformationInitialAccountingIncompleteAdjustmentDeferredRevenue" nillable="true" xbrli:periodType="duration" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_BusinessCombinationProvisionalInformationInitialAccountingIncompleteAdjustmentDeferredTaxAssets" abstract="false" name="BusinessCombinationProvisionalInformationInitialAccountingIncompleteAdjustmentDeferredTaxAssets" nillable="true" xbrli:periodType="duration" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_BusinessCombinationRecognizedIdentifiableAssetsAcquiredAndLiabilitiesAssumedReceivables" abstract="false" name="BusinessCombinationRecognizedIdentifiableAssetsAcquiredAndLiabilitiesAssumedReceivables" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_BusinessCombinationRecognizedIdentifiableAssetsAcquiredAndLiabilitiesAssumedAccruedPersonnelCosts" abstract="false" name="BusinessCombinationRecognizedIdentifiableAssetsAcquiredAndLiabilitiesAssumedAccruedPersonnelCosts" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_ScheduleOfFiniteLivedAndIndefiniteLivedIntangibleAssetsTable" abstract="true" name="ScheduleOfFiniteLivedAndIndefiniteLivedIntangibleAssetsTable" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrldt:hypercubeItem" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_FiniteLivedAndIndefiniteLivedIntangibleAssetsLineItems" abstract="true" name="FiniteLivedAndIndefiniteLivedIntangibleAssetsLineItems" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_ForeignCurrencyTranslationAdjustmentMember" abstract="true" name="ForeignCurrencyTranslationAdjustmentMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_TradeNamesAndOtherIntangibleAssetsMember" abstract="true" name="TradeNamesAndOtherIntangibleAssetsMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_ExchangeAndClearingRegistrationsMember" abstract="true" name="ExchangeAndClearingRegistrationsMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_FiniteLivedIntangibleAssetsNetExcludingForeignCurrencyTranslationAdjustment" abstract="false" name="FiniteLivedIntangibleAssetsNetExcludingForeignCurrencyTranslationAdjustment" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_InvestmentsDebtAndEquitySecuritiesTable" abstract="true" name="InvestmentsDebtAndEquitySecuritiesTable" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrldt:hypercubeItem" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_OptionsClearingCorporationMember" abstract="false" name="OptionsClearingCorporationMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_InvestmentsDebtAndSecuritiesLineItems" abstract="true" name="InvestmentsDebtAndSecuritiesLineItems" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_FurnitureEquipmentAndLeaseholdImprovementsMember" abstract="true" name="FurnitureEquipmentAndLeaseholdImprovementsMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_InitialListingsFeesMember" abstract="true" name="InitialListingsFeesMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_AnnualRenewalFeesMember" abstract="true" name="AnnualRenewalFeesMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_OtherMember" abstract="true" name="OtherMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_ChangeInContractWithCustomerLiabilityRollForward" abstract="true" name="ChangeInContractWithCustomerLiabilityRollForward" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_ContractWithCustomerLiabilityCurrentPeriodAdditionsNetOfRecognition" abstract="false" name="ContractWithCustomerLiabilityCurrentPeriodAdditionsNetOfRecognition" nillable="true" xbrli:periodType="duration" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_ContractWithCustomerLiabilityRevenueRecognizedIncludingOpeningBalance" abstract="false" name="ContractWithCustomerLiabilityRevenueRecognizedIncludingOpeningBalance" nillable="true" xbrli:periodType="duration" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_ContractWithCustomerLiabilityRevenueTranslationAdjustment" abstract="false" name="ContractWithCustomerLiabilityRevenueTranslationAdjustment" nillable="true" xbrli:periodType="duration" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_FiscalYearEndedAbstract" abstract="true" name="FiscalYearEndedAbstract" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_ContractWithCustomerLiabilityExpectedToBeRecognizedInYearOne" abstract="false" name="ContractWithCustomerLiabilityExpectedToBeRecognizedInYearOne" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_ContractWithCustomerLiabilityExpectedToBeRecognizedInYearTwo" abstract="false" name="ContractWithCustomerLiabilityExpectedToBeRecognizedInYearTwo" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_ContractWithCustomerLiabilityExpectedToBeRecognizedInYearThree" abstract="false" name="ContractWithCustomerLiabilityExpectedToBeRecognizedInYearThree" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_ContractWithCustomerLiabilityExpectedToBeRecognizedInYearFour" abstract="false" name="ContractWithCustomerLiabilityExpectedToBeRecognizedInYearFour" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_ContractWithCustomerLiabilityExpectedToBeRecognizedInYearFive" abstract="false" name="ContractWithCustomerLiabilityExpectedToBeRecognizedInYearFive" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_ContractWithCustomerLiabilityExpectedToBeRecognizedAfterYearFive" abstract="false" name="ContractWithCustomerLiabilityExpectedToBeRecognizedAfterYearFive" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_ScheduleofDebtTable" abstract="true" name="ScheduleofDebtTable" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrldt:hypercubeItem" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_FivePointSixFiveSeniorUnsecuredNotesDue2025Member" abstract="true" name="FivePointSixFiveSeniorUnsecuredNotesDue2025Member" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_ThreePointEightFiveSeniorSecuredNotesDueJune302026Member" abstract="true" name="ThreePointEightFiveSeniorSecuredNotesDueJune302026Member" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_FivePointThreeFiveSeniorUnsecuredNotesDue2028Member" abstract="true" name="FivePointThreeFiveSeniorUnsecuredNotesDue2028Member" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_OnePointSevenFiveSeniorUnsecuredNotesDue2029Member" abstract="true" name="OnePointSevenFiveSeniorUnsecuredNotesDue2029Member" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_A0875SeniorUnsecuredNotesDueFebruary132030Member" abstract="true" name="A0875SeniorUnsecuredNotesDueFebruary132030Member" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_OnePointSixFiveZeroSeniorUnsecuredNotesDue2031Member" abstract="true" name="OnePointSixFiveZeroSeniorUnsecuredNotesDue2031Member" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_FourPointFiveSeniorUnsecuredNotesDue2032Member" abstract="true" name="FourPointFiveSeniorUnsecuredNotesDue2032Member" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_FivePointFiveFiveSeniorUnsecuredNotesDue2034Member" abstract="true" name="FivePointFiveFiveSeniorUnsecuredNotesDue2034Member" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_TwoPointFiveZeroZeroSeniorUnsecuredNotesDue2040Member" abstract="true" name="TwoPointFiveZeroZeroSeniorUnsecuredNotesDue2040Member" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_ThreePointTwoFiveSeniorUnsecuredNotesDue2050Member" abstract="true" name="ThreePointTwoFiveSeniorUnsecuredNotesDue2050Member" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_ThreePointNineFiveZeroSeniorUnsecuredNotesDue2052Member" abstract="true" name="ThreePointNineFiveZeroSeniorUnsecuredNotesDue2052Member" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_FivePointNineFiveSeniorUnsecuredNotesDue2053Member" abstract="true" name="FivePointNineFiveSeniorUnsecuredNotesDue2053Member" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_SixPointOneSeniorUnsecuredNotesDue2063Member" abstract="true" name="SixPointOneSeniorUnsecuredNotesDue2063Member" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_OnePointTwoFiveBillionFiveYearRevolvingCreditFacilityMember" abstract="true" name="OnePointTwoFiveBillionFiveYearRevolvingCreditFacilityMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_ScheduleOfDebtLineItems" abstract="true" name="ScheduleOfDebtLineItems" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_ChangesInShortTermDebtObligationsAbstract" abstract="true" name="ChangesInShortTermDebtObligationsAbstract" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_PaymentsAccretionsAndOtherOfShortTermDebt" abstract="false" name="PaymentsAccretionsAndOtherOfShortTermDebt" nillable="true" xbrli:periodType="duration" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_ChangesInLongTermDebtObligationsAbstract" abstract="true" name="ChangesInLongTermDebtObligationsAbstract" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_PaymentsAccretionsAndOtherOfLongTermDebt" abstract="false" name="PaymentsAccretionsAndOtherOfLongTermDebt" nillable="true" xbrli:periodType="duration" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_ChangesInDebtObligationsAbstract" abstract="true" name="ChangesInDebtObligationsAbstract" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_PaymentsAccretionsAndOtherOfLongTermAndShortTermDebt" abstract="false" name="PaymentsAccretionsAndOtherOfLongTermAndShortTermDebt" nillable="true" xbrli:periodType="duration" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_A2026NotesMember" abstract="true" name="A2026NotesMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_A2028NotesMember" abstract="true" name="A2028NotesMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_A2034NotesMember" abstract="true" name="A2034NotesMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_USSeniorUnsecuredNotesMember" abstract="true" name="USSeniorUnsecuredNotesMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_AggregatePrincipalAmountPurchasedPlusAccruedAndUnpaidInterest" abstract="false" name="AggregatePrincipalAmountPurchasedPlusAccruedAndUnpaidInterest" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:percentItemType"/>
+  <xs:element id="ndaq_DebtInstrumentIncreaseDecreaseDueToForeignExchange" abstract="false" name="DebtInstrumentIncreaseDecreaseDueToForeignExchange" nillable="true" xbrli:periodType="duration" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_LineOfCreditFacilityOptionalIncreaseInMaximumBorrowingCapacity" abstract="false" name="LineOfCreditFacilityOptionalIncreaseInMaximumBorrowingCapacity" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_ClearinghouseCreditFacilitiesMember" abstract="true" name="ClearinghouseCreditFacilitiesMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_DefinedBenefitPlanPreTaxLossDueToSettlement" abstract="false" name="DefinedBenefitPlanPreTaxLossDueToSettlement" nillable="true" xbrli:periodType="duration" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_BelowManagerLevelMember" abstract="true" name="BelowManagerLevelMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_AtOrAboveManagerLevelMember" abstract="true" name="AtOrAboveManagerLevelMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_ThreeYearPerformanceShareUnitProgramMember" abstract="true" name="ThreeYearPerformanceShareUnitProgramMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_TwoYearPSUMember" abstract="true" name="TwoYearPSUMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_NumberOfPeerGroups" abstract="false" name="NumberOfPeerGroups" nillable="true" xbrli:periodType="instant" substitutionGroup="xbrli:item" type="xbrli:integerItemType"/>
+  <xs:element id="ndaq_PerformanceBasedLongTermIncentiveProgramWeightedPercentage" abstract="false" name="PerformanceBasedLongTermIncentiveProgramWeightedPercentage" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:percentItemType"/>
+  <xs:element id="ndaq_ShareBasedCompensationArrangementByShareBasedPaymentAwardPercentageOfSharesEarned1" abstract="false" name="ShareBasedCompensationArrangementByShareBasedPaymentAwardPercentageOfSharesEarned1" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:percentItemType"/>
+  <xs:element id="ndaq_ShareBasedCompensationArrangementByShareBasedPaymentAwardPercentageOfSharesEarned2" abstract="false" name="ShareBasedCompensationArrangementByShareBasedPaymentAwardPercentageOfSharesEarned2" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:percentItemType"/>
+  <xs:element id="ndaq_SharebasedCompensationArrangementbySharebasedPaymentAwardEquityInstrumentsOtherthanOptionsAdditionalGrantsinPeriod" abstract="false" name="SharebasedCompensationArrangementbySharebasedPaymentAwardEquityInstrumentsOtherthanOptionsAdditionalGrantsinPeriod" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:sharesItemType"/>
+  <xs:element id="ndaq_MaximumPercentageOfSharesPurchasedFromAnnualCompensation" abstract="false" name="MaximumPercentageOfSharesPurchasedFromAnnualCompensation" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:percentItemType"/>
+  <xs:element id="ndaq_RateOfDiscountGivenToEmployees" abstract="false" name="RateOfDiscountGivenToEmployees" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:percentItemType"/>
+  <xs:element id="ndaq_StockholdersEquityTable" abstract="true" name="StockholdersEquityTable" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrldt:hypercubeItem" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_OtherRepurchasesOfCommonStockMember" abstract="true" name="OtherRepurchasesOfCommonStockMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_OctoberAcceleratedShareRepurchaseAgreementProgramMember" abstract="true" name="OctoberAcceleratedShareRepurchaseAgreementProgramMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_NovemberAcceleratedShareRepurchaseAgreementProgramMember" abstract="true" name="NovemberAcceleratedShareRepurchaseAgreementProgramMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_Jan2026AcceleratedShareRepurchaseAgreementProgramMember" abstract="true" name="Jan2026AcceleratedShareRepurchaseAgreementProgramMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_StockholdersEquityLineItems" abstract="true" name="StockholdersEquityLineItems" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_StockholdersEquityNumberOfVotes" abstract="false" name="StockholdersEquityNumberOfVotes" nillable="true" xbrli:periodType="instant" substitutionGroup="xbrli:item" type="xbrli:integerItemType"/>
+  <xs:element id="ndaq_CommonStockHolderVotingRights" abstract="false" name="CommonStockHolderVotingRights" nillable="true" xbrli:periodType="instant" substitutionGroup="xbrli:item" type="dtr-types:percentItemType"/>
+  <xs:element id="ndaq_RefundForInitialPaymentOfRepurchaseOfCommonStock" abstract="false" name="RefundForInitialPaymentOfRepurchaseOfCommonStock" nillable="true" xbrli:periodType="duration" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_NumeratorAbstract" abstract="true" name="NumeratorAbstract" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_DenominatorAbstract" abstract="true" name="DenominatorAbstract" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_EuropeanGovernmentDebtSecuritiesMember" abstract="true" name="EuropeanGovernmentDebtSecuritiesMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_SwedishMortgageBondsMember" abstract="true" name="SwedishMortgageBondsMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_ClearingOperationsTable" abstract="true" name="ClearingOperationsTable" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrldt:hypercubeItem" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_NordicClearingMembersCashContributionsMember" abstract="true" name="NordicClearingMembersCashContributionsMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_NordicClearingMembersNonCashContributionsMember" abstract="true" name="NordicClearingMembersNonCashContributionsMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_ClearingOperationsLineItems" abstract="true" name="ClearingOperationsLineItems" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_DefaultFundContributions" abstract="false" name="DefaultFundContributions" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_MarginDeposits" abstract="false" name="MarginDeposits" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_DefaultFundContributionsAndMarginDeposits" abstract="false" name="DefaultFundContributionsAndMarginDeposits" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_NasdaqClearingOperationsMember" abstract="true" name="NasdaqClearingOperationsMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_DefaultfundcontributioncapitalresourcesavailableMember" abstract="true" name="DefaultfundcontributioncapitalresourcesavailableMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_DefaultfundcontributionmemberpostedsurplusbalanceMember" abstract="true" name="DefaultfundcontributionmemberpostedsurplusbalanceMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_RestrictedCashAndCashEquivalentsMember" abstract="true" name="RestrictedCashAndCashEquivalentsMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_LiabilityWaterfallMember" abstract="true" name="LiabilityWaterfallMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_ReversePurchaseAgreementsMaturityDateRange" abstract="false" name="ReversePurchaseAgreementsMaturityDateRange" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:durationItemType"/>
+  <xs:element id="ndaq_PaymentForDefaultFundsAndMarginDeposits" abstract="false" name="PaymentForDefaultFundsAndMarginDeposits" nillable="true" xbrli:periodType="duration" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_ProceedsFromDefaultFundsAndMarginDeposits" abstract="false" name="ProceedsFromDefaultFundsAndMarginDeposits" nillable="true" xbrli:periodType="duration" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_LiabilityDueToMarketDefault" abstract="false" name="LiabilityDueToMarketDefault" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_ContributionToFinancialMarkets" abstract="false" name="ContributionToFinancialMarkets" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:percentItemType"/>
+  <xs:element id="ndaq_JuniorCapitalCashDepositsAndPledgedAssets" abstract="false" name="JuniorCapitalCashDepositsAndPledgedAssets" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_SeniorCapitalCashDepositsAndPledgedAssets" abstract="false" name="SeniorCapitalCashDepositsAndPledgedAssets" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_CommittedCapital" abstract="false" name="CommittedCapital" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_ContractValueOfResaleAndRepurchaseAgreements" abstract="false" name="ContractValueOfResaleAndRepurchaseAgreements" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_TotalNumberOfDerivativeContractsCleared" abstract="false" name="TotalNumberOfDerivativeContractsCleared" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:integerItemType"/>
+  <xs:element id="ndaq_CentralBankCertificatesMember" abstract="true" name="CentralBankCertificatesMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_MultilateralDevelopmentBanksMember" abstract="true" name="MultilateralDevelopmentBanksMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_CommodityForwardsAndOptionsMember" abstract="true" name="CommodityForwardsAndOptionsMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_FixedIncomeOptionsAndFuturesMember" abstract="true" name="FixedIncomeOptionsAndFuturesMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_StockOptionsAndFuturesMember" abstract="true" name="StockOptionsAndFuturesMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_IndexOptionsAndFuturesMember" abstract="true" name="IndexOptionsAndFuturesMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_DerivativeContractsMarketValue" abstract="false" name="DerivativeContractsMarketValue" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_TotalVolumeInClearedPower" abstract="false" name="TotalVolumeInClearedPower" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:energyItemType"/>
+  <xs:element id="ndaq_EffectiveIncomeTaxRateReconciliationIntraGroupTransferOfIPPercent" abstract="false" name="EffectiveIncomeTaxRateReconciliationIntraGroupTransferOfIPPercent" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:pureItemType"/>
+  <xs:element id="ndaq_DeferredTaxAssetsCapitalizedResearchAndDevelopmentCosts" abstract="false" name="DeferredTaxAssetsCapitalizedResearchAndDevelopmentCosts" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_DeferredTaxAssetsInterestExpense" abstract="false" name="DeferredTaxAssetsInterestExpense" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_DeferredTaxAssetsFederalBenefitOfUncertainTaxPositions" abstract="false" name="DeferredTaxAssetsFederalBenefitOfUncertainTaxPositions" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_DeferredTaxAssetsOperatingLeaseLiabilities" abstract="false" name="DeferredTaxAssetsOperatingLeaseLiabilities" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_DeferredTaxLiabilitiesDepreciation" abstract="false" name="DeferredTaxLiabilitiesDepreciation" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_DeferredTaxLiabilitiesOperatingLeaseAssets" abstract="false" name="DeferredTaxLiabilitiesOperatingLeaseAssets" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_DeferredTaxLiabilitiesCapitalizedResearchAndDevelopmentCosts" abstract="false" name="DeferredTaxLiabilitiesCapitalizedResearchAndDevelopmentCosts" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_CommitmentsAndContingenciesDisclosureTable" abstract="true" name="CommitmentsAndContingenciesDisclosureTable" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrldt:hypercubeItem" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_CommercialPaperAndLetterOfCreditMember" abstract="true" name="CommercialPaperAndLetterOfCreditMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_CommitmentsAndContingenciesDisclosureLineItems" abstract="true" name="CommitmentsAndContingenciesDisclosureLineItems" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="xbrli:stringItemType"/>
+  <xs:element id="ndaq_FinancialGuaranteesObtainedToProvideFurtherLiquidityAndDefaultProtectionRelatedToClearingBusinesses" abstract="false" name="FinancialGuaranteesObtainedToProvideFurtherLiquidityAndDefaultProtectionRelatedToClearingBusinesses" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_CreditFacilityAvailableLiquidity" abstract="false" name="CreditFacilityAvailableLiquidity" nillable="true" xbrli:periodType="instant" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_FinancialTechnologyIncludingPPAMember" abstract="true" name="FinancialTechnologyIncludingPPAMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_RevenueFromDivestedBusinesses" abstract="false" name="RevenueFromDivestedBusinesses" nillable="true" xbrli:periodType="duration" xbrli:balance="credit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_LegalAndRegulatoryMatters" abstract="false" name="LegalAndRegulatoryMatters" nillable="true" xbrli:periodType="duration" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_AdenzaRestructuringPlanMember" abstract="true" name="AdenzaRestructuringPlanMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_RestructuringBenefitsAchievedExpectedNetExpenseSynergies" abstract="false" name="RestructuringBenefitsAchievedExpectedNetExpenseSynergies" nillable="true" xbrli:periodType="instant" xbrli:balance="debit" substitutionGroup="xbrli:item" type="xbrli:monetaryItemType"/>
+  <xs:element id="ndaq_AssetImpairmentMember" abstract="true" name="AssetImpairmentMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_ConsultingServicesMember" abstract="true" name="ConsultingServicesMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+  <xs:element id="ndaq_DivisionalRealignmentMember" abstract="true" name="DivisionalRealignmentMember" nillable="true" xbrli:periodType="duration" substitutionGroup="xbrli:item" type="dtr-types:domainItemType"/>
+</xs:schema>

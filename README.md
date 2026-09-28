@@ -284,7 +284,8 @@ then pattern-matching over the converted text for section boundaries and table-a
 ```
 RagFilingExplorer.Local/                the app - chunking, retrieval, vector store, interactive loop
 RagFilingExplorer.Local.Tests/          NUnit + Moq test suite
-data/                                   source 10-K filings (HTML, from sec.gov/edgar)
+data/                                   source 10-K filings (HTML, from sec.gov/edgar), plus each filing's XBRL
+                                        taxonomy (.xsd, and _pre/_lab/_cal/_def.xml where not embedded) for v2
 chunk-review/<strategy>/                full per-chunk text dumps, one file per filing, for manual review
 tools/                                  manual-question list; replay_recall.py (deterministic retrieval ranks);
                                         LinearizeSpike + xbrl_column_check.py (table linearization + its XBRL check)
