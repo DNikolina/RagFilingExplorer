@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 251 offline unit tests (on the v2 branch; 176 at v1.0) |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 266 offline unit tests (on the v2 branch; 176 at v1.0) |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -84,13 +84,16 @@ inline XBRL (Decision-Log.md, "XBRL hybrid (v2)") - on a branch, each step measu
 starting with step 0: a held-out question set, an automatic answer grader and v1's baseline results. Storage
 stays SQLite (PostgreSQL considered and declined); the no-regression bar is the strict 22/24 reliable.**
 
-**v2 status (end of 2026-09-28, branch `v2`):** a third strategy, `Structured`, built step by step - 0 done
+**v2 status (2026-09-29, branch `v2`):** a third strategy, `Structured`, built step by step - 0 done
 (held-out H1-H15, `tools/grade_answers.py`, `eval/baseline-v1/`), 1a done (DOM parse, no markitdown), two 1c
 table fixes done early, 1b-i done (XBRL reader + taxonomy reader, matching EDGAR's extraction fact for fact on
 all four filings), 1b-ii done and measured (filing-profile chunk: main 22/24, held-out 11/15 - see
-`eval/structured-1b-ii/`). **Next: 1b-iii, structure labels** - statement type from the filer's Statement roles
-(a small title rule, cross-checked against the role's concepts), note topic from the Disclosure roles through
-the continuation chains, period labels from the contexts; measured against `eval/structured-1b-ii/`. Then
+`eval/structured-1b-ii/`). **Block model done (2026-09-29):** v2 ingestion has its own objects (`Structured/`:
+blocks -> sections -> chunks that know their blocks) instead of text parsed back; v1's heading and packing rules
+shared; all 948 chunks reproduced byte for byte. **Next: 1b-iii, structure labels** - statement type from the
+filer's Statement roles (a small title rule, cross-checked against the role's concepts; each role to its
+best-covering table), note topic from the Disclosure roles through the continuation chains, period labels from the
+contexts; measured against `eval/structured-1b-ii/`. Then
 registration from the cover facts (its own step), 1c's remaining table work, 1d. Still open: the second-model run
 (step 0), the `Console.OutputEncoding` fix. Details: Decision-Log.md, "XBRL hybrid (v2)".
 

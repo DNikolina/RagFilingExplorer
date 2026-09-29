@@ -10,6 +10,13 @@ namespace RagFilingExplorer.Local.Chunking;
 /// maxTokens on its own, it's split further - for tables, by repeating the header + separator row
 /// on every split piece, so a chunk with a number always keeps the column/fiscal-year labels next to it.
 /// </summary>
+/// <summary>One block for <see cref="TokenChunker.Pack"/>: a paragraph or Markdown table (<see cref="Rows"/> null), or a
+/// row block, whose <see cref="Text"/> is <see cref="RowBlock.Text"/>.</summary>
+internal sealed record ChunkerBlock(string Text, RowBlock? Rows);
+
+/// <summary>A packed chunk, and the indexes of the <see cref="ChunkerBlock"/>s it holds.</summary>
+internal sealed record PackedChunk(string Content, int Tokens, IReadOnlyList<int> Blocks);
+
 internal static class TokenChunker
 {
     // Short text at most this long is attached to a neighbouring chunk instead of becoming a near-empty
@@ -25,22 +32,36 @@ internal static class TokenChunker
     private static readonly Regex PeriodEndedRegex = new(@"\b(years?|months|weeks|quarters?)\s+ended\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private static readonly Regex BareYearCellRegex = new(@"^(fiscal\s+)?(19|20)\d{2}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-    public static List<(string Content, int Tokens)> Chunk(string body, Tokenizer tokenizer, int maxTokens, int overlapTokens)
+    public static List<(string Content, int Tokens)> Chunk(string body, Tokenizer tokenizer, int maxTokens, int overlapTokens) =>
+        Pack(SplitIntoBlocks(body).Select(b => RowBlock.TryParse(b) is { } rows ? new ChunkerBlock(rows.Text, rows) : new ChunkerBlock(b, null)).ToList(),
+                tokenizer, maxTokens, overlapTokens)
+            .Select(c => (c.Content, c.Tokens))
+            .ToList();
+
+    /// <summary>
+    /// A section's text split into the blocks <see cref="Pack"/> takes: paragraphs (a run of lines between blank
+    /// lines) and Markdown tables; content-free tables dropped. For the Structured strategy's text blocks.
+    /// </summary>
+    public static List<string> SplitText(string text) => SplitIntoBlocks(text);
+
+    /// <summary>
+    /// The packing rules on blocks the caller has already typed - <see cref="Chunk"/> parses them out of text;
+    /// the Structured strategy builds them from the DOM. Each chunk lists the indexes of the blocks it holds
+    /// (a block carried as overlap is in two chunks; a split block in each of its pieces).
+    /// </summary>
+    public static List<PackedChunk> Pack(IReadOnlyList<ChunkerBlock> blocks, Tokenizer tokenizer, int maxTokens, int overlapTokens)
     {
-        List<string> blocks = SplitIntoBlocks(body);
-        List<(string Content, int Tokens)> chunks = new();
-        List<string> current = new();
+        List<PackedChunk> chunks = new();
+        List<(string Text, bool TableLike, int Index)> current = new();
         int currentTokens = 0;
 
         // True while the most recent chunk is the last piece of an oversized table, with nothing flushed
         // since - the only case where a trailing remainder is merged back (see the end of this method).
         bool lastChunkIsOversizedTablePiece = false;
 
-        // Linearized tables (RowBlock, Linearized strategy only) are table-like everywhere a Markdown table
-        // is: never carried as overlap, never counted as a lead-in. The Markdown strategy has none, so for
-        // it IsTableLike is exactly IsTableBlock.
-        HashSet<string> rowBlockTexts = new();
-        bool IsTableLike(string b) => IsTableBlock(b) || rowBlockTexts.Contains(b);
+        // Linearized tables (RowBlock) are table-like everywhere a Markdown table is: never carried as overlap,
+        // never counted as a lead-in. The Markdown strategy has none, so for it this is exactly IsTableBlock.
+        bool IsTableLike((string Text, bool TableLike, int Index) b) => b.TableLike;
 
         void FlushCurrent()
         {
@@ -49,15 +70,15 @@ internal static class TokenChunker
                 return;
             }
 
-            string content = string.Join("\n\n", current);
-            chunks.Add((content, tokenizer.CountTokens(content)));
+            string content = string.Join("\n\n", current.Select(b => b.Text));
+            chunks.Add(new PackedChunk(content, tokenizer.CountTokens(content), current.Select(b => b.Index).ToList()));
             lastChunkIsOversizedTablePiece = false;
         }
 
-        foreach (string rawBlock in blocks)
+        for (int index = 0; index < blocks.Count; index++)
         {
-            RowBlock? rowBlock = RowBlock.TryParse(rawBlock);
-            string block = rowBlock?.Text ?? rawBlock;
+            RowBlock? rowBlock = blocks[index].Rows;
+            string block = blocks[index].Text;
             bool isTable = rowBlock is not null || IsTableBlock(block);
             int blockTokens = tokenizer.CountTokens(block);
             bool shortLeadIn = current.Count > 0 && currentTokens <= MaxAttachedTextTokens && !current.Any(IsTableLike);
@@ -74,9 +95,11 @@ internal static class TokenChunker
                 // the MSFT, NDAQ and ORCL equity questions, confirmed with --verbose - wasting a context
                 // slot on no data. It now becomes the first table piece's caption instead.
                 string? caption = null;
+                List<int> pieceBlocks = [index];
                 if (isTable && shortLeadIn)
                 {
-                    caption = string.Join("\n\n", current);
+                    caption = string.Join("\n\n", current.Select(b => b.Text));
+                    pieceBlocks.InsertRange(0, current.Select(b => b.Index));
                 }
                 else
                 {
@@ -86,15 +109,17 @@ internal static class TokenChunker
                 current.Clear();
                 currentTokens = 0;
 
-                IEnumerable<string> pieces = rowBlock is not null
+                List<string> pieces = (rowBlock is not null
                     ? SplitRowBlock(rowBlock, tokenizer, maxTokens, caption)
                     : isTable
                         ? SplitOversizedTable(block.Split('\n').ToList(), tokenizer, maxTokens, caption)
-                        : SplitOversizedText(block, tokenizer, maxTokens);
+                        : SplitOversizedText(block, tokenizer, maxTokens)).ToList();
 
-                foreach (string piece in pieces)
+                for (int p = 0; p < pieces.Count; p++)
                 {
-                    chunks.Add((piece, tokenizer.CountTokens(piece)));
+                    // The caption rides on the first piece only (SplitRowBlock repeats it, SplitOversizedTable doesn't).
+                    bool hasCaption = caption is not null && (p == 0 || rowBlock is not null);
+                    chunks.Add(new PackedChunk(pieces[p], tokenizer.CountTokens(pieces[p]), hasCaption ? pieceBlocks : [index]));
                 }
 
                 lastChunkIsOversizedTablePiece = isTable;
@@ -107,14 +132,13 @@ internal static class TokenChunker
 
                 // Light overlap: carry the previous chunk's last block forward, unless it's a table
                 // (never duplicate a whole table) or too big to count as "overlap".
-                string lastBlock = current[^1];
-                bool lastIsTable = IsTableLike(lastBlock);
+                (string Text, bool TableLike, int Index) lastBlock = current[^1];
                 current.Clear();
                 currentTokens = 0;
 
-                if (!lastIsTable)
+                if (!IsTableLike(lastBlock))
                 {
-                    int lastTokens = tokenizer.CountTokens(lastBlock);
+                    int lastTokens = tokenizer.CountTokens(lastBlock.Text);
                     if (lastTokens <= overlapTokens)
                     {
                         current.Add(lastBlock);
@@ -123,12 +147,8 @@ internal static class TokenChunker
                 }
             }
 
-            current.Add(block);
+            current.Add((block, isTable, index));
             currentTokens += blockTokens;
-            if (rowBlock is not null)
-            {
-                rowBlockTexts.Add(block);
-            }
         }
 
         // A short trailing remainder right after an oversized table's last piece - a statement's "See
@@ -137,12 +157,12 @@ internal static class TokenChunker
         // questions, confirmed with --verbose), wasting a context slot on no data. It's appended to that
         // last table piece instead, where it belongs. Deliberately limited to this case: the short final
         // paragraph of an ordinary narrative section is left alone.
-        string remainderText = string.Join("\n\n", current);
+        string remainderText = string.Join("\n\n", current.Select(b => b.Text));
         if (lastChunkIsOversizedTablePiece && current.Count > 0 && !current.Any(IsTableLike)
             && tokenizer.CountTokens(remainderText) <= MaxAttachedTextTokens)
         {
             string merged = chunks[^1].Content + "\n\n" + remainderText;
-            chunks[^1] = (merged, tokenizer.CountTokens(merged));
+            chunks[^1] = new PackedChunk(merged, tokenizer.CountTokens(merged), [.. chunks[^1].Blocks, .. current.Select(b => b.Index)]);
         }
         else
         {

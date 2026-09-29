@@ -324,4 +324,30 @@ public class TokenChunkerTests
         Assert.That(chunks[0].Content, Is.EqualTo(paragraph));
         Assert.That(chunks[1].Content, Does.StartWith("| Item |"));
     }
+
+    // Pack is what the Structured strategy calls with its own blocks: every chunk says which blocks it holds, so
+    // labels read from a table (step 1b-iii) reach every piece of it, caption and footer included.
+    [Test]
+    public void Pack_SplitRowBlockWithCaptionAndFooter_EveryPieceListsTheBlocksItHolds()
+    {
+        RowBlock rows = new("(In millions)", Enumerable.Range(1, 40).Select(i => $"Line item {i} — 2026: {i},000").ToList());
+        List<ChunkerBlock> blocks = [new("BALANCE SHEETS", null), new(rows.Text, rows), new("See accompanying notes.", null)];
+
+        List<PackedChunk> chunks = TokenChunker.Pack(blocks, _tokenizer, maxTokens: 150, overlapTokens: 0);
+
+        Assert.That(chunks, Has.Count.GreaterThan(2));
+        Assert.That(chunks.Take(chunks.Count - 1).Select(c => c.Blocks), Is.All.EqualTo(new[] { 0, 1 }));
+        Assert.That(chunks[^1].Blocks, Is.EqualTo(new[] { 0, 1, 2 }), "the footer is merged into the last piece");
+    }
+
+    [Test]
+    public void Chunk_SameTextAsPack_ForParsedBlocks()
+    {
+        string body = string.Join("\n\n", "Intro paragraph.", BigTable(60), "Closing paragraph.");
+
+        List<(string Content, int Tokens)> viaText = TokenChunker.Chunk(body, _tokenizer, maxTokens: 400, overlapTokens: 50);
+        List<PackedChunk> viaBlocks = TokenChunker.Pack(TokenChunker.SplitText(body).Select(b => new ChunkerBlock(b, null)).ToList(), _tokenizer, 400, 50);
+
+        Assert.That(viaBlocks.Select(c => (c.Content, c.Tokens)), Is.EqualTo(viaText));
+    }
 }

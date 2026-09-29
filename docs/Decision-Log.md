@@ -1799,6 +1799,33 @@ filing, text visible on the page), the company taxonomy behind `link:schemaRef` 
 HTML - member names are readable split, "Intelligent Cloud"), official us-gaap labels (a separate FASB download),
 `xml:lang`/`order`, and the HTML `id`s and `href="#..."` anchors (filer conventions the project doesn't rely on).
 
+**Block model (2026-09-29, before 1b-iii; the interface decision plan-review point 4 left to 1a, never recorded
+there).** Starting 1b-iii, the labels turned out to be known exactly on the DOM (this table is the balance sheet,
+this element sits in the Income Taxes note) but the Structured pipeline threw that away: page -> one string ->
+`SectionSplitter` (patterns over lines) -> `TokenChunker` (blocks re-parsed from text) -> `FilingChunk` of four
+strings. The linearizer already built rows with each value's XBRL context and concept; `ToRowBlock` flattened them
+into a `<pre>` that was written into the text and parsed back by `RowBlock.TryParse`. Every label would have
+needed another marker line (`#statement`, `#topic`) and another parser, and 1c-1d and step 4 need more per chunk
+still (one table per chunk, two texts, facts). `EmbeddingTextBuilder`'s row-label summary was already a no-op for
+Structured and Linearized - it looks for lines starting with `|`. **Decision (user): v2 ingestion gets its own
+objects**; retrieval, the index, the grader and replay stay shared - that is what makes v2 comparable to v1.
+- `Structured/`: `FilingBlockReader` (the page -> `TextBlock` / `TableBlock` in reading order; replaces
+  `HtmlTextConverter` - a table is a block holding its `RowBlock`, its `LinearizedTable` and its element, never
+  text), `StructuredSections` (blocks -> sections), `StructuredChunker` (sections -> `StructuredChunk`s, each
+  listing the blocks it was built from), `StructuredFiling` (plus the XBRL).
+- The rules stay v1's, shared rather than copied: `SectionSplitter.HeadingTracker` (the heading rules one line at a
+  time) and `TokenChunker.Pack` (the packing rules on typed blocks, reporting block indexes; `Chunk` parses text
+  and calls it). Structured has no pipe tables since 1c's first change, so the Markdown-table half of the chunker
+  is v1's only.
+- **Verified by reproduction, no question run:** all 948 Structured chunks regenerate byte-identical to the
+  committed `chunk-review/structured/`, and Markdown (1,444) and Linearized (999) are unchanged by the shared
+  refactor. The comparison caught one porting bug: the step-1a regex `[^\S ]` held a literal U+00A0 (it reads as a
+  space) and lost it in the copy, so runs of ordinary spaces survived (ORCL's cover page, "Act.    Yes  ☒") and
+  five extra chunks appeared; now written `[^\S ]`. A `<pre>` is a plain paragraph now (no filing has one),
+  a table with text that yields no rows throws, and a pipe table can no longer be produced.
+266 tests (251): the converter tests moved to the reader; new ones for sections, block membership, `Pack` and a
+real-filing check that every chunk knows its blocks and every table is chunked. Next: 1b-iii's labels as fields.
+
 Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
 Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation
 memory (follow-up questions), query decomposition beyond per-company search, an API or UI. Automated onboarding

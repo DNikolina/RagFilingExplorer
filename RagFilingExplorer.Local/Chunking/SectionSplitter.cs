@@ -60,11 +60,8 @@ internal static partial class SectionSplitter
     public static List<DocumentSection> Split(string markdown)
     {
         string[] lines = markdown.Replace("\r\n", "\n").Split('\n');
-        HashSet<string> seenParts = new();
         List<DocumentSection> sections = new();
-
-        string currentPart = string.Empty;
-        string currentItem = string.Empty;
+        HeadingTracker headings = new();
         StringBuilder currentBody = new();
         bool inFence = false;
 
@@ -72,13 +69,10 @@ internal static partial class SectionSplitter
         {
             string body = currentBody.ToString().Trim();
             currentBody.Clear();
-            if (body.Length == 0)
+            if (body.Length > 0)
             {
-                return;
+                sections.Add(new DocumentSection(headings.Heading, body));
             }
-
-            string heading = string.Join(" > ", new[] { currentPart, currentItem }.Where(s => s.Length > 0));
-            sections.Add(new DocumentSection(heading.Length > 0 ? heading : "(no heading)", body));
         }
 
         for (int i = 0; i < lines.Length; i++)
@@ -97,18 +91,53 @@ internal static partial class SectionSplitter
                 continue;
             }
 
-            if (inFence)
+            if (inFence || headings.Read(lines[i], FlushSection))
             {
                 currentBody.Append(lines[i]).Append('\n');
-                continue;
             }
+        }
+
+        FlushSection();
+        return sections;
+    }
+
+    /// <summary>
+    /// The heading rules, one line at a time: which lines are Part/Item/back-matter headings (they change the
+    /// heading and are dropped), which are page noise (dropped), which start a new section under the same heading
+    /// (statement titles, kept), and which are body. Shared by <see cref="Split"/> (text) and the Structured
+    /// strategy (blocks - see Structured.StructuredSections), so both apply the same rules.
+    /// </summary>
+    internal sealed class HeadingTracker
+    {
+        private readonly HashSet<string> seenParts = new();
+        private string currentPart = string.Empty;
+        private string currentItem = string.Empty;
+
+        /// <summary>"PART I &gt; Item 1. Business", or "(no heading)" before the first Part or Item.</summary>
+        public string Heading
+        {
+            get
+            {
+                string heading = string.Join(" > ", new[] { currentPart, currentItem }.Where(s => s.Length > 0));
+                return heading.Length > 0 ? heading : "(no heading)";
+            }
+        }
+
+        /// <summary>
+        /// Reads one line; true if it's body text to keep. <paramref name="startSection"/> is called before the
+        /// heading changes (and before a statement title), while <see cref="Heading"/> still names the section
+        /// that is ending.
+        /// </summary>
+        public bool Read(string rawLine, Action startSection)
+        {
+            string line = rawLine.Trim();
 
             // Lone page numbers and thematic-break markers ("---") are pagination artifacts with no
             // content value - if left in, they end up as their own noise-only chunk when a page break
             // happens to land between two real paragraphs.
             if (PageNumberRegex().IsMatch(line) || line == "---" || DecorativeRuleRegex().IsMatch(line))
             {
-                continue;
+                return false;
             }
 
             Match partMatch = PartHeaderRegex().Match(line);
@@ -117,12 +146,12 @@ internal static partial class SectionSplitter
                 string numeral = partMatch.Groups[1].Value.ToUpperInvariant();
                 if (seenParts.Add(numeral))
                 {
-                    FlushSection();
+                    startSection();
                     currentPart = $"PART {numeral}";
                     currentItem = string.Empty;
                 }
 
-                continue;
+                return false;
             }
 
             // A statement title (or the Notes boundary) starts a new section under the same heading, so
@@ -133,17 +162,16 @@ internal static partial class SectionSplitter
             // title, never a table-of-contents entry, so this adds no tiny stray sections.
             if (StatementTypeDetector.IsStatementTypeBoundary(line))
             {
-                FlushSection();
-                currentBody.Append(lines[i]).Append('\n');
-                continue;
+                startSection();
+                return true;
             }
 
             Match itemMatch = TitledItemHeaderRegex().Match(line);
             if (itemMatch.Success)
             {
-                FlushSection();
+                startSection();
                 currentItem = $"Item {itemMatch.Groups[1].Value}. {itemMatch.Groups[2].Value}";
-                continue;
+                return false;
             }
 
             // Only once Part IV has started: that's where the form puts back matter, and an "Index to
@@ -151,22 +179,14 @@ internal static partial class SectionSplitter
             Match backMatterMatch = currentPart == "PART IV" ? BackMatterRegex().Match(line) : Match.Empty;
             if (backMatterMatch.Success)
             {
-                FlushSection();
+                startSection();
                 currentItem = backMatterMatch.Groups["fs"].Success ? "Financial Statements"
                     : backMatterMatch.Groups["sig"].Success ? "Signatures"
                     : "Exhibit Index";
-                continue;
+                return false;
             }
 
-            if (BareItemNoiseRegex().IsMatch(line))
-            {
-                continue;
-            }
-
-            currentBody.Append(lines[i]).Append('\n');
+            return !BareItemNoiseRegex().IsMatch(line);
         }
-
-        FlushSection();
-        return sections;
     }
 }
