@@ -1352,43 +1352,43 @@ See accompanying notes to consolidated financial statements.
 
 NETFLIX, INC.
 
---- Chunk 117/199 | heading: PART IV > Financial Statements | tokens: 497 ---
+--- Chunk 117/199 | heading: PART IV > Financial Statements | tokens: 487 ---
 CONSOLIDATED STATEMENTS OF STOCKHOLDERS’ EQUITY
 
 (in thousands, except share data)
 
 Balances as of December 31, 2022 — Common Stock and Additional Paid-in Capital Shares: 4,453,467,760 | Common Stock and Additional Paid-in Capital Amount: $4,637,601 | Treasury Stock: $(824,190) | Accumulated Other Comprehensive Income (Loss): $(217,306) | Retained Earnings: $17,181,296 | Total Stockholders’ Equity: $20,777,401
-Net income — Retained Earnings: 5,407,990 | Total Stockholders’ Equity: 5,407,990
-Other comprehensive loss — Accumulated Other Comprehensive Income (Loss): (6,639) | Total Stockholders’ Equity: (6,639)
-Issuance of common stock — Common Stock and Additional Paid-in Capital Shares: 19,265,980 | Common Stock and Additional Paid-in Capital Amount: 168,203 | Total Stockholders’ Equity: 168,203
-Repurchases of common stock — Common Stock and Additional Paid-in Capital Shares: (145,137,900) | Treasury Stock: (6,098,010) | Total Stockholders’ Equity: (6,098,010)
-Stock-based compensation expense — Common Stock and Additional Paid-in Capital Amount: 339,368 | Total Stockholders’ Equity: 339,368
+Net income (year ended December 31, 2023) — Retained Earnings: 5,407,990 | Total Stockholders’ Equity: 5,407,990
+Other comprehensive loss (year ended December 31, 2023) — Accumulated Other Comprehensive Income (Loss): (6,639) | Total Stockholders’ Equity: (6,639)
+Issuance of common stock (year ended December 31, 2023) — Common Stock and Additional Paid-in Capital Shares: 19,265,980 | Common Stock and Additional Paid-in Capital Amount: 168,203 | Total Stockholders’ Equity: 168,203
+Repurchases of common stock (year ended December 31, 2023) — Common Stock and Additional Paid-in Capital Shares: (145,137,900) | Treasury Stock: (6,098,010) | Total Stockholders’ Equity: (6,098,010)
+Stock-based compensation expense (year ended December 31, 2023) — Common Stock and Additional Paid-in Capital Amount: 339,368 | Total Stockholders’ Equity: 339,368
 Balances as of December 31, 2023 — Common Stock and Additional Paid-in Capital Shares: 4,327,595,840 | Common Stock and Additional Paid-in Capital Amount: $5,145,172 | Treasury Stock: $(6,922,200) | Accumulated Other Comprehensive Income (Loss): $(223,945) | Retained Earnings: $22,589,286 | Total Stockholders’ Equity: $20,588,313
-Net income — Retained Earnings: 8,711,631 | Total Stockholders’ Equity: 8,711,631
-Other comprehensive income — Accumulated Other Comprehensive Income (Loss): 586,107 | Total Stockholders’ Equity: 586,107
-Issuance of common stock — Common Stock and Additional Paid-in Capital Shares: 48,727,080 | Common Stock and Additional Paid-in Capital Amount: 834,366 | Total Stockholders’ Equity: 834,366
+Net income (year ended December 31, 2024) — Retained Earnings: 8,711,631 | Total Stockholders’ Equity: 8,711,631
 
---- Chunk 118/199 | heading: PART IV > Financial Statements | tokens: 467 ---
+--- Chunk 118/199 | heading: PART IV > Financial Statements | tokens: 450 ---
 CONSOLIDATED STATEMENTS OF STOCKHOLDERS’ EQUITY
 
 (in thousands, except share data)
 
-Repurchases of common stock — Common Stock and Additional Paid-in Capital Shares: (98,619,350) | Treasury Stock: (6,241,153) | Total Stockholders’ Equity: (6,241,153)
-Shares withheld related to net share settlement of equity awards — Common Stock and Additional Paid-in Capital Shares: (132,570) | Treasury Stock: (8,285) | Total Stockholders’ Equity: (8,285)
-Stock-based compensation expense — Common Stock and Additional Paid-in Capital Amount: 272,588 | Total Stockholders’ Equity: 272,588
+Other comprehensive income (year ended December 31, 2024) — Accumulated Other Comprehensive Income (Loss): 586,107 | Total Stockholders’ Equity: 586,107
+Issuance of common stock (year ended December 31, 2024) — Common Stock and Additional Paid-in Capital Shares: 48,727,080 | Common Stock and Additional Paid-in Capital Amount: 834,366 | Total Stockholders’ Equity: 834,366
+Repurchases of common stock (year ended December 31, 2024) — Common Stock and Additional Paid-in Capital Shares: (98,619,350) | Treasury Stock: (6,241,153) | Total Stockholders’ Equity: (6,241,153)
+Shares withheld related to net share settlement of equity awards (year ended December 31, 2024) — Common Stock and Additional Paid-in Capital Shares: (132,570) | Treasury Stock: (8,285) | Total Stockholders’ Equity: (8,285)
+Stock-based compensation expense (year ended December 31, 2024) — Common Stock and Additional Paid-in Capital Amount: 272,588 | Total Stockholders’ Equity: 272,588
 Balances as of December 31, 2024 — Common Stock and Additional Paid-in Capital Shares: 4,277,571,000 | Common Stock and Additional Paid-in Capital Amount: $6,252,126 | Treasury Stock: $(13,171,638) | Accumulated Other Comprehensive Income (Loss): $362,162 | Retained Earnings: $31,300,917 | Total Stockholders’ Equity: $24,743,567
-Net income — Retained Earnings: 10,981,201 | Total Stockholders’ Equity: 10,981,201
-Other comprehensive loss — Accumulated Other Comprehensive Income (Loss): (942,544) | Total Stockholders’ Equity: (942,544)
-Issuance of common stock — Common Stock and Additional Paid-in Capital Shares: 31,597,695 | Common Stock and Additional Paid-in Capital Amount: 665,835 | Total Stockholders’ Equity: 665,835
-Repurchases of common stock — Common Stock and Additional Paid-in Capital Shares: (86,536,215) | Treasury Stock: (9,154,855) | Total Stockholders’ Equity: (9,154,855)
-Shares withheld related to net share settlement of equity awards — Common Stock and Additional Paid-in Capital Shares: (470,330) | Treasury Stock: (46,165) | Total Stockholders’ Equity: (46,165)
-Stock-based compensation expense — Common Stock and Additional Paid-in Capital Amount: 368,449 | Total Stockholders’ Equity: 368,449
+Net income (year ended December 31, 2025) — Retained Earnings: 10,981,201 | Total Stockholders’ Equity: 10,981,201
+Other comprehensive loss (year ended December 31, 2025) — Accumulated Other Comprehensive Income (Loss): (942,544) | Total Stockholders’ Equity: (942,544)
 
---- Chunk 119/199 | heading: PART IV > Financial Statements | tokens: 191 ---
+--- Chunk 119/199 | heading: PART IV > Financial Statements | tokens: 406 ---
 CONSOLIDATED STATEMENTS OF STOCKHOLDERS’ EQUITY
 
 (in thousands, except share data)
 
+Issuance of common stock (year ended December 31, 2025) — Common Stock and Additional Paid-in Capital Shares: 31,597,695 | Common Stock and Additional Paid-in Capital Amount: 665,835 | Total Stockholders’ Equity: 665,835
+Repurchases of common stock (year ended December 31, 2025) — Common Stock and Additional Paid-in Capital Shares: (86,536,215) | Treasury Stock: (9,154,855) | Total Stockholders’ Equity: (9,154,855)
+Shares withheld related to net share settlement of equity awards (year ended December 31, 2025) — Common Stock and Additional Paid-in Capital Shares: (470,330) | Treasury Stock: (46,165) | Total Stockholders’ Equity: (46,165)
+Stock-based compensation expense (year ended December 31, 2025) — Common Stock and Additional Paid-in Capital Amount: 368,449 | Total Stockholders’ Equity: 368,449
 Balances as of December 31, 2025 — Common Stock and Additional Paid-in Capital Shares: 4,222,162,150 | Common Stock and Additional Paid-in Capital Amount: $7,286,410 | Treasury Stock: $(22,372,658) | Accumulated Other Comprehensive Income (Loss): $(580,382) | Retained Earnings: $42,282,118 | Total Stockholders’ Equity: $26,615,488
 
 See accompanying notes to consolidated financial statements.
@@ -2029,22 +2029,22 @@ Stock Option Activity
 
 The following table summarizes the activities related to the Company’s stock options, as adjusted for the Stock Split:
 
---- Chunk 164/199 | heading: PART IV > Financial Statements > Stockholders' Equity | tokens: 493 ---
+--- Chunk 164/199 | heading: PART IV > Financial Statements > Stockholders' Equity | tokens: 476 ---
 Balances as of December 31, 2022 — Options Outstanding Number of Shares: 198,968,610 | Options Outstanding Weighted- Average Exercise Price (per share): $24.22
-Granted — Options Outstanding Number of Shares: 17,292,180 | Options Outstanding Weighted- Average Exercise Price (per share): 37.25
-Exercised — Options Outstanding Number of Shares: (19,265,980) | Options Outstanding Weighted- Average Exercise Price (per share): 8.73
-Expired — Options Outstanding Number of Shares: (43,720) | Options Outstanding Weighted- Average Exercise Price (per share): 3.64
+Granted (year ended December 31, 2023) — Options Outstanding Number of Shares: 17,292,180 | Options Outstanding Weighted- Average Exercise Price (per share): 37.25
+Exercised (year ended December 31, 2023) — Options Outstanding Number of Shares: (19,265,980) | Options Outstanding Weighted- Average Exercise Price (per share): 8.73
+Expired (year ended December 31, 2023) — Options Outstanding Number of Shares: (43,720) | Options Outstanding Weighted- Average Exercise Price (per share): 3.64
 Balances as of December 31, 2023 — Options Outstanding Number of Shares: 196,951,090 | Options Outstanding Weighted- Average Exercise Price (per share): $26.89
-Granted — Options Outstanding Number of Shares: 5,758,560 | Options Outstanding Weighted- Average Exercise Price (per share): 62.09
-Exercised — Options Outstanding Number of Shares: (48,460,480) | Options Outstanding Weighted- Average Exercise Price (per share): 17.22
-Expired — Options Outstanding Number of Shares: (59,150) | Options Outstanding Weighted- Average Exercise Price (per share): 5.61
+Granted (year ended December 31, 2024) — Options Outstanding Number of Shares: 5,758,560 | Options Outstanding Weighted- Average Exercise Price (per share): 62.09
+Exercised (year ended December 31, 2024) — Options Outstanding Number of Shares: (48,460,480) | Options Outstanding Weighted- Average Exercise Price (per share): 17.22
+Expired (year ended December 31, 2024) — Options Outstanding Number of Shares: (59,150) | Options Outstanding Weighted- Average Exercise Price (per share): 5.61
 Balances as of December 31, 2024 — Options Outstanding Number of Shares: 154,190,020 | Options Outstanding Weighted- Average Exercise Price (per share): $31.25
-Granted — Options Outstanding Number of Shares: 4,171,629 | Options Outstanding Weighted- Average Exercise Price (per share): 108.79
-Exercised — Options Outstanding Number of Shares: (30,638,245) | Options Outstanding Weighted- Average Exercise Price (per share): 21.73
-Expired — Options Outstanding Number of Shares: (43,600) | Options Outstanding Weighted- Average Exercise Price (per share): 9.11
-Balances as of December 31, 2025 — Options Outstanding Number of Shares: 127,679,804 | Options Outstanding Weighted- Average Exercise Price (per share): $36.07 | Weighted- Average Remaining Contractual Term (in years): 4.79 | Aggregate Intrinsic Value (in thousands): $7,430,160
+Granted (year ended December 31, 2025) — Options Outstanding Number of Shares: 4,171,629 | Options Outstanding Weighted- Average Exercise Price (per share): 108.79
+Exercised (year ended December 31, 2025) — Options Outstanding Number of Shares: (30,638,245) | Options Outstanding Weighted- Average Exercise Price (per share): 21.73
 
---- Chunk 165/199 | heading: PART IV > Financial Statements > Stockholders' Equity | tokens: 76 ---
+--- Chunk 165/199 | heading: PART IV > Financial Statements > Stockholders' Equity | tokens: 192 ---
+Expired (year ended December 31, 2025) — Options Outstanding Number of Shares: (43,600) | Options Outstanding Weighted- Average Exercise Price (per share): 9.11
+Balances as of December 31, 2025 — Options Outstanding Number of Shares: 127,679,804 | Options Outstanding Weighted- Average Exercise Price (per share): $36.07 | Weighted- Average Remaining Contractual Term (in years): 4.79 | Aggregate Intrinsic Value (in thousands): $7,430,160
 Vested and exercisable as of December 31, 2025 — Options Outstanding Number of Shares: 127,679,804 | Options Outstanding Weighted- Average Exercise Price (per share): $36.07 | Weighted- Average Remaining Contractual Term (in years): 4.79 | Aggregate Intrinsic Value (in thousands): $7,430,160
 
 --- Chunk 166/199 | heading: PART IV > Financial Statements > Stockholders' Equity | tokens: 323 ---
@@ -2066,29 +2066,27 @@ Restricted Stock Unit Activity
 
 The following table summarizes the activities related to the Company’s unvested RSUs and PSUs, as adjusted for the Stock Split:
 
---- Chunk 167/199 | heading: PART IV > Financial Statements > Stockholders' Equity | tokens: 456 ---
+--- Chunk 167/199 | heading: PART IV > Financial Statements > Stockholders' Equity | tokens: 501 ---
 The following table summarizes the activities related to the Company’s unvested RSUs and PSUs, as adjusted for the Stock Split:
 
 Unvested Restricted Stock Units
 Balances as of December 31, 2023 — Weighted- Average Grant-Date Fair Value (per share): $—
-Granted — Number of Shares: 1,599,780 | Weighted- Average Grant-Date Fair Value (per share): 68.64
-Vested — Number of Shares: (266,600) | Weighted- Average Grant-Date Fair Value (per share): 56.20
-Forfeited
+Granted (year ended December 31, 2024) — Number of Shares: 1,599,780 | Weighted- Average Grant-Date Fair Value (per share): 68.64
+Vested (year ended December 31, 2024) — Number of Shares: (266,600) | Weighted- Average Grant-Date Fair Value (per share): 56.20
+Forfeited (year ended December 31, 2024)
 Balances as of December 31, 2024 — Number of Shares: 1,333,180 | Weighted- Average Grant-Date Fair Value (per share): $71.12
-Granted(1) — Number of Shares: 1,227,850 | Weighted- Average Grant-Date Fair Value (per share): 111.18
-Vested(1) — Number of Shares: (959,450) | Weighted- Average Grant-Date Fair Value (per share): 76.48
-Forfeited — Number of Shares: (16,320) | Weighted- Average Grant-Date Fair Value (per share): 93.12
+Granted(1) (year ended December 31, 2025) — Number of Shares: 1,227,850 | Weighted- Average Grant-Date Fair Value (per share): 111.18
+Vested(1) (year ended December 31, 2025) — Number of Shares: (959,450) | Weighted- Average Grant-Date Fair Value (per share): 76.48
+Forfeited (year ended December 31, 2025) — Number of Shares: (16,320) | Weighted- Average Grant-Date Fair Value (per share): 93.12
 Balances as of December 31, 2025 — Number of Shares: 1,585,260 | Weighted- Average Grant-Date Fair Value (per share): $98.68
 
 (1) Amounts exclude 264,300 incremental PSU awards that will be granted and 528,600 incremental PSU awards that will vest based on the achievement of market-based performance targets during the performance period ended December 31, 2025, but have not been settled as of December 31, 2025.
 
 The total fair value of RSUs that vested during the year ended December 31, 2025 and December 31, 2024 was $52 million and $15 million, respectively. No RSUs or PSUs were granted in the year ended December 31, 2023.
 
+--- Chunk 168/199 | heading: PART IV > Financial Statements > Stockholders' Equity | tokens: 324 ---
 Stock-Based Compensation
 
-The following table summarizes total stock-based compensation expense and the related income tax impact:
-
---- Chunk 168/199 | heading: PART IV > Financial Statements > Stockholders' Equity | tokens: 320 ---
 The following table summarizes total stock-based compensation expense and the related income tax impact:
 
 (in thousands) Year Ended December 31,
@@ -2110,26 +2108,26 @@ Accumulated Other Comprehensive Income (Loss)
 
 The following table summarizes the changes in accumulated balances of other comprehensive income (loss):
 
---- Chunk 170/199 | heading: PART IV > Financial Statements > Stockholders' Equity | tokens: 439 ---
+--- Chunk 170/199 | heading: PART IV > Financial Statements > Stockholders' Equity | tokens: 483 ---
 (in thousands)
 Balances as of December 31, 2022 — Foreign Currency Translation Adjustments: $(217,306) | Net Investment Hedge Gains (Losses): $— | Change in Unrealized Gains (Losses) on Cash Flow Hedges: $— | Change in Unrealized Gains (Losses) on Excluded Component of Fair Value Hedges: $— | Change in Unrealized Gains (Losses) on AFS Securities: $— | Tax (Expense) Benefit: $— | Total: $(217,306)
-Other comprehensive income (loss) before reclassifications — Foreign Currency Translation Adjustments: 113,384 | Change in Unrealized Gains (Losses) on Cash Flow Hedges: (155,730) | Tax (Expense) Benefit: 35,707 | Total: (6,639)
-Amounts reclassified from accumulated other comprehensive income (loss)
-Net change in accumulated other comprehensive income (loss) — Foreign Currency Translation Adjustments: 113,384 | Change in Unrealized Gains (Losses) on Cash Flow Hedges: (155,730) | Tax (Expense) Benefit: 35,707 | Total: (6,639)
+Other comprehensive income (loss) before reclassifications (year ended December 31, 2023) — Foreign Currency Translation Adjustments: 113,384 | Change in Unrealized Gains (Losses) on Cash Flow Hedges: (155,730) | Tax (Expense) Benefit: 35,707 | Total: (6,639)
+Amounts reclassified from accumulated other comprehensive income (loss) (year ended December 31, 2023)
+Net change in accumulated other comprehensive income (loss) (year ended December 31, 2023) — Foreign Currency Translation Adjustments: 113,384 | Change in Unrealized Gains (Losses) on Cash Flow Hedges: (155,730) | Tax (Expense) Benefit: 35,707 | Total: (6,639)
 Balances as of December 31, 2023 — Foreign Currency Translation Adjustments: (103,922) | Change in Unrealized Gains (Losses) on Cash Flow Hedges: (155,730) | Tax (Expense) Benefit: 35,707 | Total: (223,945)
-Other comprehensive income (loss) before reclassifications — Foreign Currency Translation Adjustments: (272,911) | Net Investment Hedge Gains (Losses): 32,400 | Change in Unrealized Gains (Losses) on Cash Flow Hedges: 1,195,738 | Change in Unrealized Gains (Losses) on Excluded Component of Fair Value Hedges: (14,334) | Change in Unrealized Gains (Losses) on AFS Securities: 3,260 | Tax (Expense) Benefit: (279,408) | Total: 664,745
+Other comprehensive income (loss) before reclassifications (year ended December 31, 2024) — Foreign Currency Translation Adjustments: (272,911) | Net Investment Hedge Gains (Losses): 32,400 | Change in Unrealized Gains (Losses) on Cash Flow Hedges: 1,195,738 | Change in Unrealized Gains (Losses) on Excluded Component of Fair Value Hedges: (14,334) | Change in Unrealized Gains (Losses) on AFS Securities: 3,260 | Tax (Expense) Benefit: (279,408) | Total: 664,745
 
---- Chunk 171/199 | heading: PART IV > Financial Statements > Stockholders' Equity | tokens: 456 ---
+--- Chunk 171/199 | heading: PART IV > Financial Statements > Stockholders' Equity | tokens: 489 ---
 (in thousands)
-Amounts reclassified from accumulated other comprehensive income (loss) — Change in Unrealized Gains (Losses) on Cash Flow Hedges: (125,639) | Change in Unrealized Gains (Losses) on Excluded Component of Fair Value Hedges: 23,567 | Tax (Expense) Benefit: 23,434 | Total: (78,638)
-Net change in accumulated other comprehensive income (loss) — Foreign Currency Translation Adjustments: (272,911) | Net Investment Hedge Gains (Losses): 32,400 | Change in Unrealized Gains (Losses) on Cash Flow Hedges: 1,070,099 | Change in Unrealized Gains (Losses) on Excluded Component of Fair Value Hedges: 9,233 | Change in Unrealized Gains (Losses) on AFS Securities: 3,260 | Tax (Expense) Benefit: (255,974) | Total: 586,107
+Amounts reclassified from accumulated other comprehensive income (loss) (year ended December 31, 2024) — Change in Unrealized Gains (Losses) on Cash Flow Hedges: (125,639) | Change in Unrealized Gains (Losses) on Excluded Component of Fair Value Hedges: 23,567 | Tax (Expense) Benefit: 23,434 | Total: (78,638)
+Net change in accumulated other comprehensive income (loss) (year ended December 31, 2024) — Foreign Currency Translation Adjustments: (272,911) | Net Investment Hedge Gains (Losses): 32,400 | Change in Unrealized Gains (Losses) on Cash Flow Hedges: 1,070,099 | Change in Unrealized Gains (Losses) on Excluded Component of Fair Value Hedges: 9,233 | Change in Unrealized Gains (Losses) on AFS Securities: 3,260 | Tax (Expense) Benefit: (255,974) | Total: 586,107
 Balances as of December 31, 2024 — Foreign Currency Translation Adjustments: (376,833) | Net Investment Hedge Gains (Losses): 32,400 | Change in Unrealized Gains (Losses) on Cash Flow Hedges: 914,369 | Change in Unrealized Gains (Losses) on Excluded Component of Fair Value Hedges: 9,233 | Change in Unrealized Gains (Losses) on AFS Securities: 3,260 | Tax (Expense) Benefit: (220,267) | Total: 362,162
-Other comprehensive income (loss) before reclassifications — Foreign Currency Translation Adjustments: 183,218 | Net Investment Hedge Gains (Losses): (144,656) | Change in Unrealized Gains (Losses) on Cash Flow Hedges: (1,393,364) | Change in Unrealized Gains (Losses) on Excluded Component of Fair Value Hedges: (71,999) | Change in Unrealized Gains (Losses) on AFS Securities: (3,139) | Tax (Expense) Benefit: 373,107 | Total: (1,056,833)
+Other comprehensive income (loss) before reclassifications (year ended December 31, 2025) — Foreign Currency Translation Adjustments: 183,218 | Net Investment Hedge Gains (Losses): (144,656) | Change in Unrealized Gains (Losses) on Cash Flow Hedges: (1,393,364) | Change in Unrealized Gains (Losses) on Excluded Component of Fair Value Hedges: (71,999) | Change in Unrealized Gains (Losses) on AFS Securities: (3,139) | Tax (Expense) Benefit: 373,107 | Total: (1,056,833)
 
---- Chunk 172/199 | heading: PART IV > Financial Statements > Stockholders' Equity | tokens: 349 ---
+--- Chunk 172/199 | heading: PART IV > Financial Statements > Stockholders' Equity | tokens: 371 ---
 (in thousands)
-Amounts reclassified from accumulated other comprehensive income (loss) — Change in Unrealized Gains (Losses) on Cash Flow Hedges: 89,706 | Change in Unrealized Gains (Losses) on Excluded Component of Fair Value Hedges: 59,201 | Change in Unrealized Gains (Losses) on AFS Securities: (121) | Tax (Expense) Benefit: (34,497) | Total: 114,289
-Net change in accumulated other comprehensive income (loss) — Foreign Currency Translation Adjustments: 183,218 | Net Investment Hedge Gains (Losses): (144,656) | Change in Unrealized Gains (Losses) on Cash Flow Hedges: (1,303,658) | Change in Unrealized Gains (Losses) on Excluded Component of Fair Value Hedges: (12,798) | Change in Unrealized Gains (Losses) on AFS Securities: (3,260) | Tax (Expense) Benefit: 338,610 | Total: (942,544)
+Amounts reclassified from accumulated other comprehensive income (loss) (year ended December 31, 2025) — Change in Unrealized Gains (Losses) on Cash Flow Hedges: 89,706 | Change in Unrealized Gains (Losses) on Excluded Component of Fair Value Hedges: 59,201 | Change in Unrealized Gains (Losses) on AFS Securities: (121) | Tax (Expense) Benefit: (34,497) | Total: 114,289
+Net change in accumulated other comprehensive income (loss) (year ended December 31, 2025) — Foreign Currency Translation Adjustments: 183,218 | Net Investment Hedge Gains (Losses): (144,656) | Change in Unrealized Gains (Losses) on Cash Flow Hedges: (1,303,658) | Change in Unrealized Gains (Losses) on Excluded Component of Fair Value Hedges: (12,798) | Change in Unrealized Gains (Losses) on AFS Securities: (3,260) | Tax (Expense) Benefit: 338,610 | Total: (942,544)
 Balances as of December 31, 2025 — Foreign Currency Translation Adjustments: $(193,615) | Net Investment Hedge Gains (Losses): $(112,256) | Change in Unrealized Gains (Losses) on Cash Flow Hedges: $(389,289) | Change in Unrealized Gains (Losses) on Excluded Component of Fair Value Hedges: $(3,565) | Change in Unrealized Gains (Losses) on AFS Securities: $— | Tax (Expense) Benefit: $118,343 | Total: $(580,382)
 
 --- Chunk 173/199 | heading: PART IV > Financial Statements > Stockholders' Equity | tokens: 374 ---

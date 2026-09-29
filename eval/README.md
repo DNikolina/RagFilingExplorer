@@ -32,5 +32,9 @@ by its topic from the filer's Disclosure roles), run 2026-09-29: main 22/24, **t
 decline in a different form), routing 3/3, variants 1/3, held-out 11/15. H10 declines again, now as "The unit is not
 stated." - graded declined by the grader, no reader decision needed.
 
+**`structured-1b-iii-c/`** - plus step 1b-iii-c (roll-forward rows labelled with their period from the XBRL contexts),
+run 2026-09-29: main 22/24, targeted 7/10 - T9 still wrong ("$0"; the labelled row was in the model's context).
+Held-out 11/15, every answer word for word as in 1b-iii-b.
+
 Temperature 0 is deterministic here: the baseline's 40 main answers are word-for-word identical to the
 2026-09-25 run on the same code, so a changed answer means a changed input, not sampling.

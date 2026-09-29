@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 290 offline unit tests (on the v2 branch; 176 at v1.0) |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 298 offline unit tests (on the v2 branch; 176 at v1.0) |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -94,8 +94,11 @@ shared; all 948 chunks reproduced byte for byte. **1b-iii, structure labels, in 
 a) statement type from the filer's Statement roles - done and measured (`eval/structured-1b-iii-a/`: 947 of 948
 tags as before, the one change a data-free footer; every score and 54 of 55 answers unchanged); b) note topics -
 done and measured (`eval/structured-1b-iii-b/`: each note a section headed by its topic; targeted 5/10 -> 7/10, T6
-by retrieval, the rest unchanged). **Next: c) period labels** from the contexts (T9's roll-forward rows). Then
-registration from the cover facts (its own step), 1c's remaining table work, 1d. Still open: the second-model run
+by retrieval, the rest unchanged); c) period labels on roll-forward rows - done and measured
+(`eval/structured-1b-iii-c/`: 123 rows labelled; T9 still wrong - the labelled row reaches the model, which misses
+it on wording). **1b-iii closed (user, 2026-09-29).** Next: registration from the cover facts (its own step), then
+1c's remaining table work - its first item the fiscal-year name on period labels ("fiscal 2025, year ended ...",
+from the filer's `DocumentFiscalYearFocus`) - then 1d. Still open: the second-model run
 (step 0), the `Console.OutputEncoding` fix. Details: Decision-Log.md, "XBRL hybrid (v2)".
 
 **Known, not planned:** statement routing is keyword *substring* matching over a hard filter - "deferred

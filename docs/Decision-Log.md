@@ -1902,6 +1902,31 @@ logs:
   (rank 15), H13 (16), H14 (>25, the routing miss).
 290 tests.
 
+**Step 1b-iii-c measured (2026-09-29, `eval/structured-1b-iii-c/`): period labels on roll-forward rows.**
+`Structured/PeriodLabels`: a row whose tagged values all share one XBRL period, whose label and column names don't
+show that period's year, in a table whose rows span more than one period, gets the period on its label - "Cash
+dividends declared ($1.70 per share) (year ended May 31, 2025) — Accumulated Deficit: (4,743)". Previewed before
+building: that last condition limits it to the roll-forwards (equity statements, award activity, goodwill and other
+comprehensive income) - 123 rows in 16 tables; without it 145 more rows of single-period tables would repeat what
+their table says. Wording from the period's length: "year ended ...", "three months ended ...", "as of ..." for an
+instant, "on ..." for a one-day period (NDAQ's acquisition date). 972 -> 975 chunks (longer rows moved three splits).
+**Result: main 22/24, targeted 7/10 - T9 still wrong.** Held-out 11/15, all 15 answers word for word the same; 39
+of 40 main answers the same (T9). Replay: main unchanged (22/22, MRR 0.814); targeted recall@3 6 -> 7, MRR 0.483 ->
+0.508 - the labelled rows rank higher; held-out MRR 0.497 -> 0.498.
+- **T9 was not a retrieval or ingestion miss any more.** The question is filtered to ORCL's equity statement, all
+  of whose chunks reach the model, and chunk 150 holds the labelled row. The model answered "$0" (1b-iii-b: $5,725,
+  fiscal 2026's row). Read as a wording mismatch it doesn't bridge: the question says "common stock dividends" and
+  "fiscal 2025"; the right row says "Cash dividends declared" and "year ended May 31, 2025"; fiscal 2026's row is
+  literally "Common stock dividends ($2.00 per share)". The lookalike-line limit of review point 5.
+- **Decision (user, 2026-09-29): close 1b-iii here, no T9-specific follow-up now.** Considered: "(fiscal 2025, year
+  ended May 31, 2025)", the fiscal-year name from the filer's own `DocumentFiscalYearFocus` + `DocumentPeriodEndDate`
+  (the plan's "fiscal calendar") - it closes the year gap, not the wording gap, and T9 is a tuned-against main-set
+  question with no held-out counterpart, so a fix would be weak evidence. **First item for 1c**, where row text is
+  redesigned anyway. Nothing later makes it redundant: hybrid search and reranking act before the model reads (T9's
+  row is already there); 3b's answer verification would catch the "$0" (not produce $4,743); a facts table (step 4)
+  would need the same question-to-fiscal-year mapping.
+298 tests.
+
 Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
 Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation
 memory (follow-up questions), query decomposition beyond per-company search, an API or UI. Automated onboarding

@@ -40,7 +40,7 @@ internal sealed class StructuredChunkingStrategy(Tokenizer tokenizer, int maxTok
     public StructuredFiling Read(IHtmlDocument document, XbrlTaxonomy taxonomy)
     {
         XbrlDocument xbrl = InlineXbrlReader.Read(document);
-        List<FilingBlock> blocks = FilingBlockReader.Read(document, NoteTopics.Find(document, xbrl, taxonomy));
+        List<FilingBlock> blocks = FilingBlockReader.Read(document, NoteTopics.Find(document, xbrl, taxonomy), xbrl.Contexts);
         List<StructuredSection> sections = StructuredSections.Split(StatementLabels.Label(blocks, taxonomy));
         if (FilingProfile.Build(xbrl) is { } profile)
         {

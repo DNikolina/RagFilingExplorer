@@ -1,7 +1,7 @@
---- Chunk 1/293 | heading: Cover Page | tokens: 106 ---
+--- Chunk 1/294 | heading: Cover Page | tokens: 106 ---
 Nasdaq, Inc. - annual report on Form 10-K for the fiscal year ended December 31, 2025 (fiscal year 2025). Common stock trading symbol: NDAQ, on the Nasdaq Stock Market. Address of principal executive offices: 151 W. 42nd Street, New York, New York 10036. State of incorporation: Delaware. Independent registered public accounting firm (auditor): Ernst & Young LLP, New York, New York (PCAOB ID 42).
 
---- Chunk 2/293 | heading: (no heading) | tokens: 497 ---
+--- Chunk 2/294 | heading: (no heading) | tokens: 497 ---
 UNITED STATES SECURITIES AND EXCHANGE COMMISSION
 
 Washington, D.C. 20549
@@ -45,7 +45,7 @@ Indicate by check mark if the registrant is not required to file reports pursuan
 
 Indicate by check mark whether the registrant (1) has filed all reports required to be filed by Section 13 or 15(d) of the Securities Exchange Act of 1934
 
---- Chunk 3/293 | heading: (no heading) | tokens: 505 ---
+--- Chunk 3/294 | heading: (no heading) | tokens: 505 ---
 Indicate by check mark whether the registrant (1) has filed all reports required to be filed by Section 13 or 15(d) of the Securities Exchange Act of 1934
 
 during the preceding 12 months (or for such shorter period that the registrant was required to file such reports), and (2) has been subject to such filing requirements for
@@ -84,7 +84,7 @@ filing reflect the correction of an error to previously issued financial stateme
 
 Indicate by check mark whether any of those error corrections are restatements that required a recovery analysis of incentive-based compensation received
 
---- Chunk 4/293 | heading: (no heading) | tokens: 279 ---
+--- Chunk 4/294 | heading: (no heading) | tokens: 279 ---
 Indicate by check mark whether any of those error corrections are restatements that required a recovery analysis of incentive-based compensation received
 
 by any of the registrant’s executive officers during the relevant recovery period pursuant to §240.10D-1(b). ☐
@@ -105,7 +105,7 @@ Documents Incorporated by Reference: Certain portions of the Definitive Proxy St
 
 i
 
---- Chunk 5/293 | heading: (no heading) | tokens: 500 ---
+--- Chunk 5/294 | heading: (no heading) | tokens: 500 ---
 i
 
 Part I.
@@ -139,7 +139,7 @@ ii
 
 About this Form 10-K
 
---- Chunk 6/293 | heading: (no heading) | tokens: 516 ---
+--- Chunk 6/294 | heading: (no heading) | tokens: 516 ---
 About this Form 10-K
 
 Throughout this Form 10-K, unless otherwise specified:
@@ -226,7 +226,7 @@ December 16, 2027
 
 5.650% senior unsecured notes paid at maturity on June 28,
 
---- Chunk 7/293 | heading: (no heading) | tokens: 532 ---
+--- Chunk 7/294 | heading: (no heading) | tokens: 532 ---
 5.650% senior unsecured notes paid at maturity on June 28,
 
 2026 Notes: $500 million aggregate principal amount of
@@ -315,7 +315,7 @@ Equity Plan: Nasdaq Equity Incentive Plan
 
 ESG: Environmental, Social and Governance
 
---- Chunk 8/293 | heading: (no heading) | tokens: 551 ---
+--- Chunk 8/294 | heading: (no heading) | tokens: 551 ---
 ESG: Environmental, Social and Governance
 
 ESPP: Nasdaq Employee Stock Purchase Plan
@@ -428,7 +428,7 @@ obtained from sources believed to be reliable, but we cannot
 
 assure you that this information is accurate or complete. We
 
---- Chunk 9/293 | heading: (no heading) | tokens: 527 ---
+--- Chunk 9/294 | heading: (no heading) | tokens: 527 ---
 assure you that this information is accurate or complete. We
 
 have not independently verified any of the data from third-
@@ -523,7 +523,7 @@ investments or other transactional activities;
 
 •the effective dates for, and expected benefits of, ongoing
 
---- Chunk 10/293 | heading: (no heading) | tokens: 526 ---
+--- Chunk 10/294 | heading: (no heading) | tokens: 526 ---
 •the effective dates for, and expected benefits of, ongoing
 
 initiatives, including transactional activities and other
@@ -632,7 +632,7 @@ Annual Report on Form 10-K. You are cautioned not to place
 
 undue reliance on these forward-looking statements, which
 
---- Chunk 11/293 | heading: (no heading) | tokens: 160 ---
+--- Chunk 11/294 | heading: (no heading) | tokens: 160 ---
 undue reliance on these forward-looking statements, which
 
 speak only as of the date of this Annual Report on Form 10-
@@ -661,7 +661,7 @@ safe harbor for forward-looking statements contained in the
 
 Private Securities Litigation Reform Act of 1995.
 
---- Chunk 12/293 | heading: PART I > Item 1. Business | tokens: 539 ---
+--- Chunk 12/294 | heading: PART I > Item 1. Business | tokens: 539 ---
 OVERVIEW
 
 Nasdaq is a leading technology platform that powers the
@@ -768,7 +768,7 @@ technology, workflow for investment managers and asset
 
 owners as well as insight solutions. Our strengths in
 
---- Chunk 13/293 | heading: PART I > Item 1. Business | tokens: 535 ---
+--- Chunk 13/294 | heading: PART I > Item 1. Business | tokens: 535 ---
 owners as well as insight solutions. Our strengths in
 
 technology, proprietary data, analytics, and capital markets
@@ -881,7 +881,7 @@ We collect, process, and create information and earn
 
 revenues as a distributor of our own, as well as select third-
 
---- Chunk 14/293 | heading: PART I > Item 1. Business | tokens: 526 ---
+--- Chunk 14/294 | heading: PART I > Item 1. Business | tokens: 526 ---
 revenues as a distributor of our own, as well as select third-
 
 party, content. We provide varying levels of quote and trade
@@ -972,7 +972,7 @@ Select Market, 1,750 on The Nasdaq Global Market and
 
 1,414 on The Nasdaq Capital Market.
 
---- Chunk 15/293 | heading: PART I > Item 1. Business | tokens: 520 ---
+--- Chunk 15/294 | heading: PART I > Item 1. Business | tokens: 520 ---
 1,414 on The Nasdaq Capital Market.
 
 In the U.S., we seek new listings from companies conducting
@@ -1046,7 +1046,7 @@ in over 20 countries tracked a Nasdaq index and accounted
 
 for $882 billion in AUM. Our flagship index, the Nasdaq-100
 
---- Chunk 16/293 | heading: PART I > Item 1. Business | tokens: 535 ---
+--- Chunk 16/294 | heading: PART I > Item 1. Business | tokens: 535 ---
 for $882 billion in AUM. Our flagship index, the Nasdaq-100
 
 Index, or NDX, includes the top 100 non-financial companies
@@ -1149,7 +1149,7 @@ group of organizations ranging from family-owned
 
 companies, government organizations, law firms, privately
 
---- Chunk 17/293 | heading: PART I > Item 1. Business | tokens: 537 ---
+--- Chunk 17/294 | heading: PART I > Item 1. Business | tokens: 537 ---
 companies, government organizations, law firms, privately
 
 held entities, and various non-profit organizations to
@@ -1260,7 +1260,7 @@ transparency of the financial world. Nasdaq Verafin provides
 
 a cloud-based solution to financial institutions for fraud
 
---- Chunk 18/293 | heading: PART I > Item 1. Business | tokens: 531 ---
+--- Chunk 18/294 | heading: PART I > Item 1. Business | tokens: 531 ---
 a cloud-based solution to financial institutions for fraud
 
 detection and management, anti-money laundering and
@@ -1367,7 +1367,7 @@ asset, front-to-back trading, treasury, risk and collateral
 
 management solutions. The Calypso solution provides
 
---- Chunk 19/293 | heading: PART I > Item 1. Business | tokens: 537 ---
+--- Chunk 19/294 | heading: PART I > Item 1. Business | tokens: 537 ---
 management solutions. The Calypso solution provides
 
 customers with a single platform designed to enable
@@ -1476,7 +1476,7 @@ with a wide variety of alternatives for connecting to and
 
 accessing our markets for a fee. Our marketplaces may be
 
---- Chunk 20/293 | heading: PART I > Item 1. Business | tokens: 526 ---
+--- Chunk 20/294 | heading: PART I > Item 1. Business | tokens: 526 ---
 accessing our markets for a fee. Our marketplaces may be
 
 accessed via a number of different protocols used for
@@ -1571,7 +1571,7 @@ Our Market Services segment also includes revenues from
 
 U.S. Tape plans. The plan administrators sell quotation and
 
---- Chunk 21/293 | heading: PART I > Item 1. Business | tokens: 533 ---
+--- Chunk 21/294 | heading: PART I > Item 1. Business | tokens: 533 ---
 U.S. Tape plans. The plan administrators sell quotation and
 
 last sale information for all transactions, whether traded on
@@ -1662,7 +1662,7 @@ derivatives in a unique market structure. Buyers and sellers
 
 agree to trades in fixed income derivatives through bilateral
 
---- Chunk 22/293 | heading: PART I > Item 1. Business | tokens: 534 ---
+--- Chunk 22/294 | heading: PART I > Item 1. Business | tokens: 534 ---
 agree to trades in fixed income derivatives through bilateral
 
 negotiations and then report those trades to Nasdaq Clearing.
@@ -1761,7 +1761,7 @@ of our technology with an emphasis on new tool deployment
 
 for our securities operations team, targeted phishing
 
---- Chunk 23/293 | heading: PART I > Item 1. Business | tokens: 540 ---
+--- Chunk 23/294 | heading: PART I > Item 1. Business | tokens: 540 ---
 for our securities operations team, targeted phishing
 
 campaigns and employee awareness. See “Item 1A. Risk
@@ -1866,7 +1866,7 @@ In our market surveillance business, we currently use and
 
 continue to advance our AI features, machine‑learning
 
---- Chunk 24/293 | heading: PART I > Item 1. Business | tokens: 531 ---
+--- Chunk 24/294 | heading: PART I > Item 1. Business | tokens: 531 ---
 continue to advance our AI features, machine‑learning
 
 techniques and extensive market data to identify irregular
@@ -1967,7 +1967,7 @@ introduced, through Nasdaq Eqlipse, an updated suite of
 
 cloud‑ready market technology solutions with standardized
 
---- Chunk 25/293 | heading: PART I > Item 1. Business | tokens: 538 ---
+--- Chunk 25/294 | heading: PART I > Item 1. Business | tokens: 538 ---
 cloud‑ready market technology solutions with standardized
 
 APIs with proven interoperability across the full trade
@@ -2066,7 +2066,7 @@ ecosystem. Our business segments complement each other
 
 and we believe that our strong competitive position in large,
 
---- Chunk 26/293 | heading: PART I > Item 1. Business | tokens: 533 ---
+--- Chunk 26/294 | heading: PART I > Item 1. Business | tokens: 533 ---
 and we believe that our strong competitive position in large,
 
 high-growth markets positions us for sustained growth.
@@ -2173,7 +2173,7 @@ Our Index business offers Nasdaq-branded indices and
 
 financial products and faces competition from providers of
 
---- Chunk 27/293 | heading: PART I > Item 1. Business | tokens: 535 ---
+--- Chunk 27/294 | heading: PART I > Item 1. Business | tokens: 535 ---
 financial products and faces competition from providers of
 
 various competing financial indices. For example, there are a
@@ -2280,7 +2280,7 @@ Competitors to our Calypso product, which provides
 
 cross‑asset, front‑to‑back trading, treasury, risk and collateral
 
---- Chunk 28/293 | heading: PART I > Item 1. Business | tokens: 538 ---
+--- Chunk 28/294 | heading: PART I > Item 1. Business | tokens: 538 ---
 cross‑asset, front‑to‑back trading, treasury, risk and collateral
 
 management solutions, include enterprise solution providers,
@@ -2383,7 +2383,7 @@ known as “dark pools,” and other less-heavily regulated
 
 broker-owned trade facilitation systems, as well as from other
 
---- Chunk 29/293 | heading: PART I > Item 1. Business | tokens: 532 ---
+--- Chunk 29/294 | heading: PART I > Item 1. Business | tokens: 532 ---
 broker-owned trade facilitation systems, as well as from other
 
 types of OTC trading. In Canada, our cash equities exchange
@@ -2482,7 +2482,7 @@ and maintain a wide array of IP assets, including patents and
 
 patent applications related to our innovations, products and
 
---- Chunk 30/293 | heading: PART I > Item 1. Business | tokens: 535 ---
+--- Chunk 30/294 | heading: PART I > Item 1. Business | tokens: 535 ---
 patent applications related to our innovations, products and
 
 services; trademarks related to our brands, products and
@@ -2577,7 +2577,7 @@ to engage with internal and external stakeholders at all levels
 
 regarding sustainability matters. During 2025, we continued
 
---- Chunk 31/293 | heading: PART I > Item 1. Business | tokens: 534 ---
+--- Chunk 31/294 | heading: PART I > Item 1. Business | tokens: 534 ---
 regarding sustainability matters. During 2025, we continued
 
 our corporate, community and commercial sustainability
@@ -2682,7 +2682,7 @@ combined with technology to provide full-service support
 
 to organizations navigating global compliance
 
---- Chunk 32/293 | heading: PART I > Item 1. Business | tokens: 535 ---
+--- Chunk 32/294 | heading: PART I > Item 1. Business | tokens: 535 ---
 to organizations navigating global compliance
 
 requirements, while also monitoring the capital markets.
@@ -2781,7 +2781,7 @@ license; and Nasdaq ISE, Nasdaq GEMX and Nasdaq MRX,
 
 each of which operates an options market under its own SRO
 
---- Chunk 33/293 | heading: PART I > Item 1. Business | tokens: 536 ---
+--- Chunk 33/294 | heading: PART I > Item 1. Business | tokens: 536 ---
 each of which operates an options market under its own SRO
 
 license. As SROs, each entity has separate rules pertaining to
@@ -2876,7 +2876,7 @@ performed under regulatory agreements by FINRA, and for
 
 fulfilling all regulatory obligations for which FINRA does
 
---- Chunk 34/293 | heading: PART I > Item 1. Business | tokens: 535 ---
+--- Chunk 34/294 | heading: PART I > Item 1. Business | tokens: 535 ---
 fulfilling all regulatory obligations for which FINRA does
 
 not have responsibility under the regulatory services
@@ -2971,7 +2971,7 @@ the NDW sales team are registered with NCMA. This allows
 
 them to market and sell the suite of Dorsey Wright powered
 
---- Chunk 35/293 | heading: PART I > Item 1. Business | tokens: 531 ---
+--- Chunk 35/294 | heading: PART I > Item 1. Business | tokens: 531 ---
 them to market and sell the suite of Dorsey Wright powered
 
 ETPs, along with designated additional ETPs tracking
@@ -3064,7 +3064,7 @@ ourselves. In addition, our SROs retain ultimate regulatory
 
 responsibility for all regulatory activities performed under
 
---- Chunk 36/293 | heading: PART I > Item 1. Business | tokens: 536 ---
+--- Chunk 36/294 | heading: PART I > Item 1. Business | tokens: 536 ---
 responsibility for all regulatory activities performed under
 
 these agreements by FINRA.
@@ -3159,7 +3159,7 @@ resulting market data revenue, and the dissemination of that
 
 revenue to plan members in accordance with the terms of the
 
---- Chunk 37/293 | heading: PART I > Item 1. Business | tokens: 535 ---
+--- Chunk 37/294 | heading: PART I > Item 1. Business | tokens: 535 ---
 revenue to plan members in accordance with the terms of the
 
 UTP Plan and of Regulation NMS.
@@ -3262,7 +3262,7 @@ electronic trading risk. Exchange terms and conditions
 
 include but are not limited to, requirements for governance,
 
---- Chunk 38/293 | heading: PART I > Item 1. Business | tokens: 539 ---
+--- Chunk 38/294 | heading: PART I > Item 1. Business | tokens: 539 ---
 include but are not limited to, requirements for governance,
 
 regulation, rules and rulemaking, fair access, conflict
@@ -3363,7 +3363,7 @@ subject to their license. In Sweden, general supervision of the
 
 Nasdaq Stockholm exchange is carried out by the SFSA,
 
---- Chunk 39/293 | heading: PART I > Item 1. Business | tokens: 535 ---
+--- Chunk 39/294 | heading: PART I > Item 1. Business | tokens: 535 ---
 Nasdaq Stockholm exchange is carried out by the SFSA,
 
 while Nasdaq Clearing’s role as CCP in the clearing of
@@ -3456,7 +3456,7 @@ with laws, regulations and good market practice, participant
 
 compliance with trading participation rules, financial
 
---- Chunk 40/293 | heading: PART I > Item 1. Business | tokens: 533 ---
+--- Chunk 40/294 | heading: PART I > Item 1. Business | tokens: 533 ---
 compliance with trading participation rules, financial
 
 instrument compliance with relevant listing rules and the
@@ -3553,7 +3553,7 @@ surveillance of trading (trading surveillance). The real-time
 
 trading surveillance for the Finnish, Icelandic, Danish and
 
---- Chunk 41/293 | heading: PART I > Item 1. Business | tokens: 538 ---
+--- Chunk 41/294 | heading: PART I > Item 1. Business | tokens: 538 ---
 trading surveillance for the Finnish, Icelandic, Danish and
 
 Swedish markets has been centralized in Stockholm. In
@@ -3654,7 +3654,7 @@ consolidated subsidiaries.
 
 Flexible and Hybrid Workplace
 
---- Chunk 42/293 | heading: PART I > Item 1. Business | tokens: 536 ---
+--- Chunk 42/294 | heading: PART I > Item 1. Business | tokens: 536 ---
 Flexible and Hybrid Workplace
 
 The majority of our employees balance their time between
@@ -3749,7 +3749,7 @@ employees to internal training, mentors, projects, and roles,
 
 supporting career satisfaction and internal mobility.
 
---- Chunk 43/293 | heading: PART I > Item 1. Business | tokens: 522 ---
+--- Chunk 43/294 | heading: PART I > Item 1. Business | tokens: 522 ---
 supporting career satisfaction and internal mobility.
 
 To reward our employees at various stages of their tenure
@@ -3852,7 +3852,7 @@ commissions, and equity grants. The majority of our
 
 employees are granted annual, long-term equity awards,
 
---- Chunk 44/293 | heading: PART I > Item 1. Business | tokens: 531 ---
+--- Chunk 44/294 | heading: PART I > Item 1. Business | tokens: 531 ---
 employees are granted annual, long-term equity awards,
 
 enabling them to be owners of the company, committed to
@@ -3945,7 +3945,7 @@ Impact: Empowering Purpose, Strengthening Communities.”
 
 As part of our commitment to driving economic progress,
 
---- Chunk 45/293 | heading: PART I > Item 1. Business | tokens: 537 ---
+--- Chunk 45/294 | heading: PART I > Item 1. Business | tokens: 537 ---
 As part of our commitment to driving economic progress,
 
 Nasdaq’s Month of Impact is our way of celebrating and
@@ -4040,12 +4040,12 @@ such material with, or furnish it to, the SEC. To access these
 
 filings, go to our website and click on “Financials” then click
 
---- Chunk 46/293 | heading: PART I > Item 1. Business | tokens: 23 ---
+--- Chunk 46/294 | heading: PART I > Item 1. Business | tokens: 23 ---
 filings, go to our website and click on “Financials” then click
 
 on “SEC Filings.”
 
---- Chunk 47/293 | heading: PART I > Item 1A. Risk Factors | tokens: 529 ---
+--- Chunk 47/294 | heading: PART I > Item 1A. Risk Factors | tokens: 529 ---
 The risks and uncertainties described below are not the only
 
 ones facing us. Additional risks and uncertainties not
@@ -4146,7 +4146,7 @@ reduce the number of issuers launching IPOs, including
 
 SPACs, and direct listings. While the number of IPOs on our
 
---- Chunk 48/293 | heading: PART I > Item 1A. Risk Factors | tokens: 530 ---
+--- Chunk 48/294 | heading: PART I > Item 1A. Risk Factors | tokens: 530 ---
 SPACs, and direct listings. While the number of IPOs on our
 
 exchanges increased in 2025 as compared to 2024, there is no
@@ -4249,7 +4249,7 @@ result, both in the U.S. and in other countries, the competition
 
 among exchanges and other execution venues has become
 
---- Chunk 49/293 | heading: PART I > Item 1A. Risk Factors | tokens: 538 ---
+--- Chunk 49/294 | heading: PART I > Item 1A. Risk Factors | tokens: 538 ---
 among exchanges and other execution venues has become
 
 more intense. Marketplaces in both U.S. and Europe have
@@ -4350,7 +4350,7 @@ our employees, contractors or vendors, electrical or
 
 telecommunications failures or disruptions, hardware or
 
---- Chunk 50/293 | heading: PART I > Item 1A. Risk Factors | tokens: 537 ---
+--- Chunk 50/294 | heading: PART I > Item 1A. Risk Factors | tokens: 537 ---
 telecommunications failures or disruptions, hardware or
 
 software failures or defects, cyberattacks, sabotage or similar
@@ -4455,7 +4455,7 @@ that the demand for such platforms or technologies will
 
 justify the related investments. If we fail to generate adequate
 
---- Chunk 51/293 | heading: PART I > Item 1A. Risk Factors | tokens: 536 ---
+--- Chunk 51/294 | heading: PART I > Item 1A. Risk Factors | tokens: 536 ---
 justify the related investments. If we fail to generate adequate
 
 revenue from planned system platforms or the adoption of
@@ -4556,7 +4556,7 @@ The Nasdaq Stock Market’s share of tape pool revenues
 
 under the consolidated data plans, thereby reducing the
 
---- Chunk 52/293 | heading: PART I > Item 1A. Risk Factors | tokens: 531 ---
+--- Chunk 52/294 | heading: PART I > Item 1A. Risk Factors | tokens: 531 ---
 under the consolidated data plans, thereby reducing the
 
 revenues of our U.S. Tape plans business.
@@ -4649,7 +4649,7 @@ extended period of time. There can be no assurance we will
 
 be able to identify and mitigate every incident involving
 
---- Chunk 53/293 | heading: PART I > Item 1A. Risk Factors | tokens: 542 ---
+--- Chunk 53/294 | heading: PART I > Item 1A. Risk Factors | tokens: 542 ---
 be able to identify and mitigate every incident involving
 
 cybersecurity attacks, breaches or incidents.
@@ -4754,7 +4754,7 @@ expected. If we are unable to develop our platforms to
 
 include other products and markets, or if our platforms do not
 
---- Chunk 54/293 | heading: PART I > Item 1A. Risk Factors | tokens: 530 ---
+--- Chunk 54/294 | heading: PART I > Item 1A. Risk Factors | tokens: 530 ---
 include other products and markets, or if our platforms do not
 
 have the required functionality, performance, capacity,
@@ -4845,7 +4845,7 @@ solutions may give rise to legal liability, including IP
 
 infringement claims. In addition, these risks include the
 
---- Chunk 55/293 | heading: PART I > Item 1A. Risk Factors | tokens: 537 ---
+--- Chunk 55/294 | heading: PART I > Item 1A. Risk Factors | tokens: 537 ---
 infringement claims. In addition, these risks include the
 
 possibility of the introduction of new or enhanced laws or
@@ -4942,7 +4942,7 @@ liquidity risks, including potential defaults by clearing
 
 members and insufficiencies in margins or default funds. We
 
---- Chunk 56/293 | heading: PART I > Item 1A. Risk Factors | tokens: 537 ---
+--- Chunk 56/294 | heading: PART I > Item 1A. Risk Factors | tokens: 537 ---
 members and insufficiencies in margins or default funds. We
 
 guarantee cleared contracts and assume counterparty risk for
@@ -5045,7 +5045,7 @@ encountered may include:
 
 •difficulties, costs or complications in combining the
 
---- Chunk 57/293 | heading: PART I > Item 1A. Risk Factors | tokens: 526 ---
+--- Chunk 57/294 | heading: PART I > Item 1A. Risk Factors | tokens: 526 ---
 •difficulties, costs or complications in combining the
 
 companies’ operations, including technology platforms,
@@ -5156,7 +5156,7 @@ financial and strategic benefits from our acquisitions. Any
 
 actual efficiencies and synergies may be lower than we
 
---- Chunk 58/293 | heading: PART I > Item 1A. Risk Factors | tokens: 540 ---
+--- Chunk 58/294 | heading: PART I > Item 1A. Risk Factors | tokens: 540 ---
 actual efficiencies and synergies may be lower than we
 
 expect and may take a longer time to achieve than we
@@ -5253,7 +5253,7 @@ the AWS outage in October 2025, the outage did not affect
 
 trading on our exchanges. If AWS does not deliver our
 
---- Chunk 59/293 | heading: PART I > Item 1A. Risk Factors | tokens: 539 ---
+--- Chunk 59/294 | heading: PART I > Item 1A. Risk Factors | tokens: 539 ---
 trading on our exchanges. If AWS does not deliver our
 
 system requirements on time, fails to provide maintenance
@@ -5358,7 +5358,7 @@ costs or liabilities.
 
 Over the past several years, acquisitions, have been, or could
 
---- Chunk 60/293 | heading: PART I > Item 1A. Risk Factors | tokens: 533 ---
+--- Chunk 60/294 | heading: PART I > Item 1A. Risk Factors | tokens: 533 ---
 Over the past several years, acquisitions, have been, or could
 
 be, significant factors in our growth. We have also divested
@@ -5473,7 +5473,7 @@ Our debt is currently rated investment grade by two of the
 
 major rating agencies. These rating agencies regularly
 
---- Chunk 61/293 | heading: PART I > Item 1A. Risk Factors | tokens: 538 ---
+--- Chunk 61/294 | heading: PART I > Item 1A. Risk Factors | tokens: 538 ---
 major rating agencies. These rating agencies regularly
 
 evaluate us, and their ratings of our long-term debt and
@@ -5574,7 +5574,7 @@ outstanding.
 
 We will need to invest in our operations to maintain and
 
---- Chunk 62/293 | heading: PART I > Item 1A. Risk Factors | tokens: 539 ---
+--- Chunk 62/294 | heading: PART I > Item 1A. Risk Factors | tokens: 539 ---
 We will need to invest in our operations to maintain and
 
 grow our business and to integrate acquisitions, and we
@@ -5677,7 +5677,7 @@ Europe and Canada. The securities trading industry is subject
 
 to significant regulatory oversight and could be subject to
 
---- Chunk 63/293 | heading: PART I > Item 1A. Risk Factors | tokens: 536 ---
+--- Chunk 63/294 | heading: PART I > Item 1A. Risk Factors | tokens: 536 ---
 to significant regulatory oversight and could be subject to
 
 increased governmental and public scrutiny in the future that
@@ -5782,7 +5782,7 @@ regulatory requirements or new interpretations of existing
 
 regulatory requirements could require substantial time and
 
---- Chunk 64/293 | heading: PART I > Item 1A. Risk Factors | tokens: 533 ---
+--- Chunk 64/294 | heading: PART I > Item 1A. Risk Factors | tokens: 533 ---
 regulatory requirements could require substantial time and
 
 resources for compliance, which could make it difficult and
@@ -5873,7 +5873,7 @@ million in connection with our portion of expenses related to
 
 the CAT implementation.
 
---- Chunk 65/293 | heading: PART I > Item 1A. Risk Factors | tokens: 535 ---
+--- Chunk 65/294 | heading: PART I > Item 1A. Risk Factors | tokens: 535 ---
 the CAT implementation.
 
 In addition, our registered broker-dealer subsidiaries are
@@ -5974,7 +5974,7 @@ result of such changes could have a material adverse effect on
 
 our business, financial condition and operating results. In
 
---- Chunk 66/293 | heading: PART I > Item 1A. Risk Factors | tokens: 538 ---
+--- Chunk 66/294 | heading: PART I > Item 1A. Risk Factors | tokens: 538 ---
 our business, financial condition and operating results. In
 
 addition, regulatory changes could impact the ability of
@@ -6073,7 +6073,7 @@ Methodology that restricts the total amount of fees that can
 
 be charged for professional uses by all marketplaces to a
 
---- Chunk 67/293 | heading: PART I > Item 1A. Risk Factors | tokens: 529 ---
+--- Chunk 67/294 | heading: PART I > Item 1A. Risk Factors | tokens: 529 ---
 be charged for professional uses by all marketplaces to a
 
 reference benchmark. Currently, all marketplaces are subject
@@ -6174,7 +6174,7 @@ statements in connection with a securities transaction.
 
 Although we carry insurance that may limit our risk of
 
---- Chunk 68/293 | heading: PART I > Item 1A. Risk Factors | tokens: 539 ---
+--- Chunk 68/294 | heading: PART I > Item 1A. Risk Factors | tokens: 539 ---
 Although we carry insurance that may limit our risk of
 
 damages in some cases, we still may incur significant legal
@@ -6279,7 +6279,7 @@ disclosure, transfer and security, and brokering, of personal
 
 data continue to evolve and regulatory scrutiny and customer
 
---- Chunk 69/293 | heading: PART I > Item 1A. Risk Factors | tokens: 537 ---
+--- Chunk 69/294 | heading: PART I > Item 1A. Risk Factors | tokens: 537 ---
 data continue to evolve and regulatory scrutiny and customer
 
 requirements in this area are increasing around the world.
@@ -6380,7 +6380,7 @@ our results of operations.
 
 Some of our subsidiaries are subject to tax in the jurisdictions
 
---- Chunk 70/293 | heading: PART I > Item 1A. Risk Factors | tokens: 533 ---
+--- Chunk 70/294 | heading: PART I > Item 1A. Risk Factors | tokens: 533 ---
 Some of our subsidiaries are subject to tax in the jurisdictions
 
 in which they are organized or operate, and in computing our
@@ -6493,7 +6493,7 @@ Failure to meet customer expectations or deadlines for the
 
 implementation of our products could result in negative
 
---- Chunk 71/293 | heading: PART I > Item 1A. Risk Factors | tokens: 531 ---
+--- Chunk 71/294 | heading: PART I > Item 1A. Risk Factors | tokens: 531 ---
 implementation of our products could result in negative
 
 publicity, losses and reduced sales, each of which may harm
@@ -6596,7 +6596,7 @@ building efforts and ability to compete effectively.
 
 To protect our IP rights, we rely on a combination of
 
---- Chunk 72/293 | heading: PART I > Item 1A. Risk Factors | tokens: 530 ---
+--- Chunk 72/294 | heading: PART I > Item 1A. Risk Factors | tokens: 530 ---
 To protect our IP rights, we rely on a combination of
 
 trademark laws, copyright laws, patent laws, trade secret
@@ -6691,7 +6691,7 @@ our subsidiaries to meet our obligations, and any
 
 restrictions on our subsidiaries’ ability to pay dividends or
 
---- Chunk 73/293 | heading: PART I > Item 1A. Risk Factors | tokens: 525 ---
+--- Chunk 73/294 | heading: PART I > Item 1A. Risk Factors | tokens: 525 ---
 restrictions on our subsidiaries’ ability to pay dividends or
 
 make other payments to us may have a material adverse
@@ -6800,7 +6800,7 @@ costs and low variable costs, which magnifies the impact of
 
 revenue fluctuations on our operating results. As a result, a
 
---- Chunk 74/293 | heading: PART I > Item 1A. Risk Factors | tokens: 532 ---
+--- Chunk 74/294 | heading: PART I > Item 1A. Risk Factors | tokens: 532 ---
 revenue fluctuations on our operating results. As a result, a
 
 decline in our revenue may lead to a relatively larger impact
@@ -6897,7 +6897,7 @@ reputation, resulting in the loss of customers, loss of revenues
 
 and liability for damages, which may adversely affect our
 
---- Chunk 75/293 | heading: PART I > Item 1A. Risk Factors | tokens: 529 ---
+--- Chunk 75/294 | heading: PART I > Item 1A. Risk Factors | tokens: 529 ---
 and liability for damages, which may adversely affect our
 
 business, operating results and financial condition.
@@ -7000,7 +7000,7 @@ may increase our operational risk.
 
 Unforeseen or catastrophic events could interrupt our
 
---- Chunk 76/293 | heading: PART I > Item 1A. Risk Factors | tokens: 532 ---
+--- Chunk 76/294 | heading: PART I > Item 1A. Risk Factors | tokens: 532 ---
 Unforeseen or catastrophic events could interrupt our
 
 critical business functions. In addition, our U.S. and
@@ -7099,7 +7099,7 @@ We utilize widely-accepted methods to identify, assess,
 
 monitor and manage our risks. Nasdaq’s Global Risk
 
---- Chunk 77/293 | heading: PART I > Item 1A. Risk Factors | tokens: 528 ---
+--- Chunk 77/294 | heading: PART I > Item 1A. Risk Factors | tokens: 528 ---
 monitor and manage our risks. Nasdaq’s Global Risk
 
 Management Committee, which is composed of senior
@@ -7200,7 +7200,7 @@ beneficially owning more than 20% of our outstanding voting
 
 interests. SEC consent would be required before any investor
 
---- Chunk 78/293 | heading: PART I > Item 1A. Risk Factors | tokens: 260 ---
+--- Chunk 78/294 | heading: PART I > Item 1A. Risk Factors | tokens: 260 ---
 interests. SEC consent would be required before any investor
 
 could obtain more than a 20% voting interest in us. The rules
@@ -7247,10 +7247,10 @@ regulated entities require prior governmental approval before
 
 an investor acquires 10% or greater of our common stock.
 
---- Chunk 79/293 | heading: PART I > Item 1B. Unresolved Staff Comments | tokens: 2 ---
+--- Chunk 79/294 | heading: PART I > Item 1B. Unresolved Staff Comments | tokens: 2 ---
 None.
 
---- Chunk 80/293 | heading: PART I > Item 1C. Cybersecurity | tokens: 538 ---
+--- Chunk 80/294 | heading: PART I > Item 1C. Cybersecurity | tokens: 538 ---
 Risk Management and Strategy
 
 Nasdaq’s brand and role as a critical infrastructure provider
@@ -7347,7 +7347,7 @@ understand potential threats and mitigate risks from any
 
 potential deviations between the acquired company’s
 
---- Chunk 81/293 | heading: PART I > Item 1C. Cybersecurity | tokens: 543 ---
+--- Chunk 81/294 | heading: PART I > Item 1C. Cybersecurity | tokens: 543 ---
 potential deviations between the acquired company’s
 
 practices and Nasdaq’s standards, until we can align the
@@ -7456,7 +7456,7 @@ and Regulatory; and Internal Audit functions presenting on
 
 key topics to the Audit & Risk Committee, which provides
 
---- Chunk 82/293 | heading: PART I > Item 1C. Cybersecurity | tokens: 540 ---
+--- Chunk 82/294 | heading: PART I > Item 1C. Cybersecurity | tokens: 540 ---
 key topics to the Audit & Risk Committee, which provides
 
 oversight of our cybersecurity risk. Additionally, members
@@ -7563,7 +7563,7 @@ presents the revised documents to the Global Risk
 
 Management Committee and Audit & Risk Committee for
 
---- Chunk 83/293 | heading: PART I > Item 1C. Cybersecurity | tokens: 107 ---
+--- Chunk 83/294 | heading: PART I > Item 1C. Cybersecurity | tokens: 107 ---
 Management Committee and Audit & Risk Committee for
 
 review and/or approval. Additionally, the Information
@@ -7586,7 +7586,7 @@ plan term, the CISO regularly provides management with
 
 progress reports.
 
---- Chunk 84/293 | heading: PART I > Item 2. Properties | tokens: 194 ---
+--- Chunk 84/294 | heading: PART I > Item 2. Properties | tokens: 194 ---
 We conduct our business operations in leased facilities. We
 
 do not own any real property. Our U.S. headquarters are
@@ -7621,7 +7621,7 @@ currently used and are well-maintained. See Note 16,
 
 discussion.
 
---- Chunk 85/293 | heading: PART I > Item 3. Legal Proceedings | tokens: 44 ---
+--- Chunk 85/294 | heading: PART I > Item 3. Legal Proceedings | tokens: 44 ---
 See “Legal and Regulatory Matters” of Note 18,
 
 “Commitments, Contingencies and Guarantees,” to the
@@ -7630,7 +7630,7 @@ consolidated financial statements for a description of our
 
 legal proceedings, if any.
 
---- Chunk 86/293 | heading: PART II > Item 5. Market for Registrant’s Common Equity, Related | tokens: 279 ---
+--- Chunk 86/294 | heading: PART II > Item 5. Market for Registrant’s Common Equity, Related | tokens: 279 ---
 Stockholder Matters and Issuer Purchases of Equity
 
 Securities
@@ -7687,7 +7687,7 @@ of us or any “affiliated purchaser” of our common stock
 
 during the fiscal quarter ended December 31, 2025:
 
---- Chunk 87/293 | heading: PART II > Item 5. Market for Registrant’s Common Equity, Related | tokens: 493 ---
+--- Chunk 87/294 | heading: PART II > Item 5. Market for Registrant’s Common Equity, Related | tokens: 493 ---
 Period
 October 2025
 October 2025 > Share repurchase program — Total Number of Shares Purchased: 1,812,219 | Average Price Paid Per Share: $88.59 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: 1,812,219 | Maximum Dollar Value of Shares that May Yet Be Purchased Under the Plans or Programs (in millions): $1,254
@@ -7700,12 +7700,12 @@ December 2025 > Share repurchase program — Total Number of Shares Purchased: 6
 December 2025 > Employee transactions — Total Number of Shares Purchased: 33,186 | Average Price Paid Per Share: $90.22 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: N/A | Maximum Dollar Value of Shares that May Yet Be Purchased Under the Plans or Programs (in millions): N/A
 Total Quarter Ended December 31, 2025
 
---- Chunk 88/293 | heading: PART II > Item 5. Market for Registrant’s Common Equity, Related | tokens: 171 ---
+--- Chunk 88/294 | heading: PART II > Item 5. Market for Registrant’s Common Equity, Related | tokens: 171 ---
 Period
 Total Quarter Ended December 31, 2025 > Share repurchase program — Total Number of Shares Purchased: 3,194,739 | Average Price Paid Per Share: $89.40 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: 3,194,739 | Maximum Dollar Value of Shares that May Yet Be Purchased Under the Plans or Programs (in millions): $1,129
 Total Quarter Ended December 31, 2025 > Employee transactions — Total Number of Shares Purchased: 70,356 | Average Price Paid Per Share: $89.04 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: N/A | Maximum Dollar Value of Shares that May Yet Be Purchased Under the Plans or Programs (in millions): N/A
 
---- Chunk 89/293 | heading: PART II > Item 5. Market for Registrant’s Common Equity, Related | tokens: 460 ---
+--- Chunk 89/294 | heading: PART II > Item 5. Market for Registrant’s Common Equity, Related | tokens: 460 ---
 In the table above:
 
 •N/A - Not applicable.
@@ -7782,7 +7782,7 @@ investment of $100 in the common stock or index at the closing price on December
 
 dividends.
 
---- Chunk 90/293 | heading: PART II > Item 5. Market for Registrant’s Common Equity, Related | tokens: 264 ---
+--- Chunk 90/294 | heading: PART II > Item 5. Market for Registrant’s Common Equity, Related | tokens: 264 ---
 dividends.
 
 Year Ended December 31,*
@@ -7797,7 +7797,7 @@ Among Nasdaq, Inc., the Nasdaq Composite Index, the S&P 500 and S&P 500 GICS 402
 
 ![829](ndaq-20251231_g3.gif)
 
---- Chunk 91/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 534 ---
+--- Chunk 91/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 534 ---
 Financial Condition and Results of Operations
 
 The following discussion and analysis of the financial
@@ -7894,7 +7894,7 @@ annuity space.
 
 in ARR and revenue, reflecting an increase in new clients,
 
---- Chunk 92/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 366 ---
+--- Chunk 92/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 366 ---
 in ARR and revenue, reflecting an increase in new clients,
 
 cross-sells and upsells.
@@ -7959,7 +7959,7 @@ discussion. For a detailed discussion of our results of
 
 operations, see “Segment Operating Results” below.
 
---- Chunk 93/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 426 ---
+--- Chunk 93/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 426 ---
 (in millions, except per share amounts)
 Revenues less transaction- based expenses — Year Ended December 31, 2025: $5,249 | Year Ended December 31, 2024: $4,649 | Year Ended December 31, 2023: $3,895 | Percentage Change 2025 vs. 2024: 12.9% | Percentage Change 2024 vs. 2023: 19.4%
 Operating expenses — Year Ended December 31, 2025: 2,918 | Year Ended December 31, 2024: 2,851 | Year Ended December 31, 2023: 2,317 | Percentage Change 2025 vs. 2024: 2.3% | Percentage Change 2024 vs. 2023: 23.0%
@@ -7967,11 +7967,11 @@ Operating income — Year Ended December 31, 2025: $2,331 | Year Ended December 
 Net income attributable to Nasdaq — Year Ended December 31, 2025: $1,788 | Year Ended December 31, 2024: $1,117 | Year Ended December 31, 2023: $1,059 | Percentage Change 2025 vs. 2024: 60.1% | Percentage Change 2024 vs. 2023: 5.5%
 Diluted earnings per share — Year Ended December 31, 2025: $3.09 | Year Ended December 31, 2024: $1.93 | Year Ended December 31, 2023: $2.08 | Percentage Change 2025 vs. 2024: 60.3% | Percentage Change 2024 vs. 2023: (7.4)%
 
---- Chunk 94/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 93 ---
+--- Chunk 94/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 93 ---
 (in millions, except per share amounts)
 Cash dividends declared per common share — Year Ended December 31, 2025: $1.05 | Year Ended December 31, 2024: $0.94 | Year Ended December 31, 2023: $0.86 | Percentage Change 2025 vs. 2024: 11.7% | Percentage Change 2024 vs. 2023: 9.3%
 
---- Chunk 95/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 480 ---
+--- Chunk 95/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 480 ---
 In countries with currencies other than the U.S. dollar,
 
 revenues and expenses are translated using monthly average
@@ -8056,7 +8056,7 @@ by our customers.
 
 The ARR chart includes:
 
---- Chunk 96/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 194 ---
+--- Chunk 96/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 194 ---
 The ARR chart includes:
 
 ▪ | Capital Access Platforms
@@ -8083,7 +8083,7 @@ SEGMENT OPERATING RESULTS
 
 The following table presents our revenues by segment:
 
---- Chunk 97/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 489 ---
+--- Chunk 97/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 489 ---
 (in millions)
 Capital Access Platforms — Year Ended December 31, 2025: $2,137 | Year Ended December 31, 2024: $1,945 | Year Ended December 31, 2023: $1,744 | Percentage Change 2025 vs. 2024: 9.9% | Percentage Change 2024 vs. 2023: 11.5%
 Financial Technology — Year Ended December 31, 2025: 1,850 | Year Ended December 31, 2024: 1,621 | Year Ended December 31, 2023: 1,099 | Percentage Change 2025 vs. 2024: 14.1% | Percentage Change 2024 vs. 2023: 47.5%
@@ -8092,12 +8092,12 @@ Other revenues — Year Ended December 31, 2025: 61 | Year Ended December 31, 20
 Total revenues — Year Ended December 31, 2025: $8,262 | Year Ended December 31, 2024: $7,400 | Year Ended December 31, 2023: $6,064 | Percentage Change 2025 vs. 2024: 11.6% | Percentage Change 2024 vs. 2023: 22.0%
 Transaction rebates — Year Ended December 31, 2025: (2,572) | Year Ended December 31, 2024: (2,026) | Year Ended December 31, 2023: (1,838) | Percentage Change 2025 vs. 2024: 26.9% | Percentage Change 2024 vs. 2023: 10.2%
 
---- Chunk 98/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 172 ---
+--- Chunk 98/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 172 ---
 (in millions)
 Brokerage, clearance and exchange fees — Year Ended December 31, 2025: (441) | Year Ended December 31, 2024: (725) | Year Ended December 31, 2023: (331) | Percentage Change 2025 vs. 2024: (39.1)% | Percentage Change 2024 vs. 2023: 119.1%
 Total revenues less transaction- based expenses — Year Ended December 31, 2025: $5,249 | Year Ended December 31, 2024: $4,649 | Year Ended December 31, 2023: $3,895 | Percentage Change 2025 vs. 2024: 12.9% | Percentage Change 2024 vs. 2023: 19.4%
 
---- Chunk 99/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 436 ---
+--- Chunk 99/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 436 ---
 The following charts present our Capital Access Platforms,
 
 Financial Technology and Market Services segments as a
@@ -8129,7 +8129,7 @@ The following tables present key drivers from our Data &
 
 Listing Services business:
 
---- Chunk 100/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 458 ---
+--- Chunk 100/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 458 ---
 The Nasdaq Stock Market — IPOs Year Ended December 31, 2025: 281 | IPOs Year Ended December 31, 2024: 180 | IPOs Year Ended December 31, 2023: 130
 Operating company — IPOs Year Ended December 31, 2025: 155 | IPOs Year Ended December 31, 2024: 130 | IPOs Year Ended December 31, 2023: 103
 SPACs — IPOs Year Ended December 31, 2025: 126 | IPOs Year Ended December 31, 2024: 50 | IPOs Year Ended December 31, 2023: 27
@@ -8140,10 +8140,10 @@ Total new listings > Exchanges that comprise Nasdaq Nordic and Nasdaq Baltic —
 Total new listings > The Nasdaq Stock Market — Number of listed companies As of December 31 2025: 4,480 | Number of listed companies As of December 31 2024: 4,075 | Number of listed companies As of December 31 2023: 4,044
 Total new listings > Exchanges that comprise Nasdaq Nordic and Nasdaq Baltic — Number of listed companies As of December 31 2025: 1,119 | Number of listed companies As of December 31 2024: 1,174 | Number of listed companies As of December 31 2023: 1,218
 
---- Chunk 101/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 57 ---
+--- Chunk 101/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 57 ---
 Total new listings > ARR (in millions) — Number of listed companies As of December 31 2025: $764 | Number of listed companies As of December 31 2024: $691 | Number of listed companies As of December 31 2023: $682
 
---- Chunk 102/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 198 ---
+--- Chunk 102/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 198 ---
 In the tables above:
 
 •The number of total listed companies on The Nasdaq Stock
@@ -8180,7 +8180,7 @@ The following table presents key drivers from our Index
 
 business:
 
---- Chunk 103/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 491 ---
+--- Chunk 103/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 491 ---
 business:
 
 As of or Year Ended December 31,
@@ -8216,7 +8216,7 @@ The following table presents key drivers from our Workflow
 
 & Insights business:
 
---- Chunk 104/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 475 ---
+--- Chunk 104/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 475 ---
 & Insights business:
 
 (in millions) As of or Year Ended December 31,
@@ -8249,7 +8249,7 @@ The following table presents key drivers for our Financial
 
 Crime Management Technology business:
 
---- Chunk 105/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 455 ---
+--- Chunk 105/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 455 ---
 Crime Management Technology business:
 
 (in millions) As of or Year Ended December 31,
@@ -8325,7 +8325,7 @@ The following table presents revenues from our Market
 
 Services segment:
 
---- Chunk 106/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 368 ---
+--- Chunk 106/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 368 ---
 Services segment:
 
 (in millions)
@@ -8339,7 +8339,7 @@ The following table presents net revenues by product from
 
 our Market Services segment:
 
---- Chunk 107/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 474 ---
+--- Chunk 107/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 474 ---
 our Market Services segment:
 
 (in millions)
@@ -8365,7 +8365,7 @@ as well as key drivers from our U.S. Equity Derivative
 
 Trading business:
 
---- Chunk 108/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 428 ---
+--- Chunk 108/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 428 ---
 (in millions)
 U.S. Equity Derivative Trading Revenues — Year Ended December 31, 2025: $1,702 | Year Ended December 31, 2024: $1,428 | Year Ended December 31, 2023: $1,257 | Percentage Change 2025 vs. 2024: 19.2% | Percentage Change 2024 vs. 2023: 13.6%
 Section 31 fees — Year Ended December 31, 2025: 47 | Year Ended December 31, 2024: 87 | Year Ended December 31, 2023: 55 | Percentage Change 2025 vs. 2024: (46.1)% | Percentage Change 2024 vs. 2023: 56.9%
@@ -8374,11 +8374,11 @@ Transaction-based expenses > Transaction rebates — Year Ended December 31, 202
 Transaction-based expenses > Section 31 fees — Year Ended December 31, 2025: (47) | Year Ended December 31, 2024: (87) | Year Ended December 31, 2023: (55) | Percentage Change 2025 vs. 2024: (46.1)% | Percentage Change 2024 vs. 2023: 56.9%
 Transaction-based expenses > Brokerage and clearance fees — Year Ended December 31, 2025: (3) | Year Ended December 31, 2024: (3) | Year Ended December 31, 2023: (4) | Percentage Change 2025 vs. 2024: (8.6)% | Percentage Change 2024 vs. 2023: (16.5)%
 
---- Chunk 109/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 91 ---
+--- Chunk 109/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 91 ---
 (in millions)
 Transaction-based expenses > U.S. Equity Derivative Trading Revenues, net — Year Ended December 31, 2025: $463 | Year Ended December 31, 2024: $395 | Year Ended December 31, 2023: $374 | Percentage Change 2025 vs. 2024: 17.2% | Percentage Change 2024 vs. 2023: 5.7%
 
---- Chunk 110/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 509 ---
+--- Chunk 110/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 509 ---
 Section 31 fees are recorded as U.S. equity derivative and
 
 U.S. cash equity trading revenues with a corresponding
@@ -8419,7 +8419,7 @@ U.S. equity derivative trading revenues and U.S. equity
 
 derivative trading revenues, net increased for the year ended
 
---- Chunk 111/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 182 ---
+--- Chunk 111/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 182 ---
 derivative trading revenues, net increased for the year ended
 
 December 31, 2025 compared with the same period in 2024
@@ -8454,7 +8454,7 @@ as well as key drivers and other metrics from our Cash Equity
 
 Trading business:
 
---- Chunk 112/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 422 ---
+--- Chunk 112/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 422 ---
 (in millions)
 Cash Equity Trading Revenues — Year Ended December 31, 2025: $1,847 | Year Ended December 31, 2024: $1,428 | Year Ended December 31, 2023: $1,355 | Percentage Change 2025 vs. 2024: 29.4% | Percentage Change 2024 vs. 2023: 5.4%
 Section 31 fees — Year Ended December 31, 2025: 366 | Year Ended December 31, 2024: 611 | Year Ended December 31, 2023: 253 | Percentage Change 2025 vs. 2024: (40.0%) | Percentage Change 2024 vs. 2023: 141.7%
@@ -8463,11 +8463,11 @@ Transaction-based expenses > Transaction rebates — Year Ended December 31, 202
 Transaction-based expenses > Section 31 fees — Year Ended December 31, 2025: (366) | Year Ended December 31, 2024: (611) | Year Ended December 31, 2023: (253) | Percentage Change 2025 vs. 2024: (40.0%) | Percentage Change 2024 vs. 2023: 141.7%
 Transaction-based expenses > Brokerage and clearance fees — Year Ended December 31, 2025: (25) | Year Ended December 31, 2024: (24) | Year Ended December 31, 2023: (19) | Percentage Change 2025 vs. 2024: 2.8% | Percentage Change 2024 vs. 2023: 29.5%
 
---- Chunk 113/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 86 ---
+--- Chunk 113/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 86 ---
 (in millions)
 Transaction-based expenses > Cash equity trading revenues, net — Year Ended December 31, 2025: $515 | Year Ended December 31, 2024: $430 | Year Ended December 31, 2023: $397 | Percentage Change 2025 vs. 2024: 19.9% | Percentage Change 2024 vs. 2023: 8.3%
 
---- Chunk 114/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 500 ---
+--- Chunk 114/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 500 ---
 See the discussion above for an explanation of Section 31
 
 fees for the year ended December 31, 2025 as compared with
@@ -8488,7 +8488,7 @@ Nasdaq Nordic and Nasdaq Baltic securities > Average daily number of equity trad
 Nasdaq Nordic and Nasdaq Baltic securities > Total average daily value of shares traded (in billions) — 2025: $5.1 | 2024: $4.5 | 2023: $4.5
 Total market share executed on Nasdaq’s exchanges — 2025: 72.2% | 2024: 72.6% | 2023: 71.0%
 
---- Chunk 115/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 516 ---
+--- Chunk 115/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 516 ---
 Cash equity trading revenues and cash equity trading
 
 revenues, net increased for the year ended December 31,
@@ -8557,7 +8557,7 @@ cash equity transaction rebates of $29 million, $22 million
 
 and $20 million for the years ended December 31, 2025,
 
---- Chunk 116/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 145 ---
+--- Chunk 116/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 145 ---
 and $20 million for the years ended December 31, 2025,
 
 2024 and 2023, respectively.
@@ -8588,7 +8588,7 @@ Operating Expenses
 
 The following table presents our operating expenses:
 
---- Chunk 117/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 471 ---
+--- Chunk 117/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 471 ---
 (in millions)
 Compensation and benefits — Year Ended December 31, 2025: $1,392 | Year Ended December 31, 2024: $1,324 | Year Ended December 31, 2023: $1,082 | Percentage Change 2025 vs. 2024: 5.1% | Percentage Change 2024 vs. 2023: 22.4%
 Professional and contract services — Year Ended December 31, 2025: 160 | Year Ended December 31, 2024: 152 | Year Ended December 31, 2023: 128 | Percentage Change 2025 vs. 2024: 5.2% | Percentage Change 2024 vs. 2023: 18.4%
@@ -8597,7 +8597,7 @@ Occupancy — Year Ended December 31, 2025: 124 | Year Ended December 31, 2024: 
 General, administrative and other — Year Ended December 31, 2025: 75 | Year Ended December 31, 2024: 109 | Year Ended December 31, 2023: 113 | Percentage Change 2025 vs. 2024: (29.8)% | Percentage Change 2024 vs. 2023: (3.6)%
 Marketing and advertising — Year Ended December 31, 2025: 65 | Year Ended December 31, 2024: 54 | Year Ended December 31, 2023: 47 | Percentage Change 2025 vs. 2024: 20.2% | Percentage Change 2024 vs. 2023: 16.4%
 
---- Chunk 118/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 395 ---
+--- Chunk 118/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 395 ---
 (in millions)
 Depreciation and amortization — Year Ended December 31, 2025: 632 | Year Ended December 31, 2024: 613 | Year Ended December 31, 2023: 323 | Percentage Change 2025 vs. 2024: 3.1% | Percentage Change 2024 vs. 2023: 89.3%
 Regulatory — Year Ended December 31, 2025: 52 | Year Ended December 31, 2024: 55 | Year Ended December 31, 2023: 34 | Percentage Change 2025 vs. 2024: (6.2)% | Percentage Change 2024 vs. 2023: 60.8%
@@ -8605,7 +8605,7 @@ Merger and strategic initiatives — Year Ended December 31, 2025: 60 | Year End
 Restructuring charges — Year Ended December 31, 2025: 42 | Year Ended December 31, 2024: 116 | Year Ended December 31, 2023: 80 | Percentage Change 2025 vs. 2024: (63.5)% | Percentage Change 2024 vs. 2023: 44.3%
 Total operating expenses — Year Ended December 31, 2025: $2,918 | Year Ended December 31, 2024: $2,851 | Year Ended December 31, 2023: $2,317 | Percentage Change 2025 vs. 2024: 2.3% | Percentage Change 2024 vs. 2023: 23.0%
 
---- Chunk 119/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 529 ---
+--- Chunk 119/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 529 ---
 The increase in compensation and benefits expense for the
 
 year ended December 31, 2025 compared with the same
@@ -8696,7 +8696,7 @@ Regulatory expense decreased for the year ended December
 
 due to the settlement of an SFSA fine in 2024, partially offset
 
---- Chunk 120/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 511 ---
+--- Chunk 120/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 511 ---
 due to the settlement of an SFSA fine in 2024, partially offset
 
 by an increase relating to a change in classification of costs
@@ -8785,7 +8785,7 @@ The following table presents our non-operating income and
 
 expenses:
 
---- Chunk 121/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 455 ---
+--- Chunk 121/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 455 ---
 (in millions)
 Interest income — Year Ended December 31, 2025: $39 | Year Ended December 31, 2024: $28 | Year Ended December 31, 2023: $115 | Percentage Change 2025 vs. 2024: 37.5% | Percentage Change 2024 vs. 2023: (75.5)%
 Interest expense — Year Ended December 31, 2025: (367) | Year Ended December 31, 2024: (414) | Year Ended December 31, 2023: (284) | Percentage Change 2025 vs. 2024: (11.4)% | Percentage Change 2024 vs. 2023: 45.6%
@@ -8794,11 +8794,11 @@ Net gain on divestitures — Year Ended December 31, 2025: 86 | Percentage Chang
 Other income (loss) — Year Ended December 31, 2025: (27) | Year Ended December 31, 2024: 21 | Year Ended December 31, 2023: (1) | Percentage Change 2025 vs. 2024: (224.3)% | Percentage Change 2024 vs. 2023: (5,232.5)%
 Net income (loss) from unconsolidated investees — Year Ended December 31, 2025: 83 | Year Ended December 31, 2024: 16 | Year Ended December 31, 2023: (7) | Percentage Change 2025 vs. 2024: 414.8% | Percentage Change 2024 vs. 2023: (328.7)%
 
---- Chunk 122/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 84 ---
+--- Chunk 122/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 84 ---
 (in millions)
 Total non- operating expense — Year Ended December 31, 2025: $(186) | Year Ended December 31, 2024: $(349) | Year Ended December 31, 2023: $(177) | Percentage Change 2025 vs. 2024: (46.5)% | Percentage Change 2024 vs. 2023: 97.4%
 
---- Chunk 123/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 502 ---
+--- Chunk 123/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 502 ---
 The following table presents our interest expense:
 
 (in millions)
@@ -8837,7 +8837,7 @@ Modelling for Catastrophes business. See Note 4,
 
 “Acquisition and Divestitures,” to the consolidated financial
 
---- Chunk 124/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 520 ---
+--- Chunk 124/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 520 ---
 “Acquisition and Divestitures,” to the consolidated financial
 
 statements for further discussion of these transactions.
@@ -8914,7 +8914,7 @@ to, U.S. GAAP, and may be different from non-GAAP
 
 measures used by other companies. In addition, other
 
---- Chunk 125/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 341 ---
+--- Chunk 125/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 341 ---
 measures used by other companies. In addition, other
 
 companies, including companies in our industry, may
@@ -8977,7 +8977,7 @@ earnings per share and non-GAAP net income attributable to
 
 Nasdaq and diluted earnings per share:
 
---- Chunk 126/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 481 ---
+--- Chunk 126/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 481 ---
 (in millions, except per share amounts) Year Ended December 31,
 U.S. GAAP net income attributable to Nasdaq — 2025: $1,788 | 2024: $1,117 | 2023: $1,059
 Non-GAAP adjustments:
@@ -8997,7 +8997,7 @@ Total non-GAAP tax adjustments — 2025: (113) | 2024: (168) | 2023: (134)
 Other tax adjustments — 2025: (109) | 2024: (7)
 Total non-GAAP adjustments, net of tax — 2025: $226 | 2024: $514 | 2023: $374
 
---- Chunk 127/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 311 ---
+--- Chunk 127/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 311 ---
 (in millions, except per share amounts) Year Ended December 31,
 Non-GAAP net income attributable to Nasdaq — 2025: $2,014 | 2024: $1,631 | 2023: $1,433
 U.S. GAAP effective tax rate — 2025: 16.7% | 2024: 23.1% | 2023: 24.6%
@@ -9008,7 +9008,7 @@ U.S. GAAP diluted earnings per share — 2025: $3.09 | 2024: $1.93 | 2023: $2.08
 Total adjustments from non- GAAP net income — 2025: 0.39 | 2024: 0.89 | 2023: 0.74
 Non-GAAP diluted earnings per share — 2025: $3.48 | 2024: $2.82 | 2023: $2.82
 
---- Chunk 128/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 542 ---
+--- Chunk 128/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 542 ---
 We believe that excluding the above items, described further
 
 below, from the non-GAAP net income attributable to
@@ -9105,7 +9105,7 @@ futures business to another buyer, as designated in the
 
 settlement agreement.
 
---- Chunk 129/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 532 ---
+--- Chunk 129/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 532 ---
 settlement agreement.
 
 •Restructuring charges: In the fourth quarter of 2023,
@@ -9198,7 +9198,7 @@ further discussion.
 
 December 31, 2025, this includes accruals relating to
 
---- Chunk 130/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 531 ---
+--- Chunk 130/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 531 ---
 December 31, 2025, this includes accruals relating to
 
 certain legal matters, which are recorded in professional
@@ -9287,7 +9287,7 @@ augmented by the periodic issuance of debt. Currently, our
 
 cost and availability of funding remain healthy. We continue
 
---- Chunk 131/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 529 ---
+--- Chunk 131/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 529 ---
 cost and availability of funding remain healthy. We continue
 
 to prudently assess our capital deployment strategy through
@@ -9397,7 +9397,7 @@ regulatory capital to shorter term investments qualifying as
 
 cash equivalents,
 
---- Chunk 132/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 470 ---
+--- Chunk 132/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 470 ---
 cash equivalents,
 
 •an increase in other current assets, and
@@ -9480,7 +9480,7 @@ Cash Flow Analysis
 
 The following table summarizes the changes in cash flows:
 
---- Chunk 133/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 524 ---
+--- Chunk 133/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 524 ---
 The following table summarizes the changes in cash flows:
 
 (in millions) Net cash provided by (used in): Year Ended December 31,
@@ -9564,7 +9564,7 @@ driven by increases in repurchases of common stock of $471
 
 million, an increase in dividends paid of $60 million and an
 
---- Chunk 134/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 528 ---
+--- Chunk 134/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 528 ---
 million, an increase in dividends paid of $60 million and an
 
 increase in the repayment of debt of $14 million, resulting
@@ -9657,7 +9657,7 @@ combined required minimum net capital totaled $1 million
 
 and the combined excess capital totaled $25 million,
 
---- Chunk 135/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 509 ---
+--- Chunk 135/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 509 ---
 and the combined excess capital totaled $25 million,
 
 substantially all of which is held in cash and cash equivalents
@@ -9746,7 +9746,7 @@ statements for further discussion of the dividends.
 
 Debt Obligations
 
---- Chunk 136/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 470 ---
+--- Chunk 136/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 470 ---
 Debt Obligations
 
 Our outstanding debt obligations, by contractual maturity, at December 31, 2025 are as follows (in U.S. Dollar millions):
@@ -9821,7 +9821,7 @@ contractual and other obligations as of December 31, 2025,
 
 and the estimated timing thereof.
 
---- Chunk 137/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 514 ---
+--- Chunk 137/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 514 ---
 and the estimated timing thereof.
 
 (in millions) Payments Due by Period
@@ -9890,7 +9890,7 @@ For discussion of off-balance sheet arrangements see:
 
 •Note 15, “Clearing Operations,” to the consolidated
 
---- Chunk 138/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 536 ---
+--- Chunk 138/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 536 ---
 •Note 15, “Clearing Operations,” to the consolidated
 
 financial statements for further discussion of our non-cash
@@ -9995,7 +9995,7 @@ tranches of notes are subject to adjustment to the extent our
 
 debt rating is downgraded below investment grade, as further
 
---- Chunk 139/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 237 ---
+--- Chunk 139/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 237 ---
 debt rating is downgraded below investment grade, as further
 
 discussed in Note 9, “Debt Obligations,” to the consolidated
@@ -10036,7 +10036,7 @@ operating income for the years ended December 31, 2025 and
 
 do not include the offsetting impact of our hedging programs.
 
---- Chunk 140/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 346 ---
+--- Chunk 140/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 346 ---
 do not include the offsetting impact of our hedging programs.
 
 (in millions, except currency rate)
@@ -10047,7 +10047,7 @@ Year Ended December 31, 2025 > Percentage of operating income — Euro: 8.6% | S
 Year Ended December 31, 2025 > Impact of a 10% adverse currency fluctuation on revenues less transaction- based expenses — Euro: $(40) | Swedish Krona: $(17) | Canadian Dollar: $(3) | Other Foreign Currencies: $(18) | U.S. Dollar: $—
 Year Ended December 31, 2025 > Impact of a 10% adverse currency fluctuation on operating income — Euro: $(20) | Swedish Krona: $(7) | Canadian Dollar: $(15) | Other Foreign Currencies: $(23) | U.S. Dollar: $—
 
---- Chunk 141/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 512 ---
+--- Chunk 141/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 512 ---
 (in millions, except currency rate)
 Year Ended December 31, 2024
 Year Ended December 31, 2024 > Average FX rate to the U.S. dollar — Euro: 1.082 | Swedish Krona: 0.095 | Canadian Dollar: 0.730 | Other Foreign Currencies: # | U.S. Dollar: N/A
@@ -10090,7 +10090,7 @@ accumulated other comprehensive loss in the Consolidated
 
 Balance Sheets, until the forecasted transaction occurs. When
 
---- Chunk 142/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 525 ---
+--- Chunk 142/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 525 ---
 Balance Sheets, until the forecasted transaction occurs. When
 
 the forecasted transaction affects earnings, or in the event the
@@ -10164,7 +10164,7 @@ maturities ranging up to eight years, and reported as either an
 
 asset or liability depending on their position as of the balance
 
---- Chunk 143/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 536 ---
+--- Chunk 143/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 536 ---
 asset or liability depending on their position as of the balance
 
 sheet date, and accumulated other comprehensive loss in the
@@ -10261,7 +10261,7 @@ liable for any losses incurred due to a counterparty or a
 
 clearing agent’s failure to satisfy its contractual obligations,
 
---- Chunk 144/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 539 ---
+--- Chunk 144/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 539 ---
 clearing agent’s failure to satisfy its contractual obligations,
 
 either by making payment or delivering securities. Adverse
@@ -10358,7 +10358,7 @@ financial institutions, highly rated government debt
 
 instruments and other creditworthy counterparties.
 
---- Chunk 145/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 539 ---
+--- Chunk 145/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 539 ---
 instruments and other creditworthy counterparties.
 
 •Liquidity Risk: Liquidity risk is the risk a clearinghouse
@@ -10463,7 +10463,7 @@ market technology, and Calypso solutions within our
 
 Financial Technology segment, we enter into long-term
 
---- Chunk 146/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 533 ---
+--- Chunk 146/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 533 ---
 Financial Technology segment, we enter into long-term
 
 contracts with our customers that contain multiple
@@ -10562,7 +10562,7 @@ when the software is made available to the customer as this is
 
 when the customer obtains control and can derive
 
---- Chunk 147/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 533 ---
+--- Chunk 147/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 533 ---
 when the customer obtains control and can derive
 
 substantially all benefits from the license. PCS revenue is
@@ -10667,7 +10667,7 @@ Capital Access Platforms, Financial Technology and Market
 
 Services segments.
 
---- Chunk 148/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 536 ---
+--- Chunk 148/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 536 ---
 Services segments.
 
 When testing goodwill and indefinite-lived intangible assets
@@ -10766,7 +10766,7 @@ for our reportable segments at the time of our 2025 annual
 
 impairment test:
 
---- Chunk 149/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 530 ---
+--- Chunk 149/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 530 ---
 impairment test:
 
 (in millions)
@@ -10855,7 +10855,7 @@ that events or changes in circumstances indicate that the
 
 carrying amount of an asset may not be recoverable. The
 
---- Chunk 150/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 529 ---
+--- Chunk 150/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 529 ---
 carrying amount of an asset may not be recoverable. The
 
 carrying amount of an asset is not recoverable if it exceeds
@@ -10946,7 +10946,7 @@ including resolution of any related appeals or litigation
 
 processes, based on the technical merits of the position. Once
 
---- Chunk 151/293 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 332 ---
+--- Chunk 151/294 | heading: PART II > Item 7. Management’s Discussion and Analysis of | tokens: 332 ---
 processes, based on the technical merits of the position. Once
 
 it is determined that a position meets the recognition
@@ -11007,7 +11007,7 @@ than the ultimate assessment, a further charge to expense
 
 would result.
 
---- Chunk 152/293 | heading: PART II > Item 7A. Quantitative and Qualitative Disclosures About | tokens: 51 ---
+--- Chunk 152/294 | heading: PART II > Item 7A. Quantitative and Qualitative Disclosures About | tokens: 51 ---
 Market Risk
 
 Information about quantitative and qualitative disclosures
@@ -11020,7 +11020,7 @@ Condition and Results of Operations - Quantitative and
 
 Qualitative Disclosures About Market Risk.”
 
---- Chunk 153/293 | heading: PART II > Item 8. Financial Statements and Supplementary Data | tokens: 191 ---
+--- Chunk 153/294 | heading: PART II > Item 8. Financial Statements and Supplementary Data | tokens: 191 ---
 Nasdaq’s consolidated financial statements, including
 
 Consolidated Balance Sheets as of December 31, 2025 and
@@ -11047,12 +11047,12 @@ report thereon of Ernst & Young LLP, dated February 12,
 
 incorporated by reference herein.
 
---- Chunk 154/293 | heading: PART II > Item 9. Changes in and Disagreements with Accountants | tokens: 8 ---
+--- Chunk 154/294 | heading: PART II > Item 9. Changes in and Disagreements with Accountants | tokens: 8 ---
 on Accounting and Financial Disclosure
 
 None.
 
---- Chunk 155/293 | heading: PART II > Item 9A. Controls and Procedures | tokens: 535 ---
+--- Chunk 155/294 | heading: PART II > Item 9A. Controls and Procedures | tokens: 535 ---
 Disclosure Controls and Procedures
 
 Nasdaq’s management, with the participation of Nasdaq’s
@@ -11151,7 +11151,7 @@ reporting is effective.
 
 Ernst & Young LLP, an independent registered public
 
---- Chunk 156/293 | heading: PART II > Item 9A. Controls and Procedures | tokens: 537 ---
+--- Chunk 156/294 | heading: PART II > Item 9A. Controls and Procedures | tokens: 537 ---
 Ernst & Young LLP, an independent registered public
 
 accounting firm, has issued an attestation report on Nasdaq’s
@@ -11254,7 +11254,7 @@ assessed risk, and performing such other procedures as we
 
 considered necessary in the circumstances. We believe that
 
---- Chunk 157/293 | heading: PART II > Item 9A. Controls and Procedures | tokens: 319 ---
+--- Chunk 157/294 | heading: PART II > Item 9A. Controls and Procedures | tokens: 319 ---
 considered necessary in the circumstances. We believe that
 
 our audit provides a reasonable basis for our opinion.
@@ -11321,7 +11321,7 @@ New York, New York
 
 February 12, 2026
 
---- Chunk 158/293 | heading: PART II > Item 9B. Other Information | tokens: 70 ---
+--- Chunk 158/294 | heading: PART II > Item 9B. Other Information | tokens: 70 ---
 During the three months ended December 31, 2025, none of
 
 the Company’s directors or officers adopted, terminated or
@@ -11332,12 +11332,12 @@ modified a “Rule 10b5-1 trading arrangement” or “non-Rule
 
 Item 408 of Regulation S-K).
 
---- Chunk 159/293 | heading: PART II > Item 9C. Disclosure Regarding Foreign Jurisdictions that | tokens: 8 ---
+--- Chunk 159/294 | heading: PART II > Item 9C. Disclosure Regarding Foreign Jurisdictions that | tokens: 8 ---
 Prevent Inspections
 
 Not applicable.
 
---- Chunk 160/293 | heading: PART III > Item 10. Directors, Executive Officers and Corporate | tokens: 409 ---
+--- Chunk 160/294 | heading: PART III > Item 10. Directors, Executive Officers and Corporate | tokens: 409 ---
 Governance
 
 Information about Nasdaq’s directors, as required by
@@ -11402,7 +11402,7 @@ listing standards. A copy of Nasdaq’s insider trading policy is
 
 filed as Exhibit 19.1 to this Annual Report on Form 10-K.
 
---- Chunk 161/293 | heading: PART III > Item 11. Executive Compensation | tokens: 76 ---
+--- Chunk 161/294 | heading: PART III > Item 11. Executive Compensation | tokens: 76 ---
 Information about Nasdaq’s director and executive
 
 compensation, as required by Items 402, 407(e)(4) and
@@ -11417,7 +11417,7 @@ Compensation” (except under “Pay versus Performance”) in
 
 the Proxy Statement.
 
---- Chunk 162/293 | heading: PART III > Item 12. Security Ownership of Certain Beneficial | tokens: 520 ---
+--- Chunk 162/294 | heading: PART III > Item 12. Security Ownership of Certain Beneficial | tokens: 520 ---
 Owners and Management and Related Stockholder
 
 Matters
@@ -11487,7 +11487,7 @@ issuance under equity compensation plans (excluding
 
 shares reflected in column (a) includes 21,559,043 shares
 
---- Chunk 163/293 | heading: PART III > Item 12. Security Ownership of Certain Beneficial | tokens: 57 ---
+--- Chunk 163/294 | heading: PART III > Item 12. Security Ownership of Certain Beneficial | tokens: 57 ---
 shares reflected in column (a) includes 21,559,043 shares
 
 of common stock that may be awarded pursuant to the
@@ -11496,7 +11496,7 @@ Equity Plan and (b) 10,077,218 shares of common stock
 
 that may be issued pursuant to the ESPP.
 
---- Chunk 164/293 | heading: PART III > Item 13. Certain Relationships and Related Transactions, | tokens: 103 ---
+--- Chunk 164/294 | heading: PART III > Item 13. Certain Relationships and Related Transactions, | tokens: 103 ---
 and Director Independence
 
 Information about certain relationships and related
@@ -11517,7 +11517,7 @@ discussion under the heading “Our Board - Director
 
 Nominees” in the Proxy Statement.
 
---- Chunk 165/293 | heading: PART III > Item 14. Principal Accountant Fees and Services | tokens: 55 ---
+--- Chunk 165/294 | heading: PART III > Item 14. Principal Accountant Fees and Services | tokens: 55 ---
 Information about principal accountant fees and services, as
 
 required by Item 9(e) of Schedule 14A, is incorporated herein
@@ -11528,7 +11528,7 @@ Evaluation and 2026 Selection of the Independent Auditors”
 
 in the Proxy Statement.
 
---- Chunk 166/293 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 289 ---
+--- Chunk 166/294 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 289 ---
 (a)(1) Financial Statements
 
 See “Index to Consolidated Financial Statements.”
@@ -11547,7 +11547,7 @@ Exhibit Number
 2.1 | Share Purchase Agreement, dated as of November 18, 2020, by and among Osprey Acquisition Corporation, a wholly owned subsidiary of Nasdaq, Verafin Holdings Inc., certain shareholders of Verafin (the “Sellers”), and Shareholder Representative Services LLC, solely in its capacity as the representative of the Sellers (incorporated herein by reference to Exhibit 2.2 to the Annual Report on Form 10-K for the year ended December 31, 2020 filed on February 23, 2021).†
 2.2 | Amendment to Share Purchase Agreement, dated as of February 11, 2021, by and among Osprey Acquisition Corporation, a wholly owned subsidiary of Nasdaq, Verafin Holdings Inc., certain shareholders of Verafin (the “Sellers”), and Shareholder Representative Services LLC, solely in its capacity as the representative of the Sellers (incorporated herein by reference to Exhibit 2.3 to the Annual Report on Form 10-K for the year ended December 31, 2020 filed on February 23, 2021).
 
---- Chunk 167/293 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 466 ---
+--- Chunk 167/294 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 466 ---
 2.3 | Agreement and Plan of Merger, dated as of June 10, 2023, by and among Nasdaq, Inc., Argus Merger Sub 1, Inc., Argus Merger Sub 2, LLC, Adenza Holdings, Inc. and Adenza Parent, LP. (incorporated herein by reference to Exhibit 2.1 to the Current Report on Form 8-K filed on June 12, 2023).†
 3.1 | Amended and Restated Certificate of Incorporation of Nasdaq (incorporated herein by reference to Exhibit 3.1 to the Current Report on Form 8-K filed on January 28, 2014).
 3.1.1 | Certificate of Elimination of Nasdaq’s Series A Convertible Preferred Stock (incorporated herein by reference to Exhibit 3.1.1 to the Current Report on Form 8-K filed on January 28, 2014).
@@ -11557,12 +11557,12 @@ Exhibit Number
 3.1.5 | Certificate of Amendment of Nasdaq’s Amended and Restated Certificate of Incorporation (incorporated herein by reference to Exhibit 3.1 to the Current Report on Form 8- K filed on January 16, 2026).
 3.2 | Nasdaq’s Amended and Restated By-Laws (incorporated herein by reference to Exhibit 3.2 to the Current Report on Form 8-K filed on January 16, 2026).
 
---- Chunk 168/293 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 220 ---
+--- Chunk 168/294 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 220 ---
 4.1 | Form of Common Stock certificate (incorporated herein by reference to Exhibit 4.1 to the Quarterly Report on Form 10-Q for the quarter ended September 30, 2015 filed on November 4, 2015).
 4.2 | Stockholders’ Agreement, dated as of February 27, 2008, between Nasdaq, Inc. (f/k/a The NASDAQ OMX Group, Inc.) and Borse Dubai Limited (incorporated herein by reference to Exhibit 10.2 to the Current Report on Form 8-K filed on March 3, 2008).
 4.2.1 | First Amendment to Stockholders’ Agreement, dated as of February 19, 2009, between Nasdaq, Inc. (f/k/a The NASDAQ OMX Group, Inc.) and Borse Dubai Limited (incorporated herein by reference to Exhibit 4.10.1 to the Annual Report on Form 10-K for the year ended December 31, 2008 filed on February 27, 2009).
 
---- Chunk 169/293 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 477 ---
+--- Chunk 169/294 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 477 ---
 4.2.2 | Second Amendment to Nasdaq Stockholders’ Agreement, dated as of March 19, 2024, by and between Nasdaq, Inc. and Borse Dubai Limited (incorporated herein by reference to Exhibit 4.1 to the Current Report on Form 8-K filed on March 20, 2024).
 4.3 | Registration Rights Agreement, dated as of February 27, 2008, among Nasdaq, Inc. (f/k/a The NASDAQ OMX Group, Inc.), Borse Dubai Limited and Borse Dubai Nasdaq Share Trust (incorporated herein by reference to Exhibit 10.3 to the Current Report on Form 8-K filed on March 3, 2008).
 4.3.1 | First Amendment to Registration Rights Agreement, dated as of February 19, 2009, among Nasdaq, Inc. (f/k/a The NASDAQ OMX Group, Inc.), Borse Dubai Limited and Borse Dubai Nasdaq Share Trust (incorporated herein by reference to Exhibit 4.11.1 to the Annual Report on Form 10-K for the year ended December 31, 2008 filed on February 27, 2009).
@@ -11570,12 +11570,12 @@ Exhibit Number
 4.4.1 | First Amendment to Nasdaq Stockholders’ Agreement, dated as of December 14, 2022, between Nasdaq, Inc. and Investor AB (incorporated herein by reference to Exhibit 4.1 to the Current Report on Form 8-K filed on December 16, 2022).
 4.5 | Stockholders’ Agreement, dated as of November 1, 2023, by and among Nasdaq, Inc., Adenza Parent, LP and Thoma Bravo, L.P. (incorporated herein by reference to Exhibit 4.1 to the Current Report on Form 8-K filed on November 3, 2023).
 
---- Chunk 170/293 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 219 ---
+--- Chunk 170/294 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 219 ---
 4.6 | Registration Rights Agreement, dated as of November 1, 2023, by and among Nasdaq, Inc. and Adenza Parent, LP. (incorporated herein by reference to Exhibit 4.2 to the Current Report on Form 8-K filed on November 3, 2023).
 4.7 | Indenture, dated as of June 7, 2013, between Nasdaq, Inc. (f/k/a The NASDAQ OMX Group, Inc.) and Wells Fargo Bank, National Association, as Trustee (incorporated herein by reference to Exhibit 4.1 to the Current Report on Form 8-K filed on June 10, 2013).
 4.7.1 | Fourth Supplemental Indenture, dated as of June 7, 2016, among Nasdaq, Inc. and Wells Fargo Bank, National Association, as Trustee (incorporated herein by reference to Exhibit 4.1 to the Current Report on Form 8-K filed on June 7, 2016).
 
---- Chunk 171/293 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 471 ---
+--- Chunk 171/294 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 471 ---
 4.8 | Sixth Supplemental Indenture, dated as of April 1, 2019, among Nasdaq, Inc., Wells Fargo Bank, National Association, as Trustee, and HSBC Bank USA, National Association, as paying agent and as registrar and transfer agent (incorporated herein by reference to Exhibit 4.2 to the Form 8-A filed on April 1, 2019).
 4.9 | Seventh Supplemental Indenture, dated February 13, 2020, among Nasdaq, Inc., Wells Fargo Bank, National Association, as Trustee, and HSBC Bank USA, National Association, as paying agent and as registrar and transfer agent (incorporated herein by reference to Exhibit 4.2 to the Company’s Form 8-A filed on February 13, 2020).
 4.10 | Eighth Supplemental Indenture, dated April 28, 2020, by and between Nasdaq, Inc. and Wells Fargo Bank, National Association, as Trustee (incorporated herein by reference to Exhibit 4.2 to the Current Report on Form 8-K filed on April 28, 2020).
@@ -11583,12 +11583,12 @@ Exhibit Number
 4.12 | Eleventh Supplemental Indenture, dated December 21, 2020, by and between Nasdaq, Inc. and Wells Fargo Bank, National Association, as Trustee (incorporated herein by reference to Exhibit 4.4 to the Current Report on Form 8-K filed on December 21, 2020).
 4.13 | Twelfth Supplemental Indenture, dated July 30, 2021, by and among Nasdaq, Inc., Wells Fargo Bank, National Association, as Trustee and HSBC Bank USA, National Association, as registrar and transfer agent (incorporated herein by reference to Exhibit 4.2 to the Company’s Form 8-A filed on July 30, 2021).
 
---- Chunk 172/293 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 261 ---
+--- Chunk 172/294 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 261 ---
 4.14 | Thirteenth Supplemental Indenture, dated as of March 7, 2022, by and between Nasdaq, Inc. and Computershare Trust Company, N.A. (as successor to Wells Fargo Bank, National Association), as trustee (incorporated herein by reference to Exhibit 4.2 to the Company’s Current Report on Form 8-K filed on March 7, 2022).
 4.15 | Fourteenth Supplemental Indenture, dated as of June 28, 2023, by and between Nasdaq, Inc. and Computershare Trust Company, N.A. (as successor to Wells Fargo Bank, National Association), as trustee (incorporated herein by reference to Exhibit 4.2 to the Current Report on Form 8-K filed on June 28, 2023).
 4.16 | Fifteenth Supplemental Indenture, dated as of June 28, 2023, by and between Nasdaq, Inc. and Computershare Trust Company, N.A. (as successor to Wells Fargo Bank, National Association), as trustee (incorporated herein by reference to Exhibit 4.3 to the Current Report on Form 8-K filed on June 28, 2023).
 
---- Chunk 173/293 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 492 ---
+--- Chunk 173/294 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 492 ---
 4.17 | Sixteenth Supplemental Indenture, dated as of June 28, 2023, by and between Nasdaq, Inc. and Computershare Trust Company, N.A. (as successor to Wells Fargo Bank, National Association), as trustee (incorporated herein by reference to Exhibit 4.4 to the Current Report on Form 8-K filed on June 28, 2023).
 4.18 | Seventeenth Supplemental Indenture, dated as of June 28, 2023, by and between Nasdaq, Inc. and Computershare Trust Company, N.A. (as successor to Wells Fargo Bank, National Association), as trustee (incorporated herein by reference to Exhibit 4.5 to the Current Report on Form 8-K filed on June 28, 2023).
 4.19 | Eighteenth Supplemental Indenture, dated as of June 28, 2023, by and between Nasdaq, Inc. and Computershare Trust Company, N.A. (as successor to Wells Fargo Bank, National Association), as trustee (incorporated herein by reference to Exhibit 4.6 to the Current Report on Form 8-K filed on June 28, 2023).
@@ -11597,13 +11597,13 @@ Exhibit Number
 10.1 | Board Compensation Policy, as amended and restated, effective on June 11, 2025 (incorporated herein by reference to Exhibit 10.1 to the Quarterly Report on Form 10-Q for the quarter ended June 30, 2025 filed on July 25, 2025).*
 10.2 | Nasdaq Executive Corporate Incentive Plan, effective as of January 1, 2015 (incorporated herein by reference to Exhibit 10.1 to the Current Report on Form 8-K filed on May 11, 2015).*
 
---- Chunk 174/293 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 240 ---
+--- Chunk 174/294 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 240 ---
 10.3 | Nasdaq, Inc. Equity Incentive Plan (as amended and restated as of April 24, 2018) (incorporated herein by reference to Exhibit 10.1 to the Form S-8 filed on May 25, 2018).*
 10.4 | Form of Nasdaq Non-Qualified Stock Option Award Certificate (incorporated herein by reference to Exhibit 10.3 to the Annual Report on Form 10-K for the year ended December 31, 2010 filed on February 24, 2011).*
 10.5 | Form of Nasdaq Restricted Stock Unit Award Certificate (employees) (incorporated herein by reference to Exhibit 10.2 to the Quarterly Report on Form 10-Q for the quarter ended June 30, 2025 filed on July 25, 2025).*
 10.6 | Form of Nasdaq Restricted Stock Unit Award Certificate (directors) (incorporated herein by reference to Exhibit 10.3 to the Quarterly Report on Form 10-Q for the quarter ended June 30, 2025 filed on July 25, 2025).*
 
---- Chunk 175/293 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 443 ---
+--- Chunk 175/294 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 443 ---
 10.7 | Form of Nasdaq Three-Year Performance Share Unit Agreement (incorporated herein by reference to Exhibit 10.4 to the Quarterly Report on Form 10-Q for the quarter ended June 30, 2025 filed on July 25, 2025).*
 10.7.1 | Form of Nasdaq Two-Year Performance Share Unit Agreement (incorporated herein by reference to Exhibit 10.4 to the Quarterly Report on Form 10-Q for the quarter ended June 30, 2024 filed on August 6, 2024).*
 10.8 | Form of Nasdaq Continuing Obligations Agreement (incorporated by reference to Exhibit 10.9 to the Company’s Annual Report on Form 10-K for the year ended December 31, 2021 filed on February 23, 2022).
@@ -11612,12 +11612,12 @@ Exhibit Number
 10.11 | Nasdaq Supplemental Employer Retirement Contribution Plan, dated as of December 17, 2008 (incorporated herein by reference to Exhibit 10.7 to the Annual Report on Form 10-K for the year ended December 31, 2008 filed on February 27, 2009).*
 10.12 | Nasdaq, Inc. Deferred Compensation Plan, effective July 1, 2022 (incorporated herein by reference to Exhibit 10.1 to the Company’s Current Report on Form 8-K filed on June 16, 2022).*
 
---- Chunk 176/293 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 242 ---
+--- Chunk 176/294 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 242 ---
 10.13 | Nonqualified Stock Option Award Certificate to Adena T. Friedman from Nasdaq, Inc. in connection with grant made on January 3, 2017 (incorporated herein by reference to Exhibit 10.1 to the Quarterly Report on Form 10-Q for the quarter ended September 30, 2017 filed on November 7, 2017).*
 10.14 | Employment Agreement between Nasdaq and Adena Friedman, made and entered into on November 19, 2021 and effective as of January 1, 2022 (incorporated herein by reference to Exhibit 10.14 to the Company’s Annual Report on Form 10-K for the year ended December 31, 2021 filed on February 23, 2022).*
 10.15 | Nonqualified Stock Option Award Certificate to Adena T. Friedman from Nasdaq, Inc. in connection with grant made on January 3, 2022 (incorporated herein by reference to Exhibit 10.15 to the Company’s Annual Report on Form 10-K for the year ended December 31, 2021 filed on February 23, 2022).*
 
---- Chunk 177/293 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 428 ---
+--- Chunk 177/294 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 428 ---
 10.16 | Employment Agreement between Nasdaq, Inc. and Adena T. Friedman, dated as of March 11, 2025 (incorporated herein by reference to Exhibit 10.1 to the Company’s Quarterly Report on Form 10-Q for the quarter ended March 31, 2025 filed on April 28, 2025).*
 10.17 | Employment Agreement by and between Nasdaq, Inc. and Bradley J. Peterson, dated June 22, 2022 (incorporated herein by reference to Exhibit 10.5 to the Quarterly Report on Form 10-Q for the quarter ended June 30, 2022 filed on August 3, 2022).*
 10.17.1 | Employment Agreement between Nasdaq, Inc. and Bradley J, Peterson, dated as of March 10, 2025 (incorporated herein by reference to Exhibit 10.3 to the Company’s Quarterly Report on Form 10-Q for the quarter ended March 31, 2025 filed on April 28, 2025).*
@@ -11625,12 +11625,12 @@ Exhibit Number
 10.19 | Employment Agreement between Nasdaq, Inc. and Tal Cohen, dated as of March 10, 2025 (incorporated herein by reference to Exhibit 10.2 to the Company’s Quarterly Report on Form 10- Q for the quarter ended March 31, 2025 filed on April 28, 2025).*
 10.20 | Employment Offer Letter by and between Nasdaq, Inc. and Sarah Youngwood, dated as of August 31, 2023 (incorporated herein by reference to Exhibit 10.2 to the Quarterly Report on Form 10-Q for the quarter ended September 30, 2023 filed on November 3, 2023).*
 
---- Chunk 178/293 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 279 ---
+--- Chunk 178/294 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 279 ---
 10.21 | Nasdaq Change in Control Severance Plan For Non-CEO Presidents, Executive Vice Presidents and Senior Vice Presidents, effective November 26, 2013, as amended December 6, 2022 (incorporated herein by reference to Exhibit 10.19 to the Annual Report on Form 10-K for the year ended December 31, 2022, filed on February 22, 2023).*
 10.22 | Amended and Restated Credit Agreement, dated as of December 16, 2022, among Nasdaq, Inc., the various lenders and issuing bank party thereto and Bank of America, N.A., as administrative agent (incorporated herein by reference to Exhibit 10.1 to the Current Report on Form 8-K filed on December 16, 2022).†
 10.23 | Amendment No. 1 to Amended and Restated Credit Agreement, dated as of March 29, 2023, among Nasdaq, Inc., the Lenders party hereto, Bank of America, N.A., as administrative agent and BofA Securities, Inc., as Sustainability Coordinator (incorporated herein by reference to Exhibit 10.1 to the Quarterly Report on Form 10-Q for the quarter ended March 31, 2023 filed on May 4, 2023).†
 
---- Chunk 179/293 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 497 ---
+--- Chunk 179/294 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 497 ---
 10.24 | Amendment No. 2 to Amended and Restated Credit Agreement, dated as of June 16, 2023, among Nasdaq, Inc., a Delaware corporation, the lenders party thereto and Bank of America, N.A., as administrative agent (incorporated herein by reference to Exhibit 10.1 to the Current Report on Form 8-K filed on June 20, 2023).
 10.25 | Amendment No. 3 to Amended and Restated Credit Agreement, dated as of August 2, 2024, among Nasdaq, Inc., a Delaware corporation, the lenders party thereto and Bank of America, N.A., as administrative agent (incorporated herein by reference to Exhibit 10.1 to the Quarterly Report on Form 10-Q for the quarter ended September 30, 2024 filed on October 29, 2024).†
 10.26 | Amendment No. 4 to Amended and Restated Credit Agreement, dated as of December 16, 2024, among Nasdaq, Inc., a Delaware corporation, the lenders party thereto, Bank of America, N.A., as administrative agent and BofA Securities, Inc., as sustainability coordinator (incorporated herein by reference to Exhibit 10.26 to the Annual Report on Form 10- K for the year ended December 31, 2024, filed on February 21, 2025).†
@@ -11643,11 +11643,11 @@ Exhibit Number
 31.1 | Certification of Chief Executive Officer pursuant to Section 302 of the Sarbanes-Oxley Act of 2002 (“Sarbanes-Oxley”).
 31.2 | Certification of Executive Vice President and Chief Financial Officer pursuant to Section 302 of Sarbanes-Oxley.
 
---- Chunk 180/293 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 90 ---
+--- Chunk 180/294 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 90 ---
 32.1 | Certifications Pursuant to 18 U.S.C. Section 1350, as adopted pursuant to Section 906 of Sarbanes-Oxley.
 97.1 | Supplemental Executive Officer Recoupment Policy (incorporated herein by reference to Exhibit 97.1 to the Annual Report on Form 10-K for the year ended December 31, 2023 filed on February 21, 2024).*
 
---- Chunk 181/293 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 313 ---
+--- Chunk 181/294 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 313 ---
 101 | The following materials from the Nasdaq, Inc. Annual Report on Form 10-K for the year ended December 31, 2025, formatted in iXBRL (Inline eXtensible Business Reporting Language): (i) Consolidated Balance Sheets as of December 31, 2025 and December 31, 2024; (ii) Consolidated Statements of Income for the years ended December 31, 2025, 2024 and 2023 (iii) Consolidated Statements of Comprehensive Income for the years ended December 31, 2025, 2024 and 2023; (iv) Consolidated Statements of Changes in Stockholders’ Equity for the years ended December 31, 2025, 2024 and 2023; (v) Consolidated Statements of Cash Flows for the years ended December 31, 2025, 2024 and 2023; and (vi) notes to consolidated financial statements.
 104 | Cover Page Interactive Data File, formatted in iXBRL and contained in Exhibit 101.
 
@@ -11671,10 +11671,10 @@ or the required information is included in the
 
 consolidated financial statements or notes.
 
---- Chunk 182/293 | heading: PART IV > Item 16. Form 10-K Summary | tokens: 2 ---
+--- Chunk 182/294 | heading: PART IV > Item 16. Form 10-K Summary | tokens: 2 ---
 None.
 
---- Chunk 183/293 | heading: PART IV > Signatures | tokens: 492 ---
+--- Chunk 183/294 | heading: PART IV > Signatures | tokens: 492 ---
 Pursuant to the requirements of Section 13 or 15(d) of the
 
 Securities Exchange Act of 1934, the registrant has duly
@@ -11750,7 +11750,7 @@ Title: | Attorney-in-Fact
 
 Nasdaq, Inc.
 
---- Chunk 184/293 | heading: PART IV > Financial Statements | tokens: 528 ---
+--- Chunk 184/294 | heading: PART IV > Financial Statements | tokens: 528 ---
 The following consolidated financial statements of Nasdaq, Inc. and its subsidiaries are presented herein on the page indicated:
 
 Report of Independent Registered Public Accounting Firm (PCAOB ID 42) | F-2
@@ -11835,7 +11835,7 @@ and Exchange Commission and the PCAOB.
 
 We conducted our audits in accordance with the standards of
 
---- Chunk 185/293 | heading: PART IV > Financial Statements | tokens: 298 ---
+--- Chunk 185/294 | heading: PART IV > Financial Statements | tokens: 298 ---
 We conducted our audits in accordance with the standards of
 
 the PCAOB. Those standards require that we plan and
@@ -11892,7 +11892,7 @@ providing a separate opinion on the critical audit matter or on
 
 the accounts or disclosure to which it relates.
 
---- Chunk 186/293 | heading: PART IV > Financial Statements | tokens: 451 ---
+--- Chunk 186/294 | heading: PART IV > Financial Statements | tokens: 451 ---
 the accounts or disclosure to which it relates.
 
 Calypso and AxiomSL on-premises license revenue recognition
@@ -11910,7 +11910,7 @@ February 12, 2026
 
 Nasdaq, Inc.
 
---- Chunk 187/293 | heading: PART IV > Financial Statements | tokens: 514 ---
+--- Chunk 187/294 | heading: PART IV > Financial Statements | tokens: 514 ---
 Consolidated Balance Sheets
 
 (in millions, except share and par value amounts)
@@ -11942,7 +11942,7 @@ Current liabilities > Default funds and margin deposits — 2025: 5,842 | 2024: 
 Current liabilities > Short-term debt — 2025: 431 | 2024: 399
 Current liabilities > Total current liabilities — 2025: 7,961 | 2024: 7,902
 
---- Chunk 188/293 | heading: PART IV > Financial Statements | tokens: 516 ---
+--- Chunk 188/294 | heading: PART IV > Financial Statements | tokens: 516 ---
 Consolidated Balance Sheets
 
 (in millions, except share and par value amounts)
@@ -11970,7 +11970,7 @@ See accompanying notes to consolidated financial statements.
 
 Nasdaq, Inc.
 
---- Chunk 189/293 | heading: PART IV > Financial Statements | tokens: 508 ---
+--- Chunk 189/294 | heading: PART IV > Financial Statements | tokens: 508 ---
 Consolidated Statements of Income
 
 (in millions, except per share amounts)
@@ -11995,7 +11995,7 @@ Operating expenses > General, administrative and other — 2025: 75 | 2024: 109 
 Operating expenses > Marketing and advertising — 2025: 65 | 2024: 54 | 2023: 47
 Operating expenses > Depreciation and amortization — 2025: 632 | 2024: 613 | 2023: 323
 
---- Chunk 190/293 | heading: PART IV > Financial Statements | tokens: 486 ---
+--- Chunk 190/294 | heading: PART IV > Financial Statements | tokens: 486 ---
 Consolidated Statements of Income
 
 (in millions, except per share amounts)
@@ -12019,7 +12019,7 @@ Net income attributable to Nasdaq — 2025: $1,788 | 2024: $1,117 | 2023: $1,059
 Per share information:
 Per share information > Basic earnings per share — 2025: $3.12 | 2024: $1.94 | 2023: $2.10
 
---- Chunk 191/293 | heading: PART IV > Financial Statements | tokens: 110 ---
+--- Chunk 191/294 | heading: PART IV > Financial Statements | tokens: 110 ---
 Consolidated Statements of Income
 
 (in millions, except per share amounts)
@@ -12032,7 +12032,7 @@ See accompanying notes to consolidated financial statements.
 
 Nasdaq, Inc.
 
---- Chunk 192/293 | heading: PART IV > Financial Statements | tokens: 468 ---
+--- Chunk 192/294 | heading: PART IV > Financial Statements | tokens: 468 ---
 Consolidated Statements of Comprehensive Income
 
 (in millions)
@@ -12058,7 +12058,7 @@ See accompanying notes to consolidated financial statements.
 
 Nasdaq, Inc.
 
---- Chunk 193/293 | heading: PART IV > Financial Statements | tokens: 460 ---
+--- Chunk 193/294 | heading: PART IV > Financial Statements | tokens: 460 ---
 Consolidated Statements of Changes in Stockholders’ Equity
 
 (in millions)
@@ -12078,7 +12078,7 @@ Additional paid-in capital > Ending balance — 2025 $: 5,122 | 2024 $: 5,530 | 
 Common stock in treasury, at cost
 Common stock in treasury, at cost > Beginning balance — 2025 $: (647) | 2024 $: (587) | 2023 $: (515)
 
---- Chunk 194/293 | heading: PART IV > Financial Statements | tokens: 486 ---
+--- Chunk 194/294 | heading: PART IV > Financial Statements | tokens: 486 ---
 Consolidated Statements of Changes in Stockholders’ Equity
 
 (in millions)
@@ -12099,7 +12099,7 @@ Retained earnings > Total Nasdaq stockholders’ equity — 2025 $: 12,227 | 202
 Noncontrolling interests
 Noncontrolling interests > Beginning balance — 2025 $: 9 | 2024 $: 11 | 2023 $: 13
 
---- Chunk 195/293 | heading: PART IV > Financial Statements | tokens: 169 ---
+--- Chunk 195/294 | heading: PART IV > Financial Statements | tokens: 169 ---
 Consolidated Statements of Changes in Stockholders’ Equity
 
 (in millions)
@@ -12113,7 +12113,7 @@ See accompanying notes to consolidated financial statements.
 
 Nasdaq, Inc.
 
---- Chunk 196/293 | heading: PART IV > Financial Statements | tokens: 478 ---
+--- Chunk 196/294 | heading: PART IV > Financial Statements | tokens: 478 ---
 Consolidated Statements of Cash Flows
 
 (in millions)
@@ -12134,7 +12134,7 @@ Adjustments to reconcile net income to net cash provided by operating activities
 Adjustments to reconcile net income to net cash provided by operating activities > Other reconciling items included in net income — 2025: 21 | 2024: 35 | 2023: 30
 Net change in operating assets and liabilities, excluding the effects of divestitures:
 
---- Chunk 197/293 | heading: PART IV > Financial Statements | tokens: 499 ---
+--- Chunk 197/294 | heading: PART IV > Financial Statements | tokens: 499 ---
 Consolidated Statements of Cash Flows
 
 (in millions)
@@ -12154,7 +12154,7 @@ Cash flows from investing activities > Proceeds from sales and redemptions of se
 Cash flows from investing activities > Proceeds from divestitures, net of cash divested — 2025: 140
 Cash flows from investing activities > Acquisition of businesses, net of cash and cash equivalents acquired — 2023: (5,766)
 
---- Chunk 198/293 | heading: PART IV > Financial Statements | tokens: 494 ---
+--- Chunk 198/294 | heading: PART IV > Financial Statements | tokens: 494 ---
 Consolidated Statements of Cash Flows
 
 (in millions)
@@ -12175,7 +12175,7 @@ Cash flows from financing activities > Default funds and margin deposits — 202
 Cash flows from financing activities > Other financing activities — 2025: 43 | 2024: 27 | 2023: 3
 Cash flows from financing activities > Net cash provided by (used in) financing activities — 2025: (2,953) | 2024: (2,561) | 2023: 4,220
 
---- Chunk 199/293 | heading: PART IV > Financial Statements | tokens: 532 ---
+--- Chunk 199/294 | heading: PART IV > Financial Statements | tokens: 532 ---
 Consolidated Statements of Cash Flows
 
 (in millions)
@@ -12201,7 +12201,7 @@ See accompanying notes to consolidated financial statements.
 
 Nasdaq, Inc.
 
---- Chunk 200/293 | heading: PART IV > Financial Statements > Organization and Nature of Operations | tokens: 534 ---
+--- Chunk 200/294 | heading: PART IV > Financial Statements > Organization and Nature of Operations | tokens: 534 ---
 Notes to Consolidated Financial Statements
 
 1. ORGANIZATION AND NATURE OF OPERATIONS
@@ -12298,7 +12298,7 @@ futures, options and options on futures on our indices. As of
 
 December 31, 2025, 451 ETPs listed on 27 exchanges in over
 
---- Chunk 201/293 | heading: PART IV > Financial Statements > Organization and Nature of Operations | tokens: 543 ---
+--- Chunk 201/294 | heading: PART IV > Financial Statements > Organization and Nature of Operations | tokens: 543 ---
 December 31, 2025, 451 ETPs listed on 27 exchanges in over
 
 20 countries tracked a Nasdaq index and accounted for $882
@@ -12405,7 +12405,7 @@ managers. Its unique enterprise data management platform
 
 delivers data lineage, risk aggregation, analytics, workflow
 
---- Chunk 202/293 | heading: PART IV > Financial Statements > Organization and Nature of Operations | tokens: 528 ---
+--- Chunk 202/294 | heading: PART IV > Financial Statements > Organization and Nature of Operations | tokens: 528 ---
 delivers data lineage, risk aggregation, analytics, workflow
 
 automation, reconciliation, validation and audit functionality,
@@ -12502,7 +12502,7 @@ discussion. Revenues from this business are reflected in other
 
 revenues in the Consolidated Statements of Income for all
 
---- Chunk 203/293 | heading: PART IV > Financial Statements > Organization and Nature of Operations | tokens: 78 ---
+--- Chunk 203/294 | heading: PART IV > Financial Statements > Organization and Nature of Operations | tokens: 78 ---
 revenues in the Consolidated Statements of Income for all
 
 periods presented, and in our Corporate segment for our
@@ -12519,7 +12519,7 @@ execution of buy and sell orders as well as the reporting of
 
 transactions, providing fee-based revenues.
 
---- Chunk 204/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 533 ---
+--- Chunk 204/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 533 ---
 2. SUMMARY OF SIGNIFICANT ACCOUNTING
 
 POLICIES
@@ -12626,7 +12626,7 @@ investments included in cash and cash equivalents in the
 
 Consolidated Balance Sheets were $337 million as of
 
---- Chunk 205/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 528 ---
+--- Chunk 205/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 528 ---
 Consolidated Balance Sheets were $337 million as of
 
 December 31, 2025 and $373 million as of December 31,
@@ -12721,7 +12721,7 @@ consider business, economic, and market conditions that may
 
 affect customers’ ability to pay, as well as identifiable
 
---- Chunk 206/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 540 ---
+--- Chunk 206/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 540 ---
 affect customers’ ability to pay, as well as identifiable
 
 changes in the risk characteristics of our customer base.
@@ -12826,7 +12826,7 @@ plus or minus changes resulting from observable price
 
 changes in orderly transactions for the identical or a similar
 
---- Chunk 207/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 538 ---
+--- Chunk 207/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 538 ---
 changes in orderly transactions for the identical or a similar
 
 investment of the same issuer on a prospective basis. We
@@ -12923,7 +12923,7 @@ use these contracts for speculative trading purposes.
 
 Non-Designated Derivatives
 
---- Chunk 208/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 531 ---
+--- Chunk 208/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 531 ---
 Non-Designated Derivatives
 
 We use foreign exchange forward contracts to manage
@@ -13016,7 +13016,7 @@ Balance Sheets. See “Net Investment Hedge” of Note 9,
 
 In 2025, we also entered into foreign exchange forward
 
---- Chunk 209/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 530 ---
+--- Chunk 209/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 530 ---
 In 2025, we also entered into foreign exchange forward
 
 contracts to hedge a portion of our net investment in certain
@@ -13111,7 +13111,7 @@ straight-line basis over the estimated useful lives of the
 
 software, generally 5 to 10 years. Amortization of these costs
 
---- Chunk 210/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 542 ---
+--- Chunk 210/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 542 ---
 software, generally 5 to 10 years. Amortization of these costs
 
 is included in depreciation and amortization expense in the
@@ -13210,7 +13210,7 @@ operating lease asset also includes any lease payments made
 
 and excludes lease incentives. Our lease terms include
 
---- Chunk 211/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 532 ---
+--- Chunk 211/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 532 ---
 and excludes lease incentives. Our lease terms include
 
 options to extend or terminate the lease when we are
@@ -13305,7 +13305,7 @@ Services segments. When testing goodwill and indefinite-
 
 lived intangible assets for impairment, we have the option of
 
---- Chunk 212/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 542 ---
+--- Chunk 212/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 542 ---
 lived intangible assets for impairment, we have the option of
 
 first performing a qualitative assessment to determine
@@ -13402,7 +13402,7 @@ Our revenue recognition policies under FASB ASC Topic
 
 606, “Revenue from Contracts with Customers,” or Topic
 
---- Chunk 213/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 538 ---
+--- Chunk 213/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 538 ---
 606, “Revenue from Contracts with Customers,” or Topic
 
 606, are described in the following paragraphs.
@@ -13505,7 +13505,7 @@ Certain judgments and estimates were used in the
 
 identification and timing of satisfaction of performance
 
---- Chunk 214/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 530 ---
+--- Chunk 214/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 530 ---
 identification and timing of satisfaction of performance
 
 obligations and the related allocation of transaction price and
@@ -13608,7 +13608,7 @@ and Nasdaq First North, are directly related to the listed
 
 companies’ market capitalization on a trailing twelve-month
 
---- Chunk 215/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 529 ---
+--- Chunk 215/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 529 ---
 companies’ market capitalization on a trailing twelve-month
 
 basis and are recognized ratably over the following twelve-
@@ -13715,7 +13715,7 @@ subscription agreements, customers can also be charged
 
 usage fees based upon actual usage of the services provided.
 
---- Chunk 216/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 537 ---
+--- Chunk 216/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 537 ---
 usage fees based upon actual usage of the services provided.
 
 Revenues from usage fees are recognized at a point in time
@@ -13824,7 +13824,7 @@ recognized similar to our Nasdaq Verafin solution.
 
 Capital Markets Technology
 
---- Chunk 217/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 545 ---
+--- Chunk 217/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 545 ---
 Capital Markets Technology
 
 Capital Markets Technology includes our Calypso and
@@ -13935,7 +13935,7 @@ obligation using our best estimate of the standalone selling
 
 price of each distinct good or service in the contract. In
 
---- Chunk 218/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 536 ---
+--- Chunk 218/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 536 ---
 price of each distinct good or service in the contract. In
 
 instances where standalone selling price is not directly
@@ -14038,7 +14038,7 @@ software installation, software configuration, data
 
 conversion/migration, non-complex interfacing and end-user
 
---- Chunk 219/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 543 ---
+--- Chunk 219/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 543 ---
 conversion/migration, non-complex interfacing and end-user
 
 acceptance testing. The professional services activities are all
@@ -14149,7 +14149,7 @@ services when a contract is cleared, as trading and clearing
 
 transactions are substantially complete when they are
 
---- Chunk 220/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 528 ---
+--- Chunk 220/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 528 ---
 transactions are substantially complete when they are
 
 executed and we have no further obligation to the customer at
@@ -14240,7 +14240,7 @@ Under our Limitation of Liability Rule and procedures, we
 
 may, subject to certain caps, provide compensation for losses
 
---- Chunk 221/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 530 ---
+--- Chunk 221/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 530 ---
 may, subject to certain caps, provide compensation for losses
 
 directly resulting from our systems’ actual failure to correctly
@@ -14337,7 +14337,7 @@ Access Platforms” of Note 1, “Organization and Nature of
 
 Operations,” and Note 4, “Acquisition and Divestitures,” for
 
---- Chunk 222/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 532 ---
+--- Chunk 222/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 532 ---
 Operations,” and Note 4, “Acquisition and Divestitures,” for
 
 further discussion. Revenues from this business are reflected
@@ -14432,7 +14432,7 @@ quality fixed-income debt instrument portfolio that would
 
 provide the future cash flows needed to pay the benefit
 
---- Chunk 223/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 531 ---
+--- Chunk 223/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 531 ---
 provide the future cash flows needed to pay the benefit
 
 obligations as they come due. Actuarial assumptions are
@@ -14529,7 +14529,7 @@ to be either recorded or disclosed at fair value, we consider
 
 the principal or most advantageous market in which we
 
---- Chunk 224/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 538 ---
+--- Chunk 224/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 538 ---
 the principal or most advantageous market in which we
 
 would transact, and we also consider assumptions that market
@@ -14638,7 +14638,7 @@ Recently Adopted Accounting Pronouncements
 
 Disclosures.” The guidance enhances income tax
 
---- Chunk 225/293 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 462 ---
+--- Chunk 225/294 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 462 ---
 Disclosures.” The guidance enhances income tax
 
 disclosure requirements by requiring public entities to
@@ -14721,7 +14721,7 @@ evaluating the impact this amended guidance may have on
 
 our consolidated financial statements.
 
---- Chunk 226/293 | heading: PART IV > Financial Statements > Revenue from Contracts with Customers | tokens: 510 ---
+--- Chunk 226/294 | heading: PART IV > Financial Statements > Revenue from Contracts with Customers | tokens: 510 ---
 3. REVENUE FROM CONTRACTS WITH
 
 CUSTOMERS
@@ -14769,7 +14769,7 @@ Policies," for additional detail on Other Revenues.
 
 During the third quarter of 2024, as part of finalizing the
 
---- Chunk 227/293 | heading: PART IV > Financial Statements > Revenue from Contracts with Customers | tokens: 538 ---
+--- Chunk 227/294 | heading: PART IV > Financial Statements > Revenue from Contracts with Customers | tokens: 538 ---
 During the third quarter of 2024, as part of finalizing the
 
 purchase accounting of the Adenza acquisition, we
@@ -14864,7 +14864,7 @@ table below is based on our best estimates as, for certain
 
 contracts, the recognition is primarily dependent upon the
 
---- Chunk 228/293 | heading: PART IV > Financial Statements > Revenue from Contracts with Customers | tokens: 353 ---
+--- Chunk 228/294 | heading: PART IV > Financial Statements > Revenue from Contracts with Customers | tokens: 353 ---
 contracts, the recognition is primarily dependent upon the
 
 completion of customization and any significant
@@ -14894,7 +14894,7 @@ December 31, 2025:
 2031+ — Financial Crime Management Technology: 2 | Regulatory Technology: 32 | Capital Markets Technology: 228 | Workflow & Insights: 5 | Total: 267
 Total — Financial Crime Management Technology: $866 | Regulatory Technology: $988 | Capital Markets Technology: $1,405 | Workflow & Insights: $379 | Total: $3,638
 
---- Chunk 229/293 | heading: PART IV > Financial Statements > Acquisition and Divestitures | tokens: 528 ---
+--- Chunk 229/294 | heading: PART IV > Financial Statements > Acquisition and Divestitures | tokens: 525 ---
 4. ACQUISITION AND DIVESTITURES
 
 Divestitures
@@ -14968,21 +14968,19 @@ outstanding shares of Nasdaq at the time. As of December
 common stock.
 
 (in millions, except price per share)
-Shares of Nasdaq common stock issued — 85.6
+Shares of Nasdaq common stock issued (on November 1, 2023) — 85.6
 Closing price per share of Nasdaq common stock on November 1, 2023 — $48.71
-Fair value of equity portion of the purchase consideration — $4,170
-Cash consideration — $5,814
-Total purchase consideration — $9,984
+Fair value of equity portion of the purchase consideration (on November 1, 2023) — $4,170
+Cash consideration (on November 1, 2023) — $5,814
+Total purchase consideration (on November 1, 2023) — $9,984
 
+--- Chunk 230/294 | heading: PART IV > Financial Statements > Acquisition and Divestitures | tokens: 522 ---
 The amounts in the table below represent the preliminary
 
 allocation of the purchase price to the acquired intangible
 
 assets, the deferred tax liability on the acquired intangible
 
-assets and other assets acquired and liabilities assumed based
-
---- Chunk 230/293 | heading: PART IV > Financial Statements > Acquisition and Divestitures | tokens: 517 ---
 assets and other assets acquired and liabilities assumed based
 
 on their preliminary respective estimated fair values on the
@@ -15058,11 +15056,11 @@ included a discounted tax amortization benefit assuming a
 
 acquired developed technology relating to AxiomSL and
 
+--- Chunk 231/294 | heading: PART IV > Financial Statements > Acquisition and Divestitures | tokens: 516 ---
+acquired developed technology relating to AxiomSL and
+
 Calypso, and trade names, representing industry recognition
 
-and reputation for the quality of the AxiomSL and Calypso
-
---- Chunk 231/293 | heading: PART IV > Financial Statements > Acquisition and Divestitures | tokens: 492 ---
 and reputation for the quality of the AxiomSL and Calypso
 
 platforms, were valued using the income approach,
@@ -15148,7 +15146,7 @@ Pro forma revenues less transaction- based expenses — Year Ended December 31, 
 Pro forma operating income — Year Ended December 31, 2023: 1,485
 Pro forma net income attributable to Nasdaq — Year Ended December 31, 2023: 822
 
---- Chunk 232/293 | heading: PART IV > Financial Statements > Goodwill and Acquired Intangible Assets | tokens: 516 ---
+--- Chunk 232/294 | heading: PART IV > Financial Statements > Goodwill and Acquired Intangible Assets | tokens: 508 ---
 5. GOODWILL AND ACQUIRED INTANGIBLE
 
 ASSETS
@@ -15162,22 +15160,22 @@ business segment during the year ended December 31, 2025:
 (in millions)
 Capital Access Platforms
 Capital Access Platforms > Balance at December 31, 2024 — $4,127
-Capital Access Platforms > Divestiture and acquisition of a business — (19)
-Capital Access Platforms > Foreign currency translation adjustments — 177
+Capital Access Platforms > Divestiture and acquisition of a business (year ended December 31, 2025) — (19)
+Capital Access Platforms > Foreign currency translation adjustments (year ended December 31, 2025) — 177
 Capital Access Platforms > Balance at December 31, 2025 — $4,285
 Financial Technology
 Financial Technology > Balance at December 31, 2024 — $7,925
-Financial Technology > Divestiture of a business — (9)
-Financial Technology > Foreign currency translation adjustments — 36
+Financial Technology > Divestiture of a business (year ended December 31, 2025) — (9)
+Financial Technology > Foreign currency translation adjustments (year ended December 31, 2025) — 36
 Financial Technology > Balance at December 31, 2025 — $7,952
 Market Services
 Market Services > Balance at December 31, 2024 — $1,905
-Market Services > Foreign currency translation adjustments — 229
+Market Services > Foreign currency translation adjustments (year ended December 31, 2025) — 229
 Market Services > Balance at December 31, 2025 — $2,134
 Total
 Total > Balance at December 31, 2024 — $13,957
-Total > Acquisition and divestitures of businesses — (28)
-Total > Foreign currency translation adjustments — 442
+Total > Acquisition and divestitures of businesses (year ended December 31, 2025) — (28)
+Total > Foreign currency translation adjustments (year ended December 31, 2025) — 442
 Total > Balance at December 31, 2025 — $14,371
 
 Goodwill represents the excess of purchase price over the
@@ -15204,6 +15202,9 @@ periods if certain events occur indicating that the carrying
 
 amount may be impaired, such as changes in the business
 
+--- Chunk 233/294 | heading: PART IV > Financial Statements > Goodwill and Acquired Intangible Assets | tokens: 132 ---
+amount may be impaired, such as changes in the business
+
 climate, poor indicators of operating performance or the sale
 
 or disposition of a significant portion of a reporting unit.
@@ -15218,9 +15219,6 @@ or unexpected significant declines in operating results of any
 
 of our reporting units or businesses may result in goodwill
 
---- Chunk 233/293 | heading: PART IV > Financial Statements > Goodwill and Acquired Intangible Assets | tokens: 488 ---
-of our reporting units or businesses may result in goodwill
-
 impairment charges in the future.
 
 Acquired Intangible Assets
@@ -15229,6 +15227,7 @@ The following table presents details of our total acquired
 
 intangible assets, both finite- and indefinite-lived:
 
+--- Chunk 234/294 | heading: PART IV > Financial Statements > Goodwill and Acquired Intangible Assets | tokens: 494 ---
 (in millions) Finite-Lived Intangible Assets December 31,
 Gross Amount:
 Gross Amount > Technology — 2025: $1,222 | 2024: $1,234
@@ -15250,26 +15249,16 @@ Net Amount > Foreign currency translation adjustment — 2025: (50) | 2024: (84)
 Net Amount > Total finite-lived intangible assets — 2025: $5,272 | 2024: $5,732
 Indefinite-Lived Intangible Assets
 Indefinite-Lived Intangible Assets > Exchange and clearing registrations — 2025: $1,257 | 2024: $1,257
-
---- Chunk 234/293 | heading: PART IV > Financial Statements > Goodwill and Acquired Intangible Assets | tokens: 198 ---
-of our reporting units or businesses may result in goodwill
-
-impairment charges in the future.
-
-Acquired Intangible Assets
-
-The following table presents details of our total acquired
-
-intangible assets, both finite- and indefinite-lived:
-
-(in millions) Finite-Lived Intangible Assets December 31,
 Indefinite-Lived Intangible Assets > Trade names — 2025: 121 | 2024: 121
 Indefinite-Lived Intangible Assets > Licenses — 2025: 52 | 2024: 52
+
+--- Chunk 235/294 | heading: PART IV > Financial Statements > Goodwill and Acquired Intangible Assets | tokens: 100 ---
+(in millions) Finite-Lived Intangible Assets December 31,
 Indefinite-Lived Intangible Assets > Foreign currency translation adjustment — 2025: (191) | 2024: (257)
 Indefinite-Lived Intangible Assets > Total indefinite-lived intangible assets — 2025: $1,239 | 2024: $1,173
 Total intangible assets, net — 2025: $6,511 | 2024: $6,905
 
---- Chunk 235/293 | heading: PART IV > Financial Statements > Goodwill and Acquired Intangible Assets | tokens: 184 ---
+--- Chunk 236/294 | heading: PART IV > Financial Statements > Goodwill and Acquired Intangible Assets | tokens: 184 ---
 There was no impairment of intangible assets for the years
 
 ended December 31, 2025, 2024 and 2023.
@@ -15300,7 +15289,7 @@ acquired finite-lived intangible assets as of December 31,
 2031+ — 3,175
 Total — $5,322
 
---- Chunk 236/293 | heading: PART IV > Financial Statements > Investments | tokens: 530 ---
+--- Chunk 237/294 | heading: PART IV > Financial Statements > Investments | tokens: 530 ---
 6. INVESTMENTS
 
 The following table presents the details of our investments:
@@ -15388,7 +15377,7 @@ these equity securities for the years ended December 31,
 
 2025, 2024 and 2023. We mark-to-market equity securities
 
---- Chunk 237/293 | heading: PART IV > Financial Statements > Investments | tokens: 163 ---
+--- Chunk 238/294 | heading: PART IV > Financial Statements > Investments | tokens: 163 ---
 2025, 2024 and 2023. We mark-to-market equity securities
 
 which have a readily determinable fair value, with gains and
@@ -15413,7 +15402,7 @@ securities is included in other investing activities in the
 
 Consolidated Statements of Cash Flows.
 
---- Chunk 238/293 | heading: PART IV > Financial Statements > Property and Equipment, Net | tokens: 375 ---
+--- Chunk 239/294 | heading: PART IV > Financial Statements > Property and Equipment, Net | tokens: 375 ---
 7. PROPERTY AND EQUIPMENT, NET
 
 The following table presents our major categories of property
@@ -15463,7 +15452,7 @@ As of December 31, 2025, 2024 and 2023, we did not own
 
 any real estate properties.
 
---- Chunk 239/293 | heading: PART IV > Financial Statements > Deferred Revenue | tokens: 506 ---
+--- Chunk 240/294 | heading: PART IV > Financial Statements > Deferred Revenue | tokens: 506 ---
 8. DEFERRED REVENUE
 
 Deferred revenue represents consideration received that is yet
@@ -15497,7 +15486,7 @@ the current period that was included in the beginning
 
 balance.
 
---- Chunk 240/293 | heading: PART IV > Financial Statements > Deferred Revenue | tokens: 406 ---
+--- Chunk 241/294 | heading: PART IV > Financial Statements > Deferred Revenue | tokens: 406 ---
 balance.
 
 •Adjustments include the impact from foreign currency
@@ -15537,7 +15526,7 @@ customization and any significant modifications made
 
 pursuant to existing contracts.
 
---- Chunk 241/293 | heading: PART IV > Financial Statements > Debt Obligations | tokens: 469 ---
+--- Chunk 242/294 | heading: PART IV > Financial Statements > Debt Obligations | tokens: 469 ---
 9. DEBT OBLIGATIONS
 
 The following table presents the changes in the carrying
@@ -15558,7 +15547,7 @@ Long-term debt - senior unsecured notes > 2031 Notes — December 31, 2024: 645 
 Long-term debt - senior unsecured notes > 2032 Notes — December 31, 2024: 769 | Payments, Foreign Currency Translation and Accretion: 105 | December 31, 2025: 874
 Long-term debt - senior unsecured notes > 2033 Notes — December 31, 2024: 633 | Payments, Foreign Currency Translation and Accretion: 86 | December 31, 2025: 719
 
---- Chunk 242/293 | heading: PART IV > Financial Statements > Debt Obligations | tokens: 482 ---
+--- Chunk 243/294 | heading: PART IV > Financial Statements > Debt Obligations | tokens: 482 ---
 9. DEBT OBLIGATIONS
 
 The following table presents the changes in the carrying
@@ -15578,7 +15567,7 @@ Long-term debt - senior unsecured notes > 2022 Revolving Credit Facility — Dec
 Long-term debt - senior unsecured notes > Total long-term debt — December 31, 2024: $8,582 | Payments, Foreign Currency Translation and Accretion: $(9) | December 31, 2025: $8,573
 Total debt obligations — December 31, 2024: $9,480 | Payments, Foreign Currency Translation and Accretion: $(476) | December 31, 2025: $9,004
 
---- Chunk 243/293 | heading: PART IV > Financial Statements > Debt Obligations | tokens: 526 ---
+--- Chunk 244/294 | heading: PART IV > Financial Statements > Debt Obligations | tokens: 526 ---
 In the table above, the 2026 Notes were reclassified to short-
 
 term debt as of December 31, 2025, including the balance as
@@ -15659,7 +15648,7 @@ aggregate of $400 million. In the table above, $399 million
 
 reflects the repayment of $400 million net of $1 million of
 
---- Chunk 244/293 | heading: PART IV > Financial Statements > Debt Obligations | tokens: 536 ---
+--- Chunk 245/294 | heading: PART IV > Financial Statements > Debt Obligations | tokens: 536 ---
 reflects the repayment of $400 million net of $1 million of
 
 accretion recorded for the year ended December 31, 2025.
@@ -15752,7 +15741,7 @@ with respect to non-dollar borrowings, plus an applicable
 
 margin that varies with Nasdaq’s debt rating. We are charged
 
---- Chunk 245/293 | heading: PART IV > Financial Statements > Debt Obligations | tokens: 527 ---
+--- Chunk 246/294 | heading: PART IV > Financial Statements > Debt Obligations | tokens: 527 ---
 margin that varies with Nasdaq’s debt rating. We are charged
 
 commitment fees of 0.100% to 0.250%, depending on our
@@ -15841,7 +15830,7 @@ included in interest expense and were not material for the
 
 years ended December 31, 2025, 2024 and 2023.
 
---- Chunk 246/293 | heading: PART IV > Financial Statements > Debt Obligations | tokens: 69 ---
+--- Chunk 247/294 | heading: PART IV > Financial Statements > Debt Obligations | tokens: 69 ---
 years ended December 31, 2025, 2024 and 2023.
 
 These facilities include customary affirmative and negative
@@ -15854,7 +15843,7 @@ As of December 31, 2025, we were in compliance with the
 
 covenants of all of our debt obligations.
 
---- Chunk 247/293 | heading: PART IV > Financial Statements > Retirement Plans | tokens: 495 ---
+--- Chunk 248/294 | heading: PART IV > Financial Statements > Retirement Plans | tokens: 495 ---
 10. RETIREMENT PLANS
 
 Defined Contribution Savings Plan
@@ -15933,7 +15922,7 @@ general unsecured obligations and were immaterial for the
 
 years ended December 31, 2025, 2024 and 2023.
 
---- Chunk 248/293 | heading: PART IV > Financial Statements > Share-Based Compensation | tokens: 433 ---
+--- Chunk 249/294 | heading: PART IV > Financial Statements > Share-Based Compensation | tokens: 433 ---
 11. SHARE-BASED COMPENSATION
 
 We have a share-based compensation program for employees
@@ -16005,24 +15994,23 @@ The following table summarizes our restricted stock activity
 
 for the years ended December 31, 2025, 2024 and 2023:
 
---- Chunk 249/293 | heading: PART IV > Financial Statements > Share-Based Compensation | tokens: 500 ---
-for the years ended December 31, 2025, 2024 and 2023:
-
+--- Chunk 250/294 | heading: PART IV > Financial Statements > Share-Based Compensation | tokens: 501 ---
 Restricted Stock
 Unvested at December 31, 2022 — Number of Awards: 4,380,513 | Weighted-Average Grant Date Fair Value: $45.48
-Granted — Number of Awards: 1,850,790 | Weighted-Average Grant Date Fair Value: 52.66
-Vested — Number of Awards: (1,703,252) | Weighted-Average Grant Date Fair Value: 38.21
-Forfeited — Number of Awards: (318,752) | Weighted-Average Grant Date Fair Value: 51.15
+Granted (year ended December 31, 2023) — Number of Awards: 1,850,790 | Weighted-Average Grant Date Fair Value: 52.66
+Vested (year ended December 31, 2023) — Number of Awards: (1,703,252) | Weighted-Average Grant Date Fair Value: 38.21
+Forfeited (year ended December 31, 2023) — Number of Awards: (318,752) | Weighted-Average Grant Date Fair Value: 51.15
 Unvested at December 31, 2023 — Number of Awards: 4,209,299 | Weighted-Average Grant Date Fair Value: 51.15
-Granted — Number of Awards: 1,874,976 | Weighted-Average Grant Date Fair Value: 60.16
-Vested — Number of Awards: (1,614,071) | Weighted-Average Grant Date Fair Value: 47.48
-Forfeited — Number of Awards: (291,337) | Weighted-Average Grant Date Fair Value: 55.57
+Granted (year ended December 31, 2024) — Number of Awards: 1,874,976 | Weighted-Average Grant Date Fair Value: 60.16
+Vested (year ended December 31, 2024) — Number of Awards: (1,614,071) | Weighted-Average Grant Date Fair Value: 47.48
+Forfeited (year ended December 31, 2024) — Number of Awards: (291,337) | Weighted-Average Grant Date Fair Value: 55.57
 Unvested at December 31, 2024 — Number of Awards: 4,178,867 | Weighted-Average Grant Date Fair Value: 56.30
-Granted — Number of Awards: 1,616,873 | Weighted-Average Grant Date Fair Value: 74.50
-Vested — Number of Awards: (1,629,481) | Weighted-Average Grant Date Fair Value: 54.86
-Forfeited — Number of Awards: (245,795) | Weighted-Average Grant Date Fair Value: 61.68
+Granted (year ended December 31, 2025) — Number of Awards: 1,616,873 | Weighted-Average Grant Date Fair Value: 74.50
+Vested (year ended December 31, 2025) — Number of Awards: (1,629,481) | Weighted-Average Grant Date Fair Value: 54.86
+Forfeited (year ended December 31, 2025) — Number of Awards: (245,795) | Weighted-Average Grant Date Fair Value: 61.68
 Unvested at December 31, 2025 — Number of Awards: 3,920,464 | Weighted-Average Grant Date Fair Value: $64.06
 
+--- Chunk 251/294 | heading: PART IV > Financial Statements > Share-Based Compensation | tokens: 527 ---
 As of December 31, 2025, $138 million of total unrecognized
 
 compensation cost related to restricted stock is expected to be
@@ -16035,9 +16023,6 @@ We grant three-year PSUs to certain eligible employees.
 
 PSUs are based on performance measures that impact the
 
-amount of shares that each PSU eligible individual receives,
-
---- Chunk 250/293 | heading: PART IV > Financial Statements > Share-Based Compensation | tokens: 523 ---
 amount of shares that each PSU eligible individual receives,
 
 subject to the satisfaction of applicable market performance
@@ -16114,6 +16099,9 @@ acquisition. Achievement of the targets impacts the amount
 
 of shares that each PSU eligible individual receives. The
 
+--- Chunk 252/294 | heading: PART IV > Financial Statements > Share-Based Compensation | tokens: 445 ---
+of shares that each PSU eligible individual receives. The
+
 PSUs have a two-year performance period and will vest one
 
 year after the end of the performance period, and settle in
@@ -16122,9 +16110,6 @@ shares of our common stock. The award issuance under this
 
 program will be between 0.0% and 200.0% of the number of
 
-PSUs granted.
-
---- Chunk 251/293 | heading: PART IV > Financial Statements > Share-Based Compensation | tokens: 376 ---
 PSUs granted.
 
 Grants of PSUs that were issued in 2022 with a three-year
@@ -16174,24 +16159,25 @@ The following table summarizes our PSU activity for the
 
 years ended December 31, 2025, 2024 and 2023:
 
---- Chunk 252/293 | heading: PART IV > Financial Statements > Share-Based Compensation | tokens: 503 ---
+--- Chunk 253/294 | heading: PART IV > Financial Statements > Share-Based Compensation | tokens: 516 ---
 years ended December 31, 2025, 2024 and 2023:
 
 PSUs Three-Year Program
 Unvested at December 31, 2022 — Number of Awards: 1,966,542 | Weighted- Average Grant Date Fair Value: $56.44
-Granted — Number of Awards: 1,693,065 | Weighted- Average Grant Date Fair Value: 47.14
-Vested — Number of Awards: (1,552,311) | Weighted- Average Grant Date Fair Value: 37.59
-Forfeited — Number of Awards: (98,974) | Weighted- Average Grant Date Fair Value: 57.51
+Granted (year ended December 31, 2023) — Number of Awards: 1,693,065 | Weighted- Average Grant Date Fair Value: 47.14
+Vested (year ended December 31, 2023) — Number of Awards: (1,552,311) | Weighted- Average Grant Date Fair Value: 37.59
+Forfeited (year ended December 31, 2023) — Number of Awards: (98,974) | Weighted- Average Grant Date Fair Value: 57.51
 Unvested at December 31, 2023 — Number of Awards: 2,008,322 | Weighted- Average Grant Date Fair Value: $62.86
-Granted — Number of Awards: 1,282,300 | Weighted- Average Grant Date Fair Value: 73.91
-Vested — Number of Awards: (961,331) | Weighted- Average Grant Date Fair Value: 73.14
-Forfeited — Number of Awards: (155,140) | Weighted- Average Grant Date Fair Value: 62.80
+Granted (year ended December 31, 2024) — Number of Awards: 1,282,300 | Weighted- Average Grant Date Fair Value: 73.91
+Vested (year ended December 31, 2024) — Number of Awards: (961,331) | Weighted- Average Grant Date Fair Value: 73.14
+Forfeited (year ended December 31, 2024) — Number of Awards: (155,140) | Weighted- Average Grant Date Fair Value: 62.80
 Unvested at December 31, 2024 — Number of Awards: 2,174,151 | Weighted- Average Grant Date Fair Value: $64.83
-Granted — Number of Awards: 886,656 | Weighted- Average Grant Date Fair Value: 90.84
-Vested — Number of Awards: (620,515) | Weighted- Average Grant Date Fair Value: 62.89
-Forfeited — Number of Awards: (62,162) | Weighted- Average Grant Date Fair Value: 69.68
+Granted (year ended December 31, 2025) — Number of Awards: 886,656 | Weighted- Average Grant Date Fair Value: 90.84
+Vested (year ended December 31, 2025) — Number of Awards: (620,515) | Weighted- Average Grant Date Fair Value: 62.89
+Forfeited (year ended December 31, 2025) — Number of Awards: (62,162) | Weighted- Average Grant Date Fair Value: 69.68
 Unvested at December 31, 2025 — Number of Awards: 2,378,130 | Weighted- Average Grant Date Fair Value: $74.91
 
+--- Chunk 254/294 | heading: PART IV > Financial Statements > Share-Based Compensation | tokens: 514 ---
 In the table above, in addition to the annual employee grant
 
 described above, the granted amount also includes additional
@@ -16208,9 +16194,6 @@ $80 million and is expected to be recognized over a
 
 weighted-average period of 1.5 years.
 
-Stock Options
-
---- Chunk 253/293 | heading: PART IV > Financial Statements > Share-Based Compensation | tokens: 483 ---
 Stock Options
 
 There were no stock option awards granted and no stock
@@ -16254,6 +16237,9 @@ shares of our common stock were available for future
 
 issuance as of December 31, 2025. Under our ESPP,
 
+--- Chunk 255/294 | heading: PART IV > Financial Statements > Share-Based Compensation | tokens: 207 ---
+issuance as of December 31, 2025. Under our ESPP,
+
 employees may purchase shares having a value not exceeding
 
 10.0% of their annual compensation, subject to applicable
@@ -16262,9 +16248,6 @@ annual Internal Revenue Service limitations. We record
 
 compensation expense related to the 15.0% discount that is
 
-given to our employees.
-
---- Chunk 254/293 | heading: PART IV > Financial Statements > Share-Based Compensation | tokens: 142 ---
 given to our employees.
 
 Year Ended December 31,
@@ -16278,7 +16261,7 @@ issuances of common stock, net in the Consolidated
 
 Statements of Changes in Stockholders’ Equity.
 
---- Chunk 255/293 | heading: PART IV > Financial Statements > Nasdaq Stockholders’ Equity | tokens: 510 ---
+--- Chunk 256/294 | heading: PART IV > Financial Statements > Nasdaq Stockholders’ Equity | tokens: 510 ---
 12. NASDAQ STOCKHOLDERS’ EQUITY
 
 Common Stock
@@ -16365,7 +16348,7 @@ reported based on settlement date, for the year ended
 
 December 31, 2025:
 
---- Chunk 256/293 | heading: PART IV > Financial Statements > Nasdaq Stockholders’ Equity | tokens: 526 ---
+--- Chunk 257/294 | heading: PART IV > Financial Statements > Nasdaq Stockholders’ Equity | tokens: 526 ---
 December 31, 2025:
 
 Number of shares of common stock repurchased — Year Ended December 31, 2025: 7,202,346
@@ -16444,7 +16427,7 @@ reflects the difference between the prepayment amount
 
 In November 2025, we entered into an ASR agreement, in
 
---- Chunk 257/293 | heading: PART IV > Financial Statements > Nasdaq Stockholders’ Equity | tokens: 362 ---
+--- Chunk 258/294 | heading: PART IV > Financial Statements > Nasdaq Stockholders’ Equity | tokens: 362 ---
 In November 2025, we entered into an ASR agreement, in
 
 which we paid $75 million to a third-party financial
@@ -16505,7 +16488,7 @@ During 2025, our board of directors declared and paid the
 
 following cash dividends:
 
---- Chunk 258/293 | heading: PART IV > Financial Statements > Nasdaq Stockholders’ Equity | tokens: 373 ---
+--- Chunk 259/294 | heading: PART IV > Financial Statements > Nasdaq Stockholders’ Equity | tokens: 373 ---
 following cash dividends:
 
 (in millions) Declaration Date
@@ -16543,7 +16526,7 @@ intention to provide shareholders with regular and increasing
 
 dividends as earnings and cash flows increase.
 
---- Chunk 259/293 | heading: PART IV > Financial Statements > Earnings Per Share | tokens: 432 ---
+--- Chunk 260/294 | heading: PART IV > Financial Statements > Earnings Per Share | tokens: 432 ---
 13. EARNINGS PER SHARE
 
 The following table sets forth the computation of basic and
@@ -16582,7 +16565,7 @@ antidilutive were immaterial for the years ended December
 
 31, 2025, 2024 and 2023.
 
---- Chunk 260/293 | heading: PART IV > Financial Statements > Fair Value of Financial Instruments | tokens: 513 ---
+--- Chunk 261/294 | heading: PART IV > Financial Statements > Fair Value of Financial Instruments | tokens: 513 ---
 14. FAIR VALUE OF FINANCIAL INSTRUMENTS
 
 The following tables present our financial assets and financial
@@ -16625,7 +16608,7 @@ expenses, with fair value changes initially recorded in
 
 accumulated other comprehensive income. For our cash flow
 
---- Chunk 261/293 | heading: PART IV > Financial Statements > Fair Value of Financial Instruments | tokens: 526 ---
+--- Chunk 262/294 | heading: PART IV > Financial Statements > Fair Value of Financial Instruments | tokens: 526 ---
 accumulated other comprehensive income. For our cash flow
 
 hedges, when the forecasted transaction affects earnings, or
@@ -16718,7 +16701,7 @@ exposed to changes in interest rates as a result of borrowings
 
 under our 2022 Revolving Credit Facility, as the interest rates
 
---- Chunk 262/293 | heading: PART IV > Financial Statements > Fair Value of Financial Instruments | tokens: 349 ---
+--- Chunk 263/294 | heading: PART IV > Financial Statements > Fair Value of Financial Instruments | tokens: 349 ---
 under our 2022 Revolving Credit Facility, as the interest rates
 
 on this facility have a variable rate depending on the maturity
@@ -16775,7 +16758,7 @@ non-financial assets measured at fair value on a non-recurring
 
 basis.
 
---- Chunk 263/293 | heading: PART IV > Financial Statements > Clearing Operations | tokens: 538 ---
+--- Chunk 264/294 | heading: PART IV > Financial Statements > Clearing Operations | tokens: 538 ---
 15. CLEARING OPERATIONS
 
 Nasdaq Clearing
@@ -16868,7 +16851,7 @@ counterparty risks. See “Default Fund Contributions” below
 
 for further discussion of Nasdaq Clearing’s default fund. A
 
---- Chunk 264/293 | heading: PART IV > Financial Statements > Clearing Operations | tokens: 495 ---
+--- Chunk 265/294 | heading: PART IV > Financial Statements > Clearing Operations | tokens: 495 ---
 for further discussion of Nasdaq Clearing’s default fund. A
 
 power of assessment and a liability waterfall have also been
@@ -16948,7 +16931,7 @@ as of December 31, 2024, in accordance with its investment
 
 policy as follows:
 
---- Chunk 265/293 | heading: PART IV > Financial Statements > Clearing Operations | tokens: 515 ---
+--- Chunk 266/294 | heading: PART IV > Financial Statements > Clearing Operations | tokens: 515 ---
 policy as follows:
 
 (in millions) December 31,
@@ -17021,7 +17004,7 @@ Required contributions to the default funds are proportional
 
 to the exposures of each clearing member. When a clearing
 
---- Chunk 266/293 | heading: PART IV > Financial Statements > Clearing Operations | tokens: 533 ---
+--- Chunk 267/294 | heading: PART IV > Financial Statements > Clearing Operations | tokens: 533 ---
 to the exposures of each clearing member. When a clearing
 
 member is active in more than one market, contributions
@@ -17116,7 +17099,7 @@ members’ open positions, or initial margin. In addition,
 
 clearing members must also provide collateral to cover the
 
---- Chunk 267/293 | heading: PART IV > Financial Statements > Clearing Operations | tokens: 539 ---
+--- Chunk 268/294 | heading: PART IV > Financial Statements > Clearing Operations | tokens: 539 ---
 clearing members must also provide collateral to cover the
 
 daily margin call if needed. See “Default Fund
@@ -17221,7 +17204,7 @@ nominal and no liability was recorded as of December 31,
 
 Power of Assessment
 
---- Chunk 268/293 | heading: PART IV > Financial Statements > Clearing Operations | tokens: 499 ---
+--- Chunk 269/294 | heading: PART IV > Financial Statements > Clearing Operations | tokens: 499 ---
 Power of Assessment
 
 To further strengthen the contingent financial resources of the
@@ -17316,7 +17299,7 @@ The following table presents the market value of derivative
 
 contracts outstanding prior to netting:
 
---- Chunk 269/293 | heading: PART IV > Financial Statements > Clearing Operations | tokens: 516 ---
+--- Chunk 270/294 | heading: PART IV > Financial Statements > Clearing Operations | tokens: 516 ---
 contracts outstanding prior to netting:
 
 (in millions)
@@ -17383,12 +17366,12 @@ of resale and repurchase agreements contracts cleared was
 
 3,015,860 and 4,929,765 for the years ended December 31,
 
---- Chunk 270/293 | heading: PART IV > Financial Statements > Clearing Operations | tokens: 29 ---
+--- Chunk 271/294 | heading: PART IV > Financial Statements > Clearing Operations | tokens: 29 ---
 3,015,860 and 4,929,765 for the years ended December 31,
 
 2025 and 2024, respectively.
 
---- Chunk 271/293 | heading: PART IV > Financial Statements > Leases | tokens: 518 ---
+--- Chunk 272/294 | heading: PART IV > Financial Statements > Leases | tokens: 518 ---
 16. LEASES
 
 We have operating leases, which are primarily real estate
@@ -17446,7 +17429,7 @@ and amortization expense in the Consolidated Statements of
 
 Income. We fully impaired our lease assets for locations that
 
---- Chunk 272/293 | heading: PART IV > Financial Statements > Leases | tokens: 449 ---
+--- Chunk 273/294 | heading: PART IV > Financial Statements > Leases | tokens: 449 ---
 Income. We fully impaired our lease assets for locations that
 
 we vacated with no intention to sublease. Substantially all of
@@ -17505,7 +17488,7 @@ information related to Nasdaq’s operating leases:
 Cash paid for amounts included in the measurement of operating lease liabilities — 2025: $83 | 2024: $84 | 2023: $78
 Lease assets obtained in exchange for operating lease liabilities — 2025: $129 | 2024: $34 | 2023: $26
 
---- Chunk 273/293 | heading: PART IV > Financial Statements > Income Taxes | tokens: 510 ---
+--- Chunk 274/294 | heading: PART IV > Financial Statements > Income Taxes | tokens: 510 ---
 17. INCOME TAXES
 
 Income Before Income Tax Provision
@@ -17551,7 +17534,7 @@ unrecognized deferred tax liability related to such outside
 
 basis differences is not practicable.
 
---- Chunk 274/293 | heading: PART IV > Financial Statements > Income Taxes | tokens: 498 ---
+--- Chunk 275/294 | heading: PART IV > Financial Statements > Income Taxes | tokens: 498 ---
 basis differences is not practicable.
 
 In 2025, we adopted ASU 2023-09 on a prospective basis.
@@ -17598,7 +17581,7 @@ for the years ended December 31, 2024 and 2023 is as
 
 follows:
 
---- Chunk 275/293 | heading: PART IV > Financial Statements > Income Taxes | tokens: 504 ---
+--- Chunk 276/294 | heading: PART IV > Financial Statements > Income Taxes | tokens: 504 ---
 follows:
 
 Year Ended December 31,
@@ -17655,7 +17638,7 @@ The following table presents the federal, state and foreign
 
 components of income taxes paid pursuant to the disclosure
 
---- Chunk 276/293 | heading: PART IV > Financial Statements > Income Taxes | tokens: 239 ---
+--- Chunk 277/294 | heading: PART IV > Financial Statements > Income Taxes | tokens: 239 ---
 components of income taxes paid pursuant to the disclosure
 
 requirements of ASU 2023-09 for the year ended December
@@ -17685,7 +17668,7 @@ The temporary differences, which give rise to our deferred
 
 tax assets and (liabilities), consisted of the following:
 
---- Chunk 277/293 | heading: PART IV > Financial Statements > Income Taxes | tokens: 510 ---
+--- Chunk 278/294 | heading: PART IV > Financial Statements > Income Taxes | tokens: 510 ---
 (in millions) Deferred tax assets: December 31,
 Deferred revenues — 2025: $27 | 2024: $40
 Foreign net operating loss — 2025: 9 | 2024: 3
@@ -17715,12 +17698,12 @@ Deferred tax liabilities > Net deferred tax liabilities — 2025: $(1,557) | 202
 Reported as:
 Reported as > Non-current deferred tax assets — 2025: $27 | 2024: $14
 
---- Chunk 278/293 | heading: PART IV > Financial Statements > Income Taxes | tokens: 68 ---
+--- Chunk 279/294 | heading: PART IV > Financial Statements > Income Taxes | tokens: 68 ---
 (in millions) Deferred tax assets: December 31,
 Reported as > Deferred tax liabilities, net — 2025: (1,584) | 2024: (1,594)
 Reported as > Net deferred tax liabilities — 2025: $(1,557) | 2024: $(1,580)
 
---- Chunk 279/293 | heading: PART IV > Financial Statements > Income Taxes | tokens: 505 ---
+--- Chunk 280/294 | heading: PART IV > Financial Statements > Income Taxes | tokens: 505 ---
 In the table above, non-current deferred tax assets are
 
 included in other non-current assets in the Consolidated
@@ -17776,7 +17759,7 @@ matters in the provision for income taxes in the Consolidated
 
 Statements of Income, which was $3 million tax expense for
 
---- Chunk 280/293 | heading: PART IV > Financial Statements > Income Taxes | tokens: 347 ---
+--- Chunk 281/294 | heading: PART IV > Financial Statements > Income Taxes | tokens: 347 ---
 Statements of Income, which was $3 million tax expense for
 
 the year ended December 31, 2025, $4 million for the year
@@ -17833,7 +17816,7 @@ operations. We do not expect to settle any material tax audits
 
 in the next twelve months.
 
---- Chunk 281/293 | heading: PART IV > Financial Statements > Commitments, Contingencies and Guarantees | tokens: 536 ---
+--- Chunk 282/294 | heading: PART IV > Financial Statements > Commitments, Contingencies and Guarantees | tokens: 536 ---
 18. COMMITMENTS, CONTINGENCIES AND
 
 GUARANTEES
@@ -17934,7 +17917,7 @@ Legal and Regulatory Matters
 
 European Commission Matter
 
---- Chunk 282/293 | heading: PART IV > Financial Statements > Commitments, Contingencies and Guarantees | tokens: 535 ---
+--- Chunk 283/294 | heading: PART IV > Financial Statements > Commitments, Contingencies and Guarantees | tokens: 535 ---
 European Commission Matter
 
 In September 2024, the European Commission, or the EC,
@@ -18031,14 +18014,14 @@ could result from those proceedings where it is more likely
 
 than not that we will be assessed. We review our positions on
 
---- Chunk 283/293 | heading: PART IV > Financial Statements > Commitments, Contingencies and Guarantees | tokens: 40 ---
+--- Chunk 284/294 | heading: PART IV > Financial Statements > Commitments, Contingencies and Guarantees | tokens: 40 ---
 than not that we will be assessed. We review our positions on
 
 these matters as they progress. See “Tax Audits,” of Note 17,
 
 “Income Taxes,” for further discussion.
 
---- Chunk 284/293 | heading: PART IV > Financial Statements > Business Segments | tokens: 182 ---
+--- Chunk 285/294 | heading: PART IV > Financial Statements > Business Segments | tokens: 182 ---
 19. BUSINESS SEGMENTS
 
 We manage, operate and provide our products and services in
@@ -18075,7 +18058,7 @@ our business segments for the years ended December 31,
 
 2025, 2024 and 2023:
 
---- Chunk 285/293 | heading: PART IV > Financial Statements > Business Segments | tokens: 504 ---
+--- Chunk 286/294 | heading: PART IV > Financial Statements > Business Segments | tokens: 504 ---
 (in millions) December 31, 2025
 Total revenues — Capital Access Platforms: $2,137 | Financial Technology: $1,850 | Market Services: $4,214 | Corporate: $61 | Total: $8,262
 Transaction- based expenses — Market Services: (3,013) | Total: (3,013)
@@ -18092,13 +18075,13 @@ December 31, 2024 > Revenues less transaction- based expenses — Capital Access
 December 31, 2024 > Directly consumed expenses — Capital Access Platforms: 644 | Financial Technology: 794 | Market Services: 339 | Total: 1,777
 December 31, 2024 > Other expenses — Capital Access Platforms: 164 | Financial Technology: 91 | Market Services: 84 | Corporate: 735 | Total: 1,074
 
---- Chunk 286/293 | heading: PART IV > Financial Statements > Business Segments | tokens: 138 ---
+--- Chunk 287/294 | heading: PART IV > Financial Statements > Business Segments | tokens: 138 ---
 (in millions) December 31, 2025
 December 31, 2024 > Operating income — Capital Access Platforms: $1,137 | Financial Technology: $770 | Market Services: $597 | Corporate: $(706) | Total: $1,798
 December 31, 2024 > Depreciation and amortization — Capital Access Platforms: 38 | Financial Technology: 43 | Market Services: 39 | Corporate: 493 | Total: 613
 December 31, 2024 > Purchases of property and equipment — Capital Access Platforms: 52 | Financial Technology: 105 | Market Services: 50 | Total: 207
 
---- Chunk 287/293 | heading: PART IV > Financial Statements > Business Segments | tokens: 397 ---
+--- Chunk 288/294 | heading: PART IV > Financial Statements > Business Segments | tokens: 397 ---
 (in millions) December 31, 2023
 Total revenues — Capital Access Platforms: $1,744 | Financial Technology: $1,099 | Market Services: $3,156 | Corporate: $65 | Total: $6,064
 Transaction- based expenses — Market Services: (2,169) | Total: (2,169)
@@ -18133,7 +18116,7 @@ following tables summarize revenues and expenses allocated
 
 to our Corporate segment:
 
---- Chunk 288/293 | heading: PART IV > Financial Statements > Business Segments | tokens: 511 ---
+--- Chunk 289/294 | heading: PART IV > Financial Statements > Business Segments | tokens: 511 ---
 to our Corporate segment:
 
 (in millions) Revenues: Year Ended December 31,
@@ -18182,7 +18165,7 @@ representation of our segments’ ongoing activity in each
 
 period. These items, which are presented in the tables above,
 
---- Chunk 289/293 | heading: PART IV > Financial Statements > Business Segments | tokens: 535 ---
+--- Chunk 290/294 | heading: PART IV > Financial Statements > Business Segments | tokens: 535 ---
 period. These items, which are presented in the tables above,
 
 include the following:
@@ -18277,7 +18260,7 @@ expenses generally include integration costs, as well as
 
 legal, due diligence and other third-party transaction costs.
 
---- Chunk 290/293 | heading: PART IV > Financial Statements > Business Segments | tokens: 525 ---
+--- Chunk 291/294 | heading: PART IV > Financial Statements > Business Segments | tokens: 525 ---
 legal, due diligence and other third-party transaction costs.
 
 The frequency and the amount of such expenses vary
@@ -18366,7 +18349,7 @@ the consolidated financial statements for further discussion.
 
 of settling our U.S. pension plan. The plan was terminated
 
---- Chunk 291/293 | heading: PART IV > Financial Statements > Business Segments | tokens: 403 ---
+--- Chunk 292/294 | heading: PART IV > Financial Statements > Business Segments | tokens: 403 ---
 of settling our U.S. pension plan. The plan was terminated
 
 and partially settled in 2023, with final settlement
@@ -18423,7 +18406,7 @@ Property and equipment, net for all other countries primarily
 
 includes assets held in Sweden.
 
---- Chunk 292/293 | heading: PART IV > Financial Statements > Restructuring Charges | tokens: 290 ---
+--- Chunk 293/294 | heading: PART IV > Financial Statements > Restructuring Charges | tokens: 290 ---
 20. RESTRUCTURING CHARGES
 
 In the fourth quarter of 2023, following the closing of the
@@ -18474,7 +18457,7 @@ program charges for the years ended December 31, 2025,
 
 2024 and 2023:
 
---- Chunk 293/293 | heading: PART IV > Financial Statements > Restructuring Charges | tokens: 378 ---
+--- Chunk 294/294 | heading: PART IV > Financial Statements > Restructuring Charges | tokens: 378 ---
 2024 and 2023:
 
 (in millions) Year Ended December 31,

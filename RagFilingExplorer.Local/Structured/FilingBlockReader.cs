@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
 using RagFilingExplorer.Local.Chunking;
+using RagFilingExplorer.Local.Xbrl;
 
 namespace RagFilingExplorer.Local.Structured;
 
@@ -32,9 +33,10 @@ internal static partial class FilingBlockReader
     private static partial Regex WhitespaceRunRegex();
 
     /// <param name="notes">Where the notes sit (<see cref="NoteTopics"/>): each block read inside one gets its topic.</param>
-    public static List<FilingBlock> Read(IDocument document, IReadOnlyList<NoteSpan>? notes = null)
+    /// <param name="contexts">The filing's XBRL contexts: a roll-forward row gets its period (<see cref="PeriodLabels"/>).</param>
+    public static List<FilingBlock> Read(IDocument document, IReadOnlyList<NoteSpan>? notes = null, IReadOnlyDictionary<string, XbrlContext>? contexts = null)
     {
-        Reader reader = new(notes ?? []);
+        Reader reader = new(notes ?? [], contexts);
         if (document.Body is not null)
         {
             reader.ReadChildren(document.Body);
@@ -87,12 +89,16 @@ internal static partial class FilingBlockReader
     /// one column", "cell text lost: 'Filed Herewith'") to pipe tables that were mostly empty cells, while the
     /// other five pages came out as text rows. Same for all 5 fallbacks of 371.
     /// </summary>
-    internal static TableBlock? ReadTable(IHtmlTableElement table)
+    internal static TableBlock? ReadTable(IHtmlTableElement table, IReadOnlyDictionary<string, XbrlContext>? contexts = null)
     {
         LinearizedTable result = HtmlTableLinearizer.Linearize(table);
         if (result.Kind == LinearizedTableKind.Fallback)
         {
             result = HtmlTableLinearizer.LinearizeAsText(table);
+        }
+        else if (result.Kind == LinearizedTableKind.Financial && contexts is not null)
+        {
+            result = PeriodLabels.Apply(result, contexts);
         }
 
         RowBlock? rows = result.Kind switch
@@ -137,7 +143,7 @@ internal static partial class FilingBlockReader
         return collapsed.Length > 60 ? collapsed[..60] + "..." : collapsed;
     }
 
-    private sealed class Reader(IReadOnlyList<NoteSpan> notes)
+    private sealed class Reader(IReadOnlyList<NoteSpan> notes, IReadOnlyDictionary<string, XbrlContext>? contexts)
     {
         private readonly List<FilingBlock> blocks = new();
         private readonly StringBuilder paragraph = new();
@@ -205,7 +211,7 @@ internal static partial class FilingBlockReader
                     return;
                 case "table" when element is IHtmlTableElement table:
                     FlushParagraph();
-                    if (ReadTable(table) is { } block)
+                    if (ReadTable(table, contexts) is { } block)
                     {
                         blocks.Add(block with { Topic = topic });
                     }

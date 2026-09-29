@@ -2623,7 +2623,7 @@ We remain under audit by the IRS for tax years 2014 to 2017. With respect to the
 
 We are subject to income tax in many jurisdictions outside the U.S., some of which are currently under audit by local tax authorities. The resolution of these audits is not expected to be material to our consolidated financial statements. Our operations in Ireland remain subject to examination for tax years 2021 and thereafter.
 
---- Chunk 159/210 | heading: PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Unearned Revenue | tokens: 336 ---
+--- Chunk 159/210 | heading: PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Unearned Revenue | tokens: 347 ---
 NOTE 12 — UNEARNED REVENUE
 
 Unearned revenue by segment was as follows:
@@ -2638,7 +2638,7 @@ Changes in unearned revenue were as follows:
 
 (In millions)
 Year Ended June 30, 2026
-Year Ended June 30, 2026 > Balance, beginning of period — $67,265
+Year Ended June 30, 2026 > Balance, beginning of period (as of June 30, 2025) — $67,265
 Year Ended June 30, 2026 > Deferral of revenue — 194,184
 Year Ended June 30, 2026 > Recognition of unearned revenue — (185,737)
 Year Ended June 30, 2026 > Balance, end of period — $75,712
@@ -2847,16 +2847,16 @@ Interest rates | 3.4% – 4.5% | 3.4% – 5.5% | 3.8% – 5.6%
 
 During fiscal year 2026, the following activity occurred under our stock plans:
 
---- Chunk 172/210 | heading: PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Employee Stock and Savings Plans | tokens: 500 ---
+--- Chunk 172/210 | heading: PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Employee Stock and Savings Plans | tokens: 489 ---
 During fiscal year 2026, the following activity occurred under our stock plans:
 
 (In millions)
 Stock Awards
-Stock Awards > Nonvested balance, beginning of year — Shares Weighted Average Grant-Date Fair Value: 82 / $347.44
-Stock Awards > Granted (a) — Shares Weighted Average Grant-Date Fair Value: 41 / 471.00
-Stock Awards > Vested — Shares Weighted Average Grant-Date Fair Value: (35) / 342.98
-Stock Awards > Forfeited — Shares Weighted Average Grant-Date Fair Value: (10) / 384.57
-Stock Awards > Nonvested balance, end of year — Shares Weighted Average Grant-Date Fair Value: 78 / 409.94
+Stock Awards > Nonvested balance, beginning of year (as of June 30, 2025) — Shares Weighted Average Grant-Date Fair Value: 82 / $347.44
+Stock Awards > Granted (a) (year ended June 30, 2026) — Shares Weighted Average Grant-Date Fair Value: 41 / 471.00
+Stock Awards > Vested (year ended June 30, 2026) — Shares Weighted Average Grant-Date Fair Value: (35) / 342.98
+Stock Awards > Forfeited (year ended June 30, 2026) — Shares Weighted Average Grant-Date Fair Value: (10) / 384.57
+Stock Awards > Nonvested balance, end of year (as of June 30, 2026) — Shares Weighted Average Grant-Date Fair Value: 78 / 409.94
 
 (a)
 
@@ -2870,11 +2870,13 @@ We have an ESPP for all eligible employees. Shares of our common stock may be pu
 
 Employees purchased the following shares during the periods presented:
 
+--- Chunk 173/210 | heading: PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Employee Stock and Savings Plans | tokens: 230 ---
+Employees purchased the following shares during the periods presented:
+
 (Shares in millions) Year Ended June 30,
 Shares purchased — 2026: 5 | 2025: 6 | 2024: 6
 Average price per share — 2026: $382.92 | 2025: $385.10 | 2024: $339.46
 
---- Chunk 173/210 | heading: PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Employee Stock and Savings Plans | tokens: 153 ---
 As of June 30, 2026, 57 million shares of our common stock were reserved for future issuance through the ESPP.
 
 Savings Plans
