@@ -1951,6 +1951,27 @@ startup; startup prints each registration. Cost: each filing is parsed at startu
   register and profile exactly as before (dumps unchanged).
 308 tests.
 
+**Step 1c, planned 2026-09-29 (user: "go ahead with 1c").** Measured on the current output first. The plan's three
+items: (a) the fiscal-year name on period labels, deferred here from 1b-iii-c; (b) one table per chunk - T4 still
+failed ("The unit is not stated."), and 52 of 975 chunks held 2+ tables, 33 of them 2+ tables of figures (ORCL's
+supplemental lease cash flows with its maturities - T4's own case); (c) the compact display text, which was mostly
+the Markdown strategy's empty-cell padding (30-63% of statement tokens) - Structured's linearized rows never had it.
+What's left of (c), long column names repeated on each value, is measured before it's a step. So 1c is two measured
+sub-steps, like 1b-iii.
+
+**Step 1c-a measured (2026-09-29, `eval/structured-1c-a/`): fiscal-year names on period labels.** `Xbrl/FiscalCalendar`
+reads the filer's calendar from its cover tags - fiscal year `DocumentFiscalYearFocus` ends `DocumentPeriodEndDate`,
+earlier years a year apart (within a week, for 52/53-week years; named from the focus, not the end date's year, so
+a January year-end is named as its filer does). A year-long period label then reads "(fiscal 2025, year ended May
+31, 2025)" - only where the fiscal year isn't the calendar year, since "2025" already names NDAQ's and NFLX's.
+50 rows (ORCL 47, MSFT 3), chunk count unchanged (975).
+- **T9 moved to the right row, still wrong:** "$0" -> "Oracle declared **$1.70 per share** in common stock dividends
+  in fiscal 2025". The year gap is closed - the answer comes from fiscal 2025's "Cash dividends declared ($1.70 per
+  share)" row - but the model reported the per-share figure from the row's label instead of its $4,743M total.
+- Everything else identical: 39 of 40 main and 15 of 15 held-out answers the same; main 22/24, targeted 7/10,
+  held-out 11/15. Replay: main and held-out unchanged; targeted recall@3/@5 unchanged, MRR 0.508 -> 0.492.
+317 tests.
+
 Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
 Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation
 memory (follow-up questions), query decomposition beyond per-company search, an API or UI. Automated onboarding

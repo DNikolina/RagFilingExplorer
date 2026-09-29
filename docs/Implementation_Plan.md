@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 308 offline unit tests (on the v2 branch; 176 at v1.0) |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 317 offline unit tests (on the v2 branch; 176 at v1.0) |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -97,8 +97,9 @@ done and measured (`eval/structured-1b-iii-b/`: each note a section headed by it
 by retrieval, the rest unchanged); c) period labels on roll-forward rows - done and measured
 (`eval/structured-1b-iii-c/`: 123 rows labelled; T9 still wrong - the labelled row reaches the model, which misses
 it on wording). **1b-iii closed (user, 2026-09-29).** Registration from the cover facts done (`CompanyRegistry`
-replaces the hand-written table; all 55 questions route as before). Next: 1c's remaining table work - its first item the fiscal-year name on period labels ("fiscal 2025, year ended ...",
-from the filer's `DocumentFiscalYearFocus`) - then 1d. Still open: the second-model run
+replaces the hand-written table; all 55 questions route as before). **1c in two measured sub-steps:** a) fiscal-year
+names on period labels - done (`eval/structured-1c-a/`: scores unchanged; T9 now reads the right row but gives its
+per-share figure); **next: b) one table of figures per chunk** (T4). Then 1d. Still open: the second-model run
 (step 0), the `Console.OutputEncoding` fix. Details: Decision-Log.md, "XBRL hybrid (v2)".
 
 **Known, not planned:** statement routing is keyword *substring* matching over a hard filter - "deferred
