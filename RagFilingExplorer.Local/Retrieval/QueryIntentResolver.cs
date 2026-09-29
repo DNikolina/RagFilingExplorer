@@ -1,16 +1,14 @@
 namespace RagFilingExplorer.Local.Retrieval;
 
 /// <summary>
-/// Resolves a user's question two ways before <see cref="RagAnswerService"/> acts on it: to a metadata
-/// filter (which filings, which financial statement) via <see cref="ResolveFilings"/> and
-/// <see cref="ResolveStatementType"/>, and to a reasoning-worthiness signal via
-/// <see cref="RequiresSynthesis"/>.
+/// Resolves a user's question two ways before <see cref="RagAnswerService"/> acts on it: to a statement-type
+/// filter via <see cref="ResolveStatementType"/> (the company filter is <see cref="CompanyRegistry"/>'s, built
+/// from the filings' cover facts), and to a reasoning-worthiness signal via <see cref="RequiresSynthesis"/>.
 ///
 /// Metadata filtering (Microsoft's own retrieval-quality guidance ranks this above chunk-size/text
 /// tweaks) directly targets the cross-company and cross-statement contamination seen repeatedly in
 /// Step 7 testing (e.g. an MSFT-specific question pulling in ORCL chunks, or a single filing's many
-/// similarly-shaped "Item 15" tables burying the right one). <c>ResolveFilings</c> returns every named
-/// filing (RagAnswerService searches each one separately); <c>ResolveStatementType</c> requires exactly
+/// similarly-shaped "Item 15" tables burying the right one). <c>ResolveStatementType</c> requires exactly
 /// one statement type to act - zero or ambiguous matches resolve to null, leaving that dimension
 /// unfiltered rather than guessing.
 ///
@@ -20,24 +18,6 @@ namespace RagFilingExplorer.Local.Retrieval;
 /// </summary>
 internal static class QueryIntentResolver
 {
-    // Adding a filing to data/ is not enough on its own for company-scoped filtering to work for it -
-    // it also needs an entry here, or ResolveFilings silently returns nothing for every question naming it
-    // and the search runs unfiltered across every filing instead. Confirmed the hard way onboarding
-    // NFLX-10K-2025.html: every Netflix question searched all four filings' income_statement chunks at
-    // once (the exact cross-company contamination this filter exists to prevent) until this was added.
-    // FindRegistrationProblems (checked at startup) now warns about exactly this.
-    private static readonly Dictionary<string, string> CompanyToFiling = new(StringComparer.OrdinalIgnoreCase)
-    {
-        ["Microsoft"] = "MSFT-10K-2026.html",
-        ["MSFT"] = "MSFT-10K-2026.html",
-        ["Oracle"] = "ORCL-10K-2026.html",
-        ["ORCL"] = "ORCL-10K-2026.html",
-        ["Nasdaq"] = "NDAQ-10K-2025.html",
-        ["NDAQ"] = "NDAQ-10K-2025.html",
-        ["Netflix"] = "NFLX-10K-2025.html",
-        ["NFLX"] = "NFLX-10K-2025.html",
-    };
-
     private static readonly Dictionary<string, string[]> StatementTypeKeywords = new(StringComparer.OrdinalIgnoreCase)
     {
         ["income_statement"] = ["revenue", "revenues", "gross margin", "gross profit", "cost of revenue", "operating income", "operating margin", "net income", "earnings per share"],
@@ -75,44 +55,6 @@ internal static class QueryIntentResolver
 
     public static bool RequiresSynthesis(string question) =>
         SynthesisKeywords.Any(keyword => question.Contains(keyword, StringComparison.OrdinalIgnoreCase));
-
-    // Every filing the question names, in a stable (ordinal) order. Used to return null for 2+ matches,
-    // which ran a comparison question unfiltered across all filings with 5 shared slots - "Compare
-    // Microsoft's and Oracle's total revenue" lost ORCL's revenue chunk to rank 10. RagAnswerService now
-    // searches each named filing separately instead.
-    public static string[] ResolveFilings(string question) => CompanyToFiling
-        .Where(kvp => question.Contains(kvp.Key, StringComparison.OrdinalIgnoreCase))
-        .Select(kvp => kvp.Value)
-        .Distinct()
-        .Order(StringComparer.Ordinal)
-        .ToArray();
-
-    /// <summary>
-    /// Cross-checks <see cref="CompanyToFiling"/> against the filings actually present in data/, so the
-    /// NFLX onboarding bug (a filing with no entry here quietly running every question unfiltered) is
-    /// reported at startup instead of discovered through a hallucinated answer. Also flags entries
-    /// pointing at a filing that no longer exists, which would filter a search down to zero chunks.
-    /// </summary>
-    public static List<string> FindRegistrationProblems(IEnumerable<string> filingNames)
-    {
-        HashSet<string> present = new(filingNames, StringComparer.OrdinalIgnoreCase);
-        HashSet<string> registered = new(CompanyToFiling.Values, StringComparer.OrdinalIgnoreCase);
-        List<string> problems = new();
-
-        foreach (string filing in present.Where(f => !registered.Contains(f)).Order())
-        {
-            problems.Add($"data/{filing} has no entry in QueryIntentResolver.CompanyToFiling - questions naming "
-                + "this company will search every filing unfiltered. Add its company name and ticker there.");
-        }
-
-        foreach (string filing in registered.Where(f => !present.Contains(f)).Order())
-        {
-            problems.Add($"QueryIntentResolver.CompanyToFiling maps to {filing}, which isn't in data/ - questions "
-                + "naming that company will be filtered to a filing with no chunks.");
-        }
-
-        return problems;
-    }
 
     // Longest match wins: a matched keyword that is part of a longer matched keyword is ignored, so
     // "changes in stockholders' equity" (equity_statement) isn't made ambiguous by the

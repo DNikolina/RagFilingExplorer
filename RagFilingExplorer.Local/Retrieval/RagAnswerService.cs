@@ -29,7 +29,8 @@ internal sealed class RagAnswerService(
     VectorStoreCollection<int, FilingChunkRecord> collection,
     IChatClient chatClient,
     RetrievalSettings retrieval,
-    bool chatModelSupportsThinking)
+    bool chatModelSupportsThinking,
+    CompanyRegistry companies)
 {
     // Each rule after the first answers a failure seen in the 2026-09-25 manual pass (Decision-Log.md,
     // "manual pass"): bare figures with no unit (7 of 24 main answers - "$45,183,036" for $45.2 billion), a
@@ -58,7 +59,7 @@ internal sealed class RagAnswerService(
 
     public async Task<RagAnswer> AskAsync(string question, int searchTopK, CancellationToken cancellationToken = default)
     {
-        string[] targetFilings = QueryIntentResolver.ResolveFilings(question);
+        string[] targetFilings = companies.ResolveFilings(question);
         string? targetStatementType = QueryIntentResolver.ResolveStatementType(question);
 
         List<VectorSearchResult<FilingChunkRecord>> results;

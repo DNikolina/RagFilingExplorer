@@ -1927,6 +1927,22 @@ of 40 main answers the same (T9). Replay: main unchanged (22/22, MRR 0.814); tar
   would need the same question-to-fiscal-year mapping.
 298 tests.
 
+**Registration from the cover facts (2026-09-29).** v1's hand-written `QueryIntentResolver.CompanyToFiling` - the one
+manual step of onboarding, whose omission ran every NFLX question unfiltered and produced a hallucinated figure - is
+replaced by `Retrieval/CompanyRegistry`: each filing registers from its tagged cover facts, the registrant name
+without its legal form ("MICROSOFT CORPORATION" -> "Microsoft", "Nasdaq, Inc." -> "Nasdaq") and the common stock's
+`TradingSymbol` - only the common stock's: NDAQ also tags four note issues ("NDAQ29"...) and ORCL its preferred
+("ORCL PRD"), the same pairing-by-context the filing profile already used (now shared, `Xbrl/CoverFacts`; profile
+chunks byte-identical). All strategies use it, since routing is shared. A filing without a registrant name stops
+startup; startup prints each registration. Cost: each filing is parsed at startup, ~1.1 s for the four.
+- **Names match as whole words**, not substrings: v1's `Contains` would route "metadata" to a future "Meta".
+- **Verified as the step was defined, no question run:** the registry built from the four filings equals v1's table
+  exactly (8 names), and every one of the 55 questions resolves to the same filings under both - a test, with v1's
+  table kept in it as the reference. Answers can only change through routing, so none can have moved.
+- Not covered: a company questions name by a brand unlike its legal name (none of the four); the onboarding checker
+  now WARNs on it, and an alias would be a rule in `CompanyRegistry`.
+302 tests.
+
 Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
 Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation
 memory (follow-up questions), query decomposition beyond per-company search, an API or UI. Automated onboarding

@@ -21,7 +21,7 @@ internal static class FilingProfile
 
     public static string? Build(XbrlDocument xbrl)
     {
-        string? name = Clean(xbrl.First("dei:EntityRegistrantName")?.Text);
+        string? name = CoverFacts.RegistrantName(xbrl);
         if (name is null)
         {
             return null;
@@ -39,18 +39,9 @@ internal static class FilingProfile
 
         text.Append(fiscalYear is null ? "." : $" (fiscal year {fiscalYear}).");
 
-        // The common stock's symbol and exchange: each registered security has its own context, which pairs its
-        // title, symbol and exchange (NDAQ lists four note issues too; ORCL lists "ORCL PRD" first).
-        XbrlFact? commonStock = xbrl.Facts.FirstOrDefault(f => f.Concept == "dei:Security12bTitle"
-            && f.Text?.Contains("common stock", StringComparison.OrdinalIgnoreCase) == true);
-        if (commonStock is not null)
+        if (CoverFacts.CommonStock(xbrl) is ({ } symbol, var exchange))
         {
-            string? symbol = Clean(InContext("dei:TradingSymbol", commonStock.ContextRef));
-            string? exchange = Clean(InContext("dei:SecurityExchangeName", commonStock.ContextRef));
-            if (symbol is not null)
-            {
-                text.Append($" Common stock trading symbol: {symbol}{(exchange is null ? "" : $", on the {exchange.Replace("The ", "")}")}.");
-            }
+            text.Append($" Common stock trading symbol: {symbol}{(exchange is null ? "" : $", on the {exchange.Replace("The ", "")}")}.");
         }
 
         string[] address = new[] { "dei:EntityAddressAddressLine1", "dei:EntityAddressAddressLine2", "dei:EntityAddressCityOrTown" }
@@ -76,30 +67,7 @@ internal static class FilingProfile
         }
 
         return text.ToString();
-
-        string? InContext(string concept, string contextRef) =>
-            xbrl.Facts.FirstOrDefault(f => f.Concept == concept && f.ContextRef == contextRef)?.Text;
     }
 
-    // Cover values as tagged: "New York," (a trailing comma inside the tag), "MICROSOFT CORPORATION" (all capitals
-    // on MSFT's cover). All-capital values become title case, keeping entity suffixes ("LLP") capitalised.
-    private static string? Clean(string? value)
-    {
-        string? v = value?.Trim().TrimEnd(',', ';').Trim();
-        if (string.IsNullOrEmpty(v))
-        {
-            return null;
-        }
-
-        if (v.Any(char.IsLetter) && v.Where(char.IsLetter).All(char.IsUpper) && v.Count(char.IsLetter) > 4)
-        {
-            v = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(v.ToLowerInvariant());
-            foreach (string suffix in new[] { "LLP", "LLC", "LP", "USA" })
-            {
-                v = System.Text.RegularExpressions.Regex.Replace(v, $@"\b{suffix}\b", suffix, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-            }
-        }
-
-        return v;
-    }
+    private static string? Clean(string? value) => CoverFacts.Clean(value);
 }

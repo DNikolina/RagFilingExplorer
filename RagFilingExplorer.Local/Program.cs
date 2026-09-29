@@ -40,9 +40,21 @@ static async Task RunAsync(string[] args)
         throw new StartupException($"No *.html filings found in {dataDirectory.FullName}.");
     }
 
-    foreach (string problem in QueryIntentResolver.FindRegistrationProblems(filings.Select(f => f.Name)))
+    // Each filing registers its company from its own tagged cover facts (name and ticker) - no hand-kept table
+    // to forget when onboarding a filing (see CompanyRegistry).
+    CompanyRegistry companies;
+    try
     {
-        Console.WriteLine($"[warning] {problem}");
+        companies = CompanyRegistry.FromFilings(filings);
+    }
+    catch (InvalidOperationException ex)
+    {
+        throw new StartupException(ex.Message, ex);
+    }
+
+    foreach (CompanyRegistration registration in companies.Registrations)
+    {
+        Console.WriteLine($"Company filter: {string.Join(" / ", registration.Names)} -> {registration.Filing}");
     }
 
     // --chunks-only: chunk every filing and write chunk-review/<strategy>/, nothing else - no Ollama, no
@@ -110,7 +122,7 @@ static async Task RunAsync(string[] args)
     // question pulling in ORCL chunks, or a single filing's many similarly-shaped "Item 15" tables burying
     // the right one). See RagAnswerService/QueryIntentResolver for the actual resolution + search + prompt
     // + generation flow - extracted out of this loop so it can be unit-tested with mocked dependencies.
-    RagAnswerService ragAnswerService = new(collection, chatApiClient, settings.Retrieval, chatModelSupportsThinking);
+    RagAnswerService ragAnswerService = new(collection, chatApiClient, settings.Retrieval, chatModelSupportsThinking, companies);
 
     await InteractiveSession.RunAsync(ragAnswerService, verbose, settings.Retrieval);
 }

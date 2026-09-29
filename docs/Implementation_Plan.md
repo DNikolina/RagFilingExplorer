@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 298 offline unit tests (on the v2 branch; 176 at v1.0) |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 302 offline unit tests (on the v2 branch; 176 at v1.0) |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -96,8 +96,8 @@ tags as before, the one change a data-free footer; every score and 54 of 55 answ
 done and measured (`eval/structured-1b-iii-b/`: each note a section headed by its topic; targeted 5/10 -> 7/10, T6
 by retrieval, the rest unchanged); c) period labels on roll-forward rows - done and measured
 (`eval/structured-1b-iii-c/`: 123 rows labelled; T9 still wrong - the labelled row reaches the model, which misses
-it on wording). **1b-iii closed (user, 2026-09-29).** Next: registration from the cover facts (its own step), then
-1c's remaining table work - its first item the fiscal-year name on period labels ("fiscal 2025, year ended ...",
+it on wording). **1b-iii closed (user, 2026-09-29).** Registration from the cover facts done (`CompanyRegistry`
+replaces the hand-written table; all 55 questions route as before). Next: 1c's remaining table work - its first item the fiscal-year name on period labels ("fiscal 2025, year ended ...",
 from the filer's `DocumentFiscalYearFocus`) - then 1d. Still open: the second-model run
 (step 0), the `Console.OutputEncoding` fix. Details: Decision-Log.md, "XBRL hybrid (v2)".
 
@@ -148,9 +148,11 @@ Packages: `Microsoft.Extensions.AI`, `Microsoft.Extensions.VectorData.Abstractio
 - **`VectorStore.UpsertBatchSize` must stay `1`** while on SqliteVec `1.0.1-preview`: multi-record
   upserts throw `UNIQUE constraint failed on vec_chunks primary key` (an upstream `sqlite-vec` bug fixed
   in a native build NuGet hasn't picked up). Don't hand-swap `vec0.dll` — it wouldn't survive a clone.
-- **A new filing needs a `QueryIntentResolver.CompanyToFiling` entry**, or questions naming it run
-  unfiltered across every filing (this produced a hallucinated figure for NFLX). Startup warns and a
-  unit test fails on an unregistered filing, but the entry is still manual. Also spot-check its
+- **A new filing registers its company from its cover facts** (`CompanyRegistry`: registrant name without
+  its legal form + the common stock's ticker; replaced the hand-written `CompanyToFiling` table, 2026-09-29).
+  An unregistered company runs its questions unfiltered across every filing (this produced a hallucinated
+  figure for NFLX), so check the "Company filter:" line startup prints for it - a name questions won't use
+  (a brand unlike the legal name) still needs attention. Also spot-check its
   `chunk-review/<strategy>/*.chunks.txt` for `�` and a complete Item outline.
 - **A new filer's statement titles must actually be detected.** After onboarding, check the index for
   one `StatementType` transition per primary statement plus the Notes reset

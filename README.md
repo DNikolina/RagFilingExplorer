@@ -96,8 +96,8 @@ exits with a one-line fix instead of a stack trace:
   wrong and asks for `--rebuild` rather than silently answering from a partial or mismatched index.
   (A changed embedding model is the worst case: query vectors from the new model compared against
   stored vectors from the old one retrieve noise with no error at all.)
-- A filing in `data/` with no `QueryIntentResolver.CompanyToFiling` entry is reported as a warning
-  (see "Adding a new filing" below); `dotnet test` also fails on it.
+- Each filing registers its company for the company filter from its own tagged cover facts (name and
+  ticker); a filing that tags no registrant name stops startup with a message saying so.
 
 ## Configuration (`appsettings.json`)
 
@@ -187,12 +187,13 @@ Dropping a new `.html` file into `data/` (the app will then ask for `--rebuild`)
 onboarding Netflix (`NFLX-10K-2025.html`) surfaced three real bugs (and a later review found a fourth, in Nasdaq's filing), all fixed generically rather than
 with filer-specific code, but worth checking for explicitly with any new filing:
 
-1. **Register the company.** `QueryIntentResolver.CompanyToFiling` doesn't discover filings
-   automatically - a new company/ticker needs its own entry mapping to the filename, or every question
-   naming it runs **unfiltered across every filing** (the exact cross-company contamination metadata
-   filtering exists to prevent). This was the most consequential of the three: it caused a hallucinated
-   figure, not just a missed answer. The app now warns about an unregistered filing at startup, and a
-   unit test fails on one, but the entry itself still has to be added by hand.
+1. **Check the company registered.** An unregistered company runs every question naming it **unfiltered
+   across every filing** (the exact cross-company contamination metadata filtering exists to prevent) -
+   the most consequential of the NFLX bugs: it caused a hallucinated figure, not just a missed answer.
+   v1 kept a hand-written name/ticker table (`QueryIntentResolver.CompanyToFiling`); since v2 each filing
+   registers itself from its tagged cover facts (`CompanyRegistry`: registrant name without its legal form,
+   plus the common stock's ticker). Startup prints each registration ("Company filter: Netflix / NFLX ->
+   NFLX-10K-2025.html") - check the new one reads as questions will name the company.
 2. **Don't assume the source is UTF-8.** A raw EDGAR download usually is, but a browser-saved copy can
    declare (and genuinely be encoded as) something else entirely - Netflix's was `windows-1252`.
    `MarkItDownConverter.DetectEncoding` handles this automatically now (BOM, then the file's own
@@ -255,7 +256,7 @@ Full diagnostic detail, including how each bug was actually found, is in
 dotnet test
 ```
 
-Runs `RagFilingExplorer.Local.Tests` (NUnit + Moq) — 298 tests, fully offline, no live Ollama instance
+Runs `RagFilingExplorer.Local.Tests` (NUnit + Moq) — 302 tests, fully offline, no live Ollama instance
 or populated vector store required. Covers chunking, section splitting, statement-type detection,
 query-intent resolution, settings loading/validation, index-manifest staleness detection, the
 retrieve+generate orchestration (mocked), and the v2 inline XBRL reader - checked against the filings in `data/`,

@@ -23,7 +23,7 @@ filing" and docs/Decision-Log.md "Follow-up: onboarding a new filer (NFLX)". Ver
 ## Inputs
 
 The filing's file name in `data/` (e.g. `AAPL-10K-2025.html`). If not given, compare `data/*.html`
-against the `CompanyToFiling` entries and check every filing that isn't registered - or ask.
+against the app's startup "Company filter:" lines and check every filing that isn't registered - or ask.
 
 ## Hard rules
 
@@ -44,11 +44,13 @@ against the `CompanyToFiling` entries and check every filing that isn't register
 
 Run them in order; later checks depend on the dump from check 2.
 
-1. **Registration** - `RagFilingExplorer.Local/Retrieval/QueryIntentResolver.cs`, `CompanyToFiling`:
-   the company name *and* ticker must map to the exact file name. Unregistered = FAIL: every question
-   naming the company runs unfiltered across all filings (this caused a hallucinated NFLX figure).
-   Also note name collisions: a new name that is a substring of an existing one, or contains one
-   (matching is `Contains`, case-insensitive), resolves questions to both filings.
+1. **Registration** - each filing registers itself from its tagged cover facts
+   (`RagFilingExplorer.Local/Retrieval/CompanyRegistry.cs`: `dei:EntityRegistrantName` without its legal
+   form, plus the common stock's `dei:TradingSymbol`); the app prints "Company filter: <names> -> <file>" at
+   startup (also in a `--chunks-only` run). Missing registration or no ticker = FAIL: every question naming
+   the company runs unfiltered across all filings (this caused a hallucinated NFLX figure). WARN if the
+   registered name isn't how questions will name the company (a brand unlike the legal name), and on name
+   collisions with an existing filing's names (matching is whole-word, case-insensitive).
 2. **Chunk dump** - run `--chunks-only` (Markdown, the shipped default) and read
    `chunk-review/markdown/<stem>.chunks.txt`. Report its section count and chunk count from the run
    output.
@@ -83,7 +85,7 @@ Run them in order; later checks depend on the dump from check 2.
 
 Lead with one line: READY, READY WITH WARNINGS, or NOT READY. Then a table - check, result
 (PASS / WARN / FAIL / NOT RUN), evidence (`file:line`, counts, the offending converted line). Then, for
-each FAIL/WARN, the smallest concrete fix to discuss (e.g. "add `[\"Apple\"] = \"AAPL-10K-2025.html\"` and
-`[\"AAPL\"] = ...` to CompanyToFiling") - described, not applied. End with `git status --short` of
+each FAIL/WARN, the smallest concrete fix to discuss (e.g. "the registered name is 'Alphabet' but questions
+say 'Google' - an alias rule in CompanyRegistry") - described, not applied. End with `git status --short` of
 `chunk-review/`, and the commands the user should run next (e.g. `--rebuild`, then re-run check 5
 against the index).

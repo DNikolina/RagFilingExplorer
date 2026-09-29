@@ -36,8 +36,15 @@ public class RagAnswerServiceTests
             MaxOutputTokens = maxOutputTokens,
         };
 
-        return new RagAnswerService(collection.Object, chatClient.Object, retrieval, chatModelSupportsThinking);
+        return new RagAnswerService(collection.Object, chatClient.Object, retrieval, chatModelSupportsThinking, Companies);
     }
+
+    // The two companies these tests name, as their filings register them (CompanyRegistryTests checks the real ones).
+    private static readonly CompanyRegistry Companies = new(
+    [
+        new CompanyRegistration("MSFT-10K-2026.html", ["Microsoft", "MSFT"]),
+        new CompanyRegistration("ORCL-10K-2026.html", ["Oracle", "ORCL"]),
+    ]);
 
     private static async IAsyncEnumerable<VectorSearchResult<FilingChunkRecord>> AsAsync(IEnumerable<VectorSearchResult<FilingChunkRecord>> items)
     {
