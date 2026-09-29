@@ -23,5 +23,9 @@ the user's decision on the identical Linearized answer.
 **`structured-1b-ii/`** - plus step 1b-ii's filing-profile chunk ("Cover Page", from the tagged cover facts), run
 2026-09-28: main 22/24 (unchanged), held-out **11/15** (H11 fixed). H10 carries the earlier decision on the same answer.
 
+**`structured-1b-iii-a/`** - plus the block model and step 1b-iii-a (statement type from the filer's Statement roles,
+not title patterns), run 2026-09-29: main 22/24, held-out 11/15 - 39 of 40 main and 15 of 15 held-out answers
+word for word the same as 1b-ii (Q21 moved a full stop). H10 carries the earlier decision on the same answer.
+
 Temperature 0 is deterministic here: the baseline's 40 main answers are word-for-word identical to the
 2026-09-25 run on the same code, so a changed answer means a changed input, not sampling.

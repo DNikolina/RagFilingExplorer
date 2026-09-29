@@ -16,7 +16,8 @@ namespace RagFilingExplorer.Local.VectorStore;
 /// line appears, the "Notes to Financial Statements" boundary resets it to narrative (see
 /// StatementTypeDetector.IsNotesToFinancialStatementsBoundary - without this, whichever statement was
 /// detected last leaks across every Note for the rest of the filing), or the filing changes - the same
-/// "carry the nearest marker forward" pattern already used for row-group labels in TokenChunker.
+/// "carry the nearest marker forward" pattern already used for row-group labels in TokenChunker. A chunk whose
+/// strategy already set its type (Structured: from the filer's taxonomy, StatementLabels) keeps that type.
 /// </summary>
 internal static class FilingChunkRecords
 {
@@ -60,7 +61,7 @@ internal static class FilingChunkRecords
                 Key = i + 1,
                 SourceFiling = chunk.SourceFiling,
                 Heading = chunk.Heading,
-                StatementType = currentStatementType ?? "narrative",
+                StatementType = chunk.StatementType ?? currentStatementType ?? "narrative",
                 Content = chunk.Content,
                 Text = $"search_document: {EmbeddingTextBuilder.Build(chunk.Heading, chunk.Content)}",
             });

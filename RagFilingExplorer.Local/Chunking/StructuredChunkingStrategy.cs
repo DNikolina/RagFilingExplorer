@@ -12,7 +12,8 @@ namespace RagFilingExplorer.Local.Chunking;
 /// into typed blocks, sections and chunks - the block model in <see cref="Structured"/> - rather than written
 /// out as text for v1's splitter and chunker to parse back. The heading and packing rules are v1's, shared.
 /// Step 1b-ii: a profile built from the tagged cover facts is the first section, "Cover Page"
-/// (<see cref="FilingProfile"/>). Statement-type tagging is still v1's (FilingChunkRecords).
+/// (<see cref="FilingProfile"/>). Step 1b-iii-a: the primary statements' tables are labelled from the filer's
+/// taxonomy (<see cref="StatementLabels"/>), and each chunk's statement type comes from the table it holds.
 /// </summary>
 internal sealed class StructuredChunkingStrategy(Tokenizer tokenizer, int maxTokensPerChunk, int overlapTokens) : IChunkingStrategy
 {
@@ -21,20 +22,24 @@ internal sealed class StructuredChunkingStrategy(Tokenizer tokenizer, int maxTok
         StructuredFiling read = await ReadAsync(filing);
         return new ChunkedFiling(
             read.Sections.Select(s => new DocumentSection(s.Heading, string.Join("\n\n", s.Blocks.Select(b => b.Text)))).ToList(),
-            read.Chunks.Select(c => new FilingChunk(filing.Name, c.Heading, c.Content, c.Tokens)).ToList());
+            read.Chunks.Select(c => new FilingChunk(filing.Name, c.Heading, c.Content, c.Tokens, c.StatementType)).ToList());
     }
 
     public async Task<StructuredFiling> ReadAsync(FileInfo filing)
     {
         byte[] bytes = await File.ReadAllBytesAsync(filing.FullName);
         IHtmlDocument document = new HtmlParser().ParseDocument(MarkItDownConverter.DetectEncoding(bytes).GetString(bytes));
-        return Read(document);
+
+        // The taxonomy sits next to the filing in data/, downloaded with it from EDGAR (docs/Decision-Log.md).
+        FileInfo schema = TaxonomyReader.FindForFiling(document, filing.Directory!)
+            ?? throw new InvalidOperationException($"{filing.Name}: no taxonomy schema (.xsd) in {filing.DirectoryName} for the namespaces this page declares.");
+        return Read(document, TaxonomyReader.Read(schema));
     }
 
-    public StructuredFiling Read(IHtmlDocument document)
+    public StructuredFiling Read(IHtmlDocument document, XbrlTaxonomy taxonomy)
     {
         XbrlDocument xbrl = InlineXbrlReader.Read(document);
-        List<StructuredSection> sections = StructuredSections.Split(FilingBlockReader.Read(document));
+        List<StructuredSection> sections = StructuredSections.Split(StatementLabels.Label(FilingBlockReader.Read(document), taxonomy));
         if (FilingProfile.Build(xbrl) is { } profile)
         {
             sections.Insert(0, new StructuredSection(FilingProfile.Heading, [new TextBlock(profile)]));

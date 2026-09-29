@@ -1826,6 +1826,35 @@ objects**; retrieval, the index, the grader and replay stay shared - that is wha
 266 tests (251): the converter tests moved to the reader; new ones for sections, block membership, `Pack` and a
 real-filing check that every chunk knows its blocks and every table is chunked. Next: 1b-iii's labels as fields.
 
+**1b-iii split into three measured sub-steps (user, 2026-09-29):** a) statement type, b) note topics, c) period
+labels - each changes answers a different way (the routing filter, the heading/embedding text, row content), so
+each gets its own run.
+
+**Step 1b-iii-a measured (2026-09-29, `eval/structured-1b-iii-a/`): statement type from the Statement roles.**
+`Structured/StatementLabels`: a title rule names each primary Statement role's type, confirmed by a concept only
+that statement presents - on all four taxonomies exactly one primary role presents each: `Assets` +
+`LiabilitiesAndStockholdersEquity` (balance sheet), `NetCashProvidedByUsedInOperatingActivities`,
+`EarningsPerShareBasic`, `ComprehensiveIncomeNetOfTax`, `StatementEquityComponentsAxis` (equity). A missing,
+doubled or unconfirmed type fails loudly. Each role goes to the one table covering most of its presented concepts:
+the 20 statements are one table each at 50-86%; no fixed threshold works (NFLX's segment table covers 53% of the
+operations role, above the equity statements' 50%), but it loses the role to the statement (79%); below 40% fails
+loudly. A chunk's type comes from the statement table it holds (a piece, with caption or footer), otherwise
+narrative - no carry-forward from the last title. `FilingChunk.StatementType` (optional) carries it;
+`FilingChunkRecords` keeps v1's detection for strategies that don't set it. Title-based section splitting stays
+(it sets boundaries, not labels; 1c's one table per chunk supersedes it).
+- **Tags: 947 of 948 chunks the same as v1's title patterns.** The one change is right: NFLX's
+  "See accompanying notes..." page footer, followed by the next page's "NETFLIX, INC." header - no figures -
+  moved from `comprehensive_income` to narrative. Chunk text unchanged.
+- **Run: nothing moved.** Main 22/24, targeted 5/10, routing 3/3, variants 1/3, held-out 11/15; 39 of 40 main
+  and 15 of 15 held-out answers word for word the same (Q21, the NFLX comprehensive income question - the one the
+  relabelled chunk could reach - moved a full stop). Replay unchanged: main 22/22, MRR 0.814; held-out 9/13, MRR
+  0.495.
+So on these four filings the patterns were already right after two reviews' fixes; what 1b-iii-a buys is the
+source - a new filer's statements are found from its declared roles, the NDAQ-equity kind of miss (0 chunks until
+the second review) can't recur silently, and a disagreement fails at build time. It doesn't touch the routing
+misses (R1, H14: the question's keywords pick the wrong statement) - that's the query side, step 2's soft labels.
+278 tests.
+
 Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
 Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation
 memory (follow-up questions), query decomposition beyond per-company search, an API or UI. Automated onboarding
