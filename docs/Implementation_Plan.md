@@ -99,7 +99,9 @@ by retrieval, the rest unchanged); c) period labels on roll-forward rows - done 
 it on wording). **1b-iii closed (user, 2026-09-29).** Registration from the cover facts done (`CompanyRegistry`
 replaces the hand-written table; all 55 questions route as before). **1c in two measured sub-steps:** a) fiscal-year
 names on period labels - done (`eval/structured-1c-a/`: scores unchanged; T9 now reads the right row but gives its
-per-share figure); **next: b) one table of figures per chunk** (T4). Then 1d. Still open: the second-model run
+per-share figure); b) one table of figures per chunk - measured and **declined** (`eval/structured-1c-b-declined/`:
+no score gained, retrieval MRR down 14-18%, T2's period worse; T4's miss is now ranking, for step 2). **1c closed.
+Next: 1d, the embedding text** (company and section context on every chunk). Still open: the second-model run
 (step 0), the `Console.OutputEncoding` fix. Details: Decision-Log.md, "XBRL hybrid (v2)".
 
 **Known, not planned:** statement routing is keyword *substring* matching over a hard filter - "deferred
@@ -224,6 +226,12 @@ Packages: `Microsoft.Extensions.AI`, `Microsoft.Extensions.VectorData.Abstractio
   DOM APIs are IE-backed WinForms or .NET-Framework-only Razor internals); Microsoft's own ASP.NET Core
   integration-test docs use AngleSharp. See Decision-Log.md, "linearized tables as a second chunking
   strategy".
+- **nomic-embed-text reads at most 2,048 tokens through Ollama, and cuts the rest silently.** The model card says
+  8,192 (rope scaling past 2,048), but Ollama's GGUF declares `context_length: 2048`, and `/api/embed` truncates by
+  default instead of failing. Checked 2026-09-29 with `truncate: false` and Ollama's own token count, largest chunks
+  of each strategy: Markdown 778 tokens, Linearized 636, Structured 579 - nomic's tokenizer counts 0.85-1.08x of
+  cl100k's on these filings. Safe at the ~500-token budget; raising `MaxTokensPerChunk` past ~1,500, or a much
+  longer embedding text (step 1d), needs this re-checked.
 - **Embedding prefixes are per model family, not universal:** `search_query:`/`search_document:` is the
   Nomic convention (mandatory for v1.5); qwen3-embedding, embeddinggemma and mxbai use different
   templates, two with no document prefix. Full table in Decision-Log.md, "embedding-model comparison".

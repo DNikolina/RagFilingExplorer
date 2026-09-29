@@ -1972,6 +1972,38 @@ a January year-end is named as its filer does). A year-long period label then re
   held-out 11/15. Replay: main and held-out unchanged; targeted recall@3/@5 unchanged, MRR 0.508 -> 0.492.
 317 tests.
 
+**Step 1c-b measured and declined (2026-09-29, `eval/structured-1c-b-declined/`): one table of figures per
+chunk.** Built as a flag on the packing input (`ChunkerBlock.IsDataTable`, set on the Structured strategy's
+financial tables): a data table never joined a chunk already holding one; the chunk closed before it and the short
+text right before it (its "... were as follows:" lead-in, up to the 100-token caption budget) moved with it. Layout
+tables were left out after the first draft - applied to every table, the rule split cover-page boxes and signature
+blocks into fragments (7 new chunks under 50 tokens, 6 of them layout). Result: 975 -> 1,012 chunks, none holding
+two data tables; Markdown and Linearized unchanged.
+| | 1c-a | 1c-b |
+|---|---|---|
+| Main / targeted / routing / variants, reliable | 22/24, 7/10, 3/3, 1/3 | same |
+| Held-out, reliable | 11/15 | 11/15 |
+| Replay targeted: recall@1 / @5 / MRR | 3/10, 8/10, 0.492 | 2/10, 8/10, **0.425** |
+| Replay held-out: recall@1 / @5 / MRR | 5/13, 9/13, 0.498 | 3/13, 9/13, **0.408** |
+- **T4 closer, not fixed.** The maturities table now opens its own chunk, lead-in first, and rose from outside the
+  top 8 to rank 6 - one short of the 5 the model reads. Above it: five chunks of ORCL's restructuring tables, which
+  share "Oracle ... fiscal 20xx" with the question and never mention leases. A ranking miss now, not a chunking one:
+  step 2's keyword score on "operating lease" is the direct fix.
+- **H6: wrong -> declined** - the $2,805M lookalike became "not stated". The one better answer.
+- **The cost: a table alone embeds as weaker evidence than a table with its commentary.** T2: the repurchase table
+  (it had shared a chunk with the dividends table) fell from rank 1 to 3 behind MD&A prose ("During fiscal years
+  2026 and 2025, we repurchased..."), and the answer took the prose's period - "year ended June 30, 2025" instead of
+  the second quarter of fiscal 2025. Same figure, so the grader, which doesn't check periods, still passes it. H1, H4
+  (MSFT R&D): an MD&A chunk of four small tables with commentary split; the R&D table went to rank 2-3 behind R&D
+  prose, answers unchanged.
+- **Decision (user, 2026-09-29): not kept** - no score gained, one answer's period worse, MRR down 14-18%; the gains
+  (H6's decline, T4 closer) don't pay for it. Code reverted to 1c-a, run kept here as the record; the Structured index
+  rebuilt to 1c-a. The v1 "T4 lesson" (a mixed chunk embeds as its first table) is real, but splitting tables from
+  their prose costs more on these questions. T4 goes to step 2.
+**1c closed**: a) kept, b) declined; c), the compact display text, was the Markdown strategy's padding - Structured's
+rows never had it. What remains of it (long column names repeated on every value, ORCL's equity statement) is
+display length, not a measured failure; left for 1d or answer skills if the prompt budget needs it.
+
 Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
 Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation
 memory (follow-up questions), query decomposition beyond per-company search, an API or UI. Automated onboarding

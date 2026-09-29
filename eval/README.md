@@ -40,5 +40,10 @@ Held-out 11/15, every answer word for word as in 1b-iii-b.
 run 2026-09-29: scores unchanged (main 22/24, targeted 7/10, held-out 11/15); T9 now answers from the right row but
 gives its per-share figure ($1.70) instead of the $4,743M total. Every other answer as in 1b-iii-c.
 
+**`structured-1c-b-declined/`** - step 1c-b (one table of figures per chunk), run 2026-09-29 and **not kept** (code
+reverted to 1c-a): scores unchanged; H6 wrong -> declined, T4's table rank >8 -> 6, but replay MRR fell (targeted
+0.492 -> 0.425, held-out 0.498 -> 0.408) and T2 took the wrong period from MD&A prose that outranked its table.
+Kept as the record of the decision (docs/Decision-Log.md, "Step 1c-b measured and declined").
+
 Temperature 0 is deterministic here: the baseline's 40 main answers are word-for-word identical to the
 2026-09-25 run on the same code, so a changed answer means a changed input, not sampling.

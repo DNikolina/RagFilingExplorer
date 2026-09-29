@@ -1,0 +1,1920 @@
+Chunking strategy: Structured (index: rag.structured.db)
+Company filter: Microsoft / MSFT -> MSFT-10K-2026.html
+Company filter: Nasdaq / NDAQ -> NDAQ-10K-2025.html
+Company filter: Netflix / NFLX -> NFLX-10K-2025.html
+Company filter: Oracle / ORCL -> ORCL-10K-2026.html
+=== MSFT-10K-2026.html ===
+Sections detected: 52
+Chunks: 219
+Tokens per chunk - min: 2, max: 517, avg: 355
+
+Section outline detected:
+  - Cover Page
+  - (no heading)
+  - PART I
+  - PART I > Item 1. BUSINESS
+  - PART I > Item 1A. RISK FACTORS
+  - PART I > Item 1B. UNRESOLVED STAFF COMMENTS
+  - PART I > Item 1C. CYBERSECURITY
+  - PART I > Item 2. PROPERTIES
+  - PART I > Item 3. LEGAL PROCEEDINGS
+  - PART I > Item 4. MINE SAFETY DISCLOSURES
+  - PART II
+  - PART II > Item 5. MARKET FOR REGISTRANT'S COMMON EQUITY, RELATED STOCKHOLDER MATTERS, AND ISSUER PURCHASES OF EQUITY SECURITIES
+  - PART II > Item 6. [RESERVED]
+  - PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS
+  - PART II > Item 7A. QUANTITATIVE AND QUALITATIVE DISCLOSURES ABOUT MARKET RISK
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Accounting Policies
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Earnings Per Share
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Other Income (Expense), Net
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Investments
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Derivatives
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Property and Equipment
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Business Combinations
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Goodwill
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Intangible Assets
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Debt
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Income Taxes
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Unearned Revenue
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Leases
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Contingencies
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Stockholders' Equity
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Accumulated Other Comprehensive Income (Loss)
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Employee Stock and Savings Plans
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Segment Information and Geographic Data
+  - PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA
+  - PART II > Item 9. CHANGES IN AND DISAGREEMENTS WITH ACCOUNTANTS ON ACCOUNTING AND FINANCIAL DISCLOSURE
+  - PART II > Item 9A. CONTROLS AND PROCEDURES
+  - PART II > Item 9B. OTHER INFORMATION
+  - PART II > Item 9C. DISCLOSURE REGARDING FOREIGN JURISDICTIONS THAT PREVENT INSPECTIONS
+  - PART III > Item 10. DIRECTORS, EXECUTIVE OFFICERS, AND CORPORATE GOVERNANCE
+  - PART III > Item 11. EXECUTIVE COMPENSATION
+  - PART III > Item 12. SECURITY OWNERSHIP OF CERTAIN BENEFICIAL OWNERS AND MANAGEMENT AND RELATED STOCKHOLDER MATTERS
+  - PART III > Item 13. CERTAIN RELATIONSHIPS AND RELATED TRANSACTIONS, AND DIRECTOR INDEPENDENCE
+  - PART III > Item 14. PRINCIPAL ACCOUNTANT FEES AND SERVICES
+  - PART IV
+  - PART IV > Item 15. EXHIBIT AND FINANCIAL STATEMENT SCHEDULES
+  - PART IV > Item 16. FORM 10-K SUMMARY
+  - PART IV > Signatures
+
+Full chunk dump written to: C:\Projects\RagFilingExplorer\chunk-review\structured\MSFT-10K-2026.chunks.txt
+
+=== NDAQ-10K-2025.html ===
+Sections detected: 50
+Chunks: 311
+Tokens per chunk - min: 2, max: 551, avg: 410
+
+Section outline detected:
+  - Cover Page
+  - (no heading)
+  - PART I > Item 1. Business
+  - PART I > Item 1A. Risk Factors
+  - PART I > Item 1B. Unresolved Staff Comments
+  - PART I > Item 1C. Cybersecurity
+  - PART I > Item 2. Properties
+  - PART I > Item 3. Legal Proceedings
+  - PART II > Item 5. Market for Registrant's Common Equity, Related
+  - PART II > Item 7. Management's Discussion and Analysis of
+  - PART II > Item 7A. Quantitative and Qualitative Disclosures About
+  - PART II > Item 8. Financial Statements and Supplementary Data
+  - PART II > Item 9. Changes in and Disagreements with Accountants
+  - PART II > Item 9A. Controls and Procedures
+  - PART II > Item 9B. Other Information
+  - PART II > Item 9C. Disclosure Regarding Foreign Jurisdictions that
+  - PART III > Item 10. Directors, Executive Officers and Corporate
+  - PART III > Item 11. Executive Compensation
+  - PART III > Item 12. Security Ownership of Certain Beneficial
+  - PART III > Item 13. Certain Relationships and Related Transactions,
+  - PART III > Item 14. Principal Accountant Fees and Services
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules
+  - PART IV > Item 16. Form 10-K Summary
+  - PART IV > Signatures
+  - PART IV > Financial Statements
+  - PART IV > Financial Statements
+  - PART IV > Financial Statements
+  - PART IV > Financial Statements
+  - PART IV > Financial Statements
+  - PART IV > Financial Statements
+  - PART IV > Financial Statements > Organization and Nature of Operations
+  - PART IV > Financial Statements > Summary of Significant Accounting Policies
+  - PART IV > Financial Statements > Revenue from Contracts with Customers
+  - PART IV > Financial Statements > Acquisition and Divestitures
+  - PART IV > Financial Statements > Goodwill and Acquired Intangible Assets
+  - PART IV > Financial Statements > Investments
+  - PART IV > Financial Statements > Property and Equipment, Net
+  - PART IV > Financial Statements > Deferred Revenue
+  - PART IV > Financial Statements > Debt Obligations
+  - PART IV > Financial Statements > Retirement Plans
+  - PART IV > Financial Statements > Share-Based Compensation
+  - PART IV > Financial Statements > Nasdaq Stockholders' Equity
+  - PART IV > Financial Statements > Earnings Per Share
+  - PART IV > Financial Statements > Fair Value of Financial Instruments
+  - PART IV > Financial Statements > Clearing Operations
+  - PART IV > Financial Statements > Leases
+  - PART IV > Financial Statements > Income Taxes
+  - PART IV > Financial Statements > Commitments, Contingencies and Guarantees
+  - PART IV > Financial Statements > Business Segments
+  - PART IV > Financial Statements > Restructuring Charges
+
+Full chunk dump written to: C:\Projects\RagFilingExplorer\chunk-review\structured\NDAQ-10K-2025.chunks.txt
+
+=== NFLX-10K-2025.html ===
+Sections detected: 52
+Chunks: 206
+Tokens per chunk - min: 2, max: 576, avg: 351
+
+Section outline detected:
+  - Cover Page
+  - (no heading)
+  - PART I
+  - PART I > Item 1. Business
+  - PART I > Item 1A. Risk Factors
+  - PART I > Item 1B. Unresolved Staff Comments
+  - PART I > Item 1C. Cybersecurity
+  - PART I > Item 2. Properties
+  - PART I > Item 3. Legal Proceedings
+  - PART I > Item 4. Mine Safety Disclosures
+  - PART II
+  - PART II > Item 5. Market for Registrant's Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities
+  - PART II > Item 6. [Reserved]
+  - PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations
+  - PART II > Item 7A. Quantitative and Qualitative Disclosures About Market Risk
+  - PART II > Item 8. Financial Statements and Supplementary Data
+  - PART II > Item 9. Changes in and Disagreements with Accountants on Accounting and Financial Disclosure
+  - PART II > Item 9A. Controls and Procedures
+  - PART II > Item 9B. Other Information
+  - PART II > Item 9C. Disclosure Regarding Foreign Jurisdictions that Prevent Inspections
+  - PART III
+  - PART III > Item 10. Directors, Executive Officers and Corporate Governance
+  - PART III > Item 11. Executive Compensation
+  - PART III > Item 12. Security Ownership of Certain Beneficial Owners and Management and Related Stockholder Matters
+  - PART III > Item 13. Certain Relationships and Related Transactions, and Director Independence
+  - PART III > Item 14. Principal Accountant Fees and Services
+  - PART IV
+  - PART IV > Item 15. Exhibits, Financial Statement Schedules
+  - PART IV > Item 16. Form 10-K Summary
+  - PART IV > Financial Statements
+  - PART IV > Financial Statements
+  - PART IV > Financial Statements
+  - PART IV > Financial Statements
+  - PART IV > Financial Statements
+  - PART IV > Financial Statements
+  - PART IV > Financial Statements > Organization and Summary of Significant Accounting Policies
+  - PART IV > Financial Statements > Revenue Recognition
+  - PART IV > Financial Statements > Earnings Per Share
+  - PART IV > Financial Statements > Cash, Cash Equivalents, Restricted Cash, and Short-term Investments
+  - PART IV > Financial Statements > Balance Sheet Components
+  - PART IV > Financial Statements > Acquisitions
+  - PART IV > Financial Statements > Debt
+  - PART IV > Financial Statements > Derivative Financial Instruments and Hedging Activities
+  - PART IV > Financial Statements > Commitments and Contingencies
+  - PART IV > Financial Statements > Stockholders' Equity
+  - PART IV > Financial Statements > Income Taxes
+  - PART IV > Financial Statements > Employee Benefit Plan
+  - PART IV > Financial Statements > Segment and Geographic Information
+  - PART IV > Financial Statements > Subsequent Event
+  - PART IV > Financial Statements
+  - PART IV > Exhibit Index
+  - PART IV > Signatures
+
+Full chunk dump written to: C:\Projects\RagFilingExplorer\chunk-review\structured\NFLX-10K-2025.chunks.txt
+
+=== ORCL-10K-2026.html ===
+Sections detected: 49
+Chunks: 276
+Tokens per chunk - min: 2, max: 532, avg: 369
+
+Section outline detected:
+  - Cover Page
+  - (no heading)
+  - PART I
+  - PART I > Item 1. Business
+  - PART I > Item 1A. Risk Factors
+  - PART I > Item 1B. Unresolved Staff Comments
+  - PART I > Item 1C. Cybersecurity
+  - PART I > Item 2. Properties
+  - PART I > Item 3. Legal Proceedings
+  - PART I > Item 4. Mine Safety Disclosures
+  - PART II > Item 5. Market for Registrant's Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities
+  - PART II > Item 6. [Reserved]
+  - PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations
+  - PART II > Item 7A. Quantitative and Qualitative Disclosures About Market Risk
+  - PART II > Item 8. Financial Statements and Supplementary Data
+  - PART II > Item 9. Changes In and Disagreements with Accountants on Accounting and Financial Disclosure
+  - PART II > Item 9A. Controls and Procedures
+  - PART II > Item 9B. Other Information
+  - PART II > Item 9C. Disclosure Regarding Foreign Jurisdictions that Prevent Inspections
+  - PART III > Item 10. Directors, Executive Officers and Corporate Governance
+  - PART III > Item 11. Executive Compensation
+  - PART III > Item 12. Security Ownership of Certain Beneficial Owners and Management and Related Stockholder Matters
+  - PART III > Item 13. Certain Relationships and Related Transactions, and Director Independence
+  - PART III > Item 14. Principal Accountant Fees and Services
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules > Organization and Significant Accounting Policies
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules > Cash, Cash Equivalents and Marketable Securities
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules > Fair Value Measurements
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules > Property, Plant and Equipment
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules > Intangible Assets and Goodwill
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules > Notes Payable and Other Borrowings
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules > Restructuring and Other Expenses
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules > Deferred Revenues
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules > Leases, Other Commitments and Certain Contingencies
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules > Stockholders' Equity
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules > Employee Benefit Plans
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules > Income Taxes
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules > Segment Information
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules > Earnings Per Share
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules > Legal Proceedings
+  - PART IV > Item 15. Exhibits and Financial Statement Schedules
+  - PART IV > Item 16. Form 10-K Summary
+  - PART IV > Exhibit Index
+  - PART IV > Signatures
+
+Full chunk dump written to: C:\Projects\RagFilingExplorer\chunk-review\structured\ORCL-10K-2026.chunks.txt
+
+=== Vector storage ===
+Total chunks across all filings: 1012
+Embedding and upserting all chunks (this calls Ollama for every chunk - may take a few minutes)...
+  1/1012 upserted (2s elapsed)
+  2/1012 upserted (3s elapsed)
+  3/1012 upserted (3s elapsed)
+  4/1012 upserted (3s elapsed)
+  5/1012 upserted (3s elapsed)
+  6/1012 upserted (4s elapsed)
+  7/1012 upserted (4s elapsed)
+  8/1012 upserted (4s elapsed)
+  9/1012 upserted (5s elapsed)
+  10/1012 upserted (5s elapsed)
+  11/1012 upserted (5s elapsed)
+  12/1012 upserted (6s elapsed)
+  13/1012 upserted (6s elapsed)
+  14/1012 upserted (6s elapsed)
+  15/1012 upserted (7s elapsed)
+  16/1012 upserted (7s elapsed)
+  17/1012 upserted (7s elapsed)
+  18/1012 upserted (8s elapsed)
+  19/1012 upserted (8s elapsed)
+  20/1012 upserted (8s elapsed)
+  21/1012 upserted (8s elapsed)
+  22/1012 upserted (9s elapsed)
+  23/1012 upserted (9s elapsed)
+  24/1012 upserted (9s elapsed)
+  25/1012 upserted (10s elapsed)
+  26/1012 upserted (10s elapsed)
+  27/1012 upserted (10s elapsed)
+  28/1012 upserted (10s elapsed)
+  29/1012 upserted (11s elapsed)
+  30/1012 upserted (11s elapsed)
+  31/1012 upserted (11s elapsed)
+  32/1012 upserted (11s elapsed)
+  33/1012 upserted (12s elapsed)
+  34/1012 upserted (12s elapsed)
+  35/1012 upserted (12s elapsed)
+  36/1012 upserted (13s elapsed)
+  37/1012 upserted (13s elapsed)
+  38/1012 upserted (13s elapsed)
+  39/1012 upserted (13s elapsed)
+  40/1012 upserted (14s elapsed)
+  41/1012 upserted (14s elapsed)
+  42/1012 upserted (14s elapsed)
+  43/1012 upserted (15s elapsed)
+  44/1012 upserted (15s elapsed)
+  45/1012 upserted (15s elapsed)
+  46/1012 upserted (16s elapsed)
+  47/1012 upserted (16s elapsed)
+  48/1012 upserted (16s elapsed)
+  49/1012 upserted (17s elapsed)
+  50/1012 upserted (17s elapsed)
+  51/1012 upserted (17s elapsed)
+  52/1012 upserted (18s elapsed)
+  53/1012 upserted (18s elapsed)
+  54/1012 upserted (18s elapsed)
+  55/1012 upserted (19s elapsed)
+  56/1012 upserted (19s elapsed)
+  57/1012 upserted (19s elapsed)
+  58/1012 upserted (19s elapsed)
+  59/1012 upserted (20s elapsed)
+  60/1012 upserted (20s elapsed)
+  61/1012 upserted (20s elapsed)
+  62/1012 upserted (20s elapsed)
+  63/1012 upserted (20s elapsed)
+  64/1012 upserted (20s elapsed)
+  65/1012 upserted (21s elapsed)
+  66/1012 upserted (21s elapsed)
+  67/1012 upserted (21s elapsed)
+  68/1012 upserted (22s elapsed)
+  69/1012 upserted (22s elapsed)
+  70/1012 upserted (22s elapsed)
+  71/1012 upserted (23s elapsed)
+  72/1012 upserted (23s elapsed)
+  73/1012 upserted (23s elapsed)
+  74/1012 upserted (23s elapsed)
+  75/1012 upserted (23s elapsed)
+  76/1012 upserted (24s elapsed)
+  77/1012 upserted (24s elapsed)
+  78/1012 upserted (24s elapsed)
+  79/1012 upserted (24s elapsed)
+  80/1012 upserted (25s elapsed)
+  81/1012 upserted (25s elapsed)
+  82/1012 upserted (25s elapsed)
+  83/1012 upserted (25s elapsed)
+  84/1012 upserted (26s elapsed)
+  85/1012 upserted (26s elapsed)
+  86/1012 upserted (26s elapsed)
+  87/1012 upserted (27s elapsed)
+  88/1012 upserted (27s elapsed)
+  89/1012 upserted (27s elapsed)
+  90/1012 upserted (27s elapsed)
+  91/1012 upserted (28s elapsed)
+  92/1012 upserted (28s elapsed)
+  93/1012 upserted (28s elapsed)
+  94/1012 upserted (29s elapsed)
+  95/1012 upserted (29s elapsed)
+  96/1012 upserted (29s elapsed)
+  97/1012 upserted (29s elapsed)
+  98/1012 upserted (30s elapsed)
+  99/1012 upserted (30s elapsed)
+  100/1012 upserted (30s elapsed)
+  101/1012 upserted (30s elapsed)
+  102/1012 upserted (31s elapsed)
+  103/1012 upserted (31s elapsed)
+  104/1012 upserted (31s elapsed)
+  105/1012 upserted (32s elapsed)
+  106/1012 upserted (32s elapsed)
+  107/1012 upserted (32s elapsed)
+  108/1012 upserted (32s elapsed)
+  109/1012 upserted (33s elapsed)
+  110/1012 upserted (33s elapsed)
+  111/1012 upserted (34s elapsed)
+  112/1012 upserted (34s elapsed)
+  113/1012 upserted (34s elapsed)
+  114/1012 upserted (34s elapsed)
+  115/1012 upserted (35s elapsed)
+  116/1012 upserted (35s elapsed)
+  117/1012 upserted (35s elapsed)
+  118/1012 upserted (36s elapsed)
+  119/1012 upserted (36s elapsed)
+  120/1012 upserted (36s elapsed)
+  121/1012 upserted (36s elapsed)
+  122/1012 upserted (37s elapsed)
+  123/1012 upserted (37s elapsed)
+  124/1012 upserted (37s elapsed)
+  125/1012 upserted (37s elapsed)
+  126/1012 upserted (38s elapsed)
+  127/1012 upserted (38s elapsed)
+  128/1012 upserted (38s elapsed)
+  129/1012 upserted (39s elapsed)
+  130/1012 upserted (39s elapsed)
+  131/1012 upserted (39s elapsed)
+  132/1012 upserted (39s elapsed)
+  133/1012 upserted (39s elapsed)
+  134/1012 upserted (39s elapsed)
+  135/1012 upserted (40s elapsed)
+  136/1012 upserted (40s elapsed)
+  137/1012 upserted (40s elapsed)
+  138/1012 upserted (40s elapsed)
+  139/1012 upserted (41s elapsed)
+  140/1012 upserted (41s elapsed)
+  141/1012 upserted (41s elapsed)
+  142/1012 upserted (41s elapsed)
+  143/1012 upserted (41s elapsed)
+  144/1012 upserted (42s elapsed)
+  145/1012 upserted (42s elapsed)
+  146/1012 upserted (42s elapsed)
+  147/1012 upserted (42s elapsed)
+  148/1012 upserted (42s elapsed)
+  149/1012 upserted (43s elapsed)
+  150/1012 upserted (43s elapsed)
+  151/1012 upserted (43s elapsed)
+  152/1012 upserted (43s elapsed)
+  153/1012 upserted (43s elapsed)
+  154/1012 upserted (44s elapsed)
+  155/1012 upserted (44s elapsed)
+  156/1012 upserted (44s elapsed)
+  157/1012 upserted (44s elapsed)
+  158/1012 upserted (45s elapsed)
+  159/1012 upserted (45s elapsed)
+  160/1012 upserted (45s elapsed)
+  161/1012 upserted (45s elapsed)
+  162/1012 upserted (46s elapsed)
+  163/1012 upserted (46s elapsed)
+  164/1012 upserted (46s elapsed)
+  165/1012 upserted (46s elapsed)
+  166/1012 upserted (47s elapsed)
+  167/1012 upserted (47s elapsed)
+  168/1012 upserted (47s elapsed)
+  169/1012 upserted (47s elapsed)
+  170/1012 upserted (47s elapsed)
+  171/1012 upserted (48s elapsed)
+  172/1012 upserted (48s elapsed)
+  173/1012 upserted (48s elapsed)
+  174/1012 upserted (48s elapsed)
+  175/1012 upserted (49s elapsed)
+  176/1012 upserted (49s elapsed)
+  177/1012 upserted (49s elapsed)
+  178/1012 upserted (49s elapsed)
+  179/1012 upserted (49s elapsed)
+  180/1012 upserted (50s elapsed)
+  181/1012 upserted (50s elapsed)
+  182/1012 upserted (50s elapsed)
+  183/1012 upserted (51s elapsed)
+  184/1012 upserted (51s elapsed)
+  185/1012 upserted (51s elapsed)
+  186/1012 upserted (51s elapsed)
+  187/1012 upserted (51s elapsed)
+  188/1012 upserted (52s elapsed)
+  189/1012 upserted (52s elapsed)
+  190/1012 upserted (52s elapsed)
+  191/1012 upserted (53s elapsed)
+  192/1012 upserted (53s elapsed)
+  193/1012 upserted (53s elapsed)
+  194/1012 upserted (53s elapsed)
+  195/1012 upserted (54s elapsed)
+  196/1012 upserted (54s elapsed)
+  197/1012 upserted (54s elapsed)
+  198/1012 upserted (54s elapsed)
+  199/1012 upserted (54s elapsed)
+  200/1012 upserted (55s elapsed)
+  201/1012 upserted (55s elapsed)
+  202/1012 upserted (55s elapsed)
+  203/1012 upserted (55s elapsed)
+  204/1012 upserted (55s elapsed)
+  205/1012 upserted (55s elapsed)
+  206/1012 upserted (56s elapsed)
+  207/1012 upserted (56s elapsed)
+  208/1012 upserted (56s elapsed)
+  209/1012 upserted (56s elapsed)
+  210/1012 upserted (56s elapsed)
+  211/1012 upserted (57s elapsed)
+  212/1012 upserted (57s elapsed)
+  213/1012 upserted (57s elapsed)
+  214/1012 upserted (58s elapsed)
+  215/1012 upserted (58s elapsed)
+  216/1012 upserted (58s elapsed)
+  217/1012 upserted (58s elapsed)
+  218/1012 upserted (58s elapsed)
+  219/1012 upserted (58s elapsed)
+  220/1012 upserted (59s elapsed)
+  221/1012 upserted (59s elapsed)
+  222/1012 upserted (59s elapsed)
+  223/1012 upserted (60s elapsed)
+  224/1012 upserted (60s elapsed)
+  225/1012 upserted (60s elapsed)
+  226/1012 upserted (61s elapsed)
+  227/1012 upserted (61s elapsed)
+  228/1012 upserted (61s elapsed)
+  229/1012 upserted (62s elapsed)
+  230/1012 upserted (62s elapsed)
+  231/1012 upserted (62s elapsed)
+  232/1012 upserted (63s elapsed)
+  233/1012 upserted (63s elapsed)
+  234/1012 upserted (63s elapsed)
+  235/1012 upserted (64s elapsed)
+  236/1012 upserted (64s elapsed)
+  237/1012 upserted (65s elapsed)
+  238/1012 upserted (65s elapsed)
+  239/1012 upserted (66s elapsed)
+  240/1012 upserted (66s elapsed)
+  241/1012 upserted (67s elapsed)
+  242/1012 upserted (67s elapsed)
+  243/1012 upserted (67s elapsed)
+  244/1012 upserted (68s elapsed)
+  245/1012 upserted (68s elapsed)
+  246/1012 upserted (69s elapsed)
+  247/1012 upserted (69s elapsed)
+  248/1012 upserted (70s elapsed)
+  249/1012 upserted (70s elapsed)
+  250/1012 upserted (70s elapsed)
+  251/1012 upserted (71s elapsed)
+  252/1012 upserted (71s elapsed)
+  253/1012 upserted (72s elapsed)
+  254/1012 upserted (72s elapsed)
+  255/1012 upserted (73s elapsed)
+  256/1012 upserted (73s elapsed)
+  257/1012 upserted (73s elapsed)
+  258/1012 upserted (74s elapsed)
+  259/1012 upserted (74s elapsed)
+  260/1012 upserted (75s elapsed)
+  261/1012 upserted (75s elapsed)
+  262/1012 upserted (76s elapsed)
+  263/1012 upserted (76s elapsed)
+  264/1012 upserted (76s elapsed)
+  265/1012 upserted (77s elapsed)
+  266/1012 upserted (77s elapsed)
+  267/1012 upserted (77s elapsed)
+  268/1012 upserted (78s elapsed)
+  269/1012 upserted (78s elapsed)
+  270/1012 upserted (79s elapsed)
+  271/1012 upserted (79s elapsed)
+  272/1012 upserted (80s elapsed)
+  273/1012 upserted (80s elapsed)
+  274/1012 upserted (80s elapsed)
+  275/1012 upserted (81s elapsed)
+  276/1012 upserted (81s elapsed)
+  277/1012 upserted (82s elapsed)
+  278/1012 upserted (82s elapsed)
+  279/1012 upserted (83s elapsed)
+  280/1012 upserted (83s elapsed)
+  281/1012 upserted (83s elapsed)
+  282/1012 upserted (84s elapsed)
+  283/1012 upserted (84s elapsed)
+  284/1012 upserted (85s elapsed)
+  285/1012 upserted (85s elapsed)
+  286/1012 upserted (86s elapsed)
+  287/1012 upserted (86s elapsed)
+  288/1012 upserted (86s elapsed)
+  289/1012 upserted (87s elapsed)
+  290/1012 upserted (87s elapsed)
+  291/1012 upserted (88s elapsed)
+  292/1012 upserted (88s elapsed)
+  293/1012 upserted (88s elapsed)
+  294/1012 upserted (89s elapsed)
+  295/1012 upserted (89s elapsed)
+  296/1012 upserted (90s elapsed)
+  297/1012 upserted (90s elapsed)
+  298/1012 upserted (90s elapsed)
+  299/1012 upserted (90s elapsed)
+  300/1012 upserted (91s elapsed)
+  301/1012 upserted (91s elapsed)
+  302/1012 upserted (91s elapsed)
+  303/1012 upserted (92s elapsed)
+  304/1012 upserted (92s elapsed)
+  305/1012 upserted (92s elapsed)
+  306/1012 upserted (92s elapsed)
+  307/1012 upserted (93s elapsed)
+  308/1012 upserted (93s elapsed)
+  309/1012 upserted (93s elapsed)
+  310/1012 upserted (94s elapsed)
+  311/1012 upserted (94s elapsed)
+  312/1012 upserted (94s elapsed)
+  313/1012 upserted (94s elapsed)
+  314/1012 upserted (95s elapsed)
+  315/1012 upserted (95s elapsed)
+  316/1012 upserted (95s elapsed)
+  317/1012 upserted (95s elapsed)
+  318/1012 upserted (96s elapsed)
+  319/1012 upserted (96s elapsed)
+  320/1012 upserted (96s elapsed)
+  321/1012 upserted (96s elapsed)
+  322/1012 upserted (96s elapsed)
+  323/1012 upserted (97s elapsed)
+  324/1012 upserted (97s elapsed)
+  325/1012 upserted (97s elapsed)
+  326/1012 upserted (97s elapsed)
+  327/1012 upserted (98s elapsed)
+  328/1012 upserted (98s elapsed)
+  329/1012 upserted (98s elapsed)
+  330/1012 upserted (98s elapsed)
+  331/1012 upserted (99s elapsed)
+  332/1012 upserted (99s elapsed)
+  333/1012 upserted (99s elapsed)
+  334/1012 upserted (99s elapsed)
+  335/1012 upserted (100s elapsed)
+  336/1012 upserted (100s elapsed)
+  337/1012 upserted (100s elapsed)
+  338/1012 upserted (101s elapsed)
+  339/1012 upserted (101s elapsed)
+  340/1012 upserted (101s elapsed)
+  341/1012 upserted (101s elapsed)
+  342/1012 upserted (102s elapsed)
+  343/1012 upserted (103s elapsed)
+  344/1012 upserted (103s elapsed)
+  345/1012 upserted (103s elapsed)
+  346/1012 upserted (103s elapsed)
+  347/1012 upserted (104s elapsed)
+  348/1012 upserted (104s elapsed)
+  349/1012 upserted (105s elapsed)
+  350/1012 upserted (105s elapsed)
+  351/1012 upserted (105s elapsed)
+  352/1012 upserted (106s elapsed)
+  353/1012 upserted (106s elapsed)
+  354/1012 upserted (106s elapsed)
+  355/1012 upserted (107s elapsed)
+  356/1012 upserted (107s elapsed)
+  357/1012 upserted (108s elapsed)
+  358/1012 upserted (108s elapsed)
+  359/1012 upserted (108s elapsed)
+  360/1012 upserted (109s elapsed)
+  361/1012 upserted (109s elapsed)
+  362/1012 upserted (110s elapsed)
+  363/1012 upserted (110s elapsed)
+  364/1012 upserted (110s elapsed)
+  365/1012 upserted (111s elapsed)
+  366/1012 upserted (111s elapsed)
+  367/1012 upserted (112s elapsed)
+  368/1012 upserted (112s elapsed)
+  369/1012 upserted (112s elapsed)
+  370/1012 upserted (113s elapsed)
+  371/1012 upserted (113s elapsed)
+  372/1012 upserted (114s elapsed)
+  373/1012 upserted (114s elapsed)
+  374/1012 upserted (114s elapsed)
+  375/1012 upserted (115s elapsed)
+  376/1012 upserted (115s elapsed)
+  377/1012 upserted (115s elapsed)
+  378/1012 upserted (115s elapsed)
+  379/1012 upserted (115s elapsed)
+  380/1012 upserted (116s elapsed)
+  381/1012 upserted (116s elapsed)
+  382/1012 upserted (116s elapsed)
+  383/1012 upserted (116s elapsed)
+  384/1012 upserted (117s elapsed)
+  385/1012 upserted (117s elapsed)
+  386/1012 upserted (117s elapsed)
+  387/1012 upserted (117s elapsed)
+  388/1012 upserted (117s elapsed)
+  389/1012 upserted (118s elapsed)
+  390/1012 upserted (118s elapsed)
+  391/1012 upserted (118s elapsed)
+  392/1012 upserted (118s elapsed)
+  393/1012 upserted (119s elapsed)
+  394/1012 upserted (119s elapsed)
+  395/1012 upserted (119s elapsed)
+  396/1012 upserted (120s elapsed)
+  397/1012 upserted (120s elapsed)
+  398/1012 upserted (120s elapsed)
+  399/1012 upserted (120s elapsed)
+  400/1012 upserted (121s elapsed)
+  401/1012 upserted (121s elapsed)
+  402/1012 upserted (121s elapsed)
+  403/1012 upserted (122s elapsed)
+  404/1012 upserted (122s elapsed)
+  405/1012 upserted (122s elapsed)
+  406/1012 upserted (122s elapsed)
+  407/1012 upserted (122s elapsed)
+  408/1012 upserted (123s elapsed)
+  409/1012 upserted (123s elapsed)
+  410/1012 upserted (124s elapsed)
+  411/1012 upserted (124s elapsed)
+  412/1012 upserted (124s elapsed)
+  413/1012 upserted (125s elapsed)
+  414/1012 upserted (125s elapsed)
+  415/1012 upserted (125s elapsed)
+  416/1012 upserted (125s elapsed)
+  417/1012 upserted (126s elapsed)
+  418/1012 upserted (126s elapsed)
+  419/1012 upserted (126s elapsed)
+  420/1012 upserted (127s elapsed)
+  421/1012 upserted (127s elapsed)
+  422/1012 upserted (128s elapsed)
+  423/1012 upserted (128s elapsed)
+  424/1012 upserted (128s elapsed)
+  425/1012 upserted (129s elapsed)
+  426/1012 upserted (129s elapsed)
+  427/1012 upserted (129s elapsed)
+  428/1012 upserted (130s elapsed)
+  429/1012 upserted (130s elapsed)
+  430/1012 upserted (131s elapsed)
+  431/1012 upserted (131s elapsed)
+  432/1012 upserted (132s elapsed)
+  433/1012 upserted (132s elapsed)
+  434/1012 upserted (132s elapsed)
+  435/1012 upserted (133s elapsed)
+  436/1012 upserted (133s elapsed)
+  437/1012 upserted (134s elapsed)
+  438/1012 upserted (134s elapsed)
+  439/1012 upserted (135s elapsed)
+  440/1012 upserted (135s elapsed)
+  441/1012 upserted (136s elapsed)
+  442/1012 upserted (136s elapsed)
+  443/1012 upserted (137s elapsed)
+  444/1012 upserted (137s elapsed)
+  445/1012 upserted (137s elapsed)
+  446/1012 upserted (138s elapsed)
+  447/1012 upserted (138s elapsed)
+  448/1012 upserted (139s elapsed)
+  449/1012 upserted (139s elapsed)
+  450/1012 upserted (140s elapsed)
+  451/1012 upserted (140s elapsed)
+  452/1012 upserted (141s elapsed)
+  453/1012 upserted (141s elapsed)
+  454/1012 upserted (141s elapsed)
+  455/1012 upserted (142s elapsed)
+  456/1012 upserted (142s elapsed)
+  457/1012 upserted (142s elapsed)
+  458/1012 upserted (142s elapsed)
+  459/1012 upserted (143s elapsed)
+  460/1012 upserted (143s elapsed)
+  461/1012 upserted (143s elapsed)
+  462/1012 upserted (143s elapsed)
+  463/1012 upserted (144s elapsed)
+  464/1012 upserted (144s elapsed)
+  465/1012 upserted (144s elapsed)
+  466/1012 upserted (145s elapsed)
+  467/1012 upserted (145s elapsed)
+  468/1012 upserted (145s elapsed)
+  469/1012 upserted (146s elapsed)
+  470/1012 upserted (146s elapsed)
+  471/1012 upserted (147s elapsed)
+  472/1012 upserted (147s elapsed)
+  473/1012 upserted (147s elapsed)
+  474/1012 upserted (148s elapsed)
+  475/1012 upserted (148s elapsed)
+  476/1012 upserted (148s elapsed)
+  477/1012 upserted (149s elapsed)
+  478/1012 upserted (149s elapsed)
+  479/1012 upserted (149s elapsed)
+  480/1012 upserted (150s elapsed)
+  481/1012 upserted (150s elapsed)
+  482/1012 upserted (150s elapsed)
+  483/1012 upserted (151s elapsed)
+  484/1012 upserted (151s elapsed)
+  485/1012 upserted (152s elapsed)
+  486/1012 upserted (152s elapsed)
+  487/1012 upserted (152s elapsed)
+  488/1012 upserted (153s elapsed)
+  489/1012 upserted (153s elapsed)
+  490/1012 upserted (154s elapsed)
+  491/1012 upserted (154s elapsed)
+  492/1012 upserted (154s elapsed)
+  493/1012 upserted (155s elapsed)
+  494/1012 upserted (155s elapsed)
+  495/1012 upserted (156s elapsed)
+  496/1012 upserted (156s elapsed)
+  497/1012 upserted (157s elapsed)
+  498/1012 upserted (157s elapsed)
+  499/1012 upserted (157s elapsed)
+  500/1012 upserted (158s elapsed)
+  501/1012 upserted (158s elapsed)
+  502/1012 upserted (158s elapsed)
+  503/1012 upserted (159s elapsed)
+  504/1012 upserted (159s elapsed)
+  505/1012 upserted (159s elapsed)
+  506/1012 upserted (159s elapsed)
+  507/1012 upserted (159s elapsed)
+  508/1012 upserted (160s elapsed)
+  509/1012 upserted (160s elapsed)
+  510/1012 upserted (161s elapsed)
+  511/1012 upserted (161s elapsed)
+  512/1012 upserted (162s elapsed)
+  513/1012 upserted (162s elapsed)
+  514/1012 upserted (162s elapsed)
+  515/1012 upserted (162s elapsed)
+  516/1012 upserted (163s elapsed)
+  517/1012 upserted (164s elapsed)
+  518/1012 upserted (164s elapsed)
+  519/1012 upserted (164s elapsed)
+  520/1012 upserted (164s elapsed)
+  521/1012 upserted (164s elapsed)
+  522/1012 upserted (165s elapsed)
+  523/1012 upserted (165s elapsed)
+  524/1012 upserted (166s elapsed)
+  525/1012 upserted (166s elapsed)
+  526/1012 upserted (167s elapsed)
+  527/1012 upserted (167s elapsed)
+  528/1012 upserted (167s elapsed)
+  529/1012 upserted (167s elapsed)
+  530/1012 upserted (167s elapsed)
+  531/1012 upserted (168s elapsed)
+  532/1012 upserted (168s elapsed)
+  533/1012 upserted (168s elapsed)
+  534/1012 upserted (169s elapsed)
+  535/1012 upserted (169s elapsed)
+  536/1012 upserted (169s elapsed)
+  537/1012 upserted (170s elapsed)
+  538/1012 upserted (170s elapsed)
+  539/1012 upserted (171s elapsed)
+  540/1012 upserted (171s elapsed)
+  541/1012 upserted (172s elapsed)
+  542/1012 upserted (172s elapsed)
+  543/1012 upserted (173s elapsed)
+  544/1012 upserted (173s elapsed)
+  545/1012 upserted (174s elapsed)
+  546/1012 upserted (174s elapsed)
+  547/1012 upserted (175s elapsed)
+  548/1012 upserted (176s elapsed)
+  549/1012 upserted (176s elapsed)
+  550/1012 upserted (177s elapsed)
+  551/1012 upserted (177s elapsed)
+  552/1012 upserted (177s elapsed)
+  553/1012 upserted (178s elapsed)
+  554/1012 upserted (178s elapsed)
+  555/1012 upserted (178s elapsed)
+  556/1012 upserted (179s elapsed)
+  557/1012 upserted (179s elapsed)
+  558/1012 upserted (180s elapsed)
+  559/1012 upserted (180s elapsed)
+  560/1012 upserted (181s elapsed)
+  561/1012 upserted (181s elapsed)
+  562/1012 upserted (182s elapsed)
+  563/1012 upserted (182s elapsed)
+  564/1012 upserted (182s elapsed)
+  565/1012 upserted (183s elapsed)
+  566/1012 upserted (183s elapsed)
+  567/1012 upserted (183s elapsed)
+  568/1012 upserted (184s elapsed)
+  569/1012 upserted (184s elapsed)
+  570/1012 upserted (185s elapsed)
+  571/1012 upserted (185s elapsed)
+  572/1012 upserted (186s elapsed)
+  573/1012 upserted (186s elapsed)
+  574/1012 upserted (187s elapsed)
+  575/1012 upserted (187s elapsed)
+  576/1012 upserted (188s elapsed)
+  577/1012 upserted (188s elapsed)
+  578/1012 upserted (188s elapsed)
+  579/1012 upserted (189s elapsed)
+  580/1012 upserted (189s elapsed)
+  581/1012 upserted (189s elapsed)
+  582/1012 upserted (189s elapsed)
+  583/1012 upserted (189s elapsed)
+  584/1012 upserted (189s elapsed)
+  585/1012 upserted (190s elapsed)
+  586/1012 upserted (190s elapsed)
+  587/1012 upserted (190s elapsed)
+  588/1012 upserted (191s elapsed)
+  589/1012 upserted (191s elapsed)
+  590/1012 upserted (192s elapsed)
+  591/1012 upserted (192s elapsed)
+  592/1012 upserted (193s elapsed)
+  593/1012 upserted (193s elapsed)
+  594/1012 upserted (193s elapsed)
+  595/1012 upserted (194s elapsed)
+  596/1012 upserted (194s elapsed)
+  597/1012 upserted (195s elapsed)
+  598/1012 upserted (195s elapsed)
+  599/1012 upserted (196s elapsed)
+  600/1012 upserted (196s elapsed)
+  601/1012 upserted (197s elapsed)
+  602/1012 upserted (197s elapsed)
+  603/1012 upserted (197s elapsed)
+  604/1012 upserted (198s elapsed)
+  605/1012 upserted (198s elapsed)
+  606/1012 upserted (199s elapsed)
+  607/1012 upserted (200s elapsed)
+  608/1012 upserted (200s elapsed)
+  609/1012 upserted (200s elapsed)
+  610/1012 upserted (201s elapsed)
+  611/1012 upserted (201s elapsed)
+  612/1012 upserted (202s elapsed)
+  613/1012 upserted (202s elapsed)
+  614/1012 upserted (203s elapsed)
+  615/1012 upserted (203s elapsed)
+  616/1012 upserted (204s elapsed)
+  617/1012 upserted (204s elapsed)
+  618/1012 upserted (204s elapsed)
+  619/1012 upserted (205s elapsed)
+  620/1012 upserted (205s elapsed)
+  621/1012 upserted (205s elapsed)
+  622/1012 upserted (206s elapsed)
+  623/1012 upserted (206s elapsed)
+  624/1012 upserted (206s elapsed)
+  625/1012 upserted (207s elapsed)
+  626/1012 upserted (207s elapsed)
+  627/1012 upserted (208s elapsed)
+  628/1012 upserted (208s elapsed)
+  629/1012 upserted (208s elapsed)
+  630/1012 upserted (208s elapsed)
+  631/1012 upserted (208s elapsed)
+  632/1012 upserted (208s elapsed)
+  633/1012 upserted (208s elapsed)
+  634/1012 upserted (209s elapsed)
+  635/1012 upserted (209s elapsed)
+  636/1012 upserted (209s elapsed)
+  637/1012 upserted (209s elapsed)
+  638/1012 upserted (210s elapsed)
+  639/1012 upserted (210s elapsed)
+  640/1012 upserted (211s elapsed)
+  641/1012 upserted (211s elapsed)
+  642/1012 upserted (211s elapsed)
+  643/1012 upserted (212s elapsed)
+  644/1012 upserted (212s elapsed)
+  645/1012 upserted (213s elapsed)
+  646/1012 upserted (213s elapsed)
+  647/1012 upserted (214s elapsed)
+  648/1012 upserted (214s elapsed)
+  649/1012 upserted (215s elapsed)
+  650/1012 upserted (215s elapsed)
+  651/1012 upserted (216s elapsed)
+  652/1012 upserted (216s elapsed)
+  653/1012 upserted (216s elapsed)
+  654/1012 upserted (217s elapsed)
+  655/1012 upserted (217s elapsed)
+  656/1012 upserted (218s elapsed)
+  657/1012 upserted (218s elapsed)
+  658/1012 upserted (219s elapsed)
+  659/1012 upserted (219s elapsed)
+  660/1012 upserted (220s elapsed)
+  661/1012 upserted (220s elapsed)
+  662/1012 upserted (221s elapsed)
+  663/1012 upserted (221s elapsed)
+  664/1012 upserted (221s elapsed)
+  665/1012 upserted (222s elapsed)
+  666/1012 upserted (222s elapsed)
+  667/1012 upserted (222s elapsed)
+  668/1012 upserted (223s elapsed)
+  669/1012 upserted (223s elapsed)
+  670/1012 upserted (224s elapsed)
+  671/1012 upserted (224s elapsed)
+  672/1012 upserted (225s elapsed)
+  673/1012 upserted (225s elapsed)
+  674/1012 upserted (225s elapsed)
+  675/1012 upserted (225s elapsed)
+  676/1012 upserted (226s elapsed)
+  677/1012 upserted (226s elapsed)
+  678/1012 upserted (226s elapsed)
+  679/1012 upserted (227s elapsed)
+  680/1012 upserted (227s elapsed)
+  681/1012 upserted (227s elapsed)
+  682/1012 upserted (228s elapsed)
+  683/1012 upserted (228s elapsed)
+  684/1012 upserted (229s elapsed)
+  685/1012 upserted (229s elapsed)
+  686/1012 upserted (229s elapsed)
+  687/1012 upserted (230s elapsed)
+  688/1012 upserted (230s elapsed)
+  689/1012 upserted (231s elapsed)
+  690/1012 upserted (231s elapsed)
+  691/1012 upserted (231s elapsed)
+  692/1012 upserted (232s elapsed)
+  693/1012 upserted (232s elapsed)
+  694/1012 upserted (232s elapsed)
+  695/1012 upserted (233s elapsed)
+  696/1012 upserted (233s elapsed)
+  697/1012 upserted (233s elapsed)
+  698/1012 upserted (234s elapsed)
+  699/1012 upserted (234s elapsed)
+  700/1012 upserted (234s elapsed)
+  701/1012 upserted (235s elapsed)
+  702/1012 upserted (235s elapsed)
+  703/1012 upserted (235s elapsed)
+  704/1012 upserted (236s elapsed)
+  705/1012 upserted (236s elapsed)
+  706/1012 upserted (237s elapsed)
+  707/1012 upserted (237s elapsed)
+  708/1012 upserted (238s elapsed)
+  709/1012 upserted (238s elapsed)
+  710/1012 upserted (238s elapsed)
+  711/1012 upserted (239s elapsed)
+  712/1012 upserted (239s elapsed)
+  713/1012 upserted (239s elapsed)
+  714/1012 upserted (240s elapsed)
+  715/1012 upserted (240s elapsed)
+  716/1012 upserted (240s elapsed)
+  717/1012 upserted (241s elapsed)
+  718/1012 upserted (242s elapsed)
+  719/1012 upserted (242s elapsed)
+  720/1012 upserted (242s elapsed)
+  721/1012 upserted (243s elapsed)
+  722/1012 upserted (243s elapsed)
+  723/1012 upserted (244s elapsed)
+  724/1012 upserted (244s elapsed)
+  725/1012 upserted (244s elapsed)
+  726/1012 upserted (244s elapsed)
+  727/1012 upserted (244s elapsed)
+  728/1012 upserted (245s elapsed)
+  729/1012 upserted (245s elapsed)
+  730/1012 upserted (246s elapsed)
+  731/1012 upserted (246s elapsed)
+  732/1012 upserted (246s elapsed)
+  733/1012 upserted (247s elapsed)
+  734/1012 upserted (247s elapsed)
+  735/1012 upserted (248s elapsed)
+  736/1012 upserted (248s elapsed)
+  737/1012 upserted (248s elapsed)
+  738/1012 upserted (249s elapsed)
+  739/1012 upserted (249s elapsed)
+  740/1012 upserted (249s elapsed)
+  741/1012 upserted (250s elapsed)
+  742/1012 upserted (250s elapsed)
+  743/1012 upserted (251s elapsed)
+  744/1012 upserted (251s elapsed)
+  745/1012 upserted (252s elapsed)
+  746/1012 upserted (252s elapsed)
+  747/1012 upserted (253s elapsed)
+  748/1012 upserted (253s elapsed)
+  749/1012 upserted (254s elapsed)
+  750/1012 upserted (254s elapsed)
+  751/1012 upserted (255s elapsed)
+  752/1012 upserted (255s elapsed)
+  753/1012 upserted (256s elapsed)
+  754/1012 upserted (256s elapsed)
+  755/1012 upserted (257s elapsed)
+  756/1012 upserted (257s elapsed)
+  757/1012 upserted (258s elapsed)
+  758/1012 upserted (258s elapsed)
+  759/1012 upserted (259s elapsed)
+  760/1012 upserted (259s elapsed)
+  761/1012 upserted (260s elapsed)
+  762/1012 upserted (260s elapsed)
+  763/1012 upserted (260s elapsed)
+  764/1012 upserted (261s elapsed)
+  765/1012 upserted (261s elapsed)
+  766/1012 upserted (262s elapsed)
+  767/1012 upserted (262s elapsed)
+  768/1012 upserted (263s elapsed)
+  769/1012 upserted (263s elapsed)
+  770/1012 upserted (264s elapsed)
+  771/1012 upserted (264s elapsed)
+  772/1012 upserted (264s elapsed)
+  773/1012 upserted (265s elapsed)
+  774/1012 upserted (265s elapsed)
+  775/1012 upserted (266s elapsed)
+  776/1012 upserted (266s elapsed)
+  777/1012 upserted (266s elapsed)
+  778/1012 upserted (267s elapsed)
+  779/1012 upserted (267s elapsed)
+  780/1012 upserted (268s elapsed)
+  781/1012 upserted (268s elapsed)
+  782/1012 upserted (268s elapsed)
+  783/1012 upserted (269s elapsed)
+  784/1012 upserted (270s elapsed)
+  785/1012 upserted (270s elapsed)
+  786/1012 upserted (271s elapsed)
+  787/1012 upserted (271s elapsed)
+  788/1012 upserted (271s elapsed)
+  789/1012 upserted (272s elapsed)
+  790/1012 upserted (272s elapsed)
+  791/1012 upserted (273s elapsed)
+  792/1012 upserted (273s elapsed)
+  793/1012 upserted (274s elapsed)
+  794/1012 upserted (274s elapsed)
+  795/1012 upserted (274s elapsed)
+  796/1012 upserted (275s elapsed)
+  797/1012 upserted (275s elapsed)
+  798/1012 upserted (276s elapsed)
+  799/1012 upserted (276s elapsed)
+  800/1012 upserted (277s elapsed)
+  801/1012 upserted (277s elapsed)
+  802/1012 upserted (278s elapsed)
+  803/1012 upserted (278s elapsed)
+  804/1012 upserted (278s elapsed)
+  805/1012 upserted (279s elapsed)
+  806/1012 upserted (279s elapsed)
+  807/1012 upserted (280s elapsed)
+  808/1012 upserted (280s elapsed)
+  809/1012 upserted (281s elapsed)
+  810/1012 upserted (281s elapsed)
+  811/1012 upserted (281s elapsed)
+  812/1012 upserted (282s elapsed)
+  813/1012 upserted (282s elapsed)
+  814/1012 upserted (283s elapsed)
+  815/1012 upserted (283s elapsed)
+  816/1012 upserted (283s elapsed)
+  817/1012 upserted (283s elapsed)
+  818/1012 upserted (284s elapsed)
+  819/1012 upserted (284s elapsed)
+  820/1012 upserted (284s elapsed)
+  821/1012 upserted (284s elapsed)
+  822/1012 upserted (285s elapsed)
+  823/1012 upserted (285s elapsed)
+  824/1012 upserted (286s elapsed)
+  825/1012 upserted (286s elapsed)
+  826/1012 upserted (287s elapsed)
+  827/1012 upserted (287s elapsed)
+  828/1012 upserted (288s elapsed)
+  829/1012 upserted (288s elapsed)
+  830/1012 upserted (288s elapsed)
+  831/1012 upserted (289s elapsed)
+  832/1012 upserted (289s elapsed)
+  833/1012 upserted (289s elapsed)
+  834/1012 upserted (290s elapsed)
+  835/1012 upserted (290s elapsed)
+  836/1012 upserted (291s elapsed)
+  837/1012 upserted (291s elapsed)
+  838/1012 upserted (292s elapsed)
+  839/1012 upserted (292s elapsed)
+  840/1012 upserted (292s elapsed)
+  841/1012 upserted (293s elapsed)
+  842/1012 upserted (293s elapsed)
+  843/1012 upserted (294s elapsed)
+  844/1012 upserted (294s elapsed)
+  845/1012 upserted (294s elapsed)
+  846/1012 upserted (295s elapsed)
+  847/1012 upserted (295s elapsed)
+  848/1012 upserted (296s elapsed)
+  849/1012 upserted (296s elapsed)
+  850/1012 upserted (296s elapsed)
+  851/1012 upserted (297s elapsed)
+  852/1012 upserted (297s elapsed)
+  853/1012 upserted (298s elapsed)
+  854/1012 upserted (298s elapsed)
+  855/1012 upserted (299s elapsed)
+  856/1012 upserted (299s elapsed)
+  857/1012 upserted (300s elapsed)
+  858/1012 upserted (300s elapsed)
+  859/1012 upserted (300s elapsed)
+  860/1012 upserted (301s elapsed)
+  861/1012 upserted (301s elapsed)
+  862/1012 upserted (301s elapsed)
+  863/1012 upserted (301s elapsed)
+  864/1012 upserted (302s elapsed)
+  865/1012 upserted (302s elapsed)
+  866/1012 upserted (302s elapsed)
+  867/1012 upserted (303s elapsed)
+  868/1012 upserted (303s elapsed)
+  869/1012 upserted (303s elapsed)
+  870/1012 upserted (303s elapsed)
+  871/1012 upserted (303s elapsed)
+  872/1012 upserted (303s elapsed)
+  873/1012 upserted (303s elapsed)
+  874/1012 upserted (304s elapsed)
+  875/1012 upserted (304s elapsed)
+  876/1012 upserted (305s elapsed)
+  877/1012 upserted (305s elapsed)
+  878/1012 upserted (306s elapsed)
+  879/1012 upserted (306s elapsed)
+  880/1012 upserted (306s elapsed)
+  881/1012 upserted (307s elapsed)
+  882/1012 upserted (307s elapsed)
+  883/1012 upserted (308s elapsed)
+  884/1012 upserted (308s elapsed)
+  885/1012 upserted (309s elapsed)
+  886/1012 upserted (309s elapsed)
+  887/1012 upserted (309s elapsed)
+  888/1012 upserted (310s elapsed)
+  889/1012 upserted (310s elapsed)
+  890/1012 upserted (311s elapsed)
+  891/1012 upserted (311s elapsed)
+  892/1012 upserted (311s elapsed)
+  893/1012 upserted (312s elapsed)
+  894/1012 upserted (312s elapsed)
+  895/1012 upserted (313s elapsed)
+  896/1012 upserted (314s elapsed)
+  897/1012 upserted (314s elapsed)
+  898/1012 upserted (314s elapsed)
+  899/1012 upserted (315s elapsed)
+  900/1012 upserted (315s elapsed)
+  901/1012 upserted (316s elapsed)
+  902/1012 upserted (316s elapsed)
+  903/1012 upserted (317s elapsed)
+  904/1012 upserted (317s elapsed)
+  905/1012 upserted (318s elapsed)
+  906/1012 upserted (318s elapsed)
+  907/1012 upserted (318s elapsed)
+  908/1012 upserted (319s elapsed)
+  909/1012 upserted (319s elapsed)
+  910/1012 upserted (320s elapsed)
+  911/1012 upserted (320s elapsed)
+  912/1012 upserted (321s elapsed)
+  913/1012 upserted (321s elapsed)
+  914/1012 upserted (322s elapsed)
+  915/1012 upserted (322s elapsed)
+  916/1012 upserted (322s elapsed)
+  917/1012 upserted (323s elapsed)
+  918/1012 upserted (323s elapsed)
+  919/1012 upserted (324s elapsed)
+  920/1012 upserted (324s elapsed)
+  921/1012 upserted (324s elapsed)
+  922/1012 upserted (324s elapsed)
+  923/1012 upserted (325s elapsed)
+  924/1012 upserted (325s elapsed)
+  925/1012 upserted (326s elapsed)
+  926/1012 upserted (326s elapsed)
+  927/1012 upserted (326s elapsed)
+  928/1012 upserted (327s elapsed)
+  929/1012 upserted (327s elapsed)
+  930/1012 upserted (328s elapsed)
+  931/1012 upserted (328s elapsed)
+  932/1012 upserted (329s elapsed)
+  933/1012 upserted (329s elapsed)
+  934/1012 upserted (329s elapsed)
+  935/1012 upserted (330s elapsed)
+  936/1012 upserted (330s elapsed)
+  937/1012 upserted (330s elapsed)
+  938/1012 upserted (331s elapsed)
+  939/1012 upserted (331s elapsed)
+  940/1012 upserted (332s elapsed)
+  941/1012 upserted (332s elapsed)
+  942/1012 upserted (332s elapsed)
+  943/1012 upserted (332s elapsed)
+  944/1012 upserted (333s elapsed)
+  945/1012 upserted (333s elapsed)
+  946/1012 upserted (334s elapsed)
+  947/1012 upserted (334s elapsed)
+  948/1012 upserted (334s elapsed)
+  949/1012 upserted (335s elapsed)
+  950/1012 upserted (335s elapsed)
+  951/1012 upserted (335s elapsed)
+  952/1012 upserted (335s elapsed)
+  953/1012 upserted (336s elapsed)
+  954/1012 upserted (336s elapsed)
+  955/1012 upserted (336s elapsed)
+  956/1012 upserted (337s elapsed)
+  957/1012 upserted (337s elapsed)
+  958/1012 upserted (337s elapsed)
+  959/1012 upserted (338s elapsed)
+  960/1012 upserted (338s elapsed)
+  961/1012 upserted (339s elapsed)
+  962/1012 upserted (339s elapsed)
+  963/1012 upserted (339s elapsed)
+  964/1012 upserted (340s elapsed)
+  965/1012 upserted (340s elapsed)
+  966/1012 upserted (340s elapsed)
+  967/1012 upserted (341s elapsed)
+  968/1012 upserted (341s elapsed)
+  969/1012 upserted (341s elapsed)
+  970/1012 upserted (342s elapsed)
+  971/1012 upserted (342s elapsed)
+  972/1012 upserted (342s elapsed)
+  973/1012 upserted (342s elapsed)
+  974/1012 upserted (343s elapsed)
+  975/1012 upserted (343s elapsed)
+  976/1012 upserted (343s elapsed)
+  977/1012 upserted (344s elapsed)
+  978/1012 upserted (344s elapsed)
+  979/1012 upserted (344s elapsed)
+  980/1012 upserted (345s elapsed)
+  981/1012 upserted (345s elapsed)
+  982/1012 upserted (345s elapsed)
+  983/1012 upserted (346s elapsed)
+  984/1012 upserted (346s elapsed)
+  985/1012 upserted (347s elapsed)
+  986/1012 upserted (347s elapsed)
+  987/1012 upserted (347s elapsed)
+  988/1012 upserted (347s elapsed)
+  989/1012 upserted (348s elapsed)
+  990/1012 upserted (348s elapsed)
+  991/1012 upserted (348s elapsed)
+  992/1012 upserted (349s elapsed)
+  993/1012 upserted (349s elapsed)
+  994/1012 upserted (349s elapsed)
+  995/1012 upserted (350s elapsed)
+  996/1012 upserted (350s elapsed)
+  997/1012 upserted (350s elapsed)
+  998/1012 upserted (350s elapsed)
+  999/1012 upserted (350s elapsed)
+  1000/1012 upserted (351s elapsed)
+  1001/1012 upserted (351s elapsed)
+  1002/1012 upserted (351s elapsed)
+  1003/1012 upserted (351s elapsed)
+  1004/1012 upserted (352s elapsed)
+  1005/1012 upserted (352s elapsed)
+  1006/1012 upserted (352s elapsed)
+  1007/1012 upserted (353s elapsed)
+  1008/1012 upserted (353s elapsed)
+  1009/1012 upserted (353s elapsed)
+  1010/1012 upserted (354s elapsed)
+  1011/1012 upserted (354s elapsed)
+  1012/1012 upserted (354s elapsed)
+Upserted 1012 records in 354s.
+
+=== Retrieval + answer generation ===
+Ask a question about the filings (blank line or 'exit' to quit).
+
+> (filtering to MSFT-10K-2026.html, statement type: balance_sheet)
+
+--- Retrieved chunks (top 2, compact, for diagnosis) ---
+[1] score=0.3657 | MSFT-10K-2026.html | balance_sheet | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | BALANCE SHEETS  (In millions) June 30, Assets Current assets: Current assets > Cash and ca
+[2] score=0.4001 | MSFT-10K-2026.html | balance_sheet | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | BALANCE SHEETS  (In millions) June 30, Current liabilities > Other current liabilities - 2
+
+--- Answer ---
+Microsoft's total assets were $758,376 million as of June 30, 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data).
+
+> (filtering to ORCL-10K-2026.html, statement type: balance_sheet)
+
+--- Retrieved chunks (top 3, compact, for diagnosis) ---
+[1] score=0.1986 | ORCL-10K-2026.html | balance_sheet | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED BALANCE SHEETS  As of May 31, 2026 and 2025  (in millions, except per share d
+[2] score=0.2989 | ORCL-10K-2026.html | balance_sheet | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED BALANCE SHEETS  As of May 31, 2026 and 2025  (in millions, except per share d
+[3] score=0.4367 | ORCL-10K-2026.html | balance_sheet | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED BALANCE SHEETS  As of May 31, 2026 and 2025  (in millions, except per share d
+
+--- Answer ---
+Oracle's total stockholders' equity was $42,508 million as of May 31, 2026, and $20,451 million as of May 31, 2025. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)
+
+> (filtering to NDAQ-10K-2025.html, statement type: balance_sheet)
+
+--- Retrieved chunks (top 2, compact, for diagnosis) ---
+[1] score=0.2411 | NDAQ-10K-2025.html | balance_sheet | PART IV > Financial Statements | Consolidated Balance Sheets  (in millions, except share and par value amounts)  December 3
+[2] score=0.3322 | NDAQ-10K-2025.html | balance_sheet | PART IV > Financial Statements | Consolidated Balance Sheets  (in millions, except share and par value amounts)  December 3
+
+--- Answer ---
+Nasdaq's total liabilities were $18,821 million for the year ended December 31, 2025 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements).
+
+> (filtering to MSFT-10K-2026.html, statement type: cash_flow_statement)
+
+--- Retrieved chunks (top 3, compact, for diagnosis) ---
+[1] score=0.3218 | MSFT-10K-2026.html | cash_flow_statement | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | CASH FLOWS STATEMENTS  (In millions) Year Ended June 30, Operations Operations > Net incom
+[2] score=0.3748 | MSFT-10K-2026.html | cash_flow_statement | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | CASH FLOWS STATEMENTS  (In millions) Year Ended June 30, Changes in operating assets and l
+[3] score=0.4133 | MSFT-10K-2026.html | cash_flow_statement | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | CASH FLOWS STATEMENTS  (In millions) Year Ended June 30, Investing > Additions to property
+
+--- Answer ---
+Microsoft's net cash from operations was $182,935 million for the year ended June 30, 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data).
+
+> (filtering to ORCL-10K-2026.html, statement type: cash_flow_statement)
+
+--- Retrieved chunks (top 4, compact, for diagnosis) ---
+[1] score=0.2531 | ORCL-10K-2026.html | cash_flow_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED STATEMENTS OF CASH FLOWS  For the Years Ended May 31, 2026, 2025 and 2024  (i
+[2] score=0.3244 | ORCL-10K-2026.html | cash_flow_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED STATEMENTS OF CASH FLOWS  For the Years Ended May 31, 2026, 2025 and 2024  (i
+[3] score=0.3726 | ORCL-10K-2026.html | cash_flow_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED STATEMENTS OF CASH FLOWS  For the Years Ended May 31, 2026, 2025 and 2024  (i
+[4] score=0.4326 | ORCL-10K-2026.html | cash_flow_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED STATEMENTS OF CASH FLOWS  For the Years Ended May 31, 2026, 2025 and 2024  (i
+
+--- Answer ---
+Oracle's net cash provided by operating activities was $31,977 million for the year ended May 31, 2026 (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules).
+
+> (filtering to NDAQ-10K-2025.html, statement type: cash_flow_statement)
+
+--- Retrieved chunks (top 4, compact, for diagnosis) ---
+[1] score=0.2416 | NDAQ-10K-2025.html | cash_flow_statement | PART IV > Financial Statements | Consolidated Statements of Cash Flows  (in millions)  Year Ended December 31, Cash flows f
+[2] score=0.2665 | NDAQ-10K-2025.html | cash_flow_statement | PART IV > Financial Statements | Consolidated Statements of Cash Flows  (in millions)  Year Ended December 31, Net change i
+[3] score=0.2894 | NDAQ-10K-2025.html | cash_flow_statement | PART IV > Financial Statements | Consolidated Statements of Cash Flows  (in millions)  Year Ended December 31, Cash flows f
+[4] score=0.3178 | NDAQ-10K-2025.html | cash_flow_statement | PART IV > Financial Statements | Consolidated Statements of Cash Flows  (in millions)  Year Ended December 31, Cash flows f
+
+--- Answer ---
+Nasdaq's net cash provided by operating activities in 2025 was $2,255 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Consolidated Statements of Cash Flows)
+
+> (filtering to MSFT-10K-2026.html, statement type: balance_sheet)
+
+--- Retrieved chunks (top 2, compact, for diagnosis) ---
+[1] score=0.3857 | MSFT-10K-2026.html | balance_sheet | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | BALANCE SHEETS  (In millions) June 30, Current liabilities > Other current liabilities - 2
+[2] score=0.4116 | MSFT-10K-2026.html | balance_sheet | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | BALANCE SHEETS  (In millions) June 30, Assets Current assets: Current assets > Cash and ca
+
+--- Answer ---
+Microsoft's total stockholders' equity was $442,387 million for the year ended June 30, 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data).
+
+> (filtering to MSFT-10K-2026.html, statement type: comprehensive_income)
+
+--- Retrieved chunks (top 1, compact, for diagnosis) ---
+[1] score=0.2850 | MSFT-10K-2026.html | comprehensive_income | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | COMPREHENSIVE INCOME STATEMENTS  (In millions) Year Ended June 30, Net income - 2026: $133
+
+--- Answer ---
+Microsoft's comprehensive income was $133,812 million for the year ended June 30, 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data).
+
+> (filtering to ORCL-10K-2026.html, statement type: comprehensive_income)
+
+--- Retrieved chunks (top 1, compact, for diagnosis) ---
+[1] score=0.1993 | ORCL-10K-2026.html | comprehensive_income | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME  For the Years Ended May 31, 2026, 2025 an
+
+--- Answer ---
+Oracle's comprehensive income for the year ended May 31, 2026, was $16,882 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)
+
+> (filtering to NDAQ-10K-2025.html, statement type: comprehensive_income)
+
+--- Retrieved chunks (top 1, compact, for diagnosis) ---
+[1] score=0.1996 | NDAQ-10K-2025.html | comprehensive_income | PART IV > Financial Statements | Consolidated Statements of Comprehensive Income  (in millions)  Year Ended December 31, Ne
+
+--- Answer ---
+Nasdaq's total comprehensive income for 2025 was $2,114 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements)
+
+> (filtering to MSFT-10K-2026.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.3251 | MSFT-10K-2026.html | narrative | PART I > Item 1. BUSINESS | Devices face competition from various computer, tablet, and hardware manufacturers who off
+[2] score=0.3311 | MSFT-10K-2026.html | narrative | Cover Page | Microsoft Corporation - annual report on Form 10-K for the fiscal year ended June 30, 2026
+[3] score=0.3314 | MSFT-10K-2026.html | narrative | PART I > Item 1. BUSINESS | GENERAL  Microsoft is a technology company committed to making digital technology and arti
+[4] score=0.3370 | MSFT-10K-2026.html | narrative | PART I > Item 1. BUSINESS | Our executive officers as of July 29, 2026 were as follows:  Name Satya Nadella - Age: 58 
+[5] score=0.3491 | MSFT-10K-2026.html | narrative | PART I > Item 1. BUSINESS | Ms. Hood was appointed Executive Vice President and Chief Financial Officer in July 2013, 
+[6] score=0.3709 | MSFT-10K-2026.html | narrative | PART IV > Signatures | Pursuant to the requirements of Section 13 or 15(d) of the Securities Exchange Act of 1934
+[7] score=0.3724 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Microsoft Cloud gross margin percentage decreased to 66% driven by continued investments i
+[8] score=0.3751 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Reportable Segments  Fiscal Year 2026 Compared with Fiscal Year 2025  Productivity and Bus
+[9] score=0.3752 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Industry Trends and Opportunities  Our industry is dynamic and highly competitive, with fr
+[10] score=0.3785 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Segment Information and Geographic Data | (a)  Includes billings to OEMs and certain multinational organizations because of the natu
+[11] score=0.3821 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Segment Information and Geographic Data |   Enterprise and partner services, including Enterprise Support Services, Industry Soluti
+[12] score=0.3854 | MSFT-10K-2026.html | narrative | PART I > Item 2. PROPERTIES | Our corporate headquarters are located in Redmond, Washington. We have approximately 14 mi
+[13] score=0.3880 | MSFT-10K-2026.html | narrative | PART I > Item 1. BUSINESS |   Leveraging Windows to fuel our cloud business, grow our share of the PC market, and dri
+[14] score=0.3933 | MSFT-10K-2026.html | narrative | PART I > Item 1. BUSINESS | The Ambitions That Drive Us  To achieve our vision, our research and development efforts f
+[15] score=0.3945 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Business Combinations | Following are the supplemental consolidated financial results of Microsoft Corporation on 
+[16] score=0.3971 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | The following Management's Discussion and Analysis of Financial Condition and Results of O
+[17] score=0.4002 | MSFT-10K-2026.html | narrative | PART I > Item 1. BUSINESS |   Dynamics products and cloud services, including Dynamics 365, comprising a set of intel
+[18] score=0.4025 | MSFT-10K-2026.html | narrative | PART I > Item 1A. RISK FACTORS | Commission on January 19, 2024 and amended on March 8, 2024, beginning in late November 20
+[19] score=0.4045 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Metrics related to our Productivity and Business Processes and Intelligent Cloud segments 
+[20] score=0.4046 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Unearned Revenue | NOTE 12 - UNEARNED REVENUE  Unearned revenue by segment was as follows:  (In millions) Jun
+[21] score=0.4082 | MSFT-10K-2026.html | narrative | PART IV > Item 15. EXHIBIT AND FINANCIAL STATEMENT SCHEDULES | Incorporated by Reference / Exhibit Number | Exhibit Description | Filed Herewith | Form |
+[22] score=0.4097 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Segment Information and Geographic Data | NOTE 18 - SEGMENT INFORMATION AND GEOGRAPHIC DATA  In its operation of the business, manag
+[23] score=0.4111 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS |   Server products and cloud services revenue increased $31.0 billion or 31% driven by Azu
+[24] score=0.4128 | MSFT-10K-2026.html | narrative | PART I > Item 1. BUSINESS |   XBOX (formerly Gaming), including XBOX hardware and XBOX content and services, comprisi
+[25] score=0.4160 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | SUMMARY RESULTS OF OPERATIONS  (In millions, except percentages and per share amounts) Rev
+
+--- Answer ---
+As of June 30, 2026, Microsoft employed approximately 223,000 people on a full-time basis, with 121,000 in the U.S. and 102,000 internationally. (Source: MSFT-10K-2026.html, PART I > Item 1. BUSINESS > HUMAN CAPITAL RESOURCES)
+
+> (filtering to ORCL-10K-2026.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.2303 | ORCL-10K-2026.html | narrative | Cover Page | Oracle Corporation - annual report on Form 10-K for the fiscal year ended May 31, 2026 (fi
+[2] score=0.2581 | ORCL-10K-2026.html | narrative | PART I > Item 2. Properties | Our properties consist of owned and leased facilities for cloud operations, sales, support
+[3] score=0.2845 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Leaders Who Listen  We believe that an important aspect of creating a workforce that suppo
+[4] score=0.2845 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Our executive officers are listed below:  Name | Office(s) Lawrence J. Ellison | Executive
+[5] score=0.3055 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Oracle provides products and services that build, run and support enterprise information t
+[6] score=0.3063 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | The average tenure of our employees is approximately eight years and 31% of our employees 
+[7] score=0.3121 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | [Table of Contents](#toc_page)  support contracts that migrated to the Oracle Cloud contri
+[8] score=0.3134 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | We have three businesses: cloud and software (formerly referred to as cloud and license); 
+[9] score=0.3212 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Oracle Cloud Infrastructure (OCI)  OCI offerings are designed to deliver our infrastructur
+[10] score=0.3231 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Oracle Cloud Operations  Oracle Cloud Operations deliver our Oracle Cloud offerings to cus
+[11] score=0.3273 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Mr. Hura, 52, has been our President, Global Field Operations since September 2025. He ser
+[12] score=0.3277 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Oracle Middleware, which is a broad family of integrated application infrastructure softwa
+[13] score=0.3290 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules > Organization and Significant Accounting Policies | NOTES TO CONSOLIDATED FINANCIAL STATEMENTS  May 31, 2026  1.  ORGANIZATION AND SIGNIFICANT
+[14] score=0.3328 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Oracle hardware products include Oracle Engineered Systems, servers, storage and industry-
+[15] score=0.3330 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Oracle Infrastructure Technologies  Oracle infrastructure technologies are marketed, sold 
+[16] score=0.3332 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business |   the ease of deployment, use, transacting for and maintenance of our products and servic
+[17] score=0.3349 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | [Table of Contents](#toc_page)  Mr. Levey, 63, has been our Executive Vice President, Chie
+[18] score=0.3355 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Oracle customers and partners utilize OCI offerings for platform-related services that are
+[19] score=0.3366 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business |   OCI Sovereign Cloud, which is designed to enable customers to utilize OCI services whil
+[20] score=0.3396 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | We directly market and sell our cloud, software, hardware, support and services offerings 
+[21] score=0.3397 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Research and Development  We develop the substantial majority of our products and services
+[22] score=0.3398 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | OCA offerings are built upon open industry standards such as SQL, Java and HTML5 for easie
+[23] score=0.3399 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | [Table of Contents](#toc_page)  cost by combining operating system and management software
+[24] score=0.3413 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Oracle Cloud Applications (OCA)  The broad spectrum of OCA offerings provides customers wi
+[25] score=0.3441 | ORCL-10K-2026.html | narrative | PART IV > Signatures | Pursuant to the requirements of Section 13 or 15(d) of the Securities Exchange Act of 1934
+
+--- Answer ---
+Oracle's headquarters facility is located in Austin, Texas, and it consists of approximately 0.9 million square feet, all of which is owned by the company (Source: ORCL-10K-2026.html, PART I > Item 2. Properties).
+
+> (filtering to NDAQ-10K-2025.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.2508 | NDAQ-10K-2025.html | narrative | PART II > Item 9A. Controls and Procedures | Ernst & Young LLP, an independent registered public  accounting firm, has issued an attest
+[2] score=0.2574 | NDAQ-10K-2025.html | narrative | Cover Page | Nasdaq, Inc. - annual report on Form 10-K for the fiscal year ended December 31, 2025 (fis
+[3] score=0.2639 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements | The following consolidated financial statements of Nasdaq, Inc. and its subsidiaries are p
+[4] score=0.2939 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | OVERVIEW  Nasdaq is a leading technology platform that powers the  world's economies. We a
+[5] score=0.2957 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | companies, government organizations, law firms, privately  held entities, and various non-
+[6] score=0.2970 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | for $882 billion in AUM. Our flagship index, the Nasdaq-100  Index, or NDX, includes the t
+[7] score=0.2974 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | As part of our commitment to driving economic progress,  Nasdaq's Month of Impact is our w
+[8] score=0.3141 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | trading surveillance for the Finnish, Icelandic, Danish and  Swedish markets has been cent
+[9] score=0.3190 | NDAQ-10K-2025.html | narrative | PART II > Item 5. Market for Registrant's Common Equity, Related | dividends.  Year Ended December 31,* Nasdaq, Inc. - 2020: $100 | 2021: $160 | 2022: $142 |
+[10] score=0.3191 | NDAQ-10K-2025.html | narrative | PART IV > Signatures | Pursuant to the requirements of Section 13 or 15(d) of the  Securities Exchange Act of 193
+[11] score=0.3191 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | fulfilling all regulatory obligations for which FINRA does  not have responsibility under 
+[12] score=0.3211 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Organization and Nature of Operations | Notes to Consolidated Financial Statements  1. ORGANIZATION AND NATURE OF OPERATIONS  Nasd
+[13] score=0.3222 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Organization and Nature of Operations | December 31, 2025, 451 ETPs listed on 27 exchanges in over  20 countries tracked a Nasdaq 
+[14] score=0.3233 | NDAQ-10K-2025.html | narrative | (no heading) | ESG: Environmental, Social and Governance  ESPP: Nasdaq Employee Stock Purchase Plan  ETF:
+[15] score=0.3243 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | 1,414 on The Nasdaq Capital Market.  In the U.S., we seek new listings from companies cond
+[16] score=0.3263 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Summary of Significant Accounting Policies | companies' market capitalization on a trailing twelve-month  basis and are recognized rata
+[17] score=0.3284 | NDAQ-10K-2025.html | narrative | PART II > Item 9A. Controls and Procedures | Disclosure Controls and Procedures  Nasdaq's management, with the participation of Nasdaq'
+[18] score=0.3284 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | supporting career satisfaction and internal mobility.  To reward our employees at various 
+[19] score=0.3302 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | revenues as a distributor of our own, as well as select third-  party, content. We provide
+[20] score=0.3315 | NDAQ-10K-2025.html | narrative | (no heading) | Indicate by check mark whether any of those error corrections are restatements that requir
+[21] score=0.3321 | NDAQ-10K-2025.html | narrative | (no heading) | UNITED STATES SECURITIES AND EXCHANGE COMMISSION  Washington, D.C. 20549  FORM 10-K  ? | A
+[22] score=0.3322 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | owners as well as insight solutions. Our strengths in  technology, proprietary data, analy
+[23] score=0.3331 | NDAQ-10K-2025.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules | 4.6 | Registration Rights Agreement, dated as of November 1, 2023, by and among Nasdaq, In
+[24] score=0.3341 | NDAQ-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of | Financial Condition and Results of Operations  The following discussion and analysis of th
+[25] score=0.3341 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | regarding sustainability matters. During 2025, we continued  our corporate, community and 
+
+--- Answer ---
+Nasdaq's independent registered public accounting firm is Ernst & Young LLP. (Source: NDAQ-10K-2025.html, Cover Page)
+
+> (filtering to NFLX-10K-2025.html, statement type: income_statement)
+
+--- Retrieved chunks (top 2, compact, for diagnosis) ---
+[1] score=0.3471 | NFLX-10K-2025.html | income_statement | PART IV > Financial Statements | CONSOLIDATED STATEMENTS OF OPERATIONS  (in thousands, except per share data)  Year ended D
+[2] score=0.3515 | NFLX-10K-2025.html | income_statement | PART IV > Financial Statements | CONSOLIDATED STATEMENTS OF OPERATIONS  (in thousands, except per share data)  Year ended D
+
+--- Answer ---
+Netflix's total revenue for fiscal year 2025 was $45,183,036 thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements).
+
+> (filtering to NFLX-10K-2025.html, statement type: income_statement)
+
+--- Retrieved chunks (top 2, compact, for diagnosis) ---
+[1] score=0.3281 | NFLX-10K-2025.html | income_statement | PART IV > Financial Statements | CONSOLIDATED STATEMENTS OF OPERATIONS  (in thousands, except per share data)  Year ended D
+[2] score=0.3536 | NFLX-10K-2025.html | income_statement | PART IV > Financial Statements | CONSOLIDATED STATEMENTS OF OPERATIONS  (in thousands, except per share data)  Year ended D
+
+--- Answer ---
+Netflix's net income for 2025 was $10,981,201 thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements).
+
+> (filtering to NFLX-10K-2025.html, statement type: balance_sheet)
+
+--- Retrieved chunks (top 2, compact, for diagnosis) ---
+[1] score=0.3578 | NFLX-10K-2025.html | balance_sheet | PART IV > Financial Statements | CONSOLIDATED BALANCE SHEETS  (in thousands, except share and per share data)  As of Decemb
+[2] score=0.3766 | NFLX-10K-2025.html | balance_sheet | PART IV > Financial Statements | CONSOLIDATED BALANCE SHEETS  (in thousands, except share and per share data)  As of Decemb
+
+--- Answer ---
+Netflix's total assets as of December 31, 2025, were $55,596,993 thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements).
+
+> (filtering to NFLX-10K-2025.html, statement type: cash_flow_statement)
+
+--- Retrieved chunks (top 3, compact, for diagnosis) ---
+[1] score=0.3274 | NFLX-10K-2025.html | cash_flow_statement | PART IV > Financial Statements | CONSOLIDATED STATEMENTS OF CASH FLOWS  (in thousands)  Year Ended December 31, Cash flows 
+[2] score=0.3656 | NFLX-10K-2025.html | cash_flow_statement | PART IV > Financial Statements | CONSOLIDATED STATEMENTS OF CASH FLOWS  (in thousands)  Year Ended December 31, Cash flows 
+[3] score=0.3979 | NFLX-10K-2025.html | cash_flow_statement | PART IV > Financial Statements | CONSOLIDATED STATEMENTS OF CASH FLOWS  (in thousands)  Year Ended December 31, Changes in 
+
+--- Answer ---
+Netflix's net cash provided by operating activities was $10,149,273 thousand for the year ended December 31, 2025 (Source: NFLX-10K-2025.html, PART IV > Financial Statements).
+
+> (filtering to NFLX-10K-2025.html, statement type: comprehensive_income)
+
+--- Retrieved chunks (top 1, compact, for diagnosis) ---
+[1] score=0.3174 | NFLX-10K-2025.html | comprehensive_income | PART IV > Financial Statements | CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME  (in thousands)  Year ended December 31, N
+
+--- Answer ---
+Netflix's comprehensive income for the year ended December 31, 2025, was $10,038,657 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements)
+
+> (filtering to NFLX-10K-2025.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.2552 | NFLX-10K-2025.html | narrative | Cover Page | Netflix, Inc. - annual report on Form 10-K for the fiscal year ended December 31, 2025 (fi
+[2] score=0.2967 | NFLX-10K-2025.html | narrative | PART I > Item 1. Business | ABOUT US  Netflix, Inc. ("Netflix", the "Company", "registrant", "we", or "us") is one of 
+[3] score=0.3409 | NFLX-10K-2025.html | narrative | PART I > Item 1. Business | We care about the health and well-being of our employees and their families and provide a 
+[4] score=0.3491 | NFLX-10K-2025.html | narrative | PART I > Item 2. Properties | We have leased principal properties in both Los Gatos, California, which is the location o
+[5] score=0.3543 | NFLX-10K-2025.html | narrative | PART IV > Exhibit Index | Exhibit Number | Exhibit Description | Incorporated by Reference | Filed Herewith / Form |
+[6] score=0.3551 | NFLX-10K-2025.html | narrative | PART IV > Exhibit Index | [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nfl
+[7] score=0.3640 | NFLX-10K-2025.html | narrative | PART IV > Exhibit Index | [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nfl
+[8] score=0.3650 | NFLX-10K-2025.html | narrative | PART IV > Item 16. Form 10-K Summary | None.  [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000
+[9] score=0.3772 | NFLX-10K-2025.html | narrative | PART IV > Exhibit Index | [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nfl
+[10] score=0.3819 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Organization and Summary of Significant Accounting Policies | NOTES TO CONSOLIDATED FINANCIAL STATEMENTS  1.Organization and Summary of Significant Acco
+[11] score=0.3930 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | See accompanying notes to consolidated financial statements.  [Table of Contents](https://
+[12] score=0.4028 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Commitments and Contingencies | Acquisitions  On December 4, 2025, the Company entered into a definitive agreement and pla
+[13] score=0.4103 | NFLX-10K-2025.html | narrative | PART II > Item 9B. Other Information | (5) Ann Mather, a member of the Board of Directors, entered into a pre-arranged stock trad
+[14] score=0.4115 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Acquisitions | 6.ÿÿÿÿAcquisitions  In December 2025, the Company completed an acquisition which was accou
+[15] score=0.4170 | NFLX-10K-2025.html | narrative | PART IV > Signatures | Pursuant to the requirements of Sectionÿ13 or 15(d) of the Securities Exchange Act of 1934
+[16] score=0.4192 | NFLX-10K-2025.html | narrative | PART IV > Exhibit Index | [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nfl
+[17] score=0.4227 | NFLX-10K-2025.html | narrative | PART I > Item 1. Business | HUMAN CAPITAL  Our business is to entertain the world across different countries, cultures
+[18] score=0.4265 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Stockholders' Equity | [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nfl
+[19] score=0.4299 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | Report of Independent Registered Public Accounting Firm (PCAOB ID: 42) - Page: 37 Consolid
+[20] score=0.4405 | NFLX-10K-2025.html | narrative | (no heading) | UNITEDÿSTATESÿSECURITIESÿANDÿEXCHANGEÿCOMMISSION  Washington, D.C. 20549  FORM 10-K  (Mark
+[21] score=0.4413 | NFLX-10K-2025.html | narrative | PART I > Item 1A. Risk Factors | Our agreements with our partners are typically between one and three years in duration and
+[22] score=0.4475 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | Other Planned Uses of Cash and Debt Capital  On December 4, 2025, we entered into a defini
+[23] score=0.4475 | NFLX-10K-2025.html | narrative | PART II > Item 9B. Other Information | (1) Aggregated shares covered have been adjusted to reflect the effect of the Stock Split.
+[24] score=0.4493 | NFLX-10K-2025.html | narrative | (no heading) | Indicate by check mark whether the registrant is a shell company (as defined in Ruleÿ12b-2
+[25] score=0.4521 | NFLX-10K-2025.html | narrative | PART I > Item 1A. Risk Factors | The WBD transaction may not be completed on the currently contemplated timeline or terms, 
+
+--- Answer ---
+Netflix's principal executive offices are located at 121 Albright Way, Los Gatos, California 95032. (Source: NFLX-10K-2025.html, section Cover Page)
+
+> (searching MSFT-10K-2026.html and ORCL-10K-2026.html separately, statement type: income_statement)
+
+--- Retrieved chunks (top 4, compact, for diagnosis) ---
+[1] score=0.3820 | MSFT-10K-2026.html | income_statement | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | INCOME STATEMENTS  (In millions, except per share amounts) Year Ended June 30, Revenue: Re
+[2] score=0.3391 | ORCL-10K-2026.html | income_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED STATEMENTS OF OPERATIONS  For the Years Ended May 31, 2026, 2025 and 2024  (i
+[3] score=0.4041 | MSFT-10K-2026.html | income_statement | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | INCOME STATEMENTS  (In millions, except per share amounts) Year Ended June 30, Earnings pe
+[4] score=0.3746 | ORCL-10K-2026.html | income_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED STATEMENTS OF OPERATIONS  For the Years Ended May 31, 2026, 2025 and 2024  (i
+
+--- Answer ---
+Microsoft's total revenue for the year ended June 30, 2026 was $331,839 million, while Oracle's total revenue for the year ended May 31, 2026 was $67,357 million. (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data; ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)
+
+> (filtering to NDAQ-10K-2025.html, statement type: income_statement)
+
+--- Retrieved chunks (top 3, compact, for diagnosis) ---
+[1] score=0.3016 | NDAQ-10K-2025.html | income_statement | PART IV > Financial Statements | Consolidated Statements of Income  (in millions, except per share amounts)  Year Ended Dec
+[2] score=0.3181 | NDAQ-10K-2025.html | income_statement | PART IV > Financial Statements | Consolidated Statements of Income  (in millions, except per share amounts)  Year Ended Dec
+[3] score=0.3243 | NDAQ-10K-2025.html | income_statement | PART IV > Financial Statements | Consolidated Statements of Income  (in millions, except per share amounts)  Year Ended Dec
+
+--- Answer ---
+The unit for the revenue figures is "(in millions)". However, the question asks for the total revenue in fiscal year 2030, but the provided excerpts only contain data up to 2025. Therefore, the answer is not stated.
+
+> (filtering to statement type: income_statement)
+
+--- Retrieved chunks (top 9, compact, for diagnosis) ---
+[1] score=0.3266 | ORCL-10K-2026.html | income_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED STATEMENTS OF OPERATIONS  For the Years Ended May 31, 2026, 2025 and 2024  (i
+[2] score=0.3435 | MSFT-10K-2026.html | income_statement | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | INCOME STATEMENTS  (In millions, except per share amounts) Year Ended June 30, Revenue: Re
+[3] score=0.3520 | NDAQ-10K-2025.html | income_statement | PART IV > Financial Statements | Consolidated Statements of Income  (in millions, except per share amounts)  Year Ended Dec
+[4] score=0.3773 | NFLX-10K-2025.html | income_statement | PART IV > Financial Statements | CONSOLIDATED STATEMENTS OF OPERATIONS  (in thousands, except per share data)  Year ended D
+[5] score=0.3808 | ORCL-10K-2026.html | income_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED STATEMENTS OF OPERATIONS  For the Years Ended May 31, 2026, 2025 and 2024  (i
+[6] score=0.4026 | NFLX-10K-2025.html | income_statement | PART IV > Financial Statements | CONSOLIDATED STATEMENTS OF OPERATIONS  (in thousands, except per share data)  Year ended D
+[7] score=0.4072 | NDAQ-10K-2025.html | income_statement | PART IV > Financial Statements | Consolidated Statements of Income  (in millions, except per share amounts)  Year Ended Dec
+[8] score=0.4075 | MSFT-10K-2026.html | income_statement | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | INCOME STATEMENTS  (In millions, except per share amounts) Year Ended June 30, Earnings pe
+[9] score=0.4105 | NDAQ-10K-2025.html | income_statement | PART IV > Financial Statements | Consolidated Statements of Income  (in millions, except per share amounts)  Year Ended Dec
+
+--- Answer ---
+There is no information about Apple's revenue in the provided excerpts.
+
+> (filtering to NDAQ-10K-2025.html, statement type: balance_sheet)
+
+--- Retrieved chunks (top 2, compact, for diagnosis) ---
+[1] score=0.2629 | NDAQ-10K-2025.html | balance_sheet | PART IV > Financial Statements | Consolidated Balance Sheets  (in millions, except share and par value amounts)  December 3
+[2] score=0.3782 | NDAQ-10K-2025.html | balance_sheet | PART IV > Financial Statements | Consolidated Balance Sheets  (in millions, except share and par value amounts)  December 3
+
+--- Answer ---
+Nasdaq's total stockholders' equity was $12,227 million for the year ended December 31, 2025 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements).
+
+> (filtering to MSFT-10K-2026.html, statement type: equity_statement)
+
+--- Retrieved chunks (top 2, compact, for diagnosis) ---
+[1] score=0.2038 | MSFT-10K-2026.html | equity_statement | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | STOCKHOLDERS' EQUITY STATEMENTS  (In millions, except per share amounts) Year Ended June 3
+[2] score=0.2108 | MSFT-10K-2026.html | equity_statement | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | STOCKHOLDERS' EQUITY STATEMENTS  (In millions, except per share amounts) Year Ended June 3
+
+--- Answer ---
+Microsoft's statement of stockholders' equity showed that common stock cash dividends were $27,034 million for the fiscal year 2026. (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data).
+
+> (filtering to MSFT-10K-2026.html, statement type: comprehensive_income)
+
+--- Retrieved chunks (top 1, compact, for diagnosis) ---
+[1] score=0.2429 | MSFT-10K-2026.html | comprehensive_income | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | COMPREHENSIVE INCOME STATEMENTS  (In millions) Year Ended June 30, Net income - 2026: $133
+
+--- Answer ---
+Microsoft's other comprehensive income for fiscal year 2025 was $2,243 million. (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data)
+
+> (filtering to MSFT-10K-2026.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.2727 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Share Repurchases  During fiscal years 2026 and 2025, we repurchased 36 million shares and
+[2] score=0.2865 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Fiscal Year 2026 Compared with Fiscal Year 2025  Research and development expenses increas
+[3] score=0.2915 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Stockholders' Equity | We repurchased the following shares of common stock under the share repurchase programs:  
+[4] score=0.2930 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | SUMMARY RESULTS OF OPERATIONS  (In millions, except percentages and per share amounts) Rev
+[5] score=0.3076 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Reportable Segments  Fiscal Year 2026 Compared with Fiscal Year 2025  Productivity and Bus
+[6] score=0.3244 | MSFT-10K-2026.html | narrative | PART II > Item 5. MARKET FOR REGISTRANT'S COMMON EQUITY, RELATED STOCKHOLDER MATTERS, AND ISSUER PURCHASES OF EQUITY SECURITIES | All share repurchases were made using cash resources. Our share repurchases may occur thro
+[7] score=0.3253 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Segment Information and Geographic Data | (a)  Includes billings to OEMs and certain multinational organizations because of the natu
+[8] score=0.3284 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Business Combinations | Following are the supplemental consolidated financial results of Microsoft Corporation on 
+[9] score=0.3302 | MSFT-10K-2026.html | narrative | PART II > Item 5. MARKET FOR REGISTRANT'S COMMON EQUITY, RELATED STOCKHOLDER MATTERS, AND ISSUER PURCHASES OF EQUITY SECURITIES | MARKET AND STOCKHOLDERS  Our common stock is traded on the NASDAQ Stock Market under the s
+[10] score=0.3316 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Stockholders' Equity | NOTE 15 - STOCKHOLDERS' EQUITY  Shares Outstanding  Shares of common stock outstanding wer
+[11] score=0.3424 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS |   Operating expenses increased $940 million or 6% driven by impairment and other related 
+[12] score=0.3425 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | The following Management's Discussion and Analysis of Financial Condition and Results of O
+[13] score=0.3430 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Unearned Revenue | NOTE 12 - UNEARNED REVENUE  Unearned revenue by segment was as follows:  (In millions) Jun
+[14] score=0.3433 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Microsoft Cloud gross margin percentage decreased to 66% driven by continued investments i
+[15] score=0.3512 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Fiscal Year 2026 Compared with Fiscal Year 2025  General and administrative expenses incre
+[16] score=0.3557 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Segment Information and Geographic Data | (In millions) Year Ended June 30, Total > Operating expenses - 2026: 70,228 | 2025: 65,365
+[17] score=0.3558 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Segment Information and Geographic Data | (In millions) Year Ended June 30, Productivity and Business Processes Productivity and Bus
+[18] score=0.3598 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Employee Stock and Savings Plans | Employees purchased the following shares during the periods presented:  (Shares in million
+[19] score=0.3619 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | (In millions, except percentages and per share amounts) Net (gains) losses from investment
+[20] score=0.3636 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Employee Stock and Savings Plans | NOTE 17 - EMPLOYEE STOCK AND SAVINGS PLANS  We grant stock-based compensation to employees
+[21] score=0.3646 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | (In millions, except percentages) Productivity and Business Processes Productivity and Bus
+[22] score=0.3650 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | REPORT OF INDEPENDENT REGISTERED PUBLIC ACCOUNTING FIRM  To the Stockholders and the Board
+[23] score=0.3658 | MSFT-10K-2026.html | equity_statement | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | STOCKHOLDERS' EQUITY STATEMENTS  (In millions, except per share amounts) Year Ended June 3
+[24] score=0.3682 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | (In millions, except percentages and per share amounts) Other income (expense), net - 2026
+[25] score=0.3682 | MSFT-10K-2026.html | income_statement | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | INCOME STATEMENTS  (In millions, except per share amounts) Year Ended June 30, Earnings pe
+
+--- Answer ---
+$3,500 million for the year ended June 30, 2025 (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data).
+
+> (filtering to NFLX-10K-2025.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.2842 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | (in thousands, except percentages) Total Streaming Revenues - Year Ended December 31, 2025
+[2] score=0.2846 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | The increase in technology and development expenses for the year ended Decemberÿ31, 2025 a
+[3] score=0.2854 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | The increase in cost of revenues for the year ended Decemberÿ31, 2025 as compared to the y
+[4] score=0.2942 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nfl
+[5] score=0.3098 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nfl
+[6] score=0.3099 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | The following represents our consolidated performance highlights(1):  (in thousands, excep
+[7] score=0.3140 | NFLX-10K-2025.html | income_statement | PART IV > Financial Statements | CONSOLIDATED STATEMENTS OF OPERATIONS  (in thousands, except per share data)  Year ended D
+[8] score=0.3159 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Segment and Geographic Information | (1) Includes interest income of $295ÿmillion, $294ÿmillion and $281ÿmillion for the years 
+[9] score=0.3191 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | (1) During the year ended December 31, 2025, we discontinued the reporting of membership n
+[10] score=0.3197 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Commitments and Contingencies | Acquisitions  On December 4, 2025, the Company entered into a definitive agreement and pla
+[11] score=0.3223 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | (in thousands, except revenue per membership and percentages) United States and Canada (UC
+[12] score=0.3234 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Acquisitions | 6.ÿÿÿÿAcquisitions  In December 2025, the Company completed an acquisition which was accou
+[13] score=0.3246 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Segment and Geographic Information | (in thousands) Year Ended December 31, Other income (expense) > Net income - 2025: $10,981
+[14] score=0.3262 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nfl
+[15] score=0.3285 | NFLX-10K-2025.html | narrative | PART I > Item 1A. Risk Factors | Our agreements with our partners are typically between one and three years in duration and
+[16] score=0.3314 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | (in thousands, except percentages) LATAM - Year Ended December 31, 2025 As Reported: 5,357
+[17] score=0.3317 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Balance Sheet Components | The following table summarizes the amortization of content assets:  (in thousands) Year En
+[18] score=0.3324 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Organization and Summary of Significant Accounting Policies | NOTES TO CONSOLIDATED FINANCIAL STATEMENTS  1.Organization and Summary of Significant Acco
+[19] score=0.3350 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | Provision for Income Taxes  (in thousands, except percentages) Provision for income taxes 
+[20] score=0.3351 | NFLX-10K-2025.html | balance_sheet | PART IV > Financial Statements | CONSOLIDATED BALANCE SHEETS  (in thousands, except share and per share data)  As of Decemb
+[21] score=0.3371 | NFLX-10K-2025.html | narrative | PART I > Item 1. Business | ABOUT US  Netflix, Inc. ("Netflix", the "Company", "registrant", "we", or "us") is one of 
+[22] score=0.3399 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Revenue Recognition | 2.Revenue Recognition  The following table summarizes streaming revenues by region for the
+[23] score=0.3439 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Segment and Geographic Information | (in thousands) Year Ended December 31, Revenues - 2025: $45,183,036 | 2024: $39,000,966 | 
+[24] score=0.3459 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nfl
+[25] score=0.3484 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | (in thousands, except percentages) UCAN - Year Ended December 31, 2025 As Reported: $19,95
+
+--- Answer ---
+Netflix's technology and development expenses increased by 16% in 2025 compared to 2024. (Source: NFLX-10K-2025.html, PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations)
+
+> (filtering to ORCL-10K-2026.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.2521 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules > Restructuring and Other Expenses | Fiscal 2025 Activity  (in millions) Fiscal 2024 Oracle Restructuring Plan(1) Fiscal 2024 O
+[2] score=0.2607 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules > Restructuring and Other Expenses | Fiscal 2025 Activity  (in millions) Fiscal 2024 Oracle Restructuring Plan(1) > Total Fisca
+[3] score=0.2636 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules > Restructuring and Other Expenses | Fiscal 2024 Activity  (in millions) Fiscal 2024 Oracle Restructuring Plan(1) Fiscal 2024 O
+[4] score=0.2659 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules > Restructuring and Other Expenses | (in millions) Fiscal 2026 Oracle Restructuring Plan(1) > Total Fiscal 2026 Oracle Restruct
+[5] score=0.2661 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules > Restructuring and Other Expenses | (in millions) Fiscal 2026 Oracle Restructuring Plan(1) Fiscal 2026 Oracle Restructuring Pl
+[6] score=0.2686 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules > Leases, Other Commitments and Certain Contingencies | Maturities of lease liabilities were as follows as of May 31, 2026 (in millions):  Fiscal 
+[7] score=0.2874 | ORCL-10K-2026.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | o  software support revenues, which are generated by providing Oracle software support ser
+[8] score=0.2889 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules > Restructuring and Other Expenses | Fiscal 2024 Oracle Restructuring Plan  During fiscal 2024, our management approved, commit
+[9] score=0.2920 | ORCL-10K-2026.html | balance_sheet | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED BALANCE SHEETS  As of May 31, 2026 and 2025  (in millions, except per share d
+[10] score=0.2948 | ORCL-10K-2026.html | cash_flow_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED STATEMENTS OF CASH FLOWS  For the Years Ended May 31, 2026, 2025 and 2024  (i
+[11] score=0.2949 | ORCL-10K-2026.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | We begin Management's Discussion and Analysis of Financial Condition and Results of Operat
+[12] score=0.3028 | ORCL-10K-2026.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | Cloud and Software Business  Our cloud and software business, which represented 87% and 86
+[13] score=0.3045 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | [Table of Contents](#toc_page)  support contracts that migrated to the Oracle Cloud contri
+[14] score=0.3051 | ORCL-10K-2026.html | income_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED STATEMENTS OF OPERATIONS  For the Years Ended May 31, 2026, 2025 and 2024  (i
+[15] score=0.3052 | ORCL-10K-2026.html | narrative | PART IV > Exhibit Index | [Table of Contents](#toc_page)  Incorporated by Reference / Exhibit No. | Exhibit Descript
+[16] score=0.3056 | ORCL-10K-2026.html | balance_sheet | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED BALANCE SHEETS  As of May 31, 2026 and 2025  (in millions, except per share d
+[17] score=0.3069 | ORCL-10K-2026.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | (1)  Represents the amortization of intangible assets, all of which were acquired in conne
+[18] score=0.3087 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules > Leases, Other Commitments and Certain Contingencies | 9.  LEASES, OTHER COMMITMENTS AND CERTAIN CONTINGENCIES  Leases  We have operating and fin
+[19] score=0.3160 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | The average tenure of our employees is approximately eight years and 31% of our employees 
+[20] score=0.3242 | ORCL-10K-2026.html | narrative | Cover Page | Oracle Corporation - annual report on Form 10-K for the fiscal year ended May 31, 2026 (fi
+[21] score=0.3252 | ORCL-10K-2026.html | narrative | PART IV > Item 15. Exhibits and Financial Statement Schedules > Organization and Significant Accounting Policies | Oracle's primary performance obligations with respect to software support contracts is to 
+[22] score=0.3253 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | Oracle hardware products include Oracle Engineered Systems, servers, storage and industry-
+[23] score=0.3279 | ORCL-10K-2026.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | Total hardware revenues increased by $148 million in reported currency in fiscal 2026 rela
+[24] score=0.3286 | ORCL-10K-2026.html | narrative | PART I > Item 1. Business | [Table of Contents](#toc_page)  cost by combining operating system and management software
+[25] score=0.3287 | ORCL-10K-2026.html | narrative | (no heading) | Indicate by check mark whether the registrant is a shell company (as defined in Rule 12b-2
+
+--- Answer ---
+The unit is not stated.
+
+> (filtering to MSFT-10K-2026.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.2384 | MSFT-10K-2026.html | narrative | (no heading) | UNITED STATES  SECURITIES AND EXCHANGE COMMISSION  Washington, D.C. 20549  FORM 10-K  ? | 
+[2] score=0.2468 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Segment Information and Geographic Data | (a)  Includes billings to OEMs and certain multinational organizations because of the natu
+[3] score=0.2515 | MSFT-10K-2026.html | narrative | PART IV > Item 15. EXHIBIT AND FINANCIAL STATEMENT SCHEDULES | Incorporated by Reference / Exhibit Number | Exhibit Description | Filed Herewith | Form |
+[4] score=0.2615 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | REPORT OF INDEPENDENT REGISTERED PUBLIC ACCOUNTING FIRM  To the Stockholders and the Board
+[5] score=0.2649 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Business Combinations | Following are the supplemental consolidated financial results of Microsoft Corporation on 
+[6] score=0.2650 | MSFT-10K-2026.html | narrative | PART IV > Signatures | Pursuant to the requirements of Section 13 or 15(d) of the Securities Exchange Act of 1934
+[7] score=0.2670 | MSFT-10K-2026.html | narrative | (no heading) | DOCUMENTS INCORPORATED BY REFERENCE  Portions of the definitive Proxy Statement to be deli
+[8] score=0.2695 | MSFT-10K-2026.html | narrative | PART II > Item 5. MARKET FOR REGISTRANT'S COMMON EQUITY, RELATED STOCKHOLDER MATTERS, AND ISSUER PURCHASES OF EQUITY SECURITIES | MARKET AND STOCKHOLDERS  Our common stock is traded on the NASDAQ Stock Market under the s
+[9] score=0.2712 | MSFT-10K-2026.html | narrative | Cover Page | Microsoft Corporation - annual report on Form 10-K for the fiscal year ended June 30, 2026
+[10] score=0.2739 | MSFT-10K-2026.html | narrative | (no heading) | DOCUMENTS INCORPORATED BY REFERENCE  Portions of the definitive Proxy Statement to be deli
+[11] score=0.2802 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Investments | (In millions) June 30, 2026 June 30, 2026 > U.S. government and agency securities - Less t
+[12] score=0.2835 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | SUMMARY RESULTS OF OPERATIONS  (In millions, except percentages and per share amounts) Rev
+[13] score=0.2873 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Investments | (In millions) June 30, 2025 June 30, 2025 > U.S. government and agency securities - Less t
+[14] score=0.2893 | MSFT-10K-2026.html | narrative | PART IV > Item 15. EXHIBIT AND FINANCIAL STATEMENT SCHEDULES | Exhibit Listing  Incorporated by Reference / Exhibit Number | Exhibit Description | Filed 
+[15] score=0.2910 | MSFT-10K-2026.html | narrative | PART I > Item 1A. RISK FACTORS | Commission on January 19, 2024 and amended on March 8, 2024, beginning in late November 20
+[16] score=0.2950 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | The following Management's Discussion and Analysis of Financial Condition and Results of O
+[17] score=0.2959 | MSFT-10K-2026.html | narrative | PART IV > Item 15. EXHIBIT AND FINANCIAL STATEMENT SCHEDULES | Incorporated by Reference / Exhibit Number | Exhibit Description | Filed Herewith | Form |
+[18] score=0.2981 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Other Income (Expense), Net | Net Recognized Gains (Losses) on Investments  Net recognized gains (losses) on debt invest
+[19] score=0.2983 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Investments | (In millions) June 30, 2025 > Changes in Fair Value Recorded in Other Comprehensive Income
+[20] score=0.2984 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Reportable Segments  Fiscal Year 2026 Compared with Fiscal Year 2025  Productivity and Bus
+[21] score=0.2985 | MSFT-10K-2026.html | narrative | PART IV > Item 15. EXHIBIT AND FINANCIAL STATEMENT SCHEDULES | Incorporated by Reference / Exhibit Number | Exhibit Description | Filed Herewith | Form |
+[22] score=0.2989 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Fiscal Year 2026 Compared with Fiscal Year 2025  Research and development expenses increas
+[23] score=0.3003 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Employee Stock and Savings Plans | NOTE 17 - EMPLOYEE STOCK AND SAVINGS PLANS  We grant stock-based compensation to employees
+[24] score=0.3006 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Unearned Revenue | NOTE 12 - UNEARNED REVENUE  Unearned revenue by segment was as follows:  (In millions) Jun
+[25] score=0.3025 | MSFT-10K-2026.html | narrative | PART IV > Item 15. EXHIBIT AND FINANCIAL STATEMENT SCHEDULES | Incorporated by Reference / Exhibit Number | Exhibit Description | Filed Herewith | Form |
+
+--- Answer ---
+The unit is not stated.
+
+> (filtering to NDAQ-10K-2025.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.2325 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Goodwill and Acquired Intangible Assets | 5. GOODWILL AND ACQUIRED INTANGIBLE  ASSETS  Goodwill  The following table presents the ch
+[2] score=0.2704 | NDAQ-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of | Workflow & Insights revenues increased for the year ended  December 31, 2025 compared with
+[3] score=0.2725 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Clearing Operations | days and are secured with highly rated government securities  and multilateral development
+[4] score=0.2730 | NDAQ-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of | Financial Condition and Results of Operations  The following discussion and analysis of th
+[5] score=0.2968 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | companies, government organizations, law firms, privately  held entities, and various non-
+[6] score=0.2982 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | cloud-ready market technology solutions with standardized  APIs with proven interoperabili
+[7] score=0.3010 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Investments | 6. INVESTMENTS  The following table presents the details of our investments:  (in millions
+[8] score=0.3033 | NDAQ-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of | million, an increase in dividends paid of $60 million and an  increase in the repayment of
+[9] score=0.3053 | NDAQ-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of | See the discussion above for an explanation of Sectionÿ31  fees for the year ended Decembe
+[10] score=0.3075 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Nasdaq Stockholders' Equity | 12. NASDAQ STOCKHOLDERS' EQUITY  Common Stock  As of December 31, 2025, 900,000,000 shares
+[11] score=0.3078 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Debt Obligations | reflects the repayment of $400 million net of $1 million of  accretion recorded for the ye
+[12] score=0.3092 | NDAQ-10K-2025.html | narrative | PART I > Item 1. Business | As part of our commitment to driving economic progress,  Nasdaq's Month of Impact is our w
+[13] score=0.3098 | NDAQ-10K-2025.html | narrative | PART II > Item 5. Market for Registrant's Common Equity, Related | dividends.  Year Ended December 31,* Nasdaq, Inc. - 2020: $100 | 2021: $160 | 2022: $142 |
+[14] score=0.3107 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Clearing Operations | defaults described above, Nasdaq Clearing also has  committed capital of $88 million to en
+[15] score=0.3116 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Clearing Operations | for further discussion of Nasdaq Clearing's default fund. A  power of assessment and a lia
+[16] score=0.3135 | NDAQ-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of | Cash equity trading revenues and cash equity trading  revenues, net increased for the year
+[17] score=0.3163 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Business Segments | No single customer accounted for 10.0% or more of our  revenues for the years ended Decemb
+[18] score=0.3165 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Income Taxes | In the table above, non-current deferred tax assets are  included in other non-current ass
+[19] score=0.3176 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Acquisition and Divestitures | 4. ACQUISITION AND DIVESTITURES  Divestitures  In January 2025, we entered into an agreeme
+[20] score=0.3177 | NDAQ-10K-2025.html | equity_statement | PART IV > Financial Statements | Consolidated Statements of Changes in Stockholders' Equity  (in millions)  Year Ended Dece
+[21] score=0.3177 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Business Segments | (in millions) December 31, 2025 December 31, 2024 > Operating income - Capital Access Plat
+[22] score=0.3188 | NDAQ-10K-2025.html | balance_sheet | PART IV > Financial Statements | Consolidated Balance Sheets  (in millions, except share and par value amounts)  December 3
+[23] score=0.3198 | NDAQ-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of | (in millions) Capital Access Platforms - Year Ended December 31, 2025: $2,137 | Year Ended
+[24] score=0.3200 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Summary of Significant Accounting Policies | Consolidated Balance Sheets were $337 million as of  December 31, 2025 and $373 million as
+[25] score=0.3202 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Goodwill and Acquired Intangible Assets | The table below presents the estimated future amortization  expense (excluding the impact 
+
+--- Answer ---
+The goodwill balance of Nasdaq's Financial Technology segment at December 31, 2025 was $7,952 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Goodwill and Acquired Intangible Assets)
+
+> (filtering to MSFT-10K-2026.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.2482 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Income Taxes | The decrease from the federal statutory rate in fiscal years 2026, 2025, and 2024 is prima
+[2] score=0.2561 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Income Taxes | Effective Tax Rate  We adopted Accounting Standards Update 2023-09, Income Taxes (Topic 74
+[3] score=0.2722 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Fiscal Year 2026 Compared with Fiscal Year 2025  Interest and dividends income increased p
+[4] score=0.2963 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | SUMMARY RESULTS OF OPERATIONS  (In millions, except percentages and per share amounts) Rev
+[5] score=0.2989 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Fiscal Year 2026 Compared with Fiscal Year 2025  Research and development expenses increas
+[6] score=0.3050 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Reportable Segments  Fiscal Year 2026 Compared with Fiscal Year 2025  Productivity and Bus
+[7] score=0.3128 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Segment Information and Geographic Data | (a)  Includes billings to OEMs and certain multinational organizations because of the natu
+[8] score=0.3177 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Income Taxes | Effective Tax Rate  We adopted Accounting Standards Update 2023-09, Income Taxes (Topic 74
+[9] score=0.3269 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Microsoft Cloud gross margin percentage decreased to 66% driven by continued investments i
+[10] score=0.3307 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Contingencies | NOTE 14 - CONTINGENCIES  Irish Data Protection Commission Matter  In 2018, the Irish Data 
+[11] score=0.3318 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Income Taxes | We remain under audit by the IRS for tax years 2014 to 2017. With respect to the audit for
+[12] score=0.3320 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Unearned Revenue | NOTE 12 - UNEARNED REVENUE  Unearned revenue by segment was as follows:  (In millions) Jun
+[13] score=0.3392 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Income Taxes | (a)  In fiscal year 2026, state and local income taxes in California, Illinois, Minnesota,
+[14] score=0.3432 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | The following Management's Discussion and Analysis of Financial Condition and Results of O
+[15] score=0.3476 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Business Combinations | Following are the supplemental consolidated financial results of Microsoft Corporation on 
+[16] score=0.3494 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Fiscal Year 2026 Compared with Fiscal Year 2025  General and administrative expenses incre
+[17] score=0.3547 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Income Taxes | Uncertain Tax Positions  Gross unrecognized tax benefits related to uncertain tax position
+[18] score=0.3566 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Segment Information and Geographic Data | No sales to an individual customer or country other than the United States accounted for m
+[19] score=0.3585 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | (In millions, except percentages and per share amounts) Other income (expense), net - 2026
+[20] score=0.3599 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | Industry Trends and Opportunities  Our industry is dynamic and highly competitive, with fr
+[21] score=0.3631 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Income Taxes | Deferred income tax balances reflect the effects of temporary differences between the carr
+[22] score=0.3633 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | (In millions, except percentages and per share amounts) Net (gains) losses from investment
+[23] score=0.3636 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS |   Server products and cloud services revenue increased $31.0 billion or 31% driven by Azu
+[24] score=0.3644 | MSFT-10K-2026.html | narrative | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Segment Information and Geographic Data |   Enterprise and partner services, including Enterprise Support Services, Industry Soluti
+[25] score=0.3667 | MSFT-10K-2026.html | narrative | PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS | (In millions, except percentages) Productivity and Business Processes Productivity and Bus
+
+--- Answer ---
+The effect of the Ireland statutory tax rate difference on Microsoft's effective tax rate in fiscal year 2026 was a decrease of $4,301 million, or 2.6% (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data > Income Taxes).
+
+> (filtering to NDAQ-10K-2025.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.1491 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Nasdaq Stockholders' Equity | December 31, 2025:  Number of shares of common stock repurchased - Year Ended December 31,
+[2] score=0.1965 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Clearing Operations | days and are secured with highly rated government securities  and multilateral development
+[3] score=0.1996 | NDAQ-10K-2025.html | narrative | PART II > Item 5. Market for Registrant's Common Equity, Related | Period October 2025 October 2025 > Share repurchase program - Total Number of Shares Purch
+[4] score=0.2128 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Nasdaq Stockholders' Equity | 12. NASDAQ STOCKHOLDERS' EQUITY  Common Stock  As of December 31, 2025, 900,000,000 shares
+[5] score=0.2179 | NDAQ-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of | See the discussion above for an explanation of Sectionÿ31  fees for the year ended Decembe
+[6] score=0.2230 | NDAQ-10K-2025.html | narrative | PART II > Item 5. Market for Registrant's Common Equity, Related | Period Total Quarter Ended December 31, 2025 > Share repurchase program - Total Number of 
+[7] score=0.2261 | NDAQ-10K-2025.html | narrative | PART II > Item 5. Market for Registrant's Common Equity, Related | Stockholder Matters and Issuer Purchases of Equity  Securities  Market Information  Our co
+[8] score=0.2316 | NDAQ-10K-2025.html | narrative | PART II > Item 5. Market for Registrant's Common Equity, Related | dividends.  Year Ended December 31,* Nasdaq, Inc. - 2020: $100 | 2021: $160 | 2022: $142 |
+[9] score=0.2393 | NDAQ-10K-2025.html | narrative | PART II > Item 5. Market for Registrant's Common Equity, Related | In the table above:  N/A - Not applicable.  Employee transactions represents shares surr
+[10] score=0.2435 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Nasdaq Stockholders' Equity | In November 2025, we entered into an ASR agreement, in  which we paid $75 million to a thi
+[11] score=0.2620 | NDAQ-10K-2025.html | income_statement | PART IV > Financial Statements | Consolidated Statements of Income  (in millions, except per share amounts)  Year Ended Dec
+[12] score=0.2633 | NDAQ-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of | (in millions, except per share amounts) Revenues less transaction- based expenses - Year E
+[13] score=0.2649 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Acquisition and Divestitures | 4. ACQUISITION AND DIVESTITURES  Divestitures  In January 2025, we entered into an agreeme
+[14] score=0.2663 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Nasdaq Stockholders' Equity | following cash dividends:  (in millions) Declaration Date January 28, 2025 - Dividend Per 
+[15] score=0.2681 | NDAQ-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of | (in millions, except per share amounts) Year Ended December 31, Non-GAAP net income attrib
+[16] score=0.2729 | NDAQ-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of | In the tables above:  The number of total listed companies on The Nasdaq Stock  Market fo
+[17] score=0.2746 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Clearing Operations | defaults described above, Nasdaq Clearing also has  committed capital of $88 million to en
+[18] score=0.2759 | NDAQ-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of | Cash equity trading revenues and cash equity trading  revenues, net increased for the year
+[19] score=0.2774 | NDAQ-10K-2025.html | balance_sheet | PART IV > Financial Statements | Consolidated Balance Sheets  (in millions, except share and par value amounts)  December 3
+[20] score=0.2777 | NDAQ-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of | million, an increase in dividends paid of $60 million and an  increase in the repayment of
+[21] score=0.2794 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Share-Based Compensation | issuance as of December 31, 2025. Under our ESPP,  employees may purchase shares having a 
+[22] score=0.2803 | NDAQ-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of | (in millions, except per share amounts) Cash dividends declared per common share - Year En
+[23] score=0.2860 | NDAQ-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of | Financial Condition and Results of Operations  The following discussion and analysis of th
+[24] score=0.2873 | NDAQ-10K-2025.html | narrative | PART IV > Financial Statements > Leases | The following table provides supplemental cash flow  information related to Nasdaq's opera
+[25] score=0.2879 | NDAQ-10K-2025.html | equity_statement | PART IV > Financial Statements | Consolidated Statements of Changes in Stockholders' Equity  (in millions)  Year Ended Dece
+
+--- Answer ---
+Nasdaq paid an average price per share of $91.47 for shares it repurchased in November 2025. (Source: NDAQ-10K-2025.html, PART II > Item 5. Market for Registrant's Common Equity, Related)
+
+> (filtering to ORCL-10K-2026.html, statement type: equity_statement)
+
+--- Retrieved chunks (top 5, compact, for diagnosis) ---
+[1] score=0.1987 | ORCL-10K-2026.html | equity_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED STATEMENTS OF STOCKHOLDERS' EQUITY  For the Years Ended May 31, 2026, 2025 an
+[2] score=0.2571 | ORCL-10K-2026.html | equity_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED STATEMENTS OF STOCKHOLDERS' EQUITY  For the Years Ended May 31, 2026, 2025 an
+[3] score=0.2598 | ORCL-10K-2026.html | equity_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED STATEMENTS OF STOCKHOLDERS' EQUITY  For the Years Ended May 31, 2026, 2025 an
+[4] score=0.2811 | ORCL-10K-2026.html | equity_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED STATEMENTS OF STOCKHOLDERS' EQUITY  For the Years Ended May 31, 2026, 2025 an
+[5] score=0.2905 | ORCL-10K-2026.html | equity_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED STATEMENTS OF STOCKHOLDERS' EQUITY  For the Years Ended May 31, 2026, 2025 an
+
+--- Answer ---
+Oracle declared $1.70 per share in common stock dividends in fiscal 2025. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)
+
+> (filtering to NFLX-10K-2025.html)
+
+--- Retrieved chunks (top 25, compact, for diagnosis) ---
+[1] score=0.2446 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Stockholders' Equity | (in thousands) Amounts reclassified from accumulated other comprehensive income (loss) (ye
+[2] score=0.2463 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Stockholders' Equity | (in thousands) Amounts reclassified from accumulated other comprehensive income (loss) (ye
+[3] score=0.2611 | NFLX-10K-2025.html | comprehensive_income | PART IV > Financial Statements | CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME  (in thousands)  Year ended December 31, N
+[4] score=0.2638 | NFLX-10K-2025.html | cash_flow_statement | PART IV > Financial Statements | CONSOLIDATED STATEMENTS OF CASH FLOWS  (in thousands)  Year Ended December 31, Cash flows 
+[5] score=0.2644 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Stockholders' Equity | (in thousands) Balances as of December 31, 2022 - Foreign Currency Translation Adjustments
+[6] score=0.2877 | NFLX-10K-2025.html | cash_flow_statement | PART IV > Financial Statements | CONSOLIDATED STATEMENTS OF CASH FLOWS  (in thousands)  Year Ended December 31, Cash flows 
+[7] score=0.2921 | NFLX-10K-2025.html | income_statement | PART IV > Financial Statements | CONSOLIDATED STATEMENTS OF OPERATIONS  (in thousands, except per share data)  Year ended D
+[8] score=0.2931 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | (in thousands, except percentages) Total Streaming Revenues - Year Ended December 31, 2025
+[9] score=0.2998 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Derivative Financial Instruments and Hedging Activities | The pre-tax gains (losses) on the Company's cash flow hedges, fair value hedges, and net i
+[10] score=0.2999 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Organization and Summary of Significant Accounting Policies | NOTES TO CONSOLIDATED FINANCIAL STATEMENTS  1.Organization and Summary of Significant Acco
+[11] score=0.3002 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nfl
+[12] score=0.3027 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Stockholders' Equity | (in thousands) Year Ended December 31, 2024 Gains (losses) on derivatives in cash flow hed
+[13] score=0.3030 | NFLX-10K-2025.html | cash_flow_statement | PART IV > Financial Statements | CONSOLIDATED STATEMENTS OF CASH FLOWS  (in thousands)  Year Ended December 31, Changes in 
+[14] score=0.3063 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | Report of Independent Registered Public Accounting Firm (PCAOB ID: 42) - Page: 37 Consolid
+[15] score=0.3088 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Segment and Geographic Information | (1) Includes interest income of $295ÿmillion, $294ÿmillion and $281ÿmillion for the years 
+[16] score=0.3130 | NFLX-10K-2025.html | narrative | PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations | Net cash used in financing activities for the year ended Decemberÿ31, 2025 increased $6,27
+[17] score=0.3137 | NFLX-10K-2025.html | equity_statement | PART IV > Financial Statements | CONSOLIDATED STATEMENTS OF STOCKHOLDERS' EQUITY  (in thousands, except share data)  Issuan
+[18] score=0.3157 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Stockholders' Equity | The following tables summarize the amounts reclassified from AOCI to the Consolidated Stat
+[19] score=0.3209 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements | See accompanying notes to consolidated financial statements.  [Table of Contents](https://
+[20] score=0.3209 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Commitments and Contingencies | Acquisitions  On December 4, 2025, the Company entered into a definitive agreement and pla
+[21] score=0.3228 | NFLX-10K-2025.html | narrative | PART II > Item 7A. Quantitative and Qualitative Disclosures About Market Risk | We enter into foreign exchange forward contracts to mitigate fluctuations in forecasted U.
+[22] score=0.3241 | NFLX-10K-2025.html | balance_sheet | PART IV > Financial Statements | CONSOLIDATED BALANCE SHEETS  (in thousands, except share and per share data)  As of Decemb
+[23] score=0.3248 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Revenue Recognition | 2.Revenue Recognition  The following table summarizes streaming revenues by region for the
+[24] score=0.3256 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Derivative Financial Instruments and Hedging Activities | The gains (losses) on hedged items and derivative instruments recognized in the Consolidat
+[25] score=0.3260 | NFLX-10K-2025.html | narrative | PART IV > Financial Statements > Stockholders' Equity | [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nfl
+
+--- Answer ---
+The amount of cash flow hedge gains reclassified in 2024 is $96,795 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements > CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME)
+
+> (filtering to ORCL-10K-2026.html, statement type: income_statement)
+
+--- Retrieved chunks (top 2, compact, for diagnosis) ---
+[1] score=0.2675 | ORCL-10K-2026.html | income_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED STATEMENTS OF OPERATIONS  For the Years Ended May 31, 2026, 2025 and 2024  (i
+[2] score=0.2915 | ORCL-10K-2026.html | income_statement | PART IV > Item 15. Exhibits and Financial Statement Schedules | CONSOLIDATED STATEMENTS OF OPERATIONS  For the Years Ended May 31, 2026, 2025 and 2024  (i
+
+--- Answer ---
+The deferred revenues are not stated in the provided excerpts.
+
+> (filtering to NDAQ-10K-2025.html, statement type: income_statement)
+
+--- Retrieved chunks (top 3, compact, for diagnosis) ---
+[1] score=0.2462 | NDAQ-10K-2025.html | income_statement | PART IV > Financial Statements | Consolidated Statements of Income  (in millions, except per share amounts)  Year Ended Dec
+[2] score=0.2987 | NDAQ-10K-2025.html | income_statement | PART IV > Financial Statements | Consolidated Statements of Income  (in millions, except per share amounts)  Year Ended Dec
+[3] score=0.3041 | NDAQ-10K-2025.html | income_statement | PART IV > Financial Statements | Consolidated Statements of Income  (in millions, except per share amounts)  Year Ended Dec
+
+--- Answer ---
+The operating income of Nasdaq's Capital Access Platforms segment in 2025 is not stated in the provided excerpts.
+
+> (filtering to MSFT-10K-2026.html, statement type: income_statement)
+
+--- Retrieved chunks (top 2, compact, for diagnosis) ---
+[1] score=0.4306 | MSFT-10K-2026.html | income_statement | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | INCOME STATEMENTS  (In millions, except per share amounts) Year Ended June 30, Revenue: Re
+[2] score=0.4893 | MSFT-10K-2026.html | income_statement | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | INCOME STATEMENTS  (In millions, except per share amounts) Year Ended June 30, Earnings pe
+
+--- Answer ---
+The Intelligent Cloud segment revenue is not explicitly stated in the provided excerpts.
+
+> (filtering to NDAQ-10K-2025.html, statement type: comprehensive_income)
+
+--- Retrieved chunks (top 1, compact, for diagnosis) ---
+[1] score=0.1778 | NDAQ-10K-2025.html | comprehensive_income | PART IV > Financial Statements | Consolidated Statements of Comprehensive Income  (in millions)  Year Ended December 31, Ne
+
+--- Answer ---
+Nasdaq's total comprehensive income for 2024 was $942 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements)
+
+> (filtering to MSFT-10K-2026.html, statement type: comprehensive_income)
+
+--- Retrieved chunks (top 1, compact, for diagnosis) ---
+[1] score=0.2694 | MSFT-10K-2026.html | comprehensive_income | PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA | COMPREHENSIVE INCOME STATEMENTS  (In millions) Year Ended June 30, Net income - 2026: $133
+
+--- Answer ---
+The comprehensive income for 2023 is not stated in the provided excerpt.
+
+> (filtering to NFLX-10K-2025.html, statement type: cash_flow_statement)
+
+--- Retrieved chunks (top 3, compact, for diagnosis) ---
+[1] score=0.3195 | NFLX-10K-2025.html | cash_flow_statement | PART IV > Financial Statements | CONSOLIDATED STATEMENTS OF CASH FLOWS  (in thousands)  Year Ended December 31, Cash flows 
+[2] score=0.3505 | NFLX-10K-2025.html | cash_flow_statement | PART IV > Financial Statements | CONSOLIDATED STATEMENTS OF CASH FLOWS  (in thousands)  Year Ended December 31, Cash flows 
+[3] score=0.3769 | NFLX-10K-2025.html | cash_flow_statement | PART IV > Financial Statements | CONSOLIDATED STATEMENTS OF CASH FLOWS  (in thousands)  Year Ended December 31, Changes in 
+
+--- Answer ---
+The net cash provided by operating activities for the years 2025, 2024, and 2023 were $10,149,273, $7,361,364, and $7,274,301, respectively. 
+
+$10,149,273 + $7,361,364 + $7,274,301 = $24,785,038 (in thousands) for the years 2025, 2024, and 2023. 
+
+(Source: NFLX-10K-2025.html, PART IV > Financial Statements > CONSOLIDATED STATEMENTS OF CASH FLOWS > Changes in operating assets and liabilities)
+
+> 
