@@ -2847,15 +2847,15 @@ Interest rates | 3.4% – 4.5% | 3.4% – 5.5% | 3.8% – 5.6%
 
 During fiscal year 2026, the following activity occurred under our stock plans:
 
---- Chunk 172/210 | heading: PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Employee Stock and Savings Plans | tokens: 489 ---
+--- Chunk 172/210 | heading: PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Employee Stock and Savings Plans | tokens: 497 ---
 During fiscal year 2026, the following activity occurred under our stock plans:
 
 (In millions)
 Stock Awards
 Stock Awards > Nonvested balance, beginning of year (as of June 30, 2025) — Shares Weighted Average Grant-Date Fair Value: 82 / $347.44
-Stock Awards > Granted (a) (year ended June 30, 2026) — Shares Weighted Average Grant-Date Fair Value: 41 / 471.00
-Stock Awards > Vested (year ended June 30, 2026) — Shares Weighted Average Grant-Date Fair Value: (35) / 342.98
-Stock Awards > Forfeited (year ended June 30, 2026) — Shares Weighted Average Grant-Date Fair Value: (10) / 384.57
+Stock Awards > Granted (a) (fiscal 2026, year ended June 30, 2026) — Shares Weighted Average Grant-Date Fair Value: 41 / 471.00
+Stock Awards > Vested (fiscal 2026, year ended June 30, 2026) — Shares Weighted Average Grant-Date Fair Value: (35) / 342.98
+Stock Awards > Forfeited (fiscal 2026, year ended June 30, 2026) — Shares Weighted Average Grant-Date Fair Value: (10) / 384.57
 Stock Awards > Nonvested balance, end of year (as of June 30, 2026) — Shares Weighted Average Grant-Date Fair Value: 78 / 409.94
 
 (a)
@@ -2867,8 +2867,6 @@ As of June 30, 2026, total unrecognized compensation costs related to stock awar
 Employee Stock Purchase Plan
 
 We have an ESPP for all eligible employees. Shares of our common stock may be purchased by employees at three-month intervals at 90% of the fair market value on the last trading day of each three-month period. Employees may purchase shares having a value not exceeding 15% of their gross compensation during an offering period.
-
-Employees purchased the following shares during the periods presented:
 
 --- Chunk 173/210 | heading: PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Employee Stock and Savings Plans | tokens: 230 ---
 Employees purchased the following shares during the periods presented:

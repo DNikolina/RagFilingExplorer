@@ -16,10 +16,14 @@ namespace RagFilingExplorer.Local.Structured;
 /// roll-forwards - equity statements, award activity, goodwill and other comprehensive income - 125 rows in 16 tables
 /// across the four filings. Without the last condition 145 more rows in single-period tables would repeat what their
 /// table already says.
+///
+/// Step 1c-a: a filer whose fiscal year isn't the calendar year also gets the year's name, from its own calendar
+/// (<see cref="FiscalCalendar"/>) - "(fiscal 2025, year ended May 31, 2025)". T9 asks for "fiscal 2025"; 1b-iii-c's
+/// label put the right row, "year ended May 31, 2025", in front of the model, which didn't connect the two.
 /// </summary>
 internal static class PeriodLabels
 {
-    public static LinearizedTable Apply(LinearizedTable table, IReadOnlyDictionary<string, XbrlContext> contexts)
+    public static LinearizedTable Apply(LinearizedTable table, IReadOnlyDictionary<string, XbrlContext> contexts, FiscalCalendar? calendar = null)
     {
         List<XbrlContext?> periods = table.Rows.Select(r => SinglePeriod(r, contexts)).ToList();
         if (periods.OfType<XbrlContext>().Select(Key).Distinct().Count() < 2)
@@ -28,13 +32,16 @@ internal static class PeriodLabels
         }
 
         List<LinearizedRow> rows = table.Rows.Select((row, i) => periods[i] is { } period && row.Label.Length > 0 && !ShowsYear(row, period)
-            ? row with { Label = $"{row.Label} ({Describe(period)})" }
+            ? row with { Label = $"{row.Label} ({Describe(period, calendar)})" }
             : row).ToList();
         return table with { Rows = rows };
     }
 
-    /// <summary>"year ended May 31, 2025", "three months ended ...", "as of June 30, 2025", "on November 1, 2023".</summary>
-    internal static string Describe(XbrlContext period)
+    /// <summary>
+    /// "year ended May 31, 2025" - "fiscal 2025, year ended May 31, 2025" with a non-calendar fiscal year - "three
+    /// months ended ...", "as of June 30, 2025", "on November 1, 2023".
+    /// </summary>
+    internal static string Describe(XbrlContext period, FiscalCalendar? calendar = null)
     {
         string Date(DateOnly d) => d.ToString("MMMM d, yyyy", CultureInfo.InvariantCulture);
         if (period.Instant is { } instant)
@@ -48,6 +55,8 @@ internal static class PeriodLabels
         return days switch
         {
             0 => $"on {Date(end)}",
+            >= 350 and <= 380 when calendar is { IsCalendarYear: false } && calendar.FiscalYearEnding(end) is { } fiscal
+                => $"fiscal {fiscal}, year ended {Date(end)}",
             >= 350 and <= 380 => $"year ended {Date(end)}",
             >= 85 and <= 95 => $"three months ended {Date(end)}",
             _ => $"{Date(start)} to {Date(end)}",

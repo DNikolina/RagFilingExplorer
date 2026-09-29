@@ -74,4 +74,40 @@ public class PeriodLabelsTests
     {
         Assert.That(PeriodLabels.Describe(Contexts[context]), Is.EqualTo(expected));
     }
+
+    // T9 asks for "fiscal 2025"; the row said only "year ended May 31, 2025" and the model didn't connect them.
+    // ORCL's calendar: fiscal 2026 ends May 31, 2026 (DocumentFiscalYearFocus, DocumentPeriodEndDate).
+    [TestCase("fy25", "fiscal 2025, year ended May 31, 2025")]
+    [TestCase("fy24", "fiscal 2024, year ended May 31, 2024")]
+    [TestCase("end24", "as of May 31, 2024")]
+    [TestCase("q", "three months ended June 30, 2026")]
+    public void Describe_NonCalendarFiscalYear_NamesTheYearFromTheFilersCalendar(string context, string expected)
+    {
+        Assert.That(PeriodLabels.Describe(Contexts[context], new FiscalCalendar(2026, new DateOnly(2026, 5, 31))), Is.EqualTo(expected));
+    }
+
+    // NDAQ, NFLX: "2025" already names a calendar year.
+    [Test]
+    public void Describe_CalendarFiscalYear_AddsNoFiscalName()
+    {
+        XbrlContext year = new("y", null, new DateOnly(2025, 1, 1), new DateOnly(2025, 12, 31), []);
+
+        Assert.That(PeriodLabels.Describe(year, new FiscalCalendar(2025, new DateOnly(2025, 12, 31))), Is.EqualTo("year ended December 31, 2025"));
+    }
+
+    // Named from the focus year, not the end date's year: a retailer's year ending January 31, 2026 is its fiscal 2025.
+    // A 52/53-week year ends within a week of the same date.
+    [TestCase(2025, 2026, 1, 31, 2026, 2, 1, 2025)]
+    [TestCase(2025, 2026, 1, 31, 2025, 2, 2, 2024)]
+    [TestCase(2026, 2026, 5, 31, 2024, 5, 31, 2024)]
+    public void FiscalYearEnding_NamedFromTheFocusYear(int focus, int ey, int em, int ed, int y, int m, int d, int expected)
+    {
+        Assert.That(new FiscalCalendar(focus, new DateOnly(ey, em, ed)).FiscalYearEnding(new DateOnly(y, m, d)), Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void FiscalYearEnding_DateNotAtAYearEnd_IsNull()
+    {
+        Assert.That(new FiscalCalendar(2026, new DateOnly(2026, 5, 31)).FiscalYearEnding(new DateOnly(2025, 11, 30)), Is.Null);
+    }
 }

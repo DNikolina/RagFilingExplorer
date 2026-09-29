@@ -2310,69 +2310,69 @@ See notes to consolidated financial statements.
 
 ORACLE CORPORATION
 
---- Chunk 148/272 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 478 ---
+--- Chunk 148/272 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 464 ---
 CONSOLIDATED STATEMENTS OF STOCKHOLDERS’ EQUITY
 
 For the Years Ended May 31, 2026, 2025 and 2024
 
 (in millions, except per share data)
 Balances as of May 31, 2023 — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 2,713 | Preferred and Common Stock and Additional Paid in Capital Amount: $30,215 | Accumulated Deficit: $(27,620) | Accumulated Other Comprehensive Loss: $(1,522) | Noncontrolling Interests: $483 | Total Stockholders’ Equity: $1,556
-Common stock issued under stock-based compensation plans (year ended May 31, 2024) — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 68 | Preferred and Common Stock and Additional Paid in Capital Amount: 545 | Total Stockholders’ Equity: 545
-Common stock issued under stock purchase plans (year ended May 31, 2024) — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 2 | Preferred and Common Stock and Additional Paid in Capital Amount: 197 | Total Stockholders’ Equity: 197
-Stock-based compensation (year ended May 31, 2024) — Preferred and Common Stock and Additional Paid in Capital Amount: 3,974 | Total Stockholders’ Equity: 3,974
-Repurchases of common stock (year ended May 31, 2024) — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: (11) | Preferred and Common Stock and Additional Paid in Capital Amount: (117) | Accumulated Deficit: (1,083) | Total Stockholders’ Equity: (1,200)
-Shares repurchased for tax withholdings upon vesting of restricted stock-based awards (year ended May 31, 2024) — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: (17) | Preferred and Common Stock and Additional Paid in Capital Amount: (2,040) | Total Stockholders’ Equity: (2,040)
-Cash dividends declared ($1.60 per share) (year ended May 31, 2024) — Accumulated Deficit: (4,391) | Total Stockholders’ Equity: (4,391)
+Common stock issued under stock-based compensation plans (fiscal 2024, year ended May 31, 2024) — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 68 | Preferred and Common Stock and Additional Paid in Capital Amount: 545 | Total Stockholders’ Equity: 545
+Common stock issued under stock purchase plans (fiscal 2024, year ended May 31, 2024) — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 2 | Preferred and Common Stock and Additional Paid in Capital Amount: 197 | Total Stockholders’ Equity: 197
+Stock-based compensation (fiscal 2024, year ended May 31, 2024) — Preferred and Common Stock and Additional Paid in Capital Amount: 3,974 | Total Stockholders’ Equity: 3,974
+Repurchases of common stock (fiscal 2024, year ended May 31, 2024) — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: (11) | Preferred and Common Stock and Additional Paid in Capital Amount: (117) | Accumulated Deficit: (1,083) | Total Stockholders’ Equity: (1,200)
+Shares repurchased for tax withholdings upon vesting of restricted stock-based awards (fiscal 2024, year ended May 31, 2024) — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: (17) | Preferred and Common Stock and Additional Paid in Capital Amount: (2,040) | Total Stockholders’ Equity: (2,040)
 
---- Chunk 149/272 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 469 ---
+--- Chunk 149/272 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 481 ---
 CONSOLIDATED STATEMENTS OF STOCKHOLDERS’ EQUITY
 
 For the Years Ended May 31, 2026, 2025 and 2024
 
 (in millions, except per share data)
-Other, net (year ended May 31, 2024) — Preferred and Common Stock and Additional Paid in Capital Amount: (10) | Accumulated Deficit: (1) | Accumulated Other Comprehensive Loss: 90 | Noncontrolling Interests: (134) | Total Stockholders’ Equity: (55)
-Net income (year ended May 31, 2024) — Accumulated Deficit: 10,467 | Noncontrolling Interests: 186 | Total Stockholders’ Equity: 10,653
+Cash dividends declared ($1.60 per share) (fiscal 2024, year ended May 31, 2024) — Accumulated Deficit: (4,391) | Total Stockholders’ Equity: (4,391)
+Other, net (fiscal 2024, year ended May 31, 2024) — Preferred and Common Stock and Additional Paid in Capital Amount: (10) | Accumulated Deficit: (1) | Accumulated Other Comprehensive Loss: 90 | Noncontrolling Interests: (134) | Total Stockholders’ Equity: (55)
+Net income (fiscal 2024, year ended May 31, 2024) — Accumulated Deficit: 10,467 | Noncontrolling Interests: 186 | Total Stockholders’ Equity: 10,653
 Balances as of May 31, 2024 — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 2,755 | Preferred and Common Stock and Additional Paid in Capital Amount: 32,764 | Accumulated Deficit: (22,628) | Accumulated Other Comprehensive Loss: (1,432) | Noncontrolling Interests: 535 | Total Stockholders’ Equity: 9,239
-Common stock issued under stock-based compensation plans (year ended May 31, 2025) — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 62 | Preferred and Common Stock and Additional Paid in Capital Amount: 447 | Total Stockholders’ Equity: 447
-Common stock issued under stock purchase plans (year ended May 31, 2025) — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 1 | Preferred and Common Stock and Additional Paid in Capital Amount: 206 | Total Stockholders’ Equity: 206
-Stock-based compensation (year ended May 31, 2025) — Preferred and Common Stock and Additional Paid in Capital Amount: 4,674 | Total Stockholders’ Equity: 4,674
-Repurchases of common stock (year ended May 31, 2025) — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: (4) | Preferred and Common Stock and Additional Paid in Capital Amount: (47) | Accumulated Deficit: (553) | Total Stockholders’ Equity: (600)
+Common stock issued under stock-based compensation plans (fiscal 2025, year ended May 31, 2025) — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 62 | Preferred and Common Stock and Additional Paid in Capital Amount: 447 | Total Stockholders’ Equity: 447
+Common stock issued under stock purchase plans (fiscal 2025, year ended May 31, 2025) — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 1 | Preferred and Common Stock and Additional Paid in Capital Amount: 206 | Total Stockholders’ Equity: 206
+Stock-based compensation (fiscal 2025, year ended May 31, 2025) — Preferred and Common Stock and Additional Paid in Capital Amount: 4,674 | Total Stockholders’ Equity: 4,674
 
---- Chunk 150/272 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 471 ---
+--- Chunk 150/272 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 442 ---
 CONSOLIDATED STATEMENTS OF STOCKHOLDERS’ EQUITY
 
 For the Years Ended May 31, 2026, 2025 and 2024
 
 (in millions, except per share data)
-Shares repurchased for tax withholdings upon vesting of restricted stock-based awards (year ended May 31, 2025) — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: (7) | Preferred and Common Stock and Additional Paid in Capital Amount: (900) | Total Stockholders’ Equity: (900)
-Cash dividends declared ($1.70 per share) (year ended May 31, 2025) — Accumulated Deficit: (4,743) | Total Stockholders’ Equity: (4,743)
-Other, net (year ended May 31, 2025) — Preferred and Common Stock and Additional Paid in Capital Amount: (37) | Accumulated Other Comprehensive Loss: 257 | Noncontrolling Interests: (201) | Total Stockholders’ Equity: 19
-Net income (year ended May 31, 2025) — Accumulated Deficit: 12,443 | Noncontrolling Interests: 184 | Total Stockholders’ Equity: 12,627
+Repurchases of common stock (fiscal 2025, year ended May 31, 2025) — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: (4) | Preferred and Common Stock and Additional Paid in Capital Amount: (47) | Accumulated Deficit: (553) | Total Stockholders’ Equity: (600)
+Shares repurchased for tax withholdings upon vesting of restricted stock-based awards (fiscal 2025, year ended May 31, 2025) — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: (7) | Preferred and Common Stock and Additional Paid in Capital Amount: (900) | Total Stockholders’ Equity: (900)
+Cash dividends declared ($1.70 per share) (fiscal 2025, year ended May 31, 2025) — Accumulated Deficit: (4,743) | Total Stockholders’ Equity: (4,743)
+Other, net (fiscal 2025, year ended May 31, 2025) — Preferred and Common Stock and Additional Paid in Capital Amount: (37) | Accumulated Other Comprehensive Loss: 257 | Noncontrolling Interests: (201) | Total Stockholders’ Equity: 19
+Net income (fiscal 2025, year ended May 31, 2025) — Accumulated Deficit: 12,443 | Noncontrolling Interests: 184 | Total Stockholders’ Equity: 12,627
 Balances as of May 31, 2025 — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 2,807 | Preferred and Common Stock and Additional Paid in Capital Amount: 37,107 | Accumulated Deficit: (15,481) | Accumulated Other Comprehensive Loss: (1,175) | Noncontrolling Interests: 518 | Total Stockholders’ Equity: 20,969
-Mandatory convertible preferred stock issued (year ended May 31, 2026) — Preferred and Common Stock and Additional Paid in Capital Preferred Stock Shares: — (1) | Preferred and Common Stock and Additional Paid in Capital Amount: 4,954 | Total Stockholders’ Equity: 4,954
-Common stock issued under stock-based compensation plans (year ended May 31, 2026) — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 72 | Preferred and Common Stock and Additional Paid in Capital Amount: 1,241 | Total Stockholders’ Equity: 1,241
 
---- Chunk 151/272 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 432 ---
+--- Chunk 151/272 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 504 ---
 CONSOLIDATED STATEMENTS OF STOCKHOLDERS’ EQUITY
 
 For the Years Ended May 31, 2026, 2025 and 2024
 
 (in millions, except per share data)
-Common stock issued under stock purchase plans (year ended May 31, 2026) — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 1 | Preferred and Common Stock and Additional Paid in Capital Amount: 208 | Total Stockholders’ Equity: 208
-Stock-based compensation (year ended May 31, 2026) — Preferred and Common Stock and Additional Paid in Capital Amount: 4,811 | Total Stockholders’ Equity: 4,811
-Repurchases of common stock (year ended May 31, 2026) — Preferred and Common Stock and Additional Paid in Capital Amount: (6) | Accumulated Deficit: (87) | Total Stockholders’ Equity: (93)
-Shares repurchased for tax withholdings upon vesting of restricted stock-based awards (year ended May 31, 2026) — Preferred and Common Stock and Additional Paid in Capital Amount: (111) | Total Stockholders’ Equity: (111)
-Preferred stock dividends ($1,263.89 per share) (year ended May 31, 2026) — Accumulated Deficit: (103) | Total Stockholders’ Equity: (103)
-Common stock dividends ($2.00 per share) (year ended May 31, 2026) — Accumulated Deficit: (5,725) | Total Stockholders’ Equity: (5,725)
-Other, net (year ended May 31, 2026) — Preferred and Common Stock and Additional Paid in Capital Amount: (7) | Accumulated Other Comprehensive Loss: (205) | Noncontrolling Interests: (192) | Total Stockholders’ Equity: (404)
-Net income (year ended May 31, 2026) — Accumulated Deficit: 17,087 | Noncontrolling Interests: 222 | Total Stockholders’ Equity: 17,309
+Mandatory convertible preferred stock issued (fiscal 2026, year ended May 31, 2026) — Preferred and Common Stock and Additional Paid in Capital Preferred Stock Shares: — (1) | Preferred and Common Stock and Additional Paid in Capital Amount: 4,954 | Total Stockholders’ Equity: 4,954
+Common stock issued under stock-based compensation plans (fiscal 2026, year ended May 31, 2026) — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 72 | Preferred and Common Stock and Additional Paid in Capital Amount: 1,241 | Total Stockholders’ Equity: 1,241
+Common stock issued under stock purchase plans (fiscal 2026, year ended May 31, 2026) — Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 1 | Preferred and Common Stock and Additional Paid in Capital Amount: 208 | Total Stockholders’ Equity: 208
+Stock-based compensation (fiscal 2026, year ended May 31, 2026) — Preferred and Common Stock and Additional Paid in Capital Amount: 4,811 | Total Stockholders’ Equity: 4,811
+Repurchases of common stock (fiscal 2026, year ended May 31, 2026) — Preferred and Common Stock and Additional Paid in Capital Amount: (6) | Accumulated Deficit: (87) | Total Stockholders’ Equity: (93)
+Shares repurchased for tax withholdings upon vesting of restricted stock-based awards (fiscal 2026, year ended May 31, 2026) — Preferred and Common Stock and Additional Paid in Capital Amount: (111) | Total Stockholders’ Equity: (111)
+Preferred stock dividends ($1,263.89 per share) (fiscal 2026, year ended May 31, 2026) — Accumulated Deficit: (103) | Total Stockholders’ Equity: (103)
+Common stock dividends ($2.00 per share) (fiscal 2026, year ended May 31, 2026) — Accumulated Deficit: (5,725) | Total Stockholders’ Equity: (5,725)
 
---- Chunk 152/272 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 220 ---
+--- Chunk 152/272 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 335 ---
 CONSOLIDATED STATEMENTS OF STOCKHOLDERS’ EQUITY
 
 For the Years Ended May 31, 2026, 2025 and 2024
 
 (in millions, except per share data)
+Other, net (fiscal 2026, year ended May 31, 2026) — Preferred and Common Stock and Additional Paid in Capital Amount: (7) | Accumulated Other Comprehensive Loss: (205) | Noncontrolling Interests: (192) | Total Stockholders’ Equity: (404)
+Net income (fiscal 2026, year ended May 31, 2026) — Accumulated Deficit: 17,087 | Noncontrolling Interests: 222 | Total Stockholders’ Equity: 17,309
 Balances as of May 31, 2026 — Preferred and Common Stock and Additional Paid in Capital Preferred Stock Shares: — (1) | Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 2,880 | Preferred and Common Stock and Additional Paid in Capital Amount: $48,197 | Accumulated Deficit: $(4,309) | Accumulated Other Comprehensive Loss: $(1,380) | Noncontrolling Interests: $548 | Total Stockholders’ Equity: $43,056
 
 (1)
@@ -2869,7 +2869,7 @@ The changes in intangible assets for fiscal 2026 and the net book value of intan
 Other — Intangible Assets, Gross May 31, 2025: 2,827 | Intangible Assets, Gross Additions: 26 | Intangible Assets, Gross Retirements: (173) | Intangible Assets, Gross May 31, 2026: 2,680 | Accumulated Amortization May 31, 2025: (2,073) | Accumulated Amortization Expense: (486) | Accumulated Amortization Retirements: 173 | Accumulated Amortization May 31, 2026: (2,386) | Intangible Assets, Net May 31, 2025: 754 | Intangible Assets, Net May 31, 2026: 294
 Total intangible assets, net — Intangible Assets, Gross May 31, 2025: $16,640 | Intangible Assets, Gross Additions: $313 | Intangible Assets, Gross Retirements: $(2,392) | Intangible Assets, Gross May 31, 2026: $14,561 | Accumulated Amortization May 31, 2025: $(12,053) | Accumulated Amortization Expense: $(1,671) | Accumulated Amortization Retirements: $2,392 | Accumulated Amortization May 31, 2026: $(11,332) | Intangible Assets, Net May 31, 2025: $4,587 | Intangible Assets, Net May 31, 2026: $3,229
 
---- Chunk 185/272 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Intangible Assets and Goodwill | tokens: 357 ---
+--- Chunk 185/272 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Intangible Assets and Goodwill | tokens: 369 ---
 As of May 31, 2026, estimated future amortization expenses related to intangible assets were as follows (in millions):
 
 Fiscal 2027 — $731
@@ -2884,9 +2884,9 @@ The changes in the carrying amounts of goodwill, which is generally not deductib
 
 (in millions)
 Balances as of May 31, 2024 — Cloud and Software: $57,072 | Hardware: $2,732 | Services: $2,426 | Total Goodwill: $62,230
-Goodwill adjustments, net(1) (year ended May 31, 2025) — Cloud and Software: (23) | Total Goodwill: (23)
+Goodwill adjustments, net(1) (fiscal 2025, year ended May 31, 2025) — Cloud and Software: (23) | Total Goodwill: (23)
 Balances as of May 31, 2025 — Cloud and Software: 57,049 | Hardware: 2,732 | Services: 2,426 | Total Goodwill: 62,207
-Goodwill adjustments, net(1) (year ended May 31, 2026) — Cloud and Software: 65 | Services: (11) | Total Goodwill: 54
+Goodwill adjustments, net(1) (fiscal 2026, year ended May 31, 2026) — Cloud and Software: 65 | Services: (11) | Total Goodwill: 54
 Balances as of May 31, 2026 — Cloud and Software: $57,114 | Hardware: $2,732 | Services: $2,415 | Total Goodwill: $62,261
 
 (1)
@@ -3480,22 +3480,20 @@ The 1993 Directors’ Stock Plan (the Directors’ Plan) provides for the issuan
 
 The following table summarizes restricted stock-based award activity granted pursuant to Oracle-based stock plans for our last three fiscal years ended May 31, 2026:
 
---- Chunk 225/272 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Employee Benefit Plans | tokens: 488 ---
-The following table summarizes restricted stock-based award activity granted pursuant to Oracle-based stock plans for our last three fiscal years ended May 31, 2026:
-
+--- Chunk 225/272 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Employee Benefit Plans | tokens: 511 ---
 (in millions, except fair value) Restricted Stock-Based Awards Outstanding
 Balance, May 31, 2023 — Number of Shares: 152 | Weighted-Average Grant Date Fair Value: $69.09
-Granted (year ended May 31, 2024) — Number of Shares: 47 | Weighted-Average Grant Date Fair Value: $110.26
-Vested and issued (year ended May 31, 2024) — Number of Shares: (53) | Weighted-Average Grant Date Fair Value: $66.97
-Canceled (year ended May 31, 2024) — Number of Shares: (8) | Weighted-Average Grant Date Fair Value: $77.52
+Granted (fiscal 2024, year ended May 31, 2024) — Number of Shares: 47 | Weighted-Average Grant Date Fair Value: $110.26
+Vested and issued (fiscal 2024, year ended May 31, 2024) — Number of Shares: (53) | Weighted-Average Grant Date Fair Value: $66.97
+Canceled (fiscal 2024, year ended May 31, 2024) — Number of Shares: (8) | Weighted-Average Grant Date Fair Value: $77.52
 Balance, May 31, 2024 — Number of Shares: 138 | Weighted-Average Grant Date Fair Value: $83.43
-Granted (year ended May 31, 2025) — Number of Shares: 38 | Weighted-Average Grant Date Fair Value: $159.11
-Vested and issued (year ended May 31, 2025) — Number of Shares: (52) | Weighted-Average Grant Date Fair Value: $78.30
-Canceled (year ended May 31, 2025) — Number of Shares: (7) | Weighted-Average Grant Date Fair Value: $99.44
+Granted (fiscal 2025, year ended May 31, 2025) — Number of Shares: 38 | Weighted-Average Grant Date Fair Value: $159.11
+Vested and issued (fiscal 2025, year ended May 31, 2025) — Number of Shares: (52) | Weighted-Average Grant Date Fair Value: $78.30
+Canceled (fiscal 2025, year ended May 31, 2025) — Number of Shares: (7) | Weighted-Average Grant Date Fair Value: $99.44
 Balance, May 31, 2025 — Number of Shares: 117 | Weighted-Average Grant Date Fair Value: $108.91
-Granted (year ended May 31, 2026) — Number of Shares: 23 | Weighted-Average Grant Date Fair Value: $243.23
-Vested and issued (year ended May 31, 2026) — Number of Shares: (47) | Weighted-Average Grant Date Fair Value: $98.06
-Canceled (year ended May 31, 2026) — Number of Shares: (12) | Weighted-Average Grant Date Fair Value: $132.82
+Granted (fiscal 2026, year ended May 31, 2026) — Number of Shares: 23 | Weighted-Average Grant Date Fair Value: $243.23
+Vested and issued (fiscal 2026, year ended May 31, 2026) — Number of Shares: (47) | Weighted-Average Grant Date Fair Value: $98.06
+Canceled (fiscal 2026, year ended May 31, 2026) — Number of Shares: (12) | Weighted-Average Grant Date Fair Value: $132.82
 Balance, May 31, 2026 — Number of Shares: 81 | Weighted-Average Grant Date Fair Value: $149.88
 
 --- Chunk 226/272 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Employee Benefit Plans | tokens: 151 ---
@@ -3503,20 +3501,20 @@ The total grant date fair values of restricted stock-based awards that were vest
 
 The following table summarizes stock option activity, including SOs and PSOs, and includes awards granted pursuant to the 2020 Plan and stock plans assumed from our acquisitions for our last three fiscal years ended May 31, 2026:
 
---- Chunk 227/272 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Employee Benefit Plans | tokens: 445 ---
+--- Chunk 227/272 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Employee Benefit Plans | tokens: 487 ---
 The following table summarizes stock option activity, including SOs and PSOs, and includes awards granted pursuant to the 2020 Plan and stock plans assumed from our acquisitions for our last three fiscal years ended May 31, 2026:
 
 (in millions, except exercise price) Options Outstanding
 Balance, May 31, 2023 — Shares Under Stock Option: 64 | Weighted-Average Exercise Price: $45.42
-Granted and assumed (year ended May 31, 2024) — Shares Under Stock Option: 2 | Weighted-Average Exercise Price: $113.91
-Exercised (year ended May 31, 2024) — Shares Under Stock Option: (15) | Weighted-Average Exercise Price: $34.84
+Granted and assumed (fiscal 2024, year ended May 31, 2024) — Shares Under Stock Option: 2 | Weighted-Average Exercise Price: $113.91
+Exercised (fiscal 2024, year ended May 31, 2024) — Shares Under Stock Option: (15) | Weighted-Average Exercise Price: $34.84
 Balance, May 31, 2024 — Shares Under Stock Option: 51 | Weighted-Average Exercise Price: $51.05
-Granted (year ended May 31, 2025) — Weighted-Average Exercise Price: $—
-Exercised (year ended May 31, 2025) — Shares Under Stock Option: (10) | Weighted-Average Exercise Price: $44.84
+Granted (fiscal 2025, year ended May 31, 2025) — Weighted-Average Exercise Price: $—
+Exercised (fiscal 2025, year ended May 31, 2025) — Shares Under Stock Option: (10) | Weighted-Average Exercise Price: $44.84
 Balance, May 31, 2025 — Shares Under Stock Option: 41 | Weighted-Average Exercise Price: $52.58
-Granted (year ended May 31, 2026) — Shares Under Stock Option: 15 | Weighted-Average Exercise Price: $279.53
-Exercised (year ended May 31, 2026) — Shares Under Stock Option: (25) | Weighted-Average Exercise Price: $50.04
-Canceled (year ended May 31, 2026) — Shares Under Stock Option: (10) | Weighted-Average Exercise Price: $60.51
+Granted (fiscal 2026, year ended May 31, 2026) — Shares Under Stock Option: 15 | Weighted-Average Exercise Price: $279.53
+Exercised (fiscal 2026, year ended May 31, 2026) — Shares Under Stock Option: (25) | Weighted-Average Exercise Price: $50.04
+Canceled (fiscal 2026, year ended May 31, 2026) — Shares Under Stock Option: (10) | Weighted-Average Exercise Price: $60.51
 Balance, May 31, 2026 — Shares Under Stock Option: 21 | Weighted-Average Exercise Price: $217.63
 
 [Table of Contents](#toc_page)
@@ -3542,15 +3540,15 @@ Stock-Based Compensation Expense and Valuations of Stock-Based Awards
 
 We estimated the fair values of our restricted stock-based awards that are solely subject to service-based vesting requirements based upon their market values as of the grant dates, discounted for the present values of expected dividends.
 
---- Chunk 229/272 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Employee Benefit Plans | tokens: 355 ---
+--- Chunk 229/272 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Employee Benefit Plans | tokens: 373 ---
 We estimated the fair values of our restricted stock-based awards that are solely subject to service-based vesting requirements based upon their market values as of the grant dates, discounted for the present values of expected dividends.
 
 We estimated the fair values of our SOs and PSOs using the Black-Scholes-Merton option-pricing model, which was developed for use in estimating the fair values of SOs. Option valuation models, including the Black-Scholes-Merton option-pricing model, require the input of assumptions, including stock price volatility. Changes in the input assumptions can affect the fair value estimates and ultimately how much we recognize as stock-based compensation expense. The fair values of our SOs and PSOs were estimated at the grant dates. The weighted-average input assumptions used and resulting fair values of our SOs and PSOs were as follows for fiscal 2026:
 
 Expected life (in years) — 6.7
-Risk-free interest rate (year ended May 31, 2026) — 3.8%
-Volatility (year ended May 31, 2026) — 51%
-Dividend yield (year ended May 31, 2026) — 0.7%
+Risk-free interest rate (fiscal 2026, year ended May 31, 2026) — 3.8%
+Volatility (fiscal 2026, year ended May 31, 2026) — 51%
+Dividend yield (fiscal 2026, year ended May 31, 2026) — 0.7%
 Weighted-average fair value per share (as of May 31, 2026) — $142.64
 
 The expected life input is based on historical exercise patterns and post-vesting termination behavior, the risk-free interest rate input is based on U.S. Treasury instruments, the annualized dividend yield input is based on the per share dividend declared by the Board and the volatility input is calculated based on the implied volatility of our publicly traded options.
