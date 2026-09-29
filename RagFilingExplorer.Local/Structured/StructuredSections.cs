@@ -7,6 +7,9 @@ namespace RagFilingExplorer.Local.Structured;
 /// v1's <see cref="SectionSplitter"/> applies to text (<see cref="SectionSplitter.HeadingTracker"/>): a paragraph's
 /// heading and page-noise lines are dropped, a statement title starts a new section; a table is never read for
 /// headings (a table of contents' "PART I" rows would otherwise take the Part heading - see SectionSplitter).
+/// Step 1b-iii-b: a note to the financial statements is a section of its own, its topic the heading's last part
+/// ("PART II &gt; Item 8. ... &gt; Income Taxes") - so no chunk spans two notes, and a chunk from the middle of a
+/// note still says which note it is.
 /// </summary>
 internal static class StructuredSections
 {
@@ -15,13 +18,14 @@ internal static class StructuredSections
         List<StructuredSection> sections = new();
         SectionSplitter.HeadingTracker headings = new();
         List<FilingBlock> current = new();
+        string? currentTopic = null;
         List<string> lines = new(); // the kept lines of the paragraph being read
 
         void EndParagraph()
         {
             if (lines.Count > 0)
             {
-                current.Add(new TextBlock(string.Join('\n', lines)));
+                current.Add(new TextBlock(string.Join('\n', lines)) { Topic = currentTopic });
                 lines.Clear();
             }
         }
@@ -31,13 +35,20 @@ internal static class StructuredSections
             EndParagraph();
             if (current.Count > 0)
             {
-                sections.Add(new StructuredSection(headings.Heading, current.ToList()));
+                string heading = currentTopic is null ? headings.Heading : $"{headings.Heading} > {currentTopic}";
+                sections.Add(new StructuredSection(heading, current.ToList(), currentTopic));
                 current.Clear();
             }
         }
 
         foreach (FilingBlock block in blocks)
         {
+            if (block.Topic != currentTopic)
+            {
+                FlushSection();
+                currentTopic = block.Topic;
+            }
+
             if (block is TextBlock text)
             {
                 foreach (string line in text.Paragraph.Split('\n'))

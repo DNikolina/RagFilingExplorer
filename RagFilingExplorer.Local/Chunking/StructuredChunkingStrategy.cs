@@ -14,6 +14,7 @@ namespace RagFilingExplorer.Local.Chunking;
 /// Step 1b-ii: a profile built from the tagged cover facts is the first section, "Cover Page"
 /// (<see cref="FilingProfile"/>). Step 1b-iii-a: the primary statements' tables are labelled from the filer's
 /// taxonomy (<see cref="StatementLabels"/>), and each chunk's statement type comes from the table it holds.
+/// Step 1b-iii-b: each note to the financial statements is a section headed by its topic (<see cref="NoteTopics"/>).
 /// </summary>
 internal sealed class StructuredChunkingStrategy(Tokenizer tokenizer, int maxTokensPerChunk, int overlapTokens) : IChunkingStrategy
 {
@@ -39,7 +40,8 @@ internal sealed class StructuredChunkingStrategy(Tokenizer tokenizer, int maxTok
     public StructuredFiling Read(IHtmlDocument document, XbrlTaxonomy taxonomy)
     {
         XbrlDocument xbrl = InlineXbrlReader.Read(document);
-        List<StructuredSection> sections = StructuredSections.Split(StatementLabels.Label(FilingBlockReader.Read(document), taxonomy));
+        List<FilingBlock> blocks = FilingBlockReader.Read(document, NoteTopics.Find(document, xbrl, taxonomy));
+        List<StructuredSection> sections = StructuredSections.Split(StatementLabels.Label(blocks, taxonomy));
         if (FilingProfile.Build(xbrl) is { } profile)
         {
             sections.Insert(0, new StructuredSection(FilingProfile.Heading, [new TextBlock(profile)]));

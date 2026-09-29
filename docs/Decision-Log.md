@@ -1855,6 +1855,53 @@ the second review) can't recur silently, and a disagreement fails at build time.
 misses (R1, H14: the question's keywords pick the wrong statement) - that's the query side, step 2's soft labels.
 278 tests.
 
+**Step 1b-iii-b measured (2026-09-29, `eval/structured-1b-iii-b/`): note topics.** `Structured/NoteTopics` finds
+each note to the financial statements from the filer's tags: a text block whose concept a Disclosure role presents
+(roles for a note's parts - "(Tables)", "(Policies)", "(Details)" - excluded; the SEC's form taxonomies dei/cyd/ecd
+excluded - cover, Item 1C, Item 9B), outermost only. The role title is the topic, all-capital titles (MSFT, ORCL) in
+title case. A note spans its first piece to its last continuation, page breaks included. The reader gives every
+block inside a note its topic; a note is a section of its own, its topic the heading's last part ("PART II > Item 8.
+... > Income Taxes") - in the embedding text and the citations. Found on the way, each now a rule and a test:
+- **NDAQ tags two notes as one continued fact:** "Revenue from Contracts with Customers" (Note 3) and "Deferred
+  Revenue" (Note 8) are one `RevenueFromContractWithCustomerTextBlock` whose continuation chain jumps over Notes 4-7.
+  A gap between pieces that holds another note's start splits the fact into runs, which take its roles in sort-code
+  order (9952159, 9952164); any other count fails loudly. Notes found: MSFT 18, NDAQ 20, NFLX 14, ORCL 15.
+- **NDAQ and NFLX tag a note from its title, its number left outside** ("2." + "SUMMARY OF SIGNIFICANT
+  ACCOUNTING"): the heading paragraph began outside the note and split off - 32 sections of a number and a heading.
+  The other gaps between notes were page furniture (a Table of Contents link, a lone non-breaking space), so
+  everything between two notes now belongs to the next one.
+- **The Notes' own title** ("NOTES TO CONSOLIDATED FINANCIAL STATEMENTS", plus Note 1's number or a date) became an
+  8-20 token title-only chunk in every filing; it now opens Note 1 (paragraphs only between them).
+948 -> 972 chunks: chunks no longer straddle two notes. Four more under 50 tokens (31 -> 35), each a note's real
+last sentence (MSFT: "The dividend declared on June 10, 2026 was included in other current liabilities...") that
+used to ride on the next note's start. Statement tags unchanged (the tests hold the five per filing).
+
+| | 1b-iii-a | 1b-iii-b |
+|---|---|---|
+| Main Q1-Q24, reliable | 22/24 | 22/24 |
+| Targeted T1-T10, reliable | 5/10 | **7/10** |
+| Routing / variants | 3/3, 1/3 | same |
+| Held-out, reliable | 11/15 | 11/15 |
+| Replay targeted: recall@5 / MRR | 7/10, 0.455 | **8/10, 0.483** |
+| Replay main / held-out: MRR | 0.814 / 0.495 | 0.814 / 0.497 |
+
+34 of 40 main and 11 of 15 held-out answers word for word the same; most of the rest cite the more specific
+heading ("... > Stockholders' Equity", "... > Employee Stock and Savings Plans"). Read per question, from the verbose
+logs:
+- **T6 (NDAQ Financial Technology goodwill, $7,952M) - fixed by retrieval, and by this step.** Before, the top 5
+  held no goodwill table: rank 1 was an anonymous "...business segment during the year ended December 31, 2025"
+  piece headed "PART IV > Financial Statements", and the note's own opening sat at the tail of the previous note's
+  chunk. Now rank 1 is the chunk that opens "5. GOODWILL AND ACQUIRED INTANGIBLE ASSETS", headed "> Goodwill and
+  Acquired Intangible Assets". This is the replay's +1.
+- **T3 (NFLX technology and development, 16%) - fixed, but not by retrieval.** The MD&A table with the answer was in
+  the context both times; an unrelated NFLX acquisition note chunk left the top 5 and the model answered instead of
+  "The unit is not stated.". Counted, but it's a context-mix change, not the label's doing.
+- **T5 (MSFT U.S. government securities) - wrong both times**, the investments table outside the top 5 in both; the
+  decline became "The unit is not stated.". H10 likewise (declined both times).
+- The held-out targets aren't reached: H6 (still $2,805M, now cited as "> Restructuring and Other Expenses"), H10
+  (rank 15), H13 (16), H14 (>25, the routing miss).
+290 tests.
+
 Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
 Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation
 memory (follow-up questions), query decomposition beyond per-company search, an API or UI. Automated onboarding

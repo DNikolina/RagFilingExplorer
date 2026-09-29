@@ -31,15 +31,52 @@ internal static partial class FilingBlockReader
     [GeneratedRegex(@"[^\S ]+")]
     private static partial Regex WhitespaceRunRegex();
 
-    public static List<FilingBlock> Read(IDocument document)
+    /// <param name="notes">Where the notes sit (<see cref="NoteTopics"/>): each block read inside one gets its topic.</param>
+    public static List<FilingBlock> Read(IDocument document, IReadOnlyList<NoteSpan>? notes = null)
     {
-        Reader reader = new();
+        Reader reader = new(notes ?? []);
         if (document.Body is not null)
         {
             reader.ReadChildren(document.Body);
         }
 
-        return reader.Finish();
+        return JoinGapsToNextNote(reader.Finish());
+    }
+
+    /// <summary>
+    /// A block between two notes belongs to the next one. NDAQ and NFLX tag a note from its title, leaving its number
+    /// outside ("2." + "SUMMARY OF SIGNIFICANT ACCOUNTING"), so the heading paragraph began outside the note and split
+    /// off as a section of its own - 32 of them; the other gaps are page furniture (a "Table of Contents" link, a lone
+    /// non-breaking space) at a page break before the next note. Measured 2026-09-29: every gap between two notes in
+    /// the four filings is one of the two.
+    /// </summary>
+    private static List<FilingBlock> JoinGapsToNextNote(List<FilingBlock> blocks)
+    {
+        int first = blocks.FindIndex(b => b.Topic is not null);
+        int last = blocks.FindLastIndex(b => b.Topic is not null);
+
+        // Likewise the Notes' own title ("NOTES TO CONSOLIDATED FINANCIAL STATEMENTS" - where the section rules
+        // already start a section) and what follows it up to the first note - Note 1's number, a date: on its own it
+        // was an 8-20 token title-only chunk in every filing, the kind that took top-5 slots for statement questions.
+        // Only across paragraphs: a table between them would mean the title isn't the one right before the notes.
+        int notesTitle = first < 0 ? -1 : blocks.FindLastIndex(first, first + 1,
+            b => b is TextBlock t && t.Paragraph.Split('\n').Any(StatementTypeDetector.IsNotesToFinancialStatementsBoundary));
+        if (notesTitle >= 0 && blocks.Skip(notesTitle).Take(first - notesTitle).All(b => b is TextBlock))
+        {
+            first = notesTitle - 1;
+        }
+
+        string? next = null;
+        for (int i = last; i > first; i--)
+        {
+            next = blocks[i].Topic ?? next;
+            if (blocks[i].Topic is null)
+            {
+                blocks[i] = blocks[i] with { Topic = next };
+            }
+        }
+
+        return blocks;
     }
 
     /// <summary>
@@ -100,10 +137,18 @@ internal static partial class FilingBlockReader
         return collapsed.Length > 60 ? collapsed[..60] + "..." : collapsed;
     }
 
-    private sealed class Reader
+    private sealed class Reader(IReadOnlyList<NoteSpan> notes)
     {
         private readonly List<FilingBlock> blocks = new();
         private readonly StringBuilder paragraph = new();
+        private readonly Dictionary<IElement, string> noteStarts = notes.ToDictionary(n => n.Start, n => n.Topic);
+        private readonly HashSet<IElement> noteEnds = notes.Select(n => n.End).ToHashSet();
+
+        // The note being read (from its start element through the end of its end element), and the one the
+        // current paragraph began in - a paragraph belongs where its first text is.
+        private string? topic;
+        private string? paragraphTopic;
+        private bool paragraphHasText;
 
         public List<FilingBlock> Finish()
         {
@@ -132,6 +177,21 @@ internal static partial class FilingBlockReader
                 return;
             }
 
+            if (noteStarts.TryGetValue(element, out string? startsNote))
+            {
+                topic = startsNote;
+            }
+
+            ReadElement(element);
+
+            if (noteEnds.Contains(element))
+            {
+                topic = null;
+            }
+        }
+
+        private void ReadElement(IElement element)
+        {
             switch (element.LocalName)
             {
                 case "script" or "style" or "head" or "title" or "ix:header":
@@ -141,13 +201,13 @@ internal static partial class FilingBlockReader
                     return;
                 case "hr":
                     FlushParagraph();
-                    blocks.Add(new TextBlock("---"));
+                    blocks.Add(new TextBlock("---") { Topic = topic });
                     return;
                 case "table" when element is IHtmlTableElement table:
                     FlushParagraph();
                     if (ReadTable(table) is { } block)
                     {
-                        blocks.Add(block);
+                        blocks.Add(block with { Topic = topic });
                     }
 
                     return;
@@ -160,6 +220,8 @@ internal static partial class FilingBlockReader
                     return;
                 case "li":
                     FlushParagraph();
+                    paragraphTopic = topic;
+                    paragraphHasText = true;
                     paragraph.Append(element.ParentElement?.LocalName == "ol" ? $"{element.Index() + 1}. " : "* ");
                     ReadChildren(element);
                     FlushParagraph();
@@ -185,6 +247,13 @@ internal static partial class FilingBlockReader
                 text = text.TrimStart(' ');
             }
 
+            // A paragraph's topic is where its first visible text is: a note's first element can open mid-paragraph.
+            if (!paragraphHasText && text.Trim().Length > 0)
+            {
+                paragraphTopic = topic;
+                paragraphHasText = true;
+            }
+
             paragraph.Append(text);
         }
 
@@ -192,9 +261,10 @@ internal static partial class FilingBlockReader
         {
             string lines = string.Join('\n', paragraph.ToString().Split('\n').Select(l => l.Trim(' ')).Where(l => l.Length > 0));
             paragraph.Clear();
+            paragraphHasText = false;
             if (lines.Length > 0)
             {
-                blocks.Add(new TextBlock(lines));
+                blocks.Add(new TextBlock(lines) { Topic = paragraphTopic });
             }
         }
     }

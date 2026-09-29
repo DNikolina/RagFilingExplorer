@@ -27,5 +27,10 @@ the user's decision on the identical Linearized answer.
 not title patterns), run 2026-09-29: main 22/24, held-out 11/15 - 39 of 40 main and 15 of 15 held-out answers
 word for word the same as 1b-ii (Q21 moved a full stop). H10 carries the earlier decision on the same answer.
 
+**`structured-1b-iii-b/`** - plus step 1b-iii-b (each note to the financial statements a section of its own, headed
+by its topic from the filer's Disclosure roles), run 2026-09-29: main 22/24, **targeted 7/10** (T3 and T6 fixed, T5 a
+decline in a different form), routing 3/3, variants 1/3, held-out 11/15. H10 declines again, now as "The unit is not
+stated." - graded declined by the grader, no reader decision needed.
+
 Temperature 0 is deterministic here: the baseline's 40 main answers are word-for-word identical to the
 2026-09-25 run on the same code, so a changed answer means a changed input, not sampling.

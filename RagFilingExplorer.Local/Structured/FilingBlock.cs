@@ -14,6 +14,9 @@ internal abstract record FilingBlock
 {
     /// <summary>The text this block contributes to a chunk.</summary>
     public abstract string Text { get; }
+
+    /// <summary>The note to the financial statements this block sits in ("Income Taxes"), or null (<see cref="NoteTopics"/>).</summary>
+    public string? Topic { get; init; }
 }
 
 /// <summary>A paragraph: one block element's text, lines kept (a &lt;br&gt; is a line break).</summary>
@@ -33,8 +36,9 @@ internal sealed record TableBlock(RowBlock Rows, LinearizedTable Table, IHtmlTab
     public override string Text => Rows.Text;
 }
 
-/// <summary>A run of blocks under one heading path ("PART II &gt; Item 8. Financial Statements ...").</summary>
-internal sealed record StructuredSection(string Heading, IReadOnlyList<FilingBlock> Blocks);
+/// <summary>A run of blocks under one heading path ("PART II &gt; Item 8. Financial Statements ... &gt; Income Taxes"),
+/// the last part the note's <see cref="Topic"/> when the blocks sit in one.</summary>
+internal sealed record StructuredSection(string Heading, IReadOnlyList<FilingBlock> Blocks, string? Topic = null);
 
 /// <summary>A chunk and the blocks it was built from (in order; a paragraph carried as overlap is in two chunks).</summary>
 internal sealed record StructuredChunk(string Heading, string Content, int Tokens, IReadOnlyList<FilingBlock> Blocks)
