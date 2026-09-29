@@ -11,7 +11,7 @@ internal sealed record CompanyRegistration(string Filing, IReadOnlyList<string> 
 /// <summary>
 /// Which filing(s) a question names, for the company filter. Built from each filing's own tagged cover facts - the
 /// registrant name without its legal form ("MICROSOFT CORPORATION" -> "Microsoft", "Nasdaq, Inc." -> "Nasdaq") and
-/// the common stock's trading symbol - replacing v1's hand-written QueryIntentResolver.CompanyToFiling table
+/// the trading symbol of each class of common stock (not notes or preferred stock) - replacing v1's hand-written QueryIntentResolver.CompanyToFiling table
 /// (docs/Decision-Log.md, "registration from the cover facts"). That table was the manual step of onboarding: NFLX
 /// ran every question unfiltered across all filings until it had an entry, and a hallucinated figure found it.
 /// Every 10-K tags its cover page in inline XBRL, so a filing added to data/ now registers itself; one without a
@@ -35,11 +35,7 @@ internal sealed class CompanyRegistry(IReadOnlyList<CompanyRegistration> registr
     {
         string name = CoverFacts.RegistrantName(xbrl)
             ?? throw new InvalidOperationException($"{filing} tags no dei:EntityRegistrantName, so questions naming its company can't be routed to it.");
-        List<string> names = [CoverFacts.ShortName(name)];
-        if (CoverFacts.CommonStock(xbrl) is ({ } symbol, _))
-        {
-            names.Add(symbol);
-        }
+        List<string> names = [CoverFacts.ShortName(name), .. CoverFacts.CommonStocks(xbrl).Select(c => c.Symbol)];
 
         return new CompanyRegistration(filing, names.Distinct(StringComparer.OrdinalIgnoreCase).ToList());
     }

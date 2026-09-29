@@ -28,23 +28,32 @@ internal static partial class CoverFacts
         return name;
     }
 
+    // A class of common equity, by its registered title: "Common Stock, $0.01 par value", "Class A Common Stock",
+    // "Common Shares", "Ordinary Shares" - not notes ("4.500% Senior Notes due 2032") or preferred stock.
+    [GeneratedRegex(@"\b(common|ordinary)\s+(stock|shares?)\b", RegexOptions.IgnoreCase)]
+    private static partial Regex CommonEquityRegex();
+
     /// <summary>
-    /// The common stock's trading symbol and exchange. Each registered security has its own context pairing its
-    /// title, symbol and exchange; only the common stock's counts - NDAQ also lists four note issues ("NDAQ29"),
-    /// ORCL its preferred stock ("ORCL PRD") first.
+    /// Every class of common equity's trading symbol, exchange and title, in cover order. Each registered security
+    /// has its own context pairing its title, symbol and exchange; only common equity counts - NDAQ also lists four
+    /// note issues ("NDAQ29"), ORCL its preferred stock ("ORCL PRD") first. A filer with several classes (Alphabet's
+    /// GOOGL and GOOG) has one entry per class; the four filings here have one each.
     /// </summary>
-    public static (string Symbol, string? Exchange)? CommonStock(XbrlDocument xbrl)
+    public static List<(string Symbol, string? Exchange, string Title)> CommonStocks(XbrlDocument xbrl)
     {
-        XbrlFact? title = xbrl.Facts.FirstOrDefault(f => f.Concept == "dei:Security12bTitle"
-            && f.Text?.Contains("common stock", StringComparison.OrdinalIgnoreCase) == true);
-        if (title is null || Clean(InContext("dei:TradingSymbol")) is not { } symbol)
+        List<(string Symbol, string? Exchange, string Title)> classes = new();
+        foreach (XbrlFact title in xbrl.Facts.Where(f => f.Concept == "dei:Security12bTitle" && f.Text is not null && CommonEquityRegex().IsMatch(f.Text)))
         {
-            return null;
+            // A symbol is trimmed, never re-cased: Clean's title case for all-capital values turned "GOOGL" into "Googl".
+            if (InContext("dei:TradingSymbol", title.ContextRef)?.Trim() is { Length: > 0 } symbol && classes.All(c => c.Symbol != symbol))
+            {
+                classes.Add((symbol, Clean(InContext("dei:SecurityExchangeName", title.ContextRef)), Clean(title.Text)!));
+            }
         }
 
-        return (symbol, Clean(InContext("dei:SecurityExchangeName")));
+        return classes;
 
-        string? InContext(string concept) => xbrl.Facts.FirstOrDefault(f => f.Concept == concept && f.ContextRef == title.ContextRef)?.Text;
+        string? InContext(string concept, string contextRef) => xbrl.Facts.FirstOrDefault(f => f.Concept == concept && f.ContextRef == contextRef)?.Text;
     }
 
     /// <summary>

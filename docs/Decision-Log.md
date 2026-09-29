@@ -1941,7 +1941,15 @@ startup; startup prints each registration. Cost: each filing is parsed at startu
   table kept in it as the reference. Answers can only change through routing, so none can have moved.
 - Not covered: a company questions name by a brand unlike its legal name (none of the four); the onboarding checker
   now WARNs on it, and an alias would be a rule in `CompanyRegistry`.
-302 tests.
+- **Every class of common equity, then (user's question the same day).** The first version took the first
+  "common stock" title only, so a filer with several classes (Alphabet: GOOGL, GOOG) would register one ticker.
+  `CoverFacts.CommonStocks` now returns every class whose title names common equity - "common stock", "common
+  shares", "ordinary shares" (an ADS of one) - in cover order, never notes or preferred; the registry adds all their
+  tickers and the profile lists each with its title when there are several. The fixture test for it found a bug:
+  the cleaning that title-cases all-capital values ("MICROSOFT CORPORATION") also reached the ticker, so "GOOGL"
+  became "Googl" - the four tickers here have at most four letters. Tickers are now only trimmed. The four filings
+  register and profile exactly as before (dumps unchanged).
+308 tests.
 
 Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
 Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation

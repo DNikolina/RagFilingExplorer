@@ -39,9 +39,15 @@ internal static class FilingProfile
 
         text.Append(fiscalYear is null ? "." : $" (fiscal year {fiscalYear}).");
 
-        if (CoverFacts.CommonStock(xbrl) is ({ } symbol, var exchange))
+        List<(string Symbol, string? Exchange, string Title)> classes = CoverFacts.CommonStocks(xbrl);
+        if (classes is [var single])
         {
-            text.Append($" Common stock trading symbol: {symbol}{(exchange is null ? "" : $", on the {exchange.Replace("The ", "")}")}.");
+            text.Append($" Common stock trading symbol: {single.Symbol}{OnExchange(single.Exchange)}.");
+        }
+        else if (classes.Count > 1)
+        {
+            // Several classes (Alphabet's GOOGL and GOOG): each symbol with the title that tells the classes apart.
+            text.Append($" Common stock trading symbols: {string.Join("; ", classes.Select(c => $"{c.Symbol} ({c.Title}){OnExchange(c.Exchange)}"))}.");
         }
 
         string[] address = new[] { "dei:EntityAddressAddressLine1", "dei:EntityAddressAddressLine2", "dei:EntityAddressCityOrTown" }
@@ -70,4 +76,6 @@ internal static class FilingProfile
     }
 
     private static string? Clean(string? value) => CoverFacts.Clean(value);
+
+    private static string OnExchange(string? exchange) => exchange is null ? "" : $", on the {exchange.Replace("The ", "")}";
 }
