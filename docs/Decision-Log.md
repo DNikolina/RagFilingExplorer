@@ -2137,6 +2137,57 @@ tokens.
 held-out set from 10/15 to 14/15. What it leaves is answer-side (T1, Q21, H13 - the model misreading lines it has) or
 ranking (R3) - 2b and step 5. Switching the shipped defaults to Structured + Hybrid is for the end of v2. 350 tests.
 
+**Step 2b - reranking: researched, then deferred (user, 2026-09-30).** Checked before a spike, including Microsoft Learn:
+- *Microsoft's guidance* (Azure Architecture Center, "Information retrieval", "Use reranking") describes this pipeline:
+  retrieve broadly (~50), merge by RRF, rerank the merged set with a model, keep the top N. It recommends reranking
+  when "you ran hybrid or multiple searches" or "retrieved a large candidate set" - both true since step 2. Options:
+  a cross-encoder (names `ms-marco-MiniLM-L6-v2`, faster, and `-L12-v2`, more accurate; fine-tune for specialised
+  vocabulary), a language model (flexible, dearer - for when a cross-encoder isn't accurate enough), Azure's semantic
+  ranker or Cohere Rerank (cloud - out for a zero-cost local tool). Rerank 20-50 candidates; cross-encoder scores
+  order, they don't threshold; benchmark relevance and latency before adopting.
+- *Locally:* Ollama 0.34.4 still has no rerank endpoint (`/api/rerank`, `/v1/rerank`, `/api/v1/rerank` all 404). The
+  .NET path would be ONNX Runtime (`Microsoft.ML.OnnxRuntime`, not referenced yet) + `BertTokenizer` (WordPiece - in the
+  stable `Microsoft.ML.Tokenizers` 2.0.0 already referenced) + an ONNX export of the cross-encoder. A Python replay
+  spike needs only `tokenizers` and the model files (`onnxruntime` 1.20.1 is already installed, via markitdown).
+  `llama3.1:8b` as the reranker: ~25 chunks x ~500 tokens at ~45 tokens/s = ~4-5 minutes per question - ruled out.
+- *Risks a spike would measure:* MiniLM reads at most 512 WordPiece tokens and number-heavy chunks tokenize long
+  (R3's row sits mid-chunk); MS MARCO is web passages, not financial tables (`bge-reranker-base` as a second candidate).
+- *Planned spike, if resumed:* rerank each question's top 25 hybrid candidates (structured-2 logs) with MiniLM-L6 and
+  L12; recall@5/MRR per group, time per question, truncated chunks; targets R3, T1/H13, T6/T8.
+*Decision (user): defer 2b, go to step 3.* Not a dependency of any later step. What it leaves: R3 wrong (rank 12);
+lookalike ranks as they are (T1, H13 are misreads with the right chunk in context - step 5's target too).
+
+**Step 3 - calculator tool: scoped, then deferred (user, 2026-09-30).** Only 3 of the 55 questions involve arithmetic,
+and two are answered from a figure the filing states (H4's "$3.1 billion", T3's "16%"); V3 ("sum up the numbers",
+wrong - the model lists the three years and never adds) is the only answer a calculator would change. Measuring it
+properly needs its own calculation questions first (8-10: sums, differences, % changes, a margin, a cross-company
+comparison), written and reviewed before any code, with the 55 as the no-tool control. Design if resumed: offer the tool
+only when code detects a requested calculation (Microsoft Learn's tool-calling guidance: "limit tool registration to
+only the tools relevant for a given conversation context"; also avoids Llama 3.1 calling tools unasked); one
+`calculate(expression)` evaluated in C# `decimal` by a small parser (numbers, + - * /, brackets - no eval);
+`FunctionInvokingChatClient` over the Ollama client (Microsoft Learn lists Ollama as supported, streaming included);
+each call printed under `--verbose`. Risk: the second round trip re-sends the prompt - ~2,946 + ~200 tool tokens + 768
+output = ~3,900 of 4,096, so `num_ctx` should be set explicitly with it. *Decision (user): defer - a good-to-have for the
+portfolio story, but the current failures are mostly answer-side; step 3b next.*
+
+**Step 3b - answer verification: measured offline, then deferred (user, 2026-09-30).** The check as planned - every
+figure an answer states must appear in the context it was given - replayed on all 55 `structured-2` answers: each
+question's top-5 context rebuilt by the hybrid replay (which reproduces the app's scores), figures pulled from the answer
+(citations, dates, years and Item/Note numbers excluded), matched against the context's numbers.
+- **0 of 7 wrong answers flagged.** Every wrong answer states a figure that is in its context - they are misreadings,
+  not inventions: a lookalike line (T1 "Comprehensive income" for *Other* comprehensive income; H13 the cash note's
+  figure; Q2 "Total Oracle Corporation stockholders' equity"), the wrong figure from the right row (T9 the per-share
+  $1.70, not the total), the wrong figure for the question (R3 MD&A's increase), a calculation not done (V3), a misread
+  passage (T6).
+- **0 of 48 good answers flagged** (one spike artifact - "November 2025" cut to "25" by the date pattern - aside).
+- The plan's targets came from earlier runs: T9's "$0" (a figure from nothing) and prompt v2's invented R2 calculation.
+  At temperature 0 with prompt v1 and today's retrieval neither occurs. Tracing is convenience, not a score change;
+  `num_ctx` isn't needed while prompts peak at 3,714 of 4,096 tokens (it is if the calculator comes back).
+*Decision (user): defer 3b* - a cheap guard to add if invented figures return (another model, say). Every remaining
+wrong answer is a misreading of context the model has: step 5's target. **Before step 5, a fresh held-out set
+(H16-H30)**, written and answered from the filings before any prompt change - prompt work is where v1 overfit (two
+revisions each fixed their target and broke others), and H1-H15 already helped choose step 2's variant.
+
 Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
 Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation
 memory (follow-up questions), query decomposition beyond per-company search, an API or UI. Automated onboarding

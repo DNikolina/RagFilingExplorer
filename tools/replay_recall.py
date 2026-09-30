@@ -28,7 +28,7 @@
 # `expect` below is keyed by line number in manual-questions.txt (Q1-Q13 and Q17-Q22 follow
 # docs/Manual-Test-Questions.md's order, then its edge cases, then Q23-Q24, then T1-T10 and R1-R3) -
 # keep them in sync. Pass tools/heldout-questions.txt (and its run's log) for H1-H15, whose expected figures
-# are in `expect_heldout`. Requires the app to have been built once (it loads the sqlite-vec extension from bin/).
+# are in `expect_heldout` (H16-H35 appended 2026-09-30, reported as their own group). Requires the app to have been built once (it loads the sqlite-vec extension from bin/).
 import sqlite3, json, urllib.request, math, re, struct, glob, sys
 
 TOP = 25
@@ -90,7 +90,28 @@ expect = {1: ['758,376'], 2: ['43,056'], 3: ['18,821'], 4: ['182,935'], 5: ['31,
 # ("$3.1 billion"), so it ranks at the row holding both inputs; H8 and H15 are negatives.
 expect_heldout = {1: ['35,562'], 2: ['19%'], 3: ['12,405'], 4: ['35,562', '32,488'], 5: ['141,000'],
                   6: ['10,272'], 7: ['5.83'], 8: [], 9: ['5,249'], 10: ['9,525'], 11: ['New York, New York'],
-                  12: ['16,000'], 13: ['9,033,681'], 14: ['1,776'], 15: []}
+                  12: ['16,000'], 13: ['9,033,681'], 14: ['1,776'], 15: [],
+                  # H16-H35 (written 2026-09-30, before step 5)
+                  16: ['3.64'],
+                  17: ['101,832'],
+                  18: ['225,465'],
+                  19: ['119,651'],
+                  20: [],
+                  21: ['20,606'],
+                  22: ['5.94'],
+                  23: ['44,478'],
+                  24: ['57,399'],
+                  25: ['46,751'],
+                  26: ['1,788'],
+                  27: ['1.05'],
+                  28: ['8,573'],
+                  29: ['827'],
+                  30: [],
+                  31: ['13,326,603'],
+                  32: ['2.53'],
+                  33: ['32,778,392'],
+                  34: ['9,127,167'],
+                  35: ['12,722,552']}
 heldout = 'heldout' in questions_path
 if heldout:
     expect = expect_heldout
@@ -98,7 +119,7 @@ if heldout:
 
 def group_of(i):
     if heldout:
-        return 'H1-H15'
+        return 'H1-H15' if i <= 15 else 'H16-H35'
     return 'Q1-Q24' if i <= 24 else 'T1-T10' if i <= 34 else 'R1-R3' if i <= 37 else 'V1-V3'
 
 
@@ -159,7 +180,7 @@ for i, (q, b) in enumerate(zip(questions, blocks), 1):
           f"filter={where}  top1={top1}")
 
 print()
-for group in ('Q1-Q24', 'T1-T10', 'R1-R3', 'V1-V3', 'H1-H15'):
+for group in ('Q1-Q24', 'T1-T10', 'R1-R3', 'V1-V3', 'H1-H15', 'H16-H35'):
     rs = [r for i, r in ranks.items() if group_of(i) == group]
     if not rs:
         continue

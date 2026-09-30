@@ -27,8 +27,9 @@ DECLINE = re.compile(r"(?:don't|do not|does not|doesn't) (?:contain|include|prov
 # The prompt-v1 failure: the units rule came out as the whole answer ("The unit for the figures is not stated.").
 UNIT_ONLY = re.compile(r"^\W*the units?\b[^.]{0,40}\bnot stated\W*$", re.I)
 
-GROUPS = [('Q', 'Main Q1-Q24'), ('T', 'Targeted T1-T10'), ('R', 'Routing R1-R3'), ('V', 'Variants V1-V3'),
-          ('H', 'Held-out H1-H15')]
+# ID patterns: H16-H35 were added after step 2 (2026-09-30), so they report apart from H1-H15 and older runs stay comparable.
+GROUPS = [(r'Q', 'Main Q1-Q24'), (r'T', 'Targeted T1-T10'), (r'R', 'Routing R1-R3'), (r'V', 'Variants V1-V3'),
+          (r'H(?:[1-9]|1[0-5])$', 'Held-out H1-H15'), (r'H(?:1[6-9]|2\d|3[0-5])$', 'Held-out H16-H35')]
 
 
 def answers_from_log(path, count):
@@ -169,6 +170,11 @@ def main():
     if unknown:
         sys.exit('No expected answer for: ' + '; '.join(unknown))
     answers = answers_from_log(log_path, len(questions))
+    # A held-out run from before H16-H35 were appended (2026-09-30) answers only the first 15: grade those. Any other
+    # shortfall, or more answers than questions, still means the wrong log.
+    if len(answers) == 15 < len(questions) and 'heldout' in questions_path:
+        print(f'(a run from before H16-H35: grading the first {len(answers)} of {len(questions)} questions)\n')
+        questions = questions[:len(answers)]
     if len(answers) != len(questions):
         sys.exit(f'{len(answers)} answers in the log for {len(questions)} questions - is it the right log?')
 
@@ -184,7 +190,7 @@ def main():
 
     print()
     for prefix, name in GROUPS:
-        rs = [r for r in results if r['id'].startswith(prefix)]
+        rs = [r for r in results if re.match(prefix, r['id'])]
         if not rs:
             continue
         count = lambda *s: sum(1 for r in rs if r['status'] in s)

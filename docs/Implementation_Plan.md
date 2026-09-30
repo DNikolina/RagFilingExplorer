@@ -109,7 +109,11 @@ T4 and H6 answered right for the first time; totals held back by prompt v1's uni
 statement type a boosting third list instead of a hard filter; chosen by a replay-only spike of six variants. Main 22/24,
 targeted 7/10, **held-out 10 -> 14/15**; R1, R2, H14 (routing misses) and T5 answered right; Q10/V1's lookalike line right
 for the first time; T1 lost (a lookalike line, now among 5 chunks - the hard filter had silently sent 1-4 to most statement
-questions). R3 (its table at rank 12, vector-weak) is **next: step 2b, the reranking spike**. The shipped default stays
+questions). **Step 2b (reranking) researched and deferred (user, 2026-09-30)** - Ollama has no rerank endpoint; the path
+is an ONNX cross-encoder, spike planned but not run; R3 stays wrong. **Step 3 (calculator) scoped and deferred (user)** - only V3 would change on
+today's questions. **Step 3b (answer verification) measured and deferred (user)** - replayed on all 55 answers, it flags
+0 of 7 wrong answers: each states a figure that is in its context (misreadings, not inventions). **Next: a fresh held-out
+set (H16-H30), then step 5, answer skills.** The shipped default stays
 `Vector` (with `Markdown`); the eval build sets `Hybrid`. Still open: the second-model run (step 0), the
 `Console.OutputEncoding` fix. Details: Decision-Log.md, "XBRL hybrid (v2)".
 

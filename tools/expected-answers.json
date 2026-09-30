@@ -66,6 +66,26 @@
     {"id": "H12", "question": "How many full-time employees did Netflix have at the end of 2025?", "kind": "fact", "expect": ["16,000"]},
     {"id": "H13", "question": "What were Netflix's cash and cash equivalents at December 31, 2025?", "kind": "figure", "expect": ["9,033,681"], "unit": "thousand", "traps": ["7,804,733"]},
     {"id": "H14", "question": "What was Netflix's total deferred revenue as of December 31, 2025?", "kind": "figure", "expect": ["1,776"], "unit": "million"},
-    {"id": "H15", "question": "How many paid memberships did Netflix have at the end of 2025?", "kind": "negative"}
+    {"id": "H15", "question": "How many paid memberships did Netflix have at the end of 2025?", "kind": "negative"},
+    {"id": "H16", "question": "What were Microsoft's cash dividends declared per common share in fiscal year 2026?", "kind": "figure", "expect": ["3.64"], "unit": "$", "traps": ["3.32", "27,034"]},
+    {"id": "H17", "question": "What was Microsoft's net income in fiscal year 2025?", "kind": "figure", "expect": ["101,832"], "unit": "million", "conflicts": ["133,749"], "traps": ["133,749", "88,136"]},
+    {"id": "H18", "question": "What was Microsoft's gross margin in fiscal year 2026?", "kind": "figure", "expect": ["225,465"], "unit": "million", "traps": ["193,893", "31.6"]},
+    {"id": "H19", "question": "What was Microsoft's goodwill balance as of June 30, 2026?", "kind": "figure", "expect": ["119,651"], "unit": "million", "conflicts": ["119,509"], "traps": ["51,001", "119,509"]},
+    {"id": "H20", "question": "What was Microsoft's total revenue in fiscal year 2022?", "kind": "negative"},
+    {"id": "H21", "question": "What was Oracle's operating income in fiscal 2026?", "kind": "figure", "expect": ["20,606"], "unit": "million", "traps": ["46,751", "17,678"]},
+    {"id": "H22", "question": "What were Oracle's basic earnings per share for fiscal 2026?", "kind": "figure", "expect": ["5.94"], "unit": "$", "conflicts": ["5.83"], "traps": ["5.83", "2,860"]},
+    {"id": "H23", "question": "How much revenue did Oracle generate in the Americas in fiscal 2026?", "kind": "figure", "expect": ["44,478"], "unit": "million", "traps": ["67,357", "36,339"]},
+    {"id": "H24", "question": "What were Oracle's total revenues in fiscal 2025?", "kind": "figure", "expect": ["57,399"], "unit": "million", "conflicts": ["67,357"], "traps": ["67,357"]},
+    {"id": "H25", "question": "What were Oracle's total operating expenses in fiscal 2026?", "kind": "figure", "expect": ["46,751"], "unit": "million", "traps": ["20,606", "39,721"]},
+    {"id": "H26", "question": "What was net income attributable to Nasdaq in 2025?", "kind": "figure", "expect": ["1,788"], "unit": "million", "conflicts": ["1,787"], "traps": ["1,787", "2,014"]},
+    {"id": "H27", "question": "What were Nasdaq's cash dividends declared per common share in 2025?", "kind": "figure", "expect": ["1.05"], "unit": "$", "traps": ["0.27", "0.24", "0.94"]},
+    {"id": "H28", "question": "What was Nasdaq's long-term debt at December 31, 2025?", "kind": "figure", "expect": ["8,573"], "unit": "million", "traps": ["9,004", "9,081"]},
+    {"id": "H29", "question": "How much revenue did Nasdaq's Index business generate in 2025?", "kind": "figure", "expect": ["827"], "unit": "million", "traps": ["706"]},
+    {"id": "H30", "question": "What was Nasdaq's net income in 2022?", "kind": "negative"},
+    {"id": "H31", "question": "What was Netflix's operating income in 2025?", "kind": "figure", "expect": ["13,326,603"], "unit": "thousand", "traps": ["12,722,552", "2,908,989"]},
+    {"id": "H32", "question": "What were Netflix's diluted earnings per share for 2025?", "kind": "figure", "expect": ["2.53"], "unit": "$", "conflicts": ["2.58"], "traps": ["2.58", "1.98"]},
+    {"id": "H33", "question": "What was the net value of Netflix's content assets at December 31, 2025?", "kind": "figure", "expect": ["32,778,392"], "unit": "thousand", "traps": ["12,138,578", "32,452,462"]},
+    {"id": "H34", "question": "How much cash did Netflix spend repurchasing its common stock in 2025?", "kind": "figure", "expect": ["9,127,167"], "unit": "thousand", "conflicts": ["9,154,855"], "traps": ["9,154,855", "86,536,215"]},
+    {"id": "H35", "question": "What was Netflix's income before income taxes in 2025?", "kind": "figure", "expect": ["12,722,552"], "unit": "thousand", "conflicts": ["13,326,603"], "traps": ["13,326,603"]}
   ]
 }

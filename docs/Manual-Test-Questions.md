@@ -300,3 +300,39 @@ v1's routing). Expected answers and traps come from `chunk-review/markdown/*.chu
 Types: lookalike labels H3, H6, H9, H11; units H13, H14; requested calculation H4; declines H8, H15; prose facts
 H2, H5, H10, H12; plain figures H1, H7. Line numbers are into the v1 Markdown dumps and will move with v2's
 ingestion; the figures won't.
+
+## Held-out questions (H16-H35) - written 2026-09-30, before step 5
+
+Appended to `tools/heldout-questions.txt`, same order. Written after v2 step 2 and before step 5 (answer skills),
+because prompt work is where v1 overfit and H1-H15 had already helped choose step 2's variant. Drafted as 20
+candidates aimed at the failure types of the step 2 run - lookalike lines, per-share vs total, prior periods, a
+statement vs a note, thousands - on topics no earlier question touches; the user kept all 20 without any being run.
+**Same rules as H1-H15: never tune against these.** They are run first on the step 2 code, as the baseline, then only
+to measure. Graded and replayed as their own group (`Held-out H16-H35`). Sources are chunk keys in
+`rag.structured.db`; every expected figure was also found in the filing's HTML, with its units line.
+
+| # | Question | Expected | Traps | Type | Source |
+|---|---|---|---|---|---|
+| H16 | What were Microsoft's cash dividends declared per common share in fiscal year 2026? | **$3.64** | 3.32 (FY2025), 27,034 (total dividends, $M) | per-share vs total | MSFT 103 |
+| H17 | What was Microsoft's net income in fiscal year 2025? | **$101,832 million** | 133,749 (FY2026), 88,136 (FY2024) | prior period | MSFT 94 |
+| H18 | What was Microsoft's gross margin in fiscal year 2026? | **$225,465 million** | 16%, "$31.6 billion" (the increase), 193,893 (FY2025) | figure vs change | MSFT 71 |
+| H19 | What was Microsoft's goodwill balance as of June 30, 2026? | **$119,651 million** | 51,001 (Activision's goodwill), 119,509 (2025) | statement vs note | MSFT 97 |
+| H20 | What was Microsoft's total revenue in fiscal year 2022? | **Decline** - the filing covers fiscal 2024-2026 | a figure from training data | decline | MSFT (no FY2022 revenue) |
+| H21 | What was Oracle's operating income in fiscal 2026? | **$20,606 million** | 46,751 (total operating expenses), 17,678 (FY2025) | lookalike line | ORCL 849 |
+| H22 | What were Oracle's basic earnings per share for fiscal 2026? | **$5.94** | 5.83 (diluted - H7), 2,860 (basic shares) | lookalike line | ORCL 849 |
+| H23 | How much revenue did Oracle generate in the Americas in fiscal 2026? | **$44,478 million** | 67,357 (total), 22%, 36,339 (FY2025) | segment row | ORCL 799 |
+| H24 | What were Oracle's total revenues in fiscal 2025? | **$57,399 million** | 67,357 (FY2026) | prior period | ORCL 799, 849 |
+| H25 | What were Oracle's total operating expenses in fiscal 2026? | **$46,751 million** | 20,606 (operating income), 39,721 (FY2025) | lookalike line | ORCL 799 |
+| H26 | What was net income attributable to Nasdaq in 2025? | **$1,788 million** | 1,787 (net income incl. noncontrolling interests), 2,014 (non-GAAP) | lookalike line | NDAQ 400 |
+| H27 | What were Nasdaq's cash dividends declared per common share in 2025? | **$1.05** | 0.27 / 0.24 (quarterly), 0.94 (2024) | per-share vs quarterly | NDAQ 401 |
+| H28 | What was Nasdaq's long-term debt at December 31, 2025? | **$8,573 million** | 9,004 (total debt obligations), 9,081 (2024) | statement vs note | NDAQ 398, 453 |
+| H29 | How much revenue did Nasdaq's Index business generate in 2025? | **$827 million** | 706 (2024), 17.1% | business line | NDAQ 309, 436 |
+| H30 | What was Nasdaq's net income in 2022? | **Decline** - the filing covers 2023-2025 | a figure from training data | decline | NDAQ (no 2022 net income) |
+| H31 | What was Netflix's operating income in 2025? | **$13,326,603 thousand** | 12,722,552 (income before income taxes), 2,908,989 (the change) | lookalike line + units | NFLX 612 |
+| H32 | What were Netflix's diluted earnings per share for 2025? | **$2.53** | 2.58 (basic), 1.98 (2024) | lookalike line | NFLX 613 |
+| H33 | What was the net value of Netflix's content assets at December 31, 2025? | **$32,778,392 thousand** | 12,138,578 (licensed content only), 32,452,462 (2024) | statement vs note | NFLX 619, 640 |
+| H34 | How much cash did Netflix spend repurchasing its common stock in 2025? | **$9,127,167 thousand** | 9,154,855 (equity statement - recorded when made, not when paid), 86,536,215 (shares) | cash flow vs equity statement | NFLX 618, 623 |
+| H35 | What was Netflix's income before income taxes in 2025? | **$12,722,552 thousand** | 13,326,603 (operating income) | lookalike line | NFLX 612, 679 |
+
+Types: lookalike lines H18, H21, H22, H25, H26, H31, H32, H35; per-share vs total H16, H27; prior period H17, H24;
+statement vs note H19, H28, H33, H34; segment or business line H23, H29; declines H20, H30; thousands H31, H33-H35.
