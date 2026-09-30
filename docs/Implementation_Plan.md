@@ -104,7 +104,9 @@ no score gained, retrieval MRR down 14-18%, T2's period worse; T4's miss is now 
 **1d done (`eval/structured-1d/`):** every chunk's embedding text opens with the company and filing from the cover
 facts - chosen by a replay-only experiment of five embedding texts; targeted recall@5 8 -> 9/10, held-out 9 -> 11/13;
 T4 and H6 answered right for the first time; totals held back by prompt v1's units rule leaking into declines.
-**Step 1 (ingestion) complete. Next: decide whether answer skills (step 5) moves ahead of step 2**, then step 2. Still open: the second-model run
+**Step 1 (ingestion) complete.** Order kept (user, 2026-09-29): **next is step 2, hybrid search** - FTS5 `bm25()` +
+sqlite-vec + reciprocal rank fusion, statement labels as soft boosts; its targets: the routing misses (R1-R3, H14 -
+a hard filter excludes the answer), T5's verbatim phrase, and lookalike ranks. Still open: the second-model run
 (step 0), the `Console.OutputEncoding` fix. Details: Decision-Log.md, "XBRL hybrid (v2)".
 
 **Known, not planned:** statement routing is keyword *substring* matching over a hard filter - "deferred

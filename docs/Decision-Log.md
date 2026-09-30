@@ -2065,6 +2065,10 @@ figures out; `co` = + one line, "Oracle Corporation (ORCL), Form 10-K for fiscal
   section) ahead of step 2 is the user's call, to discuss next.
 323 tests.
 
+**Decision (user, 2026-09-29): keep the plan's order** - step 2 (hybrid search) next, answer skills stays step 5. Each
+retrieval step goes on being measured against prompt v1, its decline leak read per question (as in 1d) rather than
+fixed first.
+
 Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
 Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation
 memory (follow-up questions), query decomposition beyond per-company search, an API or UI. Automated onboarding
