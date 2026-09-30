@@ -2204,6 +2204,32 @@ problem (8/8) and retrieval was. *Decision (user):* first a narrow step 5 change
 H15, Q15, T2 in earlier runs) - then resume the 2b reranking spike, which now has measured targets (H25, H29, H34, R3 -
 all at rank 7-12). The rest of step 5 waits for evidence; 20 questions is a direction, not a rule.
 
+**Step 5a - a fixed decline form: two measured versions, the second kept (2026-09-30, `eval/structured-5a/`).** One change
+to prompt v1's opening paragraph - "If the excerpts do not contain the answer, say so in one sentence instead of
+guessing, without listing unrelated figures" became "... in exactly this form: "The excerpts don't contain <what the
+question asks for>."". It is prompt v2's decline form (the manual pass), the one part of v2 that did what it targeted; v2
+failed by changing four things at once, so this changed only that. Retrieval identical to step 2 on every question in
+both runs - every difference is the prompt.
+| | step 2 | first version (declined) | **kept version** |
+|---|---|---|---|
+| Main / targeted / routing / variants, reliable | 22/24, 7/10, 2/3, 2/3 | 22/24, 6/10, 2/3, 2/3 | 22/24, 7/10, 2/3, 2/3 |
+| Held-out H1-H15 / H16-H35, reliable | 14/15, 16/20 | 14/15, 16/20 | 14/15, **17/20** |
+- **First version** (`eval/structured-5a-declined/`) ended with "Do not add figures or units to it.": every decline clean
+  (H20 fixed), but two NFLX answers dropped "thousand" (T10 "$96,795", H31 "$13,326,603") - the only place the prompt
+  now said "do not add ... units", and both regressions were exactly that. A clause meant for declines leaked into
+  figure answers.
+- **Kept version** - the same without that sentence: H20 fixed ("The excerpts don't contain Microsoft's total revenue in
+  fiscal year 2022."); every decline clean (H8, H15, H20, H30, Q15, Q16, V2 - none leaks "The unit is not stated.");
+  T6 and H29 wrong figures -> declines (still not counted right, but no misread figure stated); T10 and H31 units back;
+  no correct answer changed status or became a decline.
+- The first prompt change in this project that fixed its target without moving a failure elsewhere - because it changed
+  one sentence, and the leak from the first version was caught by the full run.
+- The user raised whether the opening "Answer using ONLY the context excerpts" is reliable (in their manual testing a
+  "don't" phrasing held better than "ONLY"). No measured sign it fails now: the 3b spike found no answer figure outside
+  its context in 55 answers, and no decline trap produced a training-data figure. Not changed alongside the decline form
+  (one change per run); a candidate to test on its own if a failure is found.
+*Decision (user): keep the second version.* Next: resume the 2b reranking spike (targets H25, H29, H34, R3).
+
 Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
 Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation
 memory (follow-up questions), query decomposition beyond per-company search, an API or UI. Automated onboarding

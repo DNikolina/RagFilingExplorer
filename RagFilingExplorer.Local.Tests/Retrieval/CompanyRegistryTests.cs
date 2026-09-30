@@ -57,7 +57,7 @@ public class CompanyRegistryTests
             .Where(q => q.Trim().Length > 0)
             .ToArray();
 
-        Assert.That(questions, Has.Length.EqualTo(55));
+        Assert.That(questions, Has.Length.EqualTo(75), "40 main + 35 held-out (H16-H35 appended 2026-09-30)");
         foreach (string question in questions)
         {
             string[] v1 = HandWrittenV1.Where(kvp => question.Contains(kvp.Key, StringComparison.OrdinalIgnoreCase))

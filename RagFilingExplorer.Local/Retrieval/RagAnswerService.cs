@@ -48,12 +48,17 @@ internal sealed class RagAnswerService(
     // figure named after the wrong one of two near-identical lines (Q10), citations by excerpt number only,
     // pasted pipe-table rows, unrequested and wrong arithmetic, and declines padded with unrelated figures.
     // Two further revisions (2026-09-28) each fixed what they targeted and broke other answers - neither
-    // beat this one overall, so it stays; see Decision-Log.md, "manual pass (v1)".
+    // beat this one overall, so it stays; see Decision-Log.md, "manual pass (v1)". The fixed decline form (v2 step 5a)
+    // is the one part of that v2 revision that did what it targeted - declines written as the units rule ("The unit is
+    // not stated." - H20, and H8, H15, Q15, T2 in earlier runs) - changed alone this time: every decline clean, no answer
+    // lost. A first version also said "Do not add figures or units to it." and two NFLX answers dropped "thousand"
+    // (T10, H31): a decline-only clause about units leaked into figure answers. Keep unit wording out of this sentence.
     private const string SystemPrompt = """
         You are a financial research assistant answering questions about SEC 10-K filings.
         Answer using ONLY the context excerpts provided below - do not use any outside knowledge about
         these companies, even if you recognize them. If the excerpts do not contain the answer, say so in
-        one sentence instead of guessing, without listing unrelated figures.
+        one sentence instead of guessing, in exactly this form: "The excerpts don't contain <what the
+        question asks for>."
 
         Rules for every answer:
         - State each figure with its unit right after the number and its period, e.g. "$55,596,993 thousand

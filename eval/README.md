@@ -64,5 +64,11 @@ confirmed). **H16-H35: reliable 16/20**; replay recall@5 15/18, MRR 0.741. Wrong
 (the answer at rank 11, 7, 9); H34 carries the user's decision. Malformed: H20 (prompt v1's "The unit is not stated." as a
 decline). All 8 lookalike-line questions, both per-share, both prior-period and the four NFLX thousands passed.
 
+**`structured-5a/`** - plus step 5a, a fixed decline form in the prompt ("The excerpts don't contain <what the question asks
+for>."), run 2026-09-30: main 22/24, targeted 7/10, routing 2/3, variants 2/3, held-out 14/15 and **17/20** (H20 fixed).
+Every decline clean; T6 and H29 now decline instead of stating a wrong figure; no correct answer lost; retrieval identical
+to step 2. **`structured-5a-declined/`** - the first version, which also said "Do not add figures or units to it.": the same
+declines, but T10 and H31 dropped "thousand" (targeted 6/10, H16-H35 16/20). Not kept.
+
 Temperature 0 is deterministic here: the baseline's 40 main answers are word-for-word identical to the
 2026-09-25 run on the same code, so a changed answer means a changed input, not sampling.

@@ -114,8 +114,10 @@ is an ONNX cross-encoder, spike planned but not run; R3 stays wrong. **Step 3 (c
 today's questions. **Step 3b (answer verification) measured and deferred (user)** - replayed on all 55 answers, it flags
 0 of 7 wrong answers: each states a figure that is in its context (misreadings, not inventions). **Fresh held-out set H16-H35
 written and baselined** on the step 2 code (`eval/structured-2-heldout35/`): 16/20; 3 of 4 failures are retrieval misses
-(rank 7-11), 1 a malformed decline; all 8 lookalike-line questions passed. **Next (user): step 5's decline wording only,
-then resume the 2b reranking spike** (targets H25, H29, H34, R3). The shipped default stays
+(rank 7-11), 1 a malformed decline; all 8 lookalike-line questions passed. **Step 5a done and kept (`eval/structured-5a/`):** a fixed decline form
+("The excerpts don't contain <what the question asks for>.") - every decline clean, H20 fixed, T6/H29 wrong figures now
+declines, nothing lost; held-out H16-H35 16 -> 17/20, all else unchanged. A first version that also said "no units"
+dropped two NFLX units and was not kept. **Next: resume the 2b reranking spike** (targets H25, H29, H34, R3). The shipped default stays
 `Vector` (with `Markdown`); the eval build sets `Hybrid`. Still open: the second-model run (step 0), the
 `Console.OutputEncoding` fix. Details: Decision-Log.md, "XBRL hybrid (v2)".
 
