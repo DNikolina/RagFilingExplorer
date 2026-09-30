@@ -58,5 +58,11 @@ right, T1 wrong - a lookalike line), routing 2/3 (R1, R2 answered right; R3 wron
 MRR 0.904; `tools/replay_recall.py` replays these logs from their "(keywords: ...)" lines and reproduces the app's top score
 on all 55 questions.
 
+**`structured-2-heldout35/`** - the step 2 code again (no change), on the held-out file after H16-H35 were appended: the
+baseline for the fresh questions, run 2026-09-30 before step 5. H1-H15 word for word as in `structured-2/` (repeatability
+confirmed). **H16-H35: reliable 16/20**; replay recall@5 15/18, MRR 0.741. Wrong: H25, H29, H34 - each a retrieval miss
+(the answer at rank 11, 7, 9); H34 carries the user's decision. Malformed: H20 (prompt v1's "The unit is not stated." as a
+decline). All 8 lookalike-line questions, both per-share, both prior-period and the four NFLX thousands passed.
+
 Temperature 0 is deterministic here: the baseline's 40 main answers are word-for-word identical to the
 2026-09-25 run on the same code, so a changed answer means a changed input, not sampling.

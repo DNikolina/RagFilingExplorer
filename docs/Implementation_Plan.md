@@ -112,8 +112,10 @@ for the first time; T1 lost (a lookalike line, now among 5 chunks - the hard fil
 questions). **Step 2b (reranking) researched and deferred (user, 2026-09-30)** - Ollama has no rerank endpoint; the path
 is an ONNX cross-encoder, spike planned but not run; R3 stays wrong. **Step 3 (calculator) scoped and deferred (user)** - only V3 would change on
 today's questions. **Step 3b (answer verification) measured and deferred (user)** - replayed on all 55 answers, it flags
-0 of 7 wrong answers: each states a figure that is in its context (misreadings, not inventions). **Next: a fresh held-out
-set (H16-H30), then step 5, answer skills.** The shipped default stays
+0 of 7 wrong answers: each states a figure that is in its context (misreadings, not inventions). **Fresh held-out set H16-H35
+written and baselined** on the step 2 code (`eval/structured-2-heldout35/`): 16/20; 3 of 4 failures are retrieval misses
+(rank 7-11), 1 a malformed decline; all 8 lookalike-line questions passed. **Next (user): step 5's decline wording only,
+then resume the 2b reranking spike** (targets H25, H29, H34, R3). The shipped default stays
 `Vector` (with `Markdown`); the eval build sets `Hybrid`. Still open: the second-model run (step 0), the
 `Console.OutputEncoding` fix. Details: Decision-Log.md, "XBRL hybrid (v2)".
 

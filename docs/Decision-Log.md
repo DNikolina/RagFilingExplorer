@@ -2185,8 +2185,24 @@ question's top-5 context rebuilt by the hybrid replay (which reproduces the app'
   `num_ctx` isn't needed while prompts peak at 3,714 of 4,096 tokens (it is if the calculator comes back).
 *Decision (user): defer 3b* - a cheap guard to add if invented figures return (another model, say). Every remaining
 wrong answer is a misreading of context the model has: step 5's target. **Before step 5, a fresh held-out set
-(H16-H30)**, written and answered from the filings before any prompt change - prompt work is where v1 overfit (two
+(H16-H35)**, written and answered from the filings before any prompt change - prompt work is where v1 overfit (two
 revisions each fixed their target and broke others), and H1-H15 already helped choose step 2's variant.
+
+**H16-H35 written and baselined (2026-09-30, `eval/structured-2-heldout35/`).** 20 candidates drafted from the filings
+(lookalike lines, per-share vs total, prior periods, statement vs note, segment rows, thousands, declines), every
+expected figure found in the chunk text and in the filing's HTML with its units line; the user kept all 20 without any
+being run (docs/Manual-Test-Questions.md). Graded and replayed as their own group. Baseline on the unchanged step 2 code:
+- **Repeatable:** H1-H15 word for word as in `structured-2/` (H15 differed only by the old log's trailing prompt).
+- **H16-H35 reliable 16/20**, replay recall@5 15/18, MRR 0.741.
+- **3 of the 4 failures are retrieval:** H25 (Oracle total operating expenses - rank 11; the model gave total revenues
+  instead of declining), H29 (Nasdaq Index revenue - rank 7; a wrong figure), H34 (Netflix cash for buybacks - rank 9;
+  the share count and MD&A's rounded "$9.1 billion", which rounds both the cash-flow and the equity-statement figure -
+  wrong, user's decision). **1 is answer-side:** H20, a decline written as prompt v1's "The unit is not stated.".
+- **Passed:** all 8 lookalike-line questions, both per-share, both prior-period, all four NFLX thousands.
+*What it changed:* the step 5 case rested on T1, H13 and Q2 - studied cases; on fresh questions lookalike lines weren't a
+problem (8/8) and retrieval was. *Decision (user):* first a narrow step 5 change - the decline wording only (H20 now; H8,
+H15, Q15, T2 in earlier runs) - then resume the 2b reranking spike, which now has measured targets (H25, H29, H34, R3 -
+all at rank 7-12). The rest of step 5 waits for evidence; 20 questions is a direction, not a rule.
 
 Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
 Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation
