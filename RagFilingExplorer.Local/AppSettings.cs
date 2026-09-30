@@ -2,6 +2,7 @@ using System.Reflection;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using RagFilingExplorer.Local.Chunking;
+using RagFilingExplorer.Local.Retrieval;
 
 namespace RagFilingExplorer.Local;
 
@@ -103,6 +104,13 @@ internal sealed class RetrievalSettings
     public required int VerboseSearchTopK { get; set; }
     public required int GenerationTopK { get; set; }
     public required float ChatTemperature { get; set; }
+
+    // Vector (v1: the statement type is a hard filter) or Hybrid (v2 step 2: vectors + FTS5 keywords, fused, the
+    // statement type a boost) - bound straight to the enum, so a typo fails at startup. See RagAnswerService.
+    public required SearchMode Search { get; set; }
+
+    // How deep each of hybrid search's ranked lists goes before they're fused. Unused by Vector search.
+    public required int HybridCandidates { get; set; }
 
     // One of Microsoft.Extensions.AI's ReasoningEffort enum names (None, Low, Medium, High, ExtraHigh) -
     // bound straight to the enum, so a typo fails at startup rather than when it's first used.

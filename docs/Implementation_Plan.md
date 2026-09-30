@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 323 offline unit tests (on the v2 branch; 176 at v1.0) |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 350 offline unit tests (on the v2 branch; 176 at v1.0) |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -104,16 +104,20 @@ no score gained, retrieval MRR down 14-18%, T2's period worse; T4's miss is now 
 **1d done (`eval/structured-1d/`):** every chunk's embedding text opens with the company and filing from the cover
 facts - chosen by a replay-only experiment of five embedding texts; targeted recall@5 8 -> 9/10, held-out 9 -> 11/13;
 T4 and H6 answered right for the first time; totals held back by prompt v1's units rule leaking into declines.
-**Step 1 (ingestion) complete.** Order kept (user, 2026-09-29): **next is step 2, hybrid search** - FTS5 `bm25()` +
-sqlite-vec + reciprocal rank fusion, statement labels as soft boosts; its targets: the routing misses (R1-R3, H14 -
-a hard filter excludes the answer), T5's verbatim phrase, and lookalike ranks. Still open: the second-model run
-(step 0), the `Console.OutputEncoding` fix. Details: Decision-Log.md, "XBRL hybrid (v2)".
+**Step 1 (ingestion) complete.** Order kept (user, 2026-09-29). **Step 2, hybrid search, done and kept (2026-09-30,
+`eval/structured-2/`):** `Retrieval:Search = Hybrid` - FTS5 `bm25()` + sqlite-vec fused by reciprocal rank fusion, the
+statement type a boosting third list instead of a hard filter; chosen by a replay-only spike of six variants. Main 22/24,
+targeted 7/10, **held-out 10 -> 14/15**; R1, R2, H14 (routing misses) and T5 answered right; Q10/V1's lookalike line right
+for the first time; T1 lost (a lookalike line, now among 5 chunks - the hard filter had silently sent 1-4 to most statement
+questions). R3 (its table at rank 12, vector-weak) is **next: step 2b, the reranking spike**. The shipped default stays
+`Vector` (with `Markdown`); the eval build sets `Hybrid`. Still open: the second-model run (step 0), the
+`Console.OutputEncoding` fix. Details: Decision-Log.md, "XBRL hybrid (v2)".
 
-**Known, not planned:** statement routing is keyword *substring* matching over a hard filter - "deferred
-revenues" routes to the income statement and can't reach the balance sheet (R1); colliding keywords
-drop the filter ("cash flow hedge", T10). Chunks routinely exceed the 500-token budget (up to ~800 for NFLX's widest
-tables) - rows and blocks are counted separately, without the separators joining them. Well inside
-nomic-embed-text's context, so harmless in practice; the budget is approximate by design.
+**Known, not planned:** statement routing is keyword *substring* matching - "deferred revenues" routes to the income
+statement (R1); colliding keywords drop the route ("cash flow hedge", T10). Under `Vector` search it's a hard filter, so
+R1 can't reach the balance sheet; under `Hybrid` it only boosts, and R1 is answered. Chunks routinely exceed the
+500-token budget (up to ~800 for NFLX's widest tables) - rows and blocks are counted separately, without the separators
+joining them. Well inside nomic-embed-text's context, so harmless in practice; the budget is approximate by design.
 
 ---
 
@@ -138,7 +142,9 @@ data/*.html
                           reset at "Notes to Financial Statements" and on filing change
   → SqliteVec index       rag.<strategy>.db; nomic-embed-text, "search_document:" prefix, EmbeddingTextBuilder text
   → RagAnswerService      QueryIntentResolver filter (company + statement type) → top-K search
-                          (one per company, interleaved, when 2+ are named) →
+                          (one per company, interleaved, when 2+ are named) - Vector: statement type a
+                          hard filter; Hybrid (v2): vector + FTS5 bm25 (chunks_fts, created at startup)
+                          + vector-within-statement, 50 deep each, fused by RRF (k = 60) →
                           citation prompt → llama3.1:8b (reasoning only for synthesis questions
                           on a model that reports the "thinking" capability)
 ```
@@ -146,7 +152,8 @@ data/*.html
 Packages: `Microsoft.Extensions.AI`, `Microsoft.Extensions.VectorData.Abstractions`,
 `CommunityToolkit.VectorData.SqliteVec` (1.0.1-preview), `OllamaSharp`,
 `Microsoft.ML.Tokenizers.Data.Cl100kBase`, `Microsoft.Extensions.Configuration(.Json/.Binder)`,
-`Microsoft.Bcl.Memory` (pinned — see below). Tests: NUnit + Moq. Tunables live in
+`Microsoft.Bcl.Memory` (pinned — see below), `Microsoft.Data.Sqlite` (hybrid search's FTS5 queries; already
+transitive via SqliteVec, referenced at the same version). Tests: NUnit + Moq. Tunables live in
 `RagFilingExplorer.Local/appsettings.json`; domain logic (keyword lists, regexes) stays in code.
 
 ---
@@ -180,6 +187,9 @@ Packages: `Microsoft.Extensions.AI`, `Microsoft.Extensions.VectorData.Abstractio
 - **Prompt + `Retrieval.MaxOutputTokens` must fit Ollama's `num_ctx`** (4096 by default; the app doesn't
   set it). Past it, Ollama silently drops the oldest tokens - the system prompt and the top-ranked chunks.
   Prompts reach ~3,000 tokens, so raising `MaxOutputTokens` or `GenerationTopK` needs `num_ctx` raised too.
+- **`tools/replay_recall.py` mirrors hybrid search's constants** (`HYBRID_CANDIDATES` = `Retrieval:HybridCandidates`,
+  `RRF_K` = `RankFusion.K`) - change one without the other and the replay stops reproducing the app, silently. Check
+  that its top score matches the log's `[1] score=` after any retrieval change (it did on all 55 questions at step 2).
 - **Config values live only in `appsettings.json`** — no duplicate defaults in code (this has drifted
   twice). Presence of every key is validated at load, since `required` doesn't apply to the binder.
 - After any package change, run `dotnet list package --vulnerable --include-transitive`

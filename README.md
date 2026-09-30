@@ -227,7 +227,8 @@ Full diagnostic detail, including how each bug was actually found, is in
   Answers that live elsewhere in the filing can't be retrieved: segment or regional breakdowns, MD&A
   explanations, accounting policies, or a term from a different statement ("deferred revenue" is on
   the balance sheet). In testing the model declined these rather than guess, but the miss is by design.
-  A soft filter was measured and not built; a planned v2 targets this with XBRL section labels - see
+  A soft filter was measured and not built in v1. On the v2 branch, hybrid search (`Retrieval:Search = Hybrid`:
+  keyword + vector search, the statement type a boost rather than a filter) answers these routing misses - see
   [docs/Design-FAQ.md](docs/Design-FAQ.md) and [docs/Decision-Log.md](docs/Decision-Log.md), "XBRL hybrid (v2)".
 
 ## What I'd do differently
@@ -256,7 +257,7 @@ Full diagnostic detail, including how each bug was actually found, is in
 dotnet test
 ```
 
-Runs `RagFilingExplorer.Local.Tests` (NUnit + Moq) — 323 tests, fully offline, no live Ollama instance
+Runs `RagFilingExplorer.Local.Tests` (NUnit + Moq) — 350 tests, fully offline, no live Ollama instance
 or populated vector store required. Covers chunking, section splitting, statement-type detection,
 query-intent resolution, settings loading/validation, index-manifest staleness detection, the
 retrieve+generate orchestration (mocked), and the v2 inline XBRL reader - checked against the filings in `data/`,

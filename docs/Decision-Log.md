@@ -2069,6 +2069,74 @@ figures out; `co` = + one line, "Oracle Corporation (ORCL), Form 10-K for fiscal
 retrieval step goes on being measured against prompt v1, its decline leak read per question (as in 1d) rather than
 fixed first.
 
+**Step 2 - hybrid search: measured by replay first, then built (2026-09-30, `eval/structured-2/`).**
+*The spike.* A scratch replay (no LLM, no change to the index: FTS5 in an in-memory copy of `chunks`) ranked every
+question six ways from the 1d logs' filters. Keyword side: FTS5 over heading + content, `porter unicode61`, `bm25()`,
+the question's content words OR-ed (stop words, four-digit years and company names dropped). Fusion: reciprocal rank
+fusion, k = 60. Its `hard` column reproduced the recorded 1d replay exactly. recall@5 / MRR:
+| | hard (1d) | vec | hyb | **hyb+soft1** | hyb+soft | hybP+soft |
+|---|---|---|---|---|---|---|
+| Main Q1-Q24 | 22/22, 0.86 | 19/22, 0.67 | 21/22, 0.77 | **22/22, 0.89** | 22/22, 0.89 | 22/22, 0.89 |
+| Targeted T1-T10 | 9/10, 0.76 | 9/10, 0.76 | 10/10, 0.75 | **10/10, 0.75** | 10/10, 0.75 | 10/10, 0.78 |
+| Routing R1-R3 | 0/3, 0.00 | 2/3, 0.50 | 2/3, 0.53 | **2/3, 0.28** | 2/3, 0.20 | 2/3, 0.20 |
+| Held-out H1-H15 | 11/13, 0.71 | 12/13, 0.79 | 13/13, 0.90 | **13/13, 0.90** | 13/13, 0.89 | 13/13, 0.81 |
+`vec` = vectors, company filter only; `hyb` = vectors + keywords; `soft1` = plus a third list, the vector ranking
+within the resolved statement type (the label as a boost); `soft` = plus that list's keyword twin too; `P` = plus
+two-word phrases in the keyword query.
+- **The statement boost is what keeps statement questions intact:** without it Q23 fell 1 -> 11, Q2 1 -> 5, Q4 2 -> 4.
+- **Phrases not kept:** T5 4 -> 2, but H6 and H13 1 -> 2.
+- **One list, not two:** `soft1` beat or tied `soft` everywhere (R1 2 vs 3, R2 4 vs 5, H14 2 vs 3).
+- **Candidate depth 50:** cutting each list to 25/50/100 before fusion - 50 matched the full rankings on every group and
+  was slightly better on R1/R2 than 100; 25 dropped R3 to 20. A filing has 199-294 chunks.
+- The held-out set was used to choose among variants, so it isn't a clean held-out check of this step - though every
+  hybrid variant scored 13/13 there; the choice was settled by the main and routing sets.
+*R3 checked before deciding (user).* "What was Microsoft's Intelligent Cloud segment revenue?" - the answer ($137,791M)
+is in two row-line tables (segment note, key 176; MD&A, key 73). bm25 ranks key 176 2nd of 210 MSFT chunks; the vector
+search ranks it 34th, behind prose about Intelligent Cloud (the segment note's text is 1st, then Item 1 and MD&A) - a
+number-heavy table opening with another segment's rows. RRF rewards agreement, so a chunk strong in one list and weak
+in the other lands mid-list (14th fused). The statement boost costs it only one place (MSFT has two income-statement
+chunks); plain hybrid ranks it 12th. Decision (user): build `hyb+soft1`; R3 is step 2b's first target - reranking reads
+question and chunk together - rather than a keyword weight tuned to one question.
+*Built.* `Retrieval:Search` (`Vector` | `Hybrid`) and `Retrieval:HybridCandidates` (50) in appsettings.json; the shipped
+default stays `Vector`, matching the shipped `Markdown` strategy, so v1 is unchanged - the eval build sets `Hybrid`.
+- `KeywordIndex` (VectorStore/): an FTS5 external-content table `chunks_fts` over SqliteVec's `chunks` table (text not
+  stored twice), created at startup if missing - no rebuild needed for an existing index, and a `--rebuild` deletes both.
+  Plain `Microsoft.Data.Sqlite` (already a transitive dependency, now referenced at the same 10.0.9; no vulnerable packages).
+- `KeywordQuery` (Retrieval/): the spike's query; company names come from `CompanyRegistry`.
+- `RankFusion` (Retrieval/): RRF, k = 60, ties in first-seen order (as Python's stable sort, so the replay matches).
+- `RagAnswerService`: per filing, the vector search (company filter only), the keyword search, and - when a statement type
+  resolved - the vector search within it, each `HybridCandidates` deep, fused and cut to top-K; multi-company questions
+  interleave per filing as before. `Vector` mode is the old code path, untouched.
+- Output: the filter line says "boosting statement type: ..." under hybrid; `--verbose` adds "(keywords: ...)" - which
+  `tools/replay_recall.py` reads to replay a hybrid run (its presence marks one), the query not re-derived.
+*A side effect found in the run (user asked):* the hard filter had silently capped the model's context. `GenerationTopK`
+is 5, but a filtered search can only return the statement's own chunks - 1 to 5 per statement per filing (every
+comprehensive-income statement is one chunk). In 1d, 26 of 40 main questions reached the model with fewer than 5 chunks
+(7 with one). Hybrid sends 5 to every question. Nothing chose the small contexts; they helped T1 and hid nothing else.
+*Prompt sizes checked (user asked), from Ollama's server log:* chat prompts 2,041-2,946 tokens (median 2,562, was ~1,930),
+largest + 768 output = 3,714 of 4,096; `truncated = 0` on every request, chat and embedding. The embedding window
+(2,048, checked 2026-09-29) is untouched: the index wasn't re-embedded, FTS5 doesn't embed, query embeddings are <= 33
+tokens.
+*The question run* (`eval/structured-2/`; the replay reproduces the app's top score on all 55 questions):
+| | 1d | 2 |
+|---|---|---|
+| Main / targeted / routing / variants, reliable | 22/24, 7/10, 3/3, 1/3 | 22/24, 7/10, 2/3, 2/3 |
+| Held-out, reliable | 10/15 | **14/15** |
+| Replay recall@5, MRR: main / targeted / held-out | 22/22 0.856, 9/10 0.762, 11/13 0.715 | 22/22 0.886, 10/10 0.750, 13/13 0.904 |
+- **Fixed:** R1 ($9,916M) and R2 ($1,274M) - answered for the first time, the answer no longer filtered out; H14 ($1,776M,
+  the same routing miss); T5 ($48,562M, the keyword side); H10 (9,525 employees, was unrelated figures); Q10 and V1 - the
+  lookalike line right for the first time (2,113 and 940, not 2,114 and 942), cited from the comprehensive income
+  statement; H8 and H15 decline cleanly instead of prompt v1's "The unit is not stated.".
+- **Lost:** T1 - "$104,075 million", the same statement's *Comprehensive income* line, not *Other comprehensive income*
+  ($2,243M); the statement is still rank 1, but the model now reads it among five chunks (two accumulated-OCI note tables)
+  instead of alone. Q21 dropped "thousand" (correct, not reliable).
+- **Routing's 3/3 -> 2/3 is the grader's count:** it scored 1d's three declines as reliable. In substance 0 answered -> 2
+  right; R3 moved from a decline to a wrong figure (MD&A's "$31.5 billion or 30%" increase; its table at rank 12).
+- **Unchanged misses:** T6 (declined -> a wrong reading, neither reliable), H13 (the cash note's lookalike line, as in 1d).
+*Decision (user): keep step 2.* It holds the strict 22/24, answers the routing misses it was built for, and takes the
+held-out set from 10/15 to 14/15. What it leaves is answer-side (T1, Q21, H13 - the model misreading lines it has) or
+ranking (R3) - 2b and step 5. Switching the shipped defaults to Structured + Hybrid is for the end of v2. 350 tests.
+
 Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
 Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation
 memory (follow-up questions), query decomposition beyond per-company search, an API or UI. Automated onboarding

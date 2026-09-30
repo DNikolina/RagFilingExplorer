@@ -122,7 +122,18 @@ static async Task RunAsync(string[] args)
     // question pulling in ORCL chunks, or a single filing's many similarly-shaped "Item 15" tables burying
     // the right one). See RagAnswerService/QueryIntentResolver for the actual resolution + search + prompt
     // + generation flow - extracted out of this loop so it can be unit-tested with mocked dependencies.
-    RagAnswerService ragAnswerService = new(collection, chatApiClient, settings.Retrieval, chatModelSupportsThinking, companies);
+    //
+    // Hybrid search (Retrieval:Search) adds an FTS5 keyword index to the same database - created on first use, so an
+    // index built before hybrid search existed needs no rebuild (see KeywordIndex.EnsureCreated).
+    KeywordIndex? keywordIndex = null;
+    if (settings.Retrieval.Search == SearchMode.Hybrid)
+    {
+        keywordIndex = new KeywordIndex(index.DbPath);
+        keywordIndex.EnsureCreated();
+    }
+
+    Console.WriteLine($"Search: {settings.Retrieval.Search}");
+    RagAnswerService ragAnswerService = new(collection, chatApiClient, settings.Retrieval, chatModelSupportsThinking, companies, keywordIndex);
 
     await InteractiveSession.RunAsync(ragAnswerService, verbose, settings.Retrieval);
 }

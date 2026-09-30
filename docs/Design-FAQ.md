@@ -66,15 +66,19 @@ context window. Not built. An LLM-based router was not evaluated. The planned v2
 XBRL section labels (see the XBRL answer above). Decision-Log.md, "retrieval quality" and
 "pre-manual-pass review".
 
-### Why no reranking or hybrid (keyword + vector) search?
+### Why no reranking? And how is hybrid (keyword + vector) search done?
 
-Neither is available locally without building it. Ollama has no rerank endpoint, so cross-encoder
-reranking is out. For hybrid search, `IKeywordHybridSearchable` exists in `Microsoft.Extensions.VectorData`,
-but the SQLite connector doesn't implement it (Microsoft's connector page: "HybridSearch supported? No"),
-and the connectors that do are all servers or cloud services. SQLite's FTS5 does work in the app's SQLite,
-so hybrid search would mean an own FTS5 table plus rank fusion. Its feasibility was checked, not its effect:
-it was listed as a follow-up when the project stopped adding scope before the manual pass, and never
-measured. Decision-Log.md, "targeted questions and a rank metric" and "pre-manual-pass review".
+Neither is available locally off the shelf. Ollama has no rerank endpoint, so cross-encoder reranking would have
+to be built another way; it's v2's step 2b, a spike, not built yet. For hybrid search, `IKeywordHybridSearchable`
+exists in `Microsoft.Extensions.VectorData`, but the SQLite connector doesn't implement it (Microsoft's connector
+page: "HybridSearch supported? No"), and the connectors that do are all servers or cloud services.
+
+v1 shipped without hybrid search - its feasibility was checked, never its effect. v2 built it (step 2): an SQLite
+FTS5 table over the same chunks, ranked by `bm25()`, fused with the vector ranking by reciprocal rank fusion, with
+the question's statement type as a third, boosting list instead of a hard filter. It's a setting,
+`Retrieval:Search` (`Vector` | `Hybrid`). Chosen by a replay of six variants before any code was written; on the
+Structured strategy it took the held-out questions from 10/15 to 14/15 and answered the routing misses a hard
+filter made impossible. Decision-Log.md, "XBRL hybrid (v2)", step 2.
 
 PostgreSQL doesn't change this. Vectors need the `pgvector` extension (compiled on Windows, or Docker),
 its built-in keyword ranking (`ts_rank`) isn't BM25 as FTS5's `bm25()` is, and its .NET connector

@@ -1,3 +1,4 @@
+using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.VectorData;
 using Moq;
@@ -24,7 +25,9 @@ public class RagAnswerServiceTests
         Mock<IChatClient> chatClient,
         ReasoningEffort reasoningEffort = ReasoningEffort.None,
         int maxOutputTokens = 2048,
-        bool chatModelSupportsThinking = true)
+        bool chatModelSupportsThinking = true,
+        KeywordIndex? keywordIndex = null,
+        int hybridCandidates = 50)
     {
         RetrievalSettings retrieval = new()
         {
@@ -34,9 +37,11 @@ public class RagAnswerServiceTests
             ChatTemperature = 0.2f,
             ReasoningEffort = reasoningEffort,
             MaxOutputTokens = maxOutputTokens,
+            Search = keywordIndex is null ? SearchMode.Vector : SearchMode.Hybrid,
+            HybridCandidates = hybridCandidates,
         };
 
-        return new RagAnswerService(collection.Object, chatClient.Object, retrieval, chatModelSupportsThinking, Companies);
+        return new RagAnswerService(collection.Object, chatClient.Object, retrieval, chatModelSupportsThinking, Companies, keywordIndex);
     }
 
     // The two companies these tests name, as their filings register them (CompanyRegistryTests checks the real ones).
@@ -359,5 +364,166 @@ public class RagAnswerServiceTests
         }
 
         Assert.That(string.Concat(chunks), Is.EqualTo("The answer."));
+    }
+
+    // Hybrid search (v2 step 2). The keyword side runs against a real FTS5 index in a temp database whose chunks
+    // table holds the same records the mocked vector search draws from.
+    private static FilingChunkRecord Record(int key, string sourceFiling, string content, string statementType = "narrative") => new()
+    {
+        Key = key,
+        SourceFiling = sourceFiling,
+        Heading = "PART II > Item 8",
+        StatementType = statementType,
+        Content = content,
+    };
+
+    private static KeywordIndex MakeKeywordIndex(string directory, IEnumerable<FilingChunkRecord> records)
+    {
+        string dbPath = Path.Combine(directory, "rag.test.db");
+        using (SqliteConnection connection = new($"Data Source={dbPath}"))
+        {
+            connection.Open();
+            using SqliteCommand create = connection.CreateCommand();
+            create.CommandText = """CREATE TABLE "chunks" ("Key" INTEGER PRIMARY KEY, "SourceFiling" TEXT NOT NULL, "Heading" TEXT NOT NULL, "StatementType" TEXT NOT NULL, "Content" TEXT NOT NULL)""";
+            create.ExecuteNonQuery();
+            foreach (FilingChunkRecord record in records)
+            {
+                using SqliteCommand insert = connection.CreateCommand();
+                insert.CommandText = "INSERT INTO chunks VALUES ($k, $f, $h, $t, $c)";
+                insert.Parameters.AddWithValue("$k", record.Key);
+                insert.Parameters.AddWithValue("$f", record.SourceFiling);
+                insert.Parameters.AddWithValue("$h", record.Heading);
+                insert.Parameters.AddWithValue("$t", record.StatementType);
+                insert.Parameters.AddWithValue("$c", record.Content);
+                insert.ExecuteNonQuery();
+            }
+        }
+
+        KeywordIndex index = new(dbPath);
+        index.EnsureCreated();
+        return index;
+    }
+
+    // The vector search mock: applies each call's real filter to the pool, in pool order (the pool's order stands in
+    // for similarity), and records each call's top.
+    private static void SearchPoolInOrder(
+        Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, IReadOnlyList<FilingChunkRecord> pool, List<int>? requestedTops = null)
+    {
+        collection
+            .Setup(c => c.SearchAsync<string>(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<VectorSearchOptions<FilingChunkRecord>>(), It.IsAny<CancellationToken>()))
+            .Returns((string _, int top, VectorSearchOptions<FilingChunkRecord> options, CancellationToken _) =>
+            {
+                requestedTops?.Add(top);
+                Func<FilingChunkRecord, bool> filter = options.Filter?.Compile() ?? (_ => true);
+                return AsAsync(pool.Where(filter).Take(top).Select(r => new VectorSearchResult<FilingChunkRecord>(r, 0.5)));
+            });
+    }
+
+    private string _hybridDirectory = null!;
+
+    [SetUp]
+    public void SetUp()
+    {
+        _hybridDirectory = Path.Combine(Path.GetTempPath(), $"RagAnswerServiceTests-{Guid.NewGuid():N}");
+        Directory.CreateDirectory(_hybridDirectory);
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        // Pooled connections keep the file open, and Windows won't delete an open file.
+        SqliteConnection.ClearAllPools();
+        Directory.Delete(_hybridDirectory, recursive: true);
+    }
+
+    // R1: "revenues" routes ORCL's current-deferred-revenues question to the income statement, and the answer is on the
+    // balance sheet - a hard filter could never return it. Under hybrid search the statement type only boosts.
+    [Test]
+    public async Task AskAsync_Hybrid_ChunkOutsideTheResolvedStatementType_CanStillBeRetrieved()
+    {
+        FilingChunkRecord[] pool =
+        [
+            Record(1, "ORCL-10K-2026.html", "Deferred revenues, current 9,916", "balance_sheet"),
+            Record(2, "ORCL-10K-2026.html", "Total revenues 57,399", "income_statement"),
+            Record(3, "MSFT-10K-2026.html", "Deferred revenues 64,555", "balance_sheet"),
+        ];
+        (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks();
+        SearchPoolInOrder(collection, pool);
+
+        RagAnswerService service = CreateService(collection, chatClient, keywordIndex: MakeKeywordIndex(_hybridDirectory, pool));
+        RagAnswer answer = await service.AskAsync("What were Oracle's current deferred revenues?", SearchTopK);
+
+        Assert.That(answer.MatchedStatementType, Is.EqualTo("income_statement"));
+        Assert.That(answer.Search, Is.EqualTo(SearchMode.Hybrid));
+        Assert.That(answer.RetrievedChunks.Select(r => r.Record.Key), Is.EqualTo(new[] { 2, 1 }), "the boosted income-statement chunk first, the balance-sheet answer still in, MSFT's filtered out");
+    }
+
+    // In vector mode the same question and pool return only the income-statement chunk - the v1 behaviour Vector keeps.
+    [Test]
+    public async Task AskAsync_Vector_ResolvedStatementType_StillFilters()
+    {
+        FilingChunkRecord[] pool =
+        [
+            Record(1, "ORCL-10K-2026.html", "Deferred revenues, current 9,916", "balance_sheet"),
+            Record(2, "ORCL-10K-2026.html", "Total revenues 57,399", "income_statement"),
+        ];
+        (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks();
+        SearchPoolInOrder(collection, pool);
+
+        RagAnswerService service = CreateService(collection, chatClient);
+        RagAnswer answer = await service.AskAsync("What were Oracle's current deferred revenues?", SearchTopK);
+
+        Assert.That(answer.RetrievedChunks.Select(r => r.Record.Key), Is.EqualTo(new[] { 2 }));
+        Assert.That(answer.KeywordQuery, Is.Null);
+    }
+
+    [Test]
+    public async Task AskAsync_Hybrid_ChunkOnlyTheKeywordSearchFinds_IsRetrievedWhole()
+    {
+        FilingChunkRecord[] vectorPool = [Record(1, "MSFT-10K-2026.html", "Segment results overview")];
+        FilingChunkRecord keywordOnly = Record(2, "MSFT-10K-2026.html", "Intelligent Cloud > Revenue - 2026: $137,791");
+        (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks();
+        SearchPoolInOrder(collection, vectorPool);
+
+        RagAnswerService service = CreateService(collection, chatClient, keywordIndex: MakeKeywordIndex(_hybridDirectory, [.. vectorPool, keywordOnly]));
+        RagAnswer answer = await service.AskAsync("What was Microsoft's Intelligent Cloud segment revenue?", SearchTopK);
+
+        Assert.That(answer.KeywordQuery, Is.EqualTo("\"intelligent\" OR \"cloud\" OR \"segment\" OR \"revenue\""));
+        Assert.That(answer.RetrievedChunks.Select(r => r.Record.Content), Does.Contain("Intelligent Cloud > Revenue - 2026: $137,791"));
+    }
+
+    // Each vector search asks for HybridCandidates, not the final top-K: fusion needs the lists deeper than what it keeps.
+    [Test]
+    public async Task AskAsync_Hybrid_EachVectorSearchRequestsHybridCandidates_ResultCutToTopK()
+    {
+        FilingChunkRecord[] pool = Enumerable.Range(1, 12).Select(k => Record(k, "ORCL-10K-2026.html", $"Revenues line {k}", "income_statement")).ToArray();
+        List<int> requestedTops = new();
+        (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks();
+        SearchPoolInOrder(collection, pool, requestedTops);
+
+        RagAnswerService service = CreateService(collection, chatClient, keywordIndex: MakeKeywordIndex(_hybridDirectory, pool), hybridCandidates: 10);
+        RagAnswer answer = await service.AskAsync("What were Oracle's revenues?", SearchTopK);
+
+        Assert.That(requestedTops, Is.EqualTo(new[] { 10, 10 }), "the company-wide list and the statement-type list");
+        Assert.That(answer.RetrievedChunks, Has.Count.EqualTo(SearchTopK));
+    }
+
+    [Test]
+    public void Constructor_HybridWithoutKeywordIndex_Throws()
+    {
+        (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks();
+        RetrievalSettings retrieval = new()
+        {
+            DefaultSearchTopK = SearchTopK,
+            VerboseSearchTopK = 25,
+            GenerationTopK = 5,
+            ChatTemperature = 0,
+            ReasoningEffort = ReasoningEffort.None,
+            MaxOutputTokens = 768,
+            Search = SearchMode.Hybrid,
+            HybridCandidates = 50,
+        };
+
+        Assert.Throws<ArgumentNullException>(() => new RagAnswerService(collection.Object, chatClient.Object, retrieval, false, Companies));
     }
 }

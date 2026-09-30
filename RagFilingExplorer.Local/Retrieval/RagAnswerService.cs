@@ -6,13 +6,19 @@ using RagFilingExplorer.Local.VectorStore;
 
 namespace RagFilingExplorer.Local.Retrieval;
 
-/// <summary>Result of a single retrieve+generate turn.</summary>
+/// <summary>
+/// Result of a single retrieve+generate turn. Under hybrid search, <see cref="MatchedStatementType"/> boosted rather
+/// than filtered, <see cref="KeywordQuery"/> is what the keyword search matched (null: no content words), and each
+/// retrieved chunk's score is its fused score, not a distance.
+/// </summary>
 internal sealed record RagAnswer(
     IReadOnlyList<string> MatchedFilings,
     string? MatchedStatementType,
     ReasoningEffort UsedReasoningEffort,
     IReadOnlyList<VectorSearchResult<FilingChunkRecord>> RetrievedChunks,
-    IAsyncEnumerable<ChatResponseUpdate> AnswerStream);
+    IAsyncEnumerable<ChatResponseUpdate> AnswerStream,
+    SearchMode Search = SearchMode.Vector,
+    string? KeywordQuery = null);
 
 /// <summary>
 /// Owns the retrieve+generate flow: resolving the question's metadata filter (see
@@ -30,8 +36,13 @@ internal sealed class RagAnswerService(
     IChatClient chatClient,
     RetrievalSettings retrieval,
     bool chatModelSupportsThinking,
-    CompanyRegistry companies)
+    CompanyRegistry companies,
+    KeywordIndex? keywordIndex = null)
 {
+    private readonly KeywordIndex? keywords = retrieval.Search == SearchMode.Hybrid
+        ? keywordIndex ?? throw new ArgumentNullException(nameof(keywordIndex), "Hybrid search needs the keyword index.")
+        : null;
+
     // Each rule after the first answers a failure seen in the 2026-09-25 manual pass (Decision-Log.md,
     // "manual pass"): bare figures with no unit (7 of 24 main answers - "$45,183,036" for $45.2 billion), a
     // figure named after the wrong one of two near-identical lines (Q10), citations by excerpt number only,
@@ -61,11 +72,12 @@ internal sealed class RagAnswerService(
     {
         string[] targetFilings = companies.ResolveFilings(question);
         string? targetStatementType = QueryIntentResolver.ResolveStatementType(question);
+        string? keywordQuery = keywords is null ? null : KeywordQuery.Build(question, companies.Registrations.SelectMany(r => r.Names));
 
         List<VectorSearchResult<FilingChunkRecord>> results;
         if (targetFilings.Length <= 1)
         {
-            results = await SearchAsync(question, searchTopK, targetFilings.SingleOrDefault(), targetStatementType, cancellationToken);
+            results = await RetrieveAsync(question, keywordQuery, searchTopK, targetFilings.SingleOrDefault(), targetStatementType, cancellationToken);
         }
         else
         {
@@ -77,7 +89,7 @@ internal sealed class RagAnswerService(
             List<List<VectorSearchResult<FilingChunkRecord>>> perFiling = new();
             foreach (string filing in targetFilings)
             {
-                perFiling.Add(await SearchAsync(question, perFilingTopK, filing, targetStatementType, cancellationToken));
+                perFiling.Add(await RetrieveAsync(question, keywordQuery, perFilingTopK, filing, targetStatementType, cancellationToken));
             }
 
             results = Enumerable.Range(0, perFilingTopK)
@@ -129,7 +141,43 @@ internal sealed class RagAnswerService(
         IAsyncEnumerable<ChatResponseUpdate> rawStream = chatClient.GetStreamingResponseAsync(chatMessages, chatOptions, cancellationToken);
         IAsyncEnumerable<ChatResponseUpdate> guardedStream = GuardAgainstStarvedResponse(rawStream, cancellationToken);
 
-        return new RagAnswer(targetFilings, targetStatementType, effectiveReasoningEffort, results, guardedStream);
+        return new RagAnswer(targetFilings, targetStatementType, effectiveReasoningEffort, results, guardedStream, retrieval.Search, keywordQuery);
+    }
+
+    private Task<List<VectorSearchResult<FilingChunkRecord>>> RetrieveAsync(
+        string question, string? keywordQuery, int top, string? filing, string? statementType, CancellationToken cancellationToken) =>
+        keywords is null
+            ? SearchAsync(question, top, filing, statementType, cancellationToken)
+            : HybridSearchAsync(keywords, question, keywordQuery, top, filing, statementType, cancellationToken);
+
+    // Up to three ranked lists, fused (RankFusion): the vector search and the keyword search within the company filter,
+    // and - when the question resolved a statement type - the vector search within that statement too. That third list
+    // is the statement label as a boost: a chunk of the named statement gets a second vote, but nothing is excluded, so
+    // a question the keyword rules route to the wrong statement (R1: "deferred revenues" -> income statement; the
+    // answer is on the balance sheet) can still reach its answer. Measured by replay first - docs/Decision-Log.md,
+    // "Step 2 - hybrid search": a hard filter (v1) misses R1, R2 and H14 outright; hybrid without the boost loses
+    // statement questions (Q23 rank 1 -> 11); keyword + vector + this one boosting list beat or tied every other mix.
+    private async Task<List<VectorSearchResult<FilingChunkRecord>>> HybridSearchAsync(
+        KeywordIndex keywordIndex, string question, string? keywordQuery, int top, string? filing, string? statementType,
+        CancellationToken cancellationToken)
+    {
+        int depth = retrieval.HybridCandidates;
+        List<VectorSearchResult<FilingChunkRecord>> semantic = await SearchAsync(question, depth, filing, null, cancellationToken);
+        List<FilingChunkRecord> keyword = keywordQuery is null ? [] : keywordIndex.Search(keywordQuery, filing, depth);
+        List<VectorSearchResult<FilingChunkRecord>> boost = statementType is null
+            ? []
+            : await SearchAsync(question, depth, filing, statementType, cancellationToken);
+
+        Dictionary<int, FilingChunkRecord> records = new();
+        foreach (FilingChunkRecord record in semantic.Concat(boost).Select(r => r.Record).Concat(keyword))
+        {
+            records.TryAdd(record.Key, record);
+        }
+
+        return RankFusion.Fuse([semantic.Select(r => r.Record.Key).ToList(), keyword.Select(r => r.Key).ToList(), boost.Select(r => r.Record.Key).ToList()])
+            .Take(top)
+            .Select(fused => new VectorSearchResult<FilingChunkRecord>(records[fused.Key], fused.Score))
+            .ToList();
     }
 
     private async Task<List<VectorSearchResult<FilingChunkRecord>>> SearchAsync(

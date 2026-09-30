@@ -15,7 +15,11 @@
 # recall@5 saturated at 22/22 on both strategies, so it could no longer tell them apart.
 #
 # The filters are read from a --verbose run's log rather than re-derived, so QueryIntentResolver's
-# logic isn't duplicated here. From the repo root, with Ollama running and the index built:
+# logic isn't duplicated here. A hybrid run (Retrieval:Search = Hybrid, v2 step 2) is recognised by the "(keywords: ...)"
+# line under each filter line and replayed as the app runs it: the vector ranking and the FTS5 bm25 ranking (the
+# logged query, against the index's own chunks_fts table) within the company filter, plus - when a statement type
+# was resolved - the vector ranking within that statement, each cut to HYBRID_CANDIDATES and fused by reciprocal
+# rank fusion (k = 60). The app creates chunks_fts on its first hybrid start. From the repo root, with Ollama running and the index built:
 #   dotnet run --project RagFilingExplorer.Local -- --verbose < tools/manual-questions.txt > run.log
 #   python tools/replay_recall.py run.log tools/manual-questions.txt [rag.<strategy>.db]
 # The index defaults to rag.markdown.db; pass the one matching the run's Chunking:Strategy (the log's
@@ -28,6 +32,8 @@
 import sqlite3, json, urllib.request, math, re, struct, glob, sys
 
 TOP = 25
+HYBRID_CANDIDATES = 50  # appsettings.json's Retrieval:HybridCandidates
+RRF_K = 60  # RankFusion.K
 
 log_path, questions_path = sys.argv[1], sys.argv[2]
 db_path = sys.argv[3] if len(sys.argv) > 3 else 'rag.markdown.db'
@@ -104,22 +110,44 @@ def name_of(i):
 
 ranks = {}
 for i, (q, b) in enumerate(zip(questions, blocks), 1):
-    first = b.split('\n')[0]
+    lines = b.split('\n')
+    first = lines[0] if not lines[0].startswith('(keywords: ') else ''
     files = re.findall(r'[A-Z]{4}-10K-\d{4}\.html', first) if first.startswith('(') else []
     m = re.search(r'statement type: (\w+)', first)
     st = m.group(1) if m else None
+    kw = next((l[len('(keywords: '):-1] for l in lines[:2] if l.startswith('(keywords: ')), None)
     qv = embed('search_query: ' + q)
+    score = {}
+
+    def vector(f, s):
+        cand = [k for k, (ff, tt, _) in meta.items() if (f is None or ff == f) and (s is None or tt == s)]
+        return sorted(cand, key=lambda k: dist(qv, vec[k]))
+
+    def keyword(f):
+        if kw == 'none':
+            return []
+        return [k for (k,) in c.execute(
+            'select c.Key from chunks_fts join chunks c on c.Key = chunks_fts.rowid '
+            'where chunks_fts match ? and (? is null or c.SourceFiling = ?) order by bm25(chunks_fts), c.Key limit ?',
+            (kw, f, f, HYBRID_CANDIDATES))]
 
     def search(f):
-        cand = [k for k, (ff, tt, _) in meta.items() if (f is None or ff == f) and (st is None or tt == st)]
-        return sorted(cand, key=lambda k: dist(qv, vec[k]))[:TOP]
+        if kw is None:
+            return vector(f, st)[:TOP]
+        lists = [vector(f, None)[:HYBRID_CANDIDATES], keyword(f)] + ([vector(f, st)[:HYBRID_CANDIDATES]] if st else [])
+        fused = {}
+        for ranking in lists:
+            for r, k in enumerate(ranking, 1):
+                fused[k] = fused.get(k, 0) + 1 / (RRF_K + r)
+        score.update(fused)
+        return sorted(fused, key=lambda k: -fused[k])[:TOP]
 
     if len(files) <= 1:
         ranked = search(files[0] if files else None)
     else:
         per = [search(f) for f in files]
         ranked = [l[r] for r in range(max(map(len, per))) for l in per if r < len(l)]
-    top1 = f"{dist(qv, vec[ranked[0]]):.4f}" if ranked else '-'
+    top1 = '-' if not ranked else f"{score[ranked[0]]:.4f}" if kw is not None else f"{dist(qv, vec[ranked[0]]):.4f}"
     where = f"{files[0] if len(files) == 1 else ('+'.join(files) if files else 'all')}/{st or '-'}"
     if not expect[i]:
         print(f"{name_of(i):>3} (negative test, not scored)  filter={where}  top1={top1}")

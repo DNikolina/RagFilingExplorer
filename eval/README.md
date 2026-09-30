@@ -51,5 +51,12 @@ correct decline the grader's pattern misses), targeted 7/10 (T4 right, T6 declin
 H15 became prompt v1's "The unit is not stated."; H10 declined, user's decision). Replay: targeted recall@5 9/10, held-out
 11/13 - the experiment's `co` variant exactly.
 
+**`structured-2/`** - plus step 2, hybrid search (`Retrieval:Search = Hybrid`: vector + FTS5 bm25 + vector-within-statement,
+fused by reciprocal rank fusion), run 2026-09-30 on 1d's index: main 22/24 (Q10 right, Q21 lost its unit), targeted 7/10 (T5
+right, T1 wrong - a lookalike line), routing 2/3 (R1, R2 answered right; R3 wrong - 1d's three were declines), variants 2/3
+(V1 right), **held-out 14/15** (H10, H14 right; H8, H15 clean declines). Replay: targeted recall@5 10/10, held-out 13/13,
+MRR 0.904; `tools/replay_recall.py` replays these logs from their "(keywords: ...)" lines and reproduces the app's top score
+on all 55 questions.
+
 Temperature 0 is deterministic here: the baseline's 40 main answers are word-for-word identical to the
 2026-09-25 run on the same code, so a changed answer means a changed input, not sampling.

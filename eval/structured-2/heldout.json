@@ -1,0 +1,111 @@
+{
+ "log": "eval/structured-2/heldout.log",
+ "questions": "tools/heldout-questions.txt",
+ "results": [
+  {
+   "id": "H1",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's research and development expenses in fiscal year 2026 were $35,562 million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)"
+  },
+  {
+   "id": "H2",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's effective tax rate for fiscal year 2026 was 19% (Source: MSFT-10K-2026.html, PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS)."
+  },
+  {
+   "id": "H3",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft recorded $12,405 million in stock-based compensation expense for the year ended June 30, 2026. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Employee Stock and Savings Plans)"
+  },
+  {
+   "id": "H4",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "rounded, in billions",
+   "answer": "Microsoft's research and development expenses increased $3.1 billion in fiscal 2026 compared to fiscal 2025. (Source: MSFT-10K-2026.html, PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS)"
+  },
+  {
+   "id": "H5",
+   "kind": "fact",
+   "status": "reliable",
+   "note": "",
+   "answer": "As of May 31, 2026, Oracle employed approximately 141,000 full-time employees (Source: ORCL-10K-2026.html, PART I > Item 1. Business)."
+  },
+  {
+   "id": "H6",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Oracle's total research and development expenses in fiscal 2026 were $10,272 million. (Source: ORCL-10K-2026.html, PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations)"
+  },
+  {
+   "id": "H7",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Oracle's diluted earnings per share for fiscal 2026 were $5.83. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules > Earnings Per Share)"
+  },
+  {
+   "id": "H8",
+   "kind": "negative",
+   "status": "decline-ok",
+   "note": "",
+   "answer": "The unit is not stated for the total revenue in fiscal 2023."
+  },
+  {
+   "id": "H9",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Nasdaq's revenues less transaction-based expenses in 2025 were $5,249 million. (Source: NDAQ-10K-2025.html, PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations)"
+  },
+  {
+   "id": "H10",
+   "kind": "fact",
+   "status": "reliable",
+   "note": "",
+   "answer": "As of December 31, 2025, Nasdaq had 9,525 full and part-time employees, including employees of non-wholly owned consolidated subsidiaries. (Source: NDAQ-10K-2025.html, section PART I > Item 1. Business and PART IV > Financial Statements > Share-Based Compensation)"
+  },
+  {
+   "id": "H11",
+   "kind": "fact",
+   "status": "reliable",
+   "note": "",
+   "answer": "Nasdaq's U.S. headquarters is located in New York, New York. (Source: NDAQ-10K-2025.html, PART I > Item 2. Properties)"
+  },
+  {
+   "id": "H12",
+   "kind": "fact",
+   "status": "reliable",
+   "note": "",
+   "answer": "As of December 31, 2025, Netflix had approximately 16,000 full-time employees. (Source: NFLX-10K-2025.html, PART I > Item 1. Business)"
+  },
+  {
+   "id": "H13",
+   "kind": "figure",
+   "status": "wrong",
+   "note": "expected figure absent",
+   "answer": "Netflix's cash and cash equivalents at December 31, 2025 were $5,208,710 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Cash, Cash Equivalents, Restricted Cash, and Short-term Investments)"
+  },
+  {
+   "id": "H14",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "As of December 31, 2025, total deferred revenue was $1,776 million. (Source: NFLX-10K-2025.html, section PART IV > Financial Statements > Revenue Recognition)"
+  },
+  {
+   "id": "H15",
+   "kind": "negative",
+   "status": "decline-ok",
+   "note": "",
+   "answer": "The number of paid memberships is not stated in the provided excerpts.\n\n>"
+  }
+ ]
+}

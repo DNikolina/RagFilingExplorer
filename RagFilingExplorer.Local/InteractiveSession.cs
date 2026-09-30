@@ -46,6 +46,11 @@ internal static class InteractiveSession
                     Console.WriteLine(filterLine);
                 }
 
+                if (verbose && answer.Search == SearchMode.Hybrid)
+                {
+                    Console.WriteLine(FormatKeywords(answer));
+                }
+
                 if (answer.UsedReasoningEffort != ReasoningEffort.None)
                 {
                     Console.WriteLine($"(reasoning: {answer.UsedReasoningEffort} - question matched RequiresSynthesis)");
@@ -77,7 +82,8 @@ internal static class InteractiveSession
     /// <summary>
     /// The "(filtering to ..., statement type: ...)" line printed before each answer - null when the
     /// question resolved to no filter at all. The manual pass checks this line on every question, and
-    /// tools/replay_recall.py parses it out of a --verbose run log, so its format is load-bearing.
+    /// tools/replay_recall.py parses it out of a --verbose run log, so its format is load-bearing. Under hybrid
+    /// search the statement type boosts instead of filtering, and the line says so ("boosting statement type: ...").
     /// </summary>
     internal static string? FormatMatchedFilter(RagAnswer answer)
     {
@@ -91,13 +97,24 @@ internal static class InteractiveSession
             parts.Add($"searching {string.Join(" and ", answer.MatchedFilings)} separately");
         }
 
-        if (answer.MatchedStatementType is not null)
+        if (answer.MatchedStatementType is not null && answer.Search == SearchMode.Hybrid)
+        {
+            parts.Add($"boosting statement type: {answer.MatchedStatementType}");
+        }
+        else if (answer.MatchedStatementType is not null)
         {
             parts.Add(parts.Count == 0 ? $"filtering to statement type: {answer.MatchedStatementType}" : $"statement type: {answer.MatchedStatementType}");
         }
 
         return parts.Count > 0 ? $"({string.Join(", ", parts)})" : null;
     }
+
+    /// <summary>
+    /// The verbose "(keywords: ...)" line under hybrid search - the FTS5 query the keyword search ran. tools/replay_recall.py
+    /// reads it back from the log (as it does the filter line) to replay the keyword search, and its presence is how
+    /// the replay knows a run was hybrid.
+    /// </summary>
+    internal static string FormatKeywords(RagAnswer answer) => $"(keywords: {answer.KeywordQuery ?? "none"})";
 
     // Reasoning content (a reasoning model's "thinking", separate from its final answer - see
     // AppSettings.RetrievalSettings.ReasoningEffort) is only shown under --verbose, under its own header,

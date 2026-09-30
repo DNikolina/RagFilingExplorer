@@ -5,6 +5,9 @@ paths:
 
 # Test conventions (already surveyed - follow these, don't re-derive them)
 
+These conventions replace surveying existing tests - open a test file only for a helper you'll call or
+extend (e.g. `RagAnswerServiceTests.MakeMocks`, `CreateService`).
+
 <!-- Path-scoped: loads only when a file under RagFilingExplorer.Local.Tests/ is read, so sessions that
      never touch tests don't pay for it. CLAUDE.md points here for the case of writing a brand-new test
      file without opening an existing one first, which would not trigger the load. -->

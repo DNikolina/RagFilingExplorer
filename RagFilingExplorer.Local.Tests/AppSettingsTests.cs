@@ -58,9 +58,10 @@ public class AppSettingsTests
     {
         string[] keys = AppSettings.RequiredConfigurationKeys().ToArray();
 
-        Assert.That(keys, Has.Length.EqualTo(15));
+        Assert.That(keys, Has.Length.EqualTo(17));
         Assert.That(keys, Does.Contain("Ollama:ChatModel"));
         Assert.That(keys, Does.Contain("Retrieval:ReasoningEffort"));
+        Assert.That(keys, Does.Contain("Retrieval:Search"));
         Assert.That(keys, Does.Contain("Chunking:Strategy"));
         Assert.That(keys, Does.Not.Contain("Ollama"), "a section is not a leaf key");
     }
