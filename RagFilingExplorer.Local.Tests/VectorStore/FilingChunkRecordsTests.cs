@@ -55,4 +55,17 @@ public class FilingChunkRecordsTests
         Assert.That(records[0].Text, Does.StartWith("search_document: PART II > Item 8. Financial Statements"));
         Assert.That(records[0].Content, Is.EqualTo("Some prose."));
     }
+
+    // Step 1d: the context line opens the embedding text only - what the model reads (Content) is unchanged.
+    [Test]
+    public void Build_EmbeddingContext_OpensTheEmbeddingTextOnly()
+    {
+        FilingChunk chunk = Chunk("A.html", "Some prose.") with { EmbeddingContext = "Oracle Corporation (ORCL), Form 10-K for fiscal year 2026." };
+
+        FilingChunkRecord record = FilingChunkRecords.Build([chunk])[0];
+
+        Assert.That(record.Text, Is.EqualTo(
+            "search_document: Oracle Corporation (ORCL), Form 10-K for fiscal year 2026.\nPART II > Item 8. Financial Statements\n\nSome prose."));
+        Assert.That(record.Content, Is.EqualTo("Some prose."));
+    }
 }

@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 317 offline unit tests (on the v2 branch; 176 at v1.0) |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 323 offline unit tests (on the v2 branch; 176 at v1.0) |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -100,8 +100,11 @@ it on wording). **1b-iii closed (user, 2026-09-29).** Registration from the cove
 replaces the hand-written table; all 55 questions route as before). **1c in two measured sub-steps:** a) fiscal-year
 names on period labels - done (`eval/structured-1c-a/`: scores unchanged; T9 now reads the right row but gives its
 per-share figure); b) one table of figures per chunk - measured and **declined** (`eval/structured-1c-b-declined/`:
-no score gained, retrieval MRR down 14-18%, T2's period worse; T4's miss is now ranking, for step 2). **1c closed.
-Next: 1d, the embedding text** (company and section context on every chunk). Still open: the second-model run
+no score gained, retrieval MRR down 14-18%, T2's period worse; T4's miss is now ranking, for step 2). **1c closed.**
+**1d done (`eval/structured-1d/`):** every chunk's embedding text opens with the company and filing from the cover
+facts - chosen by a replay-only experiment of five embedding texts; targeted recall@5 8 -> 9/10, held-out 9 -> 11/13;
+T4 and H6 answered right for the first time; totals held back by prompt v1's units rule leaking into declines.
+**Step 1 (ingestion) complete. Next: decide whether answer skills (step 5) moves ahead of step 2**, then step 2. Still open: the second-model run
 (step 0), the `Console.OutputEncoding` fix. Details: Decision-Log.md, "XBRL hybrid (v2)".
 
 **Known, not planned:** statement routing is keyword *substring* matching over a hard filter - "deferred

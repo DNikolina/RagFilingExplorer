@@ -60,6 +60,32 @@ public class CoverFactsTests
         Assert.That(registry.ResolveFilings("What is the coupon on GOOG29?"), Is.Empty);
     }
 
+    [Test]
+    public void EmbeddingContext_NameTickersFormAndFiscalYear()
+    {
+        XbrlDocument cover = TwoClasses with
+        {
+            Facts = [.. TwoClasses.Facts, Fact("dei:DocumentType", "d", "10-K"), Fact("dei:DocumentFiscalYearFocus", "d", "2026")],
+        };
+
+        Assert.That(CoverFacts.EmbeddingContext(cover), Is.EqualTo("Alphabet Inc. (GOOGL, GOOGB), Form 10-K for fiscal year 2026."));
+    }
+
+    // Step 1d was measured with these four lines typed by hand (the "co" variant); what ships must be exactly them.
+    [TestCase("MSFT-10K-2026.html", "Microsoft Corporation (MSFT), Form 10-K for fiscal year 2026.")]
+    [TestCase("NDAQ-10K-2025.html", "Nasdaq, Inc. (NDAQ), Form 10-K for fiscal year 2025.")]
+    [TestCase("NFLX-10K-2025.html", "Netflix, Inc. (NFLX), Form 10-K for fiscal year 2025.")]
+    [TestCase("ORCL-10K-2026.html", "Oracle Corporation (ORCL), Form 10-K for fiscal year 2026.")]
+    public void EmbeddingContext_RealFiling_IsTheLineStep1dWasMeasuredWith(string filing, string expected)
+    {
+        string path = Path.Combine(RepoPaths.FindRoot(TestContext.CurrentContext.TestDirectory).FullName, "data", filing);
+        byte[] bytes = File.ReadAllBytes(path);
+        XbrlDocument xbrl = InlineXbrlReader.Read(new AngleSharp.Html.Parser.HtmlParser().ParseDocument(
+            RagFilingExplorer.Local.Chunking.MarkItDownConverter.DetectEncoding(bytes).GetString(bytes)));
+
+        Assert.That(CoverFacts.EmbeddingContext(xbrl), Is.EqualTo(expected));
+    }
+
     // Five-letter tickers came out "Googl": the all-capitals-to-title-case cleaning meant for "MICROSOFT CORPORATION"
     // reached the symbol. The four filings' tickers have at most four letters, so nothing showed it.
     [Test]

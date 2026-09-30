@@ -2004,6 +2004,67 @@ two data tables; Markdown and Linearized unchanged.
 rows never had it. What remains of it (long column names repeated on every value, ORCL's equity statement) is
 display length, not a measured failure; left for 1d or answer skills if the prompt budget needs it.
 
+**nomic-embed-text's context, checked 2026-09-29 (the user found a report of Ollama cutting embedding input at 2,048
+tokens).** Ollama's GGUF declares `context_length: 2048` (the model card's 8,192 is rope scaling), and `/api/embed`
+truncates by default instead of failing. Measured with `truncate: false` and Ollama's own count on the largest chunks
+of each strategy: Markdown 778 tokens, Linearized 636, Structured 579 - nomic's tokenizer counts 0.85-1.08x of
+cl100k's here. Nothing was ever cut; now a validated fact in the plan, with when to re-check.
+
+**Step 1d - reviewed, measured by replay first, then built (2026-09-29, `eval/structured-1d/`).**
+*The review (user: "let's review if this will help").* The plan's 1d - company and section context on each chunk's
+embedding text. I predicted no effect: 54 of 55 questions name their company, so every search is filtered to one
+filing, and one line added to every candidate should shift them all alike; the section path was already in the
+embedding text (the heading, note topic included, since 1b-iii-b). The remaining misses pointed elsewhere instead:
+table chunks losing to prose for questions naming their row label (H13 "cash and cash equivalents": the balance
+sheet at rank 15 behind an acquisitions note). And `EmbeddingTextBuilder`'s row-label summary - v1's fix for exactly
+that - only recognises Markdown pipe tables: for Structured and Linearized it had never fired.
+*The experiment.* The replay needs only the index's `chunks` and `vec_chunks`, so a scratch script rebuilt the vectors
+with other embedding texts (same chunks, same filters, embedded one at a time as the app does; its baseline vectors
+matched the stored ones at cosine 1.000000):
+| | today | `rows` | `labels` | `rows_co` | **`co`** |
+|---|---|---|---|---|---|
+| Main: recall@5 / MRR | 22/22, 0.814 | 22/22, 0.792 | 22/22, 0.792 | 22/22, 0.856 | 22/22, **0.856** |
+| Targeted: recall@5 / MRR | 8/10, 0.492 | 7/10, 0.480 | 6/10, 0.509 | **10/10**, 0.703 | 9/10, **0.762** |
+| Held-out: recall@5 / MRR | 9/13, 0.498 | 9/13, 0.584 | 9/13, 0.490 | 11/13, **0.729** | 11/13, 0.715 |
+`rows` = + "Financial data table with rows: a, b, c." (v1's phrase); `labels` = the row lines reduced to their labels,
+figures out; `co` = + one line, "Oracle Corporation (ORCL), Form 10-K for fiscal year 2026."; `rows_co` = both.
+- **The row-label ideas failed**: `rows` pushed T10 out of the top 5, `labels` pushed T8 out (rank 2 -> 20), and
+  neither brought a miss in - H13's chunk already contains "Cash and cash equivalents" verbatim. The figures weren't
+  diluting anything; some questions match on them.
+- **The company line did the work, and my prediction was wrong.** Embeddings aren't additive: a strong
+  natural-language header pulls a number-heavy table chunk much closer to a question like "Oracle's ... fiscal 2026"
+  than it moves prose that was already close - so tables stop losing to prose. T4 20 -> 1, H6 19 -> 3, H13 15 -> 2,
+  T5 >25 -> 8, H10 15 -> 8; the only loss Q11 1 -> 2. Strongest on the held-out set, never tuned against. The known
+  "contextual chunk header" effect - what the plan's source guidance recommended; the plan was right.
+- **`co` over `rows_co` (user's choice, 2026-09-29):** tied within a rank on nearly everything; `rows_co` keeps T5 at
+  exactly rank 5, but its labels misbehaved alone, and T5 ("U.S. government securities", a verbatim phrase) is a
+  keyword case step 2's hybrid search should take anyway.
+*Built.* `CoverFacts.EmbeddingContext` makes the line from the cover facts - registrant name, common-stock ticker(s),
+`DocumentType`, `DocumentFiscalYearFocus` - a test holds it to the four lines the experiment typed by hand;
+`FilingChunk.EmbeddingContext` carries it; `FilingChunkRecords` puts it after "search_document: ", embedding text only
+(Content unchanged; v1's strategies set nothing). The rebuilt index's 975 vectors equal the experiment's `co` index
+(lowest cosine 1.000000), and the replay reproduces it exactly.
+*The question run - retrieval gains reach answers, and prompt v1's leak muddies the totals:*
+| | 1c-a | 1d |
+|---|---|---|
+| Main / targeted / routing / variants, reliable | 22/24, 7/10, 3/3, 1/3 | 22/24 (Q15 resolved), 7/10, 3/3, 1/3 |
+| Held-out, reliable | 11/15 | 10/15 (+ H10 check) |
+- **Fixed, by retrieval as predicted:** T4 - "$3,603 million", right for the first time on any strategy; H6 -
+  "$10,272 million", right for the first time (was the $2,805M lookalike).
+- **Q15 (a negative): a correct decline the grader misses** - "... not present in the provided excerpts, I do not have
+  the answer"; `DECLINE` lacks "do not have the answer". Resolved decline-ok by the user.
+- **Lost, answer side - retrieval unchanged or better:** T6 declines with its chunk still at rank 1 (context mix, like
+  T3 before); H8 and H15, both negatives, became prompt v1's "The unit is not stated." instead of clean declines; H13
+  reaches the model now (rank 2) but it takes a lookalike line ($5,208,710 thousand from the cash note); H10 declines
+  while stating unrelated figures ("check", unresolved - same substance the user graded declined before).
+- **Decision (user): keep 1d.** Its retrieval gain is real and converts where the model reads the right chunk; the
+  losses are prompt v1's units rule leaking into declines and model misreads - answer skills (step 5) and answer
+  verification (3b). **Raised for the plan (user noticed the prompt was meant to change):** answer skills was placed
+  late - after ingestion and after the compact display text; ingestion is done and the display text turned out moot
+  (1c), while the malformed decline keeps muddying every step's measurement. Whether to move it (or its decline
+  section) ahead of step 2 is the user's call, to discuss next.
+323 tests.
+
 Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
 Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation
 memory (follow-up questions), query decomposition beyond per-company search, an API or UI. Automated onboarding

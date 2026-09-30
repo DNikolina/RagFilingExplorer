@@ -15,15 +15,17 @@ namespace RagFilingExplorer.Local.Chunking;
 /// (<see cref="FilingProfile"/>). Step 1b-iii-a: the primary statements' tables are labelled from the filer's
 /// taxonomy (<see cref="StatementLabels"/>), and each chunk's statement type comes from the table it holds.
 /// Step 1b-iii-b: each note to the financial statements is a section headed by its topic (<see cref="NoteTopics"/>).
+/// Step 1d: every chunk's embedding text opens with the company and filing (<see cref="CoverFacts.EmbeddingContext"/>).
 /// </summary>
 internal sealed class StructuredChunkingStrategy(Tokenizer tokenizer, int maxTokensPerChunk, int overlapTokens) : IChunkingStrategy
 {
     public async Task<ChunkedFiling> ChunkAsync(FileInfo filing)
     {
         StructuredFiling read = await ReadAsync(filing);
+        string? context = CoverFacts.EmbeddingContext(read.Xbrl);
         return new ChunkedFiling(
             read.Sections.Select(s => new DocumentSection(s.Heading, string.Join("\n\n", s.Blocks.Select(b => b.Text)))).ToList(),
-            read.Chunks.Select(c => new FilingChunk(filing.Name, c.Heading, c.Content, c.Tokens, c.StatementType)).ToList());
+            read.Chunks.Select(c => new FilingChunk(filing.Name, c.Heading, c.Content, c.Tokens, c.StatementType, context)).ToList());
     }
 
     public async Task<StructuredFiling> ReadAsync(FileInfo filing)

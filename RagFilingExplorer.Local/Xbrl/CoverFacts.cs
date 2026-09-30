@@ -57,6 +57,26 @@ internal static partial class CoverFacts
     }
 
     /// <summary>
+    /// Step 1d: the line that opens every chunk's embedding text - "Oracle Corporation (ORCL), Form 10-K for fiscal year
+    /// 2026." - from the filing's own cover facts. Measured before it was built (docs/Decision-Log.md, "Step 1d"): with
+    /// it, a number-heavy table chunk stops losing to prose - targeted recall@5 8/10 -> 9/10, held-out 9/13 -> 11/13.
+    /// Null without a registrant name.
+    /// </summary>
+    public static string? EmbeddingContext(XbrlDocument xbrl)
+    {
+        if (RegistrantName(xbrl) is not { } name)
+        {
+            return null;
+        }
+
+        List<string> symbols = CommonStocks(xbrl).Select(c => c.Symbol).ToList();
+        string? form = Clean(xbrl.First("dei:DocumentType")?.Text);
+        string? year = Clean(xbrl.First("dei:DocumentFiscalYearFocus")?.Text);
+        return $"{name}{(symbols.Count == 0 ? "" : $" ({string.Join(", ", symbols)})")}"
+            + $"{(form is null ? "" : $", Form {form}")}{(year is null ? "" : $" for fiscal year {year}")}.";
+    }
+
+    /// <summary>
     /// Cover values as tagged: "New York," (a trailing comma inside the tag), "MICROSOFT CORPORATION" (all capitals
     /// on MSFT's cover). All-capital values become title case, keeping entity suffixes ("LLP") capitalised.
     /// </summary>
