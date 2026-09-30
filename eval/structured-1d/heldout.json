@@ -68,9 +68,12 @@
   {
    "id": "H10",
    "kind": "fact",
-   "status": "check",
+   "status": "declined",
    "note": "declines but states figures",
-   "answer": "The global female employee base in 2025 was approximately 36%, and the minority representation in the U.S. was approximately 33% (Source: NDAQ-10K-2025.html, PART I > Item 1. Business). However, the total number of employees is not stated in the provided excerpts.\n\nHowever, the table \"Gender and Ethnicity Data as of December 31, 2025\" has a column labeled \"Total\" which is not disclosed due to the \"Not disclosed percentage\" being greater than 1.0% of the total employee headcount."
+   "answer": "The global female employee base in 2025 was approximately 36%, and the minority representation in the U.S. was approximately 33% (Source: NDAQ-10K-2025.html, PART I > Item 1. Business). However, the total number of employees is not stated in the provided excerpts.\n\nHowever, the table \"Gender and Ethnicity Data as of December 31, 2025\" has a column labeled \"Total\" which is not disclosed due to the \"Not disclosed percentage\" being greater than 1.0% of the total employee headcount.",
+   "graded": "check",
+   "resolved_by": "user",
+   "resolution": "declines the headcount while stating unrelated workforce shares (36% female, 33% minority) - graded declined, as the earlier runs' H10"
   },
   {
    "id": "H11",

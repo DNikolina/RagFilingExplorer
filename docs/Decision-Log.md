@@ -2048,7 +2048,7 @@ figures out; `co` = + one line, "Oracle Corporation (ORCL), Form 10-K for fiscal
 | | 1c-a | 1d |
 |---|---|---|
 | Main / targeted / routing / variants, reliable | 22/24, 7/10, 3/3, 1/3 | 22/24 (Q15 resolved), 7/10, 3/3, 1/3 |
-| Held-out, reliable | 11/15 | 10/15 (+ H10 check) |
+| Held-out, reliable | 11/15 | 10/15 |
 - **Fixed, by retrieval as predicted:** T4 - "$3,603 million", right for the first time on any strategy; H6 -
   "$10,272 million", right for the first time (was the $2,805M lookalike).
 - **Q15 (a negative): a correct decline the grader misses** - "... not present in the provided excerpts, I do not have
@@ -2056,7 +2056,7 @@ figures out; `co` = + one line, "Oracle Corporation (ORCL), Form 10-K for fiscal
 - **Lost, answer side - retrieval unchanged or better:** T6 declines with its chunk still at rank 1 (context mix, like
   T3 before); H8 and H15, both negatives, became prompt v1's "The unit is not stated." instead of clean declines; H13
   reaches the model now (rank 2) but it takes a lookalike line ($5,208,710 thousand from the cash note); H10 declines
-  while stating unrelated figures ("check", unresolved - same substance the user graded declined before).
+  while stating unrelated figures - resolved declined by the user, as before.
 - **Decision (user): keep 1d.** Its retrieval gain is real and converts where the model reads the right chunk; the
   losses are prompt v1's units rule leaking into declines and model misreads - answer skills (step 5) and answer
   verification (3b). **Raised for the plan (user noticed the prompt was meant to change):** answer skills was placed

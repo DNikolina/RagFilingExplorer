@@ -48,7 +48,7 @@ Kept as the record of the decision (docs/Decision-Log.md, "Step 1c-b measured an
 **`structured-1d/`** - plus step 1d (each chunk's embedding text opens with "Oracle Corporation (ORCL), Form 10-K for
 fiscal year 2026." from the cover facts), run 2026-09-29 on 1c-a: main 22/24 (Q15 carries the user's decision - a
 correct decline the grader's pattern misses), targeted 7/10 (T4 right, T6 declined), held-out 10/15 (H6 right; H8,
-H15 became prompt v1's "The unit is not stated."; H10 "check", unresolved). Replay: targeted recall@5 9/10, held-out
+H15 became prompt v1's "The unit is not stated."; H10 declined, user's decision). Replay: targeted recall@5 9/10, held-out
 11/13 - the experiment's `co` variant exactly.
 
 Temperature 0 is deterministic here: the baseline's 40 main answers are word-for-word identical to the
