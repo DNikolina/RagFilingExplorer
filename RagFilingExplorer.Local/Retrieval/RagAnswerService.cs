@@ -9,7 +9,8 @@ namespace RagFilingExplorer.Local.Retrieval;
 /// <summary>
 /// Result of a single retrieve+generate turn. Under hybrid search, <see cref="MatchedStatementType"/> boosted rather
 /// than filtered, <see cref="KeywordQuery"/> is what the keyword search matched (null: no content words), and each
-/// retrieved chunk's score is its fused score, not a distance.
+/// retrieved chunk's score is its fused score, not a distance. When reranked, <see cref="Reranked"/> holds each retrieved
+/// chunk's (by key) reranker score and its rank before reranking.
 /// </summary>
 internal sealed record RagAnswer(
     IReadOnlyList<string> MatchedFilings,
@@ -18,7 +19,11 @@ internal sealed record RagAnswer(
     IReadOnlyList<VectorSearchResult<FilingChunkRecord>> RetrievedChunks,
     IAsyncEnumerable<ChatResponseUpdate> AnswerStream,
     SearchMode Search = SearchMode.Vector,
-    string? KeywordQuery = null);
+    string? KeywordQuery = null,
+    IReadOnlyDictionary<int, RerankedChunk>? Reranked = null);
+
+/// <summary>A reranked chunk's cross-encoder score and its rank in its company's hybrid list before reranking.</summary>
+internal sealed record RerankedChunk(float Score, int HybridRank);
 
 /// <summary>
 /// Owns the retrieve+generate flow: resolving the question's metadata filter (see
@@ -37,11 +42,17 @@ internal sealed class RagAnswerService(
     RetrievalSettings retrieval,
     bool chatModelSupportsThinking,
     CompanyRegistry companies,
-    KeywordIndex? keywordIndex = null)
+    KeywordIndex? keywordIndex = null,
+    IRelevanceScorer? reranker = null)
 {
     private readonly KeywordIndex? keywords = retrieval.Search == SearchMode.Hybrid
         ? keywordIndex ?? throw new ArgumentNullException(nameof(keywordIndex), "Hybrid search needs the keyword index.")
         : null;
+
+    // Reranking was measured on hybrid candidates only (docs/Decision-Log.md, "Step 2b spike - measured").
+    private readonly IRelevanceScorer? reranker = reranker is null || retrieval.Search == SearchMode.Hybrid
+        ? reranker
+        : throw new ArgumentException("Reranking needs hybrid search - it was measured on hybrid candidates only.", nameof(reranker));
 
     // Each rule after the first answers a failure seen in the 2026-09-25 manual pass (Decision-Log.md,
     // "manual pass"): bare figures with no unit (7 of 24 main answers - "$45,183,036" for $45.2 billion), a
@@ -78,11 +89,12 @@ internal sealed class RagAnswerService(
         string[] targetFilings = companies.ResolveFilings(question);
         string? targetStatementType = QueryIntentResolver.ResolveStatementType(question);
         string? keywordQuery = keywords is null ? null : KeywordQuery.Build(question, companies.Registrations.SelectMany(r => r.Names));
+        Dictionary<int, RerankedChunk>? reranked = reranker is null ? null : new();
 
         List<VectorSearchResult<FilingChunkRecord>> results;
         if (targetFilings.Length <= 1)
         {
-            results = await RetrieveAsync(question, keywordQuery, searchTopK, targetFilings.SingleOrDefault(), targetStatementType, cancellationToken);
+            results = await RetrieveAsync(question, keywordQuery, searchTopK, targetFilings.SingleOrDefault(), targetStatementType, reranked, cancellationToken);
         }
         else
         {
@@ -94,7 +106,7 @@ internal sealed class RagAnswerService(
             List<List<VectorSearchResult<FilingChunkRecord>>> perFiling = new();
             foreach (string filing in targetFilings)
             {
-                perFiling.Add(await RetrieveAsync(question, keywordQuery, perFilingTopK, filing, targetStatementType, cancellationToken));
+                perFiling.Add(await RetrieveAsync(question, keywordQuery, perFilingTopK, filing, targetStatementType, reranked, cancellationToken));
             }
 
             results = Enumerable.Range(0, perFilingTopK)
@@ -146,14 +158,45 @@ internal sealed class RagAnswerService(
         IAsyncEnumerable<ChatResponseUpdate> rawStream = chatClient.GetStreamingResponseAsync(chatMessages, chatOptions, cancellationToken);
         IAsyncEnumerable<ChatResponseUpdate> guardedStream = GuardAgainstStarvedResponse(rawStream, cancellationToken);
 
-        return new RagAnswer(targetFilings, targetStatementType, effectiveReasoningEffort, results, guardedStream, retrieval.Search, keywordQuery);
+        return new RagAnswer(targetFilings, targetStatementType, effectiveReasoningEffort, results, guardedStream, retrieval.Search, keywordQuery, reranked);
     }
 
-    private Task<List<VectorSearchResult<FilingChunkRecord>>> RetrieveAsync(
-        string question, string? keywordQuery, int top, string? filing, string? statementType, CancellationToken cancellationToken) =>
-        keywords is null
-            ? SearchAsync(question, top, filing, statementType, cancellationToken)
-            : HybridSearchAsync(keywords, question, keywordQuery, top, filing, statementType, cancellationToken);
+    private async Task<List<VectorSearchResult<FilingChunkRecord>>> RetrieveAsync(
+        string question, string? keywordQuery, int top, string? filing, string? statementType,
+        Dictionary<int, RerankedChunk>? reranked, CancellationToken cancellationToken)
+    {
+        if (keywords is null)
+        {
+            return await SearchAsync(question, top, filing, statementType, cancellationToken);
+        }
+
+        if (reranker is null)
+        {
+            return await HybridSearchAsync(keywords, question, keywordQuery, top, filing, statementType, cancellationToken);
+        }
+
+        // Step 2b: the company's top RerankCandidates, reordered by the cross-encoder, then cut - for a question naming
+        // several companies this runs once per company, so each keeps its own share of the slots, as the spike measured.
+        List<VectorSearchResult<FilingChunkRecord>> candidates =
+            await HybridSearchAsync(keywords, question, keywordQuery, Math.Max(top, retrieval.RerankCandidates), filing, statementType, cancellationToken);
+        IReadOnlyList<float> scores = reranker.Score(question, candidates.Select(c => RerankPassage(c.Record)).ToList());
+        for (int i = 0; i < candidates.Count; i++)
+        {
+            reranked![candidates[i].Record.Key] = new RerankedChunk(scores[i], i + 1);
+        }
+
+        // OrderByDescending is stable: equal scores keep their hybrid order.
+        return candidates.OrderByDescending(c => reranked![c.Record.Key].Score).Take(top).ToList();
+    }
+
+    // What the reranker reads for a chunk: its company line (as in its embedding text - the spike's "company" text; without
+    // it both models ranked worse than no reranking at all), then the excerpt header the chat model sees, then the chunk.
+    private string RerankPassage(FilingChunkRecord record)
+    {
+        string excerpt = $"Excerpt from {record.SourceFiling}, section {record.Heading}\n{record.Content}";
+        string? context = companies.Registrations.FirstOrDefault(r => r.Filing == record.SourceFiling)?.Context;
+        return context is null ? excerpt : $"{context}\n{excerpt}";
+    }
 
     // Up to three ranked lists, fused (RankFusion): the vector search and the keyword search within the company filter,
     // and - when the question resolved a statement type - the vector search within that statement too. That third list

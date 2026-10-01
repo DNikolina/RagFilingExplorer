@@ -1,0 +1,289 @@
+{
+ "log": "eval/structured-2b/main-merged.log",
+ "questions": "tools/manual-questions.txt",
+ "results": [
+  {
+   "id": "Q1",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's total assets as of June 30, 2026, were $758,376 million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)"
+  },
+  {
+   "id": "Q2",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "As of May 31, 2026, Oracle's total stockholders' equity was $43,056 million (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)."
+  },
+  {
+   "id": "Q3",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Nasdaq's total liabilities were $18,821 million as of December 31, 2025. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements)"
+  },
+  {
+   "id": "Q4",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's net cash from operations was $182,935 million for the year ended June 30, 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)."
+  },
+  {
+   "id": "Q5",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Oracle's net cash provided by operating activities was $31,977 million for the year ended May 31, 2026 (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)."
+  },
+  {
+   "id": "Q6",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Nasdaq's net cash provided by operating activities in 2025 was $2,255 million (Source: NDAQ-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of)."
+  },
+  {
+   "id": "Q7",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's total stockholders' equity was $442,387 million as of June 30, 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)."
+  },
+  {
+   "id": "Q8",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's comprehensive income for the year ended June 30, 2026 was $133,812 million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)"
+  },
+  {
+   "id": "Q9",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Oracle's comprehensive income for the year ended May 31, 2026 was $16,882 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules > CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME)"
+  },
+  {
+   "id": "Q10",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Nasdaq's total comprehensive income for 2025 was $2,113 million (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Consolidated Statements of Comprehensive Income)."
+  },
+  {
+   "id": "Q11",
+   "kind": "fact",
+   "status": "reliable",
+   "note": "",
+   "answer": "As of June 30, 2026, Microsoft employed approximately 223,000 people on a full-time basis, with 121,000 in the U.S. and 102,000 internationally (Source: MSFT-10K-2026.html, PART I > Item 1. BUSINESS)."
+  },
+  {
+   "id": "Q12",
+   "kind": "fact",
+   "status": "reliable",
+   "note": "",
+   "answer": "Oracle's headquarters is located at 2300 Oracle Way, Austin, Texas 78741 (Source: ORCL-10K-2026.html, Cover Page)."
+  },
+  {
+   "id": "Q13",
+   "kind": "fact",
+   "status": "reliable",
+   "note": "",
+   "answer": "Nasdaq's independent registered public accounting firm is Ernst & Young LLP, with a PCAOB ID of 42. (Source: NDAQ-10K-2025.html, section PART II > Item 9A. Controls and Procedures and PART IV > Financial Statements)"
+  },
+  {
+   "id": "Q17",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Netflix's total revenue for fiscal year 2025 was $45,183,036 thousand (Source: NFLX-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)."
+  },
+  {
+   "id": "Q18",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Netflix's net income for 2025 was $10,981,201 thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Consolidated Statements of Comprehensive Income)."
+  },
+  {
+   "id": "Q19",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Netflix's total assets were $55,596,993 thousand as of December 31, 2025 (Source: NFLX-10K-2025.html, PART IV > Financial Statements)."
+  },
+  {
+   "id": "Q20",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Netflix's net cash provided by operating activities for the year ended December 31, 2025 was $10,149,273 thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements)."
+  },
+  {
+   "id": "Q21",
+   "kind": "figure",
+   "status": "no-unit",
+   "note": "expected thousand",
+   "answer": "Netflix's comprehensive income for the year ended December 31, 2025, was $10,038,657 (Source: NFLX-10K-2025.html, PART IV > Financial Statements)."
+  },
+  {
+   "id": "Q22",
+   "kind": "fact",
+   "status": "reliable",
+   "note": "",
+   "answer": "Netflix has its corporate headquarters in Los Gatos, California (Source: NFLX-10K-2025.html, PART I > Item 2. Properties)."
+  },
+  {
+   "id": "Q14",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's total revenue for the year ended June 30, 2026, is $331,839 million, while Oracle's total revenue for the year ended May 31, 2026, is $67,357 million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA; ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)."
+  },
+  {
+   "id": "Q15",
+   "kind": "negative",
+   "status": "decline-ok",
+   "note": "",
+   "answer": "The excerpts don't contain Nasdaq's total revenue in fiscal year 2030."
+  },
+  {
+   "id": "Q16",
+   "kind": "negative",
+   "status": "decline-ok",
+   "note": "",
+   "answer": "The excerpts don't contain Apple's revenue."
+  },
+  {
+   "id": "Q23",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Nasdaq's total stockholders' equity was $12,227 million as of December 31, 2025. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements)"
+  },
+  {
+   "id": "Q24",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's statement of stockholders' equity showed that common stock cash dividends in fiscal year 2026 were $27,034 million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > STOCKHOLDERS’ EQUITY)"
+  },
+  {
+   "id": "T1",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's other comprehensive income for fiscal year 2025 was $2,243 million (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > COMPREHENSIVE INCOME STATEMENTS)."
+  },
+  {
+   "id": "T2",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft spent $3,500 million in the second quarter of fiscal year 2025 repurchasing its shares. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Stockholders' Equity)"
+  },
+  {
+   "id": "T3",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Netflix's technology and development expenses increased by 16% in 2025 compared to 2024. (Source: NFLX-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)"
+  },
+  {
+   "id": "T4",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Oracle's operating lease payments due in fiscal 2028 are $3,603 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules > Leases, Other Commitments and Certain Contingencies)"
+  },
+  {
+   "id": "T5",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "The recorded basis of Microsoft's U.S. government securities as of June 30, 2026 was $48,562 million. (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data > Investments)"
+  },
+  {
+   "id": "T6",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "The goodwill balance of Nasdaq's Financial Technology segment at December 31, 2025 was $7,952 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Goodwill and Acquired Intangible Assets)"
+  },
+  {
+   "id": "T7",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "The effect of the Ireland statutory tax rate difference on Microsoft's effective tax rate in fiscal year 2026 was a decrease of 2.6% of the federal statutory rate, which was $34,846 million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Income Taxes)"
+  },
+  {
+   "id": "T8",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Nasdaq paid an average price per share of $91.47 for shares it repurchased in November 2025. (Source: NDAQ-10K-2025.html, PART II > Item 5. Market for Registrant’s Common Equity, Related)"
+  },
+  {
+   "id": "T9",
+   "kind": "figure",
+   "status": "wrong",
+   "note": "declines but states 1.70",
+   "answer": "Oracle declared cash dividends of $1.70 per share in fiscal 2025, and the total amount of common stock dividends declared is not stated in the excerpts. However, the total amount of common stock dividends declared can be calculated by multiplying the number of shares by the dividend per share, but the number of shares is not provided in the excerpts.",
+   "graded": "check",
+   "resolution": "gives the $1.70 per-share dividend and says the total isn't in the excerpts - a partial decline, not the total",
+   "resolved_by": "user, 2026-10-01"
+  },
+  {
+   "id": "T10",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "$96,795 thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Stockholders' Equity)."
+  },
+  {
+   "id": "R1",
+   "kind": "routing",
+   "status": "reliable",
+   "note": "",
+   "answer": "Oracle's current deferred revenues as of May 31, 2026 were $9,916 million (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)."
+  },
+  {
+   "id": "R2",
+   "kind": "routing",
+   "status": "reliable",
+   "note": "",
+   "answer": "The operating income of Nasdaq's Capital Access Platforms segment in 2025 was $1,274 million (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Business Segments)."
+  },
+  {
+   "id": "R3",
+   "kind": "routing",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's Intelligent Cloud segment revenue was $137,791 million for the year ended June 30, 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Segment Information and Geographic Data)."
+  },
+  {
+   "id": "V1",
+   "kind": "figure",
+   "status": "wrong",
+   "note": "trap 942",
+   "answer": "Nasdaq's total comprehensive income for 2024 was $942 million (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Consolidated Statements of Comprehensive Income)."
+  },
+  {
+   "id": "V2",
+   "kind": "negative",
+   "status": "decline-ok",
+   "note": "",
+   "answer": "The excerpts don't contain Microsoft's comprehensive income for 2023."
+  },
+  {
+   "id": "V3",
+   "kind": "figure",
+   "status": "wrong",
+   "note": "expected figure absent",
+   "answer": "Netflix's net cash provided by operating activities for the year ended December 31, 2025 was $10,149,273 thousand, for the year ended December 31, 2024 was $7,361,364 thousand, and for the year ended December 31, 2023 was $7,274,301 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements and PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)\n\n>"
+  }
+ ]
+}

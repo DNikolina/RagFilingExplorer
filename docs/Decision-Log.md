@@ -2274,6 +2274,139 @@ character it can't print instead of crashing. Every committed grade file of `str
 regrades identically. Logs from here on aren't byte-comparable with earlier ones on punctuation - grades and replay are
 unaffected (figures, units, keywords and scores are ASCII).
 
+**Step 2b resumed - plan re-checked against Microsoft Learn, models fetched and vetted (2026-10-01).**
+- *Re-check:* Azure Architecture Center, "Information retrieval", unchanged on every point recorded above (pipeline,
+  when to rerank, the two MiniLM names, order-not-threshold, benchmark relevance and latency). No reranking abstraction
+  in `Microsoft.Extensions.AI` (still `IChatClient`, `IEmbeddingGenerator`, `IImageGenerator`); Microsoft's reranker
+  clients (Azure Semantic Reranker beta, Cosmos DB) are cloud services. `BertTokenizer` and its pair methods
+  (`BuildInputsWithSpecialTokens`, `CreateTokenTypeIdsFromSequences`) are in the stable `Microsoft.ML.Tokenizers` 2.0.0
+  already referenced (checked in the DLL; Learn's pages show a preview build).
+- *Added to the spike:* rerank both the top 25 and the top 50 (the guidance: start at 20-50, adjust); a passing replay
+  needs a full run confirming every correct decline still declines (Learn: test negative examples too); before any
+  build, Python `tokenizers` and .NET `BertTokenizer` must give identical ids on every chunk, or the spike doesn't carry
+  over; the reranker's input text is a variable (chunk as the model sees it vs with step 1d's company line), measured,
+  not defaulted.
+- *Dropped:* `bge-reranker-base` - XLM-RoBERTa, a SentencePiece tokenizer (not `BertTokenizer`), >1 GB, several times
+  slower on CPU. Only if both MiniLM models disappoint.
+- *Provenance and vetting (user asked for this before anything was fetched):* only `onnx/model.onnx` + the five tokenizer
+  and config files per model, by `curl` from pinned commits - no pickle (`pytorch_model.bin`), no `transformers`, no Hub
+  client. Stored outside the repo in `%USERPROFILE%\models\cross-encoder\`.
+  | | ms-marco-MiniLM-L6-v2 | ms-marco-MiniLM-L12-v2 |
+  |---|---|---|
+  | commit | `233902d25c440f23af6f7d6e94d2946bac0bee0a` | `7b0235231ca2674cb8ca8f022859a6eba2b1c968` |
+  | `model.onnx` bytes | 91,011,230 | 133,743,863 |
+  | `model.onnx` sha256 | `5d3e70fd0c9ff14b9b5169a51e957b7a9c74897afd0a35ce4bd318150c1d4d4a` | `2ac389ab6abe08dcbddf2c41a69b6a18853e0dca440adbc2abc1adfcee46483f` |
+  | HF security scan | done, no files with issues | not run |
+  | license | Apache 2.0 | Apache 2.0 |
+  Every file matched Hugging Face's hash (sha256 for the models, git blob sha1 for the text files; the tokenizer files are
+  identical in both repos). Both graphs, read field by field without loading them (no `onnx` package): only `ai.onnx`
+  ops at opset 14, no external data, no functions, no subgraphs, exported by PyTorch 2.6.0 - which covers L12's missing
+  scan. `pip install tokenizers==0.23.2` also brought 11 dependencies (huggingface-hub, hf-xet, httpx, httpcore, h11,
+  anyio, fsspec, filelock, tqdm, pyyaml, colorama); OSV lists no advisories for any of them or `onnxruntime` 1.20.1;
+  `pip check` clean. To undo: delete the models folder, `pip uninstall` those packages.
+
+**Step 2b spike - measured (2026-10-01, `eval/rerank-2b-spike/`, `tools/rerank_spike.py`).** Replay only: each question's
+own hybrid candidates (from the step 5a logs) scored by the cross-encoder per (question, chunk) pair, each company's list
+reordered by score, merged as the app merges. `tools/replay_recall.py` was refactored into functions the spike imports -
+its output byte-identical before and after on both question sets. Recall@5 (what the model reads) on the 68 answerable
+questions:
+| rerank the top 25 | Q | T | R | V | H1-15 | H16-35 | total | CPU s/question |
+|---|---|---|---|---|---|---|---|---|
+| none (step 5a) | 22/22 | 10/10 | 2/3 | 2/2 | 13/13 | 15/18 | 64/68 | - |
+| **L6, company line** | 22/22 | 10/10 | 3/3 | 2/2 | 13/13 | 17/18 | **67/68** | ~1.1-2.7 |
+| L12, company line | 21/22 | 10/10 | 3/3 | 2/2 | 13/13 | 17/18 | 66/68 | ~2.6-5.7 |
+| L6, excerpt only | 20/22 | 9/10 | 1/3 | 2/2 | 12/13 | 15/18 | 59/68 | ~1.9-2.8 |
+| L12, excerpt only | 20/22 | 9/10 | 3/3 | 2/2 | 13/13 | 16/18 | 63/68 | ~5.2-5.3 |
+| L6, company + windows | 22/22 | 9/10 | 3/3 | 2/2 | 13/13 | 16/18 | 65/68 | ~1.7-1.8 |
+| L12, company + windows | 21/22 | 9/10 | 3/3 | 2/2 | 13/13 | 17/18 | 65/68 | ~3.6-3.8 |
+- **Targets:** R3 12 -> 4 (L6) / 1 (L12), H25 11 -> 3 / 1, H34 9 -> 5 / 4. **H29 moves in no setting** - its figure (827)
+  is in 83 chunks; a lookalike-row problem, not ranking depth.
+- **L6 + company line is the only setting that loses no answer from the top 5.** L12 ranks answers higher (MRR T 0.75 ->
+  0.80, R 0.47 -> 0.83, H16-35 0.74 -> 0.78) but drops Q20's Oracle figure (2 -> 8); both lower H1-H15's MRR (0.90 -> 0.80
+  L6, 0.86 L12) - answers that stay in the top 5 but lower in it.
+- **The company line is what makes it work:** without it both models do worse than no reranking (L6 loses Q1, Q4, Q20,
+  T9, R2) - step 1d's finding again, for the reranker.
+- **Depth 50 never beat 25** (equal or slightly worse everywhere): 25 it is.
+- **Truncation:** 30-40% of candidates exceed the 512-token window (company line + excerpt line + content: median 470
+  WordPiece tokens, p90 542, max 606; ~489 fit beside a question) - only their last 0-120 tokens are cut. Checked for every
+  expected figure in every chunk: none is reachable only in a cut-off tail. Smaller chunks (asked by the user) were not
+  pursued: no answer is hidden by the cut, they'd change embeddings, keyword search and what fits the 5 excerpts (a full
+  rebuild and re-measure), and step 1c-b's finer chunks already cost 14-18% MRR.
+- **Windows (MaxP) - measured, declined.** A chunk too long for the window scored twice - its head, and its tail opened by
+  the same company and excerpt lines, cut at a row boundary - keeping the higher score (the tail decided 15-23 answer
+  chunks per question set; nothing truncated). MRR up (L6: T 0.75 -> 0.86, H1-15 0.80 -> 0.87, H16-35 0.64 -> 0.73), but
+  the top 5 lost T9 (both models) and H34 (L6): seeing whole chunks also lifts lookalike rows elsewhere. ~1.5x the CPU.
+- Timings are wall-clock and noisy (the same configuration measured 1.1 and 2.7 s); the ratios hold. Under ~6 s per
+  question in every setting - ~5% of an answer's ~60-100 s.
+*Decision (user): build L6 + company line, reranking the top 25, no windows* - behind a setting, off by default as Hybrid is;
+first the tokenizer parity check (.NET `BertTokenizer` vs Python `tokenizers`), then a full run on all 75 questions against
+step 5a: the strict 22/24 bar, every correct decline still declining. The differences are 1-3 questions of 68 - a direction;
+the full run decides.
+
+**Step 2b - build (2026-10-01).** `Retrieval:Rerank` (off by default; Hybrid only - the app refuses it with Vector), with
+`RerankCandidates` 25, `RerankModelDirectory` and `RerankModelSha256`. `CrossEncoderReranker` checks the model's SHA-256
+before ONNX Runtime reads it (a swapped file is refused at startup); `RagAnswerService` reranks each company's top 25
+hybrid candidates and keeps its share, as the spike did; each passage is the company line (`CompanyRegistration.Context`
+= step 1d's `CoverFacts.EmbeddingContext`) + the excerpt header + the chunk. `--verbose` lines read
+`score=<fused> rerank=<cross-encoder> hybrid=#<rank before>`. Packages: `Microsoft.ML.OnnxRuntime` 1.30.0 (latest stable)
+and `Microsoft.ML.Tokenizers` 2.0.0 (already transitive) - no vulnerable packages.
+- **The tokenizer parity check found what the spike wouldn't have carried over.** `BertTokenizer` (stable 2.0.0) as
+  configured from the model's own settings differed from Python's `tokenizers` on **all 73,125** (question, chunk) pairs of
+  both question files: it drops line breaks (fusing "STATES\n\nSECURITIES" into "states ##se ##cu ..."), drops ASCII
+  symbols Hugging Face keeps as punctuation (`|` and `$` - every table row's separators), and drops unknown symbols
+  (the cover's "☒"; Hugging Face: `[UNK]`). Built as-is, the reranker would have read our tables without their
+  separators - text it was never measured on. `BertPairEncoder` now does Hugging Face's BertNormalizer and
+  BertPreTokenizer itself (clean, CJK, strip accents, lowercase; whitespace + ASCII/Unicode punctuation split) and uses
+  `BertTokenizer` for WordPiece only: **0 of 73,125 pairs differ**, checked with the app's own source compiled in.
+- **Scores:** the app's reranker (ONNX Runtime 1.30, .NET) vs the spike's (1.20.1, Python) over all 975 chunks for two
+  questions: max difference 7.2e-6, top-25 order identical. ~2.1 s per 25 candidates.
+- **End to end:** the app's reranked order for Q1, Q20 (two companies, interleaved) and R3 matched the spike's code
+  exactly over all 25 positions - so the company lines match too. R3 answered right for the first time ($137,791
+  million; its answer chunk hybrid #19 -> 1).
+- Tests: 367 (17 new - the encoder's Hugging Face behaviours on a 14-word vocabulary, the model's load-time checks, the
+  service's per-company rerank, passage text and cut). The scorer is faked in tests, not Moq-mocked: Castle proxies an
+  internal interface into its unsigned assembly, outside `AssemblyInfo`'s strong-name-scoped grant.
+
+**Step 2b - full run (2026-10-01, `eval/structured-2b/`).** Step 5a's eval settings plus `Rerank: true`. The main set was
+stopped by Claude Code at 35 of 40 questions (the machine ran low on memory - other load, not the run: re-running the last
+five, free memory never fell below 11.8 GB of 31.7), so it is in two logs - `main.log` (Q1-R1, one session) and
+`main-rest.log` (R2-V3, a fresh session). Answers so far, against step 5a:
+- **R3 right for the first time** - $137,791 million (its chunk hybrid #19 -> 1). **Q2** now gives $43,056M, the expected
+  line (5a and every model before: $42,508M) - but see V1: a lookalike flip, not counted as a robust gain.
+- **V1 now wrong** - $942M ("Comprehensive income attributable to Nasdaq") for $940M ("Comprehensive income"). Both lines
+  are in one chunk, NDAQ's comprehensive income statement, **ranked #1 in both runs**; only the four excerpts around it
+  changed. Deterministic: $942 in four runs, two with every model unloaded first (Ollama reuses a cached prompt prefix -
+  the user's catch - so only uncached runs count as independent).
+- **Which excerpt tips it - ablation** (`eval/structured-2b/v1_ablation.py`: the app's exact prompt sent to Ollama, the
+  model unloaded before every call; both controls reproduced the app, $942 reranked and $940 step 5a): **the answer
+  chunk alone gives $942**; the reranked five without excerpt 2 (fair value note), 3 (segment table) or 5 (Item 8
+  narrative) give $940; without excerpt 4 (the MD&A "attributable to Nasdaq" table - the suspect) still $942. No excerpt
+  pushes llama to the lookalike: **$942 is its default reading of that table**, and step 5a's right answer came from the
+  mix of excerpts around it. V1 sits on a knife edge - counted as noise from a fragile lookalike question, not a
+  regression the reranker caused; the same reading applies to Q2 the other way. The lookalike family (V1, Q10, T1, H26)
+  is an answer-side problem (step 5's answer skills, or a stronger reader - granite4.1:8b read these better).
+- Rule from this: **re-check a single question with the model unloaded first** (`ollama stop llama3.1:8b`).
+- **Results** (main graded on `main-merged.log` - the two logs joined, 40 answers; held-out one session):
+  | reliable | step 5a | **step 2b** | changes |
+  |---|---|---|---|
+  | Main Q1-Q24 | 22/24 | **23/24** | +Q2 |
+  | Targeted T1-T10 | 7/10 | **9/10** | +T1 ($2,243M - 5a took the 104,075 lookalike), +T6 ($7,952M - 5a declined) |
+  | Routing R1-R3 | 2/3 | **3/3** | +R3 |
+  | Variants V1-V3 | 2/3 | 1/3 | -V1 (above) |
+  | Held-out H1-H15 | 14/15 | **15/15** | +H13 ($9,033,681 thousand - the spike's truncated-tail figure), H2 held (below) |
+  | Held-out H16-H35 | 17/20 | **18/20** | +H25 ($46,751M) |
+  | **total** | **64/75** | **69/75** | |
+  Strict main bar 23/24 (bar 22/24); every correct decline still a clean decline (Q15, Q16, V2, H8, H15, H20, H30); largest
+  prompt 2,966 tokens + 768 of 4,096, nothing truncated. Still failing: H29 (Index revenue - no reranker setting moved
+  it), H34 (MD&A's rounded "$9.1 billion", wrong by the earlier decision), V3 (asked-for arithmetic), V1, Q21 (as in 5a).
+- **Reader decisions (user):** H2 "19.4%" **reliable** - the grader expects "19%", but 19.4% is the filing's own figure
+  (the income-tax note's reconciliation, "Effective rate - 2026: 19.4%"; MD&A rounds it to 19%). T9 **not reliable** - the
+  $1.70 per-share dividend plus "the total isn't in the excerpts": a partial decline (wrong in 5a too). Both recorded in
+  the `.json` files (`graded`, `resolution`, `resolved_by`).
+*Decision (user, 2026-10-01): keep reranking.* Every bar met, +5 reliable answers for ~2 s of CPU per question. The three
+retrieval targets reached and answered (R3, H25, H13); H29 remains - a lookalike-row problem, not depth. Shipped defaults
+stay Vector + Markdown, reranking off, until v2 closes; the eval build sets Structured + Hybrid + Rerank.
+
 Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
 Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation
 memory (follow-up questions), query decomposition beyond per-company search, an API or UI. Automated onboarding

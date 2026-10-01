@@ -1,0 +1,814 @@
+{
+ "log": "eval/structured-5a/main.log",
+ "questions": "tools/manual-questions.txt",
+ "configs": {
+  "ms-marco-MiniLM-L6-v2/excerpt": {
+   "s_per_question_25": 1.929537632506981,
+   "s_per_question_50": 3.860414217504149,
+   "truncated": [
+    582,
+    2050
+   ],
+   "figure_cut": [
+    [
+     "Q13",
+     365,
+     "Ernst & Young"
+    ]
+   ],
+   "ranks": {
+    "Q1": {
+     "depth25": 5,
+     "depth50": 8,
+     "unreranked": 1
+    },
+    "Q2": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q3": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q4": {
+     "depth25": 6,
+     "depth50": 8,
+     "unreranked": 2
+    },
+    "Q5": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 2
+    },
+    "Q6": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    },
+    "Q7": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "Q8": {
+     "depth25": 2,
+     "depth50": 3,
+     "unreranked": 1
+    },
+    "Q9": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q10": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q11": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q12": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q13": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q14": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "Q15": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q16": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "Q17": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    },
+    "Q18": {
+     "depth25": 4,
+     "depth50": 5,
+     "unreranked": 1
+    },
+    "Q19": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q20": {
+     "depth25": 12,
+     "depth50": 14,
+     "unreranked": 2
+    },
+    "Q23": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q24": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "T1": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "T2": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "T3": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "T4": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "T5": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 4
+    },
+    "T6": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "T7": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "T8": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 2
+    },
+    "T9": {
+     "depth25": 8,
+     "depth50": 8,
+     "unreranked": 2
+    },
+    "T10": {
+     "depth25": 3,
+     "depth50": 3,
+     "unreranked": 4
+    },
+    "R1": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "R2": {
+     "depth25": 6,
+     "depth50": 6,
+     "unreranked": 3
+    },
+    "R3": {
+     "depth25": 10,
+     "depth50": 10,
+     "unreranked": 12
+    },
+    "V1": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "V3": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    }
+   }
+  },
+  "ms-marco-MiniLM-L6-v2/company": {
+   "s_per_question_25": 2.6500824225062387,
+   "s_per_question_50": 5.295173485002306,
+   "truncated": [
+    821,
+    2050
+   ],
+   "figure_cut": [
+    [
+     "Q13",
+     365,
+     "Ernst & Young"
+    ]
+   ],
+   "ranks": {
+    "Q1": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q2": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q3": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q4": {
+     "depth25": 3,
+     "depth50": 3,
+     "unreranked": 2
+    },
+    "Q5": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    },
+    "Q6": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    },
+    "Q7": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q8": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q9": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q10": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q11": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q12": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q13": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q14": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "Q15": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q16": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "Q17": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    },
+    "Q18": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q19": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q20": {
+     "depth25": 5,
+     "depth50": 5,
+     "unreranked": 2
+    },
+    "Q23": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q24": {
+     "depth25": 3,
+     "depth50": 3,
+     "unreranked": 1
+    },
+    "T1": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "T2": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "T3": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "T4": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "T5": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 4
+    },
+    "T6": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "T7": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "T8": {
+     "depth25": 3,
+     "depth50": 3,
+     "unreranked": 2
+    },
+    "T9": {
+     "depth25": 5,
+     "depth50": 5,
+     "unreranked": 2
+    },
+    "T10": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 4
+    },
+    "R1": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "R2": {
+     "depth25": 5,
+     "depth50": 5,
+     "unreranked": 3
+    },
+    "R3": {
+     "depth25": 4,
+     "depth50": 4,
+     "unreranked": 12
+    },
+    "V1": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "V3": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    }
+   }
+  },
+  "ms-marco-MiniLM-L12-v2/excerpt": {
+   "s_per_question_25": 5.213834952496109,
+   "s_per_question_50": 10.34486181999091,
+   "truncated": [
+    582,
+    2050
+   ],
+   "figure_cut": [
+    [
+     "Q13",
+     365,
+     "Ernst & Young"
+    ]
+   ],
+   "ranks": {
+    "Q1": {
+     "depth25": 3,
+     "depth50": 3,
+     "unreranked": 1
+    },
+    "Q2": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q3": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q4": {
+     "depth25": 6,
+     "depth50": 8,
+     "unreranked": 2
+    },
+    "Q5": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 2
+    },
+    "Q6": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    },
+    "Q7": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "Q8": {
+     "depth25": 4,
+     "depth50": 6,
+     "unreranked": 1
+    },
+    "Q9": {
+     "depth25": 1,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "Q10": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q11": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q12": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q13": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q14": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "Q15": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "Q16": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "Q17": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    },
+    "Q18": {
+     "depth25": 3,
+     "depth50": 5,
+     "unreranked": 1
+    },
+    "Q19": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q20": {
+     "depth25": 18,
+     "depth50": 26,
+     "unreranked": 2
+    },
+    "Q23": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "Q24": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "T1": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "T2": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "T3": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "T4": {
+     "depth25": 3,
+     "depth50": 3,
+     "unreranked": 1
+    },
+    "T5": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 4
+    },
+    "T6": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "T7": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "T8": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 2
+    },
+    "T9": {
+     "depth25": 8,
+     "depth50": 8,
+     "unreranked": 2
+    },
+    "T10": {
+     "depth25": 4,
+     "depth50": 4,
+     "unreranked": 4
+    },
+    "R1": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "R2": {
+     "depth25": 3,
+     "depth50": 3,
+     "unreranked": 3
+    },
+    "R3": {
+     "depth25": 4,
+     "depth50": 4,
+     "unreranked": 12
+    },
+    "V1": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "V3": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    }
+   }
+  },
+  "ms-marco-MiniLM-L12-v2/company": {
+   "s_per_question_25": 3.1399084675009363,
+   "s_per_question_50": 6.334724824994919,
+   "truncated": [
+    821,
+    2050
+   ],
+   "figure_cut": [
+    [
+     "Q13",
+     365,
+     "Ernst & Young"
+    ]
+   ],
+   "ranks": {
+    "Q1": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q2": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q3": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q4": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 2
+    },
+    "Q5": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    },
+    "Q6": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    },
+    "Q7": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q8": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q9": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q10": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q11": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q12": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q13": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q14": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "Q15": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q16": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q17": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    },
+    "Q18": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q19": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q20": {
+     "depth25": 8,
+     "depth50": 8,
+     "unreranked": 2
+    },
+    "Q23": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "Q24": {
+     "depth25": 3,
+     "depth50": 3,
+     "unreranked": 1
+    },
+    "T1": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "T2": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "T3": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "T4": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "T5": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 4
+    },
+    "T6": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "T7": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "T8": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    },
+    "T9": {
+     "depth25": 5,
+     "depth50": 5,
+     "unreranked": 2
+    },
+    "T10": {
+     "depth25": 4,
+     "depth50": 4,
+     "unreranked": 4
+    },
+    "R1": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "R2": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 3
+    },
+    "R3": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 12
+    },
+    "V1": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "V3": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    }
+   }
+  }
+ }
+}

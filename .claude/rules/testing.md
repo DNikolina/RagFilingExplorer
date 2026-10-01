@@ -28,7 +28,9 @@ extend (e.g. `RagAnswerServiceTests.MakeMocks`, `CreateService`).
   compute token budgets from it instead of hard-coding counts (see `TokenChunkerTests`).
 - **Mock only the external boundaries:** `VectorStoreCollection<int, FilingChunkRecord>` and `IChatClient`,
   via Moq (`RagAnswerServiceTests.MakeMocks`). Castle needs the `DynamicProxyGenAssembly2` grant, already
-  in `AssemblyInfo.cs`.
+  in `AssemblyInfo.cs`. The reranker's model (`IRelevanceScorer`) is a boundary too, but stood in for by a
+  hand-written fake (`RagAnswerServiceTests.ScoreFromText`): Castle proxies an internal interface into its
+  unsigned assembly, which the strong-name-scoped grant doesn't cover.
 - **Files on disk:** a per-test temp dir, `Path.Combine(Path.GetTempPath(), $"<Fixture>-{Guid.NewGuid():N}")`,
   created in `[SetUp]` and deleted in `[TearDown]`.
 - **Settings tests read the shipped `appsettings.json`** (`AppSettingsTests.LoadShippedSettings()`), so they

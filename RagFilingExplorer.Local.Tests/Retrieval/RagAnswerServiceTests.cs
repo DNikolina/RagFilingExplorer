@@ -4,6 +4,7 @@ using Microsoft.Extensions.VectorData;
 using Moq;
 using RagFilingExplorer.Local.Retrieval;
 using RagFilingExplorer.Local.VectorStore;
+using System.Text.RegularExpressions;
 
 namespace RagFilingExplorer.Local.Tests.Retrieval;
 
@@ -27,7 +28,10 @@ public class RagAnswerServiceTests
         int maxOutputTokens = 2048,
         bool chatModelSupportsThinking = true,
         KeywordIndex? keywordIndex = null,
-        int hybridCandidates = 50)
+        int hybridCandidates = 50,
+        IRelevanceScorer? reranker = null,
+        int rerankCandidates = 25,
+        SearchMode? search = null)
     {
         RetrievalSettings retrieval = new()
         {
@@ -37,18 +41,22 @@ public class RagAnswerServiceTests
             ChatTemperature = 0.2f,
             ReasoningEffort = reasoningEffort,
             MaxOutputTokens = maxOutputTokens,
-            Search = keywordIndex is null ? SearchMode.Vector : SearchMode.Hybrid,
+            Search = search ?? (keywordIndex is null ? SearchMode.Vector : SearchMode.Hybrid),
             HybridCandidates = hybridCandidates,
+            Rerank = reranker is not null,
+            RerankCandidates = rerankCandidates,
+            RerankModelDirectory = "unused - the scorer is passed in",
+            RerankModelSha256 = "unused",
         };
 
-        return new RagAnswerService(collection.Object, chatClient.Object, retrieval, chatModelSupportsThinking, Companies, keywordIndex);
+        return new RagAnswerService(collection.Object, chatClient.Object, retrieval, chatModelSupportsThinking, Companies, keywordIndex, reranker);
     }
 
     // The two companies these tests name, as their filings register them (CompanyRegistryTests checks the real ones).
     private static readonly CompanyRegistry Companies = new(
     [
-        new CompanyRegistration("MSFT-10K-2026.html", ["Microsoft", "MSFT"]),
-        new CompanyRegistration("ORCL-10K-2026.html", ["Oracle", "ORCL"]),
+        new CompanyRegistration("MSFT-10K-2026.html", ["Microsoft", "MSFT"], "Microsoft Corporation (MSFT), Form 10-K for fiscal year 2026."),
+        new CompanyRegistration("ORCL-10K-2026.html", ["Oracle", "ORCL"], "Oracle Corporation (ORCL), Form 10-K for fiscal year 2026."),
     ]);
 
     private static async IAsyncEnumerable<VectorSearchResult<FilingChunkRecord>> AsAsync(IEnumerable<VectorSearchResult<FilingChunkRecord>> items)
@@ -522,8 +530,109 @@ public class RagAnswerServiceTests
             MaxOutputTokens = 768,
             Search = SearchMode.Hybrid,
             HybridCandidates = 50,
+            Rerank = false,
+            RerankCandidates = 25,
+            RerankModelDirectory = "unused",
+            RerankModelSha256 = "unused",
         };
 
         Assert.Throws<ArgumentNullException>(() => new RagAnswerService(collection.Object, chatClient.Object, retrieval, false, Companies));
+    }
+
+    // Reranking (v2 step 2b). The scorer is the ONNX model's boundary, stood in for by a fake that scores a passage by the
+    // number in it ("score:N"), which makes the expected order explicit. A fake rather than a Moq mock: Castle proxies an
+    // interface like this one into its unsigned assembly, which AssemblyInfo's strong-name-scoped grant doesn't cover.
+    private sealed class ScoreFromText(List<IReadOnlyList<string>>? capturedPassages = null) : IRelevanceScorer
+    {
+        public string Name => "test-scorer";
+
+        public IReadOnlyList<float> Score(string question, IReadOnlyList<string> passages)
+        {
+            capturedPassages?.Add(passages);
+            return passages.Select(p => float.Parse(Regex.Match(p, @"score:(-?\d+)").Groups[1].Value)).ToList();
+        }
+    }
+
+    // R3, H25 and H34 had their answer at hybrid rank 9-12, outside the 5 the model reads; the spike's reranking moved them
+    // to 1-5. The candidates are reordered by score, then cut.
+    [Test]
+    public async Task AskAsync_Rerank_ReordersCandidatesByScore_ThenCutsToTopK()
+    {
+        FilingChunkRecord[] pool = Enumerable.Range(1, 12).Select(k => Record(k, "MSFT-10K-2026.html", $"Segment line {k} score:{(k == 12 ? 100 : k)}")).ToArray();
+        (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks();
+        SearchPoolInOrder(collection, pool);
+
+        RagAnswerService service = CreateService(collection, chatClient, keywordIndex: MakeKeywordIndex(_hybridDirectory, pool), reranker: new ScoreFromText());
+        RagAnswer answer = await service.AskAsync("What was Microsoft's Intelligent Cloud segment revenue?", SearchTopK);
+
+        Assert.That(answer.RetrievedChunks.Select(r => r.Record.Key), Is.EqualTo(new[] { 12, 11, 10, 9, 8 }), "the last hybrid candidate scores highest");
+        Assert.That(answer.Reranked![12].Score, Is.EqualTo(100));
+        Assert.That(answer.Reranked[12].HybridRank, Is.EqualTo(12));
+    }
+
+    // The reranker sees each company's top RerankCandidates, not the final top-K - the spike reranked 25 to keep 5.
+    [Test]
+    public async Task AskAsync_Rerank_ScoresRerankCandidatesNotTopK()
+    {
+        FilingChunkRecord[] pool = Enumerable.Range(1, 30).Select(k => Record(k, "ORCL-10K-2026.html", $"Revenues line {k} score:{k}")).ToArray();
+        List<IReadOnlyList<string>> scored = new();
+        (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks();
+        SearchPoolInOrder(collection, pool);
+
+        RagAnswerService service = CreateService(
+            collection, chatClient, keywordIndex: MakeKeywordIndex(_hybridDirectory, pool), reranker: new ScoreFromText(scored), rerankCandidates: 20);
+        RagAnswer answer = await service.AskAsync("What were Oracle's revenues?", SearchTopK);
+
+        Assert.That(scored.Single(), Has.Count.EqualTo(20));
+        Assert.That(answer.RetrievedChunks, Has.Count.EqualTo(SearchTopK));
+    }
+
+    // The spike's "company" text: without the company line both models ranked worse than no reranking (L6 lost Q1, Q4, Q20,
+    // T9 and R2 from the top 5) - so each passage opens with it, then the excerpt header the chat model sees.
+    [Test]
+    public async Task AskAsync_Rerank_PassageOpensWithCompanyLineThenExcerptHeader()
+    {
+        FilingChunkRecord[] pool = [Record(1, "ORCL-10K-2026.html", "Total revenues 57,399 score:1")];
+        List<IReadOnlyList<string>> scored = new();
+        (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks();
+        SearchPoolInOrder(collection, pool);
+
+        RagAnswerService service = CreateService(collection, chatClient, keywordIndex: MakeKeywordIndex(_hybridDirectory, pool), reranker: new ScoreFromText(scored));
+        await service.AskAsync("What were Oracle's total revenues?", SearchTopK);
+
+        Assert.That(scored.Single().Single(), Is.EqualTo(
+            "Oracle Corporation (ORCL), Form 10-K for fiscal year 2026.\nExcerpt from ORCL-10K-2026.html, section PART II > Item 8\nTotal revenues 57,399 score:1"));
+    }
+
+    // Q20 ("Compare Microsoft's and Oracle's total revenue"): each company is reranked within its own candidates and keeps
+    // its share of the slots - one shared rerank could let one company's chunks take them all.
+    [Test]
+    public async Task AskAsync_Rerank_TwoCompanies_EachRerankedSeparatelyThenInterleaved()
+    {
+        FilingChunkRecord[] pool =
+        [
+            Record(1, "MSFT-10K-2026.html", "Microsoft revenue a score:1"),
+            Record(2, "MSFT-10K-2026.html", "Microsoft revenue b score:9"),
+            Record(3, "ORCL-10K-2026.html", "Oracle revenue a score:50"),
+            Record(4, "ORCL-10K-2026.html", "Oracle revenue b score:60"),
+            Record(5, "ORCL-10K-2026.html", "Oracle revenue c score:70"),
+        ];
+        List<IReadOnlyList<string>> scored = new();
+        (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks();
+        SearchPoolInOrder(collection, pool);
+
+        RagAnswerService service = CreateService(collection, chatClient, keywordIndex: MakeKeywordIndex(_hybridDirectory, pool), reranker: new ScoreFromText(scored));
+        RagAnswer answer = await service.AskAsync("Compare Microsoft's and Oracle's total revenue", 4);
+
+        Assert.That(scored, Has.Count.EqualTo(2), "one rerank per company");
+        Assert.That(answer.RetrievedChunks.Select(r => r.Record.Key), Is.EqualTo(new[] { 2, 5, 1, 4 }));
+    }
+
+    [Test]
+    public void Constructor_RerankerWithVectorSearch_Throws()
+    {
+        (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks();
+
+        Assert.Throws<ArgumentException>(() => CreateService(collection, chatClient, reranker: new ScoreFromText(), search: SearchMode.Vector));
     }
 }

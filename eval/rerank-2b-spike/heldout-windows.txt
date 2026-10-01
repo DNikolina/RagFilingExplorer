@@ -1,0 +1,33 @@
+Unreranked (the app today), 35 questions:
+H1-H15: recall@1 11/13  recall@3 12/13  recall@5 13/13  MRR 0.904
+H16-H35: recall@1 11/18  recall@3 15/18  recall@5 15/18  MRR 0.741
+
+== ms-marco-MiniLM-L6-v2/company  (CPU s/question: 25 candidates 1.12 (max 1.19), 50 candidates 1.12 (max 1.19))
+   truncated at 512 tokens: 328/875 candidate passages; expected figure in the cut-off part: [('H10', 251, '9,525'), ('H13', 638, '9,033,681')]
+   depth 25:
+H1-H15: recall@1 9/13  recall@3 11/13  recall@5 13/13  MRR 0.804
+H16-H35: recall@1 7/18  recall@3 16/18  recall@5 17/18  MRR 0.641
+   in/out of the top 5 at depth 25 (question, before, after): [('H25', 11, 3), ('H34', 9, 5)]
+
+== ms-marco-MiniLM-L6-v2/windows  (CPU s/question: 25 candidates 1.80 (max 2.44), 50 candidates 1.80 (max 2.44))
+   truncated at 512 tokens: 0/875 candidate passages; expected figure in the cut-off part: none
+   scored in two windows: 328/875; tail window decided an answer chunk: [('H1', 77), ('H2', 79), ('H3', 102), ('H3', 99), ('H4', 77), ('H4', 94), ('H5', 725), ('H6', 951), ('H9', 496), ('H10', 251), ('H10', 329), ('H12', 514), ('H13', 638), ('H14', 635), ('H17', 99), ('H17', 71), ('H18', 71), ('H21', 849), ('H23', 952), ('H25', 849), ('H35', 612)]
+   depth 25:
+H1-H15: recall@1 10/13  recall@3 12/13  recall@5 13/13  MRR 0.865
+H16-H35: recall@1 10/18  recall@3 16/18  recall@5 16/18  MRR 0.730
+   in/out of the top 5 at depth 25 (question, before, after): [('H25', 11, 1)]
+
+== ms-marco-MiniLM-L12-v2/company  (CPU s/question: 25 candidates 2.59 (max 2.92), 50 candidates 2.59 (max 2.92))
+   truncated at 512 tokens: 328/875 candidate passages; expected figure in the cut-off part: [('H10', 251, '9,525'), ('H13', 638, '9,033,681')]
+   depth 25:
+H1-H15: recall@1 10/13  recall@3 13/13  recall@5 13/13  MRR 0.859
+H16-H35: recall@1 12/18  recall@3 15/18  recall@5 17/18  MRR 0.784
+   in/out of the top 5 at depth 25 (question, before, after): [('H25', 11, 1), ('H34', 9, 4)]
+
+== ms-marco-MiniLM-L12-v2/windows  (CPU s/question: 25 candidates 3.60 (max 5.00), 50 candidates 3.60 (max 5.00))
+   truncated at 512 tokens: 0/875 candidate passages; expected figure in the cut-off part: none
+   scored in two windows: 328/875; tail window decided an answer chunk: [('H1', 77), ('H2', 79), ('H3', 102), ('H3', 99), ('H4', 77), ('H4', 94), ('H5', 725), ('H7', 849), ('H9', 496), ('H10', 251), ('H10', 329), ('H12', 514), ('H13', 638), ('H14', 635), ('H17', 99), ('H17', 71), ('H18', 71), ('H21', 849), ('H22', 849), ('H23', 952), ('H24', 952), ('H25', 849), ('H35', 612)]
+   depth 25:
+H1-H15: recall@1 11/13  recall@3 13/13  recall@5 13/13  MRR 0.910
+H16-H35: recall@1 12/18  recall@3 15/18  recall@5 17/18  MRR 0.784
+   in/out of the top 5 at depth 25 (question, before, after): [('H25', 11, 1), ('H34', 9, 4)]

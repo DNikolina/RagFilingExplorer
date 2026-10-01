@@ -1,0 +1,704 @@
+{
+ "log": "eval/structured-5a/heldout.log",
+ "questions": "tools/heldout-questions.txt",
+ "configs": {
+  "ms-marco-MiniLM-L6-v2/excerpt": {
+   "s_per_question_25": 2.751902937147367,
+   "s_per_question_50": 5.428344954282511,
+   "truncated": [
+    440,
+    1750
+   ],
+   "figure_cut": [
+    [
+     "H13",
+     638,
+     "9,033,681"
+    ]
+   ],
+   "ranks": {
+    "H1": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H2": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H3": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H4": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "H5": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H6": {
+     "depth25": 5,
+     "depth50": 7,
+     "unreranked": 1
+    },
+    "H7": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H9": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H10": {
+     "depth25": 6,
+     "depth50": 6,
+     "unreranked": 4
+    },
+    "H11": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H12": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H13": {
+     "depth25": 2,
+     "depth50": 3,
+     "unreranked": 1
+    },
+    "H14": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    },
+    "H16": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 2
+    },
+    "H17": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "H18": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "H19": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "H21": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H22": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H23": {
+     "depth25": 6,
+     "depth50": 6,
+     "unreranked": 2
+    },
+    "H24": {
+     "depth25": 4,
+     "depth50": 5,
+     "unreranked": 1
+    },
+    "H25": {
+     "depth25": 3,
+     "depth50": 3,
+     "unreranked": 11
+    },
+    "H26": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "H27": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    },
+    "H28": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H29": {
+     "depth25": 15,
+     "depth50": 18,
+     "unreranked": 7
+    },
+    "H31": {
+     "depth25": 5,
+     "depth50": 5,
+     "unreranked": 1
+    },
+    "H32": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H33": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 2
+    },
+    "H34": {
+     "depth25": 10,
+     "depth50": 11,
+     "unreranked": 9
+    },
+    "H35": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    }
+   }
+  },
+  "ms-marco-MiniLM-L6-v2/company": {
+   "s_per_question_25": 2.535581802854514,
+   "s_per_question_50": 5.006950551426105,
+   "truncated": [
+    652,
+    1750
+   ],
+   "figure_cut": [
+    [
+     "H10",
+     251,
+     "9,525"
+    ],
+    [
+     "H13",
+     638,
+     "9,033,681"
+    ]
+   ],
+   "ranks": {
+    "H1": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H2": {
+     "depth25": 5,
+     "depth50": 5,
+     "unreranked": 1
+    },
+    "H3": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "H4": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H5": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H6": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "H7": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H9": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H10": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 4
+    },
+    "H11": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H12": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H13": {
+     "depth25": 4,
+     "depth50": 4,
+     "unreranked": 1
+    },
+    "H14": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    },
+    "H16": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 2
+    },
+    "H17": {
+     "depth25": 1,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "H18": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "H19": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "H21": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "H22": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H23": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 2
+    },
+    "H24": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H25": {
+     "depth25": 3,
+     "depth50": 3,
+     "unreranked": 11
+    },
+    "H26": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "H27": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    },
+    "H28": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H29": {
+     "depth25": 6,
+     "depth50": 7,
+     "unreranked": 7
+    },
+    "H31": {
+     "depth25": 3,
+     "depth50": 3,
+     "unreranked": 1
+    },
+    "H32": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H33": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 2
+    },
+    "H34": {
+     "depth25": 5,
+     "depth50": 5,
+     "unreranked": 9
+    },
+    "H35": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    }
+   }
+  },
+  "ms-marco-MiniLM-L12-v2/excerpt": {
+   "s_per_question_25": 5.2831348914303815,
+   "s_per_question_50": 10.609026214292472,
+   "truncated": [
+    440,
+    1750
+   ],
+   "figure_cut": [
+    [
+     "H13",
+     638,
+     "9,033,681"
+    ]
+   ],
+   "ranks": {
+    "H1": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H2": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "H3": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H4": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "H5": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H6": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "H7": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "H9": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H10": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 4
+    },
+    "H11": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H12": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H13": {
+     "depth25": 2,
+     "depth50": 3,
+     "unreranked": 1
+    },
+    "H14": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    },
+    "H16": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 2
+    },
+    "H17": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H18": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H19": {
+     "depth25": 2,
+     "depth50": 3,
+     "unreranked": 1
+    },
+    "H21": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H22": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H23": {
+     "depth25": 4,
+     "depth50": 4,
+     "unreranked": 2
+    },
+    "H24": {
+     "depth25": 5,
+     "depth50": 9,
+     "unreranked": 1
+    },
+    "H25": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 11
+    },
+    "H26": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H27": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 2
+    },
+    "H28": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H29": {
+     "depth25": 15,
+     "depth50": 18,
+     "unreranked": 7
+    },
+    "H31": {
+     "depth25": 3,
+     "depth50": 3,
+     "unreranked": 1
+    },
+    "H32": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H33": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 2
+    },
+    "H34": {
+     "depth25": 9,
+     "depth50": 10,
+     "unreranked": 9
+    },
+    "H35": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    }
+   }
+  },
+  "ms-marco-MiniLM-L12-v2/company": {
+   "s_per_question_25": 5.652293908571092,
+   "s_per_question_50": 11.39332252857109,
+   "truncated": [
+    652,
+    1750
+   ],
+   "figure_cut": [
+    [
+     "H10",
+     251,
+     "9,525"
+    ],
+    [
+     "H13",
+     638,
+     "9,033,681"
+    ]
+   ],
+   "ranks": {
+    "H1": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H2": {
+     "depth25": 3,
+     "depth50": 5,
+     "unreranked": 1
+    },
+    "H3": {
+     "depth25": 3,
+     "depth50": 3,
+     "unreranked": 1
+    },
+    "H4": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H5": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H6": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "H7": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H9": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H10": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 4
+    },
+    "H11": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H12": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H13": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H14": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    },
+    "H16": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    },
+    "H17": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H18": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H19": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 1
+    },
+    "H21": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H22": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H23": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 2
+    },
+    "H24": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H25": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 11
+    },
+    "H26": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H27": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 2
+    },
+    "H28": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H29": {
+     "depth25": 9,
+     "depth50": 11,
+     "unreranked": 7
+    },
+    "H31": {
+     "depth25": 4,
+     "depth50": 4,
+     "unreranked": 1
+    },
+    "H32": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    },
+    "H33": {
+     "depth25": 2,
+     "depth50": 2,
+     "unreranked": 2
+    },
+    "H34": {
+     "depth25": 4,
+     "depth50": 4,
+     "unreranked": 9
+    },
+    "H35": {
+     "depth25": 1,
+     "depth50": 1,
+     "unreranked": 1
+    }
+   }
+  }
+ }
+}

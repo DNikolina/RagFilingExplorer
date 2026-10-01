@@ -1,0 +1,47 @@
+Unreranked (the app today), 35 questions:
+H1-H15: recall@1 11/13  recall@3 12/13  recall@5 13/13  MRR 0.904
+H16-H35: recall@1 11/18  recall@3 15/18  recall@5 15/18  MRR 0.741
+
+== ms-marco-MiniLM-L6-v2/excerpt  (CPU s/question: 25 candidates 2.75 (max 4.82), 50 candidates 5.43 (max 7.67))
+   truncated at 512 tokens: 440/1750 candidate passages; expected figure in the cut-off part: [('H13', 638, '9,033,681')]
+   depth 25:
+H1-H15: recall@1 9/13  recall@3 11/13  recall@5 12/13  MRR 0.797
+H16-H35: recall@1 6/18  recall@3 13/18  recall@5 15/18  MRR 0.562
+   in/out of the top 5 at depth 25 (question, before, after): [('H10', 4, 6), ('H23', 2, 6), ('H25', 11, 3)]
+   depth 50:
+H1-H15: recall@1 9/13  recall@3 11/13  recall@5 11/13  MRR 0.780
+H16-H35: recall@1 6/18  recall@3 13/18  recall@5 15/18  MRR 0.558
+   in/out of the top 5 at depth 50 (question, before, after): [('H6', 1, 7), ('H10', 4, 6), ('H23', 2, 6), ('H25', 11, 3)]
+
+== ms-marco-MiniLM-L6-v2/company  (CPU s/question: 25 candidates 2.54 (max 3.59), 50 candidates 5.01 (max 6.52))
+   truncated at 512 tokens: 652/1750 candidate passages; expected figure in the cut-off part: [('H10', 251, '9,525'), ('H13', 638, '9,033,681')]
+   depth 25:
+H1-H15: recall@1 9/13  recall@3 11/13  recall@5 13/13  MRR 0.804
+H16-H35: recall@1 7/18  recall@3 16/18  recall@5 17/18  MRR 0.641
+   in/out of the top 5 at depth 25 (question, before, after): [('H25', 11, 3), ('H34', 9, 5)]
+   depth 50:
+H1-H15: recall@1 9/13  recall@3 11/13  recall@5 13/13  MRR 0.804
+H16-H35: recall@1 6/18  recall@3 16/18  recall@5 17/18  MRR 0.612
+   in/out of the top 5 at depth 50 (question, before, after): [('H25', 11, 3), ('H34', 9, 5)]
+
+== ms-marco-MiniLM-L12-v2/excerpt  (CPU s/question: 25 candidates 5.28 (max 9.53), 50 candidates 10.61 (max 16.36))
+   truncated at 512 tokens: 440/1750 candidate passages; expected figure in the cut-off part: [('H13', 638, '9,033,681')]
+   depth 25:
+H1-H15: recall@1 8/13  recall@3 13/13  recall@5 13/13  MRR 0.808
+H16-H35: recall@1 9/18  recall@3 14/18  recall@5 16/18  MRR 0.665
+   in/out of the top 5 at depth 25 (question, before, after): [('H25', 11, 1)]
+   depth 50:
+H1-H15: recall@1 8/13  recall@3 13/13  recall@5 13/13  MRR 0.795
+H16-H35: recall@1 9/18  recall@3 14/18  recall@5 15/18  MRR 0.649
+   in/out of the top 5 at depth 50 (question, before, after): [('H24', 1, 9), ('H25', 11, 1)]
+
+== ms-marco-MiniLM-L12-v2/company  (CPU s/question: 25 candidates 5.65 (max 8.73), 50 candidates 11.39 (max 14.97))
+   truncated at 512 tokens: 652/1750 candidate passages; expected figure in the cut-off part: [('H10', 251, '9,525'), ('H13', 638, '9,033,681')]
+   depth 25:
+H1-H15: recall@1 10/13  recall@3 13/13  recall@5 13/13  MRR 0.859
+H16-H35: recall@1 12/18  recall@3 15/18  recall@5 17/18  MRR 0.784
+   in/out of the top 5 at depth 25 (question, before, after): [('H25', 11, 1), ('H34', 9, 4)]
+   depth 50:
+H1-H15: recall@1 10/13  recall@3 12/13  recall@5 13/13  MRR 0.849
+H16-H35: recall@1 12/18  recall@3 15/18  recall@5 17/18  MRR 0.783
+   in/out of the top 5 at depth 50 (question, before, after): [('H25', 11, 1), ('H34', 9, 4)]

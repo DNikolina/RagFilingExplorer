@@ -35,13 +35,15 @@ TOP = 25
 HYBRID_CANDIDATES = 50  # appsettings.json's Retrieval:HybridCandidates
 RRF_K = 60  # RankFusion.K
 
-log_path, questions_path = sys.argv[1], sys.argv[2]
-db_path = sys.argv[3] if len(sys.argv) > 3 else 'rag.markdown.db'
-c = sqlite3.connect(f'file:{db_path}?mode=ro', uri=True)
-c.enable_load_extension(True)
-c.load_extension(glob.glob('RagFilingExplorer.Local/bin/**/win-x64/native/vec0.dll', recursive=True)[0][:-4])
-vec = {k: struct.unpack('768f', b) for k, b in c.execute('select Key, Text from vec_chunks')}
-meta = {k: (f, t, ct) for k, f, t, ct in c.execute('select Key, SourceFiling, StatementType, Content from chunks')}
+
+def load_index(db_path):
+    """The index's connection (sqlite-vec loaded), stored vectors, and per-chunk (filing, statement type, content)."""
+    c = sqlite3.connect(f'file:{db_path}?mode=ro', uri=True)
+    c.enable_load_extension(True)
+    c.load_extension(glob.glob('RagFilingExplorer.Local/bin/**/win-x64/native/vec0.dll', recursive=True)[0][:-4])
+    vec = {k: struct.unpack('768f', b) for k, b in c.execute('select Key, Text from vec_chunks')}
+    meta = {k: (f, t, ct) for k, f, t, ct in c.execute('select Key, SourceFiling, StatementType, Content from chunks')}
+    return c, vec, meta
 
 
 def embed(text):
@@ -56,20 +58,26 @@ def dist(a, b):
     return 1 - d / (math.sqrt(sum(x * x for x in a)) * math.sqrt(sum(y * y for y in b)))
 
 
-questions = [q for q in open(questions_path, encoding='utf-8').read().split('\n') if q.strip()]
-# Split the log at the app's "> " prompts. Two things look like a prompt and aren't: the final, empty
-# "> " (the blank line that ends the session), and an answer line the model wrote as a Markdown
-# blockquote ("> Share repurchase program — ..."), which once shifted every later question onto the
-# wrong block. A real prompt block always opens with the filter line "(filtering ..."/"(searching ..."
-# or, for an unfiltered question in a --verbose run, the retrieved-chunks header; anything else is
-# merged back into the block before it.
-blocks = []
-for b in open(log_path, encoding='utf-8', errors='replace').read().split('\n> ')[1:]:
-    if b.startswith('(') or b.startswith('--- Retrieved chunks') or not blocks:
-        blocks.append(b)
-    else:
-        blocks[-1] += '\n> ' + b
-blocks = [b for b in blocks if b.strip()][:len(questions)]
+def read_questions(questions_path):
+    return [q for q in open(questions_path, encoding='utf-8').read().split('\n') if q.strip()]
+
+
+def read_blocks(log_path, count):
+    # Split the log at the app's "> " prompts. Two things look like a prompt and aren't: the final, empty
+    # "> " (the blank line that ends the session), and an answer line the model wrote as a Markdown
+    # blockquote ("> Share repurchase program — ..."), which once shifted every later question onto the
+    # wrong block. A real prompt block always opens with the filter line "(filtering ..."/"(searching ..."
+    # or, for an unfiltered question in a --verbose run, the retrieved-chunks header; anything else is
+    # merged back into the block before it.
+    blocks = []
+    for b in open(log_path, encoding='utf-8', errors='replace').read().split('\n> ')[1:]:
+        if b.startswith('(') or b.startswith('--- Retrieved chunks') or not blocks:
+            blocks.append(b)
+        else:
+            blocks[-1] += '\n> ' + b
+    return [b for b in blocks if b.strip()][:count]
+
+
 expect = {1: ['758,376'], 2: ['43,056'], 3: ['18,821'], 4: ['182,935'], 5: ['31,977'], 6: ['2,255'],
           7: ['442,387'], 8: ['133,812'], 9: ['16,882'], 10: ['2,113'], 11: ['223,000'], 12: ['Austin'],
           13: ['Ernst & Young'], 14: ['45,183,036'], 15: ['10,981,201'], 16: ['55,596,993'],
@@ -112,78 +120,114 @@ expect_heldout = {1: ['35,562'], 2: ['19%'], 3: ['12,405'], 4: ['35,562', '32,48
                   33: ['32,778,392'],
                   34: ['9,127,167'],
                   35: ['12,722,552']}
-heldout = 'heldout' in questions_path
-if heldout:
-    expect = expect_heldout
 
 
-def group_of(i):
+def expected_for(questions_path):
+    return expect_heldout if 'heldout' in questions_path else expect
+
+
+def group_of(i, heldout):
     if heldout:
         return 'H1-H15' if i <= 15 else 'H16-H35'
     return 'Q1-Q24' if i <= 24 else 'T1-T10' if i <= 34 else 'R1-R3' if i <= 37 else 'V1-V3'
 
 
-def name_of(i):
+def name_of(i, heldout):
     if heldout:
         return f'H{i}'
     return f'Q{i}' if i <= 24 else f'T{i - 24}' if i <= 34 else f'R{i - 34}' if i <= 37 else f'V{i - 37}'
 
 
-ranks = {}
-for i, (q, b) in enumerate(zip(questions, blocks), 1):
-    lines = b.split('\n')
-    first = lines[0] if not lines[0].startswith('(keywords: ') else ''
-    files = re.findall(r'[A-Z]{4}-10K-\d{4}\.html', first) if first.startswith('(') else []
-    m = re.search(r'statement type: (\w+)', first)
-    st = m.group(1) if m else None
-    kw = next((l[len('(keywords: '):-1] for l in lines[:2] if l.startswith('(keywords: ')), None)
-    qv = embed('search_query: ' + q)
-    score = {}
+def replay(log_path, questions_path, index, depth=TOP):
+    """One dict per question: its number and text, the filter the app printed (files, statement type, keyword query),
+    `lists` - one ranking of chunk keys per filtered company, `depth` deep, exactly as the app ranks them - and
+    `score`, the fused RRF score of every candidate (hybrid runs only). A reranker reorders each of `lists`;
+    interleave() merges them as the app does."""
+    c, vec, meta = index
+    questions = read_questions(questions_path)
+    for i, (q, b) in enumerate(zip(questions, read_blocks(log_path, len(questions))), 1):
+        lines = b.split('\n')
+        first = lines[0] if not lines[0].startswith('(keywords: ') else ''
+        files = re.findall(r'[A-Z]{4}-10K-\d{4}\.html', first) if first.startswith('(') else []
+        m = re.search(r'statement type: (\w+)', first)
+        st = m.group(1) if m else None
+        kw = next((l[len('(keywords: '):-1] for l in lines[:2] if l.startswith('(keywords: ')), None)
+        qv = embed('search_query: ' + q)
+        score = {}
 
-    def vector(f, s):
-        cand = [k for k, (ff, tt, _) in meta.items() if (f is None or ff == f) and (s is None or tt == s)]
-        return sorted(cand, key=lambda k: dist(qv, vec[k]))
+        def vector(f, s):
+            cand = [k for k, (ff, tt, _) in meta.items() if (f is None or ff == f) and (s is None or tt == s)]
+            return sorted(cand, key=lambda k: dist(qv, vec[k]))
 
-    def keyword(f):
-        if kw == 'none':
-            return []
-        return [k for (k,) in c.execute(
-            'select c.Key from chunks_fts join chunks c on c.Key = chunks_fts.rowid '
-            'where chunks_fts match ? and (? is null or c.SourceFiling = ?) order by bm25(chunks_fts), c.Key limit ?',
-            (kw, f, f, HYBRID_CANDIDATES))]
+        def keyword(f):
+            if kw == 'none':
+                return []
+            return [k for (k,) in c.execute(
+                'select c.Key from chunks_fts join chunks c on c.Key = chunks_fts.rowid '
+                'where chunks_fts match ? and (? is null or c.SourceFiling = ?) order by bm25(chunks_fts), c.Key limit ?',
+                (kw, f, f, HYBRID_CANDIDATES))]
 
-    def search(f):
-        if kw is None:
-            return vector(f, st)[:TOP]
-        lists = [vector(f, None)[:HYBRID_CANDIDATES], keyword(f)] + ([vector(f, st)[:HYBRID_CANDIDATES]] if st else [])
-        fused = {}
-        for ranking in lists:
-            for r, k in enumerate(ranking, 1):
-                fused[k] = fused.get(k, 0) + 1 / (RRF_K + r)
-        score.update(fused)
-        return sorted(fused, key=lambda k: -fused[k])[:TOP]
+        def search(f):
+            if kw is None:
+                return vector(f, st)[:depth]
+            lists = [vector(f, None)[:HYBRID_CANDIDATES], keyword(f)] + ([vector(f, st)[:HYBRID_CANDIDATES]] if st else [])
+            fused = {}
+            for ranking in lists:
+                for r, k in enumerate(ranking, 1):
+                    fused[k] = fused.get(k, 0) + 1 / (RRF_K + r)
+            score.update(fused)
+            return sorted(fused, key=lambda k: -fused[k])[:depth]
 
-    if len(files) <= 1:
-        ranked = search(files[0] if files else None)
-    else:
-        per = [search(f) for f in files]
-        ranked = [l[r] for r in range(max(map(len, per))) for l in per if r < len(l)]
-    top1 = '-' if not ranked else f"{score[ranked[0]]:.4f}" if kw is not None else f"{dist(qv, vec[ranked[0]]):.4f}"
-    where = f"{files[0] if len(files) == 1 else ('+'.join(files) if files else 'all')}/{st or '-'}"
-    if not expect[i]:
-        print(f"{name_of(i):>3} (negative test, not scored)  filter={where}  top1={top1}")
-        continue
-    positions = [next((n for n, k in enumerate(ranked, 1) if e in meta[k][2]), None) for e in expect[i]]
-    rank = None if None in positions else max(positions)
-    ranks[i] = rank
-    print(f"{name_of(i):>3} rank={rank if rank else '>' + str(TOP):>4}  in-top-5={'yes' if rank and rank <= 5 else 'NO '}  "
-          f"filter={where}  top1={top1}")
+        per = [search(f) for f in files] if len(files) > 1 else [search(files[0] if files else None)]
+        yield {'i': i, 'question': q, 'files': files, 'st': st, 'kw': kw, 'qv': qv, 'lists': per, 'score': score}
 
-print()
-for group in ('Q1-Q24', 'T1-T10', 'R1-R3', 'V1-V3', 'H1-H15', 'H16-H35'):
-    rs = [r for i, r in ranks.items() if group_of(i) == group]
-    if not rs:
-        continue
-    at = lambda k: sum(1 for r in rs if r and r <= k)
-    mrr = sum(1 / r for r in rs if r) / len(rs)
-    print(f"{group}: recall@1 {at(1)}/{len(rs)}  recall@3 {at(3)}/{len(rs)}  recall@5 {at(5)}/{len(rs)}  MRR {mrr:.3f}")
+
+def interleave(lists):
+    """The app's merge for a multi-company question: each company's rank 1, then each one's rank 2, ..."""
+    if len(lists) == 1:
+        return lists[0]
+    return [l[r] for r in range(max(map(len, lists))) for l in lists if r < len(l)]
+
+
+def rank_of(ranked, expected, meta):
+    """Where the expected figure ranks in `ranked` - the last one's position if several - or None if any is missing."""
+    positions = [next((n for n, k in enumerate(ranked, 1) if e in meta[k][2]), None) for e in expected]
+    return None if None in positions else max(positions)
+
+
+def report(ranks, heldout):
+    for group in ('Q1-Q24', 'T1-T10', 'R1-R3', 'V1-V3', 'H1-H15', 'H16-H35'):
+        rs = [r for i, r in ranks.items() if group_of(i, heldout) == group]
+        if not rs:
+            continue
+        at = lambda k: sum(1 for r in rs if r and r <= k)
+        mrr = sum(1 / r for r in rs if r) / len(rs)
+        print(f"{group}: recall@1 {at(1)}/{len(rs)}  recall@3 {at(3)}/{len(rs)}  recall@5 {at(5)}/{len(rs)}  MRR {mrr:.3f}")
+
+
+def main():
+    log_path, questions_path = sys.argv[1], sys.argv[2]
+    db_path = sys.argv[3] if len(sys.argv) > 3 else 'rag.markdown.db'
+    index = load_index(db_path)
+    _, vec, meta = index
+    exp = expected_for(questions_path)
+    heldout = exp is expect_heldout
+    ranks = {}
+    for r in replay(log_path, questions_path, index):
+        i, files, st, kw, score = r['i'], r['files'], r['st'], r['kw'], r['score']
+        ranked = interleave(r['lists'])
+        top1 = '-' if not ranked else f"{score[ranked[0]]:.4f}" if kw is not None else f"{dist(r['qv'], vec[ranked[0]]):.4f}"
+        where = f"{files[0] if len(files) == 1 else ('+'.join(files) if files else 'all')}/{st or '-'}"
+        if not exp[i]:
+            print(f"{name_of(i, heldout):>3} (negative test, not scored)  filter={where}  top1={top1}")
+            continue
+        rank = rank_of(ranked, exp[i], meta)
+        ranks[i] = rank
+        print(f"{name_of(i, heldout):>3} rank={rank if rank else '>' + str(TOP):>4}  in-top-5={'yes' if rank and rank <= 5 else 'NO '}  "
+              f"filter={where}  top1={top1}")
+    print()
+    report(ranks, heldout)
+
+
+if __name__ == '__main__':
+    main()

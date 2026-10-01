@@ -15,3 +15,6 @@ rag.*.db.manifest.json
 # EDGAR extracted XBRL instances (<name>_htm.xml, 2-11 MB each): a test oracle only - FilingXbrlTests compares the
 # reader against them when present and skips otherwise. Download from each filing's EDGAR "Data Files".
 data/*_htm.xml
+
+# Python bytecode (tools/rerank_spike.py imports tools/replay_recall.py)
+__pycache__/

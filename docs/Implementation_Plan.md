@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 350 offline unit tests (on the v2 branch; 176 at v1.0) |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 367 offline unit tests (on the v2 branch; 176 at v1.0) |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -117,7 +117,14 @@ written and baselined** on the step 2 code (`eval/structured-2-heldout35/`): 16/
 (rank 7-11), 1 a malformed decline; all 8 lookalike-line questions passed. **Step 5a done and kept (`eval/structured-5a/`):** a fixed decline form
 ("The excerpts don't contain <what the question asks for>.") - every decline clean, H20 fixed, T6/H29 wrong figures now
 declines, nothing lost; held-out H16-H35 16 -> 17/20, all else unchanged. A first version that also said "no units"
-dropped two NFLX units and was not kept. **Next: resume the 2b reranking spike** (targets H25, H29, H34, R3). The shipped default stays
+dropped two NFLX units and was not kept. **2b spike measured (2026-10-01, `eval/rerank-2b-spike/`):** reranking the top 25 hybrid
+candidates with `ms-marco-MiniLM-L6-v2` (ONNX, local), the chunk opened by the company line, puts R3, H25 and H34's answers
+in the top 5 and drops none - recall@5 64 -> 67 of 68, ~1-3 s CPU per question; H29 doesn't move; overlapping windows for
+long chunks measured and declined. **Built and kept (user, 2026-10-01, `eval/structured-2b/`):** `Retrieval:Rerank` - main
+23/24, targeted 9/10, routing 3/3, held-out 15/15 and 18/20 (69/75 vs 64/75), every decline clean; V1 lost on a knife-edge
+lookalike (the answer chunk alone gives the wrong line). .NET's `BertTokenizer` needed Hugging Face's normalisation
+reimplemented (all 73,125 pairs differed). **Next:** the answer side - the lookalike family (V1, Q10, T1, H26) and H29;
+or close v2 (shipped defaults -> Structured + Hybrid + Rerank, README, merge, tag `v2.0`). The shipped default stays
 `Vector` (with `Markdown`); the eval build sets `Hybrid`. **Second-model run done (2026-10-01,
 `eval/granite41-*`):** granite4.1:8b targeted 9/10 vs llama's 7/10 (reads lookalike lines better) but main 21/24, held-out
 12/15 and 16/20, breaks the decline form and invented one figure (H25); granite4.1:3b lower everywhere but routing.
@@ -156,6 +163,8 @@ data/*.html
                           (one per company, interleaved, when 2+ are named) - Vector: statement type a
                           hard filter; Hybrid (v2): vector + FTS5 bm25 (chunks_fts, created at startup)
                           + vector-within-statement, 50 deep each, fused by RRF (k = 60) →
+                          [Rerank, v2 step 2b] each company's top 25 reordered by a local cross-encoder
+                          (ms-marco-MiniLM-L6-v2, ONNX; company line + excerpt header + chunk) →
                           citation prompt → llama3.1:8b (reasoning only for synthesis questions
                           on a model that reports the "thinking" capability)
 ```
@@ -164,7 +173,8 @@ Packages: `Microsoft.Extensions.AI`, `Microsoft.Extensions.VectorData.Abstractio
 `CommunityToolkit.VectorData.SqliteVec` (1.0.1-preview), `OllamaSharp`,
 `Microsoft.ML.Tokenizers.Data.Cl100kBase`, `Microsoft.Extensions.Configuration(.Json/.Binder)`,
 `Microsoft.Bcl.Memory` (pinned — see below), `Microsoft.Data.Sqlite` (hybrid search's FTS5 queries; already
-transitive via SqliteVec, referenced at the same version). Tests: NUnit + Moq. Tunables live in
+transitive via SqliteVec, referenced at the same version), `Microsoft.ML.OnnxRuntime` 1.30.0 and
+`Microsoft.ML.Tokenizers` 2.0.0 (the reranker; its model is fetched separately). Tests: NUnit + Moq. Tunables live in
 `RagFilingExplorer.Local/appsettings.json`; domain logic (keyword lists, regexes) stays in code.
 
 ---
@@ -200,7 +210,12 @@ transitive via SqliteVec, referenced at the same version). Tests: NUnit + Moq. T
   Prompts reach ~3,000 tokens, so raising `MaxOutputTokens` or `GenerationTopK` needs `num_ctx` raised too.
 - **`tools/replay_recall.py` mirrors hybrid search's constants** (`HYBRID_CANDIDATES` = `Retrieval:HybridCandidates`,
   `RRF_K` = `RankFusion.K`) - change one without the other and the replay stops reproducing the app, silently. Check
-  that its top score matches the log's `[1] score=` after any retrieval change (it did on all 55 questions at step 2).
+  that its top score matches the log's `[1] score=` after any retrieval change (it did on all 55 questions at step 2) - under
+  reranking (step 2b), the `score=` of the line marked `hybrid=#1`, since `[1]` is then the reranker's first.
+- **The reranker's tokenization is Hugging Face's, reimplemented** (`BertPairEncoder`): `BertTokenizer`'s own basic
+  tokenization drops line breaks, `|`, `$` and unknown symbols, and all 73,125 (question, chunk) pairs differed from
+  what the spike measured. Another reranker model, or a `Microsoft.ML.Tokenizers` upgrade, needs the token-for-token
+  parity check re-run against Python's `tokenizers` (Decision-Log.md, "Step 2b - build").
 - **Config values live only in `appsettings.json`** — no duplicate defaults in code (this has drifted
   twice). Presence of every key is validated at load, since `required` doesn't apply to the binder.
 - After any package change, run `dotnet list package --vulnerable --include-transitive`

@@ -5,8 +5,12 @@ using RagFilingExplorer.Local.Xbrl;
 
 namespace RagFilingExplorer.Local.Retrieval;
 
-/// <summary>One filing and the names a question can use for its company ("Microsoft", "MSFT").</summary>
-internal sealed record CompanyRegistration(string Filing, IReadOnlyList<string> Names);
+/// <summary>
+/// One filing, the names a question can use for its company ("Microsoft", "MSFT"), and its company line ("Microsoft
+/// Corporation (MSFT), Form 10-K for fiscal year 2026." - <see cref="CoverFacts.EmbeddingContext"/>), which opens each of
+/// its chunks for the reranker as it opens their embedding text.
+/// </summary>
+internal sealed record CompanyRegistration(string Filing, IReadOnlyList<string> Names, string? Context = null);
 
 /// <summary>
 /// Which filing(s) a question names, for the company filter. Built from each filing's own tagged cover facts - the
@@ -37,7 +41,7 @@ internal sealed class CompanyRegistry(IReadOnlyList<CompanyRegistration> registr
             ?? throw new InvalidOperationException($"{filing} tags no dei:EntityRegistrantName, so questions naming its company can't be routed to it.");
         List<string> names = [CoverFacts.ShortName(name), .. CoverFacts.CommonStocks(xbrl).Select(c => c.Symbol)];
 
-        return new CompanyRegistration(filing, names.Distinct(StringComparer.OrdinalIgnoreCase).ToList());
+        return new CompanyRegistration(filing, names.Distinct(StringComparer.OrdinalIgnoreCase).ToList(), CoverFacts.EmbeddingContext(xbrl));
     }
 
     /// <summary>

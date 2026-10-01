@@ -66,10 +66,18 @@ context window. Not built. An LLM-based router was not evaluated. The planned v2
 XBRL section labels (see the XBRL answer above). Decision-Log.md, "retrieval quality" and
 "pre-manual-pass review".
 
-### Why no reranking? And how is hybrid (keyword + vector) search done?
+### How are reranking and hybrid (keyword + vector) search done?
 
-Neither is available locally off the shelf. Ollama has no rerank endpoint, so cross-encoder reranking would have
-to be built another way; it's v2's step 2b, a spike, not built yet. For hybrid search, `IKeywordHybridSearchable`
+Neither is available locally off the shelf. Ollama has no rerank endpoint, and `Microsoft.Extensions.AI` has no
+reranking abstraction; Microsoft's own rerankers are cloud services. So v2 (step 2b) runs a cross-encoder in-process:
+`ms-marco-MiniLM-L6-v2` (one of the two models Microsoft's RAG guidance names), ONNX Runtime, reordering each company's top 25
+hybrid candidates, each read as its company line + excerpt header + chunk. It's a setting, `Retrieval:Rerank`, and
+needs `Hybrid`. Chosen by a replay-only spike (L6 vs L12, with and without the company line, 25 vs 50 candidates,
+overlapping windows for long chunks), then measured end to end: 64 -> 69 of 75 reliable answers, every decline intact,
+~2 s of CPU per question. The model (~91 MB) is fetched separately and refused unless its SHA-256 matches. One
+non-obvious part: .NET's `BertTokenizer` tokenized every one of 73,125 (question, chunk) pairs differently from the
+Python library the spike measured with (it drops line breaks, `|` and `$`), so the app reimplements Hugging Face's
+normalisation - checked token for token. Decision-Log.md, "Step 2b". For hybrid search, `IKeywordHybridSearchable`
 exists in `Microsoft.Extensions.VectorData`, but the SQLite connector doesn't implement it (Microsoft's connector
 page: "HybridSearch supported? No"), and the connectors that do are all servers or cloud services.
 

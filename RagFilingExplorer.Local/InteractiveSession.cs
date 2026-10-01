@@ -64,7 +64,7 @@ internal static class InteractiveSession
 
                 if (verbose)
                 {
-                    PrintRetrievedChunks(answer.RetrievedChunks);
+                    PrintRetrievedChunks(answer);
                 }
 
                 await StreamAnswerAsync(answer.AnswerStream, verbose);
@@ -160,15 +160,27 @@ internal static class InteractiveSession
 
     // --verbose: print the full ranked candidate list (compact) to see where the "right" chunk actually
     // lands - useful when diagnosing a retrieval miss, not needed for normal use.
-    private static void PrintRetrievedChunks(IReadOnlyList<VectorSearchResult<FilingChunkRecord>> retrievedChunks)
+    private static void PrintRetrievedChunks(RagAnswer answer)
     {
+        IReadOnlyList<VectorSearchResult<FilingChunkRecord>> retrievedChunks = answer.RetrievedChunks;
         Console.WriteLine();
         Console.WriteLine($"--- Retrieved chunks (top {retrievedChunks.Count}, compact, for diagnosis) ---");
         for (int i = 0; i < retrievedChunks.Count; i++)
         {
             FilingChunkRecord record = retrievedChunks[i].Record;
             string snippet = record.Content.Length > 90 ? record.Content[..90].ReplaceLineEndings(" ") : record.Content.ReplaceLineEndings(" ");
-            Console.WriteLine($"[{i + 1}] score={retrievedChunks[i].Score:F4} | {record.SourceFiling} | {record.StatementType} | {record.Heading} | {snippet}");
+            Console.WriteLine($"[{i + 1}] {FormatScore(retrievedChunks[i], answer.Reranked)} | {record.SourceFiling} | {record.StatementType} | {record.Heading} | {snippet}");
         }
     }
+
+    /// <summary>
+    /// A retrieved chunk's scores in the verbose list: "score=0.0325" (fused, or a distance under vector search), and when
+    /// reranked, " rerank=3.86 hybrid=#3" - the cross-encoder's score and the rank its company's hybrid search gave it.
+    /// "score=" stays the fused score, so the chunk marked hybrid=#1 is still the one tools/replay_recall.py's top score
+    /// can be checked against.
+    /// </summary>
+    internal static string FormatScore(VectorSearchResult<FilingChunkRecord> result, IReadOnlyDictionary<int, RerankedChunk>? reranked) =>
+        reranked is not null && reranked.TryGetValue(result.Record.Key, out RerankedChunk? r)
+            ? $"score={result.Score:F4} rerank={r.Score:F2} hybrid=#{r.HybridRank}"
+            : $"score={result.Score:F4}";
 }

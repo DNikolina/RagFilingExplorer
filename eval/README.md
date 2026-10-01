@@ -76,6 +76,19 @@ granite4.1:3b: main 17/24, targeted 5/10, routing 3/3, variants 1/3, held-out 11
 **targeted 9/10**, routing 2/3, variants 2/3, held-out 12/15 and 16/20, with 5 `check` answers not yet resolved (Q15, Q16,
 R3, H8, H30 - declines that add text). Details in `docs/Decision-Log.md`, "Second-model run". `llama3.1:8b` kept.
 
+**`rerank-2b-spike/`** - step 2b's replay-only spike (`tools/rerank_spike.py` on `structured-5a/`'s logs; no answers
+generated): `main.*`/`heldout.*` - MiniLM-L6 and -L12, the chunk with and without the company line, top 25 and 50;
+`*-windows.*` - the company line with and without overlapping windows for long chunks, top 25. `.txt` is the report, `.json`
+every question's rank per configuration. Chosen: L6 + company line, top 25 - recall@5 64 -> 67 of 68. Details in
+`docs/Decision-Log.md`, "Step 2b spike - measured".
+
+**`structured-2b/`** - step 5a's eval settings plus step 2b's reranking (`Retrieval:Rerank`, ms-marco-MiniLM-L6-v2 over each
+company's top 25), run 2026-10-01: main **23/24**, targeted **9/10**, routing **3/3**, variants 1/3, held-out **15/15** and
+**18/20** - 69/75 against 5a's 64/75; every decline clean. The main set ran in two sessions (`main.log` stopped at 35 of 40
+by low memory, `main-rest.log` the other five); `main-merged.log` joins them and is what `main-merged.json` grades. H2 and
+T9 carry the user's decisions. `v1_ablation.py` is the excerpt-by-excerpt check behind V1's loss (a knife-edge lookalike:
+the answer chunk alone gives the wrong line). Details in `docs/Decision-Log.md`, "Step 2b - full run".
+
 Logs before 2026-10-01 were written in the console's OEM code page (a non-breaking space as a lone 0xFF byte, `’` as
 `'`); the app writes UTF-8 since. The tools read both.
 

@@ -1,0 +1,43 @@
+Unreranked (the app today), 40 questions:
+Q1-Q24: recall@1 17/22  recall@3 22/22  recall@5 22/22  MRR 0.886
+T1-T10: recall@1 6/10  recall@3 8/10  recall@5 10/10  MRR 0.750
+R1-R3: recall@1 1/3  recall@3 2/3  recall@5 2/3  MRR 0.472
+V1-V3: recall@1 1/2  recall@3 2/2  recall@5 2/2  MRR 0.750
+
+== ms-marco-MiniLM-L6-v2/company  (CPU s/question: 25 candidates 1.14 (max 2.23), 50 candidates 1.14 (max 2.23))
+   truncated at 512 tokens: 389/1025 candidate passages; expected figure in the cut-off part: [('Q13', 365, 'Ernst & Young')]
+   depth 25:
+Q1-Q24: recall@1 17/22  recall@3 21/22  recall@5 22/22  MRR 0.858
+T1-T10: recall@1 6/10  recall@3 9/10  recall@5 10/10  MRR 0.753
+R1-R3: recall@1 1/3  recall@3 1/3  recall@5 3/3  MRR 0.483
+V1-V3: recall@1 2/2  recall@3 2/2  recall@5 2/2  MRR 1.000
+   in/out of the top 5 at depth 25 (question, before, after): [('R3', 12, 4)]
+
+== ms-marco-MiniLM-L6-v2/windows  (CPU s/question: 25 candidates 1.67 (max 3.25), 50 candidates 1.67 (max 3.25))
+   truncated at 512 tokens: 0/1025 candidate passages; expected figure in the cut-off part: none
+   scored in two windows: 389/1025; tail window decided an answer chunk: [('Q1', 97), ('Q3', 398), ('Q5', 818), ('Q6', 407), ('Q6', 343), ('Q11', 16), ('Q13', 365), ('Q14', 612), ('Q14', 635), ('Q15', 612), ('Q15', 616), ('Q16', 619), ('Q16', 620), ('T3', 573), ('T5', 120), ('T6', 442), ('T7', 150), ('T8', 297), ('T9', 858), ('R2', 496), ('V3', 584)]
+   depth 25:
+Q1-Q24: recall@1 16/22  recall@3 21/22  recall@5 22/22  MRR 0.835
+T1-T10: recall@1 8/10  recall@3 9/10  recall@5 9/10  MRR 0.864
+R1-R3: recall@1 1/3  recall@3 1/3  recall@5 3/3  MRR 0.500
+V1-V3: recall@1 2/2  recall@3 2/2  recall@5 2/2  MRR 1.000
+   in/out of the top 5 at depth 25 (question, before, after): [('T9', 2, 7), ('R3', 12, 4)]
+
+== ms-marco-MiniLM-L12-v2/company  (CPU s/question: 25 candidates 2.59 (max 4.98), 50 candidates 2.59 (max 4.98))
+   truncated at 512 tokens: 389/1025 candidate passages; expected figure in the cut-off part: [('Q13', 365, 'Ernst & Young')]
+   depth 25:
+Q1-Q24: recall@1 18/22  recall@3 21/22  recall@5 21/22  MRR 0.884
+T1-T10: recall@1 7/10  recall@3 8/10  recall@5 10/10  MRR 0.795
+R1-R3: recall@1 2/3  recall@3 3/3  recall@5 3/3  MRR 0.833
+V1-V3: recall@1 2/2  recall@3 2/2  recall@5 2/2  MRR 1.000
+   in/out of the top 5 at depth 25 (question, before, after): [('Q20', 2, 8), ('R3', 12, 1)]
+
+== ms-marco-MiniLM-L12-v2/windows  (CPU s/question: 25 candidates 3.75 (max 6.92), 50 candidates 3.75 (max 6.92))
+   truncated at 512 tokens: 0/1025 candidate passages; expected figure in the cut-off part: none
+   scored in two windows: 389/1025; tail window decided an answer chunk: [('Q5', 818), ('Q6', 343), ('Q13', 365), ('Q14', 612), ('Q14', 635), ('Q15', 612), ('Q15', 616), ('Q17', 617), ('Q20', 952), ('Q23', 398), ('T3', 573), ('T6', 442), ('T7', 150), ('T9', 858), ('V3', 617)]
+   depth 25:
+Q1-Q24: recall@1 17/22  recall@3 21/22  recall@5 21/22  MRR 0.854
+T1-T10: recall@1 7/10  recall@3 8/10  recall@5 9/10  MRR 0.792
+R1-R3: recall@1 2/3  recall@3 3/3  recall@5 3/3  MRR 0.833
+V1-V3: recall@1 2/2  recall@3 2/2  recall@5 2/2  MRR 1.000
+   in/out of the top 5 at depth 25 (question, before, after): [('Q20', 2, 8), ('T9', 2, 6), ('R3', 12, 1)]

@@ -147,10 +147,33 @@ static async Task RunAsync(string[] args)
         keywordIndex.EnsureCreated();
     }
 
-    Console.WriteLine($"Search: {settings.Retrieval.Search}");
-    RagAnswerService ragAnswerService = new(collection, chatApiClient, settings.Retrieval, chatModelSupportsThinking, companies, keywordIndex);
+    // Reranking (Retrieval:Rerank, v2 step 2b): a local cross-encoder reorders each company's top hybrid candidates. Its
+    // model is fetched separately and checked against its recorded SHA-256 before it's loaded - see CrossEncoderReranker.
+    using CrossEncoderReranker? reranker = settings.Retrieval.Rerank ? LoadReranker(settings.Retrieval) : null;
+
+    Console.WriteLine(reranker is null
+        ? $"Search: {settings.Retrieval.Search}"
+        : $"Search: {settings.Retrieval.Search}, reranked by {reranker.Name} (each company's top {settings.Retrieval.RerankCandidates})");
+    RagAnswerService ragAnswerService = new(collection, chatApiClient, settings.Retrieval, chatModelSupportsThinking, companies, keywordIndex, reranker);
 
     await InteractiveSession.RunAsync(ragAnswerService, verbose, settings.Retrieval);
+}
+
+static CrossEncoderReranker LoadReranker(RetrievalSettings retrieval)
+{
+    if (retrieval.Search != SearchMode.Hybrid)
+    {
+        throw new StartupException("Retrieval:Rerank needs Retrieval:Search = Hybrid - reranking was measured on hybrid candidates only (docs/Decision-Log.md, \"Step 2b spike - measured\").");
+    }
+
+    try
+    {
+        return CrossEncoderReranker.Load(retrieval.RerankModelDirectory, retrieval.RerankModelSha256);
+    }
+    catch (Exception ex) when (ex is FileNotFoundException or InvalidOperationException)
+    {
+        throw new StartupException($"{ex.Message} Fetch the model as docs/Decision-Log.md, \"Step 2b resumed\" records, or set Retrieval:Rerank to false.", ex);
+    }
 }
 
 // appsettings.json holds the tunable knobs (model names, chunk size, timeouts, top-K) - see

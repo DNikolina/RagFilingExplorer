@@ -112,6 +112,14 @@ internal sealed class RetrievalSettings
     // How deep each of hybrid search's ranked lists goes before they're fused. Unused by Vector search.
     public required int HybridCandidates { get; set; }
 
+    // v2 step 2b: rerank each company's top RerankCandidates hybrid candidates with a local cross-encoder before the
+    // top-K is cut (CrossEncoderReranker). Hybrid only - it was measured on hybrid candidates. The model lives outside
+    // the repo, in RerankModelDirectory (environment variables expanded), and is refused unless its SHA-256 matches.
+    public required bool Rerank { get; set; }
+    public required int RerankCandidates { get; set; }
+    public required string RerankModelDirectory { get; set; }
+    public required string RerankModelSha256 { get; set; }
+
     // One of Microsoft.Extensions.AI's ReasoningEffort enum names (None, Low, Medium, High, ExtraHigh) -
     // bound straight to the enum, so a typo fails at startup rather than when it's first used.
     // NOT applied to every question - only ones QueryIntentResolver.RequiresSynthesis flags as needing
