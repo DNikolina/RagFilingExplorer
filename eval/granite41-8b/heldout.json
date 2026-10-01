@@ -1,0 +1,251 @@
+{
+ "log": "eval/granite41-8b/heldout.log",
+ "questions": "tools/heldout-questions.txt",
+ "results": [
+  {
+   "id": "H1",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's research and development expenses in fiscal year 2026 were $35,562 million. (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data)"
+  },
+  {
+   "id": "H2",
+   "kind": "figure",
+   "status": "wrong",
+   "note": "expected figure absent",
+   "answer": "Microsoft's effective tax rate for fiscal year 2026 was 19.4%.\n\n(Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data > Income Taxes, Effective Tax Rate)"
+  },
+  {
+   "id": "H3",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft recorded a stock-based compensation expense of $12,405 million in fiscal year 2026.\n\n(Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data > Employee Stock and Savings Plans)"
+  },
+  {
+   "id": "H4",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "rounded, in billions",
+   "answer": "Research and Development expenses increased $3.1 billion or 9% driven by continued investments in compute capacity, AI talent, and data to support product development that benefits the entire portfolio, as well as impairment and other related expenses in our XBOX business.\n\n(Source: MSFT-10K-2026.html, PART II > Item 7. MANAGEMENT'S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS)"
+  },
+  {
+   "id": "H5",
+   "kind": "fact",
+   "status": "reliable",
+   "note": "",
+   "answer": "Oracle had approximately 141,000 full-time employees as of May 31, 2026 (Source: ORCL-10K-2026.html, PART I > Item 1. Business)."
+  },
+  {
+   "id": "H6",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Oracle's total research and development expenses in fiscal 2026 were $10,272 million. (Source: ORCL-10K-2026.html, PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations)"
+  },
+  {
+   "id": "H7",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Oracle's diluted earnings per share for fiscal 2026 were $5.83.\n\n(Source: ORCL-10K-2026.html, section PART IV > Item 15. Exhibits and Financial Statement Schedules > Earnings Per Share)"
+  },
+  {
+   "id": "H8",
+   "kind": "negative",
+   "status": "check",
+   "note": "declines but states figures",
+   "answer": "The excerpts provided contain revenue data for fiscal years ending May 31, 2024, 2025, and 2026, but they do not include the fiscal year 2023. Therefore, the total revenue for fiscal 2023 cannot be determined from the given excerpts.\n\nThe excerpts do, however, state Oracle's total revenue for the year ended May 31, 2024: $52,961 million (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules). Since 2023 is not mentioned, the answer to the question about fiscal 2023 revenue is unavailable from this context.\n\nThe excerpts don't contain Oracle's total revenue for the year ended May 31, 2023. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)"
+  },
+  {
+   "id": "H9",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Nasdaq's revenues less transaction-based expenses in 2025 were $5,249 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements)"
+  },
+  {
+   "id": "H10",
+   "kind": "fact",
+   "status": "reliable",
+   "note": "",
+   "answer": "Nasdaq had 9,525 full and part-time employees as of December 31, 2025 (Source: NDAQ-10K-2025.html, section PART I > Item 1. Business)."
+  },
+  {
+   "id": "H11",
+   "kind": "fact",
+   "status": "reliable",
+   "note": "",
+   "answer": "Nasdaq's U.S. headquarters is located in New York, New York. (Source: NDAQ-10K-2025.html, PART I > Item 2. Properties)"
+  },
+  {
+   "id": "H12",
+   "kind": "fact",
+   "status": "reliable",
+   "note": "",
+   "answer": "Netflix had approximately 16,000 full-time employees as of December�31, 2025 (Source: NFLX-10K-2025.html, PART I > Item 1. Business)."
+  },
+  {
+   "id": "H13",
+   "kind": "figure",
+   "status": "wrong",
+   "note": "expected figure absent",
+   "answer": "Netflix's cash and cash equivalents at December 31, 2025 were $5,208,710 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Cash, Cash Equivalents, Restricted Cash, and Short-term Investments)"
+  },
+  {
+   "id": "H14",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Netflix's total deferred revenue as of December 31, 2025 was $1,776 million. (Source: NFLX-10K-2025.html, section PART IV > Financial Statements > Deferred Revenue)"
+  },
+  {
+   "id": "H15",
+   "kind": "negative",
+   "status": "decline-ok",
+   "note": "",
+   "answer": "The excerpts do not contain the number of paid memberships Netflix had at the end of 2025. \n\n(Source: NFLX-10K-2025.html, PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations)"
+  },
+  {
+   "id": "H16",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's cash dividends declared per common share in fiscal year 2026 were $3.64. (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data > Stockholders' Equity)"
+  },
+  {
+   "id": "H17",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's net income in fiscal year 2025 was $101,832 million. (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data)"
+  },
+  {
+   "id": "H18",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's gross margin in fiscal year 2026 was $225,465 million. (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data)"
+  },
+  {
+   "id": "H19",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's goodwill balance as of June 30, 2026 was $119,651 million. (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data > BALANCE SHEETS)"
+  },
+  {
+   "id": "H20",
+   "kind": "negative",
+   "status": "decline-ok",
+   "note": "",
+   "answer": "The excerpts don't contain total revenue for fiscal year 2022.\n\n(Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data)"
+  },
+  {
+   "id": "H21",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Oracle's operating income in fiscal 2026 was $20,606 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules, CONSOLIDATED STATEMENTS OF OPERATIONS)"
+  },
+  {
+   "id": "H22",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Oracle's basic earnings per share for fiscal 2026 were $5.94.\n\n(Source: ORCL-10K-2026.html, section PART IV > Item 15. Exhibits and Financial Statement Schedules > Earnings Per Share)"
+  },
+  {
+   "id": "H23",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Oracle generated $44,478 million in revenue in the Americas in fiscal 2026. (Source: ORCL-10K-2026.html, PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations)"
+  },
+  {
+   "id": "H24",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Oracle's total revenues in fiscal 2025 were $57,399 million. (Source: ORCL-10K-2026.html, PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations)"
+  },
+  {
+   "id": "H25",
+   "kind": "figure",
+   "status": "wrong",
+   "note": "expected figure absent",
+   "answer": "Oracle's total operating expenses in fiscal 2026 were $34,000 million.\n\n(Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules, CONSOLIDATED STATEMENTS OF OPERATIONS)"
+  },
+  {
+   "id": "H26",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Net income attributable to Nasdaq in 2025 was $1,788 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements, Consolidated Statements of Income)"
+  },
+  {
+   "id": "H27",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Nasdaq's cash dividends declared per common share in 2025 were $1.05 per share. (Source: NDAQ-10K-2025.html, PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations)"
+  },
+  {
+   "id": "H28",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Nasdaq's long-term debt at December 31, 2025 was $8,573 million. (Source: NDAQ-10K-2025.html, section PART IV > Financial Statements > Debt Obligations)"
+  },
+  {
+   "id": "H29",
+   "kind": "figure",
+   "status": "declined",
+   "note": "",
+   "answer": "The excerpts don't contain revenue generated by Nasdaq's Index business in 2025.\n\n(Source: NDAQ-10K-2025.html, PART IV > Financial Statements)"
+  },
+  {
+   "id": "H30",
+   "kind": "negative",
+   "status": "check",
+   "note": "declines but states figures",
+   "answer": "The excerpts don't contain net income for the year ended December 31, 2022.\n\n(Source: NDAQ-10K-2025.html, PART IV > Financial Statements)"
+  },
+  {
+   "id": "H31",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Netflix's operating income in 2025 was $13,326,603 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements)"
+  },
+  {
+   "id": "H32",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Netflix's diluted earnings per share for 2025 were $2.53.\n\n(Source: NFLX-10K-2025.html, PART IV > Financial Statements > Earnings Per Share)"
+  },
+  {
+   "id": "H33",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "The net value of Netflix's content assets at December 31, 2025 was $45,007,890 thousand. This is derived from the sum of licensed content, net ($12,138,578 thousand) and produced content, net ($32,778,392 thousand) as shown in the balance sheet components section of the NFLX-10K-2025 filing (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Balance Sheet Components)."
+  },
+  {
+   "id": "H34",
+   "kind": "figure",
+   "status": "wrong",
+   "note": "expected figure absent",
+   "answer": "Netflix spent $9.1 billion on repurchasing its common stock in 2025 (excluding the 1% excise tax on stock repurchases as a result of the Inflation Reduction Act of 2022). (Source: NFLX-10K-2025.html, PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations)"
+  },
+  {
+   "id": "H35",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Netflix's income before income taxes in 2025 was $12,722,552 thousand. (Source: NFLX-10K-2025.html, section PART IV > Financial Statements > Income Taxes)\n\n>"
+  }
+ ]
+}

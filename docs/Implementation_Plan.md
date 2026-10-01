@@ -118,8 +118,10 @@ written and baselined** on the step 2 code (`eval/structured-2-heldout35/`): 16/
 ("The excerpts don't contain <what the question asks for>.") - every decline clean, H20 fixed, T6/H29 wrong figures now
 declines, nothing lost; held-out H16-H35 16 -> 17/20, all else unchanged. A first version that also said "no units"
 dropped two NFLX units and was not kept. **Next: resume the 2b reranking spike** (targets H25, H29, H34, R3). The shipped default stays
-`Vector` (with `Markdown`); the eval build sets `Hybrid`. Still open: the second-model run (step 0), the
-`Console.OutputEncoding` fix. Details: Decision-Log.md, "XBRL hybrid (v2)".
+`Vector` (with `Markdown`); the eval build sets `Hybrid`. **Second-model run done (2026-10-01,
+`eval/granite41-*`):** granite4.1:8b targeted 9/10 vs llama's 7/10 (reads lookalike lines better) but main 21/24, held-out
+12/15 and 16/20, breaks the decline form and invented one figure (H25); granite4.1:3b lower everywhere but routing.
+Keeping `llama3.1:8b` is recommended, pending the user's decision. Still open: the `Console.OutputEncoding` fix (granite's output hit it). Details: Decision-Log.md, "XBRL hybrid (v2)".
 
 **Known, not planned:** statement routing is keyword *substring* matching - "deferred revenues" routes to the income
 statement (R1); colliding keywords drop the route ("cash flow hedge", T10). Under `Vector` search it's a hard filter, so

@@ -70,5 +70,11 @@ Every decline clean; T6 and H29 now decline instead of stating a wrong figure; n
 to step 2. **`structured-5a-declined/`** - the first version, which also said "Do not add figures or units to it.": the same
 declines, but T10 and H31 dropped "thousand" (targeted 6/10, H16-H35 16/20). Not kept.
 
+**`granite41-3b/`, `granite41-8b/`** - step 0's second-model run: step 5a's code, index and settings with only
+`Ollama:ChatModel` changed, run 2026-10-01. Retrieval identical to `structured-5a/`, so every difference is the model.
+granite4.1:3b: main 17/24, targeted 5/10, routing 3/3, variants 1/3, held-out 11/15 and 14/20. granite4.1:8b: main 21/24,
+**targeted 9/10**, routing 2/3, variants 2/3, held-out 12/15 and 16/20, with 5 `check` answers not yet resolved (Q15, Q16,
+R3, H8, H30 - declines that add text). Details in `docs/Decision-Log.md`, "Second-model run".
+
 Temperature 0 is deterministic here: the baseline's 40 main answers are word-for-word identical to the
 2026-09-25 run on the same code, so a changed answer means a changed input, not sampling.

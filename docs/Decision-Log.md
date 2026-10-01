@@ -2230,6 +2230,36 @@ both runs - every difference is the prompt.
   (one change per run); a candidate to test on its own if a failure is found.
 *Decision (user): keep the second version.* Next: resume the 2b reranking spike (targets H25, H29, H34, R3).
 
+**Second-model run (step 0's last item) - granite4.1:3b and granite4.1:8b (2026-10-01, `eval/granite41-3b/`,
+`eval/granite41-8b/`).** Step 5a's code, index and settings; only `Ollama:ChatModel` changed (a separate build folder per
+model). Neither reports the `thinking` capability, so no reasoning path. The 3b was pulled by mistake for the 8b and kept
+as a size comparison within one family. No prompt truncated (largest 2,960 tokens + 768 of 4,096, Ollama server log).
+| reliable | llama3.1:8b (5a) | granite4.1:3b | granite4.1:8b |
+|---|---|---|---|
+| Main Q1-Q24 | **22/24** | 17/24 | 21/24 (+2 check) |
+| Targeted T1-T10 | 7/10 | 5/10 | **9/10** |
+| Routing R1-R3 | 2/3 | **3/3** | 2/3 (+1 check) |
+| Variants V1-V3 | 2/3 | 1/3 | 2/3 |
+| Held-out H1-H15 | **14/15** | 11/15 | 12/15 (+1 check) |
+| Held-out H16-H35 | **17/20** | 14/20 | 16/20 (+1 check) |
+| Time, 75 questions | ~75-85 min | ~35 min | ~2 h |
+- **granite4.1:3b loses on reading, not retrieval:** wrong declines with the answer in context (Q12, Q14, Q22, Q24, V1,
+  H11, H28, ...), lookalike lines (Q3's 2024 total, T9 and H6's traps, H26 - also "thousand" for millions), a dropped
+  unit (T10, H17), "for the year ended" on balance-sheet dates. Its one gain is R3, a clean decline. H34's answer has a
+  `�` ("$9.1�billion") - the open `Console.OutputEncoding` item, seen in real output for the first time; it also crashed
+  `grade_answers.py` printing to a cp1252 console (`PYTHONIOENCODING=utf-8` works around it).
+- **granite4.1:8b reads tables better than llama:** Q2 ($43,056M, the expected line - llama takes $42,508M), T2, T6
+  ($7,952M - llama declines), T9 right. Losses against llama: Q23 (the 3b's line too) and H2 (effective tax rate 19.4%, the
+  3b's answer too). H13, H25, H29 and H34 fail for llama as well (H25, H29, H34 are its retrieval misses). **It breaks the decline form:** Q15, Q16, R3, H8
+  and H30 decline correctly, then explain or quote nearby figures (Q16 names the wrong set of filings) - `check` answers,
+  to be resolved. **H25 is the first invented figure measured:** "$34,000 million" total operating expenses - in no
+  context chunk; the filing's only 34,000 is a Services headcount (chunk 725), not among its 5. Step 3b's spike found 0
+  of 7 wrong llama answers stated a figure outside their context.
+- **Shared by all three:** T1 (the 104,075 trap) and V3 - not model-specific.
+*What it shows:* llama's lookalike-line misses (Q2, T2, T9) are partly the model - a same-size model reads them right -
+but granite trades them for decline-form drift and one invention, and is ~1.5x slower. Llama's remaining held-out
+failures are retrieval (H25, H29, H34), which no model fixed - still the 2b spike's targets.
+
 Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
 Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation
 memory (follow-up questions), query decomposition beyond per-company search, an API or UI. Automated onboarding
