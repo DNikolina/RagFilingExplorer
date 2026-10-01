@@ -20,7 +20,8 @@ import json, re, sys
 
 NUMBER = re.compile(r'\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:\.\d+)?')
 SCALE_AFTER = re.compile(r'\)?\s*(million|thousand|billion)', re.I)
-DECLINE = re.compile(r"(?:don't|do not|does not|doesn't) (?:contain|include|provide|mention|state|specify)"
+# ['’]: since the app writes UTF-8 (2026-10-01) a curly apostrophe reaches the log; before, it arrived as "'".
+DECLINE = re.compile(r"(?:don['’]t|do not|does not|doesn['’]t) (?:contain|include|provide|mention|state|specify)"
                      r"|not (?:explicitly |directly |specifically )?"
                      r"(?:stated|provided|available|included|mentioned|found|specified|reported|disclosed)"
                      r"|no (?:information|data|mention)|unable to|cannot (?:find|determine|answer)|there is no", re.I)
@@ -37,9 +38,9 @@ def answers_from_log(path, count):
     # unfiltered --verbose question, the retrieved-chunks header; a "> " the model wrote as a Markdown
     # blockquote is merged back into the block before it.
     blocks = []
-    # errors='replace': the app doesn't set Console.OutputEncoding, so a redirected run can carry the console
-    # code page's bytes for non-ASCII characters (a non-breaking space as 0xFF in a chunk preview). Figures,
-    # units and the grader's patterns are ASCII, so a replaced character never changes a grade.
+    # errors='replace': logs from before the app set Console.OutputEncoding (2026-10-01) carry the console code
+    # page's bytes for non-ASCII characters (a non-breaking space as 0xFF). Figures, units and the grader's
+    # patterns are ASCII, so a replaced character never changes a grade.
     for b in open(path, encoding='utf-8', errors='replace').read().split('\n> ')[1:]:
         if b.startswith('(') or b.startswith('--- Retrieved chunks') or not blocks:
             blocks.append(b)
@@ -204,4 +205,6 @@ def main():
 
 
 if __name__ == '__main__':
+    # A console that can't show a character (a cp1252 console and an old log's U+FFFD) prints '?' instead of crashing.
+    sys.stdout.reconfigure(errors='replace')
     main()

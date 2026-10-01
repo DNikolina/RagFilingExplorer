@@ -5,6 +5,16 @@ using RagFilingExplorer.Local;
 using RagFilingExplorer.Local.Chunking;
 using RagFilingExplorer.Local.Retrieval;
 using RagFilingExplorer.Local.VectorStore;
+using System.Text;
+
+// UTF-8 in and out. Without it, output redirected to a log is written in the console's OEM code page, so
+// the filings' non-breaking spaces became a lone 0xFF byte - invalid UTF-8 for the tools that read the logs
+// (38-41 lines per eval log, and once inside an answer: granite's "$9.1 billion"). Setting these changes
+// the console's code pages for the whole terminal session, so the originals are restored on exit.
+Encoding originalOutputEncoding = Console.OutputEncoding;
+Encoding originalInputEncoding = Console.InputEncoding;
+Console.OutputEncoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
+Console.InputEncoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
 
 // Startup problems the user can fix themselves (Ollama not running, a model not pulled, a stale or
 // incomplete index, ...) are reported as one clear message instead of a stack trace.
@@ -18,6 +28,11 @@ catch (StartupException ex)
     Console.Error.WriteLine();
     Console.Error.WriteLine($"[startup] {ex.Message}");
     return 1;
+}
+finally
+{
+    Console.OutputEncoding = originalOutputEncoding;
+    Console.InputEncoding = originalInputEncoding;
 }
 
 static async Task RunAsync(string[] args)

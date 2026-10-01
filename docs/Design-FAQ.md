@@ -90,9 +90,12 @@ Considered for v2 and declined (2026-09-28).
 ### Why `llama3.1:8b`?
 
 The hardware is CPU-only (integrated graphics, no GPU acceleration), which rules out larger local models
-at usable speed. It was not benchmarked against other chat models. `qwen3.5:2b` was pulled as a reference
-reasoning model to build and test reasoning support, not as a replacement. Implementation_Plan.md,
-"Prerequisites"; Decision-Log.md, "reasoning-model support".
+at usable speed. It was kept after a measured comparison (2026-10-01) with `granite4.1:8b` and `granite4.1:3b` on
+the same index, retrieval and prompt. Granite 8B read lookalike table lines better, but scored lower on the main and
+held-out sets, drifted from the prompt's decline form, stated one figure found in none of its context and ran ~1.5x
+slower; the 3B was lower almost everywhere. `qwen3.5:2b` was pulled as a reference reasoning model to build and test
+reasoning support, not as a replacement. Implementation_Plan.md, "Prerequisites"; Decision-Log.md,
+"reasoning-model support" and "Second-model run".
 
 ### Why two chunking strategies, and why is `Markdown` still the default?
 

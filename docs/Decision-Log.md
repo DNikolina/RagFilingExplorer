@@ -2259,6 +2259,20 @@ as a size comparison within one family. No prompt truncated (largest 2,960 token
 *What it shows:* llama's lookalike-line misses (Q2, T2, T9) are partly the model - a same-size model reads them right -
 but granite trades them for decline-form drift and one invention, and is ~1.5x slower. Llama's remaining held-out
 failures are retrieval (H25, H29, H34), which no model fixed - still the 2b spike's targets.
+*Decision (user, 2026-10-01): keep `llama3.1:8b`.* The five `check` answers are left unresolved - none changes the decision.
+
+**`Console.OutputEncoding` fixed (2026-10-01).** `Program.cs` sets `Console.OutputEncoding` and `InputEncoding` to UTF-8
+(no BOM) at startup and restores the console's originals on exit (setting them changes the code page for the whole
+terminal session). Before, redirected output used the console's OEM code page: a non-breaking space became a lone 0xFF
+(invalid UTF-8 - 38-41 lines in every eval log, read as `�`), and characters the code page lacks were silently best-fitted
+- `’` to `'`, `—` to `-`, `•` to a 0x07 control byte. Verified on one NDAQ question against `structured-5a`: the log is valid
+UTF-8 with real NBSPs and curly apostrophes, the 25 retrieved chunks are identical in rank and score, and the answer
+differs by one final full stop - which the pre-fix build produces too when the question is asked alone (Ollama's
+prompt cache within a session), so not the fix. Consequences for the tools: `grade_answers.py`'s decline pattern now
+accepts `don’t` as well as `don't` (a curly apostrophe used to arrive straight), and its console output replaces a
+character it can't print instead of crashing. Every committed grade file of `structured-5a` and both granite runs
+regrades identically. Logs from here on aren't byte-comparable with earlier ones on punctuation - grades and replay are
+unaffected (figures, units, keywords and scores are ASCII).
 
 Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
 Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation

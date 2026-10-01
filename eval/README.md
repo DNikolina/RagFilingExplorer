@@ -74,7 +74,10 @@ declines, but T10 and H31 dropped "thousand" (targeted 6/10, H16-H35 16/20). Not
 `Ollama:ChatModel` changed, run 2026-10-01. Retrieval identical to `structured-5a/`, so every difference is the model.
 granite4.1:3b: main 17/24, targeted 5/10, routing 3/3, variants 1/3, held-out 11/15 and 14/20. granite4.1:8b: main 21/24,
 **targeted 9/10**, routing 2/3, variants 2/3, held-out 12/15 and 16/20, with 5 `check` answers not yet resolved (Q15, Q16,
-R3, H8, H30 - declines that add text). Details in `docs/Decision-Log.md`, "Second-model run".
+R3, H8, H30 - declines that add text). Details in `docs/Decision-Log.md`, "Second-model run". `llama3.1:8b` kept.
+
+Logs before 2026-10-01 were written in the console's OEM code page (a non-breaking space as a lone 0xFF byte, `’` as
+`'`); the app writes UTF-8 since. The tools read both.
 
 Temperature 0 is deterministic here: the baseline's 40 main answers are word-for-word identical to the
 2026-09-25 run on the same code, so a changed answer means a changed input, not sampling.

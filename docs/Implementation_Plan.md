@@ -121,7 +121,8 @@ dropped two NFLX units and was not kept. **Next: resume the 2b reranking spike**
 `Vector` (with `Markdown`); the eval build sets `Hybrid`. **Second-model run done (2026-10-01,
 `eval/granite41-*`):** granite4.1:8b targeted 9/10 vs llama's 7/10 (reads lookalike lines better) but main 21/24, held-out
 12/15 and 16/20, breaks the decline form and invented one figure (H25); granite4.1:3b lower everywhere but routing.
-Keeping `llama3.1:8b` is recommended, pending the user's decision. Still open: the `Console.OutputEncoding` fix (granite's output hit it). Details: Decision-Log.md, "XBRL hybrid (v2)".
+**`llama3.1:8b` kept (user).** `Console.OutputEncoding` fixed (2026-10-01): the app reads and writes UTF-8, so
+logs no longer carry OEM code-page bytes. Details: Decision-Log.md, "XBRL hybrid (v2)".
 
 **Known, not planned:** statement routing is keyword *substring* matching - "deferred revenues" routes to the income
 statement (R1); colliding keywords drop the route ("cash flow hedge", T10). Under `Vector` search it's a hard filter, so
