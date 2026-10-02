@@ -157,7 +157,8 @@ public class FilingXbrlTests
     // own reading of the same tags. Every fact must match both ways, by concept, context and value (numbers as
     // numbers). HTML-valued facts (notes and policies, escape="true") and the SEC code concepts are left out.
     // This comparison found the fractional-year duration bug (MSFT's "2.3" is P2Y3M18D, not P2.3Y).
-    // Runs for each filing whose extracted instance is in data/ - all four; a new filing without one is ignored, not failed.
+    // Runs for each filing whose extracted instance is in data/, and is ignored, not failed, for one without: the files
+    // are gitignored (2-11 MB each), so a fresh clone skips it until they're downloaded from each filing's EDGAR folder.
     [TestCaseSource(nameof(Filings))]
     public void Read_MatchesEdgarsExtractedInstance(string filing)
     {

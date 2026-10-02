@@ -434,8 +434,9 @@ own ASP.NET Core test docs use; .NET has no built-in HTML parser - and keeps v1'
 RagFilingExplorer.Local/                the app - chunking, retrieval, vector store, interactive loop
 RagFilingExplorer.Local.Tests/          NUnit + Moq test suite
 data/                                   source 10-K filings (HTML, from sec.gov/edgar), plus each filing's XBRL
-                                        taxonomy (.xsd, and _pre/_lab/_cal/_def.xml where not embedded) and EDGAR's
-                                        extracted facts (_htm.xml, for the XBRL reader's tests)
+                                        taxonomy (.xsd, and _pre/_lab/_cal/_def.xml where not embedded); EDGAR's
+                                        extracted facts (_htm.xml) are gitignored - download them to run the XBRL
+                                        reader's EDGAR comparison test, which skips without them
 chunk-review/<strategy>/                full per-chunk text dumps, one file per filing, for manual review
 tools/                                  the question files; grade_answers.py (strict answer grading) and
                                         replay_recall.py (deterministic retrieval ranks); rerank_spike.py;
