@@ -140,6 +140,15 @@ internal sealed class EvaluationRunner(DirectoryInfo repoRoot, string storageRoo
             results.Add(result);
         }
 
-        await new HtmlReportWriter(reportPath).WriteReportAsync(results, cancellationToken);
+        // The report lists executions in the order they first appear in its data, and opens on the first one. Oldest
+        // first (user, 2026-10-02): each execution kept together, ordered by when it ran - so the report opens on the
+        // oldest run; its comparison view still sets the newest against the one before it.
+        Dictionary<string, DateTime> ranAt = results.GroupBy(r => r.ExecutionName).ToDictionary(g => g.Key, g => g.Min(r => r.CreationTime));
+        List<ScenarioRunResult> ordered = results
+            .OrderBy(r => ranAt[r.ExecutionName]).ThenBy(r => r.ExecutionName, StringComparer.Ordinal)
+            .ThenBy(r => r.ScenarioName, StringComparer.Ordinal)
+            .ToList();
+
+        await new HtmlReportWriter(reportPath).WriteReportAsync(ordered, cancellationToken);
     }
 }
