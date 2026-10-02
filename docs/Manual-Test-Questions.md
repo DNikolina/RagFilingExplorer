@@ -336,3 +336,49 @@ to measure. Graded and replayed as their own group (`Held-out H16-H35`). Sources
 
 Types: lookalike lines H18, H21, H22, H25, H26, H31, H32, H35; per-share vs total H16, H27; prior period H17, H24;
 statement vs note H19, H28, H33, H34; segment or business line H23, H29; declines H20, H30; thousands H31, H33-H35.
+
+## Answer-side questions (A1-A27) - written 2026-10-01, after step 2b
+
+`tools/answer-questions.txt`, same order. After step 2b, 5 of the 6 remaining failures were misreadings of an answer
+llama had in its top 5 - a lookalike line (V1), per-share vs total (T9), MD&A rounding vs the statement (H34), a dropped
+unit (Q21), asked-for arithmetic not done (V3) - one example of each, and four on the studied main set. These 27 measure
+how often each kind fails on questions not yet run: drafted from the filings' statement and MD&A lines, every expected
+figure and trap found in the chunk text and in the filing's HTML; the user kept all 27 without any being run. For
+A21-A27 the result is printed nowhere in the filing (five drafted calculations were dropped because it was), so they
+test the calculation, not a lookup. **Unlike H1-H35, these are the answer-side targets** - a change may be chosen on
+them; H16-H35 stay the never-tuned check. Graded as their own group (`Answer-side A1-A27`); `exact` entries (A11,
+A13-A17, A21-A27) don't accept a rounded "$X.Y billion", as the user graded H34. Sources are chunk keys in
+`rag.structured.db`.
+
+| # | Question | Expected | Traps | Type | Source |
+|---|---|---|---|---|---|
+| A1 | What were Microsoft's diluted earnings per share for fiscal year 2026? | **$17.95** | 18.00 (basic), 13.64 (FY2025) | lookalike line | MSFT 95 |
+| A2 | What were Nasdaq's basic earnings per share in 2025? | **$3.12** | 3.09 (diluted), 1.94 (2024) | lookalike line | NDAQ 400 |
+| A3 | What were Microsoft's total liabilities as of June 30, 2026? | **$315,989 million** | 168,825 (current), 275,524 (2025) | lookalike line | MSFT 98 |
+| A4 | What was Nasdaq's operating income in 2025? | **$2,331 million** | 2,145 (before taxes), 1,798 (2024), 1,274 (one segment) | lookalike line | NDAQ 400 |
+| A5 | What was Oracle's income before income taxes in fiscal 2026? | **$19,554 million** | 20,606 (operating income), 17,087 (net income) | lookalike line | ORCL 849 |
+| A6 | What were Microsoft's cash and cash equivalents as of June 30, 2026? | **$20,935 million** | 76,843 (with short-term investments), 30,242 (2025) | lookalike line | MSFT 97, 101 |
+| A7 | What were Nasdaq's cash and cash equivalents at December 31, 2025? | **$604 million** | 3,934 (with restricted cash), 210 (restricted), 592 (2024) | lookalike line | NDAQ 397, 409 |
+| A8 | What cash dividends per common share did Oracle declare in fiscal 2026? | **$2.00** | 1.70 (FY2025), 5,725 (total), $1,263.89 (per preferred share) | per-share vs total | ORCL 854 |
+| A9 | How much did Nasdaq pay in cash dividends in 2025? | **$601 million** | 1.05 (per share), 541 (2024) | per-share vs total | NDAQ 408, 404 |
+| A10 | How much cash did Microsoft pay in common stock dividends in fiscal 2026? | **$26,445 million** | 27,034 (declared), "$27.0 billion" (MD&A, declared), 3.64 (per share) | paid vs declared | MSFT 100, 102, 87 |
+| A11 | How much did Oracle pay in dividends to its stockholders in fiscal 2026? | **$5,787 million** | 5,725 (common, declared), 2.00 (per share), "$5.8 billion" (MD&A) | paid vs declared, MD&A rounding | ORCL 858, 854, 817 |
+| A12 | What cash dividends per share did Netflix declare in 2025? | **Decline** - "never declared or paid any cash dividends" | an invented figure | decline | NFLX 558 |
+| A13 | How much did Microsoft spend on additions to property and equipment in fiscal 2026? | **$115,948 million** | "$51.4 billion" (MD&A - the increase), 64,551 (FY2025) | MD&A vs statement | MSFT 101, 84 |
+| A14 | How much did Oracle spend on capital expenditures in fiscal 2026? | **$55,663 million** | "$55.7 billion" (MD&A, rounded), 21,215 (FY2025) | MD&A vs statement | ORCL 857, 825 |
+| A15 | How much cash did Microsoft spend repurchasing its common stock in fiscal 2026? | **$22,271 million** | "$16.7 billion" (MD&A - the repurchase program only), 18,420 (FY2025) | MD&A vs statement | MSFT 100, 86 |
+| A16 | How much cash did Nasdaq spend repurchasing its common stock in 2025? | **$616 million** | 620 (equity statement), 145 (2024) | cash flow vs equity statement | NDAQ 408, 403 |
+| A17 | What was Netflix's long-term debt at December 31, 2025? | **$13,463,971 thousand** | "$14.5 billion" (MD&A - total debt), 13,798,351 (2024) | MD&A vs statement + units | NFLX 619, 589 |
+| A18 | What was Netflix's cost of revenues in 2025? | **$23,275,329 thousand** | 21,038,464 (2024) | units | NFLX 612 |
+| A19 | What were Netflix's total current liabilities at December 31, 2025? | **$10,980,930 thousand** | 28,981,505 (total liabilities) | units + lookalike line | NFLX 619, 620 |
+| A20 | What were Netflix's sales and marketing expenses in 2025? | **$3,301,306 thousand** | 2,917,554 (2024) | units | NFLX 612 |
+| A21 | What was Oracle's combined net income for fiscal 2025 and fiscal 2026? | **$29,530 million** | 12,443 + 17,087 | arithmetic | ORCL 849 |
+| A22 | By how much did Nasdaq's operating income increase from 2024 to 2025, in millions? | **$533 million** | 2,331 - 1,798 | arithmetic | NDAQ 400 |
+| A23 | What was Microsoft's current ratio (total current assets divided by total current liabilities) as of June 30, 2026, to two decimal places? | **1.23** | 207,710 / 168,825 | arithmetic | MSFT 97, 98 |
+| A24 | What was Netflix's total net income for 2023, 2024 and 2025 added together? | **$25,100,822 thousand** | 5,407,990 + 8,711,631 + 10,981,201 | arithmetic | NFLX 612 |
+| A25 | How much did Nasdaq return to shareholders in 2025 through dividends paid and share repurchases combined? | **$1,217 million** | 601 + 616 | arithmetic | NDAQ 408 |
+| A26 | By how much did Microsoft's net income increase from fiscal 2025 to fiscal 2026? | **$31,917 million** | 133,749 - 101,832 | arithmetic | MSFT 94 |
+| A27 | What was Oracle's net income as a percentage of its total revenues in fiscal 2026, to one decimal place? | **25.4%** | 17,087 / 67,357 | arithmetic | ORCL 848, 849 |
+
+Types: lookalike lines A1-A7, A19; per-share vs total A8, A9; paid vs declared A10, A11; MD&A or another statement vs the
+statement A11, A13-A17; units (thousands) A17-A20, A24; arithmetic A21-A27; decline A12.

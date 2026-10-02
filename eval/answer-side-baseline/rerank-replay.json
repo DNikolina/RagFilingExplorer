@@ -1,0 +1,262 @@
+{
+ "log": "eval/answer-side-baseline/answers.log",
+ "questions": "tools/answer-questions.txt",
+ "configs": {
+  "ms-marco-MiniLM-L6-v2/company": {
+   "s_per_question_25": 1.1071504851829053,
+   "s_per_question_50": 1.1071504851829053,
+   "truncated": [
+    252,
+    675
+   ],
+   "figure_cut": [
+    [
+     "A5",
+     951,
+     "19,554"
+    ],
+    [
+     "A24",
+     621,
+     "8,711,631"
+    ]
+   ],
+   "windowed": 0,
+   "tail_won_answer": [],
+   "ranks": {
+    "A1": {
+     "depth25": 1,
+     "unreranked": 1
+    },
+    "A2": {
+     "depth25": 1,
+     "unreranked": 2
+    },
+    "A3": {
+     "depth25": 3,
+     "unreranked": 2
+    },
+    "A4": {
+     "depth25": 2,
+     "unreranked": 1
+    },
+    "A5": {
+     "depth25": 3,
+     "unreranked": 2
+    },
+    "A6": {
+     "depth25": 2,
+     "unreranked": 1
+    },
+    "A7": {
+     "depth25": 1,
+     "unreranked": 1
+    },
+    "A8": {
+     "depth25": 4,
+     "unreranked": 5
+    },
+    "A9": {
+     "depth25": 11,
+     "unreranked": 10
+    },
+    "A10": {
+     "depth25": 10,
+     "unreranked": 3
+    },
+    "A11": {
+     "depth25": 19,
+     "unreranked": 12
+    },
+    "A13": {
+     "depth25": 2,
+     "unreranked": 3
+    },
+    "A14": {
+     "depth25": 3,
+     "unreranked": 4
+    },
+    "A15": {
+     "depth25": 12,
+     "unreranked": 4
+    },
+    "A16": {
+     "depth25": 22,
+     "unreranked": 18
+    },
+    "A17": {
+     "depth25": 7,
+     "unreranked": 3
+    },
+    "A18": {
+     "depth25": 2,
+     "unreranked": 1
+    },
+    "A19": {
+     "depth25": 4,
+     "unreranked": 3
+    },
+    "A20": {
+     "depth25": 2,
+     "unreranked": 1
+    },
+    "A21": {
+     "depth25": 1,
+     "unreranked": 1
+    },
+    "A22": {
+     "depth25": 4,
+     "unreranked": 1
+    },
+    "A23": {
+     "depth25": 2,
+     "unreranked": 5
+    },
+    "A24": {
+     "depth25": 2,
+     "unreranked": 1
+    },
+    "A25": {
+     "depth25": 24,
+     "unreranked": 25
+    },
+    "A26": {
+     "depth25": 2,
+     "unreranked": 1
+    },
+    "A27": {
+     "depth25": 20,
+     "unreranked": 2
+    }
+   }
+  },
+  "ms-marco-MiniLM-L12-v2/company": {
+   "s_per_question_25": 2.3369605666742213,
+   "s_per_question_50": 2.3369605666742213,
+   "truncated": [
+    252,
+    675
+   ],
+   "figure_cut": [
+    [
+     "A5",
+     951,
+     "19,554"
+    ],
+    [
+     "A24",
+     621,
+     "8,711,631"
+    ]
+   ],
+   "windowed": 0,
+   "tail_won_answer": [],
+   "ranks": {
+    "A1": {
+     "depth25": 1,
+     "unreranked": 1
+    },
+    "A2": {
+     "depth25": 1,
+     "unreranked": 2
+    },
+    "A3": {
+     "depth25": 1,
+     "unreranked": 2
+    },
+    "A4": {
+     "depth25": 3,
+     "unreranked": 1
+    },
+    "A5": {
+     "depth25": 3,
+     "unreranked": 2
+    },
+    "A6": {
+     "depth25": 1,
+     "unreranked": 1
+    },
+    "A7": {
+     "depth25": 2,
+     "unreranked": 1
+    },
+    "A8": {
+     "depth25": 6,
+     "unreranked": 5
+    },
+    "A9": {
+     "depth25": 17,
+     "unreranked": 10
+    },
+    "A10": {
+     "depth25": 7,
+     "unreranked": 3
+    },
+    "A11": {
+     "depth25": 13,
+     "unreranked": 12
+    },
+    "A13": {
+     "depth25": 2,
+     "unreranked": 3
+    },
+    "A14": {
+     "depth25": 3,
+     "unreranked": 4
+    },
+    "A15": {
+     "depth25": 14,
+     "unreranked": 4
+    },
+    "A16": {
+     "depth25": 19,
+     "unreranked": 18
+    },
+    "A17": {
+     "depth25": 3,
+     "unreranked": 3
+    },
+    "A18": {
+     "depth25": 2,
+     "unreranked": 1
+    },
+    "A19": {
+     "depth25": 3,
+     "unreranked": 3
+    },
+    "A20": {
+     "depth25": 2,
+     "unreranked": 1
+    },
+    "A21": {
+     "depth25": 1,
+     "unreranked": 1
+    },
+    "A22": {
+     "depth25": 4,
+     "unreranked": 1
+    },
+    "A23": {
+     "depth25": 2,
+     "unreranked": 5
+    },
+    "A24": {
+     "depth25": 2,
+     "unreranked": 1
+    },
+    "A25": {
+     "depth25": 24,
+     "unreranked": 25
+    },
+    "A26": {
+     "depth25": 1,
+     "unreranked": 1
+    },
+    "A27": {
+     "depth25": 12,
+     "unreranked": 2
+    }
+   }
+  }
+ }
+}

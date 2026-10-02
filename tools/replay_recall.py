@@ -28,7 +28,8 @@
 # `expect` below is keyed by line number in manual-questions.txt (Q1-Q13 and Q17-Q22 follow
 # docs/Manual-Test-Questions.md's order, then its edge cases, then Q23-Q24, then T1-T10 and R1-R3) -
 # keep them in sync. Pass tools/heldout-questions.txt (and its run's log) for H1-H15, whose expected figures
-# are in `expect_heldout` (H16-H35 appended 2026-09-30, reported as their own group). Requires the app to have been built once (it loads the sqlite-vec extension from bin/).
+# are in `expect_heldout` (H16-H35 appended 2026-09-30, reported as their own group), or tools/answer-questions.txt
+# for A1-A27 (`expect_answer`). Requires the app to have been built once (it loads the sqlite-vec extension from bin/).
 import sqlite3, json, urllib.request, math, re, struct, glob, sys
 
 TOP = 25
@@ -121,19 +122,40 @@ expect_heldout = {1: ['35,562'], 2: ['19%'], 3: ['12,405'], 4: ['35,562', '32,48
                   34: ['9,127,167'],
                   35: ['12,722,552']}
 
+# A1-A27 (tools/answer-questions.txt, 2026-10-01), keyed by line number: the figure as the chunk prints it, written to
+# be unambiguous ("$604", "(601)"); for an arithmetic question (A21-A27) every input, so its rank is the last input's -
+# the result itself is printed nowhere in the filing. A12 is a negative.
+expect_answer = {1: ['17.95'], 2: ['3.12'], 3: ['315,989'], 4: ['2,331'], 5: ['19,554'], 6: ['$20,935'], 7: ['$604'],
+                 8: ['($2.00 per share)'], 9: ['(601)'], 10: ['(26,445)'], 11: ['(5,787)'], 12: [], 13: ['(115,948)'],
+                 14: ['(55,663)'], 15: ['(22,271)'], 16: ['(616)'], 17: ['13,463,971'], 18: ['23,275,329'],
+                 19: ['10,980,930'], 20: ['3,301,306'], 21: ['12,443', '17,087'], 22: ['2,331', '1,798'],
+                 23: ['207,710', '168,825'], 24: ['5,407,990', '8,711,631', '10,981,201'], 25: ['(601)', '(616)'],
+                 26: ['133,749', '101,832'], 27: ['17,087', '67,357']}
+
+
+def question_set(questions_path):
+    return 'heldout' if 'heldout' in questions_path else 'answer' if 'answer' in questions_path else 'main'
+
 
 def expected_for(questions_path):
-    return expect_heldout if 'heldout' in questions_path else expect
+    return {'heldout': expect_heldout, 'answer': expect_answer, 'main': expect}[question_set(questions_path)]
 
 
-def group_of(i, heldout):
-    if heldout:
+# `qset` is question_set()'s name; True/False (held-out or not) still work, as tools/rerank_spike.py passes them.
+def group_of(i, qset):
+    qset = {True: 'heldout', False: 'main'}.get(qset, qset)
+    if qset == 'answer':
+        return 'A1-A27'
+    if qset == 'heldout':
         return 'H1-H15' if i <= 15 else 'H16-H35'
     return 'Q1-Q24' if i <= 24 else 'T1-T10' if i <= 34 else 'R1-R3' if i <= 37 else 'V1-V3'
 
 
-def name_of(i, heldout):
-    if heldout:
+def name_of(i, qset):
+    qset = {True: 'heldout', False: 'main'}.get(qset, qset)
+    if qset == 'answer':
+        return f'A{i}'
+    if qset == 'heldout':
         return f'H{i}'
     return f'Q{i}' if i <= 24 else f'T{i - 24}' if i <= 34 else f'R{i - 34}' if i <= 37 else f'V{i - 37}'
 
@@ -195,9 +217,9 @@ def rank_of(ranked, expected, meta):
     return None if None in positions else max(positions)
 
 
-def report(ranks, heldout):
-    for group in ('Q1-Q24', 'T1-T10', 'R1-R3', 'V1-V3', 'H1-H15', 'H16-H35'):
-        rs = [r for i, r in ranks.items() if group_of(i, heldout) == group]
+def report(ranks, qset):
+    for group in ('Q1-Q24', 'T1-T10', 'R1-R3', 'V1-V3', 'H1-H15', 'H16-H35', 'A1-A27'):
+        rs = [r for i, r in ranks.items() if group_of(i, qset) == group]
         if not rs:
             continue
         at = lambda k: sum(1 for r in rs if r and r <= k)
@@ -211,7 +233,7 @@ def main():
     index = load_index(db_path)
     _, vec, meta = index
     exp = expected_for(questions_path)
-    heldout = exp is expect_heldout
+    qset = question_set(questions_path)
     ranks = {}
     for r in replay(log_path, questions_path, index):
         i, files, st, kw, score = r['i'], r['files'], r['st'], r['kw'], r['score']
@@ -219,14 +241,14 @@ def main():
         top1 = '-' if not ranked else f"{score[ranked[0]]:.4f}" if kw is not None else f"{dist(r['qv'], vec[ranked[0]]):.4f}"
         where = f"{files[0] if len(files) == 1 else ('+'.join(files) if files else 'all')}/{st or '-'}"
         if not exp[i]:
-            print(f"{name_of(i, heldout):>3} (negative test, not scored)  filter={where}  top1={top1}")
+            print(f"{name_of(i, qset):>3} (negative test, not scored)  filter={where}  top1={top1}")
             continue
         rank = rank_of(ranked, exp[i], meta)
         ranks[i] = rank
-        print(f"{name_of(i, heldout):>3} rank={rank if rank else '>' + str(TOP):>4}  in-top-5={'yes' if rank and rank <= 5 else 'NO '}  "
+        print(f"{name_of(i, qset):>3} rank={rank if rank else '>' + str(TOP):>4}  in-top-5={'yes' if rank and rank <= 5 else 'NO '}  "
               f"filter={where}  top1={top1}")
     print()
-    report(ranks, heldout)
+    report(ranks, qset)
 
 
 if __name__ == '__main__':

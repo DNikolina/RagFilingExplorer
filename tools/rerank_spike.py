@@ -81,7 +81,7 @@ def windows(k, variant, question, measure):
 
 # Every question's candidates, 50 deep, ranked exactly as the app ranks them (embeds each question once).
 exp = rr.expected_for(questions_path)
-heldout = exp is rr.expect_heldout
+heldout = rr.question_set(questions_path)  # main, heldout or answer
 questions = list(rr.replay(log_path, questions_path, index, depth=max(DEPTHS)))
 
 results = {'log': log_path, 'questions': questions_path, 'configs': {}}

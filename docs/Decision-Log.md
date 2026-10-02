@@ -2407,6 +2407,59 @@ five, free memory never fell below 11.8 GB of 31.7), so it is in two logs - `mai
 retrieval targets reached and answered (R3, H25, H13); H29 remains - a lookalike-row problem, not depth. Shipped defaults
 stay Vector + Markdown, reranking off, until v2 closes; the eval build sets Structured + Hybrid + Rerank.
 
+**Answer side: a fresh question set first (user, 2026-10-01).** After 2b, 5 of the 6 failures were misreadings of an
+answer llama had in its top 5, one example of each kind (V1 lookalike, T9 per-share vs total, H34 MD&A rounding, Q21
+dropped unit, V3 arithmetic), four on the studied main set and H34 on the never-tuned H16-H35 - five rules for five single
+cases is how v1's prompt revisions overfit. So **A1-A27** (`tools/answer-questions.txt`, docs/Manual-Test-Questions.md):
+drafted from the filings for those kinds, every figure and trap checked in chunk text and HTML, arithmetic results printed
+nowhere in the filing (five drafted calculations dropped because they were); the user kept all 27 unseen. They are the
+answer-side targets - a change may be chosen on them; H16-H35 stay the never-tuned check. Grader: an `A1-A27` group and
+an `exact` flag (A11, A13-A17, A21-A27) so a rounded "$X.Y billion" doesn't pass where the rounding is the trap or the
+answer is asked-for arithmetic (as H34 was graded); every earlier grade unchanged. `replay_recall.py` learned the set
+(`expect_answer`, the inputs for arithmetic questions) - main and held-out output byte-identical.
+
+**A1-A27 baseline (2026-10-01, `eval/answer-side-baseline/`; step 2b's eval build, reranking on): 18/27 reliable.**
+| kind | reliable | misses |
+|---|---|---|
+| lookalike lines (A1-A7, A19) | **8/8** | - |
+| per-share vs total (A8, A9) | **2/2** | - |
+| units, thousands (A18-A20, A24) | **4/4** | - |
+| decline (A12) | 1/1 | - |
+| paid vs declared (A10, A11) | 0/2 | A10 retrieval (reranker), A11 retrieval |
+| MD&A or another statement vs the statement (A13-A17) | 2/5 | A14 misread ("$55.7 billion" over the cash-flow line at #3), A15 and A17 retrieval (reranker) |
+| arithmetic (A21-A27) | 3/7 | A21 listed both years without adding, A26 computed but said "$31.9 billion", A25 retrieval, A27 retrieval (reranker) |
+- **The kinds the step 5 case rested on don't fail on fresh questions:** lookalike lines 8/8 (H16-H35 found the same, 8/8),
+  per-share vs total 2/2, thousands 4/4. V1 and T9 stay single cases.
+- **Only 3 of the 9 misses are misreadings** - A14 (MD&A rounding preferred to the statement line), A21 and A26
+  (arithmetic not done, or rounded). The answer side's measured targets are arithmetic and MD&A rounding.
+- **4 misses are the reranker's**, the answer in hybrid's top 5 and pushed out: A10 (rank 3 -> 10), A15 (4 -> 12), A17
+  (3 -> 7), A27 (1, 2 -> 9, 20). Replay on the whole set (`rerank-replay.txt`): **recall@5 22/26 hybrid -> 18/26 reranked**
+  (both L6 and L12), MRR 0.558 -> 0.398 (L6) - nothing gained. On main + held-out it went the other way (64 -> 67 of 68).
+  A1-A27 lean on "how much was paid / spent" questions whose answers are cash-flow rows; MiniLM (trained on web
+  passages) promotes MD&A and note prose that echoes the question's words over a statement row. A10 and A15 both have a
+  cash-flow line pushed out by equity-statement and Item 5 chunks; A27's income statement lost to five MD&A chunks.
+- 2 misses are retrieval either way (A11: hybrid 12, A25: 11 and 25).
+*Open (for the user, 2026-10-02):* the 2b decision was made before this set existed. Measure A1-A27 end to end with
+reranking off (hybrid only - the replay says 4 more answers would reach llama), then decide: keep reranking, drop it, or
+spike a gentler form in replay first (fusing the reranker's rank with the hybrid rank by RRF instead of replacing the
+order - cheap to replay on all four sets). The answer-side changes (arithmetic, MD&A rounding) wait for that.
+- **Microsoft Learn on this (checked 2026-10-01, user's question):** Azure AI Search's semantic ranker "work[s] best on
+  searchable content that is information-rich and structured as prose" (semantic search overview; the transparency note:
+  "most likely to improve relevance over content that is semantically rich, such as articles and descriptions") - our
+  misses are statement rows losing to MD&A and note prose. Azure HorizonDB lists "simple exact-match lookups" under
+  "skip reranking"; the Databricks evaluation guide enables a reranker when it "improves metrics significantly".
+  Blending is a documented pattern: AI Search applies a scoring profile after semantic ranking
+  (`@search.rerankerBoostedScore`), and HorizonDB's graph RAG fuses "semantic reranking and graph traversal using RRF".
+  The RAG guide: fine-tune a cross-encoder for specialised vocabulary, and benchmark several models on your own queries.
+- **The reranker works as built** - tokens, scores and order match the spike (73,125 pairs; scores within 7.2e-6) - so
+  this is the model's prose preference, not a defect. To confirm tomorrow: A10's and A15's cash-flow chunks are scored
+  low, not mis-scored.
+- **Strategy, cheapest first:** (1) A1-A27 with reranking off, end to end; (2) RRF of the reranker's rank and the hybrid
+  rank, optionally weighted, replayed on all four sets - no new dependency; (3) a second model family
+  (`bge-reranker-base`), only if blending isn't enough; fine-tuning not advised - ~100 questions, all evaluation sets, and
+  training on them would spend them; routing exact lookups past the reranker would mean keyword rules like the ones
+  behind R1 and T10 - a last resort.
+
 Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
 Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation
 memory (follow-up questions), query decomposition beyond per-company search, an API or UI. Automated onboarding

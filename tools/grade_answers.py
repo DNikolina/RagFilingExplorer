@@ -29,8 +29,10 @@ DECLINE = re.compile(r"(?:don['’]t|do not|does not|doesn['’]t) (?:contain|in
 UNIT_ONLY = re.compile(r"^\W*the units?\b[^.]{0,40}\bnot stated\W*$", re.I)
 
 # ID patterns: H16-H35 were added after step 2 (2026-09-30), so they report apart from H1-H15 and older runs stay comparable.
+# A1-A27 (2026-10-01): the answer-side set - lookalike lines, per-share vs total, MD&A vs statement, units, arithmetic.
 GROUPS = [(r'Q', 'Main Q1-Q24'), (r'T', 'Targeted T1-T10'), (r'R', 'Routing R1-R3'), (r'V', 'Variants V1-V3'),
-          (r'H(?:[1-9]|1[0-5])$', 'Held-out H1-H15'), (r'H(?:1[6-9]|2\d|3[0-5])$', 'Held-out H16-H35')]
+          (r'H(?:[1-9]|1[0-5])$', 'Held-out H1-H15'), (r'H(?:1[6-9]|2\d|3[0-5])$', 'Held-out H16-H35'),
+          (r'A', 'Answer-side A1-A27')]
 
 
 def answers_from_log(path, count):
@@ -133,7 +135,8 @@ def grade(entry, answer):
     for alt in entry.get('accept', []):
         if not found and has_number(answer, alt['value']) and alt['if_label'].lower() in answer.lower():
             found, expect = [alt['value']], [alt['value']]
-    if expect and not found and all(rounded_billions(answer, e, unit) for e in expect):
+    # exact: an MD&A-rounding trap or asked-for arithmetic, where "$55.7 billion" is the wrong answer, not a rounding of it.
+    if expect and not found and not entry.get('exact') and all(rounded_billions(answer, e, unit) for e in expect):
         return 'reliable', 'rounded, in billions'
     if len(found) == len(expect) and expect:
         units = [unit_status(answer, e, unit) for e in expect]

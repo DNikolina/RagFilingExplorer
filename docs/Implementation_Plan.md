@@ -123,8 +123,12 @@ in the top 5 and drops none - recall@5 64 -> 67 of 68, ~1-3 s CPU per question; 
 long chunks measured and declined. **Built and kept (user, 2026-10-01, `eval/structured-2b/`):** `Retrieval:Rerank` - main
 23/24, targeted 9/10, routing 3/3, held-out 15/15 and 18/20 (69/75 vs 64/75), every decline clean; V1 lost on a knife-edge
 lookalike (the answer chunk alone gives the wrong line). .NET's `BertTokenizer` needed Hugging Face's normalisation
-reimplemented (all 73,125 pairs differed). **Next:** the answer side - the lookalike family (V1, Q10, T1, H26) and H29;
-or close v2 (shipped defaults -> Structured + Hybrid + Rerank, README, merge, tag `v2.0`). The shipped default stays
+reimplemented (all 73,125 pairs differed). **Answer-side set A1-A27 added and baselined (2026-10-01,
+`eval/answer-side-baseline/`): 18/27** - lookalike lines, per-share and thousands all pass (14/14); only 3 of 9 misses are
+misreadings (arithmetic, MD&A rounding); **4 are the reranker's** (answer in hybrid's top 5, pushed out - replay recall@5
+22/26 -> 18/26 on this set). **Next (user to decide, 2026-10-02):** A1-A27 end to end with reranking off; then keep, drop
+or soften reranking (RRF of reranker and hybrid ranks, replay first); then the answer side (arithmetic, MD&A rounding);
+then close v2 (shipped defaults, README, merge, tag `v2.0`). The shipped default stays
 `Vector` (with `Markdown`); the eval build sets `Hybrid`. **Second-model run done (2026-10-01,
 `eval/granite41-*`):** granite4.1:8b targeted 9/10 vs llama's 7/10 (reads lookalike lines better) but main 21/24, held-out
 12/15 and 16/20, breaks the decline form and invented one figure (H25); granite4.1:3b lower everywhere but routing.

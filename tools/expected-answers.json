@@ -6,7 +6,9 @@
     "(a decline is correct), routing (a decline or the true figure passes; any other figure is wrong). unit:",
     "million | thousand | $ (before the number) | % (after it) | null. accept: an alternative number that counts only",
     "if the answer also names its own line (if_label). conflicts: lookalike figures - present together with the",
-    "expected one, the answer is flagged for a manual check. traps: nearby figures named in the report on a miss."
+    "expected one, the answer is flagged for a manual check. traps: nearby figures named in the report on a miss.",
+    "exact: the figure must be stated as printed - a rounded \"$X.Y billion\" doesn't count (A1-A27's MD&A rounding",
+    "traps and requested arithmetic; the user graded H34 the same way)."
   ],
   "questions": [
     {"id": "Q1", "question": "What were Microsoft's total assets?", "kind": "figure", "expect": ["758,376"], "unit": "million", "traps": ["619,003"]},
@@ -86,6 +88,33 @@
     {"id": "H32", "question": "What were Netflix's diluted earnings per share for 2025?", "kind": "figure", "expect": ["2.53"], "unit": "$", "conflicts": ["2.58"], "traps": ["2.58", "1.98"]},
     {"id": "H33", "question": "What was the net value of Netflix's content assets at December 31, 2025?", "kind": "figure", "expect": ["32,778,392"], "unit": "thousand", "traps": ["12,138,578", "32,452,462"]},
     {"id": "H34", "question": "How much cash did Netflix spend repurchasing its common stock in 2025?", "kind": "figure", "expect": ["9,127,167"], "unit": "thousand", "conflicts": ["9,154,855"], "traps": ["9,154,855", "86,536,215"]},
-    {"id": "H35", "question": "What was Netflix's income before income taxes in 2025?", "kind": "figure", "expect": ["12,722,552"], "unit": "thousand", "conflicts": ["13,326,603"], "traps": ["13,326,603"]}
+    {"id": "H35", "question": "What was Netflix's income before income taxes in 2025?", "kind": "figure", "expect": ["12,722,552"], "unit": "thousand", "conflicts": ["13,326,603"], "traps": ["13,326,603"]},
+    {"id": "A1", "question": "What were Microsoft's diluted earnings per share for fiscal year 2026?", "kind": "figure", "expect": ["17.95"], "unit": "$", "conflicts": ["18.00"], "traps": ["18.00", "13.64"]},
+    {"id": "A2", "question": "What were Nasdaq's basic earnings per share in 2025?", "kind": "figure", "expect": ["3.12"], "unit": "$", "conflicts": ["3.09"], "traps": ["3.09", "1.94"]},
+    {"id": "A3", "question": "What were Microsoft's total liabilities as of June 30, 2026?", "kind": "figure", "expect": ["315,989"], "unit": "million", "conflicts": ["168,825"], "traps": ["168,825", "275,524"]},
+    {"id": "A4", "question": "What was Nasdaq's operating income in 2025?", "kind": "figure", "expect": ["2,331"], "unit": "million", "conflicts": ["2,145"], "traps": ["2,145", "1,798", "1,274"]},
+    {"id": "A5", "question": "What was Oracle's income before income taxes in fiscal 2026?", "kind": "figure", "expect": ["19,554"], "unit": "million", "conflicts": ["20,606"], "traps": ["20,606", "17,087"]},
+    {"id": "A6", "question": "What were Microsoft's cash and cash equivalents as of June 30, 2026?", "kind": "figure", "expect": ["20,935"], "unit": "million", "conflicts": ["76,843"], "traps": ["76,843", "30,242"]},
+    {"id": "A7", "question": "What were Nasdaq's cash and cash equivalents at December 31, 2025?", "kind": "figure", "expect": ["604"], "unit": "million", "conflicts": ["3,934"], "traps": ["3,934", "210", "592"]},
+    {"id": "A8", "question": "What cash dividends per common share did Oracle declare in fiscal 2026?", "kind": "figure", "expect": ["2.00"], "unit": "$", "conflicts": ["1.70"], "traps": ["1.70", "5,725", "1,263.89"]},
+    {"id": "A9", "question": "How much did Nasdaq pay in cash dividends in 2025?", "kind": "figure", "expect": ["601"], "unit": "million", "traps": ["1.05", "541"]},
+    {"id": "A10", "question": "How much cash did Microsoft pay in common stock dividends in fiscal 2026?", "kind": "figure", "expect": ["26,445"], "unit": "million", "conflicts": ["27,034"], "traps": ["27,034", "27.0", "3.64"]},
+    {"id": "A11", "question": "How much did Oracle pay in dividends to its stockholders in fiscal 2026?", "kind": "figure", "expect": ["5,787"], "unit": "million", "conflicts": ["5,725"], "traps": ["5,725", "2.00", "5.8"], "exact": true},
+    {"id": "A12", "question": "What cash dividends per share did Netflix declare in 2025?", "kind": "negative"},
+    {"id": "A13", "question": "How much did Microsoft spend on additions to property and equipment in fiscal 2026?", "kind": "figure", "expect": ["115,948"], "unit": "million", "traps": ["51.4", "64,551"], "exact": true},
+    {"id": "A14", "question": "How much did Oracle spend on capital expenditures in fiscal 2026?", "kind": "figure", "expect": ["55,663"], "unit": "million", "traps": ["55.7", "21,215"], "exact": true},
+    {"id": "A15", "question": "How much cash did Microsoft spend repurchasing its common stock in fiscal 2026?", "kind": "figure", "expect": ["22,271"], "unit": "million", "traps": ["16.7", "18,420"], "exact": true},
+    {"id": "A16", "question": "How much cash did Nasdaq spend repurchasing its common stock in 2025?", "kind": "figure", "expect": ["616"], "unit": "million", "conflicts": ["620"], "traps": ["620", "145"], "exact": true},
+    {"id": "A17", "question": "What was Netflix's long-term debt at December 31, 2025?", "kind": "figure", "expect": ["13,463,971"], "unit": "thousand", "traps": ["14.5", "13,798,351"], "exact": true},
+    {"id": "A18", "question": "What was Netflix's cost of revenues in 2025?", "kind": "figure", "expect": ["23,275,329"], "unit": "thousand", "traps": ["21,038,464"]},
+    {"id": "A19", "question": "What were Netflix's total current liabilities at December 31, 2025?", "kind": "figure", "expect": ["10,980,930"], "unit": "thousand", "conflicts": ["28,981,505"], "traps": ["28,981,505"]},
+    {"id": "A20", "question": "What were Netflix's sales and marketing expenses in 2025?", "kind": "figure", "expect": ["3,301,306"], "unit": "thousand", "traps": ["2,917,554"]},
+    {"id": "A21", "question": "What was Oracle's combined net income for fiscal 2025 and fiscal 2026?", "kind": "figure", "expect": ["29,530"], "unit": "million", "traps": ["12,443", "17,087"], "exact": true},
+    {"id": "A22", "question": "By how much did Nasdaq's operating income increase from 2024 to 2025, in millions?", "kind": "figure", "expect": ["533"], "unit": "million", "traps": ["2,331", "1,798"], "exact": true},
+    {"id": "A23", "question": "What was Microsoft's current ratio (total current assets divided by total current liabilities) as of June 30, 2026, to two decimal places?", "kind": "figure", "expect": ["1.23"], "unit": null, "traps": ["207,710", "168,825"], "exact": true},
+    {"id": "A24", "question": "What was Netflix's total net income for 2023, 2024 and 2025 added together?", "kind": "figure", "expect": ["25,100,822"], "unit": "thousand", "traps": ["5,407,990", "8,711,631", "10,981,201"], "exact": true},
+    {"id": "A25", "question": "How much did Nasdaq return to shareholders in 2025 through dividends paid and share repurchases combined?", "kind": "figure", "expect": ["1,217"], "unit": "million", "traps": ["601", "616"], "exact": true},
+    {"id": "A26", "question": "By how much did Microsoft's net income increase from fiscal 2025 to fiscal 2026?", "kind": "figure", "expect": ["31,917"], "unit": "million", "traps": ["133,749", "101,832"], "exact": true},
+    {"id": "A27", "question": "What was Oracle's net income as a percentage of its total revenues in fiscal 2026, to one decimal place?", "kind": "figure", "expect": ["25.4"], "unit": "%", "traps": ["17,087", "67,357"], "exact": true}
   ]
 }

@@ -89,6 +89,12 @@ by low memory, `main-rest.log` the other five); `main-merged.log` joins them and
 T9 carry the user's decisions. `v1_ablation.py` is the excerpt-by-excerpt check behind V1's loss (a knife-edge lookalike:
 the answer chunk alone gives the wrong line). Details in `docs/Decision-Log.md`, "Step 2b - full run".
 
+**`answer-side-baseline/`** - A1-A27 (`tools/answer-questions.txt`), their first run, on step 2b's eval build (reranking
+on), 2026-10-01: **18/27** - lookalike lines 8/8, per-share 2/2, thousands 4/4, decline 1/1; paid vs declared 0/2, MD&A vs
+statement 2/5, arithmetic 3/7. Of the 9 misses only 3 are misreadings; 4 had their answer in hybrid's top 5 and pushed out
+by the reranker. `rerank-replay.txt`: the set's retrieval with and without reranking - recall@5 22/26 -> 18/26. Details in
+`docs/Decision-Log.md`, "A1-A27 baseline".
+
 Logs before 2026-10-01 were written in the console's OEM code page (a non-breaking space as a lone 0xFF byte, `’` as
 `'`); the app writes UTF-8 since. The tools read both.
 

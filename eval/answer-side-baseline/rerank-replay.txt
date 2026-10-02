@@ -1,0 +1,14 @@
+Unreranked (the app today), 27 questions:
+A1-A27: recall@1 10/26  recall@3 18/26  recall@5 22/26  MRR 0.558
+
+== ms-marco-MiniLM-L6-v2/company  (CPU s/question: 25 candidates 1.11 (max 1.22), 50 candidates 1.11 (max 1.22))
+   truncated at 512 tokens: 252/675 candidate passages; expected figure in the cut-off part: [('A5', 951, '19,554'), ('A24', 621, '8,711,631')]
+   depth 25:
+A1-A27: recall@1 4/26  recall@3 15/26  recall@5 18/26  MRR 0.398
+   in/out of the top 5 at depth 25 (question, before, after): [('A10', 3, 10), ('A15', 4, 12), ('A17', 3, 7), ('A27', 2, 20)]
+
+== ms-marco-MiniLM-L12-v2/company  (CPU s/question: 25 candidates 2.34 (max 2.52), 50 candidates 2.34 (max 2.52))
+   truncated at 512 tokens: 252/675 candidate passages; expected figure in the cut-off part: [('A5', 951, '19,554'), ('A24', 621, '8,711,631')]
+   depth 25:
+A1-A27: recall@1 6/26  recall@3 17/26  recall@5 18/26  MRR 0.447
+   in/out of the top 5 at depth 25 (question, before, after): [('A8', 5, 6), ('A10', 3, 7), ('A15', 4, 14), ('A27', 2, 12)]
