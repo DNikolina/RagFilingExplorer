@@ -1,12 +1,17 @@
+using System.Text.RegularExpressions;
+using AngleSharp.Html.Parser;
+using RagFilingExplorer.Local.Chunking;
 using RagFilingExplorer.Local.Retrieval;
 using RagFilingExplorer.Local.Xbrl;
 
 namespace RagFilingExplorer.Local.Tests.Retrieval;
 
 /// <summary>
-/// The company filter, registered from each filing's tagged cover facts. The four real filings (offline, from data/)
-/// must register what v1's hand-written table said, and every question in the three question files (main, held-out,
-/// answer-side) must resolve to the same filings as it did under that table.
+/// The company filter, registered from each filing's tagged cover facts. Every filing in data/ (offline) must register
+/// a name, a ticker and its company line, with no name that would also route a question to another filing - checked
+/// per filing, so a newly added one is tested as it is. The four filings v1 knew must register what its hand-written
+/// table said, and every question in the three question files (main, held-out, answer-side) must resolve to the same
+/// filings as it did under that table.
 /// </summary>
 [TestFixture]
 public class CompanyRegistryTests
@@ -35,13 +40,54 @@ public class CompanyRegistryTests
 
     private static DirectoryInfo Repo => RepoPaths.FindRoot(TestContext.CurrentContext.TestDirectory);
 
-    private static CompanyRegistry Real => _real ??= CompanyRegistry.FromFilings(
-        new DirectoryInfo(Path.Combine(Repo.FullName, "data")).GetFiles("*.html").OrderBy(f => f.Name));
+    private static FileInfo[] DataFilings() =>
+        new DirectoryInfo(Path.Combine(RepoPaths.FindRoot(AppContext.BaseDirectory).FullName, "data")).GetFiles("*.html").OrderBy(f => f.Name).ToArray();
 
-    [Test]
-    public void FromFilings_RealFilings_RegisterWhatTheHandWrittenTableSaid()
+    private static CompanyRegistry Real => _real ??= CompanyRegistry.FromFilings(DataFilings());
+
+    private static IEnumerable<string> DataFilingNames() => DataFilings().Select(f => f.Name);
+
+    // What onboarding needs from a filing's cover, whichever filing it is: questions name the company by its name or its
+    // ticker, and the company line opens each chunk's embedding text. A filing missing any of them registers badly in
+    // silence - an unregistered NFLX once ran its questions across every filing and produced a hallucinated figure.
+    [TestCaseSource(nameof(DataFilingNames))]
+    public void Register_EveryFilingInData_HasItsNameATickerAndItsCompanyLine(string filing)
     {
+        byte[] bytes = File.ReadAllBytes(Path.Combine(Repo.FullName, "data", filing));
+        XbrlDocument xbrl = InlineXbrlReader.Read(new HtmlParser().ParseDocument(MarkItDownConverter.DetectEncoding(bytes).GetString(bytes)));
+
+        CompanyRegistration registration = CompanyRegistry.Register(filing, xbrl);
+
+        List<string> tickers = CoverFacts.CommonStocks(xbrl).Select(c => c.Symbol).ToList();
+        Assert.That(tickers, Is.Not.Empty, "a common stock trading symbol");
+        Assert.That(registration.Names, Is.SupersetOf(tickers.Prepend(CoverFacts.ShortName(CoverFacts.RegistrantName(xbrl)!))));
+        Assert.That(registration.Context, Is.Not.Null.And.Contains(tickers[0]), "the company line");
+    }
+
+    // Names match as whole words, so one filing's name inside another's ("Bank" in "Bank of America") would send a
+    // question about the second company to both.
+    [Test]
+    public void FromFilings_NoRegisteredName_AlsoMatchesAnotherFilingsName()
+    {
+        List<(string Name, string Filing)> names = Real.Registrations.SelectMany(r => r.Names.Select(n => (n, r.Filing))).ToList();
+
+        List<string> collisions = names
+            .SelectMany(a => names
+                .Where(b => b.Filing != a.Filing && Regex.IsMatch(b.Name, $@"\b{Regex.Escape(a.Name)}\b", RegexOptions.IgnoreCase))
+                .Select(b => $"'{a.Name}' ({a.Filing}) matches '{b.Name}' ({b.Filing})"))
+            .ToList();
+
+        Assert.That(collisions, Is.Empty);
+    }
+
+    // v1's four filings register exactly what its table said. A filing added since isn't in the table, so it's
+    // checked by the tests above instead.
+    [Test]
+    public void FromFilings_FilingsV1Knew_RegisterWhatTheHandWrittenTableSaid()
+    {
+        HashSet<string> v1Filings = HandWrittenV1.Values.ToHashSet();
         Dictionary<string, string> registered = Real.Registrations
+            .Where(r => v1Filings.Contains(r.Filing))
             .SelectMany(r => r.Names.Select(n => (Name: n, r.Filing)))
             .ToDictionary(p => p.Name, p => p.Filing, StringComparer.OrdinalIgnoreCase);
 

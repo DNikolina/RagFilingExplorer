@@ -83,11 +83,11 @@ Run them in order; later checks depend on the dump from check 2.
    Read the flagged tables in `<temp dir>/<stem>.linearized.txt` before calling anything a failure - most
    flags in the four existing filings were layouts the oracle can't model, and one was a filer's own
    inconsistent XBRL tagging (see Decision-Log.md). Report what you verified by reading.
-7. **Tests** - `dotnet test` from the repo root. Expected with a new filing:
-   `CompanyRegistryTests.FromFilings_RealFilings_RegisterWhatTheHandWrittenTableSaid` fails, listing only the
-   new filing's names - it registers every filing in `data/` and pins v1's four companies; report it, not as a
-   FAIL. An error registering the filing (no `dei:EntityRegistrantName`) is a FAIL, as is any other failure.
-   `FilingXbrlTests` covers only the four existing filings, so a new filing's XBRL is checked by check 2's run.
+7. **Tests** - `dotnet test` from the repo root; any failure is a FAIL. `CompanyRegistryTests` checks every
+   filing in `data/`, the new one included: `Register_EveryFilingInData_HasItsNameATickerAndItsCompanyLine` has a
+   case per filing (name, common-stock ticker, company line), and
+   `FromFilings_NoRegisteredName_AlsoMatchesAnotherFilingsName` lists any name that would route a question to two
+   filings. `FilingXbrlTests` covers only the four existing filings, so a new filing's XBRL is checked by check 2's run.
 
 ## Report
 
