@@ -2957,3 +2957,22 @@ days are one execution (step 2: main + the 35-question held-out run; 5a: + `answ
 on - a replay against today's index would give precise-looking wrong numbers. `HistoricRunImportTests` [Explicit]
 (offline; it writes into `eval/v3-runs/`) runs the import; `report.html` is written from every execution - by the
 import and by every evaluation run from now on - next to each run's own `report-<execution>.html`.
+
+**Step 5 reshaped (user, 2026-10-02): which excerpt the model's answer came from - planned for the next session.** The
+report shows the grade and where the right answer ranked, not what the model read its figure from - which is how today's
+misreadings (A10's declared $27,034M over the cash flow statement's $26,445M) were found, by hand. The planned grounding
+evaluator does it for every question:
+- **Input:** the five excerpts the model was given - the top `GenerationTopK` of the retrieved list, exactly the prompt's
+  - and the answer.
+- **For each figure the answer states** (the strict grader's `StatedFigures`: years, citation text and the question's own
+  numbers skipped): every excerpt holding it - its position, statement type and section - and the line it sits on. A
+  figure in two excerpts lists both; which one the model read can't be known.
+- **A figure in none of them** is flagged - step 3b's check, never built: an invented number, or an asked-for calculation
+  (A21-A27, which list their inputs in `chunk_expect`, so the two are told apart).
+- **No figure stated** (a text answer - "Austin" - or a decline): reported as such; matching the expected text instead is
+  an option to decide then.
+- **Only for runs of the new evaluation** - the imported v1/v2 runs have no excerpts. `structured-hybrid-v3-baseline` gets
+  it from a re-run with the same execution name: answers from the cache, retrieval recomputed, about two minutes, no
+  model call.
+Bar to set when it's built: on the v3 baseline, A10 traced to its equity-statement line, and no flagged figure that
+isn't an asked-for calculation or a real invention (v2's step 3b replay found none among 7 wrong answers).
