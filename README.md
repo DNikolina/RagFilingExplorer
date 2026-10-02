@@ -10,16 +10,42 @@ Ask a natural-language question about one of the included filings and get an ans
 cited to, the actual filing text — not the model's general knowledge.
 
 ```
-> What was Microsoft's total revenue for fiscal year 2026?
-(filtering to MSFT-10K-2026.html, statement type: income_statement)
+> What were Microsoft's total assets?
+(filtering to MSFT-10K-2026.html, boosting statement type: balance_sheet)
 
 --- Answer ---
-According to the provided context [1] (Source: MSFT-10K-2026.html, PART II > Item 8. Financial
-Statements and Supplementary Data), Microsoft's total revenue for fiscal year 2026 was $331,839 million.
+Microsoft's total assets were $758,376 million as of June 30, 2026 (Source: MSFT-10K-2026.html, PART II >
+Item 8. Financial Statements and Supplementary Data).
 ```
 
-**Why it's built this way** - why not XBRL, PDF, `Microsoft.Extensions.DataIngestion`, reranking, or a
-bigger model - is answered briefly in [docs/Design-FAQ.md](docs/Design-FAQ.md).
+**Why it's built this way** - why not answer from XBRL directly, PDF, `Microsoft.Extensions.DataIngestion`,
+reranking, a calculator tool, or a bigger model - is answered briefly in [docs/Design-FAQ.md](docs/Design-FAQ.md).
+
+## Two versions
+
+- **v1** (tag `v1.0`) - `markitdown` converts each filing to text, which is split into sections and
+  token-bounded chunks; a question's company and financial statement are hard filters on a vector search.
+- **v2** (the current default) - the `Structured` strategy reads each filing's HTML and inline XBRL directly:
+  tables stay whole blocks, every chunk knows its statement or note from the filer's own tags, roll-forward rows
+  carry their period, and each chunk's embedding text opens with the company. Retrieval is hybrid - vector and
+  SQLite FTS5 keyword search fused by reciprocal rank fusion, the statement a boost instead of a filter.
+
+v1's strategies still ship and are one setting away. Graded strictly (the expected figure, its unit and the exact
+line), with `llama3.1:8b` at temperature 0:
+
+| Question set | v1 | v2 |
+|---|---|---|
+| Main (Q1-Q24) | 22/24 | 22/24 |
+| Targeted - mid-table rows, split tables, notes (T1-T10) | 4/10 | **7/10** |
+| Variants of main questions - lookalike line, absent year, arithmetic (V1-V3) | 1/3 | 2/3 |
+| Held-out, written before any v2 output (H1-H15) | 8/15 | **14/15** |
+| Held-out, written mid-v2 and never tuned on (H16-H35) | - | 17/20 |
+| Answer-side - lookalike lines, per-share, units, arithmetic (A1-A27) | - | 21/27 |
+
+Routing tests (R1-R3), whose answer sits outside the statement a question's keywords point to: v1's hard filter
+can only decline them (3/3 clean declines); v2 answers two and gets the third wrong. The runs are in `eval/`
+(`baseline-v1/`, `structured-5a/`, `answer-side-norerank/`; the README there maps every folder), each measured
+step in [docs/Decision-Log.md](docs/Decision-Log.md), "XBRL hybrid (v2)".
 
 ## Stack
 
@@ -29,7 +55,10 @@ bigger model - is answered briefly in [docs/Design-FAQ.md](docs/Design-FAQ.md).
 - **[OllamaSharp](https://github.com/awaescher/OllamaSharp)** — talks to a local Ollama instance;
   implements those abstractions directly, no custom wrapper
 - **CommunityToolkit.VectorData.SqliteVec** — persistent, on-disk vector store (`rag.<strategy>.db`)
+- **SQLite FTS5** via **Microsoft.Data.Sqlite** — the keyword half of hybrid search, `bm25()`-ranked, in the same file
+- **AngleSharp** — parses each filing's HTML and inline XBRL (v2), and its tables (v1's `Linearized`)
 - **Microsoft.ML.Tokenizers** (offline Tiktoken, `cl100k_base`) — token-bounded chunking
+- **Microsoft.ML.OnnxRuntime** — an optional local cross-encoder reranker, off by default
 - **Local models**: `nomic-embed-text` (274MB, embeddings) and `llama3.1:8b` (4.9GB, answer generation)
 - **Source data**: public [SEC EDGAR](https://www.sec.gov/edgar) 10-K filings (raw HTML)
 
@@ -41,9 +70,13 @@ bigger model - is answered briefly in [docs/Design-FAQ.md](docs/Design-FAQ.md).
   ollama pull nomic-embed-text
   ollama pull llama3.1:8b
   ```
-- **Python 3.12 + `pip install markitdown`** — the app shells out to the `markitdown` CLI to convert
-  filing HTML to text before chunking. This wasn't in the original plan; see
-  [docs/Decision-Log.md](docs/Decision-Log.md) (Step 3) for why it became necessary.
+- **Only for v1's strategies** (`Markdown`, `Linearized`): Python 3.12 + `pip install markitdown` - they shell
+  out to the `markitdown` CLI to convert filing HTML to text ([docs/Decision-Log.md](docs/Decision-Log.md),
+  Step 3, for why). The default `Structured` strategy reads the HTML itself and needs no Python.
+- **Optional:** the reranker's model (`Retrieval:Rerank`, off by default), fetched separately - see
+  `appsettings.json` and Decision-Log.md, "Step 2b resumed".
+- The evaluation tools in `tools/` and `eval/` are Python scripts: the grader and the retrieval replay use the
+  standard library only; the reranker scripts also `numpy`, `onnxruntime` and `tokenizers`.
 
 No API keys, no `dotnet user-secrets`, no cloud account of any kind.
 
@@ -52,9 +85,10 @@ No API keys, no `dotnet user-secrets`, no cloud account of any kind.
 Developed and tested on a 12th Gen Intel i7-12800H, 32GB RAM, **CPU-only inference** (no GPU) — both
 models were chosen specifically because they run acceptably on CPU alone.
 
-- **First run** converts, chunks, and embeds every filing in `data/` and builds the index
-  (`rag.markdown.db` for the default chunking strategy) from scratch. On the hardware above, that's
-  roughly **10 minutes** for ~1,440 chunks across the 4 included filings.
+- **First run** reads, chunks, and embeds every filing in `data/` and builds the index
+  (`rag.structured.db` for the default chunking strategy) from scratch: 975 chunks across the 4 included
+  filings. On the hardware above, embedding is the slow part - about **6 minutes** (`Linearized`'s 999 chunks
+  took 377 s; v1's `Markdown`, 1,444 chunks, about 10 minutes).
 - **Every run after that** finds the existing index and skips straight to the interactive loop —
   well under a minute to start.
 - Each answer involves one local `llama3.1:8b` generation call, CPU-only. A question whose excerpts the model
@@ -88,7 +122,11 @@ exits with a one-line fix instead of a stack trace:
 
 - Ollama isn't reachable at the configured URL, or either configured model isn't pulled (the error
   prints the exact `ollama pull` command).
-- The `markitdown` CLI isn't on `PATH` (only checked when an index build is actually needed).
+- The `markitdown` CLI isn't on `PATH` (v1's strategies only, and only when an index build is actually needed).
+- A filing's XBRL taxonomy (`.xsd`, plus its linkbases when they're separate files) isn't in `data/` next to it
+  (`Structured`), or one of its Statement roles can't be mapped to a statement type - both stop the build with
+  the reason, rather than mislabel chunks.
+- The reranker is on but its model is missing or fails its SHA-256 check, or `Retrieval:Search` isn't `Hybrid`.
 - **The index can't be trusted.** A build writes `rag.<strategy>.db.manifest.json` only after every
   chunk has been embedded. It records the embedding model, the chunking strategy and settings, and a
   SHA-256 hash of every filing. If the index has no manifest, the last build was interrupted or failed. If the manifest doesn't match
@@ -101,8 +139,8 @@ exits with a one-line fix instead of a stack trace:
 
 ## Configuration (`appsettings.json`)
 
-The tunable knobs — model names, Ollama's base URL/timeout, chunk size/overlap, tokenizer model,
-vector-store upsert batch size, and retrieval top-K/temperature — live in
+The tunable knobs — model names, Ollama's base URL/timeout, chunking strategy and chunk size/overlap,
+tokenizer model, vector-store upsert batch size, search mode, reranking, and retrieval top-K/temperature — live in
 [`RagFilingExplorer.Local/appsettings.json`](RagFilingExplorer.Local/appsettings.json), not hardcoded
 in `Program.cs`. Every key is required: the app validates on startup that each one is actually present
 and fails with a clear error naming the missing key, rather than silently falling back to some other
@@ -122,10 +160,19 @@ this value — batching does meaningfully reduce embedding calls otherwise.
 ### Chunking strategies
 
 `Chunking.Strategy` selects how filings are turned into chunks. Each strategy builds its own index
-(`rag.<strategy>.db`) and chunk dumps (`chunk-review/<strategy>/`), so once both are built, switching is
+(`rag.<strategy>.db`) and chunk dumps (`chunk-review/<strategy>/`), so once each is built, switching is
 a one-line settings change with no re-embedding - which is what makes side-by-side comparison practical.
 
-- **`Markdown`** (default) - `markitdown` converts the whole filing to Markdown, sections are found from
+- **`Structured`** (default, v2) - the filing's HTML is parsed once as a DOM (AngleSharp; no `markitdown`) and
+  its inline XBRL read first. The page becomes typed blocks - paragraphs, and each top-level table linearized
+  into self-contained rows - grouped into sections by v1's heading rules and packed by v1's chunker, so every
+  chunk knows which blocks, tables and facts it holds. From the filing's own tags: a "Cover Page" profile chunk
+  (address, auditor, fiscal year, ticker); each primary statement's type from the filer's Statement roles, not its
+  title; each note as a section headed by its topic; a roll-forward row's period ("(fiscal 2025, year ended May
+  31, 2025)"); and the company line ("Oracle Corporation (ORCL), Form 10-K for fiscal year 2026.") opening every
+  chunk's embedding text. Built in measured steps - [docs/Decision-Log.md](docs/Decision-Log.md), "XBRL hybrid
+  (v2)".
+- **`Markdown`** (v1's default) - `markitdown` converts the whole filing to Markdown, sections are found from
   the plain-text Item headings, and oversized Markdown tables are split with their header, fiscal-period
   row and row-group labels repeated on every piece.
 - **`Linearized`** - each HTML table is first turned into self-contained lines ("Comprehensive income —
@@ -137,10 +184,25 @@ a one-line settings change with no re-embedding - which is what makes side-by-si
   context for 7 vs 4 and answers 5 vs 4 correctly, with named trade-offs - see
   [docs/Decision-Log.md](docs/Decision-Log.md), "targeted questions and a rank metric". The final manual
   pass confirmed it (22/24 reliable on both, 5 vs 4 targeted) but Linearized missed two questions `Markdown`
-  answers, so `Markdown` stays the default ("manual pass (v1)").
+  answers, so `Markdown` stayed v1's default ("manual pass (v1)").
 
-Everything after chunking (statement-type tagging, embedding, retrieval, generation) is shared, so a
-strategy only has to implement `IChunkingStrategy`.
+Everything after chunking (embedding, retrieval, generation) is shared, so a strategy only has to implement
+`IChunkingStrategy`. v1's strategies leave the statement type to title detection afterwards; `Structured` sets it.
+
+### Search
+
+`Retrieval.Search` selects how a question's candidates are found; the company filter is hard in both.
+
+- **`Hybrid`** (default, v2) - three ranked lists, fused by reciprocal rank fusion (k = 60): a vector search, an
+  FTS5 keyword search (`bm25()`, over the question's content words), and - when the question names a financial
+  statement - a vector search within that statement, which boosts its chunks without excluding any others. Chosen
+  by a replay of six variants before it was built; it reaches the routing questions a hard filter can't.
+- **`Vector`** (v1) - one vector search, with the question's statement type as a hard filter.
+
+`Retrieval.Rerank` adds a local cross-encoder (`ms-marco-MiniLM-L6-v2`, ONNX) that reorders each company's top 25
+hybrid candidates. It's built, tested and measured, and off by default: it prefers prose to statement rows, and
+across every question set hybrid search alone puts as many answers in the model's context
+([docs/Design-FAQ.md](docs/Design-FAQ.md)).
 
 ### Reasoning-model support
 
@@ -185,29 +247,38 @@ configuration.
 
 Dropping a new `.html` file into `data/` (the app will then ask for `--rebuild`) is necessary but **not sufficient** -
 onboarding Netflix (`NFLX-10K-2025.html`) surfaced three real bugs (and a later review found a fourth, in Nasdaq's filing), all fixed generically rather than
-with filer-specific code, but worth checking for explicitly with any new filing:
+with filer-specific code, but worth checking for explicitly with any new filing. The
+`filer-onboarding-checker` subagent in `.claude/agents/` runs these checks and reports with evidence.
 
-1. **Check the company registered.** An unregistered company runs every question naming it **unfiltered
+1. **Add its XBRL taxonomy too** (`Structured`). From the filing's EDGAR folder, next to the `.html`: the
+   `.xsd`, plus the `_pre`/`_lab`/`_cal`/`_def.xml` linkbases when the filer ships them as separate files (NDAQ
+   and NFLX do). Statement types and note topics are read from it; without it the build stops and says so.
+
+2. **Check the company registered.** An unregistered company runs every question naming it **unfiltered
    across every filing** (the exact cross-company contamination metadata filtering exists to prevent) -
    the most consequential of the NFLX bugs: it caused a hallucinated figure, not just a missed answer.
    v1 kept a hand-written name/ticker table (`QueryIntentResolver.CompanyToFiling`); since v2 each filing
    registers itself from its tagged cover facts (`CompanyRegistry`: registrant name without its legal form,
    plus the common stock's ticker). Startup prints each registration ("Company filter: Netflix / NFLX ->
    NFLX-10K-2025.html") - check the new one reads as questions will name the company.
-2. **Don't assume the source is UTF-8.** A raw EDGAR download usually is, but a browser-saved copy can
+3. **Don't assume the source is UTF-8.** A raw EDGAR download usually is, but a browser-saved copy can
    declare (and genuinely be encoded as) something else entirely - Netflix's was `windows-1252`.
    `MarkItDownConverter.DetectEncoding` handles this automatically now (BOM, then the file's own
    `<meta charset>`, then a UTF-8 fallback), but it's worth spot-checking `chunk-review/<strategy>/*.chunks.txt`
    for stray `�` characters after a first run regardless.
-3. **Item-heading punctuation varies by filer.** Netflix's converted output has no space after the
+4. **Item-heading punctuation varies by filer.** Netflix's converted output has no space after the
    period in most Item headings (`"Item 1.Business"` vs. the usual `"Item 1. Business"`) -
    `SectionSplitter.TitledItemHeaderRegex` now tolerates both, but a filer with a still-different
    convention could reintroduce this class of bug. Check `chunk-review/<strategy>/<new-filing>.chunks.txt` for a
    complete, correctly-nested Item outline before trusting the citations it produces.
-4. **Statement titles vary too.** Statement-type filtering only works if each financial statement's
-   title line is recognized - Nasdaq's "Consolidated Statements of *Changes in* Stockholders' Equity"
+5. **Statement titles vary too** (v1's strategies). Statement-type filtering only works if each financial
+   statement's title line is recognized - Nasdaq's "Consolidated Statements of *Changes in* Stockholders' Equity"
    wasn't at first, so every Nasdaq equity question found nothing. After a first run, check that the index
    tags each of the new filing's statements (see `docs/Implementation_Plan.md`, "Live constraints").
+   `Structured` reads the types from the filer's Statement roles instead, and stops the build on one it can't map.
+
+`dotnet test` then checks the new filing's registration too: its name, ticker and company line, and that no
+name would route a question to two filings.
 
 Full diagnostic detail, including how each bug was actually found, is in
 [docs/Decision-Log.md](docs/Decision-Log.md) ("Follow-up: onboarding a new filer (NFLX)").
@@ -216,20 +287,21 @@ Full diagnostic detail, including how each bug was actually found, is in
 
 - **Derived figures aren't reliable.** Sums, differences and ratios are computed by the model, which predicts
   digits rather than calculating: asked to add three 8-digit figures, it gave a slightly wrong total every time,
-  across four phrasings. Check any figure the filing doesn't state directly.
+  across four phrasings. A calculator tool was screened in v2: `llama3.1:8b` called it every time, fixed the ratio
+  it had divided wrongly, and lost two answers it had right - it copied figures into the call wrongly. Check any
+  figure the filing doesn't state directly.
 
-- **Near-identical lines can be swapped.** Where a table has two lines for almost the same thing - Nasdaq's
-  "Comprehensive income" and "Comprehensive income attributable to Nasdaq" - the model sometimes gives the
-  other line's figure under the asked-for name. Three prompt wordings didn't fix it; check the cited line.
+- **The model can pick a plausible neighbour of the right figure.** The answer is in its context, next to a
+  lookalike: Nasdaq's "Comprehensive income" and "Comprehensive income attributable to Nasdaq"; dividends
+  *declared* in the equity statement where the question asks what was *paid* (the cash flow statement); MD&A's
+  rounded "$55.7 billion" over the table's $55,663 million. Prompt rules didn't fix these - v1 tried three
+  wordings, v2 screened one more - so check the cited line.
 
-- **Statement routing is a hard filter.** A question containing a financial-statement term (revenue,
-  net income, operating margin, total assets, cash flow, …) is searched only within that statement.
-  Answers that live elsewhere in the filing can't be retrieved: segment or regional breakdowns, MD&A
-  explanations, accounting policies, or a term from a different statement ("deferred revenue" is on
-  the balance sheet). In testing the model declined these rather than guess, but the miss is by design.
-  A soft filter was measured and not built in v1. On the v2 branch, hybrid search (`Retrieval:Search = Hybrid`:
-  keyword + vector search, the statement type a boost rather than a filter) answers these routing misses - see
-  [docs/Design-FAQ.md](docs/Design-FAQ.md) and [docs/Decision-Log.md](docs/Decision-Log.md), "XBRL hybrid (v2)".
+- **Statement routing is keyword matching.** A question's statement is found by substrings - "deferred revenues"
+  points to the income statement, though the figure is on the balance sheet. Under the default hybrid search
+  that's only a boost, and such questions can be answered; under `Vector` search (v1) it's a hard filter, and
+  answers elsewhere in the filing - segment breakdowns, MD&A, accounting policies, another statement - can't be
+  retrieved. See [docs/Design-FAQ.md](docs/Design-FAQ.md).
 
 ## What I'd do differently
 
@@ -238,9 +310,10 @@ Full diagnostic detail, including how each bug was actually found, is in
   every 10-K follows a structure fixed by regulation (Parts and Items) and tags every financial figure in inline
   XBRL with its concept, period, unit and scale. Much of the later work - recovering table structure, carrying
   units onto split tables, detecting statements from their titles - rebuilds information the filings already
-  state. The v2 plan starts there ([Decision-Log.md](docs/Decision-Log.md), "XBRL hybrid (v2)").
+  state. v2 starts there ([Decision-Log.md](docs/Decision-Log.md), "XBRL hybrid (v2)").
 - **Pick the stack from strengths, the pipeline from the data.** .NET was the right choice and covers every part
-  of that design. The assumption was the conversion step - which is also what brought in Python.
+  of that design. The assumption was the conversion step - which is also what brought in Python. v2 reads the
+  HTML in .NET, and its default needs no Python at all.
 - **Keep what's searched separate from what the model reads.** Tables were embedded and shown in the same
   Markdown form; roughly half of a financial statement's tokens turned out to be empty cells, slowing every answer
   and giving the model noise to count through.
@@ -248,8 +321,13 @@ Full diagnostic detail, including how each bug was actually found, is in
   are what made every decision here measurable. But an earlier, looser grading scored the main questions 24/24;
   requiring the unit and the exact line exposed eight problems. And no question touched Microsoft's cover page,
   so a bug that silently dropped it survived every test.
-- **Keep arithmetic out of the model.** It predicts digits rather than calculating; sums and ratios belong in
-  code, called as a tool.
+- **Keep arithmetic out of the model - all of it, operands included.** It predicts digits rather than
+  calculating, so sums and ratios belong in code. But a calculator the model calls only moves the error: at 8B,
+  two of its eight calls carried a figure copied wrongly (5,407,990 became 100407990). Code has to choose the
+  operands too - from the tagged facts, not from the model's reading.
+- **Screen before a full run, and keep writing fresh questions.** A larger reranker, a prompt rule and the
+  calculator were each dropped after minutes of targeted calls, not a two-hour run. Reranking itself was built,
+  measured and kept on the question sets it was chosen with; a set written afterwards showed what it cost.
 
 ## Testing
 
@@ -259,16 +337,17 @@ dotnet test
 
 Runs `RagFilingExplorer.Local.Tests` (NUnit + Moq) — 372 tests, fully offline, no live Ollama instance
 or populated vector store required. Covers chunking, section splitting, statement-type detection,
-query-intent resolution, settings loading/validation, index-manifest staleness detection, the
-retrieve+generate orchestration (mocked), and the v2 inline XBRL reader - checked against the filings in `data/`,
-read-only.
+query-intent resolution, company registration, settings loading/validation, index-manifest staleness detection,
+the retrieve+generate orchestration (mocked; hybrid search against a real FTS5 file, reranking with a fake
+scorer), the reranker's tokenization, and v2's page reader, structure labels and inline XBRL reader - checked
+against the filings in `data/`, read-only, including fact for fact against EDGAR's own extraction.
 
-This is separate from, and doesn't replace, the real-question retrieval-quality testing documented as
-Step 7 in the decision log — that required manually verifying actual answers against the source
-filings, and is what actually caught this project's real bugs.
-[docs/Manual-Test-Questions.md](docs/Manual-Test-Questions.md) has a broader set of questions (balance
-sheet, cash flow, equity, comprehensive income, plus edge cases) for exactly that kind of manual pass,
-each with an expected answer sourced directly from the filings.
+The unit tests don't judge answers. That's the evaluation, run on the real app with the real model:
+[docs/Manual-Test-Questions.md](docs/Manual-Test-Questions.md) holds every question with its expected answer,
+sourced from the filings - the main set, targeted and routing questions, two held-out sets and the answer-side
+set. `tools/grade_answers.py` grades a run's log strictly (figure, unit, exact line; declines);
+`tools/replay_recall.py` replays a run's retrieval deterministically, without the model, to separate "retrieval
+missed it" from "the model misread it". Every measured run is kept in `eval/`.
 
 ## Why MarkItDown, not Microsoft.Extensions.DataIngestion
 
@@ -279,8 +358,10 @@ HTML has zero real `<h1>`–`<h6>` heading tags, and its hardcoded Markdig math 
 dollar-figures in financial tables. The full diagnostic path is in
 [docs/Decision-Log.md](docs/Decision-Log.md) (Step 3).
 
-What ships instead is a small hand-written pipeline: `markitdown` (the CLI) for HTML→text conversion,
-then pattern-matching over the converted text for section boundaries and table-aware token chunking.
+What v1 shipped instead is a small hand-written pipeline: `markitdown` (the CLI) for HTML→text conversion,
+then pattern-matching over the converted text for section boundaries and table-aware token chunking. v2's
+`Structured` strategy drops the conversion step: it reads the HTML as a DOM with AngleSharp - which Microsoft's
+own ASP.NET Core test docs use; .NET has no built-in HTML parser - and keeps v1's heading and packing rules.
 
 ## Project structure
 
@@ -288,10 +369,13 @@ then pattern-matching over the converted text for section boundaries and table-a
 RagFilingExplorer.Local/                the app - chunking, retrieval, vector store, interactive loop
 RagFilingExplorer.Local.Tests/          NUnit + Moq test suite
 data/                                   source 10-K filings (HTML, from sec.gov/edgar), plus each filing's XBRL
-                                        taxonomy (.xsd, and _pre/_lab/_cal/_def.xml where not embedded) for v2
+                                        taxonomy (.xsd, and _pre/_lab/_cal/_def.xml where not embedded) and EDGAR's
+                                        extracted facts (_htm.xml, for the XBRL reader's tests)
 chunk-review/<strategy>/                full per-chunk text dumps, one file per filing, for manual review
-tools/                                  manual-question list; replay_recall.py (deterministic retrieval ranks);
+tools/                                  the question files; grade_answers.py (strict answer grading) and
+                                        replay_recall.py (deterministic retrieval ranks); rerank_spike.py;
                                         LinearizeSpike + xbrl_column_check.py (table linearization + its XBRL check)
+eval/                                   every measured run: logs, grades, replays, screens - mapped in its README
 .claude/                                Claude Code config: filer-onboarding-checker subagent, test-convention rule
 docs/Implementation_Plan.md             current-state reference: ground rules, pipeline, live constraints
 docs/Decision-Log.md                    the full build history: every step, decision point, and debugging path

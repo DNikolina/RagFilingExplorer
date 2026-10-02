@@ -133,7 +133,7 @@ the two 85 and 85; a second family (bge-reranker-v2-m3) screened on the 8 contes
 2026-10-02, `eval/answer-side-screens/`):** a cash-flow prompt rule fixed 0 of 2 targets (A10, A15); a calculator tool
 (step 3) fixed A27 but lost A24 and A26 - llama copies figures into the call wrongly. The remaining misses are recorded as
 llama3.1:8b misreadings. **Closing v2 (2026-10-02):** shipped defaults now `Structured` + `Hybrid`, reranking off -
-the configuration of v2's final baselines (`structured-5a/`, `answer-side-norerank/`); code comments reviewed against the code. **Next:** README, merge, tag `v2.0`. **Second-model run done (2026-10-01,
+the configuration of v2's final baselines (`structured-5a/`, `answer-side-norerank/`); code comments reviewed against the code; CompanyRegistryTests check every filing in `data/`; README and this plan's pipeline section rewritten for v2. **Next:** merge `v2` -> `main`, tag `v2.0`. **Second-model run done (2026-10-01,
 `eval/granite41-*`):** granite4.1:8b targeted 9/10 vs llama's 7/10 (reads lookalike lines better) but main 21/24, held-out
 12/15 and 16/20, breaks the decline form and invented one figure (H25); granite4.1:3b lower everywhere but routing.
 **`llama3.1:8b` kept (user).** `Console.OutputEncoding` fixed (2026-10-01): the app reads and writes UTF-8, so
@@ -148,6 +148,30 @@ joining them. Well inside nomic-embed-text's context, so harmless in practice; t
 ---
 
 ## Pipeline as it ships
+
+Default (v2): `Structured` chunking, `Hybrid` search, no reranking.
+
+```
+data/*.html + taxonomy (.xsd, linkbases)
+  → CompanyRegistry       at startup, every filing: registrant name + common-stock ticker from the cover
+                          facts → the company filter and each filing's company line
+  → StructuredChunkingStrategy (Structured/, Xbrl/)
+      InlineXbrlReader    contexts, units, every fact (continuations followed); TaxonomyReader: roles,
+                          presented concepts, labels - matches EDGAR's extraction fact for fact
+      NoteTopics          each note's extent and topic, from text-block tags + Disclosure roles
+      FilingBlockReader   the DOM (AngleSharp, no markitdown) → typed blocks in reading order: paragraphs
+                          in markitdown's text shape; each top-level table → TableBlock (HtmlTableLinearizer
+                          row block, or text rows on fallback; roll-forward rows get their period, named by
+                          the filer's fiscal calendar - PeriodLabels)
+      StatementLabels     the five primary statements' tables, from the filer's Statement roles
+      StructuredSections  v1's heading rules (SectionSplitter.HeadingTracker) over blocks; a note is its
+                          own section, headed "... > <topic>"; FilingProfile's "Cover Page" section first
+      StructuredChunker   v1's packing rules (TokenChunker.Pack) over blocks; a chunk's statement type is
+                          its table's; embedding context = the company line (step 1d)
+  → [shared from here, below]
+```
+
+v1's strategies (`Markdown`, `Linearized`), still selectable:
 
 ```
 data/*.html
@@ -164,20 +188,27 @@ data/*.html
                           splits; a short lead-in (title, "(in millions)") rides on an
                           oversized table's first piece, a short footer on its last; a row
                           block splits between rows, every piece repeating title/units/context
-  → FilingChunkRecords    StatementType tagged by carrying the last statement title forward,
-                          reset at "Notes to Financial Statements" and on filing change
-  → SqliteVec index       rag.<strategy>.db; nomic-embed-text, "search_document:" prefix, EmbeddingTextBuilder text
-  → RagAnswerService      QueryIntentResolver filter (company + statement type) → top-K search
-                          (one per company, interleaved, when 2+ are named) - Vector: statement type a
-                          hard filter; Hybrid (v2): vector + FTS5 bm25 (chunks_fts, created at startup)
-                          + vector-within-statement, 50 deep each, fused by RRF (k = 60) →
-                          [Rerank, v2 step 2b] each company's top 25 reordered by a local cross-encoder
+  → [shared from here]
+```
+
+Shared by all three:
+
+```
+  → FilingChunkRecords    keys from 1; StatementType: the strategy's (Structured), else the last statement
+                          title carried forward, reset at "Notes to Financial Statements" and on filing change
+  → SqliteVec index       rag.<strategy>.db; nomic-embed-text, "search_document:" prefix + company line
+                          (Structured) + EmbeddingTextBuilder text
+  → RagAnswerService      company filter (CompanyRegistry) + statement type (QueryIntentResolver) → top-K
+                          search (one per company, interleaved, when 2+ are named) - Hybrid (default):
+                          vector + FTS5 bm25 (chunks_fts, created at startup) + vector-within-statement,
+                          50 deep each, fused by RRF (k = 60); Vector (v1): statement type a hard filter →
+                          [Rerank, opt-in] each company's top 25 reordered by a local cross-encoder
                           (ms-marco-MiniLM-L6-v2, ONNX; company line + excerpt header + chunk) →
                           citation prompt → llama3.1:8b (reasoning only for synthesis questions
                           on a model that reports the "thinking" capability)
 ```
 
-Packages: `Microsoft.Extensions.AI`, `Microsoft.Extensions.VectorData.Abstractions`,
+Packages: `AngleSharp` (the DOM - v2's reader and the linearizer), `Microsoft.Extensions.AI`, `Microsoft.Extensions.VectorData.Abstractions`,
 `CommunityToolkit.VectorData.SqliteVec` (1.0.1-preview), `OllamaSharp`,
 `Microsoft.ML.Tokenizers.Data.Cl100kBase`, `Microsoft.Extensions.Configuration(.Json/.Binder)`,
 `Microsoft.Bcl.Memory` (pinned — see below), `Microsoft.Data.Sqlite` (hybrid search's FTS5 queries; already
