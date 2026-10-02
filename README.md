@@ -47,6 +47,71 @@ can only decline them (3/3 clean declines); v2 answers two and gets the third wr
 (`baseline-v1/`, `structured-5a/`, `answer-side-norerank/`; the README there maps every folder), each measured
 step in [docs/Decision-Log.md](docs/Decision-Log.md), "XBRL hybrid (v2)".
 
+## How it works
+
+Two flows: the index is built once (first run, or `--rebuild`), and then every question is answered from it.
+This is the default (v2); v1's `markitdown` pipeline and `Vector` search are a setting away.
+
+```mermaid
+flowchart TB
+    subgraph build["Build the index - once"]
+        direction TB
+        html["10-K filing<br/>data/*.html"]
+        xsd["Filer's XBRL taxonomy<br/>data/*.xsd + linkbases"]
+        xbrl["Inline XBRL reader<br/>every tagged fact: concept, period, unit"]
+        labels["Statement types and note topics<br/>from the filer's own roles"]
+        blocks["Page reader<br/>paragraphs + tables as rows;<br/>roll-forward rows get their period"]
+        sections["Sections<br/>Part > Item > note topic"]
+        chunks["Chunks of ~500 tokens<br/>tables split between rows,<br/>headers repeated"]
+        embed["nomic-embed-text<br/>company line + heading + chunk"]
+        db[("rag.structured.db<br/>vectors + chunk text + FTS5 keyword index")]
+
+        html --> xbrl
+        html --> blocks
+        xsd --> labels
+        xbrl --> labels
+        xbrl --> blocks
+        blocks --> sections
+        labels --> sections
+        sections --> chunks
+        chunks --> embed
+        embed --> db
+    end
+
+    subgraph ask["Answer a question"]
+        direction TB
+        q["Question"]
+        company["Company filter<br/>names and tickers from each filing's cover"]
+        statement["Statement type<br/>from keywords - a boost, not a filter"]
+        vec["Vector search"]
+        kw["Keyword search<br/>FTS5 bm25"]
+        vecst["Vector search<br/>within the statement"]
+        fuse["Reciprocal rank fusion"]
+        prompt["Top 5 excerpts + citation rules"]
+        llm["llama3.1:8b"]
+        answer["Answer, each fact cited<br/>to filing and section"]
+
+        q --> company
+        q --> statement
+        company --> vec
+        company --> kw
+        company --> vecst
+        statement --> vecst
+        vec --> fuse
+        kw --> fuse
+        vecst --> fuse
+        fuse --> prompt
+        prompt --> llm
+        llm --> answer
+    end
+
+    db -.-> vec
+    db -.-> kw
+    db -.-> vecst
+```
+
+Everything runs locally: the embedding model and `llama3.1:8b` through Ollama, the index in one SQLite file.
+
 ## Stack
 
 - **C# / .NET 10** — console app, top-level statements
