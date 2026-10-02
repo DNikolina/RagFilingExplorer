@@ -1,5 +1,6 @@
 using Microsoft.Extensions.AI;
 using RagFilingExplorer.Local.Chunking;
+using RagFilingExplorer.Local.Retrieval;
 
 namespace RagFilingExplorer.Local.Tests;
 
@@ -34,7 +35,9 @@ public class AppSettingsTests
 
         Assert.That(settings.Ollama.ChatModel, Is.Not.Empty);
         Assert.That(settings.Retrieval.ReasoningEffort, Is.EqualTo(ReasoningEffort.Medium), "enum binds from its name");
-        Assert.That(settings.Chunking.Strategy, Is.EqualTo(ChunkingStrategyKind.Markdown), "enum binds from its name");
+        Assert.That(settings.Chunking.Strategy, Is.EqualTo(ChunkingStrategyKind.Structured), "enum binds from its name");
+        Assert.That(settings.Retrieval.Search, Is.EqualTo(SearchMode.Hybrid), "enum binds from its name");
+        Assert.That(settings.Retrieval.Rerank, Is.False, "reranking is opt-in");
     }
 
     // MaxOutputTokens shipped as 4096 - Ollama's whole default context window, which the prompt shares, so
@@ -102,7 +105,11 @@ public class AppSettingsTests
     [Test]
     public void Load_MisspelledChunkingStrategy_FailsAtLoadTime()
     {
-        WriteTempSettings(ShippedJson().Replace("\"Strategy\": \"Markdown\"", "\"Strategy\": \"Markdwon\""));
+        // The misspelling replaces the shipped value, so it must be the shipped value - when the default moved from
+        // Markdown to Structured (v2), the replace silently matched nothing and the test failed on valid settings.
+        const string Shipped = "\"Strategy\": \"Structured\"";
+        Assert.That(ShippedJson(), Does.Contain(Shipped), "the shipped strategy this test misspells");
+        WriteTempSettings(ShippedJson().Replace(Shipped, "\"Strategy\": \"Structred\""));
 
         Assert.Throws<InvalidOperationException>(() => AppSettings.Load(_tempDirectory));
     }

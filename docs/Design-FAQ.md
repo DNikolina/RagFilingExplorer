@@ -56,7 +56,7 @@ the library. Decision-Log.md, "Step 3: Chunking".
 
 ### Why does a question about revenue sometimes get "not in the context" when the figure is in the filing?
 
-Under `Vector` search (v1's retrieval, and the shipped default until v2 closes), statement routing is a
+Under `Vector` search (v1's retrieval, still selectable), statement routing is a
 **hard filter**: a question containing a financial-statement term ("revenue", "net income", "total assets",
 "cash flow", ...) is searched only within that statement, so answers elsewhere - segment tables, MD&A
 explanations, accounting policies - can't be retrieved. It's deliberate. Statement
@@ -97,7 +97,7 @@ servers or cloud services.
 v1 shipped without hybrid search - its feasibility was checked, never its effect. v2 built it (step 2): an SQLite
 FTS5 table over the same chunks, ranked by `bm25()`, fused with the vector ranking by reciprocal rank fusion, with
 the question's statement type as a third, boosting list instead of a hard filter. It's a setting,
-`Retrieval:Search` (`Vector` | `Hybrid`). Chosen by a replay of six variants before any code was written; on the
+`Retrieval:Search` (`Vector` | `Hybrid`), and `Hybrid` is the default from v2. Chosen by a replay of six variants before any code was written; on the
 Structured strategy it took the held-out questions from 10/15 to 14/15 and answered the routing misses a hard
 filter made impossible. Decision-Log.md, "XBRL hybrid (v2)", step 2.
 
@@ -130,14 +130,20 @@ more reliable. A fix needs code, not the model, to choose the operands - a facts
 answer). Prompt rules fared no better on the remaining misreadings: the right figure is in the model's context,
 and it still picks a plausible neighbour. Decision-Log.md, "Answer side: what the model was given" onwards.
 
-### Why two chunking strategies, and why is `Markdown` still the default?
+### Why three chunking strategies, and why is `Structured` the default?
 
 `markitdown` drops HTML colspan, so Markdown tables leave the chunker guessing which value sits under which
-year. The `Linearized` strategy reads tables from the HTML instead and writes each row as a self-contained
+year. v1's `Linearized` strategy reads tables from the HTML instead and writes each row as a self-contained
 line. On targeted table questions it put the answer in the model's context more often, but answered only
 one more correctly - within noise at that sample size - because denser chunks cost one question and the
-model misread another despite ranking the right chunk first. Both ship and are switchable; `Markdown`
-stays the default. Decision-Log.md, "targeted questions and a rank metric".
+model misread another despite ranking the right chunk first, so v1 kept `Markdown` as its default.
+Decision-Log.md, "targeted questions and a rank metric".
+
+v2's `Structured` strategy goes further: it reads the filing's DOM with no `markitdown`, keeps each table as
+one block, and labels chunks from the filing's own XBRL (see the XBRL answer above). Built step by step, each
+step measured against the last, and with hybrid search it answered most of the held-out questions v1 missed
+(Decision-Log.md, "XBRL hybrid (v2)"). It's the default from v2. `Markdown` and `Linearized` stay, unchanged and
+switchable, as v1's reference.
 
 ### Why is `Retrieval.ChatTemperature` 0?
 

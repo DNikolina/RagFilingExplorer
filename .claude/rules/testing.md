@@ -34,8 +34,9 @@ extend (e.g. `RagAnswerServiceTests.MakeMocks`, `CreateService`).
 - **Files on disk:** a per-test temp dir, `Path.Combine(Path.GetTempPath(), $"<Fixture>-{Guid.NewGuid():N}")`,
   created in `[SetUp]` and deleted in `[TearDown]`.
 - **Settings tests read the shipped `appsettings.json`** (`AppSettingsTests.LoadShippedSettings()`), so they
-  assert what ships: `Chunking:Strategy` must be `"Markdown"` there, or two tests fail. Switch the
-  strategy only temporarily, and switch it back.
+  assert what ships: `Chunking:Strategy` must be `"Structured"`, `Retrieval:Search` `"Hybrid"` and
+  `Retrieval:Rerank` `false` there (v2's defaults), or `Load_ShippedAppSettings_BindsEveryValue` and
+  `Load_MisspelledChunkingStrategy_FailsAtLoadTime` fail. Switch them only temporarily, and switch them back.
 - **HTML table fixtures** (`HtmlTableLinearizerTests`): build them with the `Tr(...)` helper, reducing a
   real filing's layout to the cells that matter while keeping column positions (colspan included), since
   positions are all the linearizer aligns by.

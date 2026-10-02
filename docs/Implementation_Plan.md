@@ -132,8 +132,8 @@ the two 85 and 85; a second family (bge-reranker-v2-m3) screened on the 8 contes
 (`eval/rerank-decision/`). The code stays as the opt-in `Retrieval:Rerank`. **Answer side screened, nothing built (user,
 2026-10-02, `eval/answer-side-screens/`):** a cash-flow prompt rule fixed 0 of 2 targets (A10, A15); a calculator tool
 (step 3) fixed A27 but lost A24 and A26 - llama copies figures into the call wrongly. The remaining misses are recorded as
-llama3.1:8b misreadings. **Next: close v2** (shipped defaults Structured + Hybrid, README, merge, tag `v2.0`). The shipped default stays `Vector` (with `Markdown`) until then; the eval
-build sets `Hybrid`, reranking off. **Second-model run done (2026-10-01,
+llama3.1:8b misreadings. **Closing v2 (2026-10-02):** shipped defaults now `Structured` + `Hybrid`, reranking off -
+the configuration of v2's final baselines (`structured-5a/`, `answer-side-norerank/`); code comments reviewed against the code. **Next:** README, merge, tag `v2.0`. **Second-model run done (2026-10-01,
 `eval/granite41-*`):** granite4.1:8b targeted 9/10 vs llama's 7/10 (reads lookalike lines better) but main 21/24, held-out
 12/15 and 16/20, breaks the decline form and invented one figure (H25); granite4.1:3b lower everywhere but routing.
 **`llama3.1:8b` kept (user).** `Console.OutputEncoding` fixed (2026-10-01): the app reads and writes UTF-8, so
@@ -198,7 +198,11 @@ transitive via SqliteVec, referenced at the same version), `Microsoft.ML.OnnxRun
   figure for NFLX), so check the "Company filter:" line startup prints for it - a name questions won't use
   (a brand unlike the legal name) still needs attention. Also spot-check its
   `chunk-review/<strategy>/*.chunks.txt` for `�` and a complete Item outline.
-- **A new filer's statement titles must actually be detected.** After onboarding, check the index for
+- **A new filing needs its XBRL taxonomy in `data/`** under the `Structured` strategy (the shipped default from v2):
+  the `.xsd`, plus its `_pre`/`_lab`/`_cal`/`_def.xml` linkbases when the filer ships them separately (NDAQ and NFLX
+  do), from the filing's EDGAR folder. Without it chunking stops ("no taxonomy schema (.xsd)"); statement types come
+  from its Statement roles, and a role that can't be mapped stops it too - loudly, never a silent mislabel.
+- **A new filer's statement titles must actually be detected** (v1's `Markdown` and `Linearized` strategies). After onboarding, check the index for
   one `StatementType` transition per primary statement plus the Notes reset
   (`SELECT Key, StatementType FROM chunks WHERE SourceFiling = ... ORDER BY Key`). NDAQ's "Statements of
   Changes in Stockholders' Equity" went undetected until the second review: 0 `equity_statement`
