@@ -18,11 +18,13 @@ separate text-to-query problem. XBRL is used instead as a **test oracle**: `tool
 checks that the linearized tables put each value under the right column - kept out of the pipeline so the
 check isn't circular. Decision-Log.md, "linearized tables as a second chunking strategy".
 
-The filings also tag whole sections of text (notes, policies, schedules) under standard names shared across
-filers, which would label chunks for routing more reliably than heading patterns, and every tagged number
-carries its own unit, scale and period. v2 plans a new ingestion built on those regulated layers - a facts
-table for headline figures, structure labels for every chunk - each step measured before the next.
-Decision-Log.md, "XBRL hybrid (v2)".
+v2 does read inline XBRL - at ingestion, to label chunks, never to answer a figure. Its `Structured` strategy
+parses the filing's DOM and its XBRL (matching EDGAR's own extraction fact for fact on all four filings) and takes
+from it what heading patterns guess at: each statement's type from the filer's statement roles, each note's
+topic, period labels on roll-forward rows, and the company itself - name and ticker from the cover-page facts, which
+register a new filer and open every chunk's embedding text. A facts table answering headline figures directly
+was planned as a later step, conditional on headline-figure failures remaining; they didn't (headline figures
+pass), so it wasn't built. Decision-Log.md, "XBRL hybrid (v2)".
 
 ### Why HTML as the source, not PDF - or OCR?
 
@@ -54,17 +56,20 @@ the library. Decision-Log.md, "Step 3: Chunking".
 
 ### Why does a question about revenue sometimes get "not in the context" when the figure is in the filing?
 
-Statement routing is a **hard filter**: a question containing a financial-statement term ("revenue", "net
-income", "total assets", "cash flow", ...) is searched only within that statement, so answers elsewhere -
-segment tables, MD&A explanations, accounting policies - can't be retrieved. It's deliberate. Statement
+Under `Vector` search (v1's retrieval, and the shipped default until v2 closes), statement routing is a
+**hard filter**: a question containing a financial-statement term ("revenue", "net income", "total assets",
+"cash flow", ...) is searched only within that statement, so answers elsewhere - segment tables, MD&A
+explanations, accounting policies - can't be retrieved. It's deliberate. Statement
 filtering is what took the original test questions from 2/6 to 6/6, after search prefixes, row-label
 enrichment and smaller chunks each failed to move them; removing it today would drop the core questions
 with the figure in context from 22/22 to 11/22 (`Markdown`) or 15/22 (`Linearized`). A soft
 filter (filtered and unfiltered results interleaved) was measured: it recovers some of those questions
 but loses curated ones, and can't win the slots back because the prompt already fills most of the model's
-context window. Not built. An LLM-based router was not evaluated. The planned v2 targets this gap with
-XBRL section labels (see the XBRL answer above). Decision-Log.md, "retrieval quality" and
-"pre-manual-pass review".
+context window. Not built. An LLM-based router was not evaluated. v2's `Hybrid` search closes the gap
+differently: the statement type becomes one boosting list among three instead of a filter, so a question routed
+to the wrong statement can still reach its answer - the routing misses that were impossible under the hard filter
+(e.g. "deferred revenue", routed to the income statement on "revenue") are answered (see the next answer).
+Decision-Log.md, "retrieval quality", "pre-manual-pass review" and "XBRL hybrid (v2)", step 2.
 
 ### How are reranking and hybrid (keyword + vector) search done?
 
@@ -72,19 +77,22 @@ Neither is available locally off the shelf. Ollama has no rerank endpoint, and `
 reranking abstraction; Microsoft's own rerankers are cloud services. So v2 (step 2b) runs a cross-encoder in-process:
 `ms-marco-MiniLM-L6-v2` (one of the two models Microsoft's RAG guidance names), ONNX Runtime, reordering each company's top 25
 hybrid candidates, each read as its company line + excerpt header + chunk. It's a setting, `Retrieval:Rerank`, and
-needs `Hybrid`. Chosen by a replay-only spike (L6 vs L12, with and without the company line, 25 vs 50 candidates,
-overlapping windows for long chunks), then measured end to end: 64 -> 69 of 75 reliable answers, every decline intact,
-~2 s of CPU per question. **It ships off.** A fresh answer-side question set then showed the other side: the reranker
-prefers MD&A and note prose to statement rows, and pushed cash-flow answers out of the top 5. Across every question set,
-hybrid search alone puts as many answers in the model's context as reranking or RRF blends of the two, and a larger
-reranker family (bge-reranker-v2-m3) did no better on the questions they disagree on at many times the CPU. So
-reranking stays as an opt-in setting, built and measured, not a default. The model (~91 MB) is fetched separately and
-refused unless its SHA-256 matches. One
-non-obvious part: .NET's `BertTokenizer` tokenized every one of 73,125 (question, chunk) pairs differently from the
-Python library the spike measured with (it drops line breaks, `|` and `$`), so the app reimplements Hugging Face's
-normalisation - checked token for token. Decision-Log.md, "Step 2b". For hybrid search, `IKeywordHybridSearchable`
-exists in `Microsoft.Extensions.VectorData`, but the SQLite connector doesn't implement it (Microsoft's connector
-page: "HybridSearch supported? No"), and the connectors that do are all servers or cloud services.
+needs `Hybrid`. The model (~91 MB) is fetched separately and refused unless its SHA-256 matches. One non-obvious
+part: .NET's `BertTokenizer` tokenized every one of 73,125 (question, chunk) pairs differently from the Python
+library the spike measured with (it drops line breaks, `|` and `$`), so the app reimplements Hugging Face's
+normalisation - checked token for token. Chosen by a replay-only spike (L6 vs L12, with and without the company line,
+25 vs 50 candidates, overlapping windows for long chunks), then measured end to end: 64 -> 69 of 75 reliable answers,
+every decline intact, ~2 s of CPU per question. Decision-Log.md, "Step 2b".
+
+**It ships off.** A fresh answer-side question set then showed the other side: the reranker prefers MD&A and note
+prose to statement rows, and pushed cash-flow answers out of the top 5. Across every question set, hybrid search
+alone puts as many answers in the model's context as reranking or RRF blends of the two, and a larger reranker
+family (bge-reranker-v2-m3) did no better on the questions they disagree on, at many times the CPU. So reranking
+stays an opt-in setting, built and measured, not a default. Decision-Log.md, "A1-A27 with reranking off" onwards.
+
+For hybrid search, `IKeywordHybridSearchable` exists in `Microsoft.Extensions.VectorData`, but the SQLite connector
+doesn't implement it (Microsoft's connector page: "HybridSearch supported? No"), and the connectors that do are all
+servers or cloud services.
 
 v1 shipped without hybrid search - its feasibility was checked, never its effect. v2 built it (step 2): an SQLite
 FTS5 table over the same chunks, ranked by `bm25()`, fused with the vector ranking by reciprocal rank fusion, with
@@ -109,6 +117,18 @@ held-out sets, drifted from the prompt's decline form, stated one figure found i
 slower; the 3B was lower almost everywhere. `qwen3.5:2b` was pulled as a reference reasoning model to build and test
 reasoning support, not as a replacement. Implementation_Plan.md, "Prerequisites"; Decision-Log.md,
 "reasoning-model support" and "Second-model run".
+
+### Why doesn't the model use a calculator tool for arithmetic?
+
+Because with this model it made answers worse. The model predicts digits rather than calculating, so a
+`calculate(expression)` tool - evaluated exactly in code, offered through Ollama's tool support - was the obvious
+fix, and it was screened before being built. `llama3.1:8b` called the tool on every arithmetic question and fixed
+the one ratio it had divided wrongly, but it copied figures into the call wrongly (5,407,990 became 100407990) and
+restated a correct result in a different unit, losing two answers it got right without the tool - and every
+calculation took twice as long. The error moves from the arithmetic to copying the operands, which at 8B is no
+more reliable. A fix needs code, not the model, to choose the operands - a facts table, not built (see the XBRL
+answer). Prompt rules fared no better on the remaining misreadings: the right figure is in the model's context,
+and it still picks a plausible neighbour. Decision-Log.md, "Answer side: what the model was given" onwards.
 
 ### Why two chunking strategies, and why is `Markdown` still the default?
 
