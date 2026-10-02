@@ -1,0 +1,71 @@
+{
+  "scenarioName": "Main.Q17",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:26.3594019Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Netflix\u0027s total revenue for fiscal year 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s total revenue for fiscal year 2025 was $45,183,036 thousand. (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "45,183,036 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008569,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2379,
+          "outputTokenCount": 39,
+          "totalTokenCount": 2418
+        },
+        "cacheKey": "BDF0630BBD84E3723AB32DB7583A9C0D62F719027397009D94A73266311A8E8115E8411F330254C228643632ED94DC8E",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

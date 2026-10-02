@@ -1,0 +1,71 @@
+{
+  "scenarioName": "HeldOut.H21",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:32.0678589Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Oracle\u0027s operating income in fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s operating income in fiscal 2026 was $20,606 million. (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "20,606 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0010529,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2666,
+          "outputTokenCount": 45,
+          "totalTokenCount": 2711
+        },
+        "cacheKey": "F83AAFE75356BE9177EDDD33FBA74AF94208D5B3925C0005BFBA9C6171C9998B82082EEAFDA881FD5ACFA59B5BA0BD73",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

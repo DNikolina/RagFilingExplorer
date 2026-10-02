@@ -1,0 +1,71 @@
+{
+  "scenarioName": "Main.Q22",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:27.125518Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Where is Netflix headquartered?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s corporate headquarters is located in Los Gatos, California. (Source: NFLX-10K-2025.html, PART I \u003E Item 2. Properties)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Los Gatos at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008188,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2057,
+          "outputTokenCount": 36,
+          "totalTokenCount": 2093
+        },
+        "cacheKey": "F43F5FF2F6C11D3640EC2E7E3D765352CD8C30D5F5ED6050D909D2B1566C3937FCA093A74E3952CB9C56AEC5EE9F303A",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

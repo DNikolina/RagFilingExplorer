@@ -1,0 +1,71 @@
+{
+  "scenarioName": "AnswerSide.A24",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:36.7027872Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Netflix\u0027s total net income for 2023, 2024 and 2025 added together?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The total net income for 2023, 2024, and 2025 is $10,981,201 \u002B $8,711,631 \u002B $5,407,990 = $25,100,822 thousand. (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements \u003E CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "5,407,990, 8,711,631, 10,981,201 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007906,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2210,
+          "outputTokenCount": 81,
+          "totalTokenCount": 2291
+        },
+        "cacheKey": "2AD55E45A1F03347365882C6CD3AFA7385680CE127A452D54E437489FE1A73B83E6E17D5402BD397CE4955FCD560F7AB",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

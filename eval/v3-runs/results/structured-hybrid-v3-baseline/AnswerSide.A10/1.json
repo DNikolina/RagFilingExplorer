@@ -1,0 +1,73 @@
+{
+  "scenarioName": "AnswerSide.A10",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:35.0553436Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much cash did Microsoft pay in common stock dividends in fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft paid $27,034 million in common stock cash dividends in fiscal 2026 (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "trap 27,034",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "trap 27,034"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 3,
+        "name": "Answer rank",
+        "reason": "(26,445) at rank 3 of 25.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007793,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2609,
+          "outputTokenCount": 49,
+          "totalTokenCount": 2658
+        },
+        "cacheKey": "006846A089940C3BD312A59D17E4F69AE0E84CA4B5CF92CB7A7113E8873CEB0739FD1A01582AB0DC1338EFAE37303EFF",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

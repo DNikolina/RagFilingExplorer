@@ -1,0 +1,71 @@
+{
+  "scenarioName": "AnswerSide.A13",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:35.4040705Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much did Microsoft spend on additions to property and equipment in fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft spent $115,948 million on additions to property and equipment in fiscal 2026. (Source: MSFT-10K-2026.html, CASH FLOWS STATEMENTS)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 3,
+        "name": "Answer rank",
+        "reason": "(115,948) at rank 3 of 25.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0006743,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2713,
+          "outputTokenCount": 41,
+          "totalTokenCount": 2754
+        },
+        "cacheKey": "546F4841482E1DB85551C00071C92C9892BE5DE8876EF4ED8B3404094DA8DE9895F828575D94B16508E49D27F5FE8E57",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

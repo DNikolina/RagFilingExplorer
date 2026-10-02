@@ -1,0 +1,71 @@
+{
+  "scenarioName": "AnswerSide.A22",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:36.5439339Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "By how much did Nasdaq\u0027s operating income increase from 2024 to 2025, in millions?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s operating income increased from $1,798 million in 2024 to $2,331 million in 2025, an increase of $533 million. (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "2,331, 1,798 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007475,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2228,
+          "outputTokenCount": 55,
+          "totalTokenCount": 2283
+        },
+        "cacheKey": "389E4EE68A3C3499019554F195BCF134A59A639E8C6E53CF8EA8139BE4352CAF5D110ECD75480E60FA8ECD0B046DAD5D",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

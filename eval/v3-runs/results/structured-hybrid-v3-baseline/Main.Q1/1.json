@@ -1,0 +1,71 @@
+{
+  "scenarioName": "Main.Q1",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:24.3870547Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Microsoft\u0027s total assets?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s total assets were $758,376 million as of June 30, 2026. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "758,376 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0289567,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2324,
+          "outputTokenCount": 52,
+          "totalTokenCount": 2376
+        },
+        "cacheKey": "8CFDFE9DCE85059B91E0BFCADD9F2721D355D61911B17D1D2CC5B2FC915D9259C34E9F169EBB06ADB7EB86A338174350",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

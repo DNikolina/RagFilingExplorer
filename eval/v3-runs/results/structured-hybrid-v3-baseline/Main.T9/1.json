@@ -1,0 +1,73 @@
+{
+  "scenarioName": "Main.T9",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:28.849172Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "According to Oracle\u0027s statement of stockholders\u0027 equity, how much in common stock dividends did Oracle declare in fiscal 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle declared $1.70 per share in common stock dividends in fiscal 2025. (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "expected figure absent",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "expected figure absent"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "4,743 at rank 2 of 25.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008745,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2709,
+          "outputTokenCount": 47,
+          "totalTokenCount": 2756
+        },
+        "cacheKey": "EEE927898EBFF5A8DDCCE941251AC7D58F80423B9EFF025CB84902412F069DA1F321FCEED17D82A3DAA53CAC82C5FD4C",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

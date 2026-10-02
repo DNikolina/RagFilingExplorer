@@ -1,0 +1,71 @@
+{
+  "scenarioName": "AnswerSide.A6",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:34.6864182Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Microsoft\u0027s cash and cash equivalents as of June 30, 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s cash and cash equivalents as of June 30, 2026 were $20,935 million. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Investing)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "$20,935 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0009167,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2823,
+          "outputTokenCount": 56,
+          "totalTokenCount": 2879
+        },
+        "cacheKey": "B8B1040D899ABF421CB7811D0A8C587A74F12816D66C1B342CC14A388E40AB44DBE5798416B13CC60E058FEE7E189A83",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

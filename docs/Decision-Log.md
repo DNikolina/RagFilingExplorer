@@ -2921,3 +2921,28 @@ the rest failed), the expected answer passed as an `EvaluationContext`. `Expecte
   figures and grades don't move; the wording does. "A changed answer means a changed input", relied on since v1, now
   holds for grades, not for text - and step 4's bar is grades.
 53 evaluation tests offline (+ the explicit parity check) + 372 unit tests.
+
+**Step 4 done (2026-10-02): the evaluation run, stored and reported - v2 reproduced, one model variation.**
+`Running/EvaluationRunner` asks every question through the app (`AppComposition`, shipped settings: Structured, Hybrid,
+no reranking), one scenario per question (`Main.Q1`, `HeldOut.H16`, `AnswerSide.A10`), the answer through that
+scenario's caching chat client (the service built once; a delegating client switched per scenario), graded and ranked by
+both evaluators, stored with `DiskBasedReportingConfiguration` under `eval/v3-runs/` (results committed; the response
+cache gitignored - its keys aren't stable across library versions), cache entries kept a year (the library's default is
+14 days), and `report-<execution>.html` written from the stored results with `HtmlReportWriter` - **the user's choice
+over the `aieval` tool** (one package less, the report written by the run that made the results; `aieval` to be tried
+if the report isn't liked). `EvaluationRunTests` [Explicit] runs it; `EVAL_EXECUTION` names a run, `EVAL_ONLY` limits it.
+- **Smoke run** (Q1, R1, A10): grades and ranks as the baselines, 3.5 min; repeated from the cache: 10 s, identical.
+- **Full run, `structured-hybrid-v3-baseline`:** the tool's two-hour limit stopped it after 101 of 102 (A27 missing); not
+  restarted automatically. Re-run with the same execution name (user): the 101 answered from the cache, A27 asked -
+  **1 min 47 s**. Main **33/40**, held-out **31/35**, answer-side **20/27**; the answer in the top 5 for 36, 28 and 22 -
+  the hybrid replay's numbers exactly. **101 of 102 grades equal the v2 baselines.** (The summary's "2 min" is the
+  re-run's time; the first pass took about two hours.)
+- **A16 differs, and it isn't wording:** the baseline answered "$616 million" (reliable); this run, with retrieval and
+  so the prompt identical (the answer chunk at rank 18 in both), added "an additional $4 million of accrued excise tax
+  ... the total cash spent ... is $620 million" - a listed trap, so `check`. Temperature 0 on this setup varies the
+  content of an answer, not only its wording (step 3's finding was too mild).
+- *Decision (user, 2026-10-02): option 2 of three - count the evaluation as reproduced and record A16 as model
+  variation,* over keeping the bar strict (a hunt inside Ollama) or measuring the variation first (two hours; worth doing
+  before comparing models). Every difference comes from the model's answer: the evaluators are held exact by the parity
+  tests (1,029 grades, 102 ranks). So `EvaluationRunTests` now reports a difference from the baselines as an NUnit
+  warning, listed in the summary, not a failure.

@@ -1,0 +1,71 @@
+{
+  "scenarioName": "HeldOut.H5",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:30.1442675Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How many full-time employees did Oracle have?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "As of May 31, 2026, Oracle employed approximately 141,000 full-time employees (Source: ORCL-10K-2026.html, PART I \u003E Item 1. Business)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "141,000 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0019796,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2770,
+          "outputTokenCount": 43,
+          "totalTokenCount": 2813
+        },
+        "cacheKey": "6846CCF67FDC2218BB34FDE430E5F8EF63518CDFF0011459948237904380CA1BB47C54F31AFB4351C3145A48D3D8864D",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

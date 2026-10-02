@@ -1,0 +1,71 @@
+{
+  "scenarioName": "HeldOut.H32",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:33.7481563Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Netflix\u0027s diluted earnings per share for 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s diluted earnings per share for 2025 were $2.53 (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements \u003E Earnings Per Share)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "2.53 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008093,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2330,
+          "outputTokenCount": 40,
+          "totalTokenCount": 2370
+        },
+        "cacheKey": "C3C51621B87F48B86F5B92C88F14F999E2AE1E2F73FA1EECA1C7E0F12E3DECEAF910892451AB53E125CA3BB43D345B9F",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

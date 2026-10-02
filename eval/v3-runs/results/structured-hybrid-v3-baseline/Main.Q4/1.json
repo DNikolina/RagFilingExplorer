@@ -1,0 +1,71 @@
+{
+  "scenarioName": "Main.Q4",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:25.0528124Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Microsoft\u0027s net cash from operations?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s net cash from operations was $182,935 million for the year ended June 30, 2026. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "182,935 at rank 2 of 25.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0010333,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2804,
+          "outputTokenCount": 56,
+          "totalTokenCount": 2860
+        },
+        "cacheKey": "CA4585CEB460909F8D51AF8702DC1C950910B29153EFC1000F01B4C18E0CB377222B867715E17EEA095C0AA2666E036B",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

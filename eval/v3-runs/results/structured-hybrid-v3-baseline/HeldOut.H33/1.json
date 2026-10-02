@@ -1,0 +1,71 @@
+{
+  "scenarioName": "HeldOut.H33",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:33.8863294Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was the net value of Netflix\u0027s content assets at December 31, 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The net value of Netflix\u0027s content assets at December 31, 2025 was $32,778,392 thousand (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements \u003E Balance Sheet Components)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "32,778,392 at rank 2 of 25.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0011037,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2474,
+          "outputTokenCount": 48,
+          "totalTokenCount": 2522
+        },
+        "cacheKey": "600F7238E0021184AD0A91E132671B83C1411F3F4EB05665F9B82697E3DF7DCC678D13CC6E95D06D1B8BF78AB0FBC27D",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

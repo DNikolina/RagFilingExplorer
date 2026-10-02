@@ -1,0 +1,71 @@
+{
+  "scenarioName": "Main.T2",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:28.0223574Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much did Microsoft spend repurchasing its shares in the second quarter of fiscal year 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft spent $3,500 million repurchasing its shares in the second quarter of fiscal year 2025. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Stockholders\u0027 Equity)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "3,500 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0010085,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2444,
+          "outputTokenCount": 60,
+          "totalTokenCount": 2504
+        },
+        "cacheKey": "91D68CA35232709AFA63FC023B0316071441D668987F74B87408A1157648A8A79D0CCB47A8074564548B9167EEA4CBD9",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

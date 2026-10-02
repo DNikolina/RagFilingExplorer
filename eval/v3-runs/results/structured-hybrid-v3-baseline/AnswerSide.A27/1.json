@@ -1,0 +1,73 @@
+{
+  "scenarioName": "AnswerSide.A27",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:07:00.9740445Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Oracle\u0027s net income as a percentage of its total revenues in fiscal 2026, to one decimal place?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s net income as a percentage of its total revenues in fiscal 2026 was 25.9%. \n\nNet income was $17,087 million (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules).\nTotal revenues were $67,357 million (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "trap 17,087, 67,357",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "trap 17,087, 67,357"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "17,087, 67,357 at rank 2 of 25.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 83.9315748,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2660,
+          "outputTokenCount": 96,
+          "totalTokenCount": 2756
+        },
+        "cacheKey": "297A23CC28A8EEE0A52DCDE588C09DB71EA2798E64D5FE1244369EDCB0ADF3C043369E2FA723CA06D72BB7EA28718F58",
+        "cacheHit": false
+      }
+    ]
+  },
+  "formatVersion": 1
+}

@@ -1,0 +1,70 @@
+{
+  "scenarioName": "HeldOut.H20",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:31.8081105Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Microsoft\u0027s total revenue in fiscal year 2022?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The excerpts don\u0027t contain Microsoft\u0027s total revenue in fiscal year 2022."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "decline-ok",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "name": "Answer rank",
+        "reason": "A negative: there\u0027s no answer to find.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "Not scored."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0009445,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2524,
+          "outputTokenCount": 17,
+          "totalTokenCount": 2541
+        },
+        "cacheKey": "779EEC8F0AD633B973642B3828E007C36E4176D593A2D93A1C46569A0E851F08E9DEAB79FE2D2936BEA30C2B2BC5127D",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

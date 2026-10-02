@@ -1,0 +1,71 @@
+{
+  "scenarioName": "Main.T3",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:28.1396506Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "By what percentage did Netflix\u0027s technology and development expenses change in 2025 compared to 2024?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s technology and development expenses increased by 16% in 2025 compared to 2024. (Source: NFLX-10K-2025.html, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "466,095 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007939,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2758,
+          "outputTokenCount": 55,
+          "totalTokenCount": 2813
+        },
+        "cacheKey": "2F5900EB3CA2EE8F77303185553CEB45A96EC0C84852D503F4CD8ACA9995058A362D712EE289995EB4E00F0A8546FE5D",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

@@ -1,0 +1,70 @@
+{
+  "scenarioName": "Main.Q16",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:27.7353532Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Apple\u0027s revenue last year?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The excerpts don\u0027t contain Apple\u0027s revenue."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "decline-ok",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "name": "Answer rank",
+        "reason": "A negative: there\u0027s no answer to find.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "Not scored."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.000877,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2674,
+          "outputTokenCount": 10,
+          "totalTokenCount": 2684
+        },
+        "cacheKey": "7772AAEB5D306C0BE7ED24AC6D42A42FD9F7DFE629E6E9326FAA9D7D81684BE11901DD60F186BCFEEE6CF548D4B802F4",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

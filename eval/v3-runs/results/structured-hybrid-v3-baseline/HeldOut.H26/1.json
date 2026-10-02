@@ -1,0 +1,71 @@
+{
+  "scenarioName": "HeldOut.H26",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:33.1361857Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was net income attributable to Nasdaq in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Net income attributable to Nasdaq was $1,788 million in 2025. (Source: NDAQ-10K-2025.html, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "1,788 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007903,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2696,
+          "outputTokenCount": 51,
+          "totalTokenCount": 2747
+        },
+        "cacheKey": "7258E15A2EF739C9AAAB3D5767A0DD86F761415C323AA1283ABFBCEEDBD7C25E392E8552A7D92EB027CEA399609C98B3",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

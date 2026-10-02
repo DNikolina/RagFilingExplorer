@@ -1,0 +1,70 @@
+{
+  "scenarioName": "HeldOut.H30",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:33.3930375Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Nasdaq\u0027s net income in 2022?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The excerpts don\u0027t contain Nasdaq\u0027s net income in 2022."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "decline-ok",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "name": "Answer rank",
+        "reason": "A negative: there\u0027s no answer to find.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "Not scored."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0018784,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2683,
+          "outputTokenCount": 16,
+          "totalTokenCount": 2699
+        },
+        "cacheKey": "7A8C67BC3A860C446E7AEC81EA4A7A9F8A824CFA974807B186FEC5AB934A6FF6DBBE2AC0C964438A9398F309BFC808E9",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

@@ -1,0 +1,71 @@
+{
+  "scenarioName": "AnswerSide.A25",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:36.7465003Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much did Nasdaq return to shareholders in 2025 through dividends paid and share repurchases combined?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The total amount paid of $601 million in dividends and the total purchase price of $616 million for share repurchases, combined, is $1,217 million."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 25,
+        "name": "Answer rank",
+        "reason": "(601), (616) at rank 25 of 25.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "Outside the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007038,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2835,
+          "outputTokenCount": 34,
+          "totalTokenCount": 2869
+        },
+        "cacheKey": "E1AC6E34BC8A90956BC528D94AEE8581696F3A652B782F898D5C9D66D6D1C74C49D87D963F5988D07C4E5C2A14700BF7",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

@@ -1,0 +1,71 @@
+{
+  "scenarioName": "HeldOut.H7",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:30.6307493Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Oracle\u0027s diluted earnings per share for fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s diluted earnings per share for fiscal 2026 were $5.83. (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Earnings Per Share)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "5.83 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008911,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2789,
+          "outputTokenCount": 51,
+          "totalTokenCount": 2840
+        },
+        "cacheKey": "97E04265853831005FCB2E0FDA03F2B5D9638141002F743B1C8C50AFF46A08CE2CC2559717751DC78856B27CBF943C6B",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

@@ -1,0 +1,71 @@
+{
+  "scenarioName": "Main.T10",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:28.9846251Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "In Netflix\u0027s statement of comprehensive income, how much in cash flow hedge gains was reclassified in 2024?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "$96,795 thousand was reclassified from AOCI into the Consolidated Statements of Operations in 2024, as stated in the excerpt from NFLX-10K-2025.html, section PART IV \u003E Financial Statements \u003E Stockholders\u0027 Equity (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements \u003E Stockholders\u0027 Equity)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 4,
+        "name": "Answer rank",
+        "reason": "96,795 at rank 4 of 25.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007472,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2552,
+          "outputTokenCount": 75,
+          "totalTokenCount": 2627
+        },
+        "cacheKey": "59243AE3B2C58E713AD1E8973545FF805731A970EF0D49A7BF5197E755DD912A4ACCD886108E0945D9A90E1201396E68",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

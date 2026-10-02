@@ -1,0 +1,71 @@
+{
+  "scenarioName": "AnswerSide.A3",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:34.3209727Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Microsoft\u0027s total liabilities as of June 30, 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s total liabilities as of June 30, 2026 were $315,989 million. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E BALANCE SHEETS)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "315,989 at rank 2 of 25.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0009208,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2285,
+          "outputTokenCount": 57,
+          "totalTokenCount": 2342
+        },
+        "cacheKey": "977D4673A8EEFC6E76C65CA57A27C1B91B7EC45658C456BC47005D7AE5614B649C6A0F4E887510DDC22D6E97C194D468",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

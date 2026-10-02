@@ -1,0 +1,71 @@
+{
+  "scenarioName": "HeldOut.H3",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:29.8988196Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much stock-based compensation expense did Microsoft record in fiscal year 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft recorded $12,405 million in stock-based compensation expense for the year ended June 30, 2026. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Employee Stock and Savings Plans)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "12,405 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007361,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2871,
+          "outputTokenCount": 62,
+          "totalTokenCount": 2933
+        },
+        "cacheKey": "6087F21FB5D2AE11C02A1B587ED1750E68E6C2E4C28DD0964033CEA57D460FD6C2EC25F783FD5859CEDC0A063DD0504B",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

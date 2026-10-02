@@ -1,0 +1,71 @@
+{
+  "scenarioName": "Main.R1",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:29.2677478Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Oracle\u0027s current deferred revenues as of May 31, 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s current deferred revenues as of May 31, 2026 were $9,916 million. (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Deferred Revenues)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "9,916 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0009706,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2281,
+          "outputTokenCount": 54,
+          "totalTokenCount": 2335
+        },
+        "cacheKey": "A3F74BA345F48F78599BABDDBB2E86B585ED3FBE494088ACA045AF2D9A1E05FE93716147130869AB629EE2BEFDDAEDDE",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

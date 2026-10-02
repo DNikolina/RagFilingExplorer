@@ -1,0 +1,71 @@
+{
+  "scenarioName": "Main.Q10",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:25.9422547Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Nasdaq\u0027s total comprehensive income for 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s total comprehensive income for 2025 was $2,113 million. (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements, Consolidated Statements of Comprehensive Income)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "2,113 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008483,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2578,
+          "outputTokenCount": 45,
+          "totalTokenCount": 2623
+        },
+        "cacheKey": "BAC01DBCC21B9DCD2C12011BC33D8E7BCCE9D608A51275B5FEF329C3F0F848F6198D6B62B3A6876E3236E6BC749A6699",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

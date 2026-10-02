@@ -1,0 +1,70 @@
+{
+  "scenarioName": "HeldOut.H8",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:30.8743451Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Oracle\u0027s total revenue in fiscal 2023?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The excerpts don\u0027t contain Oracle\u0027s total revenue in fiscal 2023."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "decline-ok",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "name": "Answer rank",
+        "reason": "A negative: there\u0027s no answer to find.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "Not scored."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0011098,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2610,
+          "outputTokenCount": 16,
+          "totalTokenCount": 2626
+        },
+        "cacheKey": "A028A9C2838A7CBBCB040CF64907AA4679E43D36AD88BA9467D7B1586877A0189517AE26F0E808C7A41EC9A9E95D381C",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

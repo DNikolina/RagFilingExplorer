@@ -1,0 +1,71 @@
+{
+  "scenarioName": "HeldOut.H16",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:31.5333878Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Microsoft\u0027s cash dividends declared per common share in fiscal year 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s cash dividends declared per common share in fiscal year 2026 were $3.64. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E STOCKHOLDERS\u2019 EQUITY STATEMENTS)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "3.64 at rank 2 of 25.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008332,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2292,
+          "outputTokenCount": 63,
+          "totalTokenCount": 2355
+        },
+        "cacheKey": "2487946E14AC3CDB937FA01636B9D9D55698CA228125E83563BA874D127EB91A9718B8E6EF77B0ED90755F24BDDCE2F2",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

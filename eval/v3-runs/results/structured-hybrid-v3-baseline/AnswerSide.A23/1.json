@@ -1,0 +1,71 @@
+{
+  "scenarioName": "AnswerSide.A23",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:36.5882929Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Microsoft\u0027s current ratio (total current assets divided by total current liabilities) as of June 30, 2026, to two decimal places?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s total current assets as of June 30, 2026, were $207,710 million, and its total current liabilities as of June 30, 2026, were $168,825 million. Therefore, Microsoft\u0027s current ratio as of June 30, 2026, was $207,710 million / $168,825 million, which equals 1.23. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Answer rank",
+        "reason": "207,710, 168,825 at rank 5 of 25.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0006045,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2357,
+          "outputTokenCount": 112,
+          "totalTokenCount": 2469
+        },
+        "cacheKey": "1DC1379E7D5E5F532EE9B720DF6A03388320AF27CE46D53DCDB93601B3650113D57F392F7D088CE0A5617B860C85A732",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

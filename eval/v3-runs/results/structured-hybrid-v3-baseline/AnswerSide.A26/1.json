@@ -1,0 +1,71 @@
+{
+  "scenarioName": "AnswerSide.A26",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:36.8242701Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "By how much did Microsoft\u0027s net income increase from fiscal 2025 to fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s net income increased by $31,917 million from fiscal 2025 to fiscal 2026. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "133,749, 101,832 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0004249,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2726,
+          "outputTokenCount": 54,
+          "totalTokenCount": 2780
+        },
+        "cacheKey": "047CC9ACF24E10F6A30C0F75D626BC1828FAF0EBA74E1B98234DB0D9A17458EDF8EF813396328D8C2C38F022178DB38D",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

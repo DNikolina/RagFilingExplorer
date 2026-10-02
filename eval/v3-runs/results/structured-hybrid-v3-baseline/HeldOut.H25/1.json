@@ -1,0 +1,73 @@
+{
+  "scenarioName": "HeldOut.H25",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:33.0232165Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Oracle\u0027s total operating expenses in fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s total operating expenses in fiscal 2026 were $67,357 million. (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "expected figure absent",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "expected figure absent"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 11,
+        "name": "Answer rank",
+        "reason": "46,751 at rank 11 of 25.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "Outside the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008056,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2881,
+          "outputTokenCount": 46,
+          "totalTokenCount": 2927
+        },
+        "cacheKey": "CC8DEF86F8FFED02AF155A02D58955DA6784368225A38F3C2A5366BAB366EA4CB212DACD843464C13EC5C2FF23307680",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

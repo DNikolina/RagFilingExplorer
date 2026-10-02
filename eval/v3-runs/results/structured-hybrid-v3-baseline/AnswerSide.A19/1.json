@@ -1,0 +1,71 @@
+{
+  "scenarioName": "AnswerSide.A19",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:36.141954Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Netflix\u0027s total current liabilities at December 31, 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s total current liabilities at December 31, 2025 were $10,980,930 thousand. (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements \u003E Consolidated Balance Sheets)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 3,
+        "name": "Answer rank",
+        "reason": "10,980,930 at rank 3 of 25.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0006283,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2517,
+          "outputTokenCount": 47,
+          "totalTokenCount": 2564
+        },
+        "cacheKey": "8D05F3643914EF2662A1B9BF61FE7BD86A7331CBE38C96A9CF4264D3F47BE3525D5826CD663923EF9741F2E9C32DAD75",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

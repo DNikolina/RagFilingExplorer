@@ -1,0 +1,70 @@
+{
+  "scenarioName": "HeldOut.H15",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:31.4876046Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How many paid memberships did Netflix have at the end of 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The excerpts don\u0027t contain the number of paid memberships Netflix had at the end of 2025."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "decline-ok",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "name": "Answer rank",
+        "reason": "A negative: there\u0027s no answer to find.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "Not scored."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.001046,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2723,
+          "outputTokenCount": 21,
+          "totalTokenCount": 2744
+        },
+        "cacheKey": "0E34295706D092FE5E3A2B6966C155995ABB4548C8B995D77BBD0ADF3759DF30B55644618BC1022ED7F76BA1963AB382",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

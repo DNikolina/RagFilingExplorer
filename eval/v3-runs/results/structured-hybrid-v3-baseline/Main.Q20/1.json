@@ -1,0 +1,71 @@
+{
+  "scenarioName": "Main.Q20",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:26.8272032Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Netflix\u0027s net cash provided by operating activities?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "$10,149,273 thousand for the year ended December 31, 2025 (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "10,149,273 at rank 2 of 25.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0011104,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2823,
+          "outputTokenCount": 38,
+          "totalTokenCount": 2861
+        },
+        "cacheKey": "BC2A1A6B2BE6D8BBBC1F9F478C48B0054C575EAC0805B83FFF15C6B2866BB7D19FE06A9C8B070C4F97B9862A01C26ABE",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

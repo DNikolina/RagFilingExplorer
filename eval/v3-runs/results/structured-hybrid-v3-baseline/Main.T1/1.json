@@ -1,0 +1,73 @@
+{
+  "scenarioName": "Main.T1",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:27.979497Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Microsoft\u0027s other comprehensive income for fiscal year 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s other comprehensive income for fiscal year 2025 was $104,075 million. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "trap 104,075",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "trap 104,075"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "2,243 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008464,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2589,
+          "outputTokenCount": 50,
+          "totalTokenCount": 2639
+        },
+        "cacheKey": "81D78FDE088588480E2EF7FD1E634E559D874D2709ABBF4266851B699CC22904C1B63D72A17E0B6872E31BC18C638581",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

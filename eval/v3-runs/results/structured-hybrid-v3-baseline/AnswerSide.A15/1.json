@@ -1,0 +1,73 @@
+{
+  "scenarioName": "AnswerSide.A15",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:35.6859015Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much cash did Microsoft spend repurchasing its common stock in fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft spent $16,719 million in cash repurchasing its common stock in fiscal 2026 (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Stockholders\u0027 Equity)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "expected figure absent",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "expected figure absent"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 4,
+        "name": "Answer rank",
+        "reason": "(22,271) at rank 4 of 25.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0006791,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2759,
+          "outputTokenCount": 57,
+          "totalTokenCount": 2816
+        },
+        "cacheKey": "5A4EB461830368EA7A370E8114972FD2A08AE2465AF7743BD5131F693485D1DC7B19B764D537E85BCCB859F1E6169573",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

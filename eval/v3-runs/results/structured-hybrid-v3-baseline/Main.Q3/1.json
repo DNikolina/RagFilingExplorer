@@ -1,0 +1,71 @@
+{
+  "scenarioName": "Main.Q3",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:24.8641328Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Nasdaq\u0027s total liabilities?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s total liabilities were $18,821 million as of December 31, 2025. (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "18,821 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0010519,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2540,
+          "outputTokenCount": 42,
+          "totalTokenCount": 2582
+        },
+        "cacheKey": "540FFB24D0901438FE80174C4A5163AFF9A00F6CA984BF062ED92BC9EE599C3F47295C586CB60576838E49226245C39E",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

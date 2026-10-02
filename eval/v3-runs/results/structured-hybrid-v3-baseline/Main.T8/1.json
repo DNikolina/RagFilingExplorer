@@ -1,0 +1,71 @@
+{
+  "scenarioName": "Main.T8",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:28.5675823Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What average price per share did Nasdaq pay for shares it repurchased in November 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq paid an average price per share of $91.47 for shares it repurchased in November 2025. (Source: NDAQ-10K-2025.html, PART II \u003E Item 5. Market for Registrant\u2019s Common Equity, Related)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "91.47 at rank 2 of 25.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0016323,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2638,
+          "outputTokenCount": 56,
+          "totalTokenCount": 2694
+        },
+        "cacheKey": "C5115FDC47688C5BFA2350E9C019906BE11C685346BF4283FAB30B25FF0DE6B9CEEF5B14CFD1EEEBE242CF1CA79862F8",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

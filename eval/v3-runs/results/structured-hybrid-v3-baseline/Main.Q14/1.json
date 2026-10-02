@@ -1,0 +1,71 @@
+{
+  "scenarioName": "Main.Q14",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:27.4445472Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Compare Microsoft\u0027s and Oracle\u0027s total revenue."
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s total revenue for 2026 was $331,839 million, while Oracle\u0027s total revenue for 2026 was $67,357 million. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA; ORCL-10K-2026.html, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "331,839, 67,357 at rank 2 of 25.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0012145,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2915,
+          "outputTokenCount": 93,
+          "totalTokenCount": 3008
+        },
+        "cacheKey": "A7A881BA0BDD9EDAFD3694FCE7F56B07C023151FAE4CF6F6ADFE5F790D22DA201AB616F0A3B2C0D328E6D0A47AB34649",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

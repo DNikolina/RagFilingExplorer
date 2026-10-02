@@ -1,0 +1,71 @@
+{
+  "scenarioName": "HeldOut.H24",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:32.7973425Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Oracle\u0027s total revenues in fiscal 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s total revenues in fiscal 2025 were $57,399 million (Source: ORCL-10K-2026.html, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "57,399 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007942,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2610,
+          "outputTokenCount": 49,
+          "totalTokenCount": 2659
+        },
+        "cacheKey": "6CC387EA9046C621C4CFD3CD244AECCCE4AC889AB5D522003F1D1CB249CC8C9ABA31E31018A4EA3C25DD6916481851C0",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

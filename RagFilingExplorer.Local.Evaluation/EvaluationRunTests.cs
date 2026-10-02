@@ -8,8 +8,9 @@ namespace RagFilingExplorer.Local.Evaluation;
 /// <summary>
 /// v3 step 4: a full evaluation run of the app as configured - every question asked, graded and ranked, stored under
 /// eval/v3-runs/ (one scenario per question; responses cached there, gitignored), with report-&lt;execution&gt;.html and
-/// summary-&lt;execution&gt;.txt written at the end. Its bar: every grade equals the v2 baselines' (structured-5a main and
-/// held-out, answer-side-norerank - the grader's own verdict, as GraderParityTests reads them). [Explicit]: Ollama, the
+/// summary-&lt;execution&gt;.txt written at the end. Each grade is compared with the v2 baselines' (structured-5a main and
+/// held-out, answer-side-norerank - the grader's own verdict, as GraderParityTests reads them); a difference is a
+/// warning, listed in the summary. [Explicit]: Ollama, the
 /// built index, and about two hours of CPU. Environment variables:
 ///   EVAL_EXECUTION  the execution name (default: structured-hybrid-&lt;yyyyMMddTHHmm&gt;)
 ///   EVAL_ONLY       comma-separated question ids to run (default: all 102) - a few minutes' smoke run first
@@ -85,6 +86,13 @@ public class EvaluationRunTests
         File.WriteAllText(Path.Combine(storage, $"summary-{execution}.txt"), summary.ToString());
         TestContext.Progress.WriteLine(summary.ToString());
 
-        Assert.That(differences, Is.Empty);
+        // A warning, not a failure (user, 2026-10-02): llama3.1:8b at temperature 0 doesn't repeat exactly here - the first
+        // full run's A16 added an unrequested "$620 million" to the same prompt - so a difference is something to read,
+        // not proof the evaluation broke. The evaluators themselves are held exactly by GraderParityTests and
+        // RetrievalParityTests.
+        if (differences.Count > 0)
+        {
+            Assert.Warn($"{differences.Count} grade(s) differ from the v2 baseline:\n" + string.Join("\n", differences));
+        }
     }
 }

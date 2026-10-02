@@ -1,0 +1,71 @@
+{
+  "scenarioName": "Main.T7",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:28.5084436Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was the effect of the Ireland statutory tax rate difference on Microsoft\u0027s effective tax rate in fiscal year 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The effect of the Ireland statutory tax rate difference on Microsoft\u0027s effective tax rate in fiscal year 2026 was a decrease of 2.6% of the federal statutory rate, which was $(4,301) million. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Income Taxes)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "4,301 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0013563,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2485,
+          "outputTokenCount": 80,
+          "totalTokenCount": 2565
+        },
+        "cacheKey": "B4BB8BB98C523B43BE6292BE96785F9A10FA5D79DF776068ADF11A72DBB4B7F8018BBF3BB3F736B413DEE66334F1DBBE",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

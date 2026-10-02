@@ -1,0 +1,71 @@
+{
+  "scenarioName": "Main.Q11",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:25.9742651Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How many people did Microsoft employ, and where?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "As of June 30, 2026, Microsoft employed approximately 223,000 people on a full-time basis, with 121,000 in the U.S. and 102,000 internationally. (Source: MSFT-10K-2026.html, PART I \u003E Item 1. BUSINESS)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "223,000 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008008,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2890,
+          "outputTokenCount": 64,
+          "totalTokenCount": 2954
+        },
+        "cacheKey": "FD3ED8A0524630A804268B70F1A66B1FB8FC62D842E3C8DE78C70F46F17A3CBBCBE9A8C34CAC28677DC0CEAFAACD4AF9",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

@@ -119,3 +119,13 @@ Logs before 2026-10-01 were written in the console's OEM code page (a non-breaki
 
 Temperature 0 is deterministic here: the baseline's 40 main answers are word-for-word identical to the
 2026-09-25 run on the same code, so a changed answer means a changed input, not sampling.
+
+**`v3-retrieval-parity/`** - v3 step 3's oracle: `tools/replay_recall.py`'s output on the three v2 baseline logs
+(`structured-5a/` main and held-out, `answer-side-norerank/`), which `RetrievalParityTests` matches rank for rank.
+
+**`v3-runs/`** - v3's evaluation runs (`RagFilingExplorer.Local.Evaluation`, `EvaluationRunTests`): `results/<execution>/`
+one stored result per question, `report-<execution>.html` (open it in a browser), `summary-<execution>.txt`; `cache/`, the
+model's cached responses, is gitignored. `structured-hybrid-v3-baseline` (2026-10-02): the shipped defaults - main 33/40,
+held-out 31/35, answer-side 20/27, every grade the v2 baselines' but A16 (model variation - an unrequested $620M sum).
+Details in `docs/Decision-Log.md`, "evaluation in .NET (v3)", step 4.
+

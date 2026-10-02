@@ -1,0 +1,73 @@
+{
+  "scenarioName": "Main.Q21",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:26.9800899Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Netflix\u0027s comprehensive income?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s comprehensive income for the year ended December 31, 2025 was $10,038,657. (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements \u003E CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "no-unit",
+        "name": "Strict grade",
+        "reason": "expected thousand",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "expected thousand"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "10,038,657 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0058604,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2125,
+          "outputTokenCount": 57,
+          "totalTokenCount": 2182
+        },
+        "cacheKey": "4FA7F7AE242C639995BB162A2AB1AFE8EB5A98D0EEBDEFA57330AF72A6D2F04E401F771FFF321D40CADE7809C7F8C998",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

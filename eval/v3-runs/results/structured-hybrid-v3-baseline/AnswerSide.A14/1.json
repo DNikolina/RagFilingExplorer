@@ -1,0 +1,73 @@
+{
+  "scenarioName": "AnswerSide.A14",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:35.6405056Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much did Oracle spend on capital expenditures in fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle spent $55.7 billion on capital expenditures in fiscal 2026. (Source: ORCL-10K-2026.html, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "trap 55.7",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "trap 55.7"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 4,
+        "name": "Answer rank",
+        "reason": "(55,663) at rank 4 of 25.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0005555,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2383,
+          "outputTokenCount": 50,
+          "totalTokenCount": 2433
+        },
+        "cacheKey": "34535BA45F2C6B7FF9CC6A556BDEEF177169721D83C5837E59E975FDA47FE0F54A553CDC8E9AAE837257C1E80457C4AE",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

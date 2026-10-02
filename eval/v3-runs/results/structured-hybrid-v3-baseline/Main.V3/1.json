@@ -1,0 +1,73 @@
+{
+  "scenarioName": "Main.V3",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:29.7505755Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Netflix\u0027s net cash provided by operating activities, sum up the numbers?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s net cash provided by operating activities for the year ended December 31, 2025 was $10,149,273 thousand, for the year ended December 31, 2024 was $7,361,364 thousand, and for the year ended December 31, 2023 was $7,274,301 thousand."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "expected figure absent",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "expected figure absent"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "10,149,273 at rank 2 of 25.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008175,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2828,
+          "outputTokenCount": 70,
+          "totalTokenCount": 2898
+        },
+        "cacheKey": "0C89A780FACE3F75687890353AFF4B62BC5A081D6B272BFDFB25D7B2DA290C73B99BB5EB240F6E174A1129D461AB30C8",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

@@ -1,0 +1,73 @@
+{
+  "scenarioName": "HeldOut.H34",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:33.9772243Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much cash did Netflix spend repurchasing its common stock in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix repurchased 86,536,215 shares of common stock for an aggregate amount of $9.1 billion in 2025 (Source: NFLX-10K-2025.html, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "trap 86,536,215",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "trap 86,536,215"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 9,
+        "name": "Answer rank",
+        "reason": "9,127,167 at rank 9 of 25.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "Outside the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007373,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2224,
+          "outputTokenCount": 61,
+          "totalTokenCount": 2285
+        },
+        "cacheKey": "23ED88EACD69EE3605D0D8936A82FEE25A7C214D1101680ED86D80C1EEAE27C2FBE44AC7A4EFEAB3186754DA93CC70FE",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

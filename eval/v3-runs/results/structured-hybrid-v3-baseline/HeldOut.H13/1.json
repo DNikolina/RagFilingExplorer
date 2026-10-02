@@ -1,0 +1,73 @@
+{
+  "scenarioName": "HeldOut.H13",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:31.2576105Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Netflix\u0027s cash and cash equivalents at December 31, 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s cash and cash equivalents at December 31, 2025 were $5,208,710 thousand (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements \u003E Cash, Cash Equivalents, Restricted Cash, and Short-term Investments)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "expected figure absent",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "expected figure absent"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "9,033,681 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008684,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2849,
+          "outputTokenCount": 57,
+          "totalTokenCount": 2906
+        },
+        "cacheKey": "5115F627A7A91CFEFE285D8BDAB3FD3C11AC9618EF9C38F89BC4EC9D6D48AE667E8291A69709C23C33E659BB1BEF83B2",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

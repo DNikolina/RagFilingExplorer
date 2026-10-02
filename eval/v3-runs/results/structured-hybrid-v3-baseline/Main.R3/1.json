@@ -1,0 +1,73 @@
+{
+  "scenarioName": "Main.R3",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:29.4345549Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Microsoft\u0027s Intelligent Cloud segment revenue?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s Intelligent Cloud segment revenue increased $31.5 billion or 30% (Source: MSFT-10K-2026.html, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "expected figure absent",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "expected figure absent"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 12,
+        "name": "Answer rank",
+        "reason": "137,791 at rank 12 of 25.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "Outside the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0009854,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2562,
+          "outputTokenCount": 56,
+          "totalTokenCount": 2618
+        },
+        "cacheKey": "27FF717C35E601D001FCDC79A2604977F455D4B7B37F27CE3246525DE378C082ED59EA4890D6255DC742DA743E71D84B",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

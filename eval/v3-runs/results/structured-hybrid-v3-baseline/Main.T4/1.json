@@ -1,0 +1,71 @@
+{
+  "scenarioName": "Main.T4",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:28.3521336Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much are Oracle\u0027s operating lease payments due in fiscal 2028?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s operating lease payments due in fiscal 2028 are $3,603 million. (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Leases, Other Commitments and Certain Contingencies)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "3,603 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008362,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2460,
+          "outputTokenCount": 59,
+          "totalTokenCount": 2519
+        },
+        "cacheKey": "AB5B51CC7795D4CD1A2D0AB1A7BEFF8E2A53CC1496836366334EEC44D728FC1C4511C5D9D532A1A4D8B0EF230B91B4F1",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

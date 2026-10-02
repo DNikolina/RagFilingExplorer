@@ -1,0 +1,73 @@
+{
+  "scenarioName": "AnswerSide.A16",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:35.7434234Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much cash did Nasdaq spend repurchasing its common stock in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq spent $616 million in total purchase price for repurchasing its common stock in 2025, and an additional $4 million of accrued excise tax that had not been paid as of December 31, 2025, is excluded from the total purchase price. Therefore, the total cash spent on repurchasing common stock in 2025 is $620 million. (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "check",
+        "name": "Strict grade",
+        "reason": "also states 620",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "A reader decides: also states 620"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 18,
+        "name": "Answer rank",
+        "reason": "(616) at rank 18 of 25.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "Outside the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0015938,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2926,
+          "outputTokenCount": 105,
+          "totalTokenCount": 3031
+        },
+        "cacheKey": "66AC14E4489B6AEB2E5CF3BFF11CECE22586D89385AAE07F0028682636B74989355891F4A1C6E381F74A76B0291B1CAF",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

@@ -1,0 +1,71 @@
+{
+  "scenarioName": "HeldOut.H35",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:34.079563Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Netflix\u0027s income before income taxes in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s income before income taxes in 2025 was $12,722,552 thousand. (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements \u003E Income Taxes)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "12,722,552 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008317,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2521,
+          "outputTokenCount": 42,
+          "totalTokenCount": 2563
+        },
+        "cacheKey": "0F862C0993D872FD3A39DEC8D0AA386614541153A18A6EA04EB9599E1A427F3FB35AA935192B516F2BDF622B64F80A1F",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

@@ -1,0 +1,71 @@
+{
+  "scenarioName": "HeldOut.H11",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:31.0557838Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Where is Nasdaq\u0027s U.S. headquarters?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s U.S. headquarters are located in New York, New York. (Source: NDAQ-10K-2025.html, PART I \u003E Item 2. Properties)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "New York, New York at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007288,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2770,
+          "outputTokenCount": 40,
+          "totalTokenCount": 2810
+        },
+        "cacheKey": "23EE77521AE4B92C2A852AD5D93E83FAA6806FE35112C96502E39D8367A5658D136EA98B60ABCD3F17670AC0982AEA28",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

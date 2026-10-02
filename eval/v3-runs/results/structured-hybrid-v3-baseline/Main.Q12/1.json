@@ -1,0 +1,71 @@
+{
+  "scenarioName": "Main.Q12",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:26.1484563Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Where is Oracle headquartered?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s headquarters facility is located in Austin, Texas, and it consists of approximately 0.9 million square feet, all of which Oracle owns (Source: ORCL-10K-2026.html, PART I \u003E Item 2. Properties)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Austin at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0009073,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2173,
+          "outputTokenCount": 52,
+          "totalTokenCount": 2225
+        },
+        "cacheKey": "BE687CC70ED957A8375A80F61E0EB0D2D16C113D48D0CC5AA1070A62E42F140153EE37B4C3A4856439956EDDA11C7986",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

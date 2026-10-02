@@ -1,0 +1,71 @@
+{
+  "scenarioName": "AnswerSide.A9",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:35.0184398Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much did Nasdaq pay in cash dividends in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq paid a total of $601 million in cash dividends in 2025 (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 10,
+        "name": "Answer rank",
+        "reason": "(601) at rank 10 of 25.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "Outside the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007079,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2067,
+          "outputTokenCount": 44,
+          "totalTokenCount": 2111
+        },
+        "cacheKey": "F992CF9E2A0DA97E1F3454A3F2A3B18BF62C4AEF6968D586ABC29F3E336F4E10F57F208952D10306F192A1EE8E15C6F1",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

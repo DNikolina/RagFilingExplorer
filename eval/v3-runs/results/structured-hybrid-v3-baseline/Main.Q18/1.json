@@ -1,0 +1,71 @@
+{
+  "scenarioName": "Main.Q18",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:26.5482641Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Netflix\u0027s net income for 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s net income for 2025 was $10,981,201 thousand (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements \u003E CONSOLIDATED STATEMENTS OF OPERATIONS)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "10,981,201 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0009692,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2199,
+          "outputTokenCount": 45,
+          "totalTokenCount": 2244
+        },
+        "cacheKey": "B0A6BB6730FB5F4DA0369E7287131C258E1B04E5BFFB6154B40893E447D3FBD1199FF6EE1D0E7ADF4FEDD8BBC872A522",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

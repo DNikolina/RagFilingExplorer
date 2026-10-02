@@ -1,0 +1,71 @@
+{
+  "scenarioName": "Main.T5",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:28.3997206Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was the recorded basis of Microsoft\u0027s U.S. government securities as of June 30, 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The recorded basis of Microsoft\u0027s U.S. government securities as of June 30, 2026 was $48,562 million. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Investments)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 4,
+        "name": "Answer rank",
+        "reason": "48,562 at rank 4 of 25.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0009036,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2779,
+          "outputTokenCount": 61,
+          "totalTokenCount": 2840
+        },
+        "cacheKey": "04C1F66018B3A8B15639CEAF050EF2918C460DE64209E7DD33A99E3754914582B59D581A375856A22F06FCC4C3136BF8",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

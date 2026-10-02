@@ -1,0 +1,72 @@
+{
+  "scenarioName": "Main.T6",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:28.4522902Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was the goodwill balance of Nasdaq\u0027s Financial Technology segment at December 31, 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The goodwill balance of Nasdaq\u0027s Financial Technology segment at December 31, 2025 is not stated in the excerpts."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "declined",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "declined"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "7,952 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008839,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2605,
+          "outputTokenCount": 26,
+          "totalTokenCount": 2631
+        },
+        "cacheKey": "C238C0B626E368C0FFDB2F101C5F193664E527314800FCE7F286A0A46D4F46BB08FA38BB3EF18A1C4BF2679A4728BF5A",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

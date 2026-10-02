@@ -1,0 +1,71 @@
+{
+  "scenarioName": "AnswerSide.A21",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:36.4504187Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Oracle\u0027s combined net income for fiscal 2025 and fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s combined net income for fiscal 2025 and fiscal 2026 was $12,443 \u002B $17,087 = $29,530 million. (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules and PART IV \u003E Item 15. Exhibits and Financial Statement Schedules)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "12,443, 17,087 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0010174,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2720,
+          "outputTokenCount": 76,
+          "totalTokenCount": 2796
+        },
+        "cacheKey": "5F5550F57369E7688B111BFFCF8F8EAA3CA2E3552D4C9EE165EE6E34B84EADC6209B4C5DD25001B10460F54DF6078FEF",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

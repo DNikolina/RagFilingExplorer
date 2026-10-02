@@ -1,0 +1,73 @@
+{
+  "scenarioName": "AnswerSide.A11",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:35.2674059Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much did Oracle pay in dividends to its stockholders in fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle paid $63 million in dividends to its Mandatory Convertible Preferred Stock holders and $5.7 billion in dividends to its common stock holders in fiscal 2026. (Source: ORCL-10K-2026.html, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "expected figure absent",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "expected figure absent"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 12,
+        "name": "Answer rank",
+        "reason": "(5,787) at rank 12 of 25.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "Outside the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008235,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2905,
+          "outputTokenCount": 68,
+          "totalTokenCount": 2973
+        },
+        "cacheKey": "B9B19FD2DA1403B49381669EAE6886174290412A40C197D3ED116EC67E3D4E3BE71AD98C9177D54750681292DFB93DA7",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

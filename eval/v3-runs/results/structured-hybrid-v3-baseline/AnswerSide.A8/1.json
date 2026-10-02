@@ -1,0 +1,73 @@
+{
+  "scenarioName": "AnswerSide.A8",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:34.9713735Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What cash dividends per common share did Oracle declare in fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle declared a quarterly cash dividend of $0.50 per share of its outstanding common stock in June 2026. (Source: ORCL-10K-2026.html, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "expected figure absent",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "expected figure absent"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Answer rank",
+        "reason": "($2.00 per share) at rank 5 of 25.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007343,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2903,
+          "outputTokenCount": 58,
+          "totalTokenCount": 2961
+        },
+        "cacheKey": "32F4B5547D3FF069713D158C617F41B704188CDDE67A19C4E1DE0D4B5C588FF883C42BDCE7740B8B434F57BC8B7879B0",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

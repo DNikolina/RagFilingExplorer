@@ -1,0 +1,71 @@
+{
+  "scenarioName": "AnswerSide.A4",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:34.4025685Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Nasdaq\u0027s operating income in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s operating income in 2025 was $2,331 million (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "2,331 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0011011,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2473,
+          "outputTokenCount": 36,
+          "totalTokenCount": 2509
+        },
+        "cacheKey": "E30C46CDB33E1BAF934E412D2286B6CE7B6D23686772A33913D269C5B6254B735BC5A6E252E00D64EAA6EBA71120F2A6",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}

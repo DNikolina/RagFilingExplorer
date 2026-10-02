@@ -1,0 +1,72 @@
+{
+  "scenarioName": "HeldOut.H4",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-baseline",
+  "creationTime": "2026-10-02T23:05:29.9463922Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much did Microsoft\u0027s research and development expenses increase in fiscal 2026 compared to fiscal 2025, in dollars?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s research and development expenses increased $3.1 billion or 9% in fiscal 2026 compared to fiscal 2025. (Source: MSFT-10K-2026.html, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "rounded, in billions",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "35,562, 32,488 at rank 1 of 25.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "In the model\u0027s context."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007288,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2656,
+          "outputTokenCount": 68,
+          "totalTokenCount": 2724
+        },
+        "cacheKey": "2A88CCA09DDA8120079FDD3E33E5933CF79BD78EDC3F83E8C23DF0603880466F38E1D8CAC9E54B47375DD4A17D3CE6F3",
+        "cacheHit": true
+      }
+    ]
+  },
+  "formatVersion": 1
+}
