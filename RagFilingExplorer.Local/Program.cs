@@ -131,12 +131,13 @@ static async Task RunAsync(string[] args)
     bool chatModelSupportsThinking = await OllamaSetup.ChatModelSupportsThinkingAsync(chatApiClient, settings.Ollama.ChatModel);
 
     // Metadata filtering (Microsoft's own retrieval-quality guidance ranks this above chunk-size/text
-    // tweaks): if a question clearly names exactly one company (and/or points at one specific financial
-    // statement), restrict the vector search accordingly before ranking runs. Directly targets the
-    // cross-company/cross-statement contamination seen repeatedly in Step 7 testing (e.g. an MSFT-specific
-    // question pulling in ORCL chunks, or a single filing's many similarly-shaped "Item 15" tables burying
-    // the right one). See RagAnswerService/QueryIntentResolver for the actual resolution + search + prompt
-    // + generation flow - extracted out of this loop so it can be unit-tested with mocked dependencies.
+    // tweaks): a question that names a company is searched within that company's filing, and one that points
+    // at a specific financial statement favours it - a hard filter under Vector search, a boost under Hybrid.
+    // Directly targets the cross-company/cross-statement contamination seen repeatedly in Step 7 testing
+    // (e.g. an MSFT-specific question pulling in ORCL chunks, or a single filing's many similarly-shaped
+    // "Item 15" tables burying the right one). See RagAnswerService/QueryIntentResolver for the resolution +
+    // search + prompt + generation flow, and InteractiveSession for the question loop - kept out of here so
+    // they can be unit-tested with mocked dependencies.
     //
     // Hybrid search (Retrieval:Search) adds an FTS5 keyword index to the same database - created on first use, so an
     // index built before hybrid search existed needs no rebuild (see KeywordIndex.EnsureCreated).

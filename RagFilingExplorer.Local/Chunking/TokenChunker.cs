@@ -3,13 +3,6 @@ using Microsoft.ML.Tokenizers;
 
 namespace RagFilingExplorer.Local.Chunking;
 
-/// <summary>
-/// Splits a section's body text into token-bounded chunks. Paragraphs are packed greedily up to
-/// <paramref name="maxTokens"/>-1; a run of contiguous Markdown table rows is treated as one atomic
-/// block so a table isn't sliced mid-row-group. If a single block (paragraph or table) exceeds
-/// maxTokens on its own, it's split further - for tables, by repeating the header + separator row
-/// on every split piece, so a chunk with a number always keeps the column/fiscal-year labels next to it.
-/// </summary>
 /// <summary>One block for <see cref="TokenChunker.Pack"/>: a paragraph or Markdown table (<see cref="Rows"/> null), or a
 /// row block, whose <see cref="Text"/> is <see cref="RowBlock.Text"/>.</summary>
 internal sealed record ChunkerBlock(string Text, RowBlock? Rows);
@@ -17,6 +10,14 @@ internal sealed record ChunkerBlock(string Text, RowBlock? Rows);
 /// <summary>A packed chunk, and the indexes of the <see cref="ChunkerBlock"/>s it holds.</summary>
 internal sealed record PackedChunk(string Content, int Tokens, IReadOnlyList<int> Blocks);
 
+/// <summary>
+/// Splits a section into token-bounded chunks - from text (<see cref="Chunk"/>, v1's strategies) or from blocks the
+/// caller has already typed (<see cref="Pack"/>, the Structured strategy). Paragraphs are packed greedily up to
+/// maxTokens; a table (a run of contiguous Markdown table rows, or a row block) is one atomic block, so it isn't
+/// sliced mid-row-group. If a single block exceeds maxTokens on its own, it's split further - a Markdown table by
+/// repeating its header rows on every piece, a row block between rows with its caption and context line repeated -
+/// so a chunk with a number always keeps the column/fiscal-year labels next to it.
+/// </summary>
 internal static class TokenChunker
 {
     // Short text at most this long is attached to a neighbouring chunk instead of becoming a near-empty

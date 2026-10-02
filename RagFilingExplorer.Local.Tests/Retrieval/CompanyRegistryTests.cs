@@ -5,8 +5,8 @@ namespace RagFilingExplorer.Local.Tests.Retrieval;
 
 /// <summary>
 /// The company filter, registered from each filing's tagged cover facts. The four real filings (offline, from data/)
-/// must register what v1's hand-written table said, and every question in the question files must resolve to the
-/// same filings as it did under that table.
+/// must register what v1's hand-written table said, and every question in the three question files (main, held-out,
+/// answer-side) must resolve to the same filings as it did under that table.
 /// </summary>
 [TestFixture]
 public class CompanyRegistryTests
@@ -52,12 +52,12 @@ public class CompanyRegistryTests
     [Test]
     public void ResolveFilings_EveryQuestionInTheQuestionFiles_SameFilingsAsTheHandWrittenTable()
     {
-        string[] questions = new[] { "manual-questions.txt", "heldout-questions.txt" }
+        string[] questions = new[] { "manual-questions.txt", "heldout-questions.txt", "answer-questions.txt" }
             .SelectMany(f => File.ReadAllLines(Path.Combine(Repo.FullName, "tools", f)))
             .Where(q => q.Trim().Length > 0)
             .ToArray();
 
-        Assert.That(questions, Has.Length.EqualTo(75), "40 main + 35 held-out (H16-H35 appended 2026-09-30)");
+        Assert.That(questions, Has.Length.EqualTo(102), "40 main + 35 held-out (H16-H35 appended 2026-09-30) + 27 answer-side (A1-A27, 2026-10-01)");
         foreach (string question in questions)
         {
             string[] v1 = HandWrittenV1.Where(kvp => question.Contains(kvp.Key, StringComparison.OrdinalIgnoreCase))

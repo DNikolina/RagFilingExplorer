@@ -16,7 +16,7 @@ namespace RagFilingExplorer.Local.Tests.Chunking;
 [TestFixture]
 public class StatementTypeDetectorTests
 {
-    // Real title conventions observed across the three filers in this project.
+    // Real title conventions observed across the four filers in this project (NFLX uses ORCL's).
     [TestCase("CONSOLIDATED STATEMENTS OF OPERATIONS", "income_statement")] // ORCL
     [TestCase("INCOME STATEMENTS", "income_statement")] // MSFT
     [TestCase("Consolidated Statements of Income", "income_statement")] // NDAQ
@@ -35,7 +35,7 @@ public class StatementTypeDetectorTests
         Assert.That(StatementTypeDetector.Detect(line), Is.EqualTo(expected));
     }
 
-    // Confirmed false positives from the bug this session found and fixed - bare subsection headings
+    // Confirmed false positives from the first bug above - bare subsection headings
     // that happen to contain a statement-type keyword but are not statement titles.
     [TestCase("OPERATIONS")] // MSFT business-section subheading; mistagged 96 chunks
     [TestCase("Cash Flows")] // MD&A narrative subsection heading; mistagged 14 chunks

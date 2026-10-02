@@ -144,8 +144,8 @@ public class HtmlTableLinearizerTests
         Assert.That(Rendered(table), Does.Contain("31.1 | Certification of Chief Executive Officer"));
     }
 
-    // The safety net: if any cell's text would be missing from the output, the whole table falls back to
-    // the Markdown path (content intact) instead of losing it silently.
+    // The safety net: if any cell's text would be missing from the output, the whole table falls back - to
+    // Markdown in the Linearized strategy, to text rows in Structured (content intact) - instead of losing it silently.
     [Test]
     public void TableThatWouldLoseCellText_FallsBack()
     {

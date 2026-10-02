@@ -1,16 +1,16 @@
 namespace RagFilingExplorer.Local.Retrieval;
 
 /// <summary>
-/// Resolves a user's question two ways before <see cref="RagAnswerService"/> acts on it: to a statement-type
-/// filter via <see cref="ResolveStatementType"/> (the company filter is <see cref="CompanyRegistry"/>'s, built
-/// from the filings' cover facts), and to a reasoning-worthiness signal via <see cref="RequiresSynthesis"/>.
+/// Resolves a user's question two ways before <see cref="RagAnswerService"/> acts on it: to a statement type
+/// via <see cref="ResolveStatementType"/> (the company filter is <see cref="CompanyRegistry"/>'s, built from the
+/// filings' cover facts), and to a reasoning-worthiness signal via <see cref="RequiresSynthesis"/>.
 ///
 /// Metadata filtering (Microsoft's own retrieval-quality guidance ranks this above chunk-size/text
 /// tweaks) directly targets the cross-company and cross-statement contamination seen repeatedly in
 /// Step 7 testing (e.g. an MSFT-specific question pulling in ORCL chunks, or a single filing's many
-/// similarly-shaped "Item 15" tables burying the right one). <c>ResolveStatementType</c> requires exactly
-/// one statement type to act - zero or ambiguous matches resolve to null, leaving that dimension
-/// unfiltered rather than guessing.
+/// similarly-shaped "Item 15" tables burying the right one). The statement type is a hard filter under
+/// Vector search and a boost under Hybrid. <c>ResolveStatementType</c> requires exactly one statement type
+/// to act - zero or ambiguous matches resolve to null, leaving that dimension alone rather than guessing.
 ///
 /// <c>RequiresSynthesis</c> has different semantics on purpose: it's an any-match keyword check (not
 /// exactly-one), used to decide whether a reasoning model's "thinking" phase is worth its cost for this

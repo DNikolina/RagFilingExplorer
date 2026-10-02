@@ -5,8 +5,9 @@ namespace RagFilingExplorer.Local.Tests.Chunking;
 
 /// <summary>
 /// The Structured strategy as a whole. Its parts - the page reader, sections, chunking - are tested under
-/// Structured/; its chunks are checked against the committed chunk-review/structured/ dumps (the block model
-/// reproduced all 948 word for word - docs/Decision-Log.md, "block model").
+/// Structured/. No test compares its chunks with the committed chunk-review/structured/ dumps: that was checked
+/// once, when the block model reproduced all 948 word for word (docs/Decision-Log.md, "block model"), and a
+/// changed dump shows in git status after a --chunks-only run.
 /// </summary>
 [TestFixture]
 public class StructuredStrategyTests

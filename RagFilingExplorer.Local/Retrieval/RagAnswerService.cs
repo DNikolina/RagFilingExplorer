@@ -26,11 +26,12 @@ internal sealed record RagAnswer(
 internal sealed record RerankedChunk(float Score, int HybridRank);
 
 /// <summary>
-/// Owns the retrieve+generate flow: resolving the question's metadata filter (see
-/// <see cref="QueryIntentResolver"/>), running the vector search, building the citation-grounded
-/// context prompt, and calling the chat model. Extracted out of Program.cs's interactive loop so the
-/// two real dependencies (<see cref="VectorStoreCollection{TKey, TRecord}"/> and <see cref="IChatClient"/>)
-/// can be mocked in tests instead of requiring a live Ollama instance and a populated vector store.
+/// Owns the retrieve+generate flow: resolving the question's company and statement type (see
+/// <see cref="CompanyRegistry"/> and <see cref="QueryIntentResolver"/>), running the search - vector, or
+/// hybrid (vector + keyword, fused), optionally reranked - building the citation-grounded context prompt, and
+/// calling the chat model. Extracted out of Program.cs's interactive loop so the two real dependencies
+/// (<see cref="VectorStoreCollection{TKey, TRecord}"/> and <see cref="IChatClient"/>) can be mocked in tests
+/// instead of requiring a live Ollama instance and a populated vector store.
 ///
 /// Tunables come in as <see cref="RetrievalSettings"/> with no defaults of their own - an earlier version
 /// had constructor defaults that duplicated appsettings.json, and one (maxOutputTokens = 2048 vs. 4096)

@@ -11,8 +11,9 @@ namespace RagFilingExplorer.Local.Tests.Retrieval;
 /// <summary>
 /// This is where Moq is actually exercised: VectorStoreCollection&lt;TKey,TRecord&gt; and IChatClient
 /// are RagAnswerService's two real dependencies, mocked here so the retrieve+generate orchestration
-/// (filter construction, the citation-formatted prompt, streaming the answer back) is verified without
-/// a live Ollama instance or a populated vector store.
+/// (filter construction, the citation-formatted prompt, streaming the answer back, and - further down - hybrid
+/// search against a real FTS5 file and reranking with a fake scorer) is verified without a live Ollama instance
+/// or a populated vector store.
 /// </summary>
 [TestFixture]
 public class RagAnswerServiceTests
@@ -322,7 +323,7 @@ public class RagAnswerServiceTests
         Assert.That(captured?.MaxOutputTokens, Is.EqualTo(4096));
     }
 
-    // Regression coverage for the actual failure mode this session found: a reasoning model can hit its
+    // Regression coverage for the failure qwen3.5:2b showed when it was tested: a reasoning model can hit its
     // output-token ceiling entirely while "thinking" and never produce real answer text. Ollama still
     // reports this as a normal completion (FinishReason.Length), so nothing upstream throws by default -
     // the caller would just see an empty answer with no explanation. RagAnswerService now wraps the

@@ -13,7 +13,7 @@ namespace RagFilingExplorer.Local.Structured;
 ///
 /// Only where it's missing and needed (measured 2026-09-29): a row whose tagged values all share one period, whose
 /// label and column names don't show that period's year, in a table whose rows span more than one period. That is the
-/// roll-forwards - equity statements, award activity, goodwill and other comprehensive income - 125 rows in 16 tables
+/// roll-forwards - equity statements, award activity, goodwill and other comprehensive income - 123 rows in 16 tables
 /// across the four filings. Without the last condition 145 more rows in single-period tables would repeat what their
 /// table already says.
 ///

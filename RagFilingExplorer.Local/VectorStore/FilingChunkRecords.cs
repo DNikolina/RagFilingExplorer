@@ -8,8 +8,9 @@ namespace RagFilingExplorer.Local.VectorStore;
 /// nomic-embed-text expects task-specific prefixes for good retrieval matching: "search_document: "
 /// on stored text, "search_query: " on the query text at search time. EmbeddingTextBuilder enriches
 /// table chunks with their row labels as plain text before that prefix, since sparse tables otherwise
-/// embed poorly - see its doc comment. Content stays exactly as chunked - only Text (the embedding
-/// input) changes.
+/// embed poorly - see its doc comment. A chunk with an embedding context (Structured, step 1d: "Oracle
+/// Corporation (ORCL), Form 10-K for fiscal year 2026.") has that line first. Content stays exactly as
+/// chunked - only Text (the embedding input) changes.
 ///
 /// StatementType is tracked in document order: once a statement-title line (e.g. "CONSOLIDATED
 /// STATEMENTS OF OPERATIONS") is seen, that type carries forward to subsequent chunks until a new title

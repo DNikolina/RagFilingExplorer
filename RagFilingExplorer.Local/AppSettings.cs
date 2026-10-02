@@ -15,9 +15,10 @@ namespace RagFilingExplorer.Local;
 /// this type via reflection, not an object initializer, so it never checks required members; <see cref="Load"/>
 /// does that check explicitly, against the raw configuration keys.
 ///
-/// Retrieval-relevant domain logic that isn't just a number (the company-name and statement-type
-/// keyword lists in QueryIntentResolver, the section-boundary/statement-title regexes) stays in code on
-/// purpose: a typo there would silently break filtering with no compiler to catch it.
+/// Retrieval-relevant domain logic that isn't just a number (the statement-type keyword lists in
+/// QueryIntentResolver, the section-boundary/statement-title regexes) stays in code on purpose: a typo there
+/// would silently break filtering with no compiler to catch it. Company names aren't configured at all - each
+/// filing registers its own from its cover facts (CompanyRegistry).
 /// </summary>
 internal sealed class AppSettings
 {
@@ -86,7 +87,7 @@ internal sealed class ChunkingSettings
 {
     // Which IChunkingStrategy builds the index - bound straight to the enum, so a typo fails at startup.
     // Each strategy has its own rag.<strategy>.db and chunk-review/<strategy>/, so switching is instant
-    // once both have been built.
+    // once each has been built.
     public required ChunkingStrategyKind Strategy { get; set; }
     public required string TokenizerModel { get; set; }
     public required int MaxTokensPerChunk { get; set; }

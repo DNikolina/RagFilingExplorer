@@ -1,10 +1,11 @@
 namespace RagFilingExplorer.Local.Chunking;
 
 /// <summary>
-/// A linearized table as it travels through markitdown: the Linearized strategy replaces each table it
-/// can linearize with a &lt;pre&gt; holding this format, which markitdown emits as a fenced block with no
-/// Markdown escaping (checked directly: "$", "*", "_", "&lt;" and line breaks all survive). The fence is
-/// what lets SectionSplitter skip the rows for heading detection and TokenChunker keep them atomic.
+/// A linearized table: a context line and self-contained rows. The Structured strategy holds one per table
+/// block (Structured.TableBlock) and never writes it out. The Linearized strategy sends it through markitdown:
+/// each table it can linearize becomes a &lt;pre&gt; holding this format, which markitdown emits as a fenced
+/// block with no Markdown escaping (checked directly: "$", "*", "_", "&lt;" and line breaks all survive). The
+/// fence is what lets SectionSplitter skip the rows for heading detection and TokenChunker keep them atomic.
 ///
 /// <code>
 /// ```

@@ -14,8 +14,10 @@ namespace RagFilingExplorer.Local.Chunking;
 /// own it did **not** move the needle on the actual blocking questions (documented in
 /// Decision-Log.md's "Follow-up: retrieval quality" as "tried and found insufficient"). The fix
 /// that actually solved that problem was metadata filtering - <see cref="StatementTypeDetector"/> +
-/// <c>QueryIntentResolver</c> narrowing the vector search itself. This class is kept as a cheap,
-/// still-reasonable secondary signal alongside that filtering, not as the fix in its own right.
+/// <c>QueryIntentResolver</c> narrowing the vector search itself (v1; v2's hybrid search keeps the statement
+/// type as a boost). This class is kept as a cheap, still-reasonable secondary signal alongside that, not as
+/// the fix in its own right. It only reads Markdown (pipe) tables; the Structured strategy's row lines carry
+/// their labels already, and its chunks also open with the company line (step 1d - see FilingChunkRecords).
 /// </summary>
 internal static class EmbeddingTextBuilder
 {

@@ -5,7 +5,8 @@ namespace RagFilingExplorer.Local.Xbrl;
 /// <summary>
 /// One filing's inline XBRL, read by <see cref="InlineXbrlReader"/> (v2 step 1b-i; docs/Decision-Log.md, "XBRL
 /// hybrid (v2)"). Contexts and units come from the hidden &lt;ix:header&gt;; facts from the ix: elements in the
-/// page. Nothing here changes a chunk yet - 1b-ii and 1b-iii use it.
+/// page. The Structured strategy reads it for the filing profile (1b-ii), the structure labels (1b-iii) and the
+/// company line (1d); CompanyRegistry for the company filter.
 /// </summary>
 internal sealed record XbrlDocument(
     IReadOnlyDictionary<string, XbrlContext> Contexts,

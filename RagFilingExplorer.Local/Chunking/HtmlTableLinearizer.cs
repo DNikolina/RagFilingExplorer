@@ -255,8 +255,9 @@ internal static partial class HtmlTableLinearizer
         LinearizedTable linearized = new(LinearizedTableKind.Financial, null, units, output, []);
 
         // Safety net for whatever rule misses next: every cell's text must survive somewhere in the
-        // rendered output (row paths, column labels, values, units), or the table falls back to Markdown,
-        // where nothing is lost. Silent content loss becomes a counted fallback with a reason.
+        // rendered output (row paths, column labels, values, units), or the table falls back - to Markdown in
+        // the Linearized strategy, to text rows in Structured (LinearizeAsText) - where nothing is lost. Silent
+        // content loss becomes a counted fallback with a reason.
         string rendered = string.Join('\n', Render(linearized));
         string? lost = nonEmptyRows.SelectMany(r => r).Select(c => c.Text).Distinct().FirstOrDefault(t => !rendered.Contains(t, StringComparison.Ordinal));
         return lost is null ? linearized : Fallback($"cell text lost: '{(lost.Length > 60 ? lost[..60] + "..." : lost)}'");
@@ -289,14 +290,9 @@ internal static partial class HtmlTableLinearizer
     }
 
     /// <summary>
-    /// The form the Linearized strategy ships, chosen in the spike: nil "—" values omitted, and the units
-    /// plus a caption shared by every column ("Year Ended June 30,") written once, as the block's context
-    /// line - which TokenChunker repeats on every piece if the block has to be split.
-    /// </summary>
-    /// <summary>
     /// The text path alone, for any table: each non-empty row's cells joined with " | ", as <see cref="Linearize"/>
     /// does for a table with no numeric data rows. It keeps every cell's text by construction, so the Structured
-    /// strategy uses it where <see cref="Linearize"/> falls back (see StructuredChunkingStrategy).
+    /// strategy uses it where <see cref="Linearize"/> falls back (Structured.FilingBlockReader.ReadTable).
     /// </summary>
     public static LinearizedTable LinearizeAsText(IHtmlTableElement table)
     {
@@ -312,8 +308,8 @@ internal static partial class HtmlTableLinearizer
     /// How many of a table's leading non-empty rows are column names, read from the only marker these filers
     /// use - bold text (no filing uses &lt;thead&gt; or &lt;th&gt;): the leading rows whose text is all bold,
     /// or 0 if every row is (a bold cover-page box has no header). For a text table's continuation pieces
-    /// (StructuredChunkingStrategy); a bold title row is caught too ("Critical audit matter" tables), which only
-    /// puts the title on every piece.
+    /// (Structured.FilingBlockReader.TextRowBlock); a bold title row is caught too ("Critical audit matter"
+    /// tables), which only puts the title on every piece.
     /// </summary>
     public static int LeadingBoldRowCount(IHtmlTableElement table)
     {
@@ -345,6 +341,11 @@ internal static partial class HtmlTableLinearizer
         return false;
     }
 
+    /// <summary>
+    /// The form both strategies use, chosen in the spike: nil "—" values omitted, and the units plus a caption
+    /// shared by every column ("Year Ended June 30,") written once, as the block's context line - which
+    /// TokenChunker repeats on every piece if the block has to be split.
+    /// </summary>
     public static RowBlock ToRowBlock(LinearizedTable table)
     {
         string caption = SharedCaption(table);

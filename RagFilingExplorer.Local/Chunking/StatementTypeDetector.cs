@@ -10,15 +10,19 @@ namespace RagFilingExplorer.Local.Chunking;
 /// the line where the primary statements end and the Notes section begins, so the caller can reset a
 /// carried-forward statement type there instead of letting it leak into every subsequent chunk.
 ///
-/// The three filings in this project use three different naming conventions for the exact same
+/// The four filings in this project use three different naming conventions for the exact same
 /// statements, confirmed by direct inspection - a detector tuned to only one would silently miss the
 /// others:
-/// - ORCL: "CONSOLIDATED STATEMENTS OF OPERATIONS", "CONSOLIDATED BALANCE SHEETS",
+/// - ORCL (and NFLX): "CONSOLIDATED STATEMENTS OF OPERATIONS", "CONSOLIDATED BALANCE SHEETS",
 ///   "CONSOLIDATED STATEMENTS OF CASH FLOWS", "CONSOLIDATED STATEMENTS OF STOCKHOLDERS' EQUITY"
 /// - MSFT: "INCOME STATEMENTS", "BALANCE SHEETS", "CASH FLOWS STATEMENTS",
 ///   "STOCKHOLDERS' EQUITY STATEMENTS" - no "CONSOLIDATED" prefix at all, different word order.
 /// - NDAQ: "Consolidated Statements of Income" - title case, and "Income" instead of "Operations";
 ///   "Consolidated Statements of Changes in Stockholders' Equity" for the equity statement.
+///
+/// v1's strategies tag statement types this way. The Structured strategy takes them from the filer's own taxonomy
+/// instead (Structured.StatementLabels) and uses this class only for boundaries: a statement title or the Notes
+/// title still starts a new section (SectionSplitter's shared heading rules).
 /// </summary>
 internal static partial class StatementTypeDetector
 {
@@ -31,7 +35,7 @@ internal static partial class StatementTypeDetector
     // resemblance between the two patterns. The order is kept anyway as cheap, harmless precaution.
     //
     // "BALANCE SHEETS" is intentionally NOT required to contain "STATEMENTS" - unlike every other
-    // statement type, the real title never includes that word in any of the three conventions seen
+    // statement type, the real title never includes that word in any of the conventions seen
     // ("CONSOLIDATED BALANCE SHEETS" / "BALANCE SHEETS"), so there's nothing stricter to require here.
     [GeneratedRegex(@"^(CONSOLIDATED\s+)?(STATEMENTS?\s+OF\s+)?BALANCE\s+SHEETS?$", RegexOptions.IgnoreCase)]
     private static partial Regex BalanceSheetRegex();
@@ -70,7 +74,7 @@ internal static partial class StatementTypeDetector
     [GeneratedRegex(@"^(CONSOLIDATED\s+)?(STATEMENTS?\s+OF\s+(OPERATIONS|INCOME)|(OPERATIONS|INCOME)\s+STATEMENTS?)$", RegexOptions.IgnoreCase)]
     private static partial Regex IncomeStatementRegex();
 
-    // All three filings title the section right after the five primary statements "NOTES TO
+    // All four filings title the section right after the five primary statements "NOTES TO
     // (CONSOLIDATED) FINANCIAL STATEMENTS" - a consistent, filer-agnostic reset point. Without this,
     // the "carry the last detected type forward" logic in FilingChunkRecords.Build has nothing to
     // reset on: whichever statement type was detected last (typically the equity statement, since it's

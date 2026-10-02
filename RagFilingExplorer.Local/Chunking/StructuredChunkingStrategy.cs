@@ -15,7 +15,9 @@ namespace RagFilingExplorer.Local.Chunking;
 /// (<see cref="FilingProfile"/>). Step 1b-iii-a: the primary statements' tables are labelled from the filer's
 /// taxonomy (<see cref="StatementLabels"/>), and each chunk's statement type comes from the table it holds.
 /// Step 1b-iii-b: each note to the financial statements is a section headed by its topic (<see cref="NoteTopics"/>).
-/// Step 1d: every chunk's embedding text opens with the company and filing (<see cref="CoverFacts.EmbeddingContext"/>).
+/// Step 1b-iii-c and 1c-a: a roll-forward row states its own period, named by the filer's fiscal calendar
+/// (<see cref="PeriodLabels"/>). Step 1d: every chunk's embedding text opens with the company and filing
+/// (<see cref="CoverFacts.EmbeddingContext"/>).
 /// </summary>
 internal sealed class StructuredChunkingStrategy(Tokenizer tokenizer, int maxTokensPerChunk, int overlapTokens) : IChunkingStrategy
 {

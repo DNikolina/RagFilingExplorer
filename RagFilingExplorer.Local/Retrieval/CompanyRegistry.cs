@@ -22,7 +22,7 @@ internal sealed record CompanyRegistration(string Filing, IReadOnlyList<string> 
 /// registrant name fails at startup instead.
 ///
 /// Names match as whole words, ignoring case: v1 matched substrings, which a future short name ("Meta" in
-/// "metadata") would misread; on every question in both question files the two agree.
+/// "metadata") would misread; on every question in the question files the two agree (CompanyRegistryTests).
 /// </summary>
 internal sealed class CompanyRegistry(IReadOnlyList<CompanyRegistration> registrations)
 {

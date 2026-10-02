@@ -6,8 +6,9 @@
 # misread it". Verified to reproduce the app's own --verbose scores exactly.
 #
 # Reported per question group - the original 24 (Q1-Q24), the targeted questions aimed at what the
-# Linearized strategy claims to fix (T1-T10), and the routing tests whose keyword route excludes the
-# answer (R1-R3, misses by design until routing changes):
+# Linearized strategy claims to fix (T1-T10), the routing tests whose keyword route excludes the answer
+# (R1-R3: misses by design under Vector search's hard filter; hybrid search can reach them), the variants
+# (V1-V3), and the held-out (H1-H15, H16-H35) and answer-side (A1-A27) sets in their own files (see below):
 #   recall@1/@3/@5 - share of answerable questions whose expected figure(s) are all within the top k
 #   MRR            - mean of 1/rank (0 beyond the top 25); a question with several expected figures
 #                    (Q20's two companies) ranks at its *last* figure's position
@@ -141,7 +142,8 @@ def expected_for(questions_path):
     return {'heldout': expect_heldout, 'answer': expect_answer, 'main': expect}[question_set(questions_path)]
 
 
-# `qset` is question_set()'s name; True/False (held-out or not) still work, as tools/rerank_spike.py passes them.
+# `qset` is question_set()'s name ('main', 'heldout' or 'answer'); True/False (held-out or not) are still accepted,
+# from before the answer-side set existed.
 def group_of(i, qset):
     qset = {True: 'heldout', False: 'main'}.get(qset, qset)
     if qset == 'answer':

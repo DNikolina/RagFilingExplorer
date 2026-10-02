@@ -20,7 +20,7 @@ public class TokenChunkerTests
     [Test]
     public void OversizedTable_CarriesRowGroupLabelForwardAcrossSplits()
     {
-        // Reproduces the exact bug found and fixed this session: an earlier version repeated only the
+        // Reproduces a real bug, since fixed: an earlier version repeated only the
         // syntactic 2-line header on each split piece, losing labels like "Cost of revenue:" for pieces
         // that don't happen to start on the label row itself.
         const string header1 = "| Item | 2026 | 2025 | 2024 |";
