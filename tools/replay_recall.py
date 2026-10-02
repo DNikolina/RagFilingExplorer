@@ -26,11 +26,10 @@
 # The index defaults to rag.markdown.db; pass the one matching the run's Chunking:Strategy (the log's
 # first line names it).
 #
-# `expect` below is keyed by line number in manual-questions.txt (Q1-Q13 and Q17-Q22 follow
-# docs/Manual-Test-Questions.md's order, then its edge cases, then Q23-Q24, then T1-T10 and R1-R3) -
-# keep them in sync. Pass tools/heldout-questions.txt (and its run's log) for H1-H15, whose expected figures
-# are in `expect_heldout` (H16-H35 appended 2026-09-30, reported as their own group), or tools/answer-questions.txt
-# for A1-A27 (`expect_answer`). Requires the app to have been built once (it loads the sqlite-vec extension from bin/).
+# What counts as the answer in a chunk is each question's "chunk_expect" in tools/expected-answers.json, matched by the
+# question's text (see expected_for below). Pass tools/heldout-questions.txt (and its run's log) for H1-H35 (H16-H35
+# appended 2026-09-30, reported as their own group), or tools/answer-questions.txt for A1-A27. Requires the app to have
+# been built once (it loads the sqlite-vec extension from bin/).
 import sqlite3, json, urllib.request, math, re, struct, glob, sys
 
 TOP = 25
@@ -80,58 +79,14 @@ def read_blocks(log_path, count):
     return [b for b in blocks if b.strip()][:count]
 
 
-expect = {1: ['758,376'], 2: ['43,056'], 3: ['18,821'], 4: ['182,935'], 5: ['31,977'], 6: ['2,255'],
-          7: ['442,387'], 8: ['133,812'], 9: ['16,882'], 10: ['2,113'], 11: ['223,000'], 12: ['Austin'],
-          13: ['Ernst & Young'], 14: ['45,183,036'], 15: ['10,981,201'], 16: ['55,596,993'],
-          17: ['10,149,273'], 18: ['10,038,657'], 19: ['Los Gatos'], 20: ['331,839', '67,357'],
-          21: [], 22: [], 23: ['12,227'], 24: ['27,034'],
-          # T1-T10: targeted at mid-table rows, split layouts and MD&A/notes tables
-          25: ['2,243'], 26: ['3,500'], 27: ['466,095'], 28: ['3,603'], 29: ['48,562'], 30: ['7,952'],
-          31: ['4,301'], 32: ['91.47'], 33: ['4,743'], 34: ['96,795'],
-          # R1-R3: routing tests - the keyword route excludes every chunk holding the answer
-          35: ['9,916'], 36: ['1,274'], 37: ['137,791'],
-          # V1-V3: found in the 2026-09-25 manual pass - Q10's mislabel for 2024 (the right line is 940,
-          # not the 'attributable to Nasdaq' 942; 1,124 is the same row's 2023 value, format-independent), a real
-          # year absent from the filing, and asked-for arithmetic
-          38: ['1,124'], 39: [], 40: ['10,149,273']}
-
-# H1-H15, keyed by line number in tools/heldout-questions.txt (expected answers in docs/Manual-Test-Questions.md).
-# Each value is the figure as the filing prints it. H4 asks for a difference the filing states only rounded
-# ("$3.1 billion"), so it ranks at the row holding both inputs; H8 and H15 are negatives.
-expect_heldout = {1: ['35,562'], 2: ['19%'], 3: ['12,405'], 4: ['35,562', '32,488'], 5: ['141,000'],
-                  6: ['10,272'], 7: ['5.83'], 8: [], 9: ['5,249'], 10: ['9,525'], 11: ['New York, New York'],
-                  12: ['16,000'], 13: ['9,033,681'], 14: ['1,776'], 15: [],
-                  # H16-H35 (written 2026-09-30, before step 5)
-                  16: ['3.64'],
-                  17: ['101,832'],
-                  18: ['225,465'],
-                  19: ['119,651'],
-                  20: [],
-                  21: ['20,606'],
-                  22: ['5.94'],
-                  23: ['44,478'],
-                  24: ['57,399'],
-                  25: ['46,751'],
-                  26: ['1,788'],
-                  27: ['1.05'],
-                  28: ['8,573'],
-                  29: ['827'],
-                  30: [],
-                  31: ['13,326,603'],
-                  32: ['2.53'],
-                  33: ['32,778,392'],
-                  34: ['9,127,167'],
-                  35: ['12,722,552']}
-
-# A1-A27 (tools/answer-questions.txt, 2026-10-01), keyed by line number: the figure as the chunk prints it, written to
-# be unambiguous ("$604", "(601)"); for an arithmetic question (A21-A27) every input, so its rank is the last input's -
-# the result itself is printed nowhere in the filing. A12 is a negative.
-expect_answer = {1: ['17.95'], 2: ['3.12'], 3: ['315,989'], 4: ['2,331'], 5: ['19,554'], 6: ['$20,935'], 7: ['$604'],
-                 8: ['($2.00 per share)'], 9: ['(601)'], 10: ['(26,445)'], 11: ['(5,787)'], 12: [], 13: ['(115,948)'],
-                 14: ['(55,663)'], 15: ['(22,271)'], 16: ['(616)'], 17: ['13,463,971'], 18: ['23,275,329'],
-                 19: ['10,980,930'], 20: ['3,301,306'], 21: ['12,443', '17,087'], 22: ['2,331', '1,798'],
-                 23: ['207,710', '168,825'], 24: ['5,407,990', '8,711,631', '10,981,201'], 25: ['(601)', '(616)'],
-                 26: ['133,749', '101,832'], 27: ['17,087', '67,357']}
+# What marks a question's answer in a chunk: "chunk_expect" in tools/expected-answers.json (moved there from this file in
+# v3 step 3, so the .NET evaluator reads the same list) - each value as the chunk prints it. Where it isn't simply the
+# answer's figure: H4 asks for a difference the filing states only rounded ("$3.1 billion"), so it ranks at the row
+# holding both inputs; V1's 1,124 is the right line's 2023 value (the right line is 940, not the "attributable to
+# Nasdaq" 942 - format-independent); A1-A27's are written to be unambiguous ("$604", "(601)"), and an arithmetic
+# question (A21-A27) lists every input, so it ranks at its last input - the result is printed nowhere in the filing.
+# Negatives (Q15, Q16, V2, H8, H15, H20, H30, A12) have none and aren't scored.
+EXPECTED_ANSWERS = 'tools/expected-answers.json'
 
 
 def question_set(questions_path):
@@ -139,7 +94,9 @@ def question_set(questions_path):
 
 
 def expected_for(questions_path):
-    return {'heldout': expect_heldout, 'answer': expect_answer, 'main': expect}[question_set(questions_path)]
+    """Each question's chunk_expect, keyed by its line number in `questions_path` (1-based)."""
+    by_text = {q['question']: q.get('chunk_expect', []) for q in json.load(open(EXPECTED_ANSWERS, encoding='utf-8'))['questions']}
+    return {i: by_text[q.strip()] for i, q in enumerate(read_questions(questions_path), 1)}
 
 
 # `qset` is question_set()'s name ('main', 'heldout' or 'answer'); True/False (held-out or not) are still accepted,
