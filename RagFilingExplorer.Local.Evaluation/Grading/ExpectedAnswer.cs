@@ -11,7 +11,8 @@ internal sealed record AcceptedAlternative(
 /// <summary>
 /// One question's expected answer, as tools/expected-answers.json states it (docs/Manual-Test-Questions.md has the
 /// sources). <see cref="Kind"/> is "figure", "fact", "negative" (the filing doesn't say) or "routing" (the keyword route
-/// excludes the answer, so a decline passes).
+/// excludes the answer, so a decline passes). <see cref="ChunkExpect"/> is what marks the answer in a retrieved chunk, as
+/// the chunk prints it ("(601)", every input of an arithmetic question) - empty for a negative.
 /// </summary>
 internal sealed record ExpectedAnswer(
     [property: JsonPropertyName("id")] string Id,
@@ -22,7 +23,8 @@ internal sealed record ExpectedAnswer(
     [property: JsonPropertyName("conflicts")] IReadOnlyList<string>? Conflicts = null,
     [property: JsonPropertyName("traps")] IReadOnlyList<string>? Traps = null,
     [property: JsonPropertyName("accept")] IReadOnlyList<AcceptedAlternative>? Accept = null,
-    [property: JsonPropertyName("exact")] bool Exact = false)
+    [property: JsonPropertyName("exact")] bool Exact = false,
+    [property: JsonPropertyName("chunk_expect")] IReadOnlyList<string>? ChunkExpect = null)
 {
     private sealed record File([property: JsonPropertyName("questions")] IReadOnlyList<ExpectedAnswer> Questions);
 

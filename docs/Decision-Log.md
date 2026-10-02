@@ -2895,3 +2895,29 @@ the rest failed), the expected answer passed as an `EvaluationContext`. `Expecte
 - **Noted for step 4:** the reporting library's cached responses expire after 14 days by default (Microsoft's
   tutorial), so a long-lived baseline needs `timeToLiveForCacheEntries` set or a fresh run.
 46 evaluation tests (2 setup, 34 parity, 6 rounding, 3 evaluator, 1 coverage) + 372 unit tests.
+
+**Step 3 done (2026-10-02): the retrieval rank in .NET - 102 of 102, in-process.** Three parts:
+- **3a - one list of chunk expectations.** `replay_recall.py` kept what marks each answer in a chunk ("(601)", every input
+  of an arithmetic question) as three dictionaries keyed by line number; they're now `chunk_expect` on each question in
+  `tools/expected-answers.json`, which the replay reads by question text. Replay output **byte-identical** before and
+  after on five logs (v2's three baselines, a v1 Markdown run, a reranked run).
+- **3b - the app's wiring in one place.** `AppComposition` (in the app) holds what `Program.cs` did inline - find the
+  filings, register companies, Ollama clients, open the collection, keyword index, reranker, thinking check, answer
+  service - so the evaluation opens the app exactly as the console does (`OpenExistingIndexAsync`: never builds an
+  index; a missing or stale one is the console's own startup error). Building stays in `Program.cs`. Behaviour-neutral,
+  checked by repeating the day's smoke run: startup lines, filters and all 25 ranked chunks with their scores identical,
+  R1's answer word for word.
+- **3c - `Evaluators/RetrievalRankEvaluator`:** `rank_of()` ported (`RankOf`: the first chunk holding each
+  `chunk_expect` string, the last of them; null if one is missing), as an `IEvaluator` - a numeric metric "Answer rank",
+  passed within `Retrieval:GenerationTopK` (read from the settings, not repeated). **`RetrievalParityTests`** (`[Explicit]`:
+  Ollama and the index) asks all 102 questions in-process with the shipped settings and a chat client that throws if
+  called, and compares with the replay's output on the v2 baselines (committed: `eval/v3-retrieval-parity/`): **every
+  rank and every first chunk's fused score (to the replay's four decimals) identical**, main, held-out and answer-side.
+  An off-by-one in `RankOf` fails all three, question by question. (The replay labels main-set lines by position - its
+  "Q14" is Q17 - so lines are matched, not labels.)
+- **Temperature 0 is no longer word-for-word repeatable here.** The smoke run's Q1, with retrieval - so the prompt -
+  identical and the model unloaded before each run, came back in the other of two wordings it has given (this time
+  word for word the `structured-5a` answer of 2026-09-30). That is what the morning's unexplained T8/T10 drift was. The
+  figures and grades don't move; the wording does. "A changed answer means a changed input", relied on since v1, now
+  holds for grades, not for text - and step 4's bar is grades.
+53 evaluation tests offline (+ the explicit parity check) + 372 unit tests.

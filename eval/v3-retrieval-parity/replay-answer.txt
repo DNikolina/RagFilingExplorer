@@ -1,0 +1,29 @@
+ A1 rank=   1  in-top-5=yes  filter=MSFT-10K-2026.html/income_statement  top1=0.0489
+ A2 rank=   2  in-top-5=yes  filter=NDAQ-10K-2025.html/income_statement  top1=0.0472
+ A3 rank=   2  in-top-5=yes  filter=MSFT-10K-2026.html/balance_sheet  top1=0.0463
+ A4 rank=   1  in-top-5=yes  filter=NDAQ-10K-2025.html/income_statement  top1=0.0474
+ A5 rank=   2  in-top-5=yes  filter=ORCL-10K-2026.html/-  top1=0.0320
+ A6 rank=   1  in-top-5=yes  filter=MSFT-10K-2026.html/-  top1=0.0311
+ A7 rank=   1  in-top-5=yes  filter=NDAQ-10K-2025.html/-  top1=0.0328
+ A8 rank=   5  in-top-5=yes  filter=ORCL-10K-2026.html/-  top1=0.0325
+ A9 rank=  10  in-top-5=NO   filter=NDAQ-10K-2025.html/-  top1=0.0323
+A10 rank=   3  in-top-5=yes  filter=MSFT-10K-2026.html/-  top1=0.0328
+A11 rank=  12  in-top-5=NO   filter=ORCL-10K-2026.html/-  top1=0.0323
+A12 (negative test, not scored)  filter=NFLX-10K-2025.html/-  top1=0.0311
+A13 rank=   3  in-top-5=yes  filter=MSFT-10K-2026.html/-  top1=0.0328
+A14 rank=   4  in-top-5=yes  filter=ORCL-10K-2026.html/-  top1=0.0328
+A15 rank=   4  in-top-5=yes  filter=MSFT-10K-2026.html/-  top1=0.0328
+A16 rank=  18  in-top-5=NO   filter=NDAQ-10K-2025.html/-  top1=0.0325
+A17 rank=   3  in-top-5=yes  filter=NFLX-10K-2025.html/-  top1=0.0325
+A18 rank=   1  in-top-5=yes  filter=NFLX-10K-2025.html/income_statement  top1=0.0457
+A19 rank=   3  in-top-5=yes  filter=NFLX-10K-2025.html/-  top1=0.0317
+A20 rank=   1  in-top-5=yes  filter=NFLX-10K-2025.html/-  top1=0.0328
+A21 rank=   1  in-top-5=yes  filter=ORCL-10K-2026.html/income_statement  top1=0.0435
+A22 rank=   1  in-top-5=yes  filter=NDAQ-10K-2025.html/income_statement  top1=0.0418
+A23 rank=   5  in-top-5=yes  filter=MSFT-10K-2026.html/-  top1=0.0325
+A24 rank=   1  in-top-5=yes  filter=NFLX-10K-2025.html/income_statement  top1=0.0449
+A25 rank=  25  in-top-5=NO   filter=NDAQ-10K-2025.html/-  top1=0.0318
+A26 rank=   1  in-top-5=yes  filter=MSFT-10K-2026.html/income_statement  top1=0.0435
+A27 rank=   2  in-top-5=yes  filter=ORCL-10K-2026.html/income_statement  top1=0.0390
+
+A1-A27: recall@1 10/26  recall@3 18/26  recall@5 22/26  MRR 0.558

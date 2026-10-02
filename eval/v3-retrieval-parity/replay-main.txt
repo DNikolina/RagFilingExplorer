@@ -1,0 +1,45 @@
+ Q1 rank=   1  in-top-5=yes  filter=MSFT-10K-2026.html/balance_sheet  top1=0.0484
+ Q2 rank=   1  in-top-5=yes  filter=ORCL-10K-2026.html/balance_sheet  top1=0.0472
+ Q3 rank=   1  in-top-5=yes  filter=NDAQ-10K-2025.html/balance_sheet  top1=0.0458
+ Q4 rank=   2  in-top-5=yes  filter=MSFT-10K-2026.html/cash_flow_statement  top1=0.0489
+ Q5 rank=   2  in-top-5=yes  filter=ORCL-10K-2026.html/cash_flow_statement  top1=0.0484
+ Q6 rank=   2  in-top-5=yes  filter=NDAQ-10K-2025.html/cash_flow_statement  top1=0.0489
+ Q7 rank=   1  in-top-5=yes  filter=MSFT-10K-2026.html/balance_sheet  top1=0.0444
+ Q8 rank=   1  in-top-5=yes  filter=MSFT-10K-2026.html/comprehensive_income  top1=0.0492
+ Q9 rank=   1  in-top-5=yes  filter=ORCL-10K-2026.html/comprehensive_income  top1=0.0492
+Q10 rank=   1  in-top-5=yes  filter=NDAQ-10K-2025.html/comprehensive_income  top1=0.0492
+Q11 rank=   1  in-top-5=yes  filter=MSFT-10K-2026.html/-  top1=0.0325
+Q12 rank=   1  in-top-5=yes  filter=ORCL-10K-2026.html/-  top1=0.0328
+Q13 rank=   1  in-top-5=yes  filter=NDAQ-10K-2025.html/-  top1=0.0325
+Q14 rank=   1  in-top-5=yes  filter=NFLX-10K-2025.html/income_statement  top1=0.0446
+Q15 rank=   1  in-top-5=yes  filter=NFLX-10K-2025.html/income_statement  top1=0.0462
+Q16 rank=   1  in-top-5=yes  filter=NFLX-10K-2025.html/balance_sheet  top1=0.0481
+Q17 rank=   2  in-top-5=yes  filter=NFLX-10K-2025.html/cash_flow_statement  top1=0.0492
+Q18 rank=   1  in-top-5=yes  filter=NFLX-10K-2025.html/comprehensive_income  top1=0.0492
+Q19 rank=   1  in-top-5=yes  filter=NFLX-10K-2025.html/-  top1=0.0328
+Q20 rank=   2  in-top-5=yes  filter=MSFT-10K-2026.html+ORCL-10K-2026.html/income_statement  top1=0.0412
+Q21 (negative test, not scored)  filter=NDAQ-10K-2025.html/income_statement  top1=0.0476
+Q22 (negative test, not scored)  filter=all/income_statement  top1=0.0353
+Q23 rank=   1  in-top-5=yes  filter=NDAQ-10K-2025.html/balance_sheet  top1=0.0434
+Q24 rank=   1  in-top-5=yes  filter=MSFT-10K-2026.html/equity_statement  top1=0.0492
+ T1 rank=   1  in-top-5=yes  filter=MSFT-10K-2026.html/comprehensive_income  top1=0.0492
+ T2 rank=   1  in-top-5=yes  filter=MSFT-10K-2026.html/-  top1=0.0328
+ T3 rank=   1  in-top-5=yes  filter=NFLX-10K-2025.html/-  top1=0.0328
+ T4 rank=   1  in-top-5=yes  filter=ORCL-10K-2026.html/-  top1=0.0325
+ T5 rank=   4  in-top-5=yes  filter=MSFT-10K-2026.html/-  top1=0.0315
+ T6 rank=   1  in-top-5=yes  filter=NDAQ-10K-2025.html/-  top1=0.0328
+ T7 rank=   1  in-top-5=yes  filter=MSFT-10K-2026.html/-  top1=0.0328
+ T8 rank=   2  in-top-5=yes  filter=NDAQ-10K-2025.html/-  top1=0.0325
+ T9 rank=   2  in-top-5=yes  filter=ORCL-10K-2026.html/equity_statement  top1=0.0484
+T10 rank=   4  in-top-5=yes  filter=NFLX-10K-2025.html/-  top1=0.0325
+ R1 rank=   1  in-top-5=yes  filter=ORCL-10K-2026.html/income_statement  top1=0.0328
+ R2 rank=   3  in-top-5=yes  filter=NDAQ-10K-2025.html/income_statement  top1=0.0438
+ R3 rank=  12  in-top-5=NO   filter=MSFT-10K-2026.html/income_statement  top1=0.0323
+ V1 rank=   1  in-top-5=yes  filter=NDAQ-10K-2025.html/comprehensive_income  top1=0.0492
+ V2 (negative test, not scored)  filter=MSFT-10K-2026.html/comprehensive_income  top1=0.0492
+ V3 rank=   2  in-top-5=yes  filter=NFLX-10K-2025.html/cash_flow_statement  top1=0.0492
+
+Q1-Q24: recall@1 17/22  recall@3 22/22  recall@5 22/22  MRR 0.886
+T1-T10: recall@1 6/10  recall@3 8/10  recall@5 10/10  MRR 0.750
+R1-R3: recall@1 1/3  recall@3 2/3  recall@5 2/3  MRR 0.472
+V1-V3: recall@1 1/2  recall@3 2/2  recall@5 2/2  MRR 0.750
