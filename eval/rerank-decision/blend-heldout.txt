@@ -1,0 +1,21 @@
+
+== hybrid
+H1-H15: recall@1 11/13  recall@3 12/13  recall@5 13/13  MRR 0.904
+H16-H35: recall@1 11/18  recall@3 15/18  recall@5 15/18  MRR 0.741
+
+== rerank
+H1-H15: recall@1 9/13  recall@3 11/13  recall@5 13/13  MRR 0.804
+H16-H35: recall@1 7/18  recall@3 16/18  recall@5 17/18  MRR 0.641
+
+== blend2
+H1-H15: recall@1 10/13  recall@3 13/13  recall@5 13/13  MRR 0.859
+H16-H35: recall@1 11/18  recall@3 16/18  recall@5 17/18  MRR 0.761
+
+== blend4
+H1-H15: recall@1 8/13  recall@3 12/13  recall@5 13/13  MRR 0.776
+H16-H35: recall@1 11/18  recall@3 15/18  recall@5 16/18  MRR 0.748
+
+Questions whose answer is in the top 5 under some variants but not others (rank per variant):
+  H25  hybrid 11  rerank  3  blend2  5  blend4  8
+  H29  hybrid  7  rerank  6  blend2  3  blend4  5
+  H34  hybrid  9  rerank  5  blend2  6  blend4  7

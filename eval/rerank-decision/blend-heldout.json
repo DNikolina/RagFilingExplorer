@@ -1,0 +1,194 @@
+{
+ "log": "eval/structured-5a/heldout.log",
+ "questions": "tools/heldout-questions.txt",
+ "k": 60,
+ "depth": 25,
+ "ranks": {
+  "H1": {
+   "hybrid": 1,
+   "rerank": 1,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "H2": {
+   "hybrid": 1,
+   "rerank": 5,
+   "blend2": 2,
+   "blend4": 2
+  },
+  "H3": {
+   "hybrid": 1,
+   "rerank": 2,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "H4": {
+   "hybrid": 1,
+   "rerank": 1,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "H5": {
+   "hybrid": 1,
+   "rerank": 1,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "H6": {
+   "hybrid": 1,
+   "rerank": 2,
+   "blend2": 1,
+   "blend4": 2
+  },
+  "H7": {
+   "hybrid": 1,
+   "rerank": 1,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "H9": {
+   "hybrid": 1,
+   "rerank": 1,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "H10": {
+   "hybrid": 4,
+   "rerank": 1,
+   "blend2": 3,
+   "blend4": 4
+  },
+  "H11": {
+   "hybrid": 1,
+   "rerank": 1,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "H12": {
+   "hybrid": 1,
+   "rerank": 1,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "H13": {
+   "hybrid": 1,
+   "rerank": 4,
+   "blend2": 3,
+   "blend4": 3
+  },
+  "H14": {
+   "hybrid": 2,
+   "rerank": 1,
+   "blend2": 1,
+   "blend4": 2
+  },
+  "H16": {
+   "hybrid": 2,
+   "rerank": 2,
+   "blend2": 2,
+   "blend4": 2
+  },
+  "H17": {
+   "hybrid": 1,
+   "rerank": 1,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "H18": {
+   "hybrid": 1,
+   "rerank": 2,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "H19": {
+   "hybrid": 1,
+   "rerank": 2,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "H21": {
+   "hybrid": 1,
+   "rerank": 2,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "H22": {
+   "hybrid": 1,
+   "rerank": 1,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "H23": {
+   "hybrid": 2,
+   "rerank": 2,
+   "blend2": 1,
+   "blend4": 2
+  },
+  "H24": {
+   "hybrid": 1,
+   "rerank": 1,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "H25": {
+   "hybrid": 11,
+   "rerank": 3,
+   "blend2": 5,
+   "blend4": 8
+  },
+  "H26": {
+   "hybrid": 1,
+   "rerank": 2,
+   "blend2": 2,
+   "blend4": 1
+  },
+  "H27": {
+   "hybrid": 2,
+   "rerank": 1,
+   "blend2": 2,
+   "blend4": 2
+  },
+  "H28": {
+   "hybrid": 1,
+   "rerank": 1,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "H29": {
+   "hybrid": 7,
+   "rerank": 6,
+   "blend2": 3,
+   "blend4": 5
+  },
+  "H31": {
+   "hybrid": 1,
+   "rerank": 3,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "H32": {
+   "hybrid": 1,
+   "rerank": 1,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "H33": {
+   "hybrid": 2,
+   "rerank": 2,
+   "blend2": 2,
+   "blend4": 2
+  },
+  "H34": {
+   "hybrid": 9,
+   "rerank": 5,
+   "blend2": 6,
+   "blend4": 7
+  },
+  "H35": {
+   "hybrid": 1,
+   "rerank": 1,
+   "blend2": 1,
+   "blend4": 1
+  }
+ }
+}

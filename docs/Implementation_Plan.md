@@ -126,10 +126,13 @@ lookalike (the answer chunk alone gives the wrong line). .NET's `BertTokenizer` 
 reimplemented (all 73,125 pairs differed). **Answer-side set A1-A27 added and baselined (2026-10-01,
 `eval/answer-side-baseline/`): 18/27** - lookalike lines, per-share and thousands all pass (14/14); only 3 of 9 misses are
 misreadings (arithmetic, MD&A rounding); **4 are the reranker's** (answer in hybrid's top 5, pushed out - replay recall@5
-22/26 -> 18/26 on this set). **Next (user to decide, 2026-10-02):** A1-A27 end to end with reranking off; then keep, drop
-or soften reranking (RRF of reranker and hybrid ranks, replay first); then the answer side (arithmetic, MD&A rounding);
-then close v2 (shipped defaults, README, merge, tag `v2.0`). The shipped default stays
-`Vector` (with `Markdown`); the eval build sets `Hybrid`. **Second-model run done (2026-10-01,
+22/26 -> 18/26 on this set). **Reranking decided (user, 2026-10-02): off** - A1-A27 without it
+21/27 (`eval/answer-side-norerank/`); replay recall@5 over all 94 answerable questions hybrid 86, reranked 85, RRF blends of
+the two 85 and 85; a second family (bge-reranker-v2-m3) screened on the 8 contested questions, 4/8 like hybrid at ~38 s/question
+(`eval/rerank-decision/`). The code stays as the opt-in `Retrieval:Rerank`. **Next:** the answer side (paid vs declared,
+MD&A rounding, arithmetic - 4 of A1-A27's 6 misses have the answer in the top 5); then close v2 (shipped defaults
+Structured + Hybrid, README, merge, tag `v2.0`). The shipped default stays `Vector` (with `Markdown`) until then; the eval
+build sets `Hybrid`, reranking off. **Second-model run done (2026-10-01,
 `eval/granite41-*`):** granite4.1:8b targeted 9/10 vs llama's 7/10 (reads lookalike lines better) but main 21/24, held-out
 12/15 and 16/20, breaks the decline form and invented one figure (H25); granite4.1:3b lower everywhere but routing.
 **`llama3.1:8b` kept (user).** `Console.OutputEncoding` fixed (2026-10-01): the app reads and writes UTF-8, so

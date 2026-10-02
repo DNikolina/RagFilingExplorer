@@ -1,0 +1,15 @@
+bge_screen.py, run 2026-10-02 (output as printed; the packages and model were removed after the run).
+Rank of the answer chunk per ordering; "bge s" = CPU seconds to score the question's 25 candidates with bge-reranker-v2-m3;
+the last column is the longest (question, passage) pair in bge's tokens - under its 8,192 limit, so nothing truncated.
+
+Q    hybrid   L6  bge   bge s   longest bge pair (tokens)
+R3       12    4    1    38.9   642
+H25      11    3    1    33.8   602
+H29       7    6    6    38.7   652
+H34       9    5    3    37.6   631
+A10       3   10    6    41.0   672
+A15       4   12    7    42.3   674
+A17       3    7    1    39.9   639
+A27       2   20   12    34.2   614
+
+In the top 5: hybrid 4/8, L6 3/8, bge 4/8. Bar (all four A answers kept in the top 5) not met - A10, A15, A27 out.

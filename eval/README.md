@@ -95,6 +95,18 @@ statement 2/5, arithmetic 3/7. Of the 9 misses only 3 are misreadings; 4 had the
 by the reranker. `rerank-replay.txt`: the set's retrieval with and without reranking - recall@5 22/26 -> 18/26. Details in
 `docs/Decision-Log.md`, "A1-A27 baseline".
 
+**`answer-side-norerank/`** - A1-A27 again on the same eval build with only `Retrieval:Rerank` false (step 5a's hybrid
+retrieval), 2026-10-02: **21/27** - +A17, A21, A25, A26; -A8 (answer at rank 5, the quarterly line taken), A27 (wrong
+division). A10 and A15 stay wrong with their answers at ranks 3-4 - misreadings. The answer side's baseline from here.
+
+**`rerank-decision/`** - what decided reranking off (user, 2026-10-02), all replay - no answers generated.
+`rerank_check.py` / `rerank-check.txt`: the app's logged reranker scores reproduced in Python for A10, A15, A17, A27 (100
+pairs, within the log's rounding), with each answer row's place in the 512-token window (A17's is cut at token 510).
+`rerank_blend.py` / `blend-{main,heldout,answer}.{txt,json}`: hybrid, reranked, and two RRF blends of the two (k = 60) on all
+four sets - recall@5 86, 85, 85, 85 of 94. `bge_screen.py` / `bge-screen.txt`: bge-reranker-v2-m3 on the eight contested
+questions - 4/8 in the top 5 like hybrid, ~38 s of CPU per question; its packages and model were removed after the run
+(the script's header says how to restore them). Details in `docs/Decision-Log.md`, "A1-A27 with reranking off" onwards.
+
 Logs before 2026-10-01 were written in the console's OEM code page (a non-breaking space as a lone 0xFF byte, `’` as
 `'`); the app writes UTF-8 since. The tools read both.
 

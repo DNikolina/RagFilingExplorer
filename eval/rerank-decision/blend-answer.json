@@ -1,0 +1,164 @@
+{
+ "log": "eval/answer-side-norerank/answers.log",
+ "questions": "tools/answer-questions.txt",
+ "k": 60,
+ "depth": 25,
+ "ranks": {
+  "A1": {
+   "hybrid": 1,
+   "rerank": 1,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "A2": {
+   "hybrid": 2,
+   "rerank": 1,
+   "blend2": 2,
+   "blend4": 2
+  },
+  "A3": {
+   "hybrid": 2,
+   "rerank": 3,
+   "blend2": 2,
+   "blend4": 1
+  },
+  "A4": {
+   "hybrid": 1,
+   "rerank": 2,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "A5": {
+   "hybrid": 2,
+   "rerank": 3,
+   "blend2": 2,
+   "blend4": 2
+  },
+  "A6": {
+   "hybrid": 1,
+   "rerank": 2,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "A7": {
+   "hybrid": 1,
+   "rerank": 1,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "A8": {
+   "hybrid": 5,
+   "rerank": 4,
+   "blend2": 4,
+   "blend4": 4
+  },
+  "A9": {
+   "hybrid": 10,
+   "rerank": 11,
+   "blend2": 10,
+   "blend4": 11
+  },
+  "A10": {
+   "hybrid": 3,
+   "rerank": 10,
+   "blend2": 6,
+   "blend4": 6
+  },
+  "A11": {
+   "hybrid": 12,
+   "rerank": 19,
+   "blend2": 14,
+   "blend4": 12
+  },
+  "A13": {
+   "hybrid": 3,
+   "rerank": 2,
+   "blend2": 2,
+   "blend4": 2
+  },
+  "A14": {
+   "hybrid": 4,
+   "rerank": 3,
+   "blend2": 4,
+   "blend4": 4
+  },
+  "A15": {
+   "hybrid": 4,
+   "rerank": 12,
+   "blend2": 8,
+   "blend4": 5
+  },
+  "A16": {
+   "hybrid": 18,
+   "rerank": 22,
+   "blend2": 21,
+   "blend4": 19
+  },
+  "A17": {
+   "hybrid": 3,
+   "rerank": 7,
+   "blend2": 4,
+   "blend4": 3
+  },
+  "A18": {
+   "hybrid": 1,
+   "rerank": 2,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "A19": {
+   "hybrid": 3,
+   "rerank": 4,
+   "blend2": 3,
+   "blend4": 2
+  },
+  "A20": {
+   "hybrid": 1,
+   "rerank": 2,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "A21": {
+   "hybrid": 1,
+   "rerank": 1,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "A22": {
+   "hybrid": 1,
+   "rerank": 4,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "A23": {
+   "hybrid": 5,
+   "rerank": 2,
+   "blend2": 2,
+   "blend4": 3
+  },
+  "A24": {
+   "hybrid": 1,
+   "rerank": 2,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "A25": {
+   "hybrid": 25,
+   "rerank": 24,
+   "blend2": 25,
+   "blend4": 25
+  },
+  "A26": {
+   "hybrid": 1,
+   "rerank": 2,
+   "blend2": 1,
+   "blend4": 1
+  },
+  "A27": {
+   "hybrid": 2,
+   "rerank": 20,
+   "blend2": 9,
+   "blend4": 7
+  }
+ }
+}

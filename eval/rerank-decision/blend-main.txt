@@ -1,0 +1,27 @@
+
+== hybrid
+Q1-Q24: recall@1 17/22  recall@3 22/22  recall@5 22/22  MRR 0.886
+T1-T10: recall@1 6/10  recall@3 8/10  recall@5 10/10  MRR 0.750
+R1-R3: recall@1 1/3  recall@3 2/3  recall@5 2/3  MRR 0.472
+V1-V3: recall@1 1/2  recall@3 2/2  recall@5 2/2  MRR 0.750
+
+== rerank
+Q1-Q24: recall@1 17/22  recall@3 21/22  recall@5 22/22  MRR 0.858
+T1-T10: recall@1 6/10  recall@3 9/10  recall@5 10/10  MRR 0.753
+R1-R3: recall@1 1/3  recall@3 1/3  recall@5 3/3  MRR 0.483
+V1-V3: recall@1 2/2  recall@3 2/2  recall@5 2/2  MRR 1.000
+
+== blend2
+Q1-Q24: recall@1 17/22  recall@3 22/22  recall@5 22/22  MRR 0.886
+T1-T10: recall@1 6/10  recall@3 10/10  recall@5 10/10  MRR 0.750
+R1-R3: recall@1 1/3  recall@3 1/3  recall@5 2/3  MRR 0.472
+V1-V3: recall@1 1/2  recall@3 2/2  recall@5 2/2  MRR 0.750
+
+== blend4
+Q1-Q24: recall@1 17/22  recall@3 22/22  recall@5 22/22  MRR 0.886
+T1-T10: recall@1 6/10  recall@3 10/10  recall@5 10/10  MRR 0.783
+R1-R3: recall@1 1/3  recall@3 1/3  recall@5 2/3  MRR 0.464
+V1-V3: recall@1 1/2  recall@3 2/2  recall@5 2/2  MRR 0.750
+
+Questions whose answer is in the top 5 under some variants but not others (rank per variant):
+  R3   hybrid 12  rerank  4  blend2  6  blend4  7

@@ -74,7 +74,12 @@ reranking abstraction; Microsoft's own rerankers are cloud services. So v2 (step
 hybrid candidates, each read as its company line + excerpt header + chunk. It's a setting, `Retrieval:Rerank`, and
 needs `Hybrid`. Chosen by a replay-only spike (L6 vs L12, with and without the company line, 25 vs 50 candidates,
 overlapping windows for long chunks), then measured end to end: 64 -> 69 of 75 reliable answers, every decline intact,
-~2 s of CPU per question. The model (~91 MB) is fetched separately and refused unless its SHA-256 matches. One
+~2 s of CPU per question. **It ships off.** A fresh answer-side question set then showed the other side: the reranker
+prefers MD&A and note prose to statement rows, and pushed cash-flow answers out of the top 5. Across every question set,
+hybrid search alone puts as many answers in the model's context as reranking or RRF blends of the two, and a larger
+reranker family (bge-reranker-v2-m3) did no better on the questions they disagree on at many times the CPU. So
+reranking stays as an opt-in setting, built and measured, not a default. The model (~91 MB) is fetched separately and
+refused unless its SHA-256 matches. One
 non-obvious part: .NET's `BertTokenizer` tokenized every one of 73,125 (question, chunk) pairs differently from the
 Python library the spike measured with (it drops line breaks, `|` and `$`), so the app reimplements Hugging Face's
 normalisation - checked token for token. Decision-Log.md, "Step 2b". For hybrid search, `IKeywordHybridSearchable`

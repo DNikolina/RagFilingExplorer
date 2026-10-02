@@ -2460,6 +2460,65 @@ order - cheap to replay on all four sets). The answer-side changes (arithmetic, 
   training on them would spend them; routing exact lookups past the reranker would mean keyword rules like the ones
   behind R1 and T10 - a last resort.
 
+**A1-A27 with reranking off (2026-10-02, `eval/answer-side-norerank/`): 21/27 reliable** against 18/27 reranked - step 2b's
+eval build with only `Rerank: false` (the hybrid retrieval of step 5a). Replay's top score equals the log's `[1] score=` on
+all 27.
+| Q | reranked | not reranked | why |
+|---|---|---|---|
+| A17 NFLX long-term debt | check | **reliable** | answer back in the top 5 (rank 3; reranked 7) |
+| A21 ORCL net income, two years summed | wrong | **reliable** | adds 12,443 + 17,087 = 29,530 |
+| A25 NDAQ dividends + buybacks | wrong | **reliable** | adds 601 + 616 = 1,217, both from the equity note |
+| A26 MSFT net income change | wrong | **reliable** | $31,917M, not "$31.9 billion" |
+| A8 ORCL dividends per share | reliable | wrong | answer at rank 5, the last excerpt; took the $0.50 quarterly line for the $2.00 annual |
+| A27 ORCL net margin | declined | wrong | both inputs found, divided wrong: 25.8% (17,087 / 67,357 = 25.4%) |
+- **A10 and A15 are misreadings, not only retrieval:** with their cash-flow rows back at ranks 3 and 4, A10 takes the
+  equity statement's declared $27,034M (the trap) and A15 a note's $16,719M. With A14 (MD&A rounding) and A27
+  (arithmetic), 4 of the 6 misses have the answer in front of the model - the answer side's targets. A11 stays retrieval
+  (rank 12).
+
+**Reranker check (`eval/rerank-decision/rerank_check.py`, the question left open above):** the L6 scores recomputed in
+Python match the app's logged `rerank=` on all 100 (question, chunk) pairs of A10, A15, A17 and A27 to 0.005 - the log's
+two-decimal rounding. A10's and A15's cash-flow chunks are scored low, not mis-scored: the answer row is whole in the
+window (token 395 and 362 of ~495), and equity-statement, Item 5 and note prose outscore it (A10: 7.29 for the equity
+statement holding the declared trap, 4.66 for the cash-flow chunk). A27's income statement scores 1.73 against MD&A
+percentage tables at 3.4-5.1. **A17 is truncation:** its balance-sheet row begins at token 510 of the 512 the model reads.
+The spike's truncation check counts a figure as cut only when it starts past the last token read, so it reported A5 and
+A24 and missed A17 - three questions of this set touch MiniLM's window, not two.
+
+**Blend replay (`eval/rerank-decision/rerank_blend.py`, `blend-*.txt`):** the reranker's rank fused with the hybrid
+rank by RRF (k = 60, `RankFusion.K` - not tuned, which would tune on the held-out sets), as two lists (blend2) or as a
+fourth list in the app's own fusion (blend4); inputs are the hybrid logs without reranking (`structured-5a/` for main and
+held-out, `answer-side-norerank/` for A). The hybrid and rerank rows reproduce the spike (64 -> 67 of 68) and
+`rerank-replay.txt` (22 -> 18 of 26). recall@5, the 94 questions with an expected figure:
+| | main (37) | H1-H15 (13) | H16-H35 (18) | A1-A27 (26) | **total** |
+|---|---|---|---|---|---|
+| hybrid | 36 | 13 | 15 | 22 | **86** |
+| rerank (step 2b) | 37 | 13 | 17 | 18 | **85** |
+| blend2 | 36 | 13 | 17 | 19 | **85** |
+| blend4 | 36 | 13 | 16 | 20 | **85** |
+Eight questions decide it - R3, H25, H29, H34 (reranker's) against A10, A15, A17, A27 (hybrid's) - and the two rankers
+disagree so strongly on them that a blend lands their answers at rank 5-9 either way. recall@1 falls under reranking
+everywhere but the variants (A1-A27: 10 -> 4).
+
+**A second reranker family, screened (2026-10-02, `eval/rerank-decision/bge_screen.py`, `bge-screen.txt`):**
+`BAAI/bge-reranker-v2-m3` (568M parameters, XLM-RoBERTa, 8,192-token window - so no truncation) on those eight
+questions. Downloaded only after a safety review (user's condition): BAAI's official repo, Apache-2.0, weights as
+safetensors (no pickle), a standard architecture with no `auto_map` (no remote code), pinned to commit `953dc6f6`, both
+large files checked against the published SHA-256; no ONNX export from BAAI, so third-party exports were passed over and
+the screen ran the official weights in PyTorch - `torch` 2.14.0 and `transformers` 5.17.0, a month and three weeks old
+rather than the two-day-old latest, `--only-binary :all:`, every installed package checked on OSV (clean, except a
+pre-existing PyJWT 2.14.0, GHSA-42vr-xj54-vc7v). Bar set before running: all four A answers kept in the top 5, and some of
+R3/H25/H29/H34 gained. Result: better than L6 on 6 of 8 and worse on none (R3, H25, A17 at #1), but A10 6, A15 7, A27 12 -
+**top 5 on 4 of 8, as hybrid's 4** - at ~38 s of CPU per question (L6 ~1 s). Bar not met; full sets not run. The packages,
+model and caches were removed afterwards (user).
+
+*Decision (user, 2026-10-02): reranking off - the eval build and v2's defaults use Hybrid without it; the code stays as the
+opt-in `Retrieval:Rerank`.* Hybrid alone has the most answers in the top 5 (86 of 94); the graded gap the other way (87
+vs 85 of 102 answers) is two questions, within what single excerpts decided today (A8 at rank 5, V1's knife edge). Both
+rerankers prefer prose to statement rows, which most figure questions here are answered from, and reranking costs CPU
+per question, a separately fetched model and the reimplemented tokenizer. Baselines from here: `structured-5a/` (64/75)
+and `answer-side-norerank/` (21/27). Next: the answer side - A10/A15 paid vs declared, A14 MD&A rounding, A27 arithmetic.
+
 Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
 Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation
 memory (follow-up questions), query decomposition beyond per-company search, an API or UI. Automated onboarding

@@ -1,0 +1,54 @@
+
+=== A10: How much cash did Microsoft pay in common stock dividends in fiscal 2026?  expect ['(26,445)']
+    python vs app rerank=: 25 pairs compared, max |diff| 0.005
+  rr#1  hybrid#2  score   7.29  equity_statement     ART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA
+  rr#2  hybrid#1  score   6.84  equity_statement     ART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA
+  rr#3  hybrid#6  score   6.52  narrative            OCKHOLDER MATTERS, AND ISSUER PURCHASES OF EQUITY SECURITIES
+  rr#4  hybrid#5  score   6.13  narrative            IAL STATEMENTS AND SUPPLEMENTARY DATA > Stockholders' Equity
+  rr#5  hybrid#14 score   5.35  narrative            ND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS
+  rr#6  hybrid#4  score   5.27  narrative            OCKHOLDER MATTERS, AND ISSUER PURCHASES OF EQUITY SECURITIES
+  rr#10 hybrid#3  score   4.66  cash_flow_statement  ART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA  <== ANSWER (26,445) at token 395 of 493
+          row: Financing > Common stock cash dividends paid — 2026: (26,445) | 2025: (24,082) | 2024: (21,771)
+
+=== A15: How much cash did Microsoft spend repurchasing its common stock in fiscal 2026?  expect ['(22,271)']
+    python vs app rerank=: 25 pairs compared, max |diff| 0.005
+  rr#1  hybrid#3  score   6.31  narrative            IAL STATEMENTS AND SUPPLEMENTARY DATA > Stockholders' Equity
+  rr#2  hybrid#10 score   6.01  narrative            ND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS
+  rr#3  hybrid#1  score   5.79  equity_statement     ART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA
+  rr#4  hybrid#7  score   5.59  narrative            OCKHOLDER MATTERS, AND ISSUER PURCHASES OF EQUITY SECURITIES
+  rr#5  hybrid#8  score   5.51  equity_statement     ART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA
+  rr#6  hybrid#5  score   5.47  narrative            IAL STATEMENTS AND SUPPLEMENTARY DATA > Stockholders' Equity
+  rr#12 hybrid#4  score   3.88  cash_flow_statement  ART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA  <== ANSWER (22,271) at token 362 of 495
+          row: Financing > Common stock repurchased — 2026: (22,271) | 2025: (18,420) | 2024: (17,254)
+
+=== A17: What was Netflix's long-term debt at December 31, 2025?  expect ['13,463,971']
+    python vs app rerank=: 25 pairs compared, max |diff| 0.005
+  rr#1  hybrid#8  score   6.56  narrative            PART IV > Financial Statements > Debt
+  rr#2  hybrid#2  score   5.99  narrative            PART IV > Financial Statements > Debt
+  rr#3  hybrid#18 score   5.77  narrative             > Financial Statements > Segment and Geographic Information
+  rr#4  hybrid#6  score   5.75  narrative            PART IV > Financial Statements > Debt
+  rr#5  hybrid#22 score   5.75  narrative            nd Analysis of Financial Condition and Results of Operations
+  rr#6  hybrid#1  score   5.60  narrative            nd Analysis of Financial Condition and Results of Operations
+  rr#7  hybrid#3  score   5.58  balance_sheet        PART IV > Financial Statements  <== ANSWER 13,463,971 at token 510 of 512
+          row: Long-term debt — 2025: 13,463,971 | 2024: 13,798,351
+
+=== A27: What was Oracle's net income as a percentage of its total revenues in fiscal 2026, to one decimal place?  expect ['17,087', '67,357']
+    python vs app rerank=: 25 pairs compared, max |diff| 0.005
+  rr#1  hybrid#3  score   5.10  narrative            nd Analysis of Financial Condition and Results of Operations
+  rr#2  hybrid#5  score   4.50  narrative            nd Analysis of Financial Condition and Results of Operations
+  rr#3  hybrid#7  score   3.89  narrative            nd Analysis of Financial Condition and Results of Operations
+  rr#4  hybrid#11 score   3.59  narrative            nd Analysis of Financial Condition and Results of Operations
+  rr#5  hybrid#6  score   3.40  narrative            nd Analysis of Financial Condition and Results of Operations
+  rr#6  hybrid#18 score   2.94  narrative            5. Exhibits and Financial Statement Schedules > Income Taxes
+  rr#9  hybrid#4  score   2.20  comprehensive_income ART IV > Item 15. Exhibits and Financial Statement Schedules  <== ANSWER 17,087 at token 104 of 361
+          row: Net income — 2026: $17,087 | 2025: $12,443 | 2024: $10,467
+  rr#10 hybrid#23 score   2.11  equity_statement     ART IV > Item 15. Exhibits and Financial Statement Schedules  <== ANSWER 17,087 at token 178 of 369
+          row: Net income (fiscal 2026, year ended May 31, 2026) — Accumulated Deficit: 17,087 | Noncontrolling Interests: 222 | Total Stockholders’ Equity: 17,309
+  rr#11 hybrid#14 score   2.06  narrative            nd Analysis of Financial Condition and Results of Operations  <== ANSWER 17,087 at token 175 of 478
+          row: Net income — 2026: $17,087 | 2025: $12,443
+  rr#13 hybrid#1  score   1.73  income_statement     ART IV > Item 15. Exhibits and Financial Statement Schedules  <== ANSWER 17,087 at token 279 of 512
+          row: Net income — 2026: $17,087 | 2025: $12,443 | 2024: $10,467
+  rr#20 hybrid#2  score   0.83  income_statement     ART IV > Item 15. Exhibits and Financial Statement Schedules  <== ANSWER 67,357 at token 220 of 482
+          row: Revenues > Total revenues — 2026: 67,357 | 2025: 57,399 | 2024: 52,961
+  rr#22 hybrid#8  score   0.52  cash_flow_statement  ART IV > Item 15. Exhibits and Financial Statement Schedules  <== ANSWER 17,087 at token 116 of 512
+          row: Cash flows from operating activities > Net income — 2026: $17,087 | 2025: $12,443 | 2024: $10,467

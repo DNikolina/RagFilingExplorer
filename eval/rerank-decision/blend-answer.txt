@@ -1,0 +1,18 @@
+
+== hybrid
+A1-A27: recall@1 10/26  recall@3 18/26  recall@5 22/26  MRR 0.558
+
+== rerank
+A1-A27: recall@1 4/26  recall@3 15/26  recall@5 18/26  MRR 0.398
+
+== blend2
+A1-A27: recall@1 10/26  recall@3 16/26  recall@5 19/26  MRR 0.548
+
+== blend4
+A1-A27: recall@1 11/26  recall@3 17/26  recall@5 20/26  MRR 0.575
+
+Questions whose answer is in the top 5 under some variants but not others (rank per variant):
+  A10  hybrid  3  rerank 10  blend2  6  blend4  6
+  A15  hybrid  4  rerank 12  blend2  8  blend4  5
+  A17  hybrid  3  rerank  7  blend2  4  blend4  3
+  A27  hybrid  2  rerank 20  blend2  9  blend4  7

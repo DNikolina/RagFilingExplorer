@@ -1,0 +1,195 @@
+{
+ "log": "eval/answer-side-norerank/answers.log",
+ "questions": "tools/answer-questions.txt",
+ "results": [
+  {
+   "id": "A1",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's diluted earnings per share for fiscal year 2026 were $17.95. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Earnings Per Share)"
+  },
+  {
+   "id": "A2",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Nasdaq's basic earnings per share in 2025 were $3.12 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Earnings Per Share)."
+  },
+  {
+   "id": "A3",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's total liabilities as of June 30, 2026 were $315,989 million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > BALANCE SHEETS)"
+  },
+  {
+   "id": "A4",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Nasdaq's operating income in 2025 was $2,331 million (Source: NDAQ-10K-2025.html, PART IV > Financial Statements)."
+  },
+  {
+   "id": "A5",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Oracle's income before income taxes in fiscal 2026 was $19,554 million (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules > Income Taxes)."
+  },
+  {
+   "id": "A6",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's cash and cash equivalents as of June 30, 2026 were $20,935 million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Investing)"
+  },
+  {
+   "id": "A7",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Nasdaq's cash and cash equivalents were $604 million as of December 31, 2025 (Source: NDAQ-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of)."
+  },
+  {
+   "id": "A8",
+   "kind": "figure",
+   "status": "wrong",
+   "note": "expected figure absent",
+   "answer": "Oracle declared a quarterly cash dividend of $0.50 per share of its outstanding common stock in June 2026. (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)"
+  },
+  {
+   "id": "A9",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Nasdaq paid a total of $601 million in cash dividends in 2025 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Nasdaq Stockholders’ Equity)."
+  },
+  {
+   "id": "A10",
+   "kind": "figure",
+   "status": "wrong",
+   "note": "trap 27,034",
+   "answer": "Microsoft paid $27,034 million in common stock cash dividends in fiscal 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)."
+  },
+  {
+   "id": "A11",
+   "kind": "figure",
+   "status": "wrong",
+   "note": "expected figure absent",
+   "answer": "Oracle paid $63 million in dividends to its Mandatory Convertible Preferred Stock holders and $5.7 billion in dividends to its common stock holders in fiscal 2026 (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)."
+  },
+  {
+   "id": "A12",
+   "kind": "negative",
+   "status": "decline-ok",
+   "note": "",
+   "answer": "The excerpts don't contain information about cash dividends per share declared by Netflix in 2025."
+  },
+  {
+   "id": "A13",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft spent $115,948 million on additions to property and equipment in fiscal 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > CASH FLOWS STATEMENTS)."
+  },
+  {
+   "id": "A14",
+   "kind": "figure",
+   "status": "wrong",
+   "note": "trap 55.7",
+   "answer": "Oracle spent $55.7 billion on capital expenditures in fiscal 2026. (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)"
+  },
+  {
+   "id": "A15",
+   "kind": "figure",
+   "status": "wrong",
+   "note": "expected figure absent",
+   "answer": "Microsoft spent $16,719 million in fiscal 2026 repurchasing its common stock (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Stockholders' Equity)."
+  },
+  {
+   "id": "A16",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Nasdaq spent $616 million in total purchase price for repurchasing its common stock in 2025 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Nasdaq Stockholders’ Equity)."
+  },
+  {
+   "id": "A17",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Netflix's long-term debt at December 31, 2025 was $13,463,971 thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Debt)."
+  },
+  {
+   "id": "A18",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Netflix's cost of revenues in 2025 was $23,275,329 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements and PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)"
+  },
+  {
+   "id": "A19",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Netflix's total current liabilities at December 31, 2025 were $10,980,930 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Consolidated Balance Sheets)"
+  },
+  {
+   "id": "A20",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Netflix's sales and marketing expenses in 2025 were $3,301,306 thousand. (Source: NFLX-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)"
+  },
+  {
+   "id": "A21",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Oracle's combined net income for fiscal 2025 and fiscal 2026 was $12,443 million for 2025 and $17,087 million for 2026, for a total of $29,530 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)"
+  },
+  {
+   "id": "A22",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Nasdaq's operating income increased from $1,798 million in 2024 to $2,331 million in 2025, an increase of $533 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements)"
+  },
+  {
+   "id": "A23",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's total current assets as of June 30, 2026, were $207,710 million, and its total current liabilities as of June 30, 2026, were $168,825 million. Therefore, Microsoft's current ratio as of June 30, 2026, was $207,710 million / $168,825 million, which equals 1.23. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)"
+  },
+  {
+   "id": "A24",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "The total net income for 2023, 2024, and 2025 is $10,981,201 + $8,711,631 + $5,407,990 = $25,100,822 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements > CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME)"
+  },
+  {
+   "id": "A25",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "The total amount paid of $601 million was recorded in retained earnings in the Consolidated Balance Sheets at December 31, 2025, as dividends paid (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Nasdaq Stockholders’ Equity). The total purchase price (in millions) — Year Ended December 31, 2025, was $616 million, as share repurchases (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Nasdaq Stockholders’ Equity). Therefore, Nasdaq returned a total of $601 million + $616 million = $1,217 million to shareholders in 2025 through dividends paid and share repurchases combined."
+  },
+  {
+   "id": "A26",
+   "kind": "figure",
+   "status": "reliable",
+   "note": "",
+   "answer": "Microsoft's net income increased by $31,917 million from fiscal 2025 to fiscal 2026. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)"
+  },
+  {
+   "id": "A27",
+   "kind": "figure",
+   "status": "wrong",
+   "note": "trap 17,087, 67,357",
+   "answer": "Oracle's net income as a percentage of its total revenues in fiscal 2026 was 25.8%. \n\n$17,087 million (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules) divided by $67,357 million (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules).\n\n>"
+  }
+ ]
+}
