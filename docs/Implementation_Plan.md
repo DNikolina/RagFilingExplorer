@@ -54,6 +54,10 @@ revisiting any decision summarized here.
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
 report that clearly. The only further work is v2, the XBRL hybrid the user asked for (2026-09-25), built on
 a branch in measured phases - nothing else is assumed or owed. Decision-Log.md, "XBRL hybrid (v2)".
+**v2** is complete too (tag `v2.0`, 2026-10-02). **v3 (user, 2026-10-02)** moves the evaluation into .NET with
+`Microsoft.Extensions.AI.Evaluation` - the strict grader and the retrieval rank as custom evaluators, reporting and
+response caching - on a branch `v3`, each step reproducing the Python tools exactly before the next. The app and its
+defaults don't change. Plan and bars: Decision-Log.md, "evaluation in .NET (v3)".
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the
@@ -133,7 +137,7 @@ the two 85 and 85; a second family (bge-reranker-v2-m3) screened on the 8 contes
 2026-10-02, `eval/answer-side-screens/`):** a cash-flow prompt rule fixed 0 of 2 targets (A10, A15); a calculator tool
 (step 3) fixed A27 but lost A24 and A26 - llama copies figures into the call wrongly. The remaining misses are recorded as
 llama3.1:8b misreadings. **Closing v2 (2026-10-02):** shipped defaults now `Structured` + `Hybrid`, reranking off -
-the configuration of v2's final baselines (`structured-5a/`, `answer-side-norerank/`); code comments reviewed against the code; CompanyRegistryTests check every filing in `data/`; README and this plan's pipeline section rewritten for v2. **Next:** merge `v2` -> `main`, tag `v2.0`. **Second-model run done (2026-10-01,
+the configuration of v2's final baselines (`structured-5a/`, `answer-side-norerank/`); code comments reviewed against the code; CompanyRegistryTests check every filing in `data/`; README and this plan's pipeline section rewritten for v2. **v2 complete: merged to `main`, tag `v2.0` (2026-10-02).** **Second-model run done (2026-10-01,
 `eval/granite41-*`):** granite4.1:8b targeted 9/10 vs llama's 7/10 (reads lookalike lines better) but main 21/24, held-out
 12/15 and 16/20, breaks the decline form and invented one figure (H25); granite4.1:3b lower everywhere but routing.
 **`llama3.1:8b` kept (user).** `Console.OutputEncoding` fixed (2026-10-01): the app reads and writes UTF-8, so

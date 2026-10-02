@@ -38,8 +38,9 @@ One line per section, in file order. Quote a section's name to reference it - na
 - **Follow-up: embedding-model comparison** - deferred; candidate models and their templates recorded.
 - **Follow-up: targeted questions and a rank metric** - done. Linearized puts the answer in context 7/10 vs 4/10 but answers only one more right; `Markdown` stays default; scope stops here.
 - **Follow-up: pre-manual-pass review** - done. Lost first chunk (key 0), back-matter headings, output ceiling; soft filter measured, not built; Program.cs split.
-- **Follow-up: XBRL hybrid (v2)** - planned, after the v1 push: a new ingestion built on the 10-K's regulated layers (form structure, inline XBRL facts with unit/scale/period, standard text-block labels), one table per chunk, hybrid search (SQLite FTS5 + vectors; PostgreSQL declined), a reranking spike, a calculator tool, answer verification + tracing, a facts table only if needed, then per-answer-kind instruction sections ("answer skills"). Reviewed 2026-09-28: evaluation first (held-out set, auto grader), ingestion split into measured parts. First (phased) plan superseded, kept.
+- **Follow-up: XBRL hybrid (v2)** - done, tag `v2.0` (2026-10-02). `Structured` chunking from the HTML and inline XBRL (no markitdown), hybrid search (vector + FTS5, RRF); reranking built and left opt-in; answer-side rule and calculator screened, not built.
 - **Follow-up: manual pass (v1)** - done. Main set 23/24 correct, 16/24 reliable (units); targeted 3/10; routing and negatives all declined. Prompt change re-run: 22/24 reliable on both strategies; two further prompt revisions tried and not kept; `Markdown` stays default.
+- **Follow-up: evaluation in .NET (v3)** - planned: the strict grader and retrieval rank as `Microsoft.Extensions.AI.Evaluation` custom evaluators, with reporting and response caching; each step must reproduce the Python tools exactly.
 
 ---
 
@@ -1535,7 +1536,7 @@ The same connector page lists "IsIndexed supported? No", while `FilingChunkRecor
 properties `IsIndexed = true` with a comment calling that required for filtering - unverified which is
 stale; harmless either way, since the filters demonstrably work.
 
-## Follow-up: XBRL hybrid (v2) — PLANNED, after the v1 push
+## Follow-up: XBRL hybrid (v2) — DONE (tag `v2.0`), outcome below
 
 **Rewritten 2026-09-25, after the manual pass** (the first, phased plan is kept at the end of this section).
 The pass showed that most failures trace to how the filings are turned into chunks - lost column structure,
@@ -2805,3 +2806,62 @@ prompt 3,103 tokens, + 768 output = 3,871 of 4,096 - no truncation; `AppSettings
 didn't regress anywhere, T4 included. It ties on the main set, answers one more targeted question and runs ~16%
 faster, but regressed on T4 (declined - operating and finance lease rows mixed in one chunk) and Q2 (the
 lookalike equity line), both of which Markdown answers. Both strategies stay switchable.
+
+## Follow-up: evaluation in .NET (v3) — PLANNED
+
+**Why (user, 2026-10-02, after `v2.0`).** The evaluation is what made every v1 and v2 decision measurable, and it is
+still a set of Python scripts (`tools/grade_answers.py`, `tools/replay_recall.py`) run by hand over console logs, with
+the results kept as folders in `eval/`. v3 moves it into the .NET stack with Microsoft's evaluation libraries, built on
+the same `Microsoft.Extensions.AI` abstractions the app uses. The app and its defaults don't change; the measured
+results must come out the same.
+
+**What the libraries offer, checked 2026-10-02** (Microsoft Learn, "The Microsoft.Extensions.AI.Evaluation libraries",
+and NuGet):
+- **Versions:** `Microsoft.Extensions.AI.Evaluation`, `.Reporting`, `.Quality` and the `.Console` tool are all **10.10.0
+  stable** - the same release as the app's `Microsoft.Extensions.AI` 10.10.0. (Learn's API pages still showed 10.9.0.)
+- **Custom evaluators** (`IEvaluator`): any scoring logic, deterministic or not, returning metrics with an
+  interpretation (pass/fail). **The fit for this project:** the strict grader and the retrieval rank are exactly that.
+- **Reporting** (`DiskBasedReportingConfiguration`): each question a scenario, each configuration an execution, results
+  stored on disk, and an HTML report from the `aieval` dotnet tool comparing executions - what `eval/` does by hand.
+- **Response caching:** re-running an evaluation reuses the model's responses while the request (prompt, model) is
+  unchanged - a grader change no longer needs a two-hour model run. Caveat from the API docs: cache keys "are not
+  guaranteed to be stable across releases of the library", so a package upgrade can silently force fresh responses.
+- **Quality evaluators** (Groundedness, Relevance, Completeness, Equivalence, Retrieval, ...): an LLM judge scoring 1-5.
+  The docs warn their prompts were tuned against GPT-4o and that results "can be especially poor when a smaller / local
+  model is used". Here the judge would be `llama3.1:8b` - the model that wrote the answers - and five evaluators over
+  102 questions is roughly 8 hours of CPU. A 1-5 relevance score also doesn't fit questions with one right figure.
+- **NLP evaluators** (BLEU, GLEU, F1): word overlap - "$26,445 million" and "$27,034 million" score almost the same.
+  Not useful for figure answers.
+- **Safety evaluators:** need the Azure AI Foundry Evaluation service - not zero-cost; excluded.
+
+**Decisions (user, 2026-10-02):**
+- v3 is this, on a branch `v3`, each step measured before the next, as v2 was. Local and zero-cost stays.
+- The Python tools stay until the .NET evaluators reproduce them exactly; then they're retired, not before.
+
+**Steps:**
+1. **Project and packages.** Where the evaluation lives - a separate NUnit project whose tests are `[Explicit]` (they
+   need Ollama and hours), so a plain `dotnet test` stays offline and fast - is decided here. `Evaluation` and
+   `.Reporting` 10.10.0 added, `dotnet list package --vulnerable --include-transitive` run after.
+2. **`StrictFigureEvaluator`**, `grade_answers.py` ported: expected figure, unit, exact line, traps, `exact`, clean
+   declines, `check` for a reader. **Bar: the same grade on all 1,029 graded answers in `eval/`'s 34 graded runs**
+   (v1, every v2 step, both granite models; logs from before and after the console encoding fix) - offline, from the
+   logged answers, against the grader's own status (not a reader's later resolution). Any difference is a bug in the
+   port, found before anything else is built on it - the tokenizer's lesson (73,125 pairs, step 2b).
+3. **`RetrievalRankEvaluator`:** the rank of the expected figure among the chunks the app actually retrieved, read from
+   `RagAnswer.RetrievedChunks` in-process - no log replay, so `replay_recall.py`'s mirrored constants (a live
+   constraint) are no longer needed for it. **Bar: the same rank as `replay_recall.py` on all 102 questions** under the
+   default settings (query embeddings only; no chat model).
+4. **The runner and the report.** One execution per configuration (e.g. `structured-hybrid`), one scenario per question
+   (named by set, e.g. `A.A10`, which the report groups), the app's chat client taken from the reporting configuration
+   so responses are cached, an HTML report from `aieval`. **Bar: a full run on the defaults reproduces
+   `eval/structured-5a/` and `eval/answer-side-norerank/` grade for grade** (temperature 0; the unexplained wording
+   drift of T8/T10 noted in "Answer side: what the model was given" is wording only and grades the same).
+5. **Optional - a grounding evaluator:** every figure an answer states appears in its context (step 3b's check,
+   measured offline in v2, never built).
+6. **Optional - a local-judge spike:** do the Quality evaluators, judged by `llama3.1:8b`, agree with the strict grader?
+   Measured on answers already graded (contexts rebuilt by the same retrieval), not assumed from the docs either way.
+   Agreement, CPU time per answer, and where they disagree.
+
+**Risks noted:** cache-key instability across library versions (above); the evaluation must call the app exactly as the
+console does (`RagAnswerService`, same settings), or it measures something else; reporting stores responses and results
+on disk - where, and whether any of it is committed, is decided in step 4.
