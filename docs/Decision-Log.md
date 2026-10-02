@@ -2873,3 +2873,25 @@ package - its only change is an `InternalsVisibleTo` grant. Packages `Microsoft.
 `Microsoft.Extensions.AI(.Abstractions)` 10.10.0, which the app already uses. `dotnet list package --vulnerable
 --include-transitive`: none, for the app and the new project. Two setup tests (the app's internals visible; a disk-based
 reporting configuration built offline, no model). `dotnet test` runs both projects offline - 372 + 2, ~10 s.
+
+**Step 2 done (2026-10-02): the strict grader in .NET - 1,029 of 1,029.** `Grading/StrictGrader` ports
+`grade_answers.py`'s `grade()` rule for rule; `Evaluators/StrictFigureEvaluator` wraps it as an `IEvaluator` (one string
+metric, "Strict grade": the status as value, the note as reason; reliable and decline-ok Good, check Inconclusive,
+the rest failed), the expected answer passed as an `EvaluationContext`. `ExpectedAnswer` loads
+`tools/expected-answers.json`.
+- **The oracle, checked first.** The stored grades in `eval/` were written over two weeks while the grader changed; regraded
+  with today's `grade_answers.py`, 1,018 of 1,029 matched as stored and 11 didn't - each a reader's resolution written
+  over the status, the grader's own verdict kept in a `graded` field (H2's "19.4%", H10, T9, Q15 ...). Reading `graded`
+  where present: **1,029 of 1,029**. So the committed files are the oracle - no new fixture.
+- **`GraderParityTests`:** every grading in `eval/` (any JSON whose results carry id, status, note and answer - 34 runs),
+  one test case per run, status *and* note compared, offline, in every `dotnet test`. **All 34 pass: identical on 1,029
+  answers.** Checked that it can fail: changing one note's wording ("trap" -> "trap:") failed 29 of the 34 runs, each
+  naming the answer and both grades.
+- **One place the languages differ, handled:** Python's `round(x, n)` rounds the double's exact binary value half to
+  even (55.85 is stored as 55.8500000000000014 -> 55.9); `Math.Round` scales by a power of ten first and can disagree at
+  such points. `PythonRound` does the exact-value rounding with `BigInteger`; six cases pinned against Python's own
+  output. The regexes needed no translation (Unicode `\d`/`\w`/`\b` and `$` behave alike); `re.match` became `\G`.
+- **Not ported:** `answers_from_log` (splitting a console log) - step 4 takes answers from the app in-process.
+- **Noted for step 4:** the reporting library's cached responses expire after 14 days by default (Microsoft's
+  tutorial), so a long-lived baseline needs `timeToLiveForCacheEntries` set or a fresh run.
+46 evaluation tests (2 setup, 34 parity, 6 rounding, 3 evaluator, 1 coverage) + 372 unit tests.
