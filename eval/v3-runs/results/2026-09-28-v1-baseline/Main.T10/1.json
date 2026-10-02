@@ -1,0 +1,48 @@
+{
+  "scenarioName": "Main.T10",
+  "iterationName": "1",
+  "executionName": "2026-09-28-v1-baseline",
+  "creationTime": "2026-09-28T18:00:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "In Netflix\u0027s statement of comprehensive income, how much in cash flow hedge gains was reclassified in 2024?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "$96,795 thousand for the year ended December 31, 2024 (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "baseline-v1"
+  ],
+  "formatVersion": 1
+}

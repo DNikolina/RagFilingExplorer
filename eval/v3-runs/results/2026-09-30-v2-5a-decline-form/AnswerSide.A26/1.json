@@ -1,0 +1,48 @@
+{
+  "scenarioName": "AnswerSide.A26",
+  "iterationName": "1",
+  "executionName": "2026-09-30-v2-5a-decline-form",
+  "creationTime": "2026-09-30T21:52:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "By how much did Microsoft\u0027s net income increase from fiscal 2025 to fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s net income increased by $31,917 million from fiscal 2025 to fiscal 2026. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "answer-side-norerank"
+  ],
+  "formatVersion": 1
+}

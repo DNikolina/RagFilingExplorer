@@ -1,0 +1,49 @@
+{
+  "scenarioName": "Main.T8",
+  "iterationName": "1",
+  "executionName": "2026-09-28-v1-baseline",
+  "creationTime": "2026-09-28T18:00:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What average price per share did Nasdaq pay for shares it repurchased in November 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The average price per share paid by Nasdaq for shares it repurchased in November 2025 is not stated in the provided excerpts."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "declined",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "declined"
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "baseline-v1"
+  ],
+  "formatVersion": 1
+}

@@ -1,0 +1,48 @@
+{
+  "scenarioName": "Main.Q9",
+  "iterationName": "1",
+  "executionName": "2026-09-29-v2-1b-iii-b-note-topics",
+  "creationTime": "2026-09-29T15:52:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Oracle\u0027s comprehensive income?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s comprehensive income for the year ended May 31, 2026, was $16,882 million. (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1b-iii-b"
+  ],
+  "formatVersion": 1
+}

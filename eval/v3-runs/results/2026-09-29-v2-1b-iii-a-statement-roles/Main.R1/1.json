@@ -1,0 +1,49 @@
+{
+  "scenarioName": "Main.R1",
+  "iterationName": "1",
+  "executionName": "2026-09-29-v2-1b-iii-a-statement-roles",
+  "creationTime": "2026-09-29T14:19:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Oracle\u0027s current deferred revenues as of May 31, 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The deferred revenues are not stated in the provided excerpts."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "decline-ok",
+        "name": "Strict grade",
+        "reason": "routing test",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1b-iii-a"
+  ],
+  "formatVersion": 1
+}

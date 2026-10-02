@@ -1,0 +1,50 @@
+{
+  "scenarioName": "HeldOut.H13",
+  "iterationName": "1",
+  "executionName": "2026-09-29-v2-1b-iii-b-note-topics",
+  "creationTime": "2026-09-29T15:52:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Netflix\u0027s cash and cash equivalents at December 31, 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "$9,067,872 thousand for the year ended December 31, 2025 (Source: NFLX-10K-2025.html, PART II \u003E Item 7. Management\u0027s Discussion and Analysis of Financial Condition and Results of Operations)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "expected figure absent",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "expected figure absent"
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1b-iii-b"
+  ],
+  "formatVersion": 1
+}

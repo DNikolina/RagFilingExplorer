@@ -1,0 +1,48 @@
+{
+  "scenarioName": "Main.Q22",
+  "iterationName": "1",
+  "executionName": "2026-09-29-v2-1b-iii-a-statement-roles",
+  "creationTime": "2026-09-29T14:19:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Where is Netflix headquartered?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s principal executive offices are located at 121 Albright Way, Los Gatos, California 95032. (Source: NFLX-10K-2025.html, section Cover Page)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1b-iii-a"
+  ],
+  "formatVersion": 1
+}

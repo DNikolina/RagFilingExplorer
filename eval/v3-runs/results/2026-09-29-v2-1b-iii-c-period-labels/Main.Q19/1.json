@@ -1,0 +1,48 @@
+{
+  "scenarioName": "Main.Q19",
+  "iterationName": "1",
+  "executionName": "2026-09-29-v2-1b-iii-c-period-labels",
+  "creationTime": "2026-09-29T17:02:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Netflix\u0027s total assets?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s total assets as of December 31, 2025, were $55,596,993 thousand (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1b-iii-c"
+  ],
+  "formatVersion": 1
+}

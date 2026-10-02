@@ -1,0 +1,48 @@
+{
+  "scenarioName": "Main.Q1",
+  "iterationName": "1",
+  "executionName": "2026-09-29-v2-1c-a-fiscal-year-names",
+  "creationTime": "2026-09-29T18:14:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Microsoft\u0027s total assets?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s total assets were $758,376 million as of June 30, 2026 (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1c-a"
+  ],
+  "formatVersion": 1
+}

@@ -1,0 +1,48 @@
+{
+  "scenarioName": "Main.Q22",
+  "iterationName": "1",
+  "executionName": "2026-09-29-v2-1d-company-line",
+  "creationTime": "2026-09-30T00:02:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Where is Netflix headquartered?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s corporate headquarters is located in Los Gatos, California (Source: NFLX-10K-2025.html, PART I \u003E Item 2. Properties and PART I \u003E Item 1. Business \u003E ABOUT US)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1d"
+  ],
+  "formatVersion": 1
+}

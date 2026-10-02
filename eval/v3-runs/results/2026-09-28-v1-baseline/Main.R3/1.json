@@ -1,0 +1,49 @@
+{
+  "scenarioName": "Main.R3",
+  "iterationName": "1",
+  "executionName": "2026-09-28-v1-baseline",
+  "creationTime": "2026-09-28T18:00:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Microsoft\u0027s Intelligent Cloud segment revenue?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The Intelligent Cloud segment revenue is not explicitly stated in the provided excerpts."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "decline-ok",
+        "name": "Strict grade",
+        "reason": "routing test",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "baseline-v1"
+  ],
+  "formatVersion": 1
+}

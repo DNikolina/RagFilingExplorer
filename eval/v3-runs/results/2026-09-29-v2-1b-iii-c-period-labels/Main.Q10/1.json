@@ -1,0 +1,50 @@
+{
+  "scenarioName": "Main.Q10",
+  "iterationName": "1",
+  "executionName": "2026-09-29-v2-1b-iii-c-period-labels",
+  "creationTime": "2026-09-29T17:02:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Nasdaq\u0027s total comprehensive income for 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s total comprehensive income for 2025 was $2,114 million. (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "trap 2,114",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "trap 2,114"
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1b-iii-c"
+  ],
+  "formatVersion": 1
+}

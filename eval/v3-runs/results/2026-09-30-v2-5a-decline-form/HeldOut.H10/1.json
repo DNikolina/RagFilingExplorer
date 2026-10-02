@@ -1,0 +1,48 @@
+{
+  "scenarioName": "HeldOut.H10",
+  "iterationName": "1",
+  "executionName": "2026-09-30-v2-5a-decline-form",
+  "creationTime": "2026-09-30T21:52:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How many employees did Nasdaq have at the end of 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "As of December 31, 2025, Nasdaq had 9,525 full and part-time employees, including employees of non-wholly owned consolidated subsidiaries. (Source: NDAQ-10K-2025.html, section PART I \u003E Item 1. Business and PART IV \u003E Financial Statements \u003E Share-Based Compensation)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-5a"
+  ],
+  "formatVersion": 1
+}

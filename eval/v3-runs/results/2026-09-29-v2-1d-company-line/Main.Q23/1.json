@@ -1,0 +1,48 @@
+{
+  "scenarioName": "Main.Q23",
+  "iterationName": "1",
+  "executionName": "2026-09-29-v2-1d-company-line",
+  "creationTime": "2026-09-30T00:02:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Nasdaq\u0027s total stockholders\u0027 equity?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s total stockholders\u0027 equity was $12,227 million for the year ended December 31, 2025 (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1d"
+  ],
+  "formatVersion": 1
+}

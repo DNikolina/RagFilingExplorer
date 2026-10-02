@@ -1,0 +1,48 @@
+{
+  "scenarioName": "HeldOut.H15",
+  "iterationName": "1",
+  "executionName": "2026-09-30-v2-5a-decline-form",
+  "creationTime": "2026-09-30T21:52:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How many paid memberships did Netflix have at the end of 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The excerpts don\u0027t contain the number of paid memberships Netflix had at the end of 2025."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "decline-ok",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-5a"
+  ],
+  "formatVersion": 1
+}

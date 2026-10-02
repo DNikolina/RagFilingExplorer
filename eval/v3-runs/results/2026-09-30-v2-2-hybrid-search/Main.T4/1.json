@@ -1,0 +1,48 @@
+{
+  "scenarioName": "Main.T4",
+  "iterationName": "1",
+  "executionName": "2026-09-30-v2-2-hybrid-search",
+  "creationTime": "2026-09-30T14:53:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much are Oracle\u0027s operating lease payments due in fiscal 2028?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s operating lease payments due in fiscal 2028 are $3,603 million. (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Leases, Other Commitments and Certain Contingencies)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-2"
+  ],
+  "formatVersion": 1
+}

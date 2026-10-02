@@ -1,0 +1,50 @@
+{
+  "scenarioName": "HeldOut.H10",
+  "iterationName": "1",
+  "executionName": "2026-09-28-v2-1c-early",
+  "creationTime": "2026-09-28T19:44:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How many employees did Nasdaq have at the end of 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The total number of shares outstanding as of December 31, 2025, was 569,894,024 (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements, section 12. NASDAQ STOCKHOLDERS\u0027 EQUITY). However, the number of employees is not stated in the provided excerpts."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "check",
+        "name": "Strict grade",
+        "reason": "declines but states figures",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "A reader decides: declines but states figures"
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1c-early"
+  ],
+  "formatVersion": 1
+}

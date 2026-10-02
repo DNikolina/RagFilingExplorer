@@ -122,8 +122,16 @@ internal sealed class EvaluationRunner(DirectoryInfo repoRoot, string storageRoo
         return outcomes;
     }
 
-    /// <summary>report.html in the storage root, from this execution's stored results.</summary>
+    /// <summary>report-&lt;execution&gt;.html in the storage root, from this execution's stored results, and report.html from
+    /// every execution in the store - the history.</summary>
     public async Task WriteReportAsync(CancellationToken cancellationToken = default)
+    {
+        await WriteReportAsync(storageRoot, Path.Combine(storageRoot, $"report-{executionName}.html"), executionName, cancellationToken);
+        await WriteReportAsync(storageRoot, Path.Combine(storageRoot, "report.html"), executionName: null, cancellationToken);
+    }
+
+    /// <summary>An HTML report of the stored results - one execution's, or every execution's when <paramref name="executionName"/> is null.</summary>
+    public static async Task WriteReportAsync(string storageRoot, string reportPath, string? executionName, CancellationToken cancellationToken = default)
     {
         DiskBasedResultStore store = new(storageRoot);
         List<ScenarioRunResult> results = new();
@@ -132,6 +140,6 @@ internal sealed class EvaluationRunner(DirectoryInfo repoRoot, string storageRoo
             results.Add(result);
         }
 
-        await new HtmlReportWriter(Path.Combine(storageRoot, $"report-{executionName}.html")).WriteReportAsync(results, cancellationToken);
+        await new HtmlReportWriter(reportPath).WriteReportAsync(results, cancellationToken);
     }
 }

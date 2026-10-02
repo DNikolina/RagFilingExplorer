@@ -1,0 +1,48 @@
+{
+  "scenarioName": "HeldOut.H1",
+  "iterationName": "1",
+  "executionName": "2026-09-29-v2-1c-a-fiscal-year-names",
+  "creationTime": "2026-09-29T18:14:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Microsoft\u0027s research and development expenses in fiscal year 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s research and development expenses in fiscal year 2026 were $35,562 million. (Source: MSFT-10K-2026.html, PART II \u003E Item 7. MANAGEMENT\u0027S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1c-a"
+  ],
+  "formatVersion": 1
+}

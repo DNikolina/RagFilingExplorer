@@ -1,0 +1,50 @@
+{
+  "scenarioName": "AnswerSide.A27",
+  "iterationName": "1",
+  "executionName": "2026-09-30-v2-5a-decline-form",
+  "creationTime": "2026-09-30T21:52:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Oracle\u0027s net income as a percentage of its total revenues in fiscal 2026, to one decimal place?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s net income as a percentage of its total revenues in fiscal 2026 was 25.8%. \n\n$17,087 million (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules) divided by $67,357 million (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules).\n\n\u003E"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "trap 17,087, 67,357",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "trap 17,087, 67,357"
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "answer-side-norerank"
+  ],
+  "formatVersion": 1
+}

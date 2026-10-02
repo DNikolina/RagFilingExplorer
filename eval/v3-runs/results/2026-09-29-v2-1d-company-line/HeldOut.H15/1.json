@@ -1,0 +1,50 @@
+{
+  "scenarioName": "HeldOut.H15",
+  "iterationName": "1",
+  "executionName": "2026-09-29-v2-1d-company-line",
+  "creationTime": "2026-09-30T00:02:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How many paid memberships did Netflix have at the end of 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The unit is not stated.\n\n\u003E"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "malformed",
+        "name": "Strict grade",
+        "reason": "the units rule as the whole answer",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "the units rule as the whole answer"
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1d"
+  ],
+  "formatVersion": 1
+}

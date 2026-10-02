@@ -1,0 +1,48 @@
+{
+  "scenarioName": "Main.Q10",
+  "iterationName": "1",
+  "executionName": "2026-09-30-v2-5a-decline-form",
+  "creationTime": "2026-09-30T21:52:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Nasdaq\u0027s total comprehensive income for 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s total comprehensive income for 2025 was $2,113 million. (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements, Consolidated Statements of Comprehensive Income)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-5a"
+  ],
+  "formatVersion": 1
+}

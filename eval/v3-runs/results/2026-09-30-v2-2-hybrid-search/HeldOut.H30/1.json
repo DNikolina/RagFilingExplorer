@@ -1,0 +1,48 @@
+{
+  "scenarioName": "HeldOut.H30",
+  "iterationName": "1",
+  "executionName": "2026-09-30-v2-2-hybrid-search",
+  "creationTime": "2026-09-30T14:53:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Nasdaq\u0027s net income in 2022?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The unit is not stated for the year 2022."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "decline-ok",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-2-heldout35"
+  ],
+  "formatVersion": 1
+}

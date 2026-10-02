@@ -1,0 +1,48 @@
+{
+  "scenarioName": "HeldOut.H5",
+  "iterationName": "1",
+  "executionName": "2026-09-29-v2-1b-iii-b-note-topics",
+  "creationTime": "2026-09-29T15:52:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How many full-time employees did Oracle have?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "As of May 31, 2026, Oracle employed approximately 141,000 full-time employees (Source: ORCL-10K-2026.html, PART I \u003E Item 1. Business)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1b-iii-b"
+  ],
+  "formatVersion": 1
+}

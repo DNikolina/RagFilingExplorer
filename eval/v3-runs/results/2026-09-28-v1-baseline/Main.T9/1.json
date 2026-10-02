@@ -1,0 +1,50 @@
+{
+  "scenarioName": "Main.T9",
+  "iterationName": "1",
+  "executionName": "2026-09-28-v1-baseline",
+  "creationTime": "2026-09-28T18:00:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "According to Oracle\u0027s statement of stockholders\u0027 equity, how much in common stock dividends did Oracle declare in fiscal 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle declared $0 in common stock dividends in fiscal 2025, as there is no mention of common stock dividends in the excerpt for fiscal 2025. (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "check",
+        "name": "Strict grade",
+        "reason": "declines but states 0",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "A reader decides: declines but states 0"
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "baseline-v1"
+  ],
+  "formatVersion": 1
+}

@@ -1,0 +1,50 @@
+{
+  "scenarioName": "Main.V3",
+  "iterationName": "1",
+  "executionName": "2026-09-28-v1-baseline",
+  "creationTime": "2026-09-28T18:00:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Netflix\u0027s net cash provided by operating activities, sum up the numbers?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The net cash provided by operating activities for the years 2023, 2024, and 2025 are $7,274,301, $7,361,364, and $10,149,273, respectively. \n\n$7,274,301 \u002B $7,361,364 \u002B $10,149,273 = $24,785,938 (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements).\n\n\u003E"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "trap 24,785,938",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "trap 24,785,938"
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "baseline-v1"
+  ],
+  "formatVersion": 1
+}

@@ -1,0 +1,49 @@
+{
+  "scenarioName": "HeldOut.H14",
+  "iterationName": "1",
+  "executionName": "2026-09-29-v2-1b-iii-a-statement-roles",
+  "creationTime": "2026-09-29T14:19:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Netflix\u0027s total deferred revenue as of December 31, 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The total deferred revenue is not stated in the provided excerpts."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "declined",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "declined"
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1b-iii-a"
+  ],
+  "formatVersion": 1
+}

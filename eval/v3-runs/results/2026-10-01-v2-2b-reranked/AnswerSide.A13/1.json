@@ -1,0 +1,48 @@
+{
+  "scenarioName": "AnswerSide.A13",
+  "iterationName": "1",
+  "executionName": "2026-10-01-v2-2b-reranked",
+  "creationTime": "2026-10-01T23:43:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much did Microsoft spend on additions to property and equipment in fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft spent $115,948 million on additions to property and equipment in fiscal 2026 (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E CASH FLOWS STATEMENTS)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "answer-side-baseline"
+  ],
+  "formatVersion": 1
+}

@@ -1,0 +1,50 @@
+{
+  "scenarioName": "HeldOut.H10",
+  "iterationName": "1",
+  "executionName": "2026-09-29-v2-1d-company-line",
+  "creationTime": "2026-09-30T00:02:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How many employees did Nasdaq have at the end of 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The global female employee base in 2025 was approximately 36%, and the minority representation in the U.S. was approximately 33% (Source: NDAQ-10K-2025.html, PART I \u003E Item 1. Business). However, the total number of employees is not stated in the provided excerpts.\n\nHowever, the table \u0022Gender and Ethnicity Data as of December 31, 2025\u0022 has a column labeled \u0022Total\u0022 which is not disclosed due to the \u0022Not disclosed percentage\u0022 being greater than 1.0% of the total employee headcount."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "check",
+        "name": "Strict grade",
+        "reason": "declines but states figures",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "A reader decides: declines but states figures"
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1d"
+  ],
+  "formatVersion": 1
+}

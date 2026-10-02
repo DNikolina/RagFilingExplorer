@@ -1,0 +1,48 @@
+{
+  "scenarioName": "HeldOut.H3",
+  "iterationName": "1",
+  "executionName": "2026-09-29-v2-1c-a-fiscal-year-names",
+  "creationTime": "2026-09-29T18:14:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much stock-based compensation expense did Microsoft record in fiscal year 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft recorded $12,405 million in stock-based compensation expense for the year ended June 30, 2026. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Employee Stock and Savings Plans)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1c-a"
+  ],
+  "formatVersion": 1
+}

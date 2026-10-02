@@ -1,0 +1,48 @@
+{
+  "scenarioName": "Main.T7",
+  "iterationName": "1",
+  "executionName": "2026-09-29-v2-1c-a-fiscal-year-names",
+  "creationTime": "2026-09-29T18:14:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was the effect of the Ireland statutory tax rate difference on Microsoft\u0027s effective tax rate in fiscal year 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The effect of the Ireland statutory tax rate difference on Microsoft\u0027s effective tax rate in fiscal year 2026 was a decrease of $4,301 million, or 2.6% (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data \u003E Income Taxes)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1c-a"
+  ],
+  "formatVersion": 1
+}

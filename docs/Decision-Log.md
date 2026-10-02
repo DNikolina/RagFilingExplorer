@@ -2946,3 +2946,14 @@ if the report isn't liked). `EvaluationRunTests` [Explicit] runs it; `EVAL_EXECU
   before comparing models). Every difference comes from the model's answer: the evaluators are held exact by the parity
   tests (1,029 grades, 102 ranks). So `EvaluationRunTests` now reports a difference from the baselines as an NUnit
   warning, listed in the summary, not a failure.
+
+**The project's history in the report (2026-10-02, user's question: "how can we add the other runs?").** Only v3 runs
+were in the store, so the report showed one execution. `Running/HistoricRunImporter` brings the **main line** (user's
+choice over adding the five side experiments) into it: v1's baseline and each kept v2 step, each an execution dated when
+it ran, each answer a scenario named as the v3 run names it, re-graded by `StrictFigureEvaluator` - the import stops if
+a grade differs from the one the run was given; none did, on all 749 answers. Sets of one configuration run on different
+days are one execution (step 2: main + the 35-question held-out run; 5a: + `answer-side-norerank`; 2b: + `answer-side-baseline`).
+**Strict grade only, no rank:** the rank needs the chunks each run retrieved, and those indexes were rebuilt as v2 went
+on - a replay against today's index would give precise-looking wrong numbers. `HistoricRunImportTests` [Explicit]
+(offline; it writes into `eval/v3-runs/`) runs the import; `report.html` is written from every execution - by the
+import and by every evaluation run from now on - next to each run's own `report-<execution>.html`.

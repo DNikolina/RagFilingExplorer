@@ -1,0 +1,50 @@
+{
+  "scenarioName": "HeldOut.H34",
+  "iterationName": "1",
+  "executionName": "2026-10-01-v2-2b-reranked",
+  "creationTime": "2026-10-01T23:43:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much cash did Netflix spend repurchasing its common stock in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix spent $9.1 billion repurchasing its common stock in 2025, excluding the 1% excise tax on stock repurchases as a result of the Inflation Reduction Act of 2022 (Source: NFLX-10K-2025.html, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "expected figure absent",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "expected figure absent"
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-2b"
+  ],
+  "formatVersion": 1
+}

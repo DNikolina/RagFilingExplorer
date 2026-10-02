@@ -1,0 +1,48 @@
+{
+  "scenarioName": "Main.T10",
+  "iterationName": "1",
+  "executionName": "2026-09-29-v2-1b-iii-c-period-labels",
+  "creationTime": "2026-09-29T17:02:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "In Netflix\u0027s statement of comprehensive income, how much in cash flow hedge gains was reclassified in 2024?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The amount of cash flow hedge gains reclassified in 2024 is $96,795 thousand. (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements \u003E CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1b-iii-c"
+  ],
+  "formatVersion": 1
+}

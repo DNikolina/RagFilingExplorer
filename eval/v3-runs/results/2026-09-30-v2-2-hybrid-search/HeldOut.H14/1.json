@@ -1,0 +1,48 @@
+{
+  "scenarioName": "HeldOut.H14",
+  "iterationName": "1",
+  "executionName": "2026-09-30-v2-2-hybrid-search",
+  "creationTime": "2026-09-30T14:53:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Netflix\u0027s total deferred revenue as of December 31, 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "As of December 31, 2025, total deferred revenue was $1,776 million. (Source: NFLX-10K-2025.html, section PART IV \u003E Financial Statements \u003E Revenue Recognition)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-2-heldout35"
+  ],
+  "formatVersion": 1
+}

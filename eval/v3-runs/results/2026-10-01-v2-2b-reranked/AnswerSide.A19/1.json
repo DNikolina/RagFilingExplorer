@@ -1,0 +1,48 @@
+{
+  "scenarioName": "AnswerSide.A19",
+  "iterationName": "1",
+  "executionName": "2026-10-01-v2-2b-reranked",
+  "creationTime": "2026-10-01T23:43:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Netflix\u0027s total current liabilities at December 31, 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s total current liabilities at December 31, 2025, were $10,980,930 thousand (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "answer-side-baseline"
+  ],
+  "formatVersion": 1
+}

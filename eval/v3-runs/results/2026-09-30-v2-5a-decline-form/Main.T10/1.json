@@ -1,0 +1,48 @@
+{
+  "scenarioName": "Main.T10",
+  "iterationName": "1",
+  "executionName": "2026-09-30-v2-5a-decline-form",
+  "creationTime": "2026-09-30T21:52:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "In Netflix\u0027s statement of comprehensive income, how much in cash flow hedge gains was reclassified in 2024?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "$96,795 thousand was reclassified from AOCI into the Consolidated Statements of Operations in 2024, as stated in the excerpt from NFLX-10K-2025.html, section PART IV \u003E Financial Statements \u003E Stockholders\u0027 Equity (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements \u003E Stockholders\u0027 Equity)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-5a"
+  ],
+  "formatVersion": 1
+}

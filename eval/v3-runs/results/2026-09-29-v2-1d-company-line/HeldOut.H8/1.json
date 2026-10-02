@@ -1,0 +1,50 @@
+{
+  "scenarioName": "HeldOut.H8",
+  "iterationName": "1",
+  "executionName": "2026-09-29-v2-1d-company-line",
+  "creationTime": "2026-09-30T00:02:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Oracle\u0027s total revenue in fiscal 2023?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The unit is not stated."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "malformed",
+        "name": "Strict grade",
+        "reason": "the units rule as the whole answer",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "the units rule as the whole answer"
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1d"
+  ],
+  "formatVersion": 1
+}

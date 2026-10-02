@@ -1,0 +1,48 @@
+{
+  "scenarioName": "Main.T8",
+  "iterationName": "1",
+  "executionName": "2026-10-01-v2-2b-reranked",
+  "creationTime": "2026-10-01T23:43:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What average price per share did Nasdaq pay for shares it repurchased in November 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq paid an average price per share of $91.47 for shares it repurchased in November 2025. (Source: NDAQ-10K-2025.html, PART II \u003E Item 5. Market for Registrant\u2019s Common Equity, Related)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-2b"
+  ],
+  "formatVersion": 1
+}

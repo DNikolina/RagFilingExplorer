@@ -1,0 +1,49 @@
+{
+  "scenarioName": "HeldOut.H10",
+  "iterationName": "1",
+  "executionName": "2026-09-29-v2-1c-a-fiscal-year-names",
+  "creationTime": "2026-09-29T18:14:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How many employees did Nasdaq have at the end of 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The unit is not stated. (Source: NDAQ-10K-2025.html, PART I \u003E Item 1. Business)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "declined",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "declined"
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1c-a"
+  ],
+  "formatVersion": 1
+}

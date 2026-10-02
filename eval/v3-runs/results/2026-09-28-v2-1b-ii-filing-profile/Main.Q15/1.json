@@ -1,0 +1,48 @@
+{
+  "scenarioName": "Main.Q15",
+  "iterationName": "1",
+  "executionName": "2026-09-28-v2-1b-ii-filing-profile",
+  "creationTime": "2026-09-28T21:28:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Nasdaq\u0027s total revenue in fiscal year 2030?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The unit for the revenue figures is \u0022(in millions)\u0022. However, the question asks for the total revenue in fiscal year 2030, but the provided excerpts only contain data up to 2025. Therefore, the answer is not stated."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "decline-ok",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1b-ii"
+  ],
+  "formatVersion": 1
+}

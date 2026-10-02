@@ -128,4 +128,6 @@ one stored result per question, `report-<execution>.html` (open it in a browser)
 model's cached responses, is gitignored. `structured-hybrid-v3-baseline` (2026-10-02): the shipped defaults - main 33/40,
 held-out 31/35, answer-side 20/27, every grade the v2 baselines' but A16 (model variation - an unrequested $620M sum).
 Details in `docs/Decision-Log.md`, "evaluation in .NET (v3)", step 4.
+`report.html` is every execution in the store, the history included: v1's baseline and each kept v2 step, imported from
+the folders above (strict grade only - no rank, since their indexes were rebuilt; `HistoricRunImporter`).
 

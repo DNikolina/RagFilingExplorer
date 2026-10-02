@@ -1,0 +1,48 @@
+{
+  "scenarioName": "HeldOut.H15",
+  "iterationName": "1",
+  "executionName": "2026-09-30-v2-2-hybrid-search",
+  "creationTime": "2026-09-30T14:53:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How many paid memberships did Netflix have at the end of 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The number of paid memberships is not stated in the provided excerpts."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "decline-ok",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-2-heldout35"
+  ],
+  "formatVersion": 1
+}

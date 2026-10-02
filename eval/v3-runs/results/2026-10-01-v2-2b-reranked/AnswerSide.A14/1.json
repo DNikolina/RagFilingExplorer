@@ -1,0 +1,50 @@
+{
+  "scenarioName": "AnswerSide.A14",
+  "iterationName": "1",
+  "executionName": "2026-10-01-v2-2b-reranked",
+  "creationTime": "2026-10-01T23:43:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much did Oracle spend on capital expenditures in fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle spent $55.7 billion on capital expenditures in fiscal 2026. (Source: ORCL-10K-2026.html, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "trap 55.7",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "trap 55.7"
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "answer-side-baseline"
+  ],
+  "formatVersion": 1
+}

@@ -1,0 +1,50 @@
+{
+  "scenarioName": "HeldOut.H29",
+  "iterationName": "1",
+  "executionName": "2026-09-30-v2-2-hybrid-search",
+  "creationTime": "2026-09-30T14:53:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much revenue did Nasdaq\u0027s Index business generate in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s Index business generated $4,214 million in revenue for the year ended December 31, 2025 (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "expected figure absent",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "expected figure absent"
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-2-heldout35"
+  ],
+  "formatVersion": 1
+}

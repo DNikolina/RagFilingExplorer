@@ -1,0 +1,49 @@
+{
+  "scenarioName": "Main.R2",
+  "iterationName": "1",
+  "executionName": "2026-09-28-v2-1c-early",
+  "creationTime": "2026-09-28T19:44:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was the operating income of Nasdaq\u0027s Capital Access Platforms segment in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The operating income of Nasdaq\u0027s Capital Access Platforms segment in 2025 is not stated in the provided excerpts."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "decline-ok",
+        "name": "Strict grade",
+        "reason": "routing test",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1c-early"
+  ],
+  "formatVersion": 1
+}

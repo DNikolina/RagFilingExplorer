@@ -1,0 +1,50 @@
+{
+  "scenarioName": "Main.T6",
+  "iterationName": "1",
+  "executionName": "2026-09-30-v2-2-hybrid-search",
+  "creationTime": "2026-09-30T14:53:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was the goodwill balance of Nasdaq\u0027s Financial Technology segment at December 31, 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The goodwill recognized is attributable primarily to expected synergies and is assigned to our Financial Technology segment, and the excess purchase price over the net tangible and acquired intangible assets has been recorded as goodwill, which is $5,933 million (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements \u003E Acquisition and Divestitures)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "trap 5,933",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "trap 5,933"
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-2"
+  ],
+  "formatVersion": 1
+}

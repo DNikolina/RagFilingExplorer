@@ -1,0 +1,50 @@
+{
+  "scenarioName": "AnswerSide.A25",
+  "iterationName": "1",
+  "executionName": "2026-10-01-v2-2b-reranked",
+  "creationTime": "2026-10-01T23:43:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much did Nasdaq return to shareholders in 2025 through dividends paid and share repurchases combined?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The total amount paid of $601 million was recorded in retained earnings in the Consolidated Balance Sheets at December 31, 2025, as cash dividends, and the total purchase price of $616 million was recorded in the Consolidated Balance Sheets at December 31, 2025, as share repurchases. (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity and PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "trap 601, 616",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "trap 601, 616"
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "answer-side-baseline"
+  ],
+  "formatVersion": 1
+}

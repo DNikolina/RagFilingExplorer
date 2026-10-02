@@ -1,0 +1,50 @@
+{
+  "scenarioName": "Main.T4",
+  "iterationName": "1",
+  "executionName": "2026-09-29-v2-1b-iii-c-period-labels",
+  "creationTime": "2026-09-29T17:02:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much are Oracle\u0027s operating lease payments due in fiscal 2028?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The unit is not stated."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "malformed",
+        "name": "Strict grade",
+        "reason": "the units rule as the whole answer",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "the units rule as the whole answer"
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1b-iii-c"
+  ],
+  "formatVersion": 1
+}

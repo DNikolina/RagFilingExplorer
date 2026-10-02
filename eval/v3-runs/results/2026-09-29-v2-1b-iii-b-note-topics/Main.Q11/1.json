@@ -1,0 +1,48 @@
+{
+  "scenarioName": "Main.Q11",
+  "iterationName": "1",
+  "executionName": "2026-09-29-v2-1b-iii-b-note-topics",
+  "creationTime": "2026-09-29T15:52:00Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How many people did Microsoft employ, and where?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "As of June 30, 2026, Microsoft employed approximately 223,000 people on a full-time basis, with 121,000 in the U.S. and 102,000 internationally. (Source: MSFT-10K-2026.html, PART I \u003E Item 1. BUSINESS \u003E HUMAN CAPITAL RESOURCES)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        }
+      }
+    }
+  },
+  "tags": [
+    "imported",
+    "structured-1b-iii-b"
+  ],
+  "formatVersion": 1
+}
