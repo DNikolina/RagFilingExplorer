@@ -2865,3 +2865,11 @@ and NuGet):
 **Risks noted:** cache-key instability across library versions (above); the evaluation must call the app exactly as the
 console does (`RagAnswerService`, same settings), or it measures something else; reporting stores responses and results
 on disk - where, and whether any of it is committed, is decided in step 4.
+
+**Step 1 done (2026-10-02): the project.** `RagFilingExplorer.Local.Evaluation` (user's choice of three: a separate NUnit
+project, over the existing test project or a console runner), in the solution; the app references no evaluation
+package - its only change is an `InternalsVisibleTo` grant. Packages `Microsoft.Extensions.AI.Evaluation` and
+`.Reporting` 10.10.0, checked before adding: published by Microsoft, no OSV advisories, and their only dependencies are
+`Microsoft.Extensions.AI(.Abstractions)` 10.10.0, which the app already uses. `dotnet list package --vulnerable
+--include-transitive`: none, for the app and the new project. Two setup tests (the app's internals visible; a disk-based
+reporting configuration built offline, no model). `dotnet test` runs both projects offline - 372 + 2, ~10 s.
