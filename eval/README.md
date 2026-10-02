@@ -107,6 +107,13 @@ four sets - recall@5 86, 85, 85, 85 of 94. `bge_screen.py` / `bge-screen.txt`: b
 questions - 4/8 in the top 5 like hybrid, ~38 s of CPU per question; its packages and model were removed after the run
 (the script's header says how to restore them). Details in `docs/Decision-Log.md`, "A1-A27 with reranking off" onwards.
 
+**`answer-side-screens/`** - two answer-side changes screened before any full run (2026-10-02), on the app's top 5 and
+exact prompt sent straight to Ollama, the model unloaded before every call. `step5_prompts.py`: the prompts behind A8, A10,
+A14 and A15 and the lines in them that matter. `cash_rule_screen.py` / `cash-rule-screen.*`: one prompt sentence (use the
+cash flow statement's line for cash paid/spent questions) - targets A10 and A15 0/2, 10 controls kept. `calculator_screen.py`
+/ `calculator-screen.*`: a `calculate` tool through Ollama's tool support - A27 fixed, A24 and A26 lost (figures copied into
+the call wrongly). Neither built. Details in `docs/Decision-Log.md`, "Answer side: what the model was given" onwards.
+
 Logs before 2026-10-01 were written in the console's OEM code page (a non-breaking space as a lone 0xFF byte, `’` as
 `'`); the app writes UTF-8 since. The tools read both.
 

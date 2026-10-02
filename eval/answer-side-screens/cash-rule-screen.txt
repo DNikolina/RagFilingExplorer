@@ -1,0 +1,19 @@
+A10  logged wrong      current wrong      (same as log: True)  candidate wrong      73s/84s
+A15  logged wrong      current wrong      (same as log: True)  candidate wrong      100s/103s
+      candidate> Microsoft spent $16,719 million in cash repurchasing its common stock in fiscal 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Stockholders' Equity).
+Q4   logged reliable   current reliable   (same as log: True)  candidate reliable   87s/102s
+Q24  logged reliable   current reliable   (same as log: True)  candidate reliable   71s/83s
+      candidate> Microsoft's statement of stockholders' equity showed that common stock cash dividends for fiscal year 2026 were $27,034 million (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data).
+T2   logged reliable   current reliable   (same as log: True)  candidate reliable   91s/88s
+      candidate> $3,500 million (Source: MSFT-10K-2026.html, PART II > Item 5. MARKET FOR REGISTRANT’S COMMON EQUITY, RELATED STOCKHOLDER MATTERS, AND ISSUER PURCHASES OF EQUITY SECURITIES).
+T8   logged reliable   current reliable   (same as log: False)  candidate reliable   82s/92s
+      candidate> Nasdaq paid an average price per share of $91.47 for shares it repurchased in November 2025. (Source: NDAQ-10K-2025.html, PART II > Item 5. Market for Registrant’s Common Equity, Related)
+T10  logged reliable   current reliable   (same as log: False)  candidate reliable   92s/91s
+A9   logged reliable   current reliable   (same as log: True)  candidate reliable   61s/69s
+A12  logged decline-ok current decline-ok (same as log: True)  candidate decline-ok 83s/83s
+A13  logged reliable   current reliable   (same as log: True)  candidate reliable   100s/99s
+      candidate> Microsoft spent $115,948 million on additions to property and equipment in fiscal 2026. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > CASH FLOWS STATEMENTS)
+A16  logged reliable   current reliable   (same as log: True)  candidate reliable   101s/111s
+      candidate> Nasdaq spent $616 million in total purchase price for repurchasing its common stock in 2025, excluding $4 million of accrued excise tax that had not been paid as of December 31, 2025. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Nasdaq Stockho
+A25  logged reliable   current reliable   (same as log: True)  candidate reliable   103s/123s
+

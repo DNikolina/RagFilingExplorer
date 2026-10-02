@@ -1,0 +1,167 @@
+{
+ "tool": {
+  "type": "function",
+  "function": {
+   "name": "calculate",
+   "description": "Evaluates an arithmetic expression exactly and returns the result. Use it for any sum, difference, ratio or percentage instead of calculating yourself. Numbers, + - * / and brackets only.",
+   "parameters": {
+    "type": "object",
+    "required": [
+     "expression"
+    ],
+    "properties": {
+     "expression": {
+      "type": "string",
+      "description": "The expression, e.g. \"(17087 / 67357) * 100\""
+     }
+    }
+   }
+  }
+ },
+ "results": [
+  {
+   "id": "V3",
+   "question": "What was Netflix's net cash provided by operating activities, sum up the numbers?",
+   "logged_grade": "wrong",
+   "calls": [
+    {
+     "expression": "(10014.9273 + 7361.364 + 7274.301)",
+     "result": "24650.5923"
+    }
+   ],
+   "answer": "The net cash provided by operating activities for the year ended December 31, 2025, the year ended December 31, 2024, and the year ended December 31, 2023 was $10,149,273, $7,361,364, and $7,274,301, respectively.",
+   "grade": "wrong",
+   "prompt_tokens": [
+    3015,
+    2917
+   ],
+   "seconds": 163
+  },
+  {
+   "id": "A21",
+   "question": "What was Oracle's combined net income for fiscal 2025 and fiscal 2026?",
+   "logged_grade": "reliable",
+   "calls": [
+    {
+     "expression": "(17087 + 12443)",
+     "result": "29530"
+    }
+   ],
+   "answer": "Oracle's combined net income for fiscal 2025 and fiscal 2026 was $29,530 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)",
+   "grade": "reliable",
+   "prompt_tokens": [
+    2907,
+    2795
+   ],
+   "seconds": 166
+  },
+  {
+   "id": "A22",
+   "question": "By how much did Nasdaq's operating income increase from 2024 to 2025, in millions?",
+   "logged_grade": "reliable",
+   "calls": [
+    {
+     "expression": "(2,331 - 1,798) million",
+     "result": "error: invalid syntax (<unknown>, line 1)"
+    }
+   ],
+   "answer": "The operating income for 2025 was $2,331 million and for 2024 was $1,798 million. The increase in operating income from 2024 to 2025 was $533 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements)",
+   "grade": "reliable",
+   "prompt_tokens": [
+    2415,
+    2315
+   ],
+   "seconds": 158
+  },
+  {
+   "id": "A23",
+   "question": "What was Microsoft's current ratio (total current assets divided by total current liabilities) as of June 30, 2026, to two decimal places?",
+   "logged_grade": "reliable",
+   "calls": [
+    {
+     "expression": "(207,710 / 168,825) * 100",
+     "result": "123.032726"
+    }
+   ],
+   "answer": "The current ratio for Microsoft as of June 30, 2026, was 1.23. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)",
+   "grade": "reliable",
+   "prompt_tokens": [
+    2544,
+    2439
+   ],
+   "seconds": 159
+  },
+  {
+   "id": "A24",
+   "question": "What was Netflix's total net income for 2023, 2024 and 2025 added together?",
+   "logged_grade": "reliable",
+   "calls": [
+    {
+     "expression": "(100407990 + 8711631 + 10881201)",
+     "result": "120000822"
+    }
+   ],
+   "answer": "The total net income for 2023, 2024, and 2025 was $120,000,822 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements)",
+   "grade": "wrong",
+   "prompt_tokens": [
+    2397,
+    2293
+   ],
+   "seconds": 151
+  },
+  {
+   "id": "A25",
+   "question": "How much did Nasdaq return to shareholders in 2025 through dividends paid and share repurchases combined?",
+   "logged_grade": "reliable",
+   "calls": [
+    {
+     "expression": "(601 + 616) million",
+     "result": "error: invalid syntax (<unknown>, line 1)"
+    }
+   ],
+   "answer": "The total amount paid in dividends was $601 million and the total purchase price for share repurchases was $616 million. Therefore, Nasdaq returned a total of $1,217 million to shareholders in 2025 through dividends paid and share repurchases combined. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Nasdaq Stockholders\u2019 Equity and PART II > Item 5. Market for Registrant\u2019s Common Equity, Related)",
+   "grade": "reliable",
+   "prompt_tokens": [
+    3022,
+    2918
+   ],
+   "seconds": 199
+  },
+  {
+   "id": "A26",
+   "question": "By how much did Microsoft's net income increase from fiscal 2025 to fiscal 2026?",
+   "logged_grade": "reliable",
+   "calls": [
+    {
+     "expression": "(133,749 - 101,832)",
+     "result": "31917"
+    }
+   ],
+   "answer": "Microsoft's net income increased by $31.917 billion from fiscal 2025 to fiscal 2026. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)",
+   "grade": "wrong",
+   "prompt_tokens": [
+    2913,
+    2803
+   ],
+   "seconds": 188
+  },
+  {
+   "id": "A27",
+   "question": "What was Oracle's net income as a percentage of its total revenues in fiscal 2026, to one decimal place?",
+   "logged_grade": "wrong",
+   "calls": [
+    {
+     "expression": "(17087 / 67357) * 100",
+     "result": "25.367816"
+    }
+   ],
+   "answer": "Oracle's net income as a percentage of its total revenues in fiscal 2026 was 25.4%. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)",
+   "grade": "reliable",
+   "prompt_tokens": [
+    2847,
+    2740
+   ],
+   "seconds": 178
+  }
+ ]
+}

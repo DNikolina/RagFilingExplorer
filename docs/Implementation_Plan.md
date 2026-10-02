@@ -129,9 +129,10 @@ misreadings (arithmetic, MD&A rounding); **4 are the reranker's** (answer in hyb
 22/26 -> 18/26 on this set). **Reranking decided (user, 2026-10-02): off** - A1-A27 without it
 21/27 (`eval/answer-side-norerank/`); replay recall@5 over all 94 answerable questions hybrid 86, reranked 85, RRF blends of
 the two 85 and 85; a second family (bge-reranker-v2-m3) screened on the 8 contested questions, 4/8 like hybrid at ~38 s/question
-(`eval/rerank-decision/`). The code stays as the opt-in `Retrieval:Rerank`. **Next:** the answer side (paid vs declared,
-MD&A rounding, arithmetic - 4 of A1-A27's 6 misses have the answer in the top 5); then close v2 (shipped defaults
-Structured + Hybrid, README, merge, tag `v2.0`). The shipped default stays `Vector` (with `Markdown`) until then; the eval
+(`eval/rerank-decision/`). The code stays as the opt-in `Retrieval:Rerank`. **Answer side screened, nothing built (user,
+2026-10-02, `eval/answer-side-screens/`):** a cash-flow prompt rule fixed 0 of 2 targets (A10, A15); a calculator tool
+(step 3) fixed A27 but lost A24 and A26 - llama copies figures into the call wrongly. The remaining misses are recorded as
+llama3.1:8b misreadings. **Next: close v2** (shipped defaults Structured + Hybrid, README, merge, tag `v2.0`). The shipped default stays `Vector` (with `Markdown`) until then; the eval
 build sets `Hybrid`, reranking off. **Second-model run done (2026-10-01,
 `eval/granite41-*`):** granite4.1:8b targeted 9/10 vs llama's 7/10 (reads lookalike lines better) but main 21/24, held-out
 12/15 and 16/20, breaks the decline form and invented one figure (H25); granite4.1:3b lower everywhere but routing.

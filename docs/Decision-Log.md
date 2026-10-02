@@ -2519,6 +2519,52 @@ rerankers prefer prose to statement rows, which most figure questions here are a
 per question, a separately fetched model and the reimplemented tokenizer. Baselines from here: `structured-5a/` (64/75)
 and `answer-side-norerank/` (21/27). Next: the answer side - A10/A15 paid vs declared, A14 MD&A rounding, A27 arithmetic.
 
+**Answer side: what the model was given (2026-10-02, `eval/answer-side-screens/step5_prompts.py`).** The app's exact
+prompts for the four misreadings of the rerank-off run, rebuilt (top 5 matching the log's scores). In each, the right
+figure is in the context next to a plausible wrong one, and each excerpt opens with its statement's title, so a rule
+could name the statements:
+- **A10** (paid $26,445M): the equity statement's `Common stock cash dividends (27,034)` - declared - is excerpt 1; the
+  cash flow statement's `Common stock cash dividends paid (26,445)` is excerpt 3. The model took excerpt 1 although only
+  the other label says "paid" - the existing "line whose label matches the question" rule, not followed.
+- **A15** (spent $22,271M): four candidates - the equity statement's two pieces (6,105 and 16,181), the repurchase-program
+  note's `Total ... $16,719` (taken), and the cash flow statement's `Common stock repurchased (22,271)`.
+- **A14** (55,663): MD&A prose "$55.7 billion" (excerpt 1, taken) over MD&A's own table row `(55,663)` (excerpt 4) - a
+  precision choice, wrong only because A14 is graded `exact`.
+- **A8** ($2.00): $2.00 is in three excerpts; the model took "In June 2026, the Board declared a quarterly cash dividend
+  of ... $0.50" - after fiscal 2026 ended (May 31). One case, right in the reranked run; no rule proposed.
+
+**Step 5 screen - a cash-flow rule (2026-10-02, `cash_rule_screen.py`, `cash-rule-screen.*`).** Before a ~2-hour full
+run (user's question: is it worth it?), one sentence screened on 12 questions: "When the question asks how much cash was
+paid, spent or received, use the cash flow statement's line if an excerpt contains it." - after the similar-names rule.
+The app's top 5 and prompt, sent to Ollama with and without it, the model unloaded before every call; targets A10 and
+A15, controls right today where the rule could misfire (Q4, Q24 - asks for the equity statement's figure - T2, T8, T10,
+A9, A12, A13, A16, A25); H16-H35 not used. Bar: both targets fixed, every control kept.
+- **0 of 2 fixed** - A10 still $27,034M; A15 still $16,719M, now "in cash" (the rule's word, not its line). Controls
+  10/10 kept (A13 now cites a section that doesn't exist, "Item 8 > CASH FLOWS STATEMENTS"). Full run not made.
+- Harness: 10 of 12 current-prompt answers word for word as logged; T8 and T10 (from `structured-5a/main.log`, run
+  2026-09-30) differ in wording only - a moved full stop, a dropped "as stated in the excerpt" - same figures and grades,
+  while Q4, Q24 and T2 from the same log match exactly. **Unexplained**; noted against the "temperature 0 is
+  word-for-word repeatable" fact this project has relied on.
+
+**Step 3 screen - the calculator (2026-10-02, `calculator_screen.py`, `calculator-screen.*`; user: worth it first?).**
+One `calculate(expression)` tool through Ollama's native tool support, evaluated as the planned C# tool would (numbers,
++ - * /, brackets, Decimal; no eval), on the app's unchanged prompt and top 5; targets A27 and V3, controls A21-A26 (right
+without a tool). Bar: both targets fixed, no control lost.
+| Q | without | with the tool | |
+|---|---|---|---|
+| A27 | wrong | **reliable** | `(17087 / 67357) * 100` = 25.367816 -> 25.4% |
+| V3 | wrong | wrong | passed 10,149,273 as `10014.9273`, then ignored the result and listed the years |
+| A24 | reliable | **wrong** | passed 5,407,990 as `100407990` and 10,981,201 as `10881201` - an exact sum of wrong numbers |
+| A26 | reliable | **wrong** | the tool's 31917, restated as "$31.917 billion" |
+| A21, A22, A23, A25 | reliable | reliable | A22 and A25 wrote "million" into the expression (refused) and calculated themselves |
+- llama called the tool on all 8 - it is not ignored - but **+1 -2**. The calculator moves the error from arithmetic to
+  copying figures into the call, and at 8B the copying is no more reliable. The unit refusals are fixable; the copying
+  isn't, short of code choosing the operands (the facts table, step 4). ~150-200 s per question against ~70-100; prompts
+  peaked at 3,022 tokens, inside the window with the output.
+*Decision (user, 2026-10-02): no step 5 rule and no calculator; close v2.* A10, A15, A14 and A8 are recorded as
+llama3.1:8b misreadings that neither a prompt rule nor a tool fixed - every remaining answer-side miss has its answer in
+the context, and neither lever moves the model.
+
 Steps 2b and 3b added 2026-09-28 (user), from a review of what a full RAG system has that this one doesn't.
 Considered and left out unless wanted for a demo - they add breadth but fix no measured failure: conversation
 memory (follow-up questions), query decomposition beyond per-company search, an API or UI. Automated onboarding

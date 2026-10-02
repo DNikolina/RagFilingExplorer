@@ -1,0 +1,25 @@
+V3   without tool wrong      with tool wrong      163s  prompt tokens [3015, 2917]
+      calculate((10014.9273 + 7361.364 + 7274.301)) = 24650.5923
+      answer> The net cash provided by operating activities for the year ended December 31, 2025, the year ended December 31, 2024, and the year ended December 31, 2023 was $10,149,273, $7,361,364, and $7,274,301, respectively.
+A21  without tool reliable   with tool reliable   166s  prompt tokens [2907, 2795]
+      calculate((17087 + 12443)) = 29530
+      answer> Oracle's combined net income for fiscal 2025 and fiscal 2026 was $29,530 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)
+A22  without tool reliable   with tool reliable   158s  prompt tokens [2415, 2315]
+      calculate((2,331 - 1,798) million) = error: invalid syntax (<unknown>, line 1)
+      answer> The operating income for 2025 was $2,331 million and for 2024 was $1,798 million. The increase in operating income from 2024 to 2025 was $533 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements)
+A23  without tool reliable   with tool reliable   159s  prompt tokens [2544, 2439]
+      calculate((207,710 / 168,825) * 100) = 123.032726
+      answer> The current ratio for Microsoft as of June 30, 2026, was 1.23. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
+A24  without tool reliable   with tool wrong      151s  prompt tokens [2397, 2293]
+      calculate((100407990 + 8711631 + 10881201)) = 120000822
+      answer> The total net income for 2023, 2024, and 2025 was $120,000,822 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements)
+A25  without tool reliable   with tool reliable   199s  prompt tokens [3022, 2918]
+      calculate((601 + 616) million) = error: invalid syntax (<unknown>, line 1)
+      answer> The total amount paid in dividends was $601 million and the total purchase price for share repurchases was $616 million. Therefore, Nasdaq returned a total of $1,217 million to shareholders in 2025 through dividends paid and share repurchases combined. (Source: NDAQ-10K-2025.html
+A26  without tool reliable   with tool wrong      188s  prompt tokens [2913, 2803]
+      calculate((133,749 - 101,832)) = 31917
+      answer> Microsoft's net income increased by $31.917 billion from fiscal 2025 to fiscal 2026. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
+A27  without tool wrong      with tool reliable   178s  prompt tokens [2847, 2740]
+      calculate((17087 / 67357) * 100) = 25.367816
+      answer> Oracle's net income as a percentage of its total revenues in fiscal 2026 was 25.4%. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)
+
