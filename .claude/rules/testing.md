@@ -15,7 +15,8 @@ extend (e.g. `RagAnswerServiceTests.MakeMocks`, `CreateService`).
 - **Stack:** NUnit 4 + Moq, in `RagFilingExplorer.Local.Tests`. `NUnit.Framework` is a global using (in the
   .csproj) - don't add it per file. Constraint model only: `Assert.That(x, Is/Has/Does...)`, plus
   `Assert.Throws` / `Assert.ThrowsAsync` for exceptions.
-- **Layout:** mirror the app's folders - `Chunking/`, `Retrieval/`, `VectorStore/`, root for root types.
+- **Layout:** mirror the app's folders - `Chunking/`, `Retrieval/`, `Structured/`, `VectorStore/`, `Xbrl/`, root
+  for root types.
   File `<Class>Tests.cs`, namespace `RagFilingExplorer.Local.Tests.<Folder>`, `[TestFixture] public class`.
   App types are `internal` and visible to tests via `InternalsVisibleTo` (`AssemblyInfo.cs`) - test them
   directly; never make a type public for a test.
@@ -26,11 +27,18 @@ extend (e.g. `RagAnswerServiceTests.MakeMocks`, `CreateService`).
 - **Fully offline:** no Ollama, no `rag.*.db`, no `markitdown`. Use the real tokenizer
   (`TiktokenTokenizer.CreateForModel("gpt-4")`, offline via `Data.Cl100kBase`) in `[OneTimeSetUp]`, and
   compute token budgets from it instead of hard-coding counts (see `TokenChunkerTests`).
+- **Real filings, read-only:** a test may read the filings in `data/` and the question files in `tools/` -
+  that's how the XBRL reader, structure labels and company registration are checked against what was
+  measured (`FilingXbrlTests`, `StatementLabelsTests`, `CompanyRegistryTests`). Find the repo with
+  `RepoPaths.FindRoot(...)`; in a `TestCaseSource` use `AppContext.BaseDirectory`, since `TestContext` isn't
+  available while NUnit discovers tests. Never write there.
 - **Mock only the external boundaries:** `VectorStoreCollection<int, FilingChunkRecord>` and `IChatClient`,
   via Moq (`RagAnswerServiceTests.MakeMocks`). Castle needs the `DynamicProxyGenAssembly2` grant, already
   in `AssemblyInfo.cs`. The reranker's model (`IRelevanceScorer`) is a boundary too, but stood in for by a
   hand-written fake (`RagAnswerServiceTests.ScoreFromText`): Castle proxies an internal interface into its
-  unsigned assembly, which the strong-name-scoped grant doesn't cover.
+  unsigned assembly, which the strong-name-scoped grant doesn't cover. SQLite isn't a boundary: the keyword
+  index runs against a real FTS5 file in a temp directory (`KeywordIndexTests`, the hybrid tests in
+  `RagAnswerServiceTests`).
 - **Files on disk:** a per-test temp dir, `Path.Combine(Path.GetTempPath(), $"<Fixture>-{Guid.NewGuid():N}")`,
   created in `[SetUp]` and deleted in `[TearDown]`.
 - **Settings tests read the shipped `appsettings.json`** (`AppSettingsTests.LoadShippedSettings()`), so they
