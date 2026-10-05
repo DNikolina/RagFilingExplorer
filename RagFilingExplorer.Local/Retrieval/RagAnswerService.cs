@@ -10,7 +10,8 @@ namespace RagFilingExplorer.Local.Retrieval;
 /// Result of a single retrieve+generate turn. Under hybrid search, <see cref="MatchedStatementType"/> boosted rather
 /// than filtered, <see cref="KeywordQuery"/> is what the keyword search matched (null: no content words), and each
 /// retrieved chunk's score is its fused score, not a distance. When reranked, <see cref="Reranked"/> holds each retrieved
-/// chunk's (by key) reranker score and its rank before reranking.
+/// chunk's (by key) reranker score and its rank before reranking. <see cref="Prompt"/> is the messages sent to the chat
+/// model, exactly - the evaluation shows them in its report (v3).
 /// </summary>
 internal sealed record RagAnswer(
     IReadOnlyList<string> MatchedFilings,
@@ -20,7 +21,8 @@ internal sealed record RagAnswer(
     IAsyncEnumerable<ChatResponseUpdate> AnswerStream,
     SearchMode Search = SearchMode.Vector,
     string? KeywordQuery = null,
-    IReadOnlyDictionary<int, RerankedChunk>? Reranked = null);
+    IReadOnlyDictionary<int, RerankedChunk>? Reranked = null,
+    IReadOnlyList<ChatMessage>? Prompt = null);
 
 /// <summary>A reranked chunk's cross-encoder score and its rank in its company's hybrid list before reranking.</summary>
 internal sealed record RerankedChunk(float Score, int HybridRank);
@@ -159,7 +161,7 @@ internal sealed class RagAnswerService(
         IAsyncEnumerable<ChatResponseUpdate> rawStream = chatClient.GetStreamingResponseAsync(chatMessages, chatOptions, cancellationToken);
         IAsyncEnumerable<ChatResponseUpdate> guardedStream = GuardAgainstStarvedResponse(rawStream, cancellationToken);
 
-        return new RagAnswer(targetFilings, targetStatementType, effectiveReasoningEffort, results, guardedStream, retrieval.Search, keywordQuery, reranked);
+        return new RagAnswer(targetFilings, targetStatementType, effectiveReasoningEffort, results, guardedStream, retrieval.Search, keywordQuery, reranked, chatMessages);
     }
 
     private async Task<List<VectorSearchResult<FilingChunkRecord>>> RetrieveAsync(

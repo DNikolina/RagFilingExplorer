@@ -3202,3 +3202,34 @@ strict grade counts the judge's passes in its summary and skips the v2 compariso
 name (it needs both); the variance comparison shows its grade as "-". Checked end to end on cached questions, no model
 call: the judge script ("graders both", "Equivalence passes 1/1"), a judge-only run (no strict grade, no baseline
 comparison), the variance comparison. 152 offline evaluation tests.
+
+**The prompt in the report's conversation view (user, 2026-10-05; listed for later with the tags, built now).** Each result
+stores the conversation the report renders: the app's system prompt exactly as sent - `RagAnswer.Prompt`, a new field
+carrying the messages the chat model received (an additive app change; behaviour unchanged, one app test checks the field
+equals what the chat client got) - then the five excerpts, each with the app's header and the filing's name linked to
+`../../data/<filing>.html` (the reports sit in `eval/v3-runs/`), the text in a code block so Markdown doesn't run table rows
+together, then the question. The app sends excerpts and question in one user message; they're split so the question is
+the last message, the only one Microsoft's evaluators read as the request (`TryGetUserRequest`: the last message if its
+role is User, dotnet/extensions `ChatMessageExtensions.cs`) - checked: the judge run refreshed with all 204 calls from the
+cache and the same agreement (87/101). Links go to the filing, not the figure: MSFT and ORCL tag figures with element ids,
+NDAQ and NFLX don't - figure-level links stay a later step. The baseline and judge runs refreshed from the cache (results
+unchanged; the baseline's `ollama:0.35.0` re-applied after the refresh tagged the running build); the variance passes keep
+no conversation - their fresh answers weren't cached. 373 unit tests, 156 offline evaluation tests.
+
+**Screen: tell the model what the excerpts' order means (user, 2026-10-05) - planned before running.** The prompt sends the
+five excerpts best-ranked first but says nothing of it. The variant: one sentence added to the system prompt ("The
+excerpts are ordered by retrieval relevance - the first is the closest match to the question, by how similar its text is
+to the question. Relevance is similarity, not proof that an excerpt holds the answer.") and each header gains "(relevance
+rank N of 5)"; retrieval, excerpts and question otherwise the app's. Targets: A10, A14, A15 (the right figure sits in a
+lower-ranked excerpt than the misread one) and T6 (declined, the answer in excerpt 1); controls, passing today: Q1, Q4,
+Q10, Q24 (asks for dividends declared - A10's reverse), A1, A2, A9, A13, H6, H16, R1, T7. Reference: the current prompt on
+Ollama 0.35.1 - each question also sent unchanged through the same path, which must reproduce the variance pass word for
+word. Expectation stated: no gain - relevance is topical similarity, the lookalike usually ranks higher, and most
+misreadings sit inside one excerpt. **Bar: a full run only if at least one target is fixed and no control lost.**
+**Outcome (`eval/relevance-hint-screen/results.txt`, 37 min): bar not met - 0/4 targets fixed, 0/12 controls lost; no full
+run.** A10, A14 and A15 answered word for word as before - the model reads the first plausible line, whatever it's told of
+the order; T6 moved from the 5,933 trap to a clean decline (still a fail); 6 controls changed wording only; the rank was
+never repeated in an answer. The unchanged prompt reproduced the variance pass on 15/16 - R1 differed by one comma ("May 31,
+2026, were"), same figure and grade: the first difference seen within one Ollama build, with questions sent in another order
+(prefix reuse is a candidate; not tested). Within a build, "repeats exactly" holds for grades and figures, not always to the
+comma.

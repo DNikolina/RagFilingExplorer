@@ -410,12 +410,12 @@ dotnet test
 ```
 
 Runs both test projects, fully offline - no live Ollama instance or populated vector store required.
-`RagFilingExplorer.Local.Tests` (NUnit + Moq, 372 tests) covers chunking, section splitting, statement-type detection,
+`RagFilingExplorer.Local.Tests` (NUnit + Moq, 373 tests) covers chunking, section splitting, statement-type detection,
 query-intent resolution, company registration, settings loading/validation, index-manifest staleness detection,
 the retrieve+generate orchestration (mocked; hybrid search against a real FTS5 file, reranking with a fake
 scorer), the reranker's tokenization, and v2's page reader, structure labels and inline XBRL reader - checked
 against the filings in `data/`, read-only, including fact for fact against EDGAR's own extraction.
-`RagFilingExplorer.Local.Evaluation` (152 offline tests) checks the evaluators themselves.
+`RagFilingExplorer.Local.Evaluation` (156 offline tests) checks the evaluators themselves.
 
 ### The evaluation
 
@@ -439,6 +439,9 @@ For an answer that doesn't pass, the report says what went wrong in words - "Sta
 statement), not paid (cash flow statement)) instead of the expected 26,445 million." - and where the expected figure was:
 on a line in one of the excerpts (a misreading), derived from figures the model had (a calculation), or in none of them
 (a retrieval miss). What each trap is comes from `trap_why` in `tools/expected-answers.json`.
+
+Each case's conversation shows what the model was given: the app's system prompt as sent, the five excerpts with their
+headers - the filing's name links to the filing in `data/` (with "Render markdown" on) - and the question.
 
 Each case is tagged, so the report filters by tag: its kind (`figure`, `fact`, `negative`, `routing`), `calculation`,
 `has traps`, the company and statement the app routed it to - where the app sent it, not where the answer is - and the

@@ -1,4 +1,4 @@
-Execution structured-hybrid-v3-baseline: 102 questions, 0 min
+Execution structured-hybrid-v3-baseline: 102 questions, 0 min, graders strict
 Main: reliable 33/40  decline-ok 3  declined 1  no-unit 1  reliable 30  wrong 5  | answer in the top 5: 36  | figures: no figure stated 6  traced 34
 HeldOut: reliable 31/35  decline-ok 4  declined 1  reliable 27  wrong 3  | answer in the top 5: 28  | figures: no figure stated 6  traced 29
 AnswerSide: reliable 20/27  check 1  decline-ok 1  reliable 19  wrong 6  | answer in the top 5: 22  | figures: calculated 7  no figure stated 1  traced 19

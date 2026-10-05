@@ -242,6 +242,24 @@ public class RagAnswerServiceTests
         Assert.That(userMessage, Does.Contain("What was Microsoft's total revenue for fiscal year 2026?"));
     }
 
+    [Test]
+    public async Task AskAsync_Answer_CarriesThePromptExactlyAsSent()
+    {
+        // The evaluation (v3) shows the prompt in its report - it must be the messages the chat model received.
+        VectorSearchResult<FilingChunkRecord>[] results =
+        [
+            MakeResult("MSFT-10K-2026.html", "PART II > Item 8. Financial Statements", "Total revenues $331,839 million"),
+        ];
+        List<ChatMessage>? capturedMessages = null;
+        (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) =
+            MakeMocks(searchResults: results, onChat: m => capturedMessages = m.ToList());
+
+        RagAnswer answer = await CreateService(collection, chatClient).AskAsync("What was Microsoft's total revenue for fiscal year 2026?", SearchTopK);
+
+        Assert.That(answer.Prompt, Is.EqualTo(capturedMessages));
+        Assert.That(answer.Prompt!.Select(m => m.Role), Is.EqualTo(new[] { ChatRole.System, ChatRole.User }));
+    }
+
     // Baseline case: with ReasoningEffort configured as None and a non-synthesis question, ChatOptions.Reasoning
     // must still be explicitly set to Effort.None (not left null) - Microsoft.Extensions.AI's ChatOptions.
     // Reasoning maps through OllamaSharp to Ollama's think field, and leaving it unset lets a reasoning

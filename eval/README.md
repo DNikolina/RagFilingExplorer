@@ -124,6 +124,10 @@ no longer does - same prompt, different wording, once a different figure - see `
 **`v3-retrieval-parity/`** - v3 step 3's oracle: `tools/replay_recall.py`'s output on the three v2 baseline logs
 (`structured-5a/` main and held-out, `answer-side-norerank/`), which `RetrievalParityTests` matches rank for rank.
 
+**`relevance-hint-screen/`** - a screen (2026-10-05): the prompt told what the excerpts' order means. 0/4 targets fixed,
+0/12 controls lost, no full run. `results.txt` has every answer, current and hinted. Decision-Log, "Screen: tell the model
+what the excerpts' order means".
+
 **`v3-runs/`** - v3's evaluation runs (`RagFilingExplorer.Local.Evaluation`, `EvaluationRunTests`): `results/<execution>/`
 one stored result per question, `report-<execution>.html` (open it in a browser), `summary-<execution>.txt`; `cache/`, the
 model's cached responses, is gitignored. `structured-hybrid-v3-baseline` (2026-10-02): the shipped defaults - main 33/40,

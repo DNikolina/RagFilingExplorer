@@ -1,0 +1,88 @@
+Relevance-hint screen, 2026-10-05 18:57, Ollama 0.35.1, llama3.1:8b
+Hint: The excerpts are ordered by retrieval relevance - the first is the closest match to the question, by how similar its text is to the question. Relevance is similarity, not proof that an excerpt holds the answer.
+
+A10 (target)
+  current: wrong (trap 27,034); figures: 27,034 from 1
+           Microsoft paid $27,034 million in common stock cash dividends in fiscal 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA).
+  hinted:  wrong (trap 27,034); figures: 27,034 from 1
+           Microsoft paid $27,034 million in common stock cash dividends in fiscal 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA).
+A14 (target)
+  current: wrong (trap 55.7); figures: 55.7 from 1,2
+           Oracle spent $55.7 billion on capital expenditures in fiscal 2026. (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  hinted:  wrong (trap 55.7); figures: 55.7 from 1,2
+           Oracle spent $55.7 billion on capital expenditures in fiscal 2026. (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+A15 (target)
+  current: wrong (expected figure absent); figures: 16,719 from 3
+           Microsoft spent $16,719 million in cash repurchasing its common stock in fiscal 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Stockholders' Equity).
+  hinted:  wrong (expected figure absent); figures: 16,719 from 3
+           Microsoft spent $16,719 million in cash repurchasing its common stock in fiscal 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Stockholders' Equity).
+T6 (target)
+  current: wrong (trap 5,933); figures: 5,933 from 2
+           The goodwill recognized is attributable primarily to expected synergies and is assigned to our Financial Technology segment, and the excess purchase price over the net tangible and acquired intangible assets has been recorded as goodwill, which is $5,933 million (Source: NDAQ-10K-2025.html, section PART IV > Financial Statements > Acquisition and Divestitures).
+  hinted:  declined; figures: -
+           The excerpts don't contain the goodwill balance of Nasdaq's Financial Technology segment at December 31, 2025.
+Q1 (control)
+  current: reliable; figures: 758,376 from 1
+           Microsoft's total assets were $758,376 million as of June 30, 2026. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
+  hinted:  reliable; figures: 758,376 from 1
+           Microsoft's total assets were $758,376 million as of June 30, 2026. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
+Q4 (control)
+  current: reliable; figures: 182,935 from 2
+           Microsoft's net cash from operations was $182,935 million for the year ended June 30, 2026. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
+  hinted:  reliable; figures: 182,935 from 2
+           Microsoft's net cash from operations was $182,935 million for the year ended June 30, 2026. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
+Q10 (control)
+  current: reliable; figures: 2,113 from 1
+           Nasdaq's total comprehensive income for 2025 was $2,113 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements, Consolidated Statements of Comprehensive Income)
+  hinted:  reliable; figures: 2,113 from 1
+           Nasdaq's total comprehensive income for 2025 was $2,113 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements)
+Q24 (control)
+  current: reliable; figures: 27,034 from 1
+           Microsoft's statement of stockholders' equity showed that common stock cash dividends in fiscal year 2026 were $27,034 million (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA).
+  hinted:  reliable; figures: 27,034 from 1
+           Microsoft's statement of stockholders' equity showed that common stock cash dividends in fiscal year 2026 were $27,034 million (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA).
+A1 (control)
+  current: reliable; figures: 17.95 from 1,3,4
+           Microsoft's diluted earnings per share for fiscal year 2026 were $17.95. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Earnings Per Share)
+  hinted:  reliable; figures: 17.95 from 1,3,4
+           Microsoft's diluted earnings per share for fiscal year 2026 were $17.95. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Earnings Per Share)
+A2 (control)
+  current: reliable; figures: 3.12 from 2,3
+           Nasdaq's basic earnings per share in 2025 was $3.12 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Earnings Per Share).
+  hinted:  reliable; figures: 3.12 from 2,3
+           Nasdaq's basic earnings per share in 2025 was $3.12 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Earnings Per Share).
+A9 (control)
+  current: reliable; figures: 601 from 1
+           Nasdaq paid a total of $601 million in cash dividends in 2025 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Nasdaq Stockholders’ Equity).
+  hinted:  reliable; figures: 601 from 1
+           Nasdaq paid a total of $601 million in cash dividends in 2025 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Nasdaq Stockholders’ Equity).
+A13 (control)
+  current: reliable; figures: 115,948 from 3
+           Microsoft spent $115,948 million on additions to property and equipment in fiscal 2026. (Source: MSFT-10K-2026.html, CASH FLOWS STATEMENTS)
+  hinted:  reliable; figures: 115,948 from 3
+           Microsoft spent $115,948 million on additions to property and equipment in fiscal 2026. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > CASH FLOWS STATEMENTS)
+H6 (control)
+  current: reliable; figures: 10,272 from 1,3
+           Oracle's total research and development expenses in fiscal 2026 were $10,272 million (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations).
+  hinted:  reliable; figures: 10,272 from 1,3
+           Oracle's total research and development expenses in fiscal 2026 were $10,272 million. (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+H16 (control)
+  current: reliable; figures: 3.64 from 2,3
+           Microsoft's cash dividends declared per common share in fiscal year 2026 were $3.64. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > STOCKHOLDERS’ EQUITY STATEMENTS)
+  hinted:  reliable; figures: 3.64 from 2,3
+           Microsoft's cash dividends declared per common share in fiscal year 2026 was $3.64. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > STOCKHOLDERS’ EQUITY STATEMENTS)
+R1 (control)  [current prompt did NOT reproduce the variance pass]
+  current: reliable; figures: 9,916 from 1,5
+           Oracle's current deferred revenues as of May 31, 2026, were $9,916 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules > Deferred Revenues)
+  hinted:  reliable; figures: 9,916 from 1,5
+           Oracle's current deferred revenues as of May 31, 2026, were $9,916 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)
+T7 (control)
+  current: reliable; figures: 2.6 from 1; 34,846 from 1
+           The effect of the Ireland statutory tax rate difference on Microsoft's effective tax rate in fiscal year 2026 was a decrease of 2.6% of the federal statutory rate, which was $34,846 million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Income Taxes)
+  hinted:  reliable; figures: 2.6 from 1; 4,301 from 1
+           The effect of the Ireland statutory tax rate difference on Microsoft's effective tax rate in fiscal year 2026 was a decrease of 2.6% of the effective tax rate, which was $(4,301) million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Income Taxes)
+
+Current prompt reproduced the variance pass word for word: 15/16
+Targets fixed: 0/4 
+Controls lost: 0/12 
+Bar (at least one target fixed, no control lost): not met

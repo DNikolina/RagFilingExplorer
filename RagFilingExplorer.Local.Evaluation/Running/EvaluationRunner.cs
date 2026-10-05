@@ -146,7 +146,8 @@ internal sealed class EvaluationRunner(
                 try
                 {
                     result = await scenario.EvaluateAsync(
-                        [new ChatMessage(ChatRole.User, question)],
+                        // The system prompt and the excerpts the model was given, then the question (last: what judges read).
+                        PromptTranscript.Messages(answer.Prompt, chunks.Take(settings.Retrieval.GenerationTopK).ToList(), question),
                         new ChatResponse(new ChatMessage(ChatRole.Assistant, answerText)),
                         additionalContext: contexts,
                         cancellationToken);
