@@ -55,7 +55,7 @@ internal static partial class JudgeSetup
 
     public static readonly IReadOnlyList<string> Known = [Equivalence, Groundedness];
 
-    /// <summary>The evaluators for the judge names given (EVAL_JUDGE).</summary>
+    /// <summary>The evaluators for the judge names given (evalsettings.json's Judges, when Graders includes them).</summary>
     public static List<IEvaluator> Evaluators(IReadOnlyCollection<string> judges)
     {
         List<string> unknown = judges.Where(j => !Known.Contains(j)).ToList();

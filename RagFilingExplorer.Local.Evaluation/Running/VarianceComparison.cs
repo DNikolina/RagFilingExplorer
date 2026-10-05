@@ -37,7 +37,7 @@ internal enum AnswerVariation
 /// <summary>
 /// The variance measurement (v3, after step 5): the same questions asked afresh in several executions - identical prompts,
 /// since retrieval is deterministic - compared question by question. Answers are read from the result store, so any
-/// executions can be compared: the cached baseline and EVAL_NO_CACHE passes.
+/// executions can be compared: the cached baseline and NoCache passes.
 /// </summary>
 internal static class VarianceComparison
 {
@@ -70,7 +70,8 @@ internal static class VarianceComparison
                     result.ScenarioName,
                     result.Messages.Last().Text,
                     result.ModelResponse.Text.Trim(),
-                    evaluation.Get<StringMetric>(StrictFigureEvaluator.MetricName).Value ?? "",
+                    // A run with Graders: judge has no strict grade - "-", so wording and figures still compare.
+                    evaluation.Metrics.TryGetValue(StrictFigureEvaluator.MetricName, out EvaluationMetric? strict) ? ((StringMetric)strict).Value ?? "" : "-",
                     evaluation.Metrics.TryGetValue(FigureSourceEvaluator.MetricName, out EvaluationMetric? source) ? ((StringMetric)source).Value ?? "" : ""));
             }
         }

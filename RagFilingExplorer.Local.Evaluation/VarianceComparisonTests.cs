@@ -5,7 +5,7 @@ namespace RagFilingExplorer.Local.Evaluation;
 /// <summary>
 /// The variance comparison, offline: the classification, and the stored v3 baseline read back. Compare_Executions writes
 /// the comparison of real executions - [Explicit], because it writes into the repository:
-///   EVAL_COMPARE=structured-hybrid-v3-baseline,variance-1,variance-2 EVAL_COMPARE_NAME=variance-2026-10-05
+///   Evaluation__Compare=structured-hybrid-v3-baseline,variance-1,variance-2 Evaluation__CompareName=variance-2026-10-05
 ///   dotnet test RagFilingExplorer.Local.Evaluation --filter "FullyQualifiedName~VarianceComparisonTests.Compare_Executions"
 /// </summary>
 [TestFixture]
@@ -102,10 +102,10 @@ public class VarianceComparisonTests
     [Explicit("Writes into eval/v3-runs/.")]
     public async Task Compare_Executions_WritesTheReport()
     {
-        List<string> executions = (Environment.GetEnvironmentVariable("EVAL_COMPARE") ?? "")
-            .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
-        Assert.That(executions, Has.Count.GreaterThanOrEqualTo(2), "EVAL_COMPARE needs two or more execution names, comma-separated.");
-        string name = Environment.GetEnvironmentVariable("EVAL_COMPARE_NAME") is { Length: > 0 } n ? n : "variance";
+        EvaluationSettings settings = EvaluationSettings.Load(Repo);
+        List<string> executions = settings.CompareExecutions.ToList();
+        Assert.That(executions, Has.Count.GreaterThanOrEqualTo(2), "Evaluation:Compare needs two or more execution names, comma-separated.");
+        string name = settings.CompareName;
         string storage = Path.Combine(Repo.FullName, "eval", "v3-runs");
 
         string report = VarianceComparison.Report(executions, await VarianceComparison.LoadAsync(storage, executions));

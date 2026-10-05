@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 372 offline unit tests (176 at v1.0) + 139 offline evaluation tests (v3) |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 372 offline unit tests (176 at v1.0) + 152 offline evaluation tests (v3) |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -64,8 +64,9 @@ done (2026-10-05):** `FigureSourceEvaluator` traces each stated figure to the pr
 v3 baseline no untraced figure, A10 traced to the equity statement's line, every wrong answer a misreading of a figure in
 its context. **Variance measured (2026-10-05):** two fresh passes identical to each
 other (102/102); against the baseline 100/102 grades - the baseline was answered on Ollama 0.35.0, the passes on 0.35.1
-(llama.cpp bumped). Compare runs only on the same Ollama build. **Step 6 (local judge) measured, not kept:** Equivalence
-by `llama3.1:8b` passes 14 of 18 wrong answers. Decision-Log, "Variance measurement - done", "Step 6 - the local judge".
+(llama.cpp bumped). Compare runs only on the same Ollama build. **Step 6 (local judge) measured, kept alongside:** Equivalence
+by `llama3.1:8b` passes 14 of 18 wrong answers, so the strict grade stays the grade; `Graders` in `evalsettings.json`
+chooses strict, judge or both. Decision-Log, "Variance measurement - done", "Step 6 - the local judge".
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the
@@ -273,6 +274,8 @@ transitive via SqliteVec, referenced at the same version), `Microsoft.ML.OnnxRun
   parity check re-run against Python's `tokenizers` (Decision-Log.md, "Step 2b - build").
 - **Config values live only in `appsettings.json`** — no duplicate defaults in code (this has drifted
   twice). Presence of every key is validated at load, since `required` doesn't apply to the binder.
+  The evaluation follows the same rule in its own `evalsettings.json` (graders, judges, run options; v3) - environment
+  variables only override a key for one run, with the same name (`Evaluation__Graders=both`).
 - After any package change, run `dotnet list package --vulnerable --include-transitive`
   (`Microsoft.Bcl.Memory` is pinned to `10.0.12` to avoid GHSA-73j8-2gch-69rq via a transitive `9.0.4`).
 - Don't compare `VectorSearchResult.Score` values across vector-store providers — SqliteVec and

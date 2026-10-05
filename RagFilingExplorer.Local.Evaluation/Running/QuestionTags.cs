@@ -11,7 +11,7 @@ namespace RagFilingExplorer.Local.Evaluation.Running;
 ///
 /// <c>ollama:&lt;version&gt;</c> is the Ollama build serving the run (2026-10-05: an Ollama update, 0.35.0 -> 0.35.1, changed 14
 /// of 102 answers at temperature 0 - compare runs only on the same build). An answer replayed from the response cache was
-/// produced by the build that first answered it; the tag is exact for a fresh run (EVAL_NO_CACHE) and names the build
+/// produced by the build that first answered it; the tag is exact for a fresh run (NoCache) and names the build
 /// that ran a cached one.
 /// </summary>
 internal static class QuestionTags

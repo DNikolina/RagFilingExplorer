@@ -19,7 +19,8 @@ internal sealed record QuestionSet(string Name, string File);
 /// <summary>One question's outcome in a run. <see cref="FigureSource"/> is the figure-source status, <see cref="FigureTrace"/>
 /// where each stated figure was found.</summary>
 internal sealed record QuestionOutcome(
-    string Set, string Id, StrictGrade Grade, int? Rank, string Answer, TimeSpan Elapsed, string FigureSource = "", string FigureTrace = "");
+    string Set, string Id, StrictGrade? Grade, int? Rank, string Answer, TimeSpan Elapsed, string FigureSource = "", string FigureTrace = "",
+    IReadOnlyDictionary<string, bool>? JudgePassed = null);
 
 /// <summary>
 /// A chat client whose inner client is switched per scenario: the app's answer service is built once, and each question
@@ -59,7 +60,7 @@ internal sealed class ScenarioChatClient : IChatClient
 /// </summary>
 internal sealed class EvaluationRunner(
     DirectoryInfo repoRoot, string storageRoot, string executionName, TimeSpan? cacheTimeToLive, bool unloadBeforeEachQuestion = false,
-    IReadOnlyCollection<string>? judges = null)
+    IReadOnlyCollection<string>? judges = null, bool strictGrade = true)
 {
     public static readonly IReadOnlyList<QuestionSet> AllSets =
     [
@@ -86,7 +87,7 @@ internal sealed class EvaluationRunner(
             storageRootPath: storageRoot,
             evaluators:
             [
-                new StrictFigureEvaluator(),
+                .. (strictGrade ? new IEvaluator[] { new StrictFigureEvaluator() } : []),
                 new RetrievalRankEvaluator(settings.Retrieval.GenerationTopK),
                 new FigureSourceEvaluator(settings.Retrieval.GenerationTopK),
                 .. JudgeSetup.Evaluators(judgeNames),
@@ -155,14 +156,19 @@ internal sealed class EvaluationRunner(
                     judgeChat.JudgeContext = false;
                 }
 
-                StrictGrade grade = new(
-                    result.Get<StringMetric>(StrictFigureEvaluator.MetricName).Value!,
-                    StrictFigureEvaluator.GraderNote(result.Get<StringMetric>(StrictFigureEvaluator.MetricName)));
+                StrictGrade? grade = result.Metrics.TryGetValue(StrictFigureEvaluator.MetricName, out EvaluationMetric? strict)
+                    ? new StrictGrade(((StringMetric)strict).Value!, StrictFigureEvaluator.GraderNote(strict))
+                    : null;
+                // Each judge's verdict: passed unless the library interprets its score as failed (an unread reply fails).
+                Dictionary<string, bool> judgePassed = result.Metrics.Values
+                    .Where(m => JudgeAgreement.MetricNames.Contains(m.Name))
+                    .ToDictionary(m => m.Name, m => m.Interpretation?.Failed != true);
                 double? rank = result.Get<NumericMetric>(RetrievalRankEvaluator.MetricName).Value;
                 StringMetric source = result.Get<StringMetric>(FigureSourceEvaluator.MetricName);
-                QuestionOutcome outcome = new(set.Name, entry.Id, grade, rank is null ? null : (int)rank, answerText, clock.Elapsed, source.Value!, FigureSourceEvaluator.TraceText(source));
+                QuestionOutcome outcome = new(set.Name, entry.Id, grade, rank is null ? null : (int)rank, answerText, clock.Elapsed, source.Value!, FigureSourceEvaluator.TraceText(source), judgePassed);
                 outcomes.Add(outcome);
-                progress($"{set.Name}.{entry.Id}: {grade.Status}{(grade.Note.Length > 0 ? $" ({grade.Note})" : "")}, rank {outcome.Rank?.ToString() ?? "-"}, "
+                string graded = grade is null ? "not strictly graded" : grade.Status + (grade.Note.Length > 0 ? $" ({grade.Note})" : "");
+                progress($"{set.Name}.{entry.Id}: {graded}, rank {outcome.Rank?.ToString() ?? "-"}, "
                     + $"figures {outcome.FigureSource}, "
                     + string.Concat(result.Metrics.Values.OfType<NumericMetric>().Where(m => m.Name != RetrievalRankEvaluator.MetricName)
                         .Select(m => $"{m.Name} {m.Value?.ToString() ?? "error"}, "))

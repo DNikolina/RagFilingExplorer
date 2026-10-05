@@ -415,7 +415,7 @@ query-intent resolution, company registration, settings loading/validation, inde
 the retrieve+generate orchestration (mocked; hybrid search against a real FTS5 file, reranking with a fake
 scorer), the reranker's tokenization, and v2's page reader, structure labels and inline XBRL reader - checked
 against the filings in `data/`, read-only, including fact for fact against EDGAR's own extraction.
-`RagFilingExplorer.Local.Evaluation` (139 offline tests) checks the evaluators themselves.
+`RagFilingExplorer.Local.Evaluation` (152 offline tests) checks the evaluators themselves.
 
 ### The evaluation
 
@@ -457,9 +457,19 @@ dotnet test RagFilingExplorer.Local.Evaluation --filter "FullyQualifiedName~Eval
 
 asks all 102 questions (about two hours on the hardware above; minutes from the cache) and writes
 `eval/v3-runs/report-<execution>.html` and a summary; `eval/v3-runs/report.html` holds every run, v1's included,
-newest first. Environment variables pick the execution name (`EVAL_EXECUTION`), the questions (`EVAL_ONLY`,
-`EVAL_SETS`), fresh answers instead of cached ones (`EVAL_NO_CACHE`), and model-judged evaluators (`EVAL_JUDGE`) -
-see `EvaluationRunTests`. Two measurements build on it:
+newest first.
+
+A run is set up in
+[`RagFilingExplorer.Local.Evaluation/evalsettings.json`](RagFilingExplorer.Local.Evaluation/evalsettings.json), the
+evaluation's counterpart of the app's `appsettings.json` - every key required and checked when a run starts:
+
+- `Graders` - `strict` (the strict grade, the default), `judge` (the model judges in `Judges`, e.g. `equivalence`), or
+  `both`, side by side. Answer rank and figure source always run; they need no model.
+- `Execution` (the run's name; empty: `structured-hybrid-<date>`), `Sets` and `Only` (which questions, comma-separated),
+  `NoCache` (ask the model afresh instead of replaying the cache), and the rest, described in `EvaluationSettings`.
+
+An environment variable overrides one key for one run, with the same name - `Evaluation__Graders=both`,
+`Evaluation__Only=Q1,A16` - which is how the run scripts set a pass. Two measurements build on it:
 
 - **Repeatability** (`tools/run-variance.ps1`): all 102 questions asked afresh twice came back word for word identical -
   at temperature 0 the model repeats exactly on the same setup. Against answers from three days earlier, 100/102 grades
@@ -467,7 +477,8 @@ see `EvaluationRunTests`. Two measurements build on it:
   runs are compared only on the same Ollama build.
 - **A local judge** (`tools/run-judge.ps1`): Microsoft's Equivalence evaluator, scored by `llama3.1:8b`, agreed with the
   strict grade on 87 of 101 answers - but passed 14 of the 18 wrong ones, rating $27,034 million against $26,445 million
-  "a slight difference". It can't see what the strict grade exists to catch, so it isn't used as a grader.
+  "a slight difference". It rates similarity, not the exact figure, so the strict grade stays the grade and the judge
+  runs alongside it when asked for (`Graders: both`).
 
 Every measured run, v1's on, is kept in `eval/`.
 

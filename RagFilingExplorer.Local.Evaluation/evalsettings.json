@@ -1,0 +1,15 @@
+{
+  "Evaluation": {
+    "Graders": "strict",
+    "Judges": "equivalence",
+    "Execution": "",
+    "Sets": "",
+    "Only": "",
+    "NoCache": false,
+    "UnloadEachQuestion": false,
+    "CacheTimeToLiveDays": 365,
+    "Compare": "",
+    "CompareName": "variance",
+    "JudgeExecution": ""
+  }
+}

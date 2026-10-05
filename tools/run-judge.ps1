@@ -16,7 +16,7 @@
 .PARAMETER Judges
     Comma-separated judges - equivalence, groundedness (default equivalence: phase A).
 .PARAMETER Only
-    Comma-separated question ids (EVAL_ONLY) - a smoke run first, e.g. -Only Q1,A10 -Execution judge-smoke.
+    Comma-separated question ids (Evaluation:Only) - a smoke run first, e.g. -Only Q1,A10 -Execution judge-smoke.
 .PARAMETER Execution
     The execution name (default structured-hybrid-v3-judge-<judges>).
 #>
@@ -49,17 +49,22 @@ function Log([string]$message) {
 Log "Start: judges '$Judges', only '$Only', execution $Execution"
 if ((Invoke-Dotnet "build `"$project`" --nologo -v quiet" 'build-judge.log') -ne 0) { Log "Build failed - see build-judge.log"; exit 1 }
 
-$env:EVAL_EXECUTION = $Execution
-$env:EVAL_JUDGE = $Judges
-$env:EVAL_ONLY = $Only
-$env:EVAL_NO_CACHE = ''
-$env:EVAL_UNLOAD = ''
-$env:EVAL_SETS = ''
+# evalsettings.json holds the run's defaults; these Evaluation__<key> variables override a key for this run. Start
+# clean: run-variance.ps1 and run-judge.ps1 can run in one process, and one's overrides mustn't reach the other.
+Get-ChildItem Env: | Where-Object { $_.Name -like 'Evaluation__*' } | ForEach-Object { Remove-Item "Env:$($_.Name)" }
+# Both graders: the agreement sets the judge against the strict grade, so the run needs both.
+$env:Evaluation__Graders = 'both'
+$env:Evaluation__Judges = $Judges
+$env:Evaluation__Execution = $Execution
+$env:Evaluation__Only = $Only
+$env:Evaluation__NoCache = 'false'
+$env:Evaluation__UnloadEachQuestion = 'false'
+$env:Evaluation__Sets = ''
 $started = Get-Date
 $exit = Invoke-Dotnet "test `"$project`" --no-build --nologo --filter FullyQualifiedName~EvaluationRunTests --logger `"console;verbosity=detailed`"" "$Execution.log"
 if ($exit -ne 0) { Log "Judge run failed (exit $exit) - see $Execution.log"; exit 1 }
 Log "Judge run done in $([int]((Get-Date) - $started).TotalMinutes) min"
 
-$env:EVAL_JUDGE_EXECUTION = $Execution
+$env:Evaluation__JudgeExecution = $Execution
 if ((Invoke-Dotnet "test `"$project`" --no-build --nologo --filter FullyQualifiedName~JudgeAgreementTests.Report_Execution" 'agreement.log') -ne 0) { Log "Agreement report failed - see agreement.log"; exit 1 }
 Log "Done: eval/v3-runs/judge-$Execution.txt"

@@ -3154,7 +3154,7 @@ afresh twice (`structured-hybrid-v3-variance-1`, `-2`; 113 and 116 min), compare
   Sources: github.com/ollama/ollama/releases/tag/v0.35.1, github.com/ollama/ollama/pull/18652,
   github.com/ggml-org/llama.cpp/compare/b11081...b11232.
 
-**Step 6 - the local judge: done, not kept (2026-10-05, `eval/v3-runs/judge-structured-hybrid-v3-judge-equivalence.txt`).**
+**Step 6 - the local judge: done, kept alongside the strict grade - not as the grade (2026-10-05, `eval/v3-runs/judge-structured-hybrid-v3-judge-equivalence.txt`).**
 Equivalence, judged by `llama3.1:8b`, over the baseline's 102 cached answers: 13 min, ~8 s a call.
 - **Format:** the library read 15 of 102 replies - llama answers "...Therefore, the Equivalence metric should be 5." instead
   of the bare integer asked for. Recovered from the words, 101 of 102 have a score (the recovery pattern widened after
@@ -3164,7 +3164,7 @@ Equivalence, judged by `llama3.1:8b`, over the baseline's 102 cached answers: 13
   strict pass. It scores a wrong figure as close: A10's $27,034M against $26,445M - 4, "a slight difference in the amount";
   H25's $67,357M (total revenues) against $46,751M operating expenses - 5; A27's 25.9% against 25.4% - 5, "only a slight
   difference". What the strict grade exists to catch, this judge can't see - Microsoft's docs warn the prompts are tuned
-  for GPT-4o and "especially poor" with small local models; this measures it. Not kept as a grader.
+  for GPT-4o and "especially poor" with small local models; this measures it. Not the grade - kept as a second, similarity view (`Graders: both`, below).
 - **Why the library failed on the format, and the score given to it alone (user):** Equivalence's parser takes the trimmed
   reply as the value (`TryParseEvaluationResponseWithValue` -> `TryParseValue`, dotnet/extensions), its prompt asks for "a
   single integer value ... no other text", and its docs name one tested model, GPT-4o. The tag-based evaluators read only
@@ -3186,3 +3186,19 @@ cache), both variance passes `ollama:0.35.1`, the judge run `ollama:0.35.1` (the
 baseline's, from the cache). Inserted as text into each stored result's tags - every other field checked unchanged;
 reports rebuilt (`ReportWriteTests` now also rewrites each run's own report). The imported v1/v2 runs stay untagged:
 their builds weren't recorded. 139 offline evaluation tests.
+
+**Graders configurable, and one configuration style: evalsettings.json (user, 2026-10-05).** The judge stays (user: "I still
+want to keep both") - next to the strict grade, not instead of it. A run chooses its graders: `strict` (default), `judge`
+or `both`; answer rank and figure source always run. The run's options had been environment variables (`EVAL_EXECUTION`,
+`EVAL_NO_CACHE`, ...) while the app used appsettings.json; the user asked for one style. Now
+`RagFilingExplorer.Local.Evaluation/evalsettings.json` holds every option (section `Evaluation`), loaded by
+`EvaluationSettings` like AppSettings: every key required, checked against the raw configuration, values validated at load
+(an unknown grader, judge or set, `UnloadEachQuestion` without `NoCache`, judges asked for with none listed - each named in
+the error). An environment variable overrides a key for one run with the same name (`Evaluation__NoCache=true`, .NET's
+configuration layering) - how run-variance.ps1 and run-judge.ps1 set a pass; each clears inherited `Evaluation__*` first,
+since the two can run in one process. Lists are comma-separated strings, not JSON arrays: an environment override replaces
+array items by position, so a two-item list overridden with one item would quietly keep the second. A run without the
+strict grade counts the judge's passes in its summary and skips the v2 comparison; the agreement report refuses it by
+name (it needs both); the variance comparison shows its grade as "-". Checked end to end on cached questions, no model
+call: the judge script ("graders both", "Equivalence passes 1/1"), a judge-only run (no strict grade, no baseline
+comparison), the variance comparison. 152 offline evaluation tests.

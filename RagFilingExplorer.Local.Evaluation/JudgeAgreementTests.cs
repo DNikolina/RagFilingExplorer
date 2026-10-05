@@ -6,7 +6,7 @@ namespace RagFilingExplorer.Local.Evaluation;
 /// <summary>
 /// The judge agreement report (v3 step 6), offline. Report_Execution writes the agreement of a stored judge run -
 /// [Explicit], because it writes into the repository:
-///   EVAL_JUDGE_EXECUTION=structured-hybrid-v3-judge-equivalence
+///   Evaluation__JudgeExecution=structured-hybrid-v3-judge-equivalence (or JudgeExecution in evalsettings.json)
 ///   dotnet test RagFilingExplorer.Local.Evaluation --filter "FullyQualifiedName~JudgeAgreementTests.Report_Execution"
 /// </summary>
 [TestFixture]
@@ -58,8 +58,8 @@ public class JudgeAgreementTests
     [Explicit("Writes into eval/v3-runs/.")]
     public async Task Report_Execution_WritesTheAgreement()
     {
-        string execution = Environment.GetEnvironmentVariable("EVAL_JUDGE_EXECUTION") ?? "";
-        Assert.That(execution, Is.Not.Empty, "EVAL_JUDGE_EXECUTION names the judge run.");
+        string execution = Running.EvaluationSettings.Load(Repo).JudgeExecution;
+        Assert.That(execution, Is.Not.Empty, "Evaluation:JudgeExecution names the judge run.");
         string storage = Path.Combine(Repo.FullName, "eval", "v3-runs");
         Dictionary<string, string> groundTruths = ExpectedAnswer.LoadAll(Repo).ToDictionary(kv => kv.Key, kv => JudgeSetup.GroundTruth(kv.Value));
 

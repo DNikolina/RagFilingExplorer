@@ -20,9 +20,11 @@
 .PARAMETER Sets
     Comma-separated sets - Main, HeldOut, AnswerSide (default: all three, 102 questions).
 .PARAMETER Only
-    Comma-separated question ids (EVAL_ONLY) - a smoke run first, e.g. -Passes 1 -Only Q1,A16 -Prefix variance-smoke.
+    Comma-separated question ids (Evaluation:Only) - a smoke run first, e.g. -Passes 1 -Only Q1,A16 -Prefix variance-smoke.
 .PARAMETER UnloadEachQuestion
-    Unload the chat model before every question (EVAL_UNLOAD).
+    Unload the chat model before every question (Evaluation:UnloadEachQuestion).
+.PARAMETER Graders
+    strict, judge or both (Evaluation:Graders); empty: evalsettings.json's.
 .PARAMETER Prefix
     Execution name prefix (default structured-hybrid-v3-variance).
 .PARAMETER Baseline
@@ -33,6 +35,7 @@ param(
     [string]$Sets = "",
     [string]$Only = "",
     [switch]$UnloadEachQuestion,
+    [string]$Graders = "",
     [string]$Prefix = "structured-hybrid-v3-variance",
     [string]$Baseline = "structured-hybrid-v3-baseline"
 )
@@ -60,14 +63,18 @@ function Log([string]$message) {
 Log "Start: $Passes pass(es), sets '$(if ($Sets) { $Sets } else { 'all' })', only '$Only', unload $($UnloadEachQuestion.IsPresent), prefix $Prefix"
 if ((Invoke-Dotnet "build `"$project`" --nologo -v quiet" 'build.log') -ne 0) { Log "Build failed - see build.log"; exit 1 }
 
+# evalsettings.json holds the run's defaults; these Evaluation__<key> variables override a key for this run. Start
+# clean: run-variance.ps1 and run-judge.ps1 can run in one process, and one's overrides mustn't reach the other.
+Get-ChildItem Env: | Where-Object { $_.Name -like 'Evaluation__*' } | ForEach-Object { Remove-Item "Env:$($_.Name)" }
 $executions = @($Baseline)
 for ($i = 1; $i -le $Passes; $i++) {
     $name = if ($UnloadEachQuestion) { "$Prefix-unload-$i" } else { "$Prefix-$i" }
-    $env:EVAL_EXECUTION = $name
-    $env:EVAL_NO_CACHE = '1'
-    $env:EVAL_UNLOAD = if ($UnloadEachQuestion) { '1' } else { '' }
-    $env:EVAL_SETS = $Sets
-    $env:EVAL_ONLY = $Only
+    $env:Evaluation__Execution = $name
+    $env:Evaluation__NoCache = 'true'
+    $env:Evaluation__UnloadEachQuestion = if ($UnloadEachQuestion) { 'true' } else { 'false' }
+    $env:Evaluation__Sets = $Sets
+    $env:Evaluation__Only = $Only
+    $env:Evaluation__Graders = $Graders
     Log "Pass $i of $Passes`: $name"
     $started = Get-Date
     # The run test passes, or warns on grades that differ from v2's baseline (expected here) - a failure is a broken run.
@@ -77,7 +84,7 @@ for ($i = 1; $i -le $Passes; $i++) {
     $executions += $name
 }
 
-$env:EVAL_COMPARE = $executions -join ','
-$env:EVAL_COMPARE_NAME = if ($UnloadEachQuestion) { "$Prefix-unload" } else { $Prefix }
+$env:Evaluation__Compare = $executions -join ','
+$env:Evaluation__CompareName = if ($UnloadEachQuestion) { "$Prefix-unload" } else { $Prefix }
 if ((Invoke-Dotnet "test `"$project`" --no-build --nologo --filter FullyQualifiedName~VarianceComparisonTests.Compare_Executions" 'compare.log') -ne 0) { Log "Comparison failed - see compare.log"; exit 1 }
-Log "Done: eval/v3-runs/$($env:EVAL_COMPARE_NAME).txt"
+Log "Done: eval/v3-runs/$($env:Evaluation__CompareName).txt"

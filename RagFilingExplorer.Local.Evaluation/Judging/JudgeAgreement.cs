@@ -63,7 +63,10 @@ internal static class JudgeAgreement
         foreach (ScenarioRunResult result in latest.Values.OrderBy(r => r.ScenarioName, StringComparer.Ordinal))
         {
             EvaluationResult evaluation = result.EvaluationResult;
-            StringMetric grade = evaluation.Get<StringMetric>(StrictFigureEvaluator.MetricName);
+            StringMetric grade = evaluation.Metrics.TryGetValue(StrictFigureEvaluator.MetricName, out EvaluationMetric? strict)
+                ? (StringMetric)strict
+                : throw new InvalidOperationException(
+                    $"{execution} has no strict grade ({result.ScenarioName}) - the agreement needs a run with Graders: both.");
             Dictionary<string, JudgeVerdict> verdicts = new();
             foreach (string name in MetricNames)
             {
