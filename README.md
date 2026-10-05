@@ -21,7 +21,7 @@ Item 8. Financial Statements and Supplementary Data).
 **Why it's built this way** - why not answer from XBRL directly, PDF, `Microsoft.Extensions.DataIngestion`,
 reranking, a calculator tool, or a bigger model - is answered briefly in [docs/Design-FAQ.md](docs/Design-FAQ.md).
 
-## Two versions
+## Three versions
 
 - **v1** (tag `v1.0`) - `markitdown` converts each filing to text, which is split into sections and
   token-bounded chunks; a question's company and financial statement are hard filters on a vector search.
@@ -29,6 +29,10 @@ reranking, a calculator tool, or a bigger model - is answered briefly in [docs/D
   tables stay whole blocks, every chunk knows its statement or note from the filer's own tags, roll-forward rows
   carry their period, and each chunk's embedding text opens with the company. Retrieval is hybrid - vector and
   SQLite FTS5 keyword search fused by reciprocal rank fusion, the statement a boost instead of a filter.
+- **v3** (branch `v3`) - the app and its defaults unchanged; the evaluation moved from Python scripts into .NET with
+  `Microsoft.Extensions.AI.Evaluation`: the strict grader and the retrieval rank as custom evaluators held exact to the
+  Python originals, plus a new one that traces each figure in an answer to the excerpt and line it came from - every run
+  stored, cached and reported ([Testing](#testing)).
 
 v1's strategies still ship and are one setting away. Graded strictly (the expected figure, its unit and the exact
 line), with `llama3.1:8b` at temperature 0:
@@ -45,7 +49,9 @@ line), with `llama3.1:8b` at temperature 0:
 Routing tests (R1-R3), whose answer sits outside the statement a question's keywords point to: v1's hard filter
 can only decline them (3/3 clean declines); v2 answers two and gets the third wrong. The runs are in `eval/`
 (`baseline-v1/`, `structured-5a/`, `answer-side-norerank/`; the README there maps every folder), each measured
-step in [docs/Decision-Log.md](docs/Decision-Log.md), "XBRL hybrid (v2)".
+step in [docs/Decision-Log.md](docs/Decision-Log.md), "XBRL hybrid (v2)". v3's .NET evaluation re-ran all 102
+questions on the v2 defaults and reproduced every grade but one (A16, where the model added an unrequested sum to the
+same prompt - `llama3.1:8b` at temperature 0 doesn't repeat word for word here).
 
 ## How it works
 
@@ -124,6 +130,8 @@ Everything runs locally: the embedding model and `llama3.1:8b` through Ollama, t
 - **AngleSharp** — parses each filing's HTML and inline XBRL (v2), and its tables (v1's `Linearized`)
 - **Microsoft.ML.Tokenizers** (offline Tiktoken, `cl100k_base`) — token-bounded chunking
 - **Microsoft.ML.OnnxRuntime** — an optional local cross-encoder reranker, off by default
+- **Microsoft.Extensions.AI.Evaluation** (+ `.Reporting`, `.Quality`) — the evaluation (v3): custom evaluators, stored
+  results, response caching and the HTML report; `.Quality`'s model-judged evaluators only for the local-judge spike
 - **Local models**: `nomic-embed-text` (274MB, embeddings) and `llama3.1:8b` (4.9GB, answer generation)
 - **Source data**: public [SEC EDGAR](https://www.sec.gov/edgar) 10-K filings (raw HTML)
 
@@ -140,8 +148,9 @@ Everything runs locally: the embedding model and `llama3.1:8b` through Ollama, t
   Step 3, for why). The default `Structured` strategy reads the HTML itself and needs no Python.
 - **Optional:** the reranker's model (`Retrieval:Rerank`, off by default), fetched separately - see
   `appsettings.json` and Decision-Log.md, "Step 2b resumed".
-- The evaluation tools in `tools/` and `eval/` are Python scripts: the grader and the retrieval replay use the
-  standard library only; the reranker scripts also `numpy`, `onnxruntime` and `tokenizers`.
+- The evaluation runs in .NET (v3) and needs nothing more. The Python scripts in `tools/` are the grader and
+  retrieval replay it was ported from (standard library only), kept as the reference the parity tests were
+  measured against, and v2's reranker spikes (also `numpy`, `onnxruntime`, `tokenizers`).
 
 No API keys, no `dotnet user-secrets`, no cloud account of any kind.
 
@@ -400,19 +409,43 @@ Full diagnostic detail, including how each bug was actually found, is in
 dotnet test
 ```
 
-Runs `RagFilingExplorer.Local.Tests` (NUnit + Moq) — 372 tests, fully offline, no live Ollama instance
-or populated vector store required. Covers chunking, section splitting, statement-type detection,
+Runs both test projects, fully offline - no live Ollama instance or populated vector store required.
+`RagFilingExplorer.Local.Tests` (NUnit + Moq, 372 tests) covers chunking, section splitting, statement-type detection,
 query-intent resolution, company registration, settings loading/validation, index-manifest staleness detection,
 the retrieve+generate orchestration (mocked; hybrid search against a real FTS5 file, reranking with a fake
 scorer), the reranker's tokenization, and v2's page reader, structure labels and inline XBRL reader - checked
 against the filings in `data/`, read-only, including fact for fact against EDGAR's own extraction.
+`RagFilingExplorer.Local.Evaluation` (93 offline tests) checks the evaluators themselves.
+
+### The evaluation
 
 The unit tests don't judge answers. That's the evaluation, run on the real app with the real model:
 [docs/Manual-Test-Questions.md](docs/Manual-Test-Questions.md) holds every question with its expected answer,
-sourced from the filings - the main set, targeted and routing questions, two held-out sets and the answer-side
-set. `tools/grade_answers.py` grades a run's log strictly (figure, unit, exact line; declines);
-`tools/replay_recall.py` replays a run's retrieval deterministically, without the model, to separate "retrieval
-missed it" from "the model misread it". Every measured run is kept in `eval/`.
+sourced from the filings - the main set, targeted and routing questions, two held-out sets and the answer-side set -
+and `tools/expected-answers.json` what grading checks. Since v3 it runs in .NET, in
+`RagFilingExplorer.Local.Evaluation`, with `Microsoft.Extensions.AI.Evaluation`: every question asked in-process
+through the app's own composition, each a stored scenario, the model's responses cached, an HTML report at the end.
+Three deterministic evaluators - no model judges an answer:
+
+- **Strict grade** - the expected figure, its unit and the exact line; a clean decline where the filing doesn't say.
+  A port of `tools/grade_answers.py`, held to it on all 1,029 answers graded in v1 and v2 (`GraderParityTests`).
+- **Answer rank** - where the expected figure ranks among the retrieved chunks, so "retrieval missed it" is told
+  apart from "the model misread it". A port of `tools/replay_recall.py`, matching it on all 102 questions.
+- **Figure source** - each figure the answer states, traced to the excerpts the model was given: which ones hold it,
+  their statement type and section, and the line. A figure in none is flagged, unless the question asked for a
+  calculation. On v2's defaults it flags nothing: every wrong answer is a misreading of a figure in its context.
+
+```
+dotnet test RagFilingExplorer.Local.Evaluation --filter "FullyQualifiedName~EvaluationRunTests"
+```
+
+asks all 102 questions (about two hours on the hardware above; minutes from the cache) and writes
+`eval/v3-runs/report-<execution>.html` and a summary; `eval/v3-runs/report.html` holds every run, v1's included,
+newest first. Environment variables pick the execution name (`EVAL_EXECUTION`), the questions (`EVAL_ONLY`,
+`EVAL_SETS`), fresh answers instead of cached ones (`EVAL_NO_CACHE`), and model-judged evaluators (`EVAL_JUDGE`) -
+see `EvaluationRunTests`. Two measurements build on it: how much an answer varies when asked again with the same
+prompt (`tools/run-variance.ps1`), and whether a local model as judge - Microsoft's Quality evaluators, scored by
+`llama3.1:8b` - agrees with the strict grade (`tools/run-judge.ps1`). Every measured run, v1's on, is kept in `eval/`.
 
 ## Why MarkItDown, not Microsoft.Extensions.DataIngestion
 
@@ -433,15 +466,18 @@ own ASP.NET Core test docs use; .NET has no built-in HTML parser - and keeps v1'
 ```
 RagFilingExplorer.Local/                the app - chunking, retrieval, vector store, interactive loop
 RagFilingExplorer.Local.Tests/          NUnit + Moq test suite
+RagFilingExplorer.Local.Evaluation/     the evaluation (v3): evaluators, runner, report, variance and judge spikes
 data/                                   source 10-K filings (HTML, from sec.gov/edgar), plus each filing's XBRL
                                         taxonomy (.xsd, and _pre/_lab/_cal/_def.xml where not embedded); EDGAR's
                                         extracted facts (_htm.xml) are gitignored - download them to run the XBRL
                                         reader's EDGAR comparison test, which skips without them
 chunk-review/<strategy>/                full per-chunk text dumps, one file per filing, for manual review
-tools/                                  the question files; grade_answers.py (strict answer grading) and
-                                        replay_recall.py (deterministic retrieval ranks); rerank_spike.py;
-                                        LinearizeSpike + xbrl_column_check.py (table linearization + its XBRL check)
-eval/                                   every measured run: logs, grades, replays, screens - mapped in its README
+tools/                                  the question files and expected-answers.json; run-variance.ps1 and
+                                        run-judge.ps1 (v3's overnight measurements); grade_answers.py and
+                                        replay_recall.py (the Python originals of the strict grade and the rank);
+                                        rerank_spike.py; LinearizeSpike + xbrl_column_check.py
+eval/                                   every measured run: logs, grades, replays, screens - mapped in its README;
+                                        v3-runs/ holds the .NET evaluation's stored runs and reports
 .claude/                                Claude Code config: filer-onboarding-checker subagent, test-convention rule
 docs/Implementation_Plan.md             current-state reference: ground rules, pipeline, live constraints
 docs/Decision-Log.md                    the full build history: every step, decision point, and debugging path

@@ -118,7 +118,8 @@ Logs before 2026-10-01 were written in the console's OEM code page (a non-breaki
 `'`); the app writes UTF-8 since. The tools read both.
 
 Temperature 0 is deterministic here: the baseline's 40 main answers are word-for-word identical to the
-2026-09-25 run on the same code, so a changed answer means a changed input, not sampling.
+2026-09-25 run on the same code, so a changed answer means a changed input, not sampling. (This held through v2; v3 found it
+no longer does - same prompt, different wording, once a different figure - see `v3-runs/` and the variance measurement.)
 
 **`v3-retrieval-parity/`** - v3 step 3's oracle: `tools/replay_recall.py`'s output on the three v2 baseline logs
 (`structured-5a/` main and held-out, `answer-side-norerank/`), which `RetrievalParityTests` matches rank for rank.
@@ -128,6 +129,11 @@ one stored result per question, `report-<execution>.html` (open it in a browser)
 model's cached responses, is gitignored. `structured-hybrid-v3-baseline` (2026-10-02): the shipped defaults - main 33/40,
 held-out 31/35, answer-side 20/27, every grade the v2 baselines' but A16 (model variation - an unrequested $620M sum).
 Details in `docs/Decision-Log.md`, "evaluation in .NET (v3)", step 4.
-`report.html` is every execution in the store, the history included: v1's baseline and each kept v2 step, imported from
+Since step 5 each result also has a **figure source** (where each stated figure is in the excerpts); the baseline was
+re-run from the cache to add it (2026-10-05). `variance-v2-5a-vs-v3-baseline.txt` compares v2's 5a run with the v3
+baseline question by question (`VarianceComparison`): 89/102 identical, 11 wording, 1 figure, 1 grade. The variance passes
+(`tools/run-variance.ps1`, `variance-*` executions) and the judge spike (`run-judge.ps1`, `judge-*.txt`) land here too;
+`logs/`, their console output, is gitignored.
+`report.html` is every execution in the store, newest first (it opens on the first), the history included: v1's baseline and each kept v2 step, imported from
 the folders above (strict grade only - no rank, since their indexes were rebuilt; `HistoricRunImporter`).
 
