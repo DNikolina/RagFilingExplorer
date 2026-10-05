@@ -80,6 +80,8 @@ internal sealed class EvaluationRunner(
         (_, OllamaSharp.OllamaApiClient chat) = AppComposition.CreateOllamaClients(settings.Ollama);
         IReadOnlyCollection<string> judgeNames = judges ?? [];
         JudgeContextChatClient judgeChat = new(chat);
+        // The Ollama build serving this run, tagged on every case (QuestionTags) - an update can change answers.
+        string ollamaVersion = (await chat.GetVersionAsync(cancellationToken)).ToString();
         ReportingConfiguration reporting = DiskBasedReportingConfiguration.Create(
             storageRootPath: storageRoot,
             evaluators:
@@ -111,7 +113,7 @@ internal sealed class EvaluationRunner(
                 Stopwatch clock = Stopwatch.StartNew();
                 // Tags by name: the parameter before them is additionalCachingKeys - tags there would change every
                 // cache key and re-ask the model for every answer.
-                List<string> tags = QuestionTags.For(entry, runtime.Companies.ResolveFilings(question), QueryIntentResolver.ResolveStatementType(question));
+                List<string> tags = QuestionTags.For(entry, runtime.Companies.ResolveFilings(question), QueryIntentResolver.ResolveStatementType(question), ollamaVersion);
                 await using ScenarioRun scenario = await reporting.CreateScenarioRunAsync(
                     $"{set.Name}.{entry.Id}", additionalTags: tags, cancellationToken: cancellationToken);
                 scenarioChat.Inner = scenario.ChatConfiguration!.ChatClient;

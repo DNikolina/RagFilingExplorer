@@ -124,7 +124,8 @@
   "tags": [
     "kind:negative",
     "company:MSFT",
-    "statement:income_statement"
+    "statement:income_statement",
+    "ollama:0.35.1"
   ],
   "formatVersion": 1
 }

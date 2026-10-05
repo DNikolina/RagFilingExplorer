@@ -83,7 +83,8 @@
   "tags": [
     "kind:fact",
     "company:NFLX",
-    "statement:none"
+    "statement:none",
+    "ollama:0.35.0"
   ],
   "formatVersion": 1
 }

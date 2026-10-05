@@ -86,7 +86,8 @@
   "tags": [
     "kind:routing",
     "company:ORCL",
-    "statement:income_statement"
+    "statement:income_statement",
+    "ollama:0.35.0"
   ],
   "formatVersion": 1
 }

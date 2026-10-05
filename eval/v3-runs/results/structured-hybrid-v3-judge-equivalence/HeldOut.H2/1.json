@@ -129,7 +129,8 @@
     "kind:figure",
     "has traps",
     "company:MSFT",
-    "statement:none"
+    "statement:none",
+    "ollama:0.35.1"
   ],
   "formatVersion": 1
 }

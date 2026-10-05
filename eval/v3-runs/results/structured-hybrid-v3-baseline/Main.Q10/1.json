@@ -87,7 +87,8 @@
     "kind:figure",
     "has traps",
     "company:NDAQ",
-    "statement:comprehensive_income"
+    "statement:comprehensive_income",
+    "ollama:0.35.0"
   ],
   "formatVersion": 1
 }

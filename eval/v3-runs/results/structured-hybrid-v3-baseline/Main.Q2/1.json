@@ -92,7 +92,8 @@
     "kind:figure",
     "has traps",
     "company:ORCL",
-    "statement:balance_sheet"
+    "statement:balance_sheet",
+    "ollama:0.35.0"
   ],
   "formatVersion": 1
 }

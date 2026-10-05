@@ -82,7 +82,8 @@
   "tags": [
     "kind:negative",
     "company:none",
-    "statement:income_statement"
+    "statement:income_statement",
+    "ollama:0.35.0"
   ],
   "formatVersion": 1
 }

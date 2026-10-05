@@ -17,6 +17,13 @@ public class QuestionTagsTests
     }
 
     [Test]
+    public void For_OllamaVersion_TaggedLast()
+    {
+        Assert.That(QuestionTags.For(Expected["A10"], ["MSFT-10K-2026.html"], null, "0.35.1"), Has.Member("ollama:0.35.1"));
+        Assert.That(QuestionTags.For(Expected["A10"], ["MSFT-10K-2026.html"], null).Any(t => t.StartsWith("ollama:")), Is.False);
+    }
+
+    [Test]
     public void For_Calculation_TaggedAsOne()
     {
         Assert.That(QuestionTags.For(Expected["A27"], ["ORCL-10K-2026.html"], "income_statement"), Does.Contain("calculation"));

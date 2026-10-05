@@ -8,10 +8,15 @@ namespace RagFilingExplorer.Local.Evaluation.Running;
 /// flow questions"). "name:value" tags show their value on the case. The company and statement are the app's own routing
 /// (<c>CompanyRegistry.ResolveFilings</c>, <c>QueryIntentResolver.ResolveStatementType</c>, as RagAnswerService calls
 /// them), so a routing question shows where the app sent it, not where the answer is. Tags never affect a grade.
+///
+/// <c>ollama:&lt;version&gt;</c> is the Ollama build serving the run (2026-10-05: an Ollama update, 0.35.0 -> 0.35.1, changed 14
+/// of 102 answers at temperature 0 - compare runs only on the same build). An answer replayed from the response cache was
+/// produced by the build that first answered it; the tag is exact for a fresh run (EVAL_NO_CACHE) and names the build
+/// that ran a cached one.
 /// </summary>
 internal static class QuestionTags
 {
-    public static List<string> For(ExpectedAnswer expected, IReadOnlyList<string> routedFilings, string? routedStatement)
+    public static List<string> For(ExpectedAnswer expected, IReadOnlyList<string> routedFilings, string? routedStatement, string? ollamaVersion = null)
     {
         List<string> tags = [$"kind:{expected.Kind}"];
         if (FigureSourceEvaluator.AsksForCalculation(expected))
@@ -29,6 +34,11 @@ internal static class QuestionTags
             ? routedFilings.Select(f => $"company:{f.Split('-')[0]}")
             : ["company:none"]);
         tags.Add($"statement:{routedStatement ?? "none"}");
+        if (ollamaVersion is { Length: > 0 })
+        {
+            tags.Add($"ollama:{ollamaVersion}");
+        }
+
         return tags;
     }
 }

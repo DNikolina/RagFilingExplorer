@@ -129,7 +129,8 @@
     "kind:figure",
     "has traps",
     "company:MSFT",
-    "statement:equity_statement"
+    "statement:equity_statement",
+    "ollama:0.35.1"
   ],
   "formatVersion": 1
 }

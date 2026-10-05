@@ -128,7 +128,8 @@
   "tags": [
     "kind:figure",
     "company:NDAQ",
-    "statement:cash_flow_statement"
+    "statement:cash_flow_statement",
+    "ollama:0.35.1"
   ],
   "formatVersion": 1
 }

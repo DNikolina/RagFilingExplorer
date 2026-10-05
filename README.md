@@ -415,7 +415,7 @@ query-intent resolution, company registration, settings loading/validation, inde
 the retrieve+generate orchestration (mocked; hybrid search against a real FTS5 file, reranking with a fake
 scorer), the reranker's tokenization, and v2's page reader, structure labels and inline XBRL reader - checked
 against the filings in `data/`, read-only, including fact for fact against EDGAR's own extraction.
-`RagFilingExplorer.Local.Evaluation` (138 offline tests) checks the evaluators themselves.
+`RagFilingExplorer.Local.Evaluation` (139 offline tests) checks the evaluators themselves.
 
 ### The evaluation
 
@@ -441,7 +441,8 @@ on a line in one of the excerpts (a misreading), derived from figures the model 
 (a retrieval miss). What each trap is comes from `trap_why` in `tools/expected-answers.json`.
 
 Each case is tagged, so the report filters by tag: its kind (`figure`, `fact`, `negative`, `routing`), `calculation`,
-`has traps`, and the company and statement the app routed it to - where the app sent it, not where the answer is.
+`has traps`, the company and statement the app routed it to - where the app sent it, not where the answer is - and the
+Ollama build that served the run (`ollama:0.35.1`), since an Ollama update can change answers.
 
 **Adding a question:** its text goes in its set's file in `tools/` (`manual-questions.txt`, `heldout-questions.txt`,
 `answer-questions.txt`), its source in `docs/Manual-Test-Questions.md`, and its entry - matched by the exact text - in

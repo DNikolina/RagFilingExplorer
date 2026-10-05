@@ -3176,3 +3176,13 @@ Equivalence, judged by `llama3.1:8b`, over the baseline's 102 cached answers: 13
 - **Groundedness (phase B) not run** (recommended): the figure source already shows every wrong answer's figure is in its
   excerpts - "grounded" - and Equivalence shows the judge doesn't weigh figures; ~3.5 h to confirm both.
 138 offline evaluation tests.
+
+**Ollama version tag (user, 2026-10-05).** Every case is now tagged `ollama:<version>` - the build serving the run, asked
+of Ollama once at the start (OllamaSharp `GetVersionAsync`). A tag can only name the build that ran the execution: an answer
+replayed from the response cache was produced by the build that first answered it, so the tag is exact for fresh runs
+(`EVAL_NO_CACHE`) and names the running build for cached ones. The four v3 executions were tagged after the fact (user),
+from Ollama's logs: `structured-hybrid-v3-baseline` `ollama:0.35.0` (answered 2026-10-02; later refreshes replayed the
+cache), both variance passes `ollama:0.35.1`, the judge run `ollama:0.35.1` (the judge's build; its answers are the
+baseline's, from the cache). Inserted as text into each stored result's tags - every other field checked unchanged;
+reports rebuilt (`ReportWriteTests` now also rewrites each run's own report). The imported v1/v2 runs stay untagged:
+their builds weren't recorded. 139 offline evaluation tests.

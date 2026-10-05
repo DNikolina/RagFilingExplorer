@@ -128,7 +128,8 @@
   "tags": [
     "kind:figure",
     "company:ORCL",
-    "statement:comprehensive_income"
+    "statement:comprehensive_income",
+    "ollama:0.35.1"
   ],
   "formatVersion": 1
 }
