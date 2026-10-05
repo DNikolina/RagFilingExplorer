@@ -162,12 +162,13 @@ internal sealed class EvaluationRunner(
             results.Add(result);
         }
 
-        // The report lists executions in the order they first appear in its data, and opens on the first one. Oldest
-        // first (user, 2026-10-02): each execution kept together, ordered by when it ran - so the report opens on the
-        // oldest run; its comparison view still sets the newest against the one before it.
+        // The report lists executions in the order they first appear in its data, and opens on the first one - the picker's
+        // order and the run it opens on can't be set apart, and the run picked is remembered only in that browser tab.
+        // Newest first (user, 2026-10-05; oldest first from 2026-10-02 opened every new tab on v1's 55 questions): each
+        // execution kept together, latest run first. The history and comparison views sort runs by date themselves.
         Dictionary<string, DateTime> ranAt = results.GroupBy(r => r.ExecutionName).ToDictionary(g => g.Key, g => g.Min(r => r.CreationTime));
         List<ScenarioRunResult> ordered = results
-            .OrderBy(r => ranAt[r.ExecutionName]).ThenBy(r => r.ExecutionName, StringComparer.Ordinal)
+            .OrderByDescending(r => ranAt[r.ExecutionName]).ThenBy(r => r.ExecutionName, StringComparer.Ordinal)
             .ThenBy(r => r.ScenarioName, StringComparer.Ordinal)
             .ToList();
 

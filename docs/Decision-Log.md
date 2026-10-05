@@ -3028,3 +3028,12 @@ on its own has to be known: otherwise a one-grade difference can't be read as a 
 - **Open, for the user at run time:** scope (recommended: all 102, two passes, ~4 h) and whether to add unload passes
   (two are needed to say whether they repeat). A smoke run first (`-Passes 1 -Only Q1,A16 -Prefix variance-smoke`, its
   results folder deleted after).
+
+**Report order reversed: newest first (user, 2026-10-05).** Opened in a new tab, `report.html` showed v1's 55 questions -
+no answer side, no H16-H35, no rank or figure source - and looked like it had lost them. Nothing was lost (821 results, 12
+executions, data identical to Friday's but for step 5's metric): the report opens on the first execution in its data and
+lists the picker in that same order, both fixed by `HtmlReportWriter`'s input, with no URL parameter, and remembers a pick
+only in that browser tab (sessionStorage). Oldest first (2026-10-02) therefore opened every new tab on v1. Now newest
+first - it opens on the latest run; the History tab and the Comparison defaults sort runs by date themselves, unchanged.
+`ReportWriteTests` rewrites `report.html` from the stored results without a model call. Checked by rendering it headless
+(Edge `--dump-dom`): opens on `structured-hybrid-v3-baseline`, 102 cases.
