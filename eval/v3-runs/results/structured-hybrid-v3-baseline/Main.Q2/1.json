@@ -2,7 +2,7 @@
   "scenarioName": "Main.Q2",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:24.7605451Z",
+  "creationTime": "2026-10-05T13:07:27.0128913Z",
   "messages": [
     {
       "role": "user",
@@ -50,13 +50,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "42,508: excerpt 2 (balance_sheet, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Oracle Corporation stockholders\u2019 equity \u003E Total Oracle Corporation stockholders\u2019 equity \u2014 2026: 42,508 | 2025: 20,451\u0022\n20,451: excerpt 2 (balance_sheet, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Oracle Corporation stockholders\u2019 equity \u003E Total Oracle Corporation stockholders\u2019 equity \u2014 2026: 42,508 | 2025: 20,451\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0011967,
+        "latency": 0.0010172,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

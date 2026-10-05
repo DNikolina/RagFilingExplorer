@@ -2,7 +2,7 @@
   "scenarioName": "AnswerSide.A25",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:36.7465003Z",
+  "creationTime": "2026-10-05T13:07:37.9586316Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": true,
           "reason": "Outside the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "calculated",
+        "name": "Figure source",
+        "reason": "601: excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity): \u0022Total Amount Paid: $601\u0022 (\u002B1 more line)\n616: excerpt 4 (narrative, PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity): \u0022Total purchase price (in millions) \u2014 Year Ended December 31, 2025: $616\u0022\n1,217: in none of the excerpts",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "1,217 in no excerpt - the question asks for a calculation."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0007038,
+        "latency": 0.0005753,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

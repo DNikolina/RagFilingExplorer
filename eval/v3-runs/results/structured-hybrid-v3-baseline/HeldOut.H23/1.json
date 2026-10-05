@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H23",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:32.5521555Z",
+  "creationTime": "2026-10-05T13:07:34.1193555Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "44,478: excerpt 2 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Total Revenues by Geography \u003E Americas \u2014 2026: $44,478 | Percent Change Actual: 22% | Percent Change Constant: 22% | 2025: $36,339\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0007535,
+        "latency": 0.0007343,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

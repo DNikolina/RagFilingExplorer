@@ -176,6 +176,12 @@ internal static partial class StrictGrader
     private static List<Token> Tokens(string text) =>
         NumberRegex().Matches(text).Select(m => new Token(m.Value, m.Index, m.Index + m.Length)).ToList();
 
+    /// <summary>The numbers in <paramref name="text"/> as the grader reads them ("26,445" from "(26,445)").</summary>
+    internal static IEnumerable<string> Numbers(string text) => Tokens(text).Select(t => t.Text);
+
+    /// <summary>Where <paramref name="value"/> first occurs in <paramref name="text"/> as a number the grader reads, or -1.</summary>
+    internal static int IndexOfNumber(string text, string value) => Tokens(text).FirstOrDefault(t => t.Text == value)?.Start ?? -1;
+
     // has_number()
     private static bool HasNumber(string text, string value) => Tokens(text).Any(t => t.Text == value);
 
@@ -254,8 +260,8 @@ internal static partial class StrictGrader
     }
 
     /// <summary>stated_figures() - numbers the answer states as figures: not years, not numbers from the question, not
-    /// citation text.</summary>
-    private static List<string> StatedFigures(string answer, string question)
+    /// citation text. Also the figures <see cref="Evaluators.FigureSourceEvaluator"/> looks for in the excerpts.</summary>
+    internal static List<string> StatedFigures(string answer, string question)
     {
         string text = CitationTextRegex().Replace(answer, " ");
         HashSet<string> asked = Tokens(question).Select(t => t.Text).ToHashSet();

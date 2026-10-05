@@ -59,9 +59,10 @@ a branch in measured phases - nothing else is assumed or owed. Decision-Log.md, 
 response caching - on a branch `v3`, each step reproducing the Python tools exactly before the next. The app and its
 defaults don't change. Plan and bars: Decision-Log.md, "evaluation in .NET (v3)". **v3 status (2026-10-02, branch `v3`):** steps 1-4 done - the strict grader (1,029/1,029 graded answers) and retrieval
 rank (102/102) ported and held exact by parity tests; a full evaluation run on the defaults reproduced v2 (101/102 grades;
-A16 model variation, user's call); `eval/v3-runs/report.html` holds v1, every kept v2 step and v3, oldest first. **Next:**
-step 5, reshaped - which excerpt each answer's figure came from (Decision-Log, "Step 5 reshaped"); then the optional
-variance measurement and the local-judge spike.
+A16 model variation, user's call); `eval/v3-runs/report.html` holds v1, every kept v2 step and v3, oldest first. **Step 5
+done (2026-10-05):** `FigureSourceEvaluator` traces each stated figure to the prompt excerpt and line holding it - on the
+v3 baseline no untraced figure, A10 traced to the equity statement's line, every wrong answer a misreading of a figure in
+its context. **Next (optional):** the variance measurement and the local-judge spike.
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the

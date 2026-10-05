@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H3",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:29.8988196Z",
+  "creationTime": "2026-10-05T13:07:31.5488493Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "12,405: excerpt 1 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Employee Stock and Savings Plans): \u0022Stock-based compensation expense \u2014 2026: $12,405 | 2025: $11,974 | 2024: $10,734\u0022; excerpt 3 (equity_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Common stock and paid-in capital \u003E Stock-based compensation expense \u2014 2026: 12,405 | 2025: 11,974 | 2024: 10,734\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0007361,
+        "latency": 0.0007175,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

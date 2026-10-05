@@ -2,7 +2,7 @@
   "scenarioName": "Main.Q7",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:25.5884409Z",
+  "creationTime": "2026-10-05T13:07:27.583207Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "442,387: excerpt 1 (balance_sheet, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Stockholders\u2019 equity \u003E Total stockholders\u2019 equity \u2014 2026: 442,387 | 2025: 343,479\u0022; excerpt 3 (equity_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Accumulated other comprehensive loss \u003E Total stockholders\u2019 equity \u2014 2026: $442,387 | 2025: $343,479 | 2024: $268,477\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0008025,
+        "latency": 0.0009635,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

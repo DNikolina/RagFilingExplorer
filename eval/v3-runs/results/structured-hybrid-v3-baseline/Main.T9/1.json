@@ -2,7 +2,7 @@
   "scenarioName": "Main.T9",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:28.849172Z",
+  "creationTime": "2026-10-05T13:07:30.5957634Z",
   "messages": [
     {
       "role": "user",
@@ -50,13 +50,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "1.70: excerpt 2 (equity_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Cash dividends declared ($1.70 per share) (fiscal 2025, year ended May 31, 2025) \u2014 Accumulated Deficit: (4,743) | Total Stockholders\u2019 Equity: (4,743)\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0008745,
+        "latency": 0.0008368,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

@@ -69,7 +69,8 @@ public class EvaluationRunTests
             int inContext = set.Count(o => o.Rank is <= 5);
             summary.AppendLine($"{set.Key}: reliable {passed}/{set.Count()}  "
                 + string.Join("  ", set.GroupBy(o => o.Grade.Status).OrderBy(g => g.Key).Select(g => $"{g.Key} {g.Count()}"))
-                + $"  | answer in the top 5: {inContext}");
+                + $"  | answer in the top 5: {inContext}  | figures: "
+                + string.Join("  ", set.GroupBy(o => o.FigureSource).OrderBy(g => g.Key).Select(g => $"{g.Key} {g.Count()}")));
 
             Dictionary<string, string> baseline = BaselineGrades(set.Key);
             foreach (QuestionOutcome o in set)
@@ -81,6 +82,10 @@ public class EvaluationRunTests
             }
         }
 
+        // Step 5: every figure that's in none of the model's excerpts on a question that doesn't ask for a calculation.
+        List<QuestionOutcome> untraced = outcomes.Where(o => o.FigureSource == "untraced").ToList();
+        summary.AppendLine(untraced.Count == 0 ? "No untraced figure." : $"{untraced.Count} answer(s) state a figure in none of the excerpts:");
+        untraced.ForEach(o => summary.AppendLine($"  {o.Set}.{o.Id}: {o.FigureTrace.Replace("\n", " | ")} - {o.Answer}"));
         summary.AppendLine(differences.Count == 0 ? "Every grade equals the v2 baseline." : $"{differences.Count} grade(s) differ from the v2 baseline:");
         differences.ForEach(d => summary.AppendLine("  " + d));
         File.WriteAllText(Path.Combine(storage, $"summary-{execution}.txt"), summary.ToString());

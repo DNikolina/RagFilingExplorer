@@ -2,7 +2,7 @@
   "scenarioName": "AnswerSide.A6",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:34.6864182Z",
+  "creationTime": "2026-10-05T13:07:36.0406709Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "20,935: excerpt 1 (cash_flow_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Investing \u003E Cash and cash equivalents, end of period \u2014 2026: $20,935 | 2025: $30,242 | 2024: $18,315\u0022; excerpt 2 (balance_sheet, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Current assets \u003E Cash and cash equivalents \u2014 2026: $20,935 | 2025: $30,242\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0009167,
+        "latency": 0.0005841,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

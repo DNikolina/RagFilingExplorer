@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H31",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:33.5686367Z",
+  "creationTime": "2026-10-05T13:07:35.054339Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "13,326,603: excerpt 1 (income_statement, PART IV \u003E Financial Statements): \u0022Operating income \u2014 2025: 13,326,603 | 2024: 10,417,614 | 2023: 6,954,003\u0022; excerpt 2 (narrative, PART IV \u003E Financial Statements \u003E Segment and Geographic Information): \u0022Less \u003E Operating income \u2014 2025: 13,326,603 | 2024: 10,417,614 | 2023: 6,954,003\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0008006,
+        "latency": 0.0007428,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

@@ -2,7 +2,7 @@
   "scenarioName": "Main.R2",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:29.3606772Z",
+  "creationTime": "2026-10-05T13:07:31.047633Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "1,274: excerpt 3 (narrative, PART IV \u003E Financial Statements \u003E Business Segments): \u0022Operating income \u2014 Capital Access Platforms: $1,274 | Financial Technology: $860 | Market Services: $764 | Corporate: $(567) | Total: $2,331\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0020014,
+        "latency": 0.0008413,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

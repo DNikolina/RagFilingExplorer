@@ -2,7 +2,7 @@
   "scenarioName": "Main.T4",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:28.3521336Z",
+  "creationTime": "2026-10-05T13:07:30.0986909Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "3,603: excerpt 1 (narrative, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Leases, Other Commitments and Certain Contingencies): \u0022Fiscal 2028 \u2014 Operating Leases: 3,603 | Finance Leases: 676\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0008362,
+        "latency": 0.0012438,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

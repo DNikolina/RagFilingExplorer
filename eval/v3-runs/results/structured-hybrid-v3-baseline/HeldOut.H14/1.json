@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H14",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:31.391541Z",
+  "creationTime": "2026-10-05T13:07:33.0002185Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "1,776: excerpt 2 (narrative, PART IV \u003E Financial Statements \u003E Revenue Recognition): \u0022...e not been fully redeemed. As of December 31, 2025, total deferred revenue was $1,776\u00A0million, the vast majority of which was related to membership fees billed ...\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.000782,
+        "latency": 0.0007673,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

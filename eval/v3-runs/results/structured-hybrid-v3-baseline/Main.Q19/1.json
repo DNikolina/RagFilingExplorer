@@ -2,7 +2,7 @@
   "scenarioName": "Main.Q19",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:26.6784033Z",
+  "creationTime": "2026-10-05T13:07:28.6207109Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "55,596,993: excerpt 1 (balance_sheet, PART IV \u003E Financial Statements): \u0022Total assets \u2014 2025: $55,596,993 | 2024: $53,630,374\u0022; excerpt 2 (balance_sheet, PART IV \u003E Financial Statements): \u0022Total liabilities and stockholders\u2019 equity \u2014 2025: $55,596,993 | 2024: $53,630,374\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0009603,
+        "latency": 0.0010499,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

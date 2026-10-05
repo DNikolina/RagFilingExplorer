@@ -2,7 +2,7 @@
   "scenarioName": "Main.T7",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:28.5084436Z",
+  "creationTime": "2026-10-05T13:07:30.2497208Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "2.6: excerpt 1 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Income Taxes): \u0022Ireland \u003E Statutory tax rate difference \u2014 Year Ended June 30, 2026: (4,301) / (2.6)%\u0022\n4,301: excerpt 1 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Income Taxes): \u0022Ireland \u003E Statutory tax rate difference \u2014 Year Ended June 30, 2026: (4,301) / (2.6)%\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0013563,
+        "latency": 0.0007386,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

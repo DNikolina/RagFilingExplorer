@@ -2,7 +2,7 @@
   "scenarioName": "Main.Q24",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:27.9045255Z",
+  "creationTime": "2026-10-05T13:07:29.6513042Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "27,034: excerpt 1 (equity_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Retained earnings \u003E Common stock cash dividends \u2014 2026: (27,034) | 2025: (24,677) | 2024: (22,293)\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0007542,
+        "latency": 0.0008007,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

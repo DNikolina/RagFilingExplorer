@@ -2,7 +2,7 @@
   "scenarioName": "Main.R1",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:29.2677478Z",
+  "creationTime": "2026-10-05T13:07:30.9622854Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "9,916: excerpt 1 (narrative, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Deferred Revenues): \u0022Deferred revenues, current \u2014 2026: 9,916 | 2025: 9,387\u0022; excerpt 5 (balance_sheet, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Current liabilities \u003E Deferred revenues \u2014 2026: 9,916 | 2025: 9,387\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0009706,
+        "latency": 0.0008676,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

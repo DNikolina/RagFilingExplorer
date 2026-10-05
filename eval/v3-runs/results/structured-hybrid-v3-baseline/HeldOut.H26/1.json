@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H26",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:33.1361857Z",
+  "creationTime": "2026-10-05T13:07:34.6619609Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "1,788: excerpt 1 (income_statement, PART IV \u003E Financial Statements): \u0022Net income attributable to Nasdaq \u2014 2025: $1,788 | 2024: $1,117 | 2023: $1,059\u0022; excerpt 5 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of): \u0022U.S. GAAP net income attributable to Nasdaq \u2014 2025: $1,788 | 2024: $1,117 | 2023: $1,059\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0007903,
+        "latency": 0.0006188,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

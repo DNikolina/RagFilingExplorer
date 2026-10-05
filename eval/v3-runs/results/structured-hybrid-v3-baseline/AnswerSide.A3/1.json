@@ -2,7 +2,7 @@
   "scenarioName": "AnswerSide.A3",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:34.3209727Z",
+  "creationTime": "2026-10-05T13:07:35.7239422Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "315,989: excerpt 2 (balance_sheet, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Total liabilities \u2014 2026: 315,989 | 2025: 275,524\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0009208,
+        "latency": 0.0006648,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

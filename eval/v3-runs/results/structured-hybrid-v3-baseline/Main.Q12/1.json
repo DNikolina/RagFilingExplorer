@@ -2,7 +2,7 @@
   "scenarioName": "Main.Q12",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:26.1484563Z",
+  "creationTime": "2026-10-05T13:07:28.1943292Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "0.9: excerpt 1 (narrative, PART I \u003E Item 2. Properties): \u0022...rative and other functions. Our headquarters facility consists of approximately 0.9 million square feet in Austin, Texas, all of which we own. We also own or le...\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0009073,
+        "latency": 0.0006922,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

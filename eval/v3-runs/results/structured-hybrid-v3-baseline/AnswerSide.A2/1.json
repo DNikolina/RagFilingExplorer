@@ -2,7 +2,7 @@
   "scenarioName": "AnswerSide.A2",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:34.243954Z",
+  "creationTime": "2026-10-05T13:07:35.6548072Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "3.12: excerpt 2 (income_statement, PART IV \u003E Financial Statements): \u0022Per share information \u003E Basic earnings per share \u2014 2025: $3.12 | 2024: $1.94 | 2023: $2.10\u0022; excerpt 3 (narrative, PART IV \u003E Financial Statements \u003E Earnings Per Share): \u0022Basic and diluted earnings per share \u003E Basic earnings per share \u2014 2025: $3.12 | 2024: $1.94 | 2023: $2.10\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.001398,
+        "latency": 0.000653,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

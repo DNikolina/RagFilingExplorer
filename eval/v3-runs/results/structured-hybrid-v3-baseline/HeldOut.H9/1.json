@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H9",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:30.9641629Z",
+  "creationTime": "2026-10-05T13:07:32.5832265Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "5,249: excerpt 1 (income_statement, PART IV \u003E Financial Statements): \u0022Transaction-based expenses \u003E Revenues less transaction-based expenses \u2014 2025: 5,249 | 2024: 4,649 | 2023: 3,895\u0022; excerpt 3 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of): \u0022Revenues less transaction- based expenses \u2014 Year Ended December 31, 2025: $5,249 | Year Ended December 31, 2024: $4,649 | Year Ended December 31, 2023: $3,895 |...\u0022; excerpt 4 (narrative, PART IV \u003E Financial Statements \u003E Business Segments): \u0022...evenues less transaction- based expenses \u2014 Capital Access Platforms: 2,137 | Financial Technology: 1,850 | Market Services: 1,201 | Corporate: 61 | Total: 5,249\u0022; excerpt 5 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of): \u0022...otal revenues less transaction- based expenses \u2014 Year Ended December 31, 2025: $5,249 | Year Ended December 31, 2024: $4,649 | Year Ended December 31, 2023: $3,...\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0010248,
+        "latency": 0.0007831,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

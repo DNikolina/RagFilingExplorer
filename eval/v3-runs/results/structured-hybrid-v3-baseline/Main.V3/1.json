@@ -2,7 +2,7 @@
   "scenarioName": "Main.V3",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:29.7505755Z",
+  "creationTime": "2026-10-05T13:07:31.4230444Z",
   "messages": [
     {
       "role": "user",
@@ -50,13 +50,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "10,149,273: excerpt 2 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022Changes in operating assets and liabilities \u003E Net cash provided by operating activities \u2014 2025: 10,149,273 | 2024: 7,361,364 | 2023: 7,274,301\u0022; excerpt 4 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Net cash provided by operating activities \u2014 Year Ended December 31, 2025: $10,149,273 | Year Ended December 31, 2024: $7,361,364 | Year Ended December 31, 2023:...\u0022\n7,361,364: excerpt 2 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022Changes in operating assets and liabilities \u003E Net cash provided by operating activities \u2014 2025: 10,149,273 | 2024: 7,361,364 | 2023: 7,274,301\u0022; excerpt 4 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...es \u2014 Year Ended December 31, 2025: $10,149,273 | Year Ended December 31, 2024: $7,361,364 | Year Ended December 31, 2023: $7,274,301 | Change 2025 vs. 2024: $2,...\u0022\n7,274,301: excerpt 2 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022Changes in operating assets and liabilities \u003E Net cash provided by operating activities \u2014 2025: 10,149,273 | 2024: 7,361,364 | 2023: 7,274,301\u0022; excerpt 4 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...ed December 31, 2025: $10,149,273 | Year Ended December 31, 2024: $7,361,364 | Year Ended December 31, 2023: $7,274,301 | Change 2025 vs. 2024: $2,787,909 / 38%\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0008175,
+        "latency": 0.0007517,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

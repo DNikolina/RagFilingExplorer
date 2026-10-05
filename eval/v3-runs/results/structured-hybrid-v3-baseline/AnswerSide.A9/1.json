@@ -2,7 +2,7 @@
   "scenarioName": "AnswerSide.A9",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:35.0184398Z",
+  "creationTime": "2026-10-05T13:07:36.3051879Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": true,
           "reason": "Outside the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "601: excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity): \u0022Total Amount Paid: $601\u0022 (\u002B1 more line)",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0007079,
+        "latency": 0.0009963,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

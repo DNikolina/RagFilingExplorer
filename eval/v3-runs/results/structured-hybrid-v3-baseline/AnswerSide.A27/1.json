@@ -2,7 +2,7 @@
   "scenarioName": "AnswerSide.A27",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:07:00.9740445Z",
+  "creationTime": "2026-10-05T13:07:38.2910097Z",
   "messages": [
     {
       "role": "user",
@@ -50,13 +50,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "calculated",
+        "name": "Figure source",
+        "reason": "25.9: in none of the excerpts\n17,087: excerpt 1 (income_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Net income \u2014 2026: $17,087 | 2025: $12,443 | 2024: $10,467\u0022; excerpt 4 (comprehensive_income, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Net income \u2014 2026: $17,087 | 2025: $12,443 | 2024: $10,467\u0022\n67,357: excerpt 2 (income_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Revenues \u003E Total revenues \u2014 2026: 67,357 | 2025: 57,399 | 2024: 52,961\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "25.9 in no excerpt - the question asks for a calculation."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 83.9315748,
+        "latency": 0.0006789,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {
@@ -65,7 +76,7 @@
           "totalTokenCount": 2756
         },
         "cacheKey": "297A23CC28A8EEE0A52DCDE588C09DB71EA2798E64D5FE1244369EDCB0ADF3C043369E2FA723CA06D72BB7EA28718F58",
-        "cacheHit": false
+        "cacheHit": true
       }
     ]
   },

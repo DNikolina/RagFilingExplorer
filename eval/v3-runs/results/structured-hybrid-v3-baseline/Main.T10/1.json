@@ -2,7 +2,7 @@
   "scenarioName": "Main.T10",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:28.9846251Z",
+  "creationTime": "2026-10-05T13:07:30.7073919Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "96,795: excerpt 4 (comprehensive_income, PART IV \u003E Financial Statements): \u0022Cash flow hedges \u003E Reclassification of net (gains) losses included in net income \u2014 2025: 68,962 | 2024: (96,795)\u0022; excerpt 5 (narrative, PART IV \u003E Financial Statements \u003E Stockholders\u0027 Equity): \u0022...venues: $124,010 | Cost of Revenues: $1,629 | Interest and other income (expense): $\u2014 | Provision for Income Taxes: $(28,844) | Total Reclassifications: $96,795\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0007472,
+        "latency": 0.0008029,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

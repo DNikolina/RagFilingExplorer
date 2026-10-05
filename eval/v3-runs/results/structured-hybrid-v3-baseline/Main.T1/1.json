@@ -2,7 +2,7 @@
   "scenarioName": "Main.T1",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:27.979497Z",
+  "creationTime": "2026-10-05T13:07:29.7279833Z",
   "messages": [
     {
       "role": "user",
@@ -50,13 +50,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "104,075: excerpt 1 (comprehensive_income, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Other comprehensive income (loss), net of tax \u003E Comprehensive income \u2014 2026: $133,812 | 2025: $104,075 | 2024: $88,889\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0008464,
+        "latency": 0.0007282,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

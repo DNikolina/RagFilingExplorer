@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H12",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:31.1589905Z",
+  "creationTime": "2026-10-05T13:07:32.7713652Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "16,000: excerpt 1 (narrative, PART I \u003E Item 1. Business): \u0022...ur culture as key to our success. As of December\u00A031, 2025, we had approximately 16,000 full-time employees. Of these, approximately 10,900 (68%) were located in...\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0008219,
+        "latency": 0.0006379,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

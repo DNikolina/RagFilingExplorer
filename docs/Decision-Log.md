@@ -2958,7 +2958,7 @@ on - a replay against today's index would give precise-looking wrong numbers. `H
 (offline; it writes into `eval/v3-runs/`) runs the import; `report.html` is written from every execution - by the
 import and by every evaluation run from now on - next to each run's own `report-<execution>.html`.
 
-**Step 5 reshaped (user, 2026-10-02): which excerpt the model's answer came from - planned for the next session.** The
+**Step 5 reshaped (user, 2026-10-02): which excerpt the model's answer came from - done 2026-10-05, outcome below.** The
 report shows the grade and where the right answer ranked, not what the model read its figure from - which is how today's
 misreadings (A10's declared $27,034M over the cash flow statement's $26,445M) were found, by hand. The planned grounding
 evaluator does it for every question:
@@ -2976,3 +2976,30 @@ evaluator does it for every question:
   model call.
 Bar to set when it's built: on the v3 baseline, A10 traced to its equity-statement line, and no flagged figure that
 isn't an asked-for calculation or a real invention (v2's step 3b replay found none among 7 wrong answers).
+
+**Step 5 done (2026-10-05): which excerpt each answer's figure came from - bar met.** `Evaluators/FigureSourceEvaluator`,
+a third evaluator in every run, one string metric "Figure source":
+- **What it reads:** the five excerpts the prompt held (`RetrievedChunks.Take(GenerationTopK)`) and the answer's figures -
+  the strict grader's `StatedFigures` (now `internal`, unchanged: GraderParityTests still 1,029/1,029), **less the day of
+  a date**. "December 31" made 31 a figure in 34 of the 102 baseline answers, found in nearly every excerpt - the grader
+  keeps it (grade_answers.py's rule), only the trace drops a 1-2 digit number right after a month name. Every other small
+  number left is a real figure (H2's 19%, T3's 16%, H4's 9%, R3's 30%).
+- **What it reports:** per figure, every excerpt holding it - position in the prompt, statement type, section - and the
+  first line holding it (+N more), a long line shown as a 160-character window around the figure (a narrative paragraph
+  is one line; cut from its start, A11's, H13's and H34's figures fell off the end). Numbers match as the grader
+  tokenizes them, so "(26,445)" holds 26,445; a figure restated in other units isn't found.
+- **Statuses:** `traced` (every figure in an excerpt); `calculated` (a figure in none, on a question whose chunk_expect
+  lists two or more inputs and not the expected figure - H4, A21-A27); `untraced` (a figure in none otherwise - failed,
+  listed in the run summary); `no figure stated` (a text answer or a decline, not matched against the expected text -
+  user, 2026-10-05). V3 ("sum up the numbers") marks one figure, so a computed total there would show as untraced.
+- **Excerpt metadata:** `RetrievedChunksContext` now carries `RetrievedExcerpt`s (filing, heading, statement type,
+  content); the stored context is still each chunk's text.
+
+**The v3 baseline, re-run under its own name** (answers from the cache, retrieval recomputed, 19 s): all 102 stored
+results identical to the committed ones but for the new metric - same answers, grades, ranks. Main 34 traced / 6 no
+figure; held-out 29 / 6; answer side 19 traced, 7 calculated, 1 no figure. **No untraced figure.** A10's $27,034M traced
+to excerpt 1, the equity statement's "Retained earnings > Common stock cash dividends" (dividends declared) - the bar. Every
+wrong answer's figure is in its excerpts - v2's step 3b finding, now from every run: A14 and H34 (MD&A sentences), A8 and
+A11 (MD&A dividend paragraph), A15 (a stockholders' equity note's total), H13 (the next column of the same row), T1 and T9
+(a lookalike line in the right statement), A16's computed 620 (616 + 4) also printed in the equity statement (excerpt 5).
+A27's wrong 25.9% is `calculated`, its inputs traced. 70 offline evaluation tests (17 new).

@@ -2,7 +2,7 @@
   "scenarioName": "Main.T2",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:28.0223574Z",
+  "creationTime": "2026-10-05T13:07:29.7697464Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "3,500: excerpt 1 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Stockholders\u0027 Equity): \u0022Second Quarter \u2014 2026 Shares: 12 | 2026 Amount: 5,964 | 2025 Shares: 8 | 2025 Amount: 3,500 | 2024 Shares: 7 | 2024 Amount: 2,800\u0022 (\u002B1 more line)",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0010085,
+        "latency": 0.0008028,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

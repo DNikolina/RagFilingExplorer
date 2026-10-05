@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H34",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:33.9772243Z",
+  "creationTime": "2026-10-05T13:07:35.3785912Z",
   "messages": [
     {
       "role": "user",
@@ -50,13 +50,24 @@
           "failed": true,
           "reason": "Outside the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "86,536,215: excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...ior notice. In the fiscal year ended December\u00A031, 2025, the Company repurchased 86,536,215 shares of common stock for an aggregate amount of $9.1\u00A0billion (exclu...\u0022; excerpt 3 (narrative, PART IV \u003E Financial Statements \u003E Stockholders\u0027 Equity): \u0022... prior notice. During the year ended December\u00A031, 2025, the Company repurchased 86,536,215 shares for an aggregate amount of $9.1\u00A0billion (excluding the 1% exci...\u0022; excerpt 4 (equity_statement, PART IV \u003E Financial Statements): \u0022...ended December 31, 2025) \u2014 Common Stock and Additional Paid-in Capital Shares: (86,536,215) | Treasury Stock: (9,154,855) | Total Stockholders\u2019 Equity: (9,154,8...\u0022\n9.1: excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...mpany repurchased 86,536,215 shares of common stock for an aggregate amount of $9.1\u00A0billion (excluding the 1% excise tax on stock repurchases as a result of the...\u0022; excerpt 3 (narrative, PART IV \u003E Financial Statements \u003E Stockholders\u0027 Equity): \u0022...31, 2025, the Company repurchased 86,536,215 shares for an aggregate amount of $9.1\u00A0billion (excluding the 1% excise tax on stock repurchases as a result of the...\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0007373,
+        "latency": 0.000721,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

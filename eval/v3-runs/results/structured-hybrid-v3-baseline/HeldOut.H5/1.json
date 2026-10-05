@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H5",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:30.1442675Z",
+  "creationTime": "2026-10-05T13:07:31.7951266Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "141,000: excerpt 1 (narrative, PART I \u003E Item 1. Business): \u0022As of May 31, 2026, we employed approximately 141,000 full-time employees, of which approximately 49,000 were employed in the U.S. and approximately 92,000 were...\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0019796,
+        "latency": 0.0008153,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

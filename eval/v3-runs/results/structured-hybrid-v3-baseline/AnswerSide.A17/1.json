@@ -2,7 +2,7 @@
   "scenarioName": "AnswerSide.A17",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:35.8848795Z",
+  "creationTime": "2026-10-05T13:07:37.0713338Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "13,463,971: excerpt 3 (balance_sheet, PART IV \u003E Financial Statements): \u0022Long-term debt \u2014 2025: 13,463,971 | 2024: 13,798,351\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0010163,
+        "latency": 0.0007091,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

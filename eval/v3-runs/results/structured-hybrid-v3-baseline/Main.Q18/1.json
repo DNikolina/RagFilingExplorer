@@ -2,7 +2,7 @@
   "scenarioName": "Main.Q18",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:26.5482641Z",
+  "creationTime": "2026-10-05T13:07:28.5028895Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "10,981,201: excerpt 1 (income_statement, PART IV \u003E Financial Statements): \u0022Other income (expense) \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\u0022; excerpt 2 (narrative, PART IV \u003E Financial Statements \u003E Segment and Geographic Information): \u0022Other income (expense) \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\u0022; excerpt 3 (comprehensive_income, PART IV \u003E Financial Statements): \u0022Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\u0022; excerpt 4 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022Cash flows from operating activities \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0009692,
+        "latency": 0.0008381,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

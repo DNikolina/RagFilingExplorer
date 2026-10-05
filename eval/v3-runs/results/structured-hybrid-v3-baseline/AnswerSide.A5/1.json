@@ -2,7 +2,7 @@
   "scenarioName": "AnswerSide.A5",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:34.6371774Z",
+  "creationTime": "2026-10-05T13:07:36.0047049Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "19,554: excerpt 2 (narrative, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Income Taxes): \u0022Income before income taxes \u2014 2026: $19,554 | 2025: $14,160 | 2024: $11,741\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0007531,
+        "latency": 0.0006241,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

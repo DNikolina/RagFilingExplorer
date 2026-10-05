@@ -2,7 +2,7 @@
   "scenarioName": "AnswerSide.A23",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:36.5882929Z",
+  "creationTime": "2026-10-05T13:07:37.7647027Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "calculated",
+        "name": "Figure source",
+        "reason": "207,710: excerpt 1 (balance_sheet, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Total current assets \u2014 2026: 207,710 | 2025: 191,131\u0022\n168,825: excerpt 5 (balance_sheet, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Current liabilities \u003E Total current liabilities \u2014 2026: 168,825 | 2025: 141,218\u0022\n1.23: in none of the excerpts",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "1.23 in no excerpt - the question asks for a calculation."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0006045,
+        "latency": 0.0006479,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

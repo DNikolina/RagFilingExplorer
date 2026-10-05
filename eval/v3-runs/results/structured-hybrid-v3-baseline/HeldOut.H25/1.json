@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H25",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:33.0232165Z",
+  "creationTime": "2026-10-05T13:07:34.585934Z",
   "messages": [
     {
       "role": "user",
@@ -50,13 +50,24 @@
           "failed": true,
           "reason": "Outside the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "67,357: excerpt 1 (income_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Revenues \u003E Total revenues \u2014 2026: 67,357 | 2025: 57,399 | 2024: 52,961\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0008056,
+        "latency": 0.0009611,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

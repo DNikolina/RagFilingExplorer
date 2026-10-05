@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H19",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:31.7402049Z",
+  "creationTime": "2026-10-05T13:07:33.3149811Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "119,651: excerpt 1 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Goodwill): \u0022Total \u2014 June 30, 2024: $119,220 | Acquisitions: $0 | Other: $289 | June 30, 2025: $119,509 | Acquisitions: $108 | Other: $34 | June 30, 2026: $119,651\u0022; excerpt 3 (balance_sheet, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Goodwill \u2014 2026: 119,651 | 2025: 119,509\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.000718,
+        "latency": 0.0005764,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

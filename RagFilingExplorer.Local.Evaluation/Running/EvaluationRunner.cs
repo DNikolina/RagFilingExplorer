@@ -14,8 +14,10 @@ namespace RagFilingExplorer.Local.Evaluation.Running;
 /// <summary>One question set: its file in tools/ and the name its scenarios are grouped under in the report.</summary>
 internal sealed record QuestionSet(string Name, string File);
 
-/// <summary>One question's outcome in a run.</summary>
-internal sealed record QuestionOutcome(string Set, string Id, StrictGrade Grade, int? Rank, string Answer, TimeSpan Elapsed);
+/// <summary>One question's outcome in a run. <see cref="FigureSource"/> is the figure-source status, <see cref="FigureTrace"/>
+/// where each stated figure was found.</summary>
+internal sealed record QuestionOutcome(
+    string Set, string Id, StrictGrade Grade, int? Rank, string Answer, TimeSpan Elapsed, string FigureSource = "", string FigureTrace = "");
 
 /// <summary>
 /// A chat client whose inner client is switched per scenario: the app's answer service is built once, and each question
@@ -43,8 +45,9 @@ internal sealed class ScenarioChatClient : IChatClient
 
 /// <summary>
 /// v3 step 4: an evaluation run - the app as configured (AppComposition), every question of the given sets asked
-/// in-process, each answer graded (<see cref="StrictFigureEvaluator"/>) and its retrieval ranked
-/// (<see cref="RetrievalRankEvaluator"/>), stored on disk as one scenario per question under one execution name, with
+/// in-process, each answer graded (<see cref="StrictFigureEvaluator"/>), its retrieval ranked
+/// (<see cref="RetrievalRankEvaluator"/>) and its figures traced to the excerpts (<see cref="FigureSourceEvaluator"/>,
+/// step 5), stored on disk as one scenario per question under one execution name, with
 /// the model's responses cached, and an HTML report written from the stored results at the end.
 /// </summary>
 internal sealed class EvaluationRunner(DirectoryInfo repoRoot, string storageRoot, string executionName, TimeSpan cacheTimeToLive)
@@ -68,7 +71,12 @@ internal sealed class EvaluationRunner(DirectoryInfo repoRoot, string storageRoo
         (_, OllamaSharp.OllamaApiClient chat) = AppComposition.CreateOllamaClients(settings.Ollama);
         ReportingConfiguration reporting = DiskBasedReportingConfiguration.Create(
             storageRootPath: storageRoot,
-            evaluators: [new StrictFigureEvaluator(), new RetrievalRankEvaluator(settings.Retrieval.GenerationTopK)],
+            evaluators:
+            [
+                new StrictFigureEvaluator(),
+                new RetrievalRankEvaluator(settings.Retrieval.GenerationTopK),
+                new FigureSourceEvaluator(settings.Retrieval.GenerationTopK),
+            ],
             chatConfiguration: new ChatConfiguration(chat),
             enableResponseCaching: true,
             timeToLiveForCacheEntries: cacheTimeToLive,
@@ -100,7 +108,9 @@ internal sealed class EvaluationRunner(DirectoryInfo repoRoot, string storageRoo
                 }
 
                 string answerText = text.ToString().Trim();
-                List<string> chunks = answer.RetrievedChunks.Select(r => r.Record.Content).ToList();
+                List<RetrievedExcerpt> chunks = answer.RetrievedChunks
+                    .Select(r => new RetrievedExcerpt(r.Record.SourceFiling, r.Record.Heading, r.Record.StatementType, r.Record.Content))
+                    .ToList();
                 EvaluationResult result = await scenario.EvaluateAsync(
                     [new ChatMessage(ChatRole.User, question)],
                     new ChatResponse(new ChatMessage(ChatRole.Assistant, answerText)),
@@ -111,9 +121,11 @@ internal sealed class EvaluationRunner(DirectoryInfo repoRoot, string storageRoo
                     result.Get<StringMetric>(StrictFigureEvaluator.MetricName).Value!,
                     result.Get<StringMetric>(StrictFigureEvaluator.MetricName).Reason ?? "");
                 double? rank = result.Get<NumericMetric>(RetrievalRankEvaluator.MetricName).Value;
-                QuestionOutcome outcome = new(set.Name, entry.Id, grade, rank is null ? null : (int)rank, answerText, clock.Elapsed);
+                StringMetric source = result.Get<StringMetric>(FigureSourceEvaluator.MetricName);
+                QuestionOutcome outcome = new(set.Name, entry.Id, grade, rank is null ? null : (int)rank, answerText, clock.Elapsed, source.Value!, source.Reason ?? "");
                 outcomes.Add(outcome);
-                progress($"{set.Name}.{entry.Id}: {grade.Status}{(grade.Note.Length > 0 ? $" ({grade.Note})" : "")}, rank {outcome.Rank?.ToString() ?? "-"}, {clock.Elapsed.TotalSeconds:F0}s");
+                progress($"{set.Name}.{entry.Id}: {grade.Status}{(grade.Note.Length > 0 ? $" ({grade.Note})" : "")}, rank {outcome.Rank?.ToString() ?? "-"}, "
+                    + $"figures {outcome.FigureSource}, {clock.Elapsed.TotalSeconds:F0}s");
             }
         }
 

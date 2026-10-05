@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H6",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:30.3510053Z",
+  "creationTime": "2026-10-05T13:07:31.9925478Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "10,272: excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Total expenses \u2014 2026: $10,272 | Percent Change Actual: 4% | Percent Change Constant: 4% | 2025: $9,860\u0022; excerpt 3 (income_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Operating expenses \u003E Research and development \u2014 2026: 10,272 | 2025: 9,860 | 2024: 8,915\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0009374,
+        "latency": 0.0006731,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

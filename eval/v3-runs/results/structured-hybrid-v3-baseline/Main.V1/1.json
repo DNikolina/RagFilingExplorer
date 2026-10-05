@@ -2,7 +2,7 @@
   "scenarioName": "Main.V1",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:29.5107379Z",
+  "creationTime": "2026-10-05T13:07:31.1892439Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "940: excerpt 1 (comprehensive_income, PART IV \u003E Financial Statements): \u0022Comprehensive income \u2014 2025: 2,113 | 2024: 940 | 2023: 1,124\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0007325,
+        "latency": 0.0006681,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

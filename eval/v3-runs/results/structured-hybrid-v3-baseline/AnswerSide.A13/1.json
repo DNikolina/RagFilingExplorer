@@ -2,7 +2,7 @@
   "scenarioName": "AnswerSide.A13",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:35.4040705Z",
+  "creationTime": "2026-10-05T13:07:36.6759545Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "115,948: excerpt 3 (cash_flow_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Investing \u003E Additions to property and equipment \u2014 2026: (115,948) | 2025: (64,551) | 2024: (44,477)\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0006743,
+        "latency": 0.0006566,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

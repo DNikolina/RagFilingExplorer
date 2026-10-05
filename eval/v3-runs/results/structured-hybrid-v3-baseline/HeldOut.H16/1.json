@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H16",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:31.5333878Z",
+  "creationTime": "2026-10-05T13:07:33.1443103Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "3.64: excerpt 2 (equity_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Cash dividends declared per common share \u2014 2026: $3.64 | 2025: $3.32 | 2024: $3.00\u0022; excerpt 3 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Stockholders\u0027 Equity): \u0022Total \u2014 Dividend Per Share: $3.64 | Amount: $27,035\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0008332,
+        "latency": 0.0008672,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

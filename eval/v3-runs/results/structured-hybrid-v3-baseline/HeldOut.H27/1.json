@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H27",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:33.1859793Z",
+  "creationTime": "2026-10-05T13:07:34.7056367Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "1.05: excerpt 2 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of): \u0022Cash dividends declared per common share \u2014 Year Ended December 31, 2025: $1.05 | Year Ended December 31, 2024: $0.94 | Year Ended December 31, 2023: $0.86 | Per...\u0022; excerpt 3 (income_statement, PART IV \u003E Financial Statements): \u0022Per share information \u003E Cash dividends declared per common share \u2014 2025: $1.05 | 2024: $0.94 | 2023: $0.86\u0022; excerpt 5 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of): \u0022Total \u2014 2025: $1.05 | 2024: $0.94\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0014215,
+        "latency": 0.0007005,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

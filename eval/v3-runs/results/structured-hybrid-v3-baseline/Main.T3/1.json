@@ -2,7 +2,7 @@
   "scenarioName": "Main.T3",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:28.1396506Z",
+  "creationTime": "2026-10-05T13:07:29.8729983Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "16: excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...Ended December 31, 2025: $3,391,390 | Year Ended December 31, 2024: $2,925,295 | Year Ended December 31, 2023: $2,675,758 | Change 2025 vs. 2024: $466,095 / 16%\u0022; excerpt 3 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022... December 31, 2025: $45,183,036 | Year Ended December 31, 2024: $39,000,966 | Year Ended December 31, 2023: $33,723,297 | Change 2025 vs. 2024: $6,182,070 / 16%\u0022 (\u002B1 more line)",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0007939,
+        "latency": 0.0007448,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

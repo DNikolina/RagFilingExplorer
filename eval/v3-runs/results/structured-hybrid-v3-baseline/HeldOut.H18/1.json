@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H18",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:31.6950731Z",
+  "creationTime": "2026-10-05T13:07:33.2762745Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "225,465: excerpt 1 (income_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Gross margin \u2014 2026: 225,465 | 2025: 193,893 | 2024: 171,008\u0022; excerpt 2 (narrative, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS): \u0022Gross margin \u2014 2026: 225,465 | 2025: 193,893 | Percentage Change: 16%\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0007025,
+        "latency": 0.0005904,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

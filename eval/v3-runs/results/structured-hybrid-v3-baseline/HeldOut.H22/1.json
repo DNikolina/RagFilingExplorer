@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H22",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:32.3120385Z",
+  "creationTime": "2026-10-05T13:07:33.8704056Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "5.94: excerpt 1 (income_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Earnings per share attributable to common shareholders \u003E Basic \u2014 2026: $5.94 | 2025: $4.46 | 2024: $3.82\u0022; excerpt 2 (narrative, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Earnings Per Share): \u0022Basic earnings per share attributable to common shareholders \u2014 2026: $5.94 | 2025: $4.46 | 2024: $3.82\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0012698,
+        "latency": 0.0007374,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

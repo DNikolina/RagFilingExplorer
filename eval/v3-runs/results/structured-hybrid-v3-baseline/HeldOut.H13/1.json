@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H13",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:31.2576105Z",
+  "creationTime": "2026-10-05T13:07:32.853079Z",
   "messages": [
     {
       "role": "user",
@@ -50,13 +50,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "5,208,710: excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Cash, Cash Equivalents, Restricted Cash, and Short-term Investments): \u0022...zed Losses: $\u2014 | Estimated Fair Value: $5,214,163 | Cash and cash equivalents: $5,208,710 | Short-term investments: $\u2014 | Other Current Assets: $5,369 | Non-curr...\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0008684,
+        "latency": 0.0006039,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

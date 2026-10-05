@@ -2,7 +2,7 @@
   "scenarioName": "AnswerSide.A11",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:35.2674059Z",
+  "creationTime": "2026-10-05T13:07:36.5483877Z",
   "messages": [
     {
       "role": "user",
@@ -50,13 +50,24 @@
           "failed": true,
           "reason": "Outside the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "63: excerpt 2 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...89 per share of outstanding Mandatory Convertible Preferred Stock that totaled $63 million and $2.00 per share of outstanding common stock that totaled $5.7 bil...\u0022\n5.7: excerpt 2 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...taled $63 million and $2.00 per share of outstanding common stock that totaled $5.7 billion. In June 2026, our Board of Directors (the Board) declared a quarter...\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0008235,
+        "latency": 0.0007377,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

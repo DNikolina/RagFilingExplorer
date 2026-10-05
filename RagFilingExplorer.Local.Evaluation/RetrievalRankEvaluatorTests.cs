@@ -30,7 +30,7 @@ public class RetrievalRankEvaluatorTests
         EvaluationResult result = await new RetrievalRankEvaluator(generationTopK).EvaluateAsync(
             [new ChatMessage(ChatRole.User, expected.Question)],
             new ChatResponse(new ChatMessage(ChatRole.Assistant, "")),
-            additionalContext: [new ExpectedAnswerContext(expected), new RetrievedChunksContext(Chunks)]);
+            additionalContext: [new ExpectedAnswerContext(expected), new RetrievedChunksContext(Chunks.Select(c => new RetrievedExcerpt("MSFT-10K-2026.html", "h", "narrative", c)).ToList())]);
         return result.Get<NumericMetric>(RetrievalRankEvaluator.MetricName);
     }
 

@@ -2,7 +2,7 @@
   "scenarioName": "Main.Q9",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:25.8755769Z",
+  "creationTime": "2026-10-05T13:07:27.8978338Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "16,882: excerpt 1 (comprehensive_income, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Comprehensive income \u2014 2026: $16,882 | 2025: $12,700 | 2024: $10,557\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0008257,
+        "latency": 0.0008137,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

@@ -2,7 +2,7 @@
   "scenarioName": "AnswerSide.A16",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:35.7434234Z",
+  "creationTime": "2026-10-05T13:07:36.9678253Z",
   "messages": [
     {
       "role": "user",
@@ -50,13 +50,24 @@
           "failed": true,
           "reason": "Outside the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "616: excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity): \u0022Total purchase price (in millions) \u2014 Year Ended December 31, 2025: $616\u0022\n4: excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity): \u0022$4 million of accrued excise tax that had not been paid as of\u0022\n620: excerpt 5 (equity_statement, PART IV \u003E Financial Statements): \u0022Additional paid-in capital \u003E Share repurchase program \u2014 2025 Shares: (7) | 2025 $: (620) | 2024 Shares: (2) | 2024 $: (145) | 2023 Shares: (5) | 2023 $: (269)\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0015938,
+        "latency": 0.0006211,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

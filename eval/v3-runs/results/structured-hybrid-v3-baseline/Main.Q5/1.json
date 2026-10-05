@@ -2,7 +2,7 @@
   "scenarioName": "Main.Q5",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:25.4431381Z",
+  "creationTime": "2026-10-05T13:07:27.4154512Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "31,977: excerpt 2 (cash_flow_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Changes in operating assets and liabilities \u003E Net cash provided by operating activities \u2014 2026: 31,977 | 2025: 20,821 | 2024: 18,673\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0008747,
+        "latency": 0.0008627,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

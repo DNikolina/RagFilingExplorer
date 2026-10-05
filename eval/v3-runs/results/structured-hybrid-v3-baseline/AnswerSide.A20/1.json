@@ -2,7 +2,7 @@
   "scenarioName": "AnswerSide.A20",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:36.2589593Z",
+  "creationTime": "2026-10-05T13:07:37.3859518Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "3,301,306: excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Sales and marketing \u2014 Year Ended December 31, 2025: $3,301,306 | Year Ended December 31, 2024: $2,917,554 | Year Ended December 31, 2023: $2,657,883 | Change 20...\u0022; excerpt 2 (narrative, PART IV \u003E Financial Statements \u003E Segment and Geographic Information): \u0022Less \u003E Sales and marketing \u2014 2025: 3,301,306 | 2024: 2,917,554 | 2023: 2,657,883\u0022; excerpt 3 (income_statement, PART IV \u003E Financial Statements): \u0022Sales and marketing \u2014 2025: 3,301,306 | 2024: 2,917,554 | 2023: 2,657,883\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0007895,
+        "latency": 0.0006622,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

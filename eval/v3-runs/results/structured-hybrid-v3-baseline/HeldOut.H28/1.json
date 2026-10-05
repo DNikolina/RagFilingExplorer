@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H28",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:33.2321348Z",
+  "creationTime": "2026-10-05T13:07:34.748951Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "8,573: excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Debt Obligations): \u0022...nior unsecured notes \u003E Total long-term debt \u2014 December 31, 2024: $8,582 | Payments, Foreign Currency Translation and Accretion: $(9) | December 31, 2025: $8,573\u0022; excerpt 3 (balance_sheet, PART IV \u003E Financial Statements): \u0022Long-term debt \u2014 2025: 8,573 | 2024: 9,081\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.000736,
+        "latency": 0.0008131,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

@@ -2,7 +2,7 @@
   "scenarioName": "Main.T8",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:28.5675823Z",
+  "creationTime": "2026-10-05T13:07:30.3008291Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "91.47: excerpt 2 (narrative, PART II \u003E Item 5. Market for Registrant\u2019s Common Equity, Related): \u0022...am \u2014 Total Number of Shares Purchased: 760,264 | Average Price Paid Per Share: $91.47 | Total Number of Shares Purchased as Part of Publicly Announced Plans or ...\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0016323,
+        "latency": 0.0007804,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

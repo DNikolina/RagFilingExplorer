@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H20",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:31.8081105Z",
+  "creationTime": "2026-10-05T13:07:33.3821369Z",
   "messages": [
     {
       "role": "user",
@@ -47,13 +47,24 @@
           "failed": false,
           "reason": "Not scored."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "no figure stated",
+        "name": "Figure source",
+        "reason": "A text answer or a decline: nothing to trace.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "Not traced."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0009445,
+        "latency": 0.0010031,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

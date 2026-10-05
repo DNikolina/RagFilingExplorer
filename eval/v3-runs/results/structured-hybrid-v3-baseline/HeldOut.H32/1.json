@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H32",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:33.7481563Z",
+  "creationTime": "2026-10-05T13:07:35.1777444Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "2.53: excerpt 1 (income_statement, PART IV \u003E Financial Statements): \u0022Earnings per share \u003E Diluted \u2014 2025: $2.53 | 2024: $1.98 | 2023: $1.20\u0022; excerpt 3 (narrative, PART IV \u003E Financial Statements \u003E Earnings Per Share): \u0022Shares used in computation \u003E Diluted earnings per share \u2014 2025: $2.53 | 2024: $1.98 | 2023: $1.20\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0008093,
+        "latency": 0.0006928,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

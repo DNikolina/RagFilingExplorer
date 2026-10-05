@@ -2,7 +2,7 @@
   "scenarioName": "AnswerSide.A1",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:34.1541935Z",
+  "creationTime": "2026-10-05T13:07:35.5742826Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "17.95: excerpt 1 (income_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Earnings per share \u003E Diluted \u2014 2026: $17.95 | 2025: $13.64 | 2024: $11.80\u0022; excerpt 3 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Earnings Per Share): \u0022Earnings Per Share \u003E Diluted (A/C) \u2014 2026: $17.95 | 2025: $13.64 | 2024: $11.80\u0022; excerpt 4 (narrative, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS): \u0022Diluted earnings per share \u2014 2026: 17.95 | 2025: 13.64 | Percentage Change: 32%\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0011913,
+        "latency": 0.0011762,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

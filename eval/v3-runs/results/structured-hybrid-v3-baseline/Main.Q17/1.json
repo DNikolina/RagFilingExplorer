@@ -2,7 +2,7 @@
   "scenarioName": "Main.Q17",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:26.3594019Z",
+  "creationTime": "2026-10-05T13:07:28.3724135Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "45,183,036: excerpt 1 (income_statement, PART IV \u003E Financial Statements): \u0022Revenues \u2014 2025: $45,183,036 | 2024: $39,000,966 | 2023: $33,723,297\u0022; excerpt 2 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Total Streaming Revenues \u2014 Year Ended December 31, 2025 As Reported: $45,183,036 | Year Ended December 31, 2025 Constant Currency Adjustment: $179,557 | Year En...\u0022; excerpt 3 (narrative, PART IV \u003E Financial Statements \u003E Revenue Recognition): \u0022Total Streaming Revenues \u2014 2025: $45,183,036 | 2024: $39,000,966 | 2023: $33,640,458\u0022; excerpt 5 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Revenues \u2014 Year Ended December 31, 2025: $45,183,036 | Year Ended December 31, 2024: $39,000,966 | Year Ended December 31, 2023: $33,723,297 | Change 2025 vs. 2...\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0008569,
+        "latency": 0.0008493,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

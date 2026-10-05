@@ -2,7 +2,7 @@
   "scenarioName": "Main.Q11",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:25.9742651Z",
+  "creationTime": "2026-10-05T13:07:28.008022Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "223,000: excerpt 1 (narrative, PART I \u003E Item 1. BUSINESS): \u0022As of June 30, 2026, we employed approximately 223,000 people on a full-time basis, 121,000 in the U.S. and 102,000 internationally. Of the total employees, 89,...\u0022\n121,000: excerpt 1 (narrative, PART I \u003E Item 1. BUSINESS): \u0022...f June 30, 2026, we employed approximately 223,000 people on a full-time basis, 121,000 in the U.S. and 102,000 internationally. Of the total employees, 89,000 ...\u0022\n102,000: excerpt 1 (narrative, PART I \u003E Item 1. BUSINESS): \u0022...oyed approximately 223,000 people on a full-time basis, 121,000 in the U.S. and 102,000 internationally. Of the total employees, 89,000 were in operations, incl...\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0008008,
+        "latency": 0.0006732,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

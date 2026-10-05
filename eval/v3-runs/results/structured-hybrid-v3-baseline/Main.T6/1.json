@@ -2,7 +2,7 @@
   "scenarioName": "Main.T6",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:28.4522902Z",
+  "creationTime": "2026-10-05T13:07:30.1993965Z",
   "messages": [
     {
       "role": "user",
@@ -49,13 +49,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "no figure stated",
+        "name": "Figure source",
+        "reason": "A text answer or a decline: nothing to trace.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "Not traced."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0008839,
+        "latency": 0.000794,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

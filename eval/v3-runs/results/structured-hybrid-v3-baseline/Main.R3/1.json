@@ -2,7 +2,7 @@
   "scenarioName": "Main.R3",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:29.4345549Z",
+  "creationTime": "2026-10-05T13:07:31.1178042Z",
   "messages": [
     {
       "role": "user",
@@ -50,13 +50,24 @@
           "failed": true,
           "reason": "Outside the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "31.5: excerpt 5 (narrative, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS): \u0022Revenue increased $31.5 billion or 30%.\u0022\n30: excerpt 5 (narrative, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS): \u0022Revenue increased $31.5 billion or 30%.\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0009854,
+        "latency": 0.0008381,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

@@ -4,13 +4,19 @@ using RagFilingExplorer.Local.Evaluation.Grading;
 
 namespace RagFilingExplorer.Local.Evaluation.Evaluators;
 
-/// <summary>The chunks the app retrieved for the question, best first (RagAnswer.RetrievedChunks), as additional context.</summary>
-internal sealed class RetrievedChunksContext(IReadOnlyList<string> chunks)
-    : EvaluationContext(ContextName, chunks.Select(c => (AIContent)new TextContent(c)).ToList())
+/// <summary>One retrieved chunk: what the prompt's excerpt header names (filing, section), its statement type, and its text.</summary>
+internal sealed record RetrievedExcerpt(string SourceFiling, string Heading, string StatementType, string Content);
+
+/// <summary>The chunks the app retrieved for the question, best first (RagAnswer.RetrievedChunks), as additional context.
+/// The stored context is each chunk's text, as before the excerpts carried their metadata (step 5).</summary>
+internal sealed class RetrievedChunksContext(IReadOnlyList<RetrievedExcerpt> excerpts)
+    : EvaluationContext(ContextName, excerpts.Select(e => (AIContent)new TextContent(e.Content)).ToList())
 {
     public const string ContextName = "Retrieved chunks";
 
-    public IReadOnlyList<string> Chunks { get; } = chunks;
+    public IReadOnlyList<RetrievedExcerpt> Excerpts { get; } = excerpts;
+
+    public IReadOnlyList<string> Chunks { get; } = excerpts.Select(e => e.Content).ToList();
 }
 
 /// <summary>

@@ -2,7 +2,7 @@
   "scenarioName": "AnswerSide.A14",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:35.6405056Z",
+  "creationTime": "2026-10-05T13:07:36.8786893Z",
   "messages": [
     {
       "role": "user",
@@ -50,13 +50,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "55.7: excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...h used for capital expenditures increased from $21.2 billion in fiscal 2025 to $55.7 billion in fiscal 2026 primarily due to the expansion of our data centers. ...\u0022; excerpt 2 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...ion of net cash proceeds from our employee stock programs, partially offset by $55.7 billion of cash used for capital expenditures; $5.8 billion of cash used to...\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0005555,
+        "latency": 0.0006727,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

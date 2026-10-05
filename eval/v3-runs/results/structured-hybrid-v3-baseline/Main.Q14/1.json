@@ -2,7 +2,7 @@
   "scenarioName": "Main.Q14",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-02T23:05:27.4445472Z",
+  "creationTime": "2026-10-05T13:07:29.2654141Z",
   "messages": [
     {
       "role": "user",
@@ -48,13 +48,24 @@
           "failed": false,
           "reason": "In the model\u0027s context."
         }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "331,839: excerpt 1 (income_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Revenue \u003E Total revenue \u2014 2026: 331,839 | 2025: 281,724 | 2024: 245,122\u0022; excerpt 5 (narrative, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS): \u0022Revenue \u2014 2026: $331,839 | 2025: $281,724 | Percentage Change: 18%\u0022\n67,357: excerpt 2 (income_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Revenues \u003E Total revenues \u2014 2026: 67,357 | 2025: 57,399 | 2024: 52,961\u0022",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt."
+        }
       }
     }
   },
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0012145,
+        "latency": 0.0007621,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {
