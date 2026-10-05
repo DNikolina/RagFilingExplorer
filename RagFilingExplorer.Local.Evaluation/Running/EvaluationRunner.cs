@@ -5,6 +5,7 @@ using Microsoft.Extensions.AI.Evaluation;
 using Microsoft.Extensions.AI.Evaluation.Reporting;
 using Microsoft.Extensions.AI.Evaluation.Reporting.Formats.Html;
 using Microsoft.Extensions.AI.Evaluation.Reporting.Storage;
+using OllamaSharp;
 using RagFilingExplorer.Local.Evaluation.Evaluators;
 using RagFilingExplorer.Local.Evaluation.Grading;
 using RagFilingExplorer.Local.Retrieval;
@@ -48,9 +49,14 @@ internal sealed class ScenarioChatClient : IChatClient
 /// in-process, each answer graded (<see cref="StrictFigureEvaluator"/>), its retrieval ranked
 /// (<see cref="RetrievalRankEvaluator"/>) and its figures traced to the excerpts (<see cref="FigureSourceEvaluator"/>,
 /// step 5), stored on disk as one scenario per question under one execution name, with
-/// the model's responses cached, and an HTML report written from the stored results at the end.
+/// the model's responses cached, and an HTML report written from the stored results at the end. A null
+/// <paramref name="cacheTimeToLive"/> asks the model afresh and caches nothing - a variance pass, which must neither replay
+/// the cache (keyed by scenario, so shared by every execution) nor overwrite it. <paramref name="unloadBeforeEachQuestion"/>
+/// unloads the chat model before every question, so none starts from a prompt prefix Ollama still holds - the variance
+/// measurement's check on whether that reuse causes the drift.
 /// </summary>
-internal sealed class EvaluationRunner(DirectoryInfo repoRoot, string storageRoot, string executionName, TimeSpan cacheTimeToLive)
+internal sealed class EvaluationRunner(
+    DirectoryInfo repoRoot, string storageRoot, string executionName, TimeSpan? cacheTimeToLive, bool unloadBeforeEachQuestion = false)
 {
     public static readonly IReadOnlyList<QuestionSet> AllSets =
     [
@@ -78,7 +84,7 @@ internal sealed class EvaluationRunner(DirectoryInfo repoRoot, string storageRoo
                 new FigureSourceEvaluator(settings.Retrieval.GenerationTopK),
             ],
             chatConfiguration: new ChatConfiguration(chat),
-            enableResponseCaching: true,
+            enableResponseCaching: cacheTimeToLive is not null,
             timeToLiveForCacheEntries: cacheTimeToLive,
             executionName: executionName);
 
@@ -99,6 +105,10 @@ internal sealed class EvaluationRunner(DirectoryInfo repoRoot, string storageRoo
                 Stopwatch clock = Stopwatch.StartNew();
                 await using ScenarioRun scenario = await reporting.CreateScenarioRunAsync($"{set.Name}.{entry.Id}", cancellationToken: cancellationToken);
                 scenarioChat.Inner = scenario.ChatConfiguration!.ChatClient;
+                if (unloadBeforeEachQuestion)
+                {
+                    await chat.RequestModelUnloadAsync(settings.Ollama.ChatModel, cancellationToken);
+                }
 
                 RagAnswer answer = await runtime.AnswerService.AskAsync(question, settings.Retrieval.VerboseSearchTopK, cancellationToken);
                 StringBuilder text = new();

@@ -14,6 +14,9 @@ namespace RagFilingExplorer.Local.Evaluation;
 /// built index, and about two hours of CPU. Environment variables:
 ///   EVAL_EXECUTION  the execution name (default: structured-hybrid-&lt;yyyyMMddTHHmm&gt;)
 ///   EVAL_ONLY       comma-separated question ids to run (default: all 102) - a few minutes' smoke run first
+///   EVAL_SETS       comma-separated sets to run - Main, HeldOut, AnswerSide (default: all three)
+///   EVAL_NO_CACHE   1: ask the model afresh and cache nothing - a variance pass (VarianceComparisonTests compares them)
+///   EVAL_UNLOAD     1: unload the chat model before every question (with EVAL_NO_CACHE; tools/run-variance.ps1 runs both)
 ///   dotnet test RagFilingExplorer.Local.Evaluation --filter "FullyQualifiedName~EvaluationRunTests"
 /// </summary>
 [TestFixture]
@@ -57,12 +60,22 @@ public class EvaluationRunTests
 
         // A year: long enough to regrade a run without re-asking the model; the library's own default is 14 days. A
         // package upgrade can still change the cache keys (Microsoft's docs), which means fresh responses, not wrong ones.
-        EvaluationRunner runner = new(Repo, storage, execution, TimeSpan.FromDays(365));
-        List<QuestionOutcome> outcomes = await runner.RunAsync(EvaluationRunner.AllSets, only, line => TestContext.Progress.WriteLine(line));
+        HashSet<string> setNames = (Environment.GetEnvironmentVariable("EVAL_SETS") ?? "")
+            .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToHashSet(StringComparer.OrdinalIgnoreCase);
+        List<QuestionSet> sets = EvaluationRunner.AllSets.Where(s => setNames.Count == 0 || setNames.Contains(s.Name)).ToList();
+        Assert.That(sets.Count, Is.EqualTo(setNames.Count == 0 ? EvaluationRunner.AllSets.Count : setNames.Count),
+            $"EVAL_SETS names a set that doesn't exist; the sets are {string.Join(", ", EvaluationRunner.AllSets.Select(s => s.Name))}.");
+        bool noCache = Environment.GetEnvironmentVariable("EVAL_NO_CACHE") == "1";
+        bool unload = Environment.GetEnvironmentVariable("EVAL_UNLOAD") == "1";
+        Assert.That(!unload || noCache, "EVAL_UNLOAD without EVAL_NO_CACHE would unload the model for cached answers.");
+
+        EvaluationRunner runner = new(Repo, storage, execution, noCache ? null : TimeSpan.FromDays(365), unload);
+        List<QuestionOutcome> outcomes = await runner.RunAsync(sets, only, line => TestContext.Progress.WriteLine(line));
 
         StringBuilder summary = new();
         List<string> differences = new();
-        summary.AppendLine($"Execution {execution}: {outcomes.Count} questions, {outcomes.Sum(o => o.Elapsed.TotalMinutes):F0} min");
+        summary.AppendLine($"Execution {execution}: {outcomes.Count} questions, {outcomes.Sum(o => o.Elapsed.TotalMinutes):F0} min"
+            + (noCache ? ", every answer asked afresh (no cache)" : "") + (unload ? ", the model unloaded before each" : ""));
         foreach (IGrouping<string, QuestionOutcome> set in outcomes.GroupBy(o => o.Set))
         {
             int passed = set.Count(o => o.Grade.Passed);

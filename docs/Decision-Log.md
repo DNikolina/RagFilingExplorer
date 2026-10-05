@@ -3003,3 +3003,28 @@ wrong answer's figure is in its excerpts - v2's step 3b finding, now from every 
 A11 (MD&A dividend paragraph), A15 (a stockholders' equity note's total), H13 (the next column of the same row), T1 and T9
 (a lookalike line in the right statement), A16's computed 620 (616 + 4) also printed in the equity statement (excerpt 5).
 A27's wrong 25.9% is `calculated`, its inputs traced. 70 offline evaluation tests (17 new).
+
+**Variance measurement - planned and built, run pending (2026-10-05; user: run at the end of the day).** Since step 3,
+temperature 0 hasn't repeated word for word (Q1's two wordings), and step 4's A16 changed *content* - an unrequested
+"$620 million" - with retrieval, so the prompt, identical. Before any model or prompt comparison, how much an answer moves
+on its own has to be known: otherwise a one-grade difference can't be read as a change.
+- **Harness:** `EVAL_NO_CACHE=1` asks the model afresh and caches nothing (the cache is keyed by scenario, so a new
+  execution would otherwise replay the baseline); `EVAL_SETS` limits a run to sets; `EVAL_UNLOAD=1` unloads the chat model
+  before every question (OllamaSharp's `RequestModelUnloadAsync`), so no question starts from a prompt prefix Ollama still
+  holds. `Running/VarianceComparison` reads any stored executions and classes each question by its worst pair: identical,
+  wording (same figures and grade), figures (a figure added or dropped, same grade) or grade; a curly apostrophe reads as a
+  straight one (runs logged before the 2026-10-01 encoding fix have only straight ones) and a date's day isn't a figure
+  (the figure trace's rule, shared). `tools/run-variance.ps1` builds once, runs the passes with `--no-build`, then the
+  comparison into `eval/v3-runs/<prefix>.txt`; started detached, past the two-hour tool limit. Checked without the model:
+  a zero-pass run (build, comparison, logs) and its failure path.
+- **A first, free data point** (`eval/v3-runs/variance-v2-5a-vs-v3-baseline.txt`): the same configuration on 2026-09-30
+  (main, held-out) / 2026-10-02 morning (answer side) against the v3 baseline (2026-10-02 evening): **89/102 identical,
+  11 wording, 1 figures, 1 grade** (A16). The figures case is A27's wrong percentage, 25.8% then 25.9% - an asked-for
+  calculation that came out differently. 9 of the 11 wording changes are answer-side (27 questions), 2 main + held-out (75).
+- **How it will be read:** a question whose grade differs in any pass is *unstable*; their count per set is the noise
+  floor - a later comparison that moves fewer grades than that on a set isn't evidence of a change, and grades are
+  compared on the stable questions. If unload passes repeat word for word where loaded ones don't, prefix reuse is the
+  cause, and the evaluation could unload to get repeatability back (at a reload per question).
+- **Open, for the user at run time:** scope (recommended: all 102, two passes, ~4 h) and whether to add unload passes
+  (two are needed to say whether they repeat). A smoke run first (`-Passes 1 -Only Q1,A16 -Prefix variance-smoke`, its
+  results folder deleted after).

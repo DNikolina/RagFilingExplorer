@@ -62,7 +62,8 @@ rank (102/102) ported and held exact by parity tests; a full evaluation run on t
 A16 model variation, user's call); `eval/v3-runs/report.html` holds v1, every kept v2 step and v3, oldest first. **Step 5
 done (2026-10-05):** `FigureSourceEvaluator` traces each stated figure to the prompt excerpt and line holding it - on the
 v3 baseline no untraced figure, A10 traced to the equity statement's line, every wrong answer a misreading of a figure in
-its context. **Next (optional):** the variance measurement and the local-judge spike.
+its context. **Variance measurement:** harness built (`tools/run-variance.ps1`), run
+pending - Decision-Log, "Variance measurement". **Then (optional):** the local-judge spike.
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the

@@ -55,12 +55,15 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
         return expect.SelectMany(StrictGrader.Numbers).All(n => !inputNumbers.Contains(n));
     }
 
+    /// <summary>The figures traced: the strict grader's stated figures, less a date's day, distinct, in the answer's order.</summary>
+    public static List<string> Figures(string answer, string question) =>
+        StrictGrader.StatedFigures(MonthDayRegex().Replace(answer, m => m.Groups[1].Value), question).Distinct().ToList();
+
     /// <summary>Each distinct stated figure, in the answer's order, with the excerpts holding it.</summary>
     public static List<FigureSource> Trace(string answer, string question, IReadOnlyList<RetrievedExcerpt> excerpts)
     {
         List<FigureSource> sources = new();
-        string withoutDays = MonthDayRegex().Replace(answer, m => m.Groups[1].Value);
-        foreach (string figure in StrictGrader.StatedFigures(withoutDays, question).Distinct())
+        foreach (string figure in Figures(answer, question))
         {
             List<FigureSighting> sightings = new();
             for (int i = 0; i < excerpts.Count; i++)

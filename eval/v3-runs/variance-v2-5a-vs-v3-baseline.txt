@@ -1,0 +1,55 @@
+Variance across 2 executions: 2026-09-30-v2-5a-decline-form, structured-hybrid-v3-baseline
+102 questions answered in every execution.
+
+All: identical 89  wording 11  figures 1  grade 1
+AnswerSide: identical 16  wording 9  figures 1  grade 1
+HeldOut: identical 34  wording 1  figures 0  grade 0
+Main: identical 39  wording 1  figures 0  grade 0
+
+Pairs (same text / same grade):
+  2026-09-30-v2-5a-decline-form vs structured-hybrid-v3-baseline: 89/102 / 101/102
+
+Grade (1):
+  AnswerSide.A16
+    [2026-09-30-v2-5a-decline-form] reliable, figures 616 (no figure source): Nasdaq spent $616 million in total purchase price for repurchasing its common stock in 2025 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Nasdaq Stockholders’ Equity).
+    [structured-hybrid-v3-baseline] check, figures 4 616 620 (traced): Nasdaq spent $616 million in total purchase price for repurchasing its common stock in 2025, and an additional $4 million of accrued excise tax that had not been paid as of December 31, 2025, is excluded from the total purchase price. Therefore, the total cash spent on repurchasing common stock in 2025 is $620 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Nasdaq Stockholders’ Equity)
+
+Figures (1):
+  AnswerSide.A27
+    [2026-09-30-v2-5a-decline-form] wrong, figures 17,087 25.8 67,357 (no figure source): Oracle's net income as a percentage of its total revenues in fiscal 2026 was 25.8%.   $17,087 million (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules) divided by $67,357 million (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules).  >
+    [structured-hybrid-v3-baseline] wrong, figures 17,087 25.9 67,357 (calculated): Oracle's net income as a percentage of its total revenues in fiscal 2026 was 25.9%.   Net income was $17,087 million (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules). Total revenues were $67,357 million (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules).
+
+Wording (11):
+  AnswerSide.A11
+    [2026-09-30-v2-5a-decline-form] wrong, figures 5.7 63 (no figure source): Oracle paid $63 million in dividends to its Mandatory Convertible Preferred Stock holders and $5.7 billion in dividends to its common stock holders in fiscal 2026 (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations).
+    [structured-hybrid-v3-baseline] wrong, figures 5.7 63 (traced): Oracle paid $63 million in dividends to its Mandatory Convertible Preferred Stock holders and $5.7 billion in dividends to its common stock holders in fiscal 2026. (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  AnswerSide.A13
+    [2026-09-30-v2-5a-decline-form] reliable, figures 115,948 (no figure source): Microsoft spent $115,948 million on additions to property and equipment in fiscal 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > CASH FLOWS STATEMENTS).
+    [structured-hybrid-v3-baseline] reliable, figures 115,948 (traced): Microsoft spent $115,948 million on additions to property and equipment in fiscal 2026. (Source: MSFT-10K-2026.html, CASH FLOWS STATEMENTS)
+  AnswerSide.A15
+    [2026-09-30-v2-5a-decline-form] wrong, figures 16,719 (no figure source): Microsoft spent $16,719 million in fiscal 2026 repurchasing its common stock (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Stockholders' Equity).
+    [structured-hybrid-v3-baseline] wrong, figures 16,719 (traced): Microsoft spent $16,719 million in cash repurchasing its common stock in fiscal 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Stockholders' Equity).
+  AnswerSide.A17
+    [2026-09-30-v2-5a-decline-form] reliable, figures 13,463,971 (no figure source): Netflix's long-term debt at December 31, 2025 was $13,463,971 thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Debt).
+    [structured-hybrid-v3-baseline] reliable, figures 13,463,971 (traced): Netflix's long-term debt at December 31, 2025 was $13,463,971 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Debt)
+  AnswerSide.A18
+    [2026-09-30-v2-5a-decline-form] reliable, figures 23,275,329 (no figure source): Netflix's cost of revenues in 2025 was $23,275,329 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements and PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+    [structured-hybrid-v3-baseline] reliable, figures 23,275,329 (traced): Netflix's cost of revenues in 2025 was $23,275,329 thousand. (Source: NFLX-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  AnswerSide.A2
+    [2026-09-30-v2-5a-decline-form] reliable, figures 3.12 (no figure source): Nasdaq's basic earnings per share in 2025 were $3.12 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Earnings Per Share).
+    [structured-hybrid-v3-baseline] reliable, figures 3.12 (traced): Nasdaq's basic earnings per share in 2025 was $3.12 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Earnings Per Share).
+  AnswerSide.A20
+    [2026-09-30-v2-5a-decline-form] reliable, figures 3,301,306 (no figure source): Netflix's sales and marketing expenses in 2025 were $3,301,306 thousand. (Source: NFLX-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+    [structured-hybrid-v3-baseline] reliable, figures 3,301,306 (traced): Netflix's sales and marketing expenses in 2025 were $3,301,306 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Consolidated Statements of Operations)
+  AnswerSide.A21
+    [2026-09-30-v2-5a-decline-form] reliable, figures 12,443 17,087 29,530 (no figure source): Oracle's combined net income for fiscal 2025 and fiscal 2026 was $12,443 million for 2025 and $17,087 million for 2026, for a total of $29,530 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)
+    [structured-hybrid-v3-baseline] reliable, figures 12,443 17,087 29,530 (calculated): Oracle's combined net income for fiscal 2025 and fiscal 2026 was $12,443 + $17,087 = $29,530 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules and PART IV > Item 15. Exhibits and Financial Statement Schedules)
+  AnswerSide.A25
+    [2026-09-30-v2-5a-decline-form] reliable, figures 1,217 601 616 (no figure source): The total amount paid of $601 million was recorded in retained earnings in the Consolidated Balance Sheets at December 31, 2025, as dividends paid (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Nasdaq Stockholders’ Equity). The total purchase price (in millions) — Year Ended December 31, 2025, was $616 million, as share repurchases (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Nasdaq Stockholders’ Equity). Therefore, Nasdaq returned a total of $601 million + $616 million = $1,217 million to shareholders in 2025 through dividends paid and share repurchases combined.
+    [structured-hybrid-v3-baseline] reliable, figures 1,217 601 616 (calculated): The total amount paid of $601 million in dividends and the total purchase price of $616 million for share repurchases, combined, is $1,217 million.
+  HeldOut.H35
+    [2026-09-30-v2-5a-decline-form] reliable, figures 12,722,552 (no figure source): Netflix's income before income taxes in 2025 was $12,722,552 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Income Taxes)  >
+    [structured-hybrid-v3-baseline] reliable, figures 12,722,552 (traced): Netflix's income before income taxes in 2025 was $12,722,552 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Income Taxes)
+  Main.V3
+    [2026-09-30-v2-5a-decline-form] wrong, figures 10,149,273 7,274,301 7,361,364 (no figure source): Netflix's net cash provided by operating activities for the year ended December 31, 2025 was $10,149,273 thousand, for the year ended December 31, 2024 was $7,361,364 thousand, and for the year ended December 31, 2023 was $7,274,301 thousand.  >
+    [structured-hybrid-v3-baseline] wrong, figures 10,149,273 7,274,301 7,361,364 (traced): Netflix's net cash provided by operating activities for the year ended December 31, 2025 was $10,149,273 thousand, for the year ended December 31, 2024 was $7,361,364 thousand, and for the year ended December 31, 2023 was $7,274,301 thousand.
