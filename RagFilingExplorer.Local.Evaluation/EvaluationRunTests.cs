@@ -17,6 +17,8 @@ namespace RagFilingExplorer.Local.Evaluation;
 ///   EVAL_SETS       comma-separated sets to run - Main, HeldOut, AnswerSide (default: all three)
 ///   EVAL_NO_CACHE   1: ask the model afresh and cache nothing - a variance pass (VarianceComparisonTests compares them)
 ///   EVAL_UNLOAD     1: unload the chat model before every question (with EVAL_NO_CACHE; tools/run-variance.ps1 runs both)
+///   EVAL_JUDGE      comma-separated judges - equivalence, groundedness (step 6; answers from the cache, so not with
+///                   EVAL_NO_CACHE; JudgeAgreementTests reports the agreement)
 ///   dotnet test RagFilingExplorer.Local.Evaluation --filter "FullyQualifiedName~EvaluationRunTests"
 /// </summary>
 [TestFixture]
@@ -68,8 +70,11 @@ public class EvaluationRunTests
         bool noCache = Environment.GetEnvironmentVariable("EVAL_NO_CACHE") == "1";
         bool unload = Environment.GetEnvironmentVariable("EVAL_UNLOAD") == "1";
         Assert.That(!unload || noCache, "EVAL_UNLOAD without EVAL_NO_CACHE would unload the model for cached answers.");
+        List<string> judges = (Environment.GetEnvironmentVariable("EVAL_JUDGE") ?? "")
+            .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Select(j => j.ToLowerInvariant()).ToList();
+        Assert.That(judges.Count == 0 || !noCache, "EVAL_JUDGE judges the cached answers; with EVAL_NO_CACHE it would judge new ones.");
 
-        EvaluationRunner runner = new(Repo, storage, execution, noCache ? null : TimeSpan.FromDays(365), unload);
+        EvaluationRunner runner = new(Repo, storage, execution, noCache ? null : TimeSpan.FromDays(365), unload, judges);
         List<QuestionOutcome> outcomes = await runner.RunAsync(sets, only, line => TestContext.Progress.WriteLine(line));
 
         StringBuilder summary = new();

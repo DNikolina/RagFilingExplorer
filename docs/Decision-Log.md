@@ -3037,3 +3037,29 @@ only in that browser tab (sessionStorage). Oldest first (2026-10-02) therefore o
 first - it opens on the latest run; the History tab and the Comparison defaults sort runs by date themselves, unchanged.
 `ReportWriteTests` rewrites `report.html` from the stored results without a model call. Checked by rendering it headless
 (Edge `--dump-dom`): opens on `structured-hybrid-v3-baseline`, 102 cases.
+
+**Step 6 - the local-judge spike: designed and built, run pending (2026-10-05; user: after the variance run, same night).**
+What the Quality package (10.10.0, read from the package itself) means here:
+- **Which evaluators map onto a metric we have:** Equivalence (answer vs a ground truth) against the strict grade;
+  Groundedness (answer vs the excerpts) against the figure source; Retrieval (excerpt relevance and order) against the
+  answer rank; Completeness overlaps Equivalence. Relevance, Fluency, Coherence score style, not figures; the other four
+  are agent-focused or experimental. **Chosen (user):** Equivalence first (phase A, ~25 s a question, ~45 min for 102),
+  Groundedness (~2 min a question) only if A is worth following; Retrieval not - the rank already measures it exactly.
+  **Judge (user):** `llama3.1:8b`, the model that wrote the answers - self-judging, stated with the result.
+- **The context window:** the Groundedness prompt with our five excerpts is ~4.5k tokens, Retrieval's ~6k - past
+  Ollama's default 4,096, where the oldest tokens (the judge's instructions) would be dropped silently. No evaluator sets
+  it, so `JudgeContextChatClient` adds `num_ctx` 8,192 (`OllamaOption.NumCtx`) - only while the evaluators run, so the
+  app's answers keep the default (a variance pass must measure the app). It sits inside the response cache: checked on
+  two questions that the baseline's answers are still cache hits, so a judge run judges exactly the baseline's answers.
+- **Output format:** Equivalence asks for a bare 1-5 integer; the others for `<S0>` thoughts, `<S1>` explanation, `<S2>`
+  score. A reply the library can't read is an error diagnostic - counted in the report, part of what's measured.
+- **Ground truth:** built from `expected-answers.json` - "$26,445 million", "$3.64", "19%", a fact's strings, a decline
+  for a negative. A routing test's is its figure; the strict grade also passes a decline there, so those disagreements
+  are by design and marked.
+- **How it will be read:** agreement with the strict grade at the library's own verdict (a metric interpreted as
+  failed), every score tabulated against strict pass/fail so no threshold is chosen afterwards, every disagreement listed
+  with its answer and ground truth, unread replies counted, judge time per call. Expectation stated now: step 5 found
+  every wrong answer is a misreading of a figure in its context, so Groundedness should rate those grounded - it can't
+  see this project's failures; whether Equivalence catches a wrong figure ($27,034M vs $26,445M) is the open question.
+- **Built:** `Judging/JudgeSetup` (evaluators, contexts, ground truth, the context client), `Judging/JudgeAgreement`
+  (the report), `EVAL_JUDGE` on the run, `tools/run-judge.ps1`; 15 offline tests.

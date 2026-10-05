@@ -63,7 +63,8 @@ A16 model variation, user's call); `eval/v3-runs/report.html` holds v1, every ke
 done (2026-10-05):** `FigureSourceEvaluator` traces each stated figure to the prompt excerpt and line holding it - on the
 v3 baseline no untraced figure, A10 traced to the equity statement's line, every wrong answer a misreading of a figure in
 its context. **Variance measurement:** harness built (`tools/run-variance.ps1`), run
-pending - Decision-Log, "Variance measurement". **Then (optional):** the local-judge spike.
+pending - Decision-Log, "Variance measurement". **Step 6 (local judge):** Equivalence vs the strict grade built
+(`tools/run-judge.ps1`), run pending after the variance passes - Decision-Log, "Step 6".
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the

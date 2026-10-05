@@ -8,6 +8,7 @@ using Microsoft.Extensions.AI.Evaluation.Reporting.Storage;
 using OllamaSharp;
 using RagFilingExplorer.Local.Evaluation.Evaluators;
 using RagFilingExplorer.Local.Evaluation.Grading;
+using RagFilingExplorer.Local.Evaluation.Judging;
 using RagFilingExplorer.Local.Retrieval;
 
 namespace RagFilingExplorer.Local.Evaluation.Running;
@@ -53,10 +54,12 @@ internal sealed class ScenarioChatClient : IChatClient
 /// <paramref name="cacheTimeToLive"/> asks the model afresh and caches nothing - a variance pass, which must neither replay
 /// the cache (keyed by scenario, so shared by every execution) nor overwrite it. <paramref name="unloadBeforeEachQuestion"/>
 /// unloads the chat model before every question, so none starts from a prompt prefix Ollama still holds - the variance
-/// measurement's check on whether that reuse causes the drift.
+/// measurement's check on whether that reuse causes the drift. <paramref name="judges"/> adds Microsoft's Quality
+/// evaluators, judged by the same chat model (step 6, <see cref="JudgeSetup"/>).
 /// </summary>
 internal sealed class EvaluationRunner(
-    DirectoryInfo repoRoot, string storageRoot, string executionName, TimeSpan? cacheTimeToLive, bool unloadBeforeEachQuestion = false)
+    DirectoryInfo repoRoot, string storageRoot, string executionName, TimeSpan? cacheTimeToLive, bool unloadBeforeEachQuestion = false,
+    IReadOnlyCollection<string>? judges = null)
 {
     public static readonly IReadOnlyList<QuestionSet> AllSets =
     [
@@ -75,6 +78,8 @@ internal sealed class EvaluationRunner(
 
         // The model's own client; the reporting configuration wraps it per scenario with a response cache.
         (_, OllamaSharp.OllamaApiClient chat) = AppComposition.CreateOllamaClients(settings.Ollama);
+        IReadOnlyCollection<string> judgeNames = judges ?? [];
+        JudgeContextChatClient judgeChat = new(chat);
         ReportingConfiguration reporting = DiskBasedReportingConfiguration.Create(
             storageRootPath: storageRoot,
             evaluators:
@@ -82,8 +87,9 @@ internal sealed class EvaluationRunner(
                 new StrictFigureEvaluator(),
                 new RetrievalRankEvaluator(settings.Retrieval.GenerationTopK),
                 new FigureSourceEvaluator(settings.Retrieval.GenerationTopK),
+                .. JudgeSetup.Evaluators(judgeNames),
             ],
-            chatConfiguration: new ChatConfiguration(chat),
+            chatConfiguration: new ChatConfiguration(judgeChat),
             enableResponseCaching: cacheTimeToLive is not null,
             timeToLiveForCacheEntries: cacheTimeToLive,
             executionName: executionName);
@@ -121,11 +127,27 @@ internal sealed class EvaluationRunner(
                 List<RetrievedExcerpt> chunks = answer.RetrievedChunks
                     .Select(r => new RetrievedExcerpt(r.Record.SourceFiling, r.Record.Heading, r.Record.StatementType, r.Record.Content))
                     .ToList();
-                EvaluationResult result = await scenario.EvaluateAsync(
-                    [new ChatMessage(ChatRole.User, question)],
-                    new ChatResponse(new ChatMessage(ChatRole.Assistant, answerText)),
-                    additionalContext: [new ExpectedAnswerContext(entry), new RetrievedChunksContext(chunks)],
-                    cancellationToken);
+                List<EvaluationContext> contexts = [new ExpectedAnswerContext(entry), new RetrievedChunksContext(chunks)];
+                if (judgeNames.Count > 0)
+                {
+                    contexts.AddRange(JudgeSetup.Contexts(entry, chunks, settings.Retrieval.GenerationTopK));
+                }
+
+                // The judges' larger context window only while they run - the answer above was asked with the app's own.
+                judgeChat.JudgeContext = judgeNames.Count > 0;
+                EvaluationResult result;
+                try
+                {
+                    result = await scenario.EvaluateAsync(
+                        [new ChatMessage(ChatRole.User, question)],
+                        new ChatResponse(new ChatMessage(ChatRole.Assistant, answerText)),
+                        additionalContext: contexts,
+                        cancellationToken);
+                }
+                finally
+                {
+                    judgeChat.JudgeContext = false;
+                }
 
                 StrictGrade grade = new(
                     result.Get<StringMetric>(StrictFigureEvaluator.MetricName).Value!,
@@ -135,7 +157,10 @@ internal sealed class EvaluationRunner(
                 QuestionOutcome outcome = new(set.Name, entry.Id, grade, rank is null ? null : (int)rank, answerText, clock.Elapsed, source.Value!, source.Reason ?? "");
                 outcomes.Add(outcome);
                 progress($"{set.Name}.{entry.Id}: {grade.Status}{(grade.Note.Length > 0 ? $" ({grade.Note})" : "")}, rank {outcome.Rank?.ToString() ?? "-"}, "
-                    + $"figures {outcome.FigureSource}, {clock.Elapsed.TotalSeconds:F0}s");
+                    + $"figures {outcome.FigureSource}, "
+                    + string.Concat(result.Metrics.Values.OfType<NumericMetric>().Where(m => m.Name != RetrievalRankEvaluator.MetricName)
+                        .Select(m => $"{m.Name} {m.Value?.ToString() ?? "error"}, "))
+                    + $"{clock.Elapsed.TotalSeconds:F0}s");
             }
         }
 
