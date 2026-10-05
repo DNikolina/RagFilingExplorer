@@ -40,8 +40,34 @@ public class StrictFigureEvaluatorTests
         StringMetric metric = await GradeAsync("Microsoft paid $27,034 million in common stock cash dividends in fiscal 2026.", A10);
 
         Assert.That(metric.Value, Is.EqualTo("wrong"));
-        Assert.That(metric.Reason, Is.EqualTo("trap 27,034"));
+        Assert.That(metric.Metadata![StrictFigureEvaluator.GraderNoteKey], Is.EqualTo("trap 27,034"));
+        Assert.That(StrictFigureEvaluator.GraderNote(metric), Is.EqualTo("trap 27,034"));
+        Assert.That(metric.Reason, Is.EqualTo(StrictFigureEvaluator.Description), "the report shows the reason as \"What this measures?\"");
+        Assert.That(metric.Interpretation!.Reason, Does.StartWith("States 27,034"));
         Assert.That(metric.Interpretation!.Failed, Is.True);
+    }
+
+    [Test]
+    public void Readers_ResultsStoredBefore20261005_ReadTheReason()
+    {
+        // Until 2026-10-05 the note and the figure trace were the metrics' reasons (the imported v1/v2 runs still are).
+        StringMetric grade = new(StrictFigureEvaluator.MetricName, "wrong", "trap 27,034");
+        StringMetric source = new(FigureSourceEvaluator.MetricName, "traced", "27,034: excerpt 1 (equity_statement, Item 8): \"...\"");
+
+        Assert.That(StrictFigureEvaluator.GraderNote(grade), Is.EqualTo("trap 27,034"));
+        Assert.That(FigureSourceEvaluator.TraceText(source), Is.EqualTo("27,034: excerpt 1 (equity_statement, Item 8): \"...\""));
+    }
+
+    [Test]
+    public async Task Readers_DescriptionAsTheReason_IsNeverANoteOrATrace()
+    {
+        // A reliable grade has no note; a decline with nothing expected has no trace - their reason is the description only.
+        StringMetric grade = await GradeAsync("Microsoft paid $26,445 million in common stock cash dividends in fiscal 2026.",
+            new ExpectedAnswer("A10", "How much cash did Microsoft pay in common stock dividends in fiscal 2026?", "figure", Expect: ["26,445"], Unit: "million"));
+        StringMetric source = new(FigureSourceEvaluator.MetricName, "no figure stated", FigureSourceEvaluator.Description);
+
+        Assert.That(StrictFigureEvaluator.GraderNote(grade), Is.Empty);
+        Assert.That(FigureSourceEvaluator.TraceText(source), Is.Empty);
     }
 
     [Test]

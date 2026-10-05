@@ -415,7 +415,7 @@ query-intent resolution, company registration, settings loading/validation, inde
 the retrieve+generate orchestration (mocked; hybrid search against a real FTS5 file, reranking with a fake
 scorer), the reranker's tokenization, and v2's page reader, structure labels and inline XBRL reader - checked
 against the filings in `data/`, read-only, including fact for fact against EDGAR's own extraction.
-`RagFilingExplorer.Local.Evaluation` (93 offline tests) checks the evaluators themselves.
+`RagFilingExplorer.Local.Evaluation` (127 offline tests) checks the evaluators themselves.
 
 ### The evaluation
 
@@ -434,6 +434,21 @@ Three deterministic evaluators - no model judges an answer:
 - **Figure source** - each figure the answer states, traced to the excerpts the model was given: which ones hold it,
   their statement type and section, and the line. A figure in none is flagged, unless the question asked for a
   calculation. On v2's defaults it flags nothing: every wrong answer is a misreading of a figure in its context.
+
+For an answer that doesn't pass, the report says what went wrong in words - "States 27,034 (dividends declared (equity
+statement), not paid (cash flow statement)) instead of the expected 26,445 million." - and where the expected figure was:
+on a line in one of the excerpts (a misreading), derived from figures the model had (a calculation), or in none of them
+(a retrieval miss). What each trap is comes from `trap_why` in `tools/expected-answers.json`.
+
+Each case is tagged, so the report filters by tag: its kind (`figure`, `fact`, `negative`, `routing`), `calculation`,
+`has traps`, and the company and statement the app routed it to - where the app sent it, not where the answer is.
+
+**Adding a question:** its text goes in its set's file in `tools/` (`manual-questions.txt`, `heldout-questions.txt`,
+`answer-questions.txt`), its source in `docs/Manual-Test-Questions.md`, and its entry - matched by the exact text - in
+`tools/expected-answers.json`: `kind`, `expect` and `unit` (what's graded); `chunk_expect`, the answer as the chunk prints
+it ("(26,445)"), or every input of an asked-for calculation and not its result; `traps`, each with its `trap_why`; and
+`conflicts`/`accept` for a lookalike line. `dotnet test` checks the entry is complete (`ExpectedAnswersTests`). Only the new
+question is asked afresh - the others come from the cache.
 
 ```
 dotnet test RagFilingExplorer.Local.Evaluation --filter "FullyQualifiedName~EvaluationRunTests"

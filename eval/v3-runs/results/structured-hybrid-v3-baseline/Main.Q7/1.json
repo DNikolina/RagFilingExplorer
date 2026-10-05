@@ -2,7 +2,7 @@
   "scenarioName": "Main.Q7",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-05T13:07:27.583207Z",
+  "creationTime": "2026-10-05T16:11:52.0974787Z",
   "messages": [
     {
       "role": "user",
@@ -33,31 +33,36 @@
         "$type": "string",
         "value": "reliable",
         "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
         "interpretation": {
           "rating": "good",
-          "failed": false
+          "failed": false,
+          "reason": "States the expected 442,387 million."
         }
       },
       "Answer rank": {
         "$type": "numeric",
         "value": 1,
         "name": "Answer rank",
-        "reason": "442,387 at rank 1 of 25.",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
         "interpretation": {
           "rating": "exceptional",
           "failed": false,
-          "reason": "In the model\u0027s context."
+          "reason": "442,387 at rank 1 of 25 - in the model\u0027s context (top 5)."
         }
       },
       "Figure source": {
         "$type": "string",
         "value": "traced",
         "name": "Figure source",
-        "reason": "442,387: excerpt 1 (balance_sheet, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Stockholders\u2019 equity \u003E Total stockholders\u2019 equity \u2014 2026: 442,387 | 2025: 343,479\u0022; excerpt 3 (equity_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Accumulated other comprehensive loss \u003E Total stockholders\u2019 equity \u2014 2026: $442,387 | 2025: $343,479 | 2024: $268,477\u0022",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
         "interpretation": {
           "rating": "good",
           "failed": false,
-          "reason": "Every figure is in an excerpt."
+          "reason": "Every figure is in an excerpt: 442,387 from excerpts 1 (balance_sheet), 3 (equity_statement)."
+        },
+        "metadata": {
+          "Stated 442,387": "excerpt 1 (balance_sheet, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Stockholders\u2019 equity \u003E Total stockholders\u2019 equity \u2014 2026: 442,387 | 2025: 343,479\u0022; excerpt 3 (equity_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Accumulated other comprehensive loss \u003E Total stockholders\u2019 equity \u2014 2026: $442,387 | 2025: $343,479 | 2024: $268,477\u0022"
         }
       }
     }
@@ -65,7 +70,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0009635,
+        "latency": 0.0007177,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {
@@ -78,5 +83,10 @@
       }
     ]
   },
+  "tags": [
+    "kind:figure",
+    "company:MSFT",
+    "statement:balance_sheet"
+  ],
   "formatVersion": 1
 }

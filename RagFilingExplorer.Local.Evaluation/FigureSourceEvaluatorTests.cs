@@ -120,8 +120,13 @@ public class FigureSourceEvaluatorTests
         StringMetric metric = await SourceAsync(A10, "Microsoft paid $27,034 million in dividends.", [CashFlow, Equity]);
 
         Assert.That(metric.Value, Is.EqualTo("traced"));
-        Assert.That(metric.Reason, Does.Contain("27,034: excerpt 2 (equity_statement, PART II > Item 8 > Stockholders' Equity Statements)"));
+        Assert.That(metric.Metadata!["Stated 27,034"], Does.StartWith("excerpt 2 (equity_statement, PART II > Item 8 > Stockholders' Equity Statements)"));
+        Assert.That(metric.Metadata!["Expected 26,445"], Does.StartWith("excerpt 1 (cash_flow_statement"));
+        Assert.That(metric.Reason, Is.EqualTo(FigureSourceEvaluator.Description), "the report shows the reason as \"What this measures?\"");
+        Assert.That(metric.Interpretation!.Reason, Is.EqualTo(
+            "A misreading - every figure is in an excerpt: 27,034 from excerpt 2 (equity_statement); the expected 26,445 was in excerpt 1 (cash_flow_statement)."));
         Assert.That(metric.Interpretation!.Failed, Is.False);
+        Assert.That(FigureSourceEvaluator.TraceText(metric), Does.StartWith("Stated 27,034: excerpt 2"));
     }
 
     [Test]
@@ -130,7 +135,8 @@ public class FigureSourceEvaluatorTests
         StringMetric metric = await SourceAsync(A10, "Microsoft paid $25,000 million in dividends.", [CashFlow, Equity]);
 
         Assert.That(metric.Value, Is.EqualTo("untraced"));
-        Assert.That(metric.Reason, Does.Contain("25,000: in none of the excerpts"));
+        Assert.That(metric.Metadata!["Stated 25,000"], Is.EqualTo("in none of the excerpts"));
+        Assert.That(metric.Interpretation!.Reason, Does.StartWith("25,000 in none of the excerpts the model was given"));
         Assert.That(metric.Interpretation!.Failed, Is.True);
     }
 
@@ -142,7 +148,8 @@ public class FigureSourceEvaluatorTests
         StringMetric metric = await SourceAsync(A26, "Net income rose by $31,917 million, from $101,832 million to $133,749 million.", [income]);
 
         Assert.That(metric.Value, Is.EqualTo("calculated"));
-        Assert.That(metric.Reason, Does.Contain("101,832: excerpt 1 (income_statement"));
+        Assert.That(metric.Metadata!["Stated 101,832"], Does.StartWith("excerpt 1 (income_statement"));
+        Assert.That(metric.Interpretation!.Reason, Does.StartWith("31,917 in no excerpt - the question asks for a calculation"));
         Assert.That(metric.Interpretation!.Failed, Is.False);
     }
 

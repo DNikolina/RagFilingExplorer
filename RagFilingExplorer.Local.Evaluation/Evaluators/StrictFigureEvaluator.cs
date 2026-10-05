@@ -16,11 +16,30 @@ internal sealed class ExpectedAnswerContext(ExpectedAnswer expected)
 /// <summary>
 /// The project's strict grading (<see cref="StrictGrader"/>, tools/grade_answers.py ported) as an evaluator: one string
 /// metric, "Strict grade", whose value is the status (reliable, decline-ok, no-unit, wrong-unit, declined, wrong,
-/// malformed, check) and whose reason is the grader's note. Deterministic - no model is asked.
+/// malformed, check); its interpretation explains the grade in words (<see cref="StrictGradeExplanation"/>), and the
+/// grader's note is its "Grader note" metadata. Deterministic - no model is asked.
+///
+/// The report shows a metric's interpretation reason under "Why this score?" and its own reason under "What this
+/// measures?" - so the reason is <see cref="Description"/> (2026-10-05). Runs before that kept the note as the reason;
+/// <see cref="GraderNote"/> reads either.
 /// </summary>
 internal sealed class StrictFigureEvaluator : IEvaluator
 {
     public const string MetricName = "Strict grade";
+
+    public const string GraderNoteKey = "Grader note";
+
+    /// <summary>What the metric measures - its reason, the report's "What this measures?".</summary>
+    public const string Description =
+        "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line's "
+        + "figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn't say, "
+        + "a decline passes. Deterministic - tools/grade_answers.py's rules, ported and held to it.";
+
+    /// <summary>The grader's note on a stored grade - its metadata, or the reason in a run from before 2026-10-05.</summary>
+    public static string GraderNote(EvaluationMetric metric) =>
+        metric.Metadata is { } metadata && metadata.TryGetValue(GraderNoteKey, out string? note)
+            ? note
+            : metric.Reason is { } reason && reason != Description ? reason : "";
 
     public IReadOnlyCollection<string> EvaluationMetricNames => [MetricName];
 
@@ -34,16 +53,24 @@ internal sealed class StrictFigureEvaluator : IEvaluator
         ExpectedAnswer expected = additionalContext?.OfType<ExpectedAnswerContext>().SingleOrDefault()?.Expected
             ?? throw new ArgumentException($"{nameof(StrictFigureEvaluator)} needs an {nameof(ExpectedAnswerContext)}.", nameof(additionalContext));
 
-        StrictGrade grade = StrictGrader.Grade(expected, modelResponse.Text.Trim());
-        StringMetric metric = new(MetricName, grade.Status, grade.Note.Length > 0 ? grade.Note : null)
+        string answer = modelResponse.Text.Trim();
+        StrictGrade grade = StrictGrader.Grade(expected, answer);
+
+        // The note stays the grader's (held to the Python grader), as metadata; the interpretation says it in words.
+        string? explanation = StrictGradeExplanation.Explain(expected, grade, answer);
+        StringMetric metric = new(MetricName, grade.Status, Description)
         {
             Interpretation = grade.Status switch
             {
-                "reliable" or "decline-ok" => new EvaluationMetricInterpretation(EvaluationRating.Good),
-                "check" => new EvaluationMetricInterpretation(EvaluationRating.Inconclusive, reason: "A reader decides: " + grade.Note),
-                _ => new EvaluationMetricInterpretation(EvaluationRating.Unacceptable, failed: true, reason: grade.Note.Length > 0 ? grade.Note : grade.Status),
+                "reliable" or "decline-ok" => new EvaluationMetricInterpretation(EvaluationRating.Good, reason: explanation),
+                "check" => new EvaluationMetricInterpretation(EvaluationRating.Inconclusive, reason: explanation),
+                _ => new EvaluationMetricInterpretation(EvaluationRating.Unacceptable, failed: true, reason: explanation),
             },
         };
+        if (grade.Note.Length > 0)
+        {
+            metric.AddOrUpdateMetadata(GraderNoteKey, grade.Note);
+        }
 
         return new ValueTask<EvaluationResult>(new EvaluationResult(metric));
     }

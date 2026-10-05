@@ -3063,3 +3063,70 @@ What the Quality package (10.10.0, read from the package itself) means here:
   see this project's failures; whether Equivalence catches a wrong figure ($27,034M vs $26,445M) is the open question.
 - **Built:** `Judging/JudgeSetup` (evaluators, contexts, ground truth, the context client), `Judging/JudgeAgreement`
   (the report), `EVAL_JUDGE` on the run, `tools/run-judge.ps1`; 15 offline tests.
+
+**Step 6 smoke test (2026-10-05, Q1 and A10):** `llama3.1:8b` doesn't reply in Equivalence's format - asked for a bare
+integer, it wrote a sentence both times ("...Therefore, the Equivalence score is 4."; "...I would rate the Equivalence
+metric as 4 stars."), so the library read no score and recorded an error. Run as shipped, phase A would most likely
+measure only that. **Decided (user): count both** - the agreement report keeps the library's reading (unread replies
+counted), and also recovers the score from the reply's words (`JudgeSetup.RecoverScore`: "score is N", "as N", "N stars",
+"N/5", the last phrase wins), labelled as recovered. A recovered score's verdict is asked of the library itself - the
+evaluator run against a stub client replying with exactly that score - so it gets the verdict a readable reply would;
+pinned by a test (10.10.0: 1-3 fail, 4-5 pass, both evaluators). The smoke run already shows the content problem: A10's
+$27,034M against the expected $26,445M - "a slight difference in the amount" - scored 4, a pass for a wrong figure.
+~900 prompt tokens, 8-34 s a call. 102 offline evaluation tests.
+
+**The report explains a failed answer (user, 2026-10-05).** A10's report showed only the grader's note "trap 27,034" - the
+rest of the story was spread over three metrics. Now, deterministically, without changing a grade:
+- **`trap_why`** in `tools/expected-answers.json`: what each of the 137 traps (70 questions) is - "dividends declared
+  (equity statement), not paid (cash flow statement)", "FY2025", "basic". 82 extracted from `docs/Manual-Test-Questions.md`'s
+  tables, the main/targeted/variant sets' from its prose, A21-A27's "an input of the asked-for calculation"; six the doc
+  doesn't explain from the filing line they sit on (H3 11,974 FY2025; H6 2,805 R&D's stock-based compensation, 9,860
+  FY2025; T5 41,142 total fair value in the unrealized-losses table; T8 85.47 the full year's average) and Q3's 18,118
+  from this log (a subtotal sum the model produced - not in the filing). Inserted as text, keeping the file's layout;
+  every other field checked unchanged; `grade_answers.py` re-grades `structured-5a/main.log` identically (40/40).
+  A test fails if a trap is added without its reason.
+- **Strict grade's verdict in words** (`StrictGradeExplanation`): "States 27,034 (...) instead of the expected 26,445
+  million."; the answer's own figures first ("States 25.9 instead of the expected 25.4%; also states 17,087 (an input ...)");
+  declines, missing units, lookalikes each worded. The metric's reason stays the grader's note (parity).
+- **Where the expected figure was** (Figure source, for an answer that doesn't pass): its excerpt and line - a
+  misreading; "not printed as such - derived from <chunk_expect markers> (excerpt N)" - a calculation (V3, A27), never a
+  retrieval miss when its inputs were given; "retrieval missed it" only when the markers aren't in the excerpts - on the
+  baseline exactly A11, H25, H29, H34, R3, the answers ranked outside the top 5.
+Baseline refreshed from the cache: answers, grades, ranks unchanged. 117 offline evaluation tests.
+
+**Report layout: "Why this score?" and Metadata, no "What this measures?" (user, 2026-10-05).** The report shows a
+metric's interpretation reason under "Why this score?"/"Why this failed?", its own reason under "What this measures?", and
+its metadata as a Name/Value table (read from the report's code). The trace, the grader's note and the rank sentence were
+reasons, so they showed as "What this measures?" - a misleading label - and A10's figure source read as two unlabelled
+lines. Now every evaluator's reason is a fixed description of what it measures (user: the section is the report's own -
+fill it with what its label says), the explanation is the interpretation's reason (Figure source: "A
+misreading - every figure is in an excerpt: 27,034 from excerpt 1 (equity_statement); the expected 26,445 was in excerpt
+3 (cash_flow_statement)."), the details are metadata ("Stated 27,034", "Expected 26,445", "Grader note" - word for word,
+parity unaffected). Backward compatible: the stored format is the library's (metadata was always there, empty), the
+cache holds only answers, and comparisons read values, not reasons; the two readers of the old reason
+(`StrictFigureEvaluator.GraderNote`, `FigureSourceEvaluator.TraceText`) read metadata first and fall back to the reason
+unless it is the description, so the imported v1/v2 runs still read (they keep the old layout on screen). Baseline
+refreshed: 102 results, answers, grades, notes, ranks and statuses unchanged. 120 offline evaluation tests.
+
+**Guards for new questions (user, 2026-10-05).** `ExpectedAnswersTests` (offline, every `dotnet test`): every trap has its
+`trap_why`; every answerable question has `expect` and `chunk_expect` (without one, its rank read "Not scored: a negative"
+and the figure source never said where the answer was - silently); no negative has a `chunk_expect`; every question in the
+question files has an entry (the run would stop at it). And a question set with no v2 baseline is summarized without the
+comparison instead of failing the summary after every question was asked (`BaselineGrades` was a dictionary lookup that
+threw). The README's evaluation section lists what a new question needs. 124 offline evaluation tests.
+
+**What else the library offers, and tags (user, 2026-10-05).** Checked against the Reporting API and the report's code:
+in use - custom evaluators, numeric and string metrics with interpretations, metadata, the disk store, response caching,
+the HTML report (History, Comparison). Not used: tags (shown per case, filter chips); iterations (a scenario asked N
+times within one execution, "passed 2/3" and a min-max spread - the library's own form of the variance measurement);
+diagnostics (info/warning/error per metric); the conversation view (renders every stored message, system included, as
+Markdown - the only place a link is clickable); chat details (tokens, latency - stored, not shown by the HTML report);
+`JsonReportWriter`; the `aieval` tool (reports, cache and result cleanup); boolean metrics. Deliberately not: the other
+Quality evaluators, NLP, Safety and Azure storage (cost), telemetry. Linking an excerpt to its filing: MSFT and ORCL tag
+every figure with an element id (A10's 26,445 is `F_fc2525fa-...`), NDAQ and NFLX don't - a text fragment would be the
+fallback, untested on local files. **Built: tags** - `kind:<kind>`, `calculation`, `has traps`, `company:<ticker>` and
+`statement:<type>` from the app's own routing (`ResolveFilings`, `ResolveStatementType`, as RagAnswerService calls them).
+Passed to `CreateScenarioRunAsync` by name - the parameter before them is `additionalCachingKeys`. Baseline refreshed:
+102/102 cache hits, results unchanged. The tags already show A10 routed to `statement:none` (no statement keyword in "cash
+... pay ... dividends"). **Later, each its own step (user):** the prompt in the conversation view with filing links,
+diagnostics, iterations. 127 offline evaluation tests.

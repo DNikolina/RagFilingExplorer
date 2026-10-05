@@ -66,6 +66,34 @@ public class JudgeSetupTests
         Assert.Throws<ArgumentException>(() => JudgeSetup.Evaluators(["relevance"]));
     }
 
+    private const string Unread = "Failed to parse numeric score for 'Equivalence' from the following text:\r\n";
+
+    // The step 6 smoke test's two replies, word for word (A10, Q1).
+    [TestCase(Unread + "The predicted answer is mostly similar to the correct answer, but with a slight difference in the amount. Therefore, the Equivalence score is 4.", 4)]
+    [TestCase(Unread + "The predicted answer is mostly similar to the correct answer, as it provides the same numerical value and mentions the same date. However, it also includes additional information that is not present in the correct answer, such as the source of the data. Therefore, I would rate the Equivalence metric as 4 stars.", 4)]
+    [TestCase(Unread + "Equivalence score: 2", 2)]
+    [TestCase(Unread + "I'd give it 5/5.", 5)]
+    [TestCase(Unread + "Rather than 5 stars, the score is 3.", 3)]   // the last phrase wins
+    [TestCase(Unread + "The answers differ.", null)]
+    [TestCase("The request timed out.", null)]                        // not an unread reply
+    [TestCase(null, null)]
+    public void RecoverScore_WrittenScore_TheLastScorePhrase(string? error, int? score)
+    {
+        Assert.That(JudgeSetup.RecoverScore(error), Is.EqualTo(score));
+    }
+
+    [Test]
+    public async Task LibraryFailsAsync_EveryScore_TheLibrarysOwnVerdict()
+    {
+        // Pinned from the library (10.10.0): scores below 4 fail. A library upgrade that changes the rule fails this test
+        // - a recovered score always gets whatever verdict the library gives the same score.
+        bool[] equivalence = await Task.WhenAll(Enumerable.Range(1, 5).Select(s => JudgeSetup.LibraryFailsAsync("Equivalence", s)));
+        bool[] groundedness = await Task.WhenAll(Enumerable.Range(1, 5).Select(s => JudgeSetup.LibraryFailsAsync("Groundedness", s)));
+
+        Assert.That(equivalence, Is.EqualTo(new[] { true, true, true, false, false }));
+        Assert.That(groundedness, Is.EqualTo(new[] { true, true, true, false, false }));
+    }
+
     private sealed class CapturingChatClient : IChatClient
     {
         public List<ChatOptions?> Options { get; } = new();

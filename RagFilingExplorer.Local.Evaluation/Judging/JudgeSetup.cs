@@ -1,3 +1,5 @@
+using System.Globalization;
+using System.Text.RegularExpressions;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.AI.Evaluation;
 using Microsoft.Extensions.AI.Evaluation.Quality;
@@ -46,7 +48,7 @@ internal sealed class JudgeContextChatClient(IChatClient inner) : DelegatingChat
 /// v3 step 6, the local-judge spike: Microsoft's Quality evaluators, judged by the app's own chat model, set against the
 /// project's deterministic metrics - Equivalence against the strict grade, Groundedness against the figure source.
 /// </summary>
-internal static class JudgeSetup
+internal static partial class JudgeSetup
 {
     public const string Equivalence = "equivalence";
     public const string Groundedness = "groundedness";
@@ -111,6 +113,84 @@ internal static class JudgeSetup
             1 => list[0],
             _ => string.Join(", ", list.Take(list.Count - 1)) + " and " + list[^1],
         };
+    }
+
+    // The score as llama3.1:8b writes it instead of the bare integer asked for: "Therefore, the Equivalence score is 4.",
+    // "I would rate the Equivalence metric as 4 stars." (the step 6 smoke test, Q1 and A10). The last such phrase wins.
+    [GeneratedRegex(@"\bscore(?:\s+(?:is|of))?\s*[:=]?\s*\**([1-5])\b|\bas\s+(?:an?\s+)?\**([1-5])\b|\b([1-5])\s*(?:/\s*5|out of 5|stars?)\b",
+        RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
+    private static partial Regex WrittenScoreRegex();
+
+    private const string UnreadReplyMarker = "from the following text:";
+
+    /// <summary>
+    /// The score a judge wrote in words, recovered from the library's "Failed to parse numeric score" error, which quotes
+    /// the reply; null when the error isn't that or no score phrase is found. A second reading next to the library's -
+    /// the agreement report counts the two apart (user, 2026-10-05).
+    /// </summary>
+    public static int? RecoverScore(string? error)
+    {
+        int at = error?.IndexOf(UnreadReplyMarker, StringComparison.Ordinal) ?? -1;
+        if (at < 0)
+        {
+            return null;
+        }
+
+        Match? last = WrittenScoreRegex().Matches(error![(at + UnreadReplyMarker.Length)..]).LastOrDefault();
+        return last is null ? null : int.Parse(last.Groups.Values.Skip(1).First(g => g.Success).Value, CultureInfo.InvariantCulture);
+    }
+
+    /// <summary>A chat client that replies with one fixed text - the judge's reply, written as the library asks for it.</summary>
+    private sealed class FixedReplyChatClient(string reply) : IChatClient
+    {
+        public Task<ChatResponse> GetResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options = null, CancellationToken cancellationToken = default) =>
+            Task.FromResult(new ChatResponse(new ChatMessage(ChatRole.Assistant, reply)));
+
+        public IAsyncEnumerable<ChatResponseUpdate> GetStreamingResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options = null, CancellationToken cancellationToken = default) =>
+            throw new NotSupportedException();
+
+        public object? GetService(Type serviceType, object? serviceKey = null) => null;
+
+        public void Dispose()
+        {
+        }
+    }
+
+    /// <summary>
+    /// Whether the library interprets <paramref name="score"/> as failed - asked of the library itself: the evaluator is
+    /// run against a client replying with exactly that score in the format its prompt asks for, so a recovered score gets
+    /// the same verdict a readable reply would, whatever the library's threshold.
+    /// </summary>
+    public static async Task<bool> LibraryFailsAsync(string metricName, int score)
+    {
+        IEvaluator evaluator;
+        string reply;
+        EvaluationContext context;
+        if (metricName == EquivalenceEvaluator.EquivalenceMetricName)
+        {
+            (evaluator, reply, context) = (new EquivalenceEvaluator(), score.ToString(CultureInfo.InvariantCulture), new EquivalenceEvaluatorContext("g"));
+        }
+        else if (metricName == GroundednessEvaluator.GroundednessMetricName)
+        {
+            (evaluator, reply, context) = (new GroundednessEvaluator(), $"<S0>-</S0><S1>-</S1><S2>{score}</S2>", new GroundednessEvaluatorContext("c"));
+        }
+        else
+        {
+            throw new ArgumentException($"No judge has the metric {metricName}.", nameof(metricName));
+        }
+
+        EvaluationResult result = await evaluator.EvaluateAsync(
+            [new ChatMessage(ChatRole.User, "q")],
+            new ChatResponse(new ChatMessage(ChatRole.Assistant, "a")),
+            new ChatConfiguration(new FixedReplyChatClient(reply)),
+            [context]);
+        NumericMetric metric = result.Get<NumericMetric>(metricName);
+        if (metric.Value != score)
+        {
+            throw new InvalidOperationException($"The library read {metricName} {score} as {metric.Value?.ToString() ?? "no score"}.");
+        }
+
+        return metric.Interpretation?.Failed ?? false;
     }
 
     /// <summary>The excerpts as the app's prompt lays them out: a header naming the filing and section, then the chunk.</summary>

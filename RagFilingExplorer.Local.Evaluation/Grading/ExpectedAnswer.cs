@@ -12,7 +12,9 @@ internal sealed record AcceptedAlternative(
 /// One question's expected answer, as tools/expected-answers.json states it (docs/Manual-Test-Questions.md has the
 /// sources). <see cref="Kind"/> is "figure", "fact", "negative" (the filing doesn't say) or "routing" (the keyword route
 /// excludes the answer, so a decline passes). <see cref="ChunkExpect"/> is what marks the answer in a retrieved chunk, as
-/// the chunk prints it ("(601)", every input of an arithmetic question) - empty for a negative.
+/// the chunk prints it ("(601)", every input of an arithmetic question) - empty for a negative. <see cref="TrapWhy"/> says
+/// what each trap is ("dividends declared (equity statement), not paid") - from docs/Manual-Test-Questions.md, or the
+/// filing line where the doc gives none; read only for the report's explanations, never for grading.
 /// </summary>
 internal sealed record ExpectedAnswer(
     [property: JsonPropertyName("id")] string Id,
@@ -24,7 +26,8 @@ internal sealed record ExpectedAnswer(
     [property: JsonPropertyName("traps")] IReadOnlyList<string>? Traps = null,
     [property: JsonPropertyName("accept")] IReadOnlyList<AcceptedAlternative>? Accept = null,
     [property: JsonPropertyName("exact")] bool Exact = false,
-    [property: JsonPropertyName("chunk_expect")] IReadOnlyList<string>? ChunkExpect = null)
+    [property: JsonPropertyName("chunk_expect")] IReadOnlyList<string>? ChunkExpect = null,
+    [property: JsonPropertyName("trap_why")] IReadOnlyDictionary<string, string>? TrapWhy = null)
 {
     private sealed record File([property: JsonPropertyName("questions")] IReadOnlyList<ExpectedAnswer> Questions);
 

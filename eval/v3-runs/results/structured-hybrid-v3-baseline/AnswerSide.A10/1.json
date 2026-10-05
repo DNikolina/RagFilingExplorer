@@ -2,7 +2,7 @@
   "scenarioName": "AnswerSide.A10",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-05T13:07:36.3439889Z",
+  "creationTime": "2026-10-05T16:12:01.0739063Z",
   "messages": [
     {
       "role": "user",
@@ -33,33 +33,40 @@
         "$type": "string",
         "value": "wrong",
         "name": "Strict grade",
-        "reason": "trap 27,034",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
         "interpretation": {
           "rating": "unacceptable",
           "failed": true,
-          "reason": "trap 27,034"
+          "reason": "States 27,034 (dividends declared (equity statement), not paid (cash flow statement)) instead of the expected 26,445 million."
+        },
+        "metadata": {
+          "Grader note": "trap 27,034"
         }
       },
       "Answer rank": {
         "$type": "numeric",
         "value": 3,
         "name": "Answer rank",
-        "reason": "(26,445) at rank 3 of 25.",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
         "interpretation": {
           "rating": "good",
           "failed": false,
-          "reason": "In the model\u0027s context."
+          "reason": "(26,445) at rank 3 of 25 - in the model\u0027s context (top 5)."
         }
       },
       "Figure source": {
         "$type": "string",
         "value": "traced",
         "name": "Figure source",
-        "reason": "27,034: excerpt 1 (equity_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Retained earnings \u003E Common stock cash dividends \u2014 2026: (27,034) | 2025: (24,677) | 2024: (22,293)\u0022",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
         "interpretation": {
           "rating": "good",
           "failed": false,
-          "reason": "Every figure is in an excerpt."
+          "reason": "A misreading - every figure is in an excerpt: 27,034 from excerpt 1 (equity_statement); the expected 26,445 was in excerpt 3 (cash_flow_statement)."
+        },
+        "metadata": {
+          "Stated 27,034": "excerpt 1 (equity_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Retained earnings \u003E Common stock cash dividends \u2014 2026: (27,034) | 2025: (24,677) | 2024: (22,293)\u0022",
+          "Expected 26,445": "excerpt 3 (cash_flow_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Financing \u003E Common stock cash dividends paid \u2014 2026: (26,445) | 2025: (24,082) | 2024: (21,771)\u0022"
         }
       }
     }
@@ -67,7 +74,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0006785,
+        "latency": 0.0010305,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {
@@ -80,5 +87,11 @@
       }
     ]
   },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:MSFT",
+    "statement:none"
+  ],
   "formatVersion": 1
 }

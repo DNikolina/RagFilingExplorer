@@ -7,9 +7,10 @@ using RagFilingExplorer.Local.Evaluation.Evaluators;
 
 namespace RagFilingExplorer.Local.Evaluation.Judging;
 
-/// <summary>One judge's verdict on one answer: its 1-5 score (null when its reply couldn't be read), whether the library
-/// interprets the score as failed, and any error it reported.</summary>
-internal sealed record JudgeVerdict(double? Score, bool Failed, string? Error);
+/// <summary>One judge's verdict on one answer: its 1-5 score (null when no score could be read), whether the library
+/// interprets the score as failed, any error it reported, and whether the score was recovered from the reply's words
+/// (<see cref="JudgeSetup.RecoverScore"/>) rather than read by the library.</summary>
+internal sealed record JudgeVerdict(double? Score, bool Failed, string? Error, bool Recovered = false);
 
 /// <summary>One judged answer, read back from the result store.</summary>
 internal sealed record JudgedAnswer(
@@ -26,6 +27,19 @@ internal static class JudgeAgreement
 {
     public static readonly IReadOnlyList<string> MetricNames =
         [EquivalenceEvaluator.EquivalenceMetricName, GroundednessEvaluator.GroundednessMetricName];
+
+    private static readonly Dictionary<(string, int), bool> LibraryVerdicts = new();
+
+    private static async Task<bool> LibraryFailsCachedAsync(string metricName, int score)
+    {
+        if (!LibraryVerdicts.TryGetValue((metricName, score), out bool failed))
+        {
+            failed = await JudgeSetup.LibraryFailsAsync(metricName, score);
+            LibraryVerdicts[(metricName, score)] = failed;
+        }
+
+        return failed;
+    }
 
     /// <summary>Every answer of the execution, with its judges' verdicts.</summary>
     public static async Task<List<JudgedAnswer>> LoadAsync(string storageRoot, string execution, CancellationToken cancellationToken = default)
@@ -56,7 +70,10 @@ internal static class JudgeAgreement
                 if (evaluation.Metrics.TryGetValue(name, out EvaluationMetric? metric))
                 {
                     string? error = metric.Diagnostics?.FirstOrDefault(d => d.Severity == EvaluationDiagnosticSeverity.Error)?.Message;
-                    verdicts[name] = new JudgeVerdict((metric as NumericMetric)?.Value, metric.Interpretation?.Failed ?? false, error);
+                    double? score = (metric as NumericMetric)?.Value;
+                    verdicts[name] = score is null && JudgeSetup.RecoverScore(error) is int recovered
+                        ? new JudgeVerdict(recovered, await LibraryFailsCachedAsync(name, recovered), error, Recovered: true)
+                        : new JudgeVerdict(score, metric.Interpretation?.Failed ?? false, error);
                 }
             }
 
@@ -92,6 +109,9 @@ internal static class JudgeAgreement
             text.AppendLine($"== {name} ({judged.Count} answers)");
 
             List<JudgedAnswer> unread = judged.Where(a => a.Verdicts[name].Score is null).ToList();
+            int recoveredCount = judged.Count(a => a.Verdicts[name].Recovered);
+            text.AppendLine($"Score read by the library: {judged.Count - unread.Count - recoveredCount}; recovered from the reply's words: {recoveredCount}"
+                + " (verdict asked of the library for the same score)");
             text.AppendLine($"Reply not read as a score: {unread.Count}");
             unread.ForEach(a => text.AppendLine($"  {a.Scenario}: {a.Verdicts[name].Error ?? "no score"}"));
 
@@ -115,6 +135,8 @@ internal static class JudgeAgreement
 
             List<JudgedAnswer> scored = judged.Where(a => a.Verdicts[name].Score is not null).ToList();
             int agree = scored.Count(a => a.StrictPassed != a.Verdicts[name].Failed);
+            int libraryAgree = scored.Count(a => !a.Verdicts[name].Recovered && a.StrictPassed != a.Verdicts[name].Failed);
+            text.AppendLine($"Agreement on library-read scores only: {libraryAgree}/{scored.Count(a => !a.Verdicts[name].Recovered)}");
             text.AppendLine($"Agreement with the strict grade at the library's verdict: {agree}/{scored.Count}"
                 + $" (judge passes a strict failure: {scored.Count(a => !a.StrictPassed && !a.Verdicts[name].Failed)},"
                 + $" judge fails a strict pass: {scored.Count(a => a.StrictPassed && a.Verdicts[name].Failed)})");
@@ -124,7 +146,8 @@ internal static class JudgeAgreement
             {
                 string id = a.Scenario.Split('.').Last();
                 string routing = id.StartsWith('R') && a.Scenario.StartsWith("Main.", StringComparison.Ordinal) ? " [routing test: strict also passes a decline]" : "";
-                text.AppendLine($"  {a.Scenario}: strict {a.StrictGrade}, {name} {a.Verdicts[name].Score} ({(a.Verdicts[name].Failed ? "failed" : "passed")}){routing}");
+                string recovered = a.Verdicts[name].Recovered ? ", recovered" : "";
+                text.AppendLine($"  {a.Scenario}: strict {a.StrictGrade}, {name} {a.Verdicts[name].Score} ({(a.Verdicts[name].Failed ? "failed" : "passed")}{recovered}){routing}");
                 text.AppendLine($"    expected: {groundTruths.GetValueOrDefault(id, "?")}");
                 text.AppendLine($"    answer:   {a.Answer.ReplaceLineEndings(" ")}");
             }

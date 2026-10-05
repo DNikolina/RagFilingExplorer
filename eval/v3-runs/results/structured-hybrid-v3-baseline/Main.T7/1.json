@@ -2,7 +2,7 @@
   "scenarioName": "Main.T7",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-05T13:07:30.2497208Z",
+  "creationTime": "2026-10-05T16:11:54.8038998Z",
   "messages": [
     {
       "role": "user",
@@ -33,31 +33,37 @@
         "$type": "string",
         "value": "reliable",
         "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
         "interpretation": {
           "rating": "good",
-          "failed": false
+          "failed": false,
+          "reason": "States the expected 2.6%."
         }
       },
       "Answer rank": {
         "$type": "numeric",
         "value": 1,
         "name": "Answer rank",
-        "reason": "4,301 at rank 1 of 25.",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
         "interpretation": {
           "rating": "exceptional",
           "failed": false,
-          "reason": "In the model\u0027s context."
+          "reason": "4,301 at rank 1 of 25 - in the model\u0027s context (top 5)."
         }
       },
       "Figure source": {
         "$type": "string",
         "value": "traced",
         "name": "Figure source",
-        "reason": "2.6: excerpt 1 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Income Taxes): \u0022Ireland \u003E Statutory tax rate difference \u2014 Year Ended June 30, 2026: (4,301) / (2.6)%\u0022\n4,301: excerpt 1 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Income Taxes): \u0022Ireland \u003E Statutory tax rate difference \u2014 Year Ended June 30, 2026: (4,301) / (2.6)%\u0022",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
         "interpretation": {
           "rating": "good",
           "failed": false,
-          "reason": "Every figure is in an excerpt."
+          "reason": "Every figure is in an excerpt: 2.6 from excerpt 1 (narrative), 4,301 from excerpt 1 (narrative)."
+        },
+        "metadata": {
+          "Stated 2.6": "excerpt 1 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Income Taxes): \u0022Ireland \u003E Statutory tax rate difference \u2014 Year Ended June 30, 2026: (4,301) / (2.6)%\u0022",
+          "Stated 4,301": "excerpt 1 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Income Taxes): \u0022Ireland \u003E Statutory tax rate difference \u2014 Year Ended June 30, 2026: (4,301) / (2.6)%\u0022"
         }
       }
     }
@@ -65,7 +71,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0007386,
+        "latency": 0.0007562,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {
@@ -78,5 +84,11 @@
       }
     ]
   },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:MSFT",
+    "statement:none"
+  ],
   "formatVersion": 1
 }

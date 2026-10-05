@@ -2,7 +2,7 @@
   "scenarioName": "Main.T6",
   "iterationName": "1",
   "executionName": "structured-hybrid-v3-baseline",
-  "creationTime": "2026-10-05T13:07:30.1993965Z",
+  "creationTime": "2026-10-05T16:11:54.75714Z",
   "messages": [
     {
       "role": "user",
@@ -33,32 +33,36 @@
         "$type": "string",
         "value": "declined",
         "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
         "interpretation": {
           "rating": "unacceptable",
           "failed": true,
-          "reason": "declined"
+          "reason": "Declines, though the filing states 7,952 million."
         }
       },
       "Answer rank": {
         "$type": "numeric",
         "value": 1,
         "name": "Answer rank",
-        "reason": "7,952 at rank 1 of 25.",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
         "interpretation": {
           "rating": "exceptional",
           "failed": false,
-          "reason": "In the model\u0027s context."
+          "reason": "7,952 at rank 1 of 25 - in the model\u0027s context (top 5)."
         }
       },
       "Figure source": {
         "$type": "string",
         "value": "no figure stated",
         "name": "Figure source",
-        "reason": "A text answer or a decline: nothing to trace.",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
         "interpretation": {
           "rating": "inconclusive",
           "failed": false,
-          "reason": "Not traced."
+          "reason": "No figure stated - a text answer or a decline; the expected 7,952 was in excerpt 1 (narrative)."
+        },
+        "metadata": {
+          "Expected 7,952": "excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Goodwill and Acquired Intangible Assets): \u0022Financial Technology \u003E Balance at December 31, 2025 \u2014 $7,952\u0022"
         }
       }
     }
@@ -66,7 +70,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.000794,
+        "latency": 0.0006458,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {
@@ -79,5 +83,11 @@
       }
     ]
   },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:NDAQ",
+    "statement:none"
+  ],
   "formatVersion": 1
 }

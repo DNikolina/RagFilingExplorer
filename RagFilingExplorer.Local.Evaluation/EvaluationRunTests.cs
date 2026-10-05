@@ -35,10 +35,12 @@ public class EvaluationRunTests
         ["AnswerSide"] = ["eval/answer-side-norerank/answers.json"],
     };
 
-    private static Dictionary<string, string> BaselineGrades(string set)
+    /// <summary>The v2 baseline's grade for each question of the set - empty for a set with no v2 baseline (one added
+    /// later), so its run is summarized without a comparison instead of failing after every question was asked.</summary>
+    internal static Dictionary<string, string> BaselineGrades(string set)
     {
         Dictionary<string, string> grades = new();
-        foreach (string path in Baselines[set])
+        foreach (string path in Baselines.GetValueOrDefault(set, []))
         {
             using JsonDocument document = JsonDocument.Parse(File.ReadAllText(Path.Combine(Repo.FullName, path)));
             foreach (JsonElement r in document.RootElement.GetProperty("results").EnumerateArray())
@@ -91,6 +93,11 @@ public class EvaluationRunTests
                 + string.Join("  ", set.GroupBy(o => o.FigureSource).OrderBy(g => g.Key).Select(g => $"{g.Key} {g.Count()}")));
 
             Dictionary<string, string> baseline = BaselineGrades(set.Key);
+            if (baseline.Count == 0)
+            {
+                summary.AppendLine($"  ({set.Key} has no v2 baseline - its grades aren't compared)");
+            }
+
             foreach (QuestionOutcome o in set)
             {
                 if (baseline.TryGetValue(o.Id, out string? before) && before != o.Grade.Status)

@@ -109,7 +109,11 @@ internal sealed class EvaluationRunner(
                 }
 
                 Stopwatch clock = Stopwatch.StartNew();
-                await using ScenarioRun scenario = await reporting.CreateScenarioRunAsync($"{set.Name}.{entry.Id}", cancellationToken: cancellationToken);
+                // Tags by name: the parameter before them is additionalCachingKeys - tags there would change every
+                // cache key and re-ask the model for every answer.
+                List<string> tags = QuestionTags.For(entry, runtime.Companies.ResolveFilings(question), QueryIntentResolver.ResolveStatementType(question));
+                await using ScenarioRun scenario = await reporting.CreateScenarioRunAsync(
+                    $"{set.Name}.{entry.Id}", additionalTags: tags, cancellationToken: cancellationToken);
                 scenarioChat.Inner = scenario.ChatConfiguration!.ChatClient;
                 if (unloadBeforeEachQuestion)
                 {
@@ -151,10 +155,10 @@ internal sealed class EvaluationRunner(
 
                 StrictGrade grade = new(
                     result.Get<StringMetric>(StrictFigureEvaluator.MetricName).Value!,
-                    result.Get<StringMetric>(StrictFigureEvaluator.MetricName).Reason ?? "");
+                    StrictFigureEvaluator.GraderNote(result.Get<StringMetric>(StrictFigureEvaluator.MetricName)));
                 double? rank = result.Get<NumericMetric>(RetrievalRankEvaluator.MetricName).Value;
                 StringMetric source = result.Get<StringMetric>(FigureSourceEvaluator.MetricName);
-                QuestionOutcome outcome = new(set.Name, entry.Id, grade, rank is null ? null : (int)rank, answerText, clock.Elapsed, source.Value!, source.Reason ?? "");
+                QuestionOutcome outcome = new(set.Name, entry.Id, grade, rank is null ? null : (int)rank, answerText, clock.Elapsed, source.Value!, FigureSourceEvaluator.TraceText(source));
                 outcomes.Add(outcome);
                 progress($"{set.Name}.{entry.Id}: {grade.Status}{(grade.Note.Length > 0 ? $" ({grade.Note})" : "")}, rank {outcome.Rank?.ToString() ?? "-"}, "
                     + $"figures {outcome.FigureSource}, "

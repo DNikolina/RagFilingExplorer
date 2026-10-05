@@ -72,25 +72,31 @@ internal sealed class RetrievalRankEvaluator(int generationTopK) : IEvaluator
         IReadOnlyList<string> chunks = contexts.OfType<RetrievedChunksContext>().SingleOrDefault()?.Chunks
             ?? throw new ArgumentException($"{nameof(RetrievalRankEvaluator)} needs a {nameof(RetrievedChunksContext)}.", nameof(additionalContext));
 
+        // The sentence is the interpretation's reason - the report's "Why this score?"; the metric's own reason, shown as
+        // "What this measures?", is the description (2026-10-05).
+        string description =
+            "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-"
+            + $"{generationTopK} are in the model's prompt; a later rank, or none, means retrieval missed it - so a wrong answer "
+            + "with a good rank is the model's misreading. Deterministic - tools/replay_recall.py's rank, ported and held to it.";
         NumericMetric metric;
         if (expected.ChunkExpect is not { Count: > 0 } chunkExpect)
         {
-            metric = new NumericMetric(MetricName, value: null, reason: "A negative: there's no answer to find.")
+            metric = new NumericMetric(MetricName, value: null, description)
             {
-                Interpretation = new EvaluationMetricInterpretation(EvaluationRating.Inconclusive, reason: "Not scored."),
+                Interpretation = new EvaluationMetricInterpretation(EvaluationRating.Inconclusive, reason: "Not scored: a negative has no answer to find."),
             };
         }
         else
         {
             int? rank = RankOf(chunks, chunkExpect);
-            string reason = rank is null
-                ? $"{string.Join(", ", chunkExpect)} not in the {chunks.Count} retrieved chunks."
-                : $"{string.Join(", ", chunkExpect)} at rank {rank} of {chunks.Count}.";
-            metric = new NumericMetric(MetricName, rank, reason)
+            string where = rank is null
+                ? $"{string.Join(", ", chunkExpect)} not in the {chunks.Count} retrieved chunks"
+                : $"{string.Join(", ", chunkExpect)} at rank {rank} of {chunks.Count}";
+            metric = new NumericMetric(MetricName, rank, description)
             {
                 Interpretation = rank is not null && rank <= generationTopK
-                    ? new EvaluationMetricInterpretation(rank == 1 ? EvaluationRating.Exceptional : EvaluationRating.Good, reason: "In the model's context.")
-                    : new EvaluationMetricInterpretation(EvaluationRating.Unacceptable, failed: true, reason: "Outside the model's context."),
+                    ? new EvaluationMetricInterpretation(rank == 1 ? EvaluationRating.Exceptional : EvaluationRating.Good, reason: $"{where} - in the model's context (top {generationTopK}).")
+                    : new EvaluationMetricInterpretation(EvaluationRating.Unacceptable, failed: true, reason: $"{where} - outside the model's context (top {generationTopK})."),
             };
         }
 
