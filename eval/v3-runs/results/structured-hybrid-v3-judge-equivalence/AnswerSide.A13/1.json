@@ -1,0 +1,135 @@
+{
+  "scenarioName": "AnswerSide.A13",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:46:03.3371109Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much did Microsoft spend on additions to property and equipment in fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft spent $115,948 million on additions to property and equipment in fiscal 2026. (Source: MSFT-10K-2026.html, CASH FLOWS STATEMENTS)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 115,948 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 3,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "(115,948) at rank 3 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 115,948 from excerpt 3 (cash_flow_statement)."
+        },
+        "metadata": {
+          "Stated 115,948": "excerpt 3 (cash_flow_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Investing \u003E Additions to property and equipment \u2014 2026: (115,948) | 2025: (64,551) | 2024: (44,477)\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$115,948 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "892",
+          "eval-output-tokens": "49",
+          "eval-total-tokens": "941",
+          "eval-duration-ms": "0.77",
+          "Judge reply": "The predicted answer is almost identical to the correct answer, with the addition of a source citation. The information and content in the predicted answer is completely similar to the correct answer. \n\nThe value of the Equivalence metric should be 5.",
+          "Score taken from the reply\u0027s words": "yes"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007008,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2713,
+          "outputTokenCount": 41,
+          "totalTokenCount": 2754
+        },
+        "cacheKey": "546F4841482E1DB85551C00071C92C9892BE5DE8876EF4ED8B3404094DA8DE9895F828575D94B16508E49D27F5FE8E57",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.0006454,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 892,
+          "outputTokenCount": 49,
+          "totalTokenCount": 941
+        },
+        "cacheKey": "CF8E4AF733E757B60AA9D7A5B3E9F11E804BF84AC63B5C9F7A18C91C643AD36EC057246702CA4904077CC28F870FF069",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:MSFT",
+    "statement:none"
+  ],
+  "formatVersion": 1
+}

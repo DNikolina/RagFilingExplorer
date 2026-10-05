@@ -1,0 +1,98 @@
+{
+  "scenarioName": "AnswerSide.A27",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-variance-1",
+  "creationTime": "2026-10-05T18:10:23.5470657Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Oracle\u0027s net income as a percentage of its total revenues in fiscal 2026, to one decimal place?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s net income as a percentage of its total revenues in fiscal 2026 was 25.8%. \n\nNet income was $17,087 million (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules).\nTotal revenues were $67,357 million (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "States 25.8 instead of the expected 25.4%; also states 17,087 (an input of the asked-for calculation, not its result), 67,357 (an input of the asked-for calculation, not its result)."
+        },
+        "metadata": {
+          "Grader note": "trap 17,087, 67,357"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "17,087, 67,357 at rank 2 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "calculated",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "25.8 in no excerpt - the question asks for a calculation; 25.8 from no excerpt, 17,087 from excerpts 1 (income_statement), 4 (comprehensive_income), 67,357 from excerpt 2 (income_statement); the expected 25.4 isn\u0027t printed - it\u0027s derived from 17,087 (excerpt 1), 67,357 (excerpt 2)."
+        },
+        "metadata": {
+          "Stated 25.8": "in none of the excerpts",
+          "Stated 17,087": "excerpt 1 (income_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Net income \u2014 2026: $17,087 | 2025: $12,443 | 2024: $10,467\u0022; excerpt 4 (comprehensive_income, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Net income \u2014 2026: $17,087 | 2025: $12,443 | 2024: $10,467\u0022",
+          "Stated 67,357": "excerpt 2 (income_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Revenues \u003E Total revenues \u2014 2026: 67,357 | 2025: 57,399 | 2024: 52,961\u0022",
+          "Expected 25.4": "not printed as such - derived from 17,087 (excerpt 1), 67,357 (excerpt 2)"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 54.403869,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2660,
+          "outputTokenCount": 96,
+          "totalTokenCount": 2756
+        }
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "calculation",
+    "has traps",
+    "company:ORCL",
+    "statement:income_statement"
+  ],
+  "formatVersion": 1
+}

@@ -1,0 +1,138 @@
+{
+  "scenarioName": "AnswerSide.A21",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:46:04.3064129Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Oracle\u0027s combined net income for fiscal 2025 and fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s combined net income for fiscal 2025 and fiscal 2026 was $12,443 \u002B $17,087 = $29,530 million. (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules and PART IV \u003E Item 15. Exhibits and Financial Statement Schedules)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 29,530 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "12,443, 17,087 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "calculated",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "29,530 in no excerpt - the question asks for a calculation; 12,443 from excerpts 1 (income_statement), 3 (comprehensive_income), 4 (cash_flow_statement), 5 (narrative), 17,087 from excerpts 1 (income_statement), 3 (comprehensive_income), 4 (cash_flow_statement), 5 (narrative), 29,530 from no excerpt."
+        },
+        "metadata": {
+          "Stated 12,443": "excerpt 1 (income_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Net income \u2014 2026: $17,087 | 2025: $12,443 | 2024: $10,467\u0022 (\u002B1 more line); excerpt 3 (comprehensive_income, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Net income \u2014 2026: $17,087 | 2025: $12,443 | 2024: $10,467\u0022; excerpt 4 (cash_flow_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Cash flows from operating activities \u003E Net income \u2014 2026: $17,087 | 2025: $12,443 | 2024: $10,467\u0022; excerpt 5 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Net income \u2014 2026: $17,087 | 2025: $12,443\u0022",
+          "Stated 17,087": "excerpt 1 (income_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Net income \u2014 2026: $17,087 | 2025: $12,443 | 2024: $10,467\u0022; excerpt 3 (comprehensive_income, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Net income \u2014 2026: $17,087 | 2025: $12,443 | 2024: $10,467\u0022; excerpt 4 (cash_flow_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Cash flows from operating activities \u003E Net income \u2014 2026: $17,087 | 2025: $12,443 | 2024: $10,467\u0022; excerpt 5 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Net income \u2014 2026: $17,087 | 2025: $12,443\u0022",
+          "Stated 29,530": "in none of the excerpts"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 4,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$29,530 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "928",
+          "eval-output-tokens": "2",
+          "eval-total-tokens": "930",
+          "eval-duration-ms": "0.73",
+          "Judge reply": "4",
+          "Score taken from the reply\u0027s words": "no"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007609,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2720,
+          "outputTokenCount": 76,
+          "totalTokenCount": 2796
+        },
+        "cacheKey": "5F5550F57369E7688B111BFFCF8F8EAA3CA2E3552D4C9EE165EE6E34B84EADC6209B4C5DD25001B10460F54DF6078FEF",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.0006209,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 928,
+          "outputTokenCount": 2,
+          "totalTokenCount": 930
+        },
+        "cacheKey": "1C24373A5245AEFE1605C201903358C1B4A3AEC8DBEC556E4255AA7D5898F001FE64B33A187658FC86EF65D7F1A25297",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "calculation",
+    "has traps",
+    "company:ORCL",
+    "statement:income_statement"
+  ],
+  "formatVersion": 1
+}

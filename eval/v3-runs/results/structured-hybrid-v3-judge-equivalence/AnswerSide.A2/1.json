@@ -1,0 +1,135 @@
+{
+  "scenarioName": "AnswerSide.A2",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:46:02.2153607Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Nasdaq\u0027s basic earnings per share in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s basic earnings per share in 2025 was $3.12 (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements \u003E Earnings Per Share)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected $3.12."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "3.12 at rank 2 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 3.12 from excerpts 2 (income_statement), 3 (narrative)."
+        },
+        "metadata": {
+          "Stated 3.12": "excerpt 2 (income_statement, PART IV \u003E Financial Statements): \u0022Per share information \u003E Basic earnings per share \u2014 2025: $3.12 | 2024: $1.94 | 2023: $2.10\u0022; excerpt 3 (narrative, PART IV \u003E Financial Statements \u003E Earnings Per Share): \u0022Basic and diluted earnings per share \u003E Basic earnings per share \u2014 2025: $3.12 | 2024: $1.94 | 2023: $2.10\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$3.12"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "888",
+          "eval-output-tokens": "35",
+          "eval-total-tokens": "923",
+          "eval-duration-ms": "0.66",
+          "Judge reply": "The predicted answer is very similar to the correct answer, with the same numerical value and a brief explanation from a source. Therefore, the Equivalence score is 5.",
+          "Score taken from the reply\u0027s words": "yes"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008396,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2478,
+          "outputTokenCount": 42,
+          "totalTokenCount": 2520
+        },
+        "cacheKey": "485FFF42492FF3309A574113E7BBC17E70574C2128652C67882712E357CD3B90E8B134EC0C3B54E0EA1DFB85F124FCE6",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.000551,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 888,
+          "outputTokenCount": 35,
+          "totalTokenCount": 923
+        },
+        "cacheKey": "5CFC7DEEB9E3680445CB59A1BC9DF0E1B96655BEF22E9CAAF6EECBF2EA19AE428BF03DE255D5ED15C6851146F582F944",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:NDAQ",
+    "statement:income_statement"
+  ],
+  "formatVersion": 1
+}

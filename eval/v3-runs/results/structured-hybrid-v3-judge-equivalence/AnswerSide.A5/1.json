@@ -1,0 +1,135 @@
+{
+  "scenarioName": "AnswerSide.A5",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:46:02.5567173Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Oracle\u0027s income before income taxes in fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s income before income taxes in fiscal 2026 was $19,554 million (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Income Taxes)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 19,554 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "19,554 at rank 2 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 19,554 from excerpt 2 (narrative)."
+        },
+        "metadata": {
+          "Stated 19,554": "excerpt 2 (narrative, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Income Taxes): \u0022Income before income taxes \u2014 2026: $19,554 | 2025: $14,160 | 2024: $11,741\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$19,554 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "897",
+          "eval-output-tokens": "35",
+          "eval-total-tokens": "932",
+          "eval-duration-ms": "0.43",
+          "Judge reply": "The predicted answer is almost identical to the correct answer, with the only difference being the inclusion of a source citation. Therefore, the Equivalence metric should be 5.",
+          "Score taken from the reply\u0027s words": "yes"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0005325,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2354,
+          "outputTokenCount": 49,
+          "totalTokenCount": 2403
+        },
+        "cacheKey": "2D72A035BF840AD82E033028BD403471A0B27F36ED4567CD0CF6D4B1D26CA1B82E2304C28E629D765B09907008DE66D0",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.000341,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 897,
+          "outputTokenCount": 35,
+          "totalTokenCount": 932
+        },
+        "cacheKey": "ECA225FA6E64066E2289818AEDA29DB52E7B941CCA871222DBE8968B98EE48EF4C24773D32E8D45A5E1BC2B3E65903BB",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:ORCL",
+    "statement:none"
+  ],
+  "formatVersion": 1
+}

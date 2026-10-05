@@ -1,0 +1,134 @@
+{
+  "scenarioName": "HeldOut.H14",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:45:59.6768056Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Netflix\u0027s total deferred revenue as of December 31, 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s total deferred revenue as of December 31, 2025 was $1,776 million. (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements \u003E Revenue Recognition)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 1,776 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "1,776 at rank 2 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 1,776 from excerpt 2 (narrative)."
+        },
+        "metadata": {
+          "Stated 1,776": "excerpt 2 (narrative, PART IV \u003E Financial Statements \u003E Revenue Recognition): \u0022...e not been fully redeemed. As of December 31, 2025, total deferred revenue was $1,776\u00A0million, the vast majority of which was related to membership fees billed ...\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$1,776 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "895",
+          "eval-output-tokens": "35",
+          "eval-total-tokens": "930",
+          "eval-duration-ms": "0.89",
+          "Judge reply": "The predicted answer is almost identical to the correct answer, including the exact amount and the source of the information. Therefore, the Equivalence metric value should be 5.",
+          "Score taken from the reply\u0027s words": "yes"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0006537,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2403,
+          "outputTokenCount": 44,
+          "totalTokenCount": 2447
+        },
+        "cacheKey": "D1BBFF9B17264FA12E49C1E266ABA79CD88A3B300F59272426A7A704EBB19F93410828CC6C994468B422468C03F6A5CA",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.0007092,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 895,
+          "outputTokenCount": 35,
+          "totalTokenCount": 930
+        },
+        "cacheKey": "7E161B23C8F38A51E4FA24287F5030028995E73D4BDE84F4FB3CA444FD72A12C390B549C63B1376A1CB5F2A9F2B4F15C",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "company:NFLX",
+    "statement:income_statement"
+  ],
+  "formatVersion": 1
+}

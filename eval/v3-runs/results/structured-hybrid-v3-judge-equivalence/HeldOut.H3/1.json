@@ -1,0 +1,135 @@
+{
+  "scenarioName": "HeldOut.H3",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:45:58.2962132Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much stock-based compensation expense did Microsoft record in fiscal year 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft recorded $12,405 million in stock-based compensation expense for the year ended June 30, 2026. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Employee Stock and Savings Plans)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 12,405 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "12,405 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 12,405 from excerpts 1 (narrative), 3 (equity_statement)."
+        },
+        "metadata": {
+          "Stated 12,405": "excerpt 1 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Employee Stock and Savings Plans): \u0022Stock-based compensation expense \u2014 2026: $12,405 | 2025: $11,974 | 2024: $10,734\u0022; excerpt 3 (equity_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Common stock and paid-in capital \u003E Stock-based compensation expense \u2014 2026: 12,405 | 2025: 11,974 | 2024: 10,734\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$12,405 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "912",
+          "eval-output-tokens": "35",
+          "eval-total-tokens": "947",
+          "eval-duration-ms": "0.76",
+          "Judge reply": "The predicted answer is almost identical to the correct answer, including the exact dollar amount and the source of the information. Therefore, the Equivalence metric should be 5.",
+          "Score taken from the reply\u0027s words": "yes"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0009031,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2871,
+          "outputTokenCount": 62,
+          "totalTokenCount": 2933
+        },
+        "cacheKey": "6087F21FB5D2AE11C02A1B587ED1750E68E6C2E4C28DD0964033CEA57D460FD6C2EC25F783FD5859CEDC0A063DD0504B",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.0005727,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 912,
+          "outputTokenCount": 35,
+          "totalTokenCount": 947
+        },
+        "cacheKey": "F5FFF112AC97E14B046B0B35B7616976EA9CCA4A44517C334D8BC982E7A03CA8B3D56238B4A0730104C9EF4A3D2CAC89",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:MSFT",
+    "statement:none"
+  ],
+  "formatVersion": 1
+}

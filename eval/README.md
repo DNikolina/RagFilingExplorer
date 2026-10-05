@@ -132,7 +132,9 @@ Details in `docs/Decision-Log.md`, "evaluation in .NET (v3)", step 4.
 Since step 5 each result also has a **figure source** (where each stated figure is in the excerpts); the baseline was
 re-run from the cache to add it (2026-10-05). `variance-v2-5a-vs-v3-baseline.txt` compares v2's 5a run with the v3
 baseline question by question (`VarianceComparison`): 89/102 identical, 11 wording, 1 figure, 1 grade. The variance passes
-(`tools/run-variance.ps1`, `variance-*` executions) and the judge spike (`run-judge.ps1`, `judge-*.txt`) land here too;
+(`structured-hybrid-v3-variance-1`, `-2`; comparison `structured-hybrid-v3-variance.txt`: the passes identical to each other,
+100/102 grades against the baseline - answered on Ollama 0.35.0, the passes on 0.35.1) and the judge run
+(`structured-hybrid-v3-judge-equivalence`, agreement `judge-structured-hybrid-v3-judge-equivalence.txt`) are here too;
 `logs/`, their console output, is gitignored.
 `report.html` is every execution in the store, newest first (it opens on the first), the history included: v1's baseline and each kept v2 step, imported from
 the folders above (strict grade only - no rank, since their indexes were rebuilt; `HistoricRunImporter`).

@@ -1,0 +1,140 @@
+{
+  "scenarioName": "Main.Q2",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:45:54.0456599Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Oracle\u0027s total stockholders\u0027 equity?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s total stockholders\u0027 equity as of May 31, 2026 was $42,508 million, and as of May 31, 2025 was $20,451 million. (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "States 42,508, 20,451 instead of the expected 43,056 million."
+        },
+        "metadata": {
+          "Grader note": "expected figure absent"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "43,056 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "A misreading - every figure is in an excerpt: 42,508 from excerpt 2 (balance_sheet), 20,451 from excerpt 2 (balance_sheet); the expected 43,056 was in excerpt 1 (balance_sheet)."
+        },
+        "metadata": {
+          "Stated 42,508": "excerpt 2 (balance_sheet, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Oracle Corporation stockholders\u2019 equity \u003E Total Oracle Corporation stockholders\u2019 equity \u2014 2026: 42,508 | 2025: 20,451\u0022",
+          "Stated 20,451": "excerpt 2 (balance_sheet, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Oracle Corporation stockholders\u2019 equity \u003E Total Oracle Corporation stockholders\u2019 equity \u2014 2026: 42,508 | 2025: 20,451\u0022",
+          "Expected 43,056": "excerpt 1 (balance_sheet, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Total stockholders\u2019 equity \u2014 2026: 43,056 | 2025: 20,969\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 4,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$43,056 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "913",
+          "eval-output-tokens": "40",
+          "eval-total-tokens": "953",
+          "eval-duration-ms": "1.03",
+          "Judge reply": "The predicted answer is mostly similar to the correct answer, as it provides the exact same information and even includes a source to support the answer. Therefore, the Equivalence metric value is 4.",
+          "Score taken from the reply\u0027s words": "yes"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0010545,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2575,
+          "outputTokenCount": 69,
+          "totalTokenCount": 2644
+        },
+        "cacheKey": "E7006972BDE822099F2FC637CCE3D92FE339B7038547EFFEC87D2298C8EFD11B64EDFD2FD310242E69B21DCD5F18460C",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.0006774,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 913,
+          "outputTokenCount": 40,
+          "totalTokenCount": 953
+        },
+        "cacheKey": "EA64AE859D87997F1430463B01FD551FE2E6045C6B873F12E7F06B011906D93EA59E493780BE59815E79378DD1B7985B",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:ORCL",
+    "statement:balance_sheet"
+  ],
+  "formatVersion": 1
+}

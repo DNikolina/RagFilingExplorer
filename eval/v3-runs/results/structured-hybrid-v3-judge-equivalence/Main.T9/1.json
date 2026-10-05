@@ -1,0 +1,140 @@
+{
+  "scenarioName": "Main.T9",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:45:57.3866648Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "According to Oracle\u0027s statement of stockholders\u0027 equity, how much in common stock dividends did Oracle declare in fiscal 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle declared $1.70 per share in common stock dividends in fiscal 2025. (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "States 1.70 instead of the expected 4,743 million."
+        },
+        "metadata": {
+          "Grader note": "expected figure absent"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "4,743 at rank 2 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "A misreading - every figure is in an excerpt: 1.70 from excerpt 2 (equity_statement); the expected 4,743 was in excerpt 2 (equity_statement)."
+        },
+        "metadata": {
+          "Stated 1.70": "excerpt 2 (equity_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Cash dividends declared ($1.70 per share) (fiscal 2025, year ended May 31, 2025) \u2014 Accumulated Deficit: (4,743) | Total Stockholders\u2019 Equity: (4,743)\u0022",
+          "Expected 4,743": "excerpt 2 (equity_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Cash dividends declared ($1.70 per share) (fiscal 2025, year ended May 31, 2025) \u2014 Accumulated Deficit: (4,743) | Total Stockholders\u2019 Equity: (4,743)\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "poor",
+          "failed": true,
+          "reason": "Equivalence is less than 4."
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$4,743 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "907",
+          "eval-output-tokens": "58",
+          "eval-total-tokens": "965",
+          "eval-duration-ms": "1.12",
+          "Judge reply": "The predicted answer is mostly not similar to the correct answer, as the correct answer is a specific dollar amount ($4,743 million) and the predicted answer is a per-share amount ($1.70) with a different source. \n\nSo, the rating produced should be 2.",
+          "Score taken from the reply\u0027s words": "yes"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007903,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2709,
+          "outputTokenCount": 47,
+          "totalTokenCount": 2756
+        },
+        "cacheKey": "EEE927898EBFF5A8DDCCE941251AC7D58F80423B9EFF025CB84902412F069DA1F321FCEED17D82A3DAA53CAC82C5FD4C",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.0009392,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 907,
+          "outputTokenCount": 58,
+          "totalTokenCount": 965
+        },
+        "cacheKey": "A97158DF8538AB3E8D374095D83D05332D2D2FADA70A88DC970692847D3CD642C9B81BFF3CD609B2E56FFA48A420713E",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:ORCL",
+    "statement:equity_statement"
+  ],
+  "formatVersion": 1
+}

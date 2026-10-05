@@ -1,0 +1,90 @@
+{
+  "scenarioName": "Main.Q18",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-variance-2",
+  "creationTime": "2026-10-05T18:27:23.3852939Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Netflix\u0027s net income for 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s net income for 2025 was $10,981,201 thousand (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements \u003E CONSOLIDATED STATEMENTS OF OPERATIONS)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 10,981,201 thousand."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "10,981,201 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 10,981,201 from excerpts 1 (income_statement), 2 (narrative), 3 (comprehensive_income), 4 (cash_flow_statement)."
+        },
+        "metadata": {
+          "Stated 10,981,201": "excerpt 1 (income_statement, PART IV \u003E Financial Statements): \u0022Other income (expense) \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\u0022; excerpt 2 (narrative, PART IV \u003E Financial Statements \u003E Segment and Geographic Information): \u0022Other income (expense) \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\u0022; excerpt 3 (comprehensive_income, PART IV \u003E Financial Statements): \u0022Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\u0022; excerpt 4 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022Cash flows from operating activities \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 45.0991311,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2199,
+          "outputTokenCount": 45,
+          "totalTokenCount": 2244
+        }
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "company:NFLX",
+    "statement:income_statement"
+  ],
+  "formatVersion": 1
+}

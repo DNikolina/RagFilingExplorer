@@ -1,0 +1,138 @@
+{
+  "scenarioName": "AnswerSide.A25",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:46:04.6561247Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much did Nasdaq return to shareholders in 2025 through dividends paid and share repurchases combined?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The total amount paid of $601 million in dividends and the total purchase price of $616 million for share repurchases, combined, is $1,217 million."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 1,217 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 25,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "(601), (616) at rank 25 of 25 - outside the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "calculated",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "1,217 in no excerpt - the question asks for a calculation; 601 from excerpt 1 (narrative), 616 from excerpt 4 (narrative), 1,217 from no excerpt."
+        },
+        "metadata": {
+          "Stated 601": "excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity): \u0022Total Amount Paid: $601\u0022 (\u002B1 more line)",
+          "Stated 616": "excerpt 4 (narrative, PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity): \u0022Total purchase price (in millions) \u2014 Year Ended December 31, 2025: $616\u0022",
+          "Stated 1,217": "in none of the excerpts"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$1,217 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "889",
+          "eval-output-tokens": "30",
+          "eval-total-tokens": "919",
+          "eval-duration-ms": "0.64",
+          "Judge reply": "The predicted answer is almost identical to the correct answer, with only minor differences in wording. Therefore, the Equivalence metric should be 5.",
+          "Score taken from the reply\u0027s words": "yes"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007506,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2835,
+          "outputTokenCount": 34,
+          "totalTokenCount": 2869
+        },
+        "cacheKey": "E1AC6E34BC8A90956BC528D94AEE8581696F3A652B782F898D5C9D66D6D1C74C49D87D963F5988D07C4E5C2A14700BF7",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.0005201,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 889,
+          "outputTokenCount": 30,
+          "totalTokenCount": 919
+        },
+        "cacheKey": "2FF6DCDD2B086630C29E2A98998FBD99CCAAE7DAF1B53CFAFFDC3A16EC463F3FECB03259263133D2EEF55628E917C01B",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "calculation",
+    "has traps",
+    "company:NDAQ",
+    "statement:none"
+  ],
+  "formatVersion": 1
+}

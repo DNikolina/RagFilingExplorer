@@ -1,0 +1,95 @@
+{
+  "scenarioName": "Main.T6",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-variance-2",
+  "creationTime": "2026-10-05T18:44:33.6192232Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was the goodwill balance of Nasdaq\u0027s Financial Technology segment at December 31, 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The goodwill recognized is attributable primarily to expected synergies and is assigned to our Financial Technology segment, and the excess purchase price over the net tangible and acquired intangible assets has been recorded as goodwill, which is $5,933 million (Source: NDAQ-10K-2025.html, section PART IV \u003E Financial Statements \u003E Acquisition and Divestitures)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "States 5,933 (goodwill recognized in the Adenza acquisition, also \u0022assigned to\u0022 Financial Technology) instead of the expected 7,952 million."
+        },
+        "metadata": {
+          "Grader note": "trap 5,933"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "7,952 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "A misreading - every figure is in an excerpt: 5,933 from excerpt 2 (narrative); the expected 7,952 was in excerpt 1 (narrative)."
+        },
+        "metadata": {
+          "Stated 5,933": "excerpt 2 (narrative, PART IV \u003E Financial Statements \u003E Acquisition and Divestitures): \u0022Goodwill \u2014 $5,933\u0022",
+          "Expected 7,952": "excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Goodwill and Acquired Intangible Assets): \u0022Financial Technology \u003E Balance at December 31, 2025 \u2014 $7,952\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 83.9486183,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2605,
+          "outputTokenCount": 73,
+          "totalTokenCount": 2678
+        }
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:NDAQ",
+    "statement:none"
+  ],
+  "formatVersion": 1
+}

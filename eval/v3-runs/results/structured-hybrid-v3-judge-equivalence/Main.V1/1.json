@@ -1,0 +1,135 @@
+{
+  "scenarioName": "Main.V1",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:45:57.9587631Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Nasdaq\u0027s total comprehensive income for 2024?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s total comprehensive income for 2024 was $940 million. (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements, Consolidated Statements of Comprehensive Income)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 940 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "1,124 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 940 from excerpt 1 (comprehensive_income)."
+        },
+        "metadata": {
+          "Stated 940": "excerpt 1 (comprehensive_income, PART IV \u003E Financial Statements): \u0022Comprehensive income \u2014 2025: 2,113 | 2024: 940 | 2023: 1,124\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$940 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "887",
+          "eval-output-tokens": "35",
+          "eval-total-tokens": "922",
+          "eval-duration-ms": "1.00",
+          "Judge reply": "The predicted answer is almost identical to the correct answer, including the exact dollar amount and the source of the information. Therefore, the Equivalence metric should be 5.",
+          "Score taken from the reply\u0027s words": "yes"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0006702,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2591,
+          "outputTokenCount": 43,
+          "totalTokenCount": 2634
+        },
+        "cacheKey": "57F03FF70D4D7781537C31B880395CB27B6C92473A6E41EE957685C2F077AF3BD3F84F874109D638C90C222C31B8699F",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.0008325,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 887,
+          "outputTokenCount": 35,
+          "totalTokenCount": 922
+        },
+        "cacheKey": "8AED346C740081A60015908A1449DB479ABD49E485057741BF9BC51D0BEE43D4E7D91D422A8D5CFF5A9B1DE228568FD4",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:NDAQ",
+    "statement:comprehensive_income"
+  ],
+  "formatVersion": 1
+}

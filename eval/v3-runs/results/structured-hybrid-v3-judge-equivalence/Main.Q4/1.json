@@ -1,0 +1,134 @@
+{
+  "scenarioName": "Main.Q4",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:45:54.1912537Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Microsoft\u0027s net cash from operations?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s net cash from operations was $182,935 million for the year ended June 30, 2026. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 182,935 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "182,935 at rank 2 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 182,935 from excerpt 2 (cash_flow_statement)."
+        },
+        "metadata": {
+          "Stated 182,935": "excerpt 2 (cash_flow_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Changes in operating assets and liabilities \u003E Net cash from operations \u2014 2026: 182,935 | 2025: 136,162 | 2024: 118,548\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 4,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$182,935 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "899",
+          "eval-output-tokens": "30",
+          "eval-total-tokens": "929",
+          "eval-duration-ms": "2.13",
+          "Judge reply": "4\n\nThe predicted answer is mostly similar to the correct answer, with the only difference being the inclusion of a specific date and a source citation.",
+          "Score taken from the reply\u0027s words": "yes"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007038,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2804,
+          "outputTokenCount": 56,
+          "totalTokenCount": 2860
+        },
+        "cacheKey": "CA4585CEB460909F8D51AF8702DC1C950910B29153EFC1000F01B4C18E0CB377222B867715E17EEA095C0AA2666E036B",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.0006119,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 899,
+          "outputTokenCount": 30,
+          "totalTokenCount": 929
+        },
+        "cacheKey": "0EFF37ADCCE8CCF10C001B4C640146EC142C762B639B352E1B53C31A899AA70A085A33D20B3D492ADA68B32DA625C194",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "company:MSFT",
+    "statement:cash_flow_statement"
+  ],
+  "formatVersion": 1
+}

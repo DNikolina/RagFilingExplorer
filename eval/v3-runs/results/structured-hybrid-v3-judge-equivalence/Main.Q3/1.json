@@ -1,0 +1,135 @@
+{
+  "scenarioName": "Main.Q3",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:45:54.1213156Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Nasdaq\u0027s total liabilities?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s total liabilities were $18,821 million as of December 31, 2025. (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 18,821 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "18,821 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 18,821 from excerpt 1 (balance_sheet)."
+        },
+        "metadata": {
+          "Stated 18,821": "excerpt 1 (balance_sheet, PART IV \u003E Financial Statements): \u0022Total liabilities \u2014 2025: 18,821 | 2024: 19,195\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 4,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$18,821 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "883",
+          "eval-output-tokens": "64",
+          "eval-total-tokens": "947",
+          "eval-duration-ms": "0.91",
+          "Judge reply": "The predicted answer is mostly similar to the correct answer, as it provides the exact same numerical value and mentions the same date. However, it also includes additional information that is not present in the correct answer, such as the source of the information. Based on the rating scale, this would correspond to 4 stars.",
+          "Score taken from the reply\u0027s words": "yes"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0006676,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2540,
+          "outputTokenCount": 42,
+          "totalTokenCount": 2582
+        },
+        "cacheKey": "540FFB24D0901438FE80174C4A5163AFF9A00F6CA984BF062ED92BC9EE599C3F47295C586CB60576838E49226245C39E",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.000656,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 883,
+          "outputTokenCount": 64,
+          "totalTokenCount": 947
+        },
+        "cacheKey": "749610AC3849D80CD21F8A897A6C3ED119698998C178DAD32A6130505E32A0F34F5D7F1E8702D738F2CDD01891AD2A56",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:NDAQ",
+    "statement:balance_sheet"
+  ],
+  "formatVersion": 1
+}

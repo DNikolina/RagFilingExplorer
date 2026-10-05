@@ -415,7 +415,7 @@ query-intent resolution, company registration, settings loading/validation, inde
 the retrieve+generate orchestration (mocked; hybrid search against a real FTS5 file, reranking with a fake
 scorer), the reranker's tokenization, and v2's page reader, structure labels and inline XBRL reader - checked
 against the filings in `data/`, read-only, including fact for fact against EDGAR's own extraction.
-`RagFilingExplorer.Local.Evaluation` (127 offline tests) checks the evaluators themselves.
+`RagFilingExplorer.Local.Evaluation` (138 offline tests) checks the evaluators themselves.
 
 ### The evaluation
 
@@ -458,9 +458,17 @@ asks all 102 questions (about two hours on the hardware above; minutes from the 
 `eval/v3-runs/report-<execution>.html` and a summary; `eval/v3-runs/report.html` holds every run, v1's included,
 newest first. Environment variables pick the execution name (`EVAL_EXECUTION`), the questions (`EVAL_ONLY`,
 `EVAL_SETS`), fresh answers instead of cached ones (`EVAL_NO_CACHE`), and model-judged evaluators (`EVAL_JUDGE`) -
-see `EvaluationRunTests`. Two measurements build on it: how much an answer varies when asked again with the same
-prompt (`tools/run-variance.ps1`), and whether a local model as judge - Microsoft's Quality evaluators, scored by
-`llama3.1:8b` - agrees with the strict grade (`tools/run-judge.ps1`). Every measured run, v1's on, is kept in `eval/`.
+see `EvaluationRunTests`. Two measurements build on it:
+
+- **Repeatability** (`tools/run-variance.ps1`): all 102 questions asked afresh twice came back word for word identical -
+  at temperature 0 the model repeats exactly on the same setup. Against answers from three days earlier, 100/102 grades
+  matched and one question changed score; Ollama had updated itself in between (0.35.0 -> 0.35.1, a newer llama.cpp), so
+  runs are compared only on the same Ollama build.
+- **A local judge** (`tools/run-judge.ps1`): Microsoft's Equivalence evaluator, scored by `llama3.1:8b`, agreed with the
+  strict grade on 87 of 101 answers - but passed 14 of the 18 wrong ones, rating $27,034 million against $26,445 million
+  "a slight difference". It can't see what the strict grade exists to catch, so it isn't used as a grader.
+
+Every measured run, v1's on, is kept in `eval/`.
 
 ## Why MarkItDown, not Microsoft.Extensions.DataIngestion
 

@@ -1,0 +1,135 @@
+{
+  "scenarioName": "Main.T10",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:45:57.4981022Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "In Netflix\u0027s statement of comprehensive income, how much in cash flow hedge gains was reclassified in 2024?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "$96,795 thousand was reclassified from AOCI into the Consolidated Statements of Operations in 2024, as stated in the excerpt from NFLX-10K-2025.html, section PART IV \u003E Financial Statements \u003E Stockholders\u0027 Equity (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements \u003E Stockholders\u0027 Equity)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 96,795 thousand."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 4,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "96,795 at rank 4 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 96,795 from excerpts 4 (comprehensive_income), 5 (narrative)."
+        },
+        "metadata": {
+          "Stated 96,795": "excerpt 4 (comprehensive_income, PART IV \u003E Financial Statements): \u0022Cash flow hedges \u003E Reclassification of net (gains) losses included in net income \u2014 2025: 68,962 | 2024: (96,795)\u0022; excerpt 5 (narrative, PART IV \u003E Financial Statements \u003E Stockholders\u0027 Equity): \u0022...venues: $124,010 | Cost of Revenues: $1,629 | Interest and other income (expense): $\u2014 | Provision for Income Taxes: $(28,844) | Total Reclassifications: $96,795\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$96,795 thousand"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "932",
+          "eval-output-tokens": "38",
+          "eval-total-tokens": "970",
+          "eval-duration-ms": "0.88",
+          "Judge reply": "The predicted answer is almost identical to the correct answer, with the only difference being the additional information about the source of the data. Therefore, the Equivalence metric should be 5.",
+          "Score taken from the reply\u0027s words": "yes"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007616,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2552,
+          "outputTokenCount": 75,
+          "totalTokenCount": 2627
+        },
+        "cacheKey": "59243AE3B2C58E713AD1E8973545FF805731A970EF0D49A7BF5197E755DD912A4ACCD886108E0945D9A90E1201396E68",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.0006961,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 932,
+          "outputTokenCount": 38,
+          "totalTokenCount": 970
+        },
+        "cacheKey": "52B3960122986E30B763A4E3E1194280DDAE89D724F726609848273F288C4E1AD2EB63FC0051A4A646BCCD32746BB6AC",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:NFLX",
+    "statement:none"
+  ],
+  "formatVersion": 1
+}

@@ -1,0 +1,97 @@
+{
+  "scenarioName": "AnswerSide.A16",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-variance-2",
+  "creationTime": "2026-10-05T19:54:18.6277372Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much cash did Nasdaq spend repurchasing its common stock in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq spent $616 million in total purchase price for repurchasing its common stock in 2025, and an additional $4 million of accrued excise tax that had not been paid as of December 31, 2025, is excluded from the total purchase price. Therefore, the total cash spent repurchasing its common stock in 2025 is $620 million. (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "check",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "States the expected 616 million, but also 620 (equity statement) - a reader decides which it answers with."
+        },
+        "metadata": {
+          "Grader note": "also states 620"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 18,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "(616) at rank 18 of 25 - outside the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "A misreading - every figure is in an excerpt: 616 from excerpt 1 (narrative), 4 from excerpt 1 (narrative), 620 from excerpt 5 (equity_statement); the expected 616 was in excerpt 1 (narrative)."
+        },
+        "metadata": {
+          "Stated 616": "excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity): \u0022Total purchase price (in millions) \u2014 Year Ended December 31, 2025: $616\u0022",
+          "Stated 4": "excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity): \u0022$4 million of accrued excise tax that had not been paid as of\u0022",
+          "Stated 620": "excerpt 5 (equity_statement, PART IV \u003E Financial Statements): \u0022Additional paid-in capital \u003E Share repurchase program \u2014 2025 Shares: (7) | 2025 $: (620) | 2024 Shares: (2) | 2024 $: (145) | 2023 Shares: (5) | 2023 $: (269)\u0022",
+          "Expected 616": "excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity): \u0022Total purchase price (in millions) \u2014 Year Ended December 31, 2025: $616\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 92.2323418,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2926,
+          "outputTokenCount": 105,
+          "totalTokenCount": 3031
+        }
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:NDAQ",
+    "statement:none"
+  ],
+  "formatVersion": 1
+}

@@ -61,7 +61,7 @@ public class JudgeSetupTests
     [Test]
     public void Evaluators_KnownNames_TheirEvaluators()
     {
-        Assert.That(JudgeSetup.Evaluators([JudgeSetup.Equivalence]).Single(), Is.InstanceOf<EquivalenceEvaluator>());
+        Assert.That(JudgeSetup.Evaluators([JudgeSetup.Equivalence]).Single(), Is.InstanceOf<ScoreOnlyEquivalenceEvaluator>());
         Assert.That(JudgeSetup.Evaluators([]), Is.Empty);
         Assert.Throws<ArgumentException>(() => JudgeSetup.Evaluators(["relevance"]));
     }
@@ -74,6 +74,16 @@ public class JudgeSetupTests
     [TestCase(Unread + "Equivalence score: 2", 2)]
     [TestCase(Unread + "I'd give it 5/5.", 5)]
     [TestCase(Unread + "Rather than 5 stars, the score is 3.", 3)]   // the last phrase wins
+    // The first full run's most common phrasings (structured-hybrid-v3-judge-equivalence), word for word.
+    [TestCase(Unread + "The predicted answer is identical to the correct answer, including the exact figure and source. Therefore, the Equivalence metric should be 5.", 5)]
+    [TestCase(Unread + "The predicted answer is completely similar to the correct answer, as both answers state that the information is not available in the filings. Therefore, the Equivalence metric value is 5.", 5)]
+    [TestCase(Unread + "The only difference is the inclusion of the source, which is not relevant to the calculation. Therefore, the Equivalence score should be 5", 5)]
+    [TestCase(Unread + "The information and content in the predicted answer is completely similar to the correct answer.   The value of the Equivalence metric should be 5.", 5)]
+    [TestCase(Unread + "4  The predicted answer is mostly similar to the correct answer, with the only difference being the inclusion of a specific date and a source citation.", 4)]
+    [TestCase(Unread + "26,445 million is the figure in both answers.", null)]   // a figure first isn't a score
+    // Cut off before its score - it ends on a figure, which isn't one.
+    [TestCase(Unread + "The predicted answer is very similar to the correct answer, with the only difference being the inclusion of an additional $4 million of accrued excise tax", null)]
+    [TestCase(Unread + "The predicted answer provides a detailed breakdown of the calculation and cites a specific source to support the answer. Therefore, th", null)]
     [TestCase(Unread + "The answers differ.", null)]
     [TestCase("The request timed out.", null)]                        // not an unread reply
     [TestCase(null, null)]

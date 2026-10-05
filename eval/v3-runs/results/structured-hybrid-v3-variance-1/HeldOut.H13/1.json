@@ -1,0 +1,95 @@
+{
+  "scenarioName": "HeldOut.H13",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-variance-1",
+  "creationTime": "2026-10-05T17:17:07.1323836Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Netflix\u0027s cash and cash equivalents at December 31, 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s cash and cash equivalents at December 31, 2025 were $5,208,710 thousand (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements \u003E Cash, Cash Equivalents, Restricted Cash, and Short-term Investments)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "States 5,208,710 instead of the expected 9,033,681 thousand."
+        },
+        "metadata": {
+          "Grader note": "expected figure absent"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "9,033,681 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "A misreading - every figure is in an excerpt: 5,208,710 from excerpt 1 (narrative); the expected 9,033,681 was in excerpt 1 (narrative)."
+        },
+        "metadata": {
+          "Stated 5,208,710": "excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Cash, Cash Equivalents, Restricted Cash, and Short-term Investments): \u0022...zed Losses: $\u2014 | Estimated Fair Value: $5,214,163 | Cash and cash equivalents: $5,208,710 | Short-term investments: $\u2014 | Other Current Assets: $5,369 | Non-curr...\u0022",
+          "Expected 9,033,681": "excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Cash, Cash Equivalents, Restricted Cash, and Short-term Investments): \u0022...zed Losses: $\u2014 | Estimated Fair Value: $9,067,872 | Cash and cash equivalents: $9,033,681 | Short-term investments: $28,678 | Other Current Assets: $5,369 | Non...\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 80.2456504,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2849,
+          "outputTokenCount": 57,
+          "totalTokenCount": 2906
+        }
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:NFLX",
+    "statement:none"
+  ],
+  "formatVersion": 1
+}

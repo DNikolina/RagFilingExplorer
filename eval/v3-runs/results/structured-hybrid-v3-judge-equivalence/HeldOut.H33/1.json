@@ -1,0 +1,135 @@
+{
+  "scenarioName": "HeldOut.H33",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:46:01.8700595Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was the net value of Netflix\u0027s content assets at December 31, 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The net value of Netflix\u0027s content assets at December 31, 2025 was $32,778,392 thousand (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements \u003E Balance Sheet Components)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 32,778,392 thousand."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "32,778,392 at rank 2 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 32,778,392 from excerpts 2 (narrative), 3 (balance_sheet)."
+        },
+        "metadata": {
+          "Stated 32,778,392": "excerpt 2 (narrative, PART IV \u003E Financial Statements \u003E Balance Sheet Components): \u0022Produced content, net \u003E Content assets, net \u2014 2025: $32,778,392 | 2024: $32,452,462\u0022; excerpt 3 (balance_sheet, PART IV \u003E Financial Statements): \u0022Content assets, net \u2014 2025: 32,778,392 | 2024: 32,452,462\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$32,778,392 thousand"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "903",
+          "eval-output-tokens": "35",
+          "eval-total-tokens": "938",
+          "eval-duration-ms": "0.68",
+          "Judge reply": "The predicted answer is almost identical to the correct answer, with the only difference being the inclusion of a source citation. Therefore, the Equivalence metric should be 5.",
+          "Score taken from the reply\u0027s words": "yes"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007213,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2474,
+          "outputTokenCount": 48,
+          "totalTokenCount": 2522
+        },
+        "cacheKey": "600F7238E0021184AD0A91E132671B83C1411F3F4EB05665F9B82697E3DF7DCC678D13CC6E95D06D1B8BF78AB0FBC27D",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.0005526,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 903,
+          "outputTokenCount": 35,
+          "totalTokenCount": 938
+        },
+        "cacheKey": "C4A793672A7F4A8D6FBC18698C1A8C5FE3088A00EFBE550B9DB26B2BE3645882661B0F06C1A0F8550A616D8203EC7AF7",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:NFLX",
+    "statement:none"
+  ],
+  "formatVersion": 1
+}

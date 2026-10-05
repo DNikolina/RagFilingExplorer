@@ -1,0 +1,135 @@
+{
+  "scenarioName": "HeldOut.H7",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:45:58.9627096Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Oracle\u0027s diluted earnings per share for fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s diluted earnings per share for fiscal 2026 were $5.83. (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Earnings Per Share)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected $5.83."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "5.83 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 5.83 from excerpts 1 (income_statement), 2 (narrative)."
+        },
+        "metadata": {
+          "Stated 5.83": "excerpt 1 (income_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Earnings per share attributable to common shareholders \u003E Diluted \u2014 2026: $5.83 | 2025: $4.34 | 2024: $3.71\u0022; excerpt 2 (narrative, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Earnings Per Share): \u0022Diluted earnings per share attributable to common shareholders \u2014 2026: $5.83 | 2025: $4.34 | 2024: $3.71\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 4,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$5.83"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "898",
+          "eval-output-tokens": "2",
+          "eval-total-tokens": "900",
+          "eval-duration-ms": "0.82",
+          "Judge reply": "4",
+          "Score taken from the reply\u0027s words": "no"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007152,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2789,
+          "outputTokenCount": 51,
+          "totalTokenCount": 2840
+        },
+        "cacheKey": "97E04265853831005FCB2E0FDA03F2B5D9638141002F743B1C8C50AFF46A08CE2CC2559717751DC78856B27CBF943C6B",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.0006371,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 898,
+          "outputTokenCount": 2,
+          "totalTokenCount": 900
+        },
+        "cacheKey": "7ABF48A70DD25A0C883E10238FBC575D8FEBCFC83D234DC845F20DB8A19798758D1FFBCEDCD68834F04B2EC7B0D534AC",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:ORCL",
+    "statement:income_statement"
+  ],
+  "formatVersion": 1
+}

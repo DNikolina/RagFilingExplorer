@@ -1,0 +1,91 @@
+{
+  "scenarioName": "HeldOut.H27",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-variance-2",
+  "creationTime": "2026-10-05T19:27:26.8884456Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Nasdaq\u0027s cash dividends declared per common share in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s cash dividends declared per common share in 2025 was $1.05. (Source: NDAQ-10K-2025.html, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected $1.05."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "1.05 at rank 2 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 1.05 from excerpts 2 (narrative), 3 (income_statement), 5 (narrative)."
+        },
+        "metadata": {
+          "Stated 1.05": "excerpt 2 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of): \u0022Cash dividends declared per common share \u2014 Year Ended December 31, 2025: $1.05 | Year Ended December 31, 2024: $0.94 | Year Ended December 31, 2023: $0.86 | Per...\u0022; excerpt 3 (income_statement, PART IV \u003E Financial Statements): \u0022Per share information \u003E Cash dividends declared per common share \u2014 2025: $1.05 | 2024: $0.94 | 2023: $0.86\u0022; excerpt 5 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of): \u0022Total \u2014 2025: $1.05 | 2024: $0.94\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 48.9517617,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 1903,
+          "outputTokenCount": 48,
+          "totalTokenCount": 1951
+        }
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:NDAQ",
+    "statement:none"
+  ],
+  "formatVersion": 1
+}

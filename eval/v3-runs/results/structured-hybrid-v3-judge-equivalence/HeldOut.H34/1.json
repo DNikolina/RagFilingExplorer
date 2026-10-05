@@ -1,0 +1,140 @@
+{
+  "scenarioName": "HeldOut.H34",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:46:01.9617912Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much cash did Netflix spend repurchasing its common stock in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix repurchased 86,536,215 shares of common stock for an aggregate amount of $9.1 billion in 2025 (Source: NFLX-10K-2025.html, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "States 9.1 instead of the expected 9,127,167 thousand; also states 86,536,215 (shares)."
+        },
+        "metadata": {
+          "Grader note": "trap 86,536,215"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 9,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "9,127,167 at rank 9 of 25 - outside the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 86,536,215 from excerpts 1 (narrative), 3 (narrative), 4 (equity_statement), 9.1 from excerpts 1 (narrative), 3 (narrative); the expected 9,127,167 was in none of the excerpts - retrieval missed it."
+        },
+        "metadata": {
+          "Stated 86,536,215": "excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...ior notice. In the fiscal year ended December\u00A031, 2025, the Company repurchased 86,536,215 shares of common stock for an aggregate amount of $9.1\u00A0billion (exclu...\u0022; excerpt 3 (narrative, PART IV \u003E Financial Statements \u003E Stockholders\u0027 Equity): \u0022... prior notice. During the year ended December\u00A031, 2025, the Company repurchased 86,536,215 shares for an aggregate amount of $9.1\u00A0billion (excluding the 1% exci...\u0022; excerpt 4 (equity_statement, PART IV \u003E Financial Statements): \u0022...ended December 31, 2025) \u2014 Common Stock and Additional Paid-in Capital Shares: (86,536,215) | Treasury Stock: (9,154,855) | Total Stockholders\u2019 Equity: (9,154,8...\u0022",
+          "Stated 9.1": "excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...mpany repurchased 86,536,215 shares of common stock for an aggregate amount of $9.1\u00A0billion (excluding the 1% excise tax on stock repurchases as a result of the...\u0022; excerpt 3 (narrative, PART IV \u003E Financial Statements \u003E Stockholders\u0027 Equity): \u0022...31, 2025, the Company repurchased 86,536,215 shares for an aggregate amount of $9.1\u00A0billion (excluding the 1% excise tax on stock repurchases as a result of the...\u0022",
+          "Expected 9,127,167": "in none of the excerpts - retrieval missed it"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$9,127,167 thousand"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "914",
+          "eval-output-tokens": "67",
+          "eval-total-tokens": "981",
+          "eval-duration-ms": "0.75",
+          "Judge reply": "The predicted answer is very similar to the correct answer, as it provides the exact amount of cash spent by Netflix in repurchasing its common stock in 2025. The predicted answer even includes a source to support the information, which is a strong indication of its accuracy. Therefore, the Equivalence metric should be 5.",
+          "Score taken from the reply\u0027s words": "yes"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007157,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2224,
+          "outputTokenCount": 61,
+          "totalTokenCount": 2285
+        },
+        "cacheKey": "23ED88EACD69EE3605D0D8936A82FEE25A7C214D1101680ED86D80C1EEAE27C2FBE44AC7A4EFEAB3186754DA93CC70FE",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.000621,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 914,
+          "outputTokenCount": 67,
+          "totalTokenCount": 981
+        },
+        "cacheKey": "6C0F5C82CDA492F98F83528C4A2016B7458F6DB9A15018F523858E7B09D7BC1CAF5A16FD764B067B95DF8A4A64490AD0",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:NFLX",
+    "statement:none"
+  ],
+  "formatVersion": 1
+}

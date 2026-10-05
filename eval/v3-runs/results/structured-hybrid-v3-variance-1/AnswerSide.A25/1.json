@@ -1,0 +1,94 @@
+{
+  "scenarioName": "AnswerSide.A25",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-variance-1",
+  "creationTime": "2026-10-05T18:08:10.9151854Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much did Nasdaq return to shareholders in 2025 through dividends paid and share repurchases combined?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The total amount paid of $601 million in dividends and the total purchase price of $616 million for share repurchases, combined, is $1,217 million."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 1,217 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 25,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "(601), (616) at rank 25 of 25 - outside the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "calculated",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "1,217 in no excerpt - the question asks for a calculation; 601 from excerpt 1 (narrative), 616 from excerpt 4 (narrative), 1,217 from no excerpt."
+        },
+        "metadata": {
+          "Stated 601": "excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity): \u0022Total Amount Paid: $601\u0022 (\u002B1 more line)",
+          "Stated 616": "excerpt 4 (narrative, PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity): \u0022Total purchase price (in millions) \u2014 Year Ended December 31, 2025: $616\u0022",
+          "Stated 1,217": "in none of the excerpts"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 62.8227782,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2835,
+          "outputTokenCount": 34,
+          "totalTokenCount": 2869
+        }
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "calculation",
+    "has traps",
+    "company:NDAQ",
+    "statement:none"
+  ],
+  "formatVersion": 1
+}

@@ -71,9 +71,13 @@ internal static class JudgeAgreement
                 {
                     string? error = metric.Diagnostics?.FirstOrDefault(d => d.Severity == EvaluationDiagnosticSeverity.Error)?.Message;
                     double? score = (metric as NumericMetric)?.Value;
+                    // Scored by the library from the reply's words (ScoreOnlyEquivalenceEvaluator, 2026-10-05) - or, in a run
+                    // stored before, recovered here from the library's "failed to parse" error.
+                    bool fromWords = metric.Metadata is { } metadata
+                        && metadata.TryGetValue(ScoreOnlyEquivalenceEvaluator.TakenFromWordsKey, out string? taken) && taken == "yes";
                     verdicts[name] = score is null && JudgeSetup.RecoverScore(error) is int recovered
                         ? new JudgeVerdict(recovered, await LibraryFailsCachedAsync(name, recovered), error, Recovered: true)
-                        : new JudgeVerdict(score, metric.Interpretation?.Failed ?? false, error);
+                        : new JudgeVerdict(score, metric.Interpretation?.Failed ?? false, error, Recovered: fromWords);
                 }
             }
 
@@ -110,8 +114,8 @@ internal static class JudgeAgreement
 
             List<JudgedAnswer> unread = judged.Where(a => a.Verdicts[name].Score is null).ToList();
             int recoveredCount = judged.Count(a => a.Verdicts[name].Recovered);
-            text.AppendLine($"Score read by the library: {judged.Count - unread.Count - recoveredCount}; recovered from the reply's words: {recoveredCount}"
-                + " (verdict asked of the library for the same score)");
+            text.AppendLine($"Reply a bare score, as the prompt asks: {judged.Count - unread.Count - recoveredCount}; score taken from the reply's words: {recoveredCount}"
+                + " (the library's own verdict for that score)");
             text.AppendLine($"Reply not read as a score: {unread.Count}");
             unread.ForEach(a => text.AppendLine($"  {a.Scenario}: {a.Verdicts[name].Error ?? "no score"}"));
 

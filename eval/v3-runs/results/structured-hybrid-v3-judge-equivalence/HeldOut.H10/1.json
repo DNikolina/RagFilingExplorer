@@ -1,0 +1,134 @@
+{
+  "scenarioName": "HeldOut.H10",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:45:59.3255771Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How many employees did Nasdaq have at the end of 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "As of December 31, 2025, Nasdaq had 9,525 full and part-time employees, including employees of non-wholly owned consolidated subsidiaries. (Source: NDAQ-10K-2025.html, section PART I \u003E Item 1. Business and PART IV \u003E Financial Statements \u003E Share-Based Compensation)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 9,525."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 4,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "9,525 at rank 4 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 9,525 from excerpt 4 (narrative)."
+        },
+        "metadata": {
+          "Stated 9,525": "excerpt 4 (narrative, PART I \u003E Item 1. Business): \u0022As of December 31, 2025, Nasdaq had 9,525 full and part-\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 4,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "9,525"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "915",
+          "eval-output-tokens": "2",
+          "eval-total-tokens": "917",
+          "eval-duration-ms": "0.80",
+          "Judge reply": "4",
+          "Score taken from the reply\u0027s words": "no"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007866,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2775,
+          "outputTokenCount": 67,
+          "totalTokenCount": 2842
+        },
+        "cacheKey": "63943ADC253D254569E89544E36517FF848A10CBED7DE2AC116B7E1E6C7BA61639E45C48643032AF277E78576A969A79",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.0006279,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 915,
+          "outputTokenCount": 2,
+          "totalTokenCount": 917
+        },
+        "cacheKey": "48DF6BCF39A974F97208D1D0647EEF6B0144CAEA2DCAC3B45D404754EAEFF458BEB56680311EDB97386DEBD9FBDE2FCA",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:fact",
+    "company:NDAQ",
+    "statement:none"
+  ],
+  "formatVersion": 1
+}

@@ -1,0 +1,91 @@
+{
+  "scenarioName": "AnswerSide.A20",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-variance-1",
+  "creationTime": "2026-10-05T18:03:20.4591738Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Netflix\u0027s sales and marketing expenses in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s sales and marketing expenses in 2025 were $3,301,306 thousand. (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements \u003E Consolidated Statements of Operations)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 3,301,306 thousand."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "3,301,306 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 3,301,306 from excerpts 1 (narrative), 2 (narrative), 3 (income_statement)."
+        },
+        "metadata": {
+          "Stated 3,301,306": "excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Sales and marketing \u2014 Year Ended December 31, 2025: $3,301,306 | Year Ended December 31, 2024: $2,917,554 | Year Ended December 31, 2023: $2,657,883 | Change 20...\u0022; excerpt 2 (narrative, PART IV \u003E Financial Statements \u003E Segment and Geographic Information): \u0022Less \u003E Sales and marketing \u2014 2025: 3,301,306 | 2024: 2,917,554 | 2023: 2,657,883\u0022; excerpt 3 (income_statement, PART IV \u003E Financial Statements): \u0022Sales and marketing \u2014 2025: 3,301,306 | 2024: 2,917,554 | 2023: 2,657,883\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 78.9560549,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2854,
+          "outputTokenCount": 45,
+          "totalTokenCount": 2899
+        }
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:NFLX",
+    "statement:none"
+  ],
+  "formatVersion": 1
+}

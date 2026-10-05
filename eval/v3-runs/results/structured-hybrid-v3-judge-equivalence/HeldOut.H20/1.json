@@ -1,0 +1,130 @@
+{
+  "scenarioName": "HeldOut.H20",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:46:00.0298125Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Microsoft\u0027s total revenue in fiscal year 2022?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The excerpts don\u0027t contain Microsoft\u0027s total revenue in fiscal year 2022."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "decline-ok",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Declines correctly: the filings don\u0027t contain this."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "Not scored: a negative has no answer to find."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "no figure stated",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "No figure stated - a text answer or a decline."
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "The filings don\u0027t contain this information, so the answer should say so instead of giving a figure."
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "878",
+          "eval-output-tokens": "36",
+          "eval-total-tokens": "914",
+          "eval-duration-ms": "0.80",
+          "Judge reply": "The predicted answer is completely similar to the correct answer, as both answers state that the information is not available in the filings. Therefore, the Equivalence score is 5.",
+          "Score taken from the reply\u0027s words": "yes"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0006986,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2524,
+          "outputTokenCount": 17,
+          "totalTokenCount": 2541
+        },
+        "cacheKey": "779EEC8F0AD633B973642B3828E007C36E4176D593A2D93A1C46569A0E851F08E9DEAB79FE2D2936BEA30C2B2BC5127D",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.0006278,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 878,
+          "outputTokenCount": 36,
+          "totalTokenCount": 914
+        },
+        "cacheKey": "6DDBA1EE1CCD4456820E219773957FFF372F1EDB6DA93EBC1CECA54422A64D8904BCAC8F9B7B7C3E5E3AA4CEA941B8A0",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:negative",
+    "company:MSFT",
+    "statement:income_statement"
+  ],
+  "formatVersion": 1
+}

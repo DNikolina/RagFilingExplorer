@@ -3130,3 +3130,49 @@ Passed to `CreateScenarioRunAsync` by name - the parameter before them is `addit
 102/102 cache hits, results unchanged. The tags already show A10 routed to `statement:none` (no statement keyword in "cash
 ... pay ... dividends"). **Later, each its own step (user):** the prompt in the conversation view with filing links,
 diagnostics, iterations. 127 offline evaluation tests.
+
+**Variance measurement - done (2026-10-05, `eval/v3-runs/structured-hybrid-v3-variance.txt`).** All 102 questions asked
+afresh twice (`structured-hybrid-v3-variance-1`, `-2`; 113 and 116 min), compared with the v3 baseline (answered
+2026-10-02):
+- **Pass 1 vs pass 2: 102/102 word for word, 102/102 grades.** On one setup, `llama3.1:8b` at temperature 0 repeats exactly.
+- **Baseline vs either pass: 88/102 identical text, 100/102 grades** - 10 wording only; 2 figures (A27 25.9% -> 25.8%, still
+  wrong; T7 adds a second figure, still reliable); 2 grades: **A21** reliable -> wrong (lists both years' net income, no
+  longer adds them: answer-side 20/27 -> 19/27) and **T6** declined -> wrong (the Adenza-goodwill trap, 5,933; a fail either
+  way). Retrieval identical; no untraced figure in either pass.
+- **Why the baseline differs - a different Ollama build.** Ollama updated itself from 0.35.0 to 0.35.1 on 2026-10-05 at
+  08:10 (downloaded 2026-10-02 15:06, installed at the next start - `%LOCALAPPDATA%\Ollama\app*.log`); the baseline was
+  answered on 0.35.0, both passes on 0.35.1. 0.35.1's notes list "Updated llama.cpp" - ollama/ollama#18652 moved llama.cpp
+  from b11081 to b11232 (151 upstream commits), among them "ggml-cpu: tiled mul_mat for k-quants" (ggml-org/llama.cpp#27851);
+  the local `llama3.1:8b` is Q4_K_M, a k-quant. Tiling changes the order of floating-point sums, so the last digits of each
+  layer's output; at temperature 0 the most likely next token is taken, so where two are nearly tied the answer can take
+  the other path. The most likely cause, not proven (that would need both builds side by side). Earlier unexplained drift -
+  Q1's two wordings and the T8/T10 changes found 2026-10-02 against runs of 2026-09-30 - also crosses an Ollama update
+  (2026-10-01 08:05-08:08, server.log's routes.go line moving 2005 -> 2099); A16's change between two runs on 2026-10-02
+  does not, and stays unexplained.
+- **How to read results from now on:** within one Ollama build, the noise floor is 0 - any changed grade is a changed
+  input. Across builds, a set can move by a question (A21) - compare grades only on the same build; record it with a run.
+  Sources: github.com/ollama/ollama/releases/tag/v0.35.1, github.com/ollama/ollama/pull/18652,
+  github.com/ggml-org/llama.cpp/compare/b11081...b11232.
+
+**Step 6 - the local judge: done, not kept (2026-10-05, `eval/v3-runs/judge-structured-hybrid-v3-judge-equivalence.txt`).**
+Equivalence, judged by `llama3.1:8b`, over the baseline's 102 cached answers: 13 min, ~8 s a call.
+- **Format:** the library read 15 of 102 replies - llama answers "...Therefore, the Equivalence metric should be 5." instead
+  of the bare integer asked for. Recovered from the words, 101 of 102 have a score (the recovery pattern widened after
+  reading the run's replies - "metric should be 5", "metric value is 5", a leading "4 "; a reply cut off before its score
+  stays unread: T7, which repeats the answer).
+- **Agreement 87/101, all disagreements one way:** the judge passes **14 of the 18 strict failures** it scored and fails no
+  strict pass. It scores a wrong figure as close: A10's $27,034M against $26,445M - 4, "a slight difference in the amount";
+  H25's $67,357M (total revenues) against $46,751M operating expenses - 5; A27's 25.9% against 25.4% - 5, "only a slight
+  difference". What the strict grade exists to catch, this judge can't see - Microsoft's docs warn the prompts are tuned
+  for GPT-4o and "especially poor" with small local models; this measures it. Not kept as a grader.
+- **Why the library failed on the format, and the score given to it alone (user):** Equivalence's parser takes the trimmed
+  reply as the value (`TryParseEvaluationResponseWithValue` -> `TryParseValue`, dotnet/extensions), its prompt asks for "a
+  single integer value ... no other text", and its docs name one tested model, GPT-4o. The tag-based evaluators read only
+  `<S2>`, and the JSON-based ones re-ask the model to "Fix the following JSON object" - Equivalence has neither. So
+  `ScoreOnlyEquivalenceEvaluator` wraps it: a reply that writes its score in words reaches it as the score alone, and the
+  library parses and interprets it as its own (`MinimumPassingScore = 4.0`, confirmed in the source); the metric keeps the
+  judge's sentence ("Judge reply") and "Score taken from the reply's words: yes/no"; a reply with no score (T7) still
+  fails to parse. Re-run from the cache (204/204 calls cached): the report shows 101 scores, the agreement unchanged.
+- **Groundedness (phase B) not run** (recommended): the figure source already shows every wrong answer's figure is in its
+  excerpts - "grounded" - and Equivalence shows the judge doesn't weigh figures; ~3.5 h to confirm both.
+138 offline evaluation tests.

@@ -1,0 +1,136 @@
+{
+  "scenarioName": "Main.Q14",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:45:56.1596487Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Compare Microsoft\u0027s and Oracle\u0027s total revenue."
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s total revenue for 2026 was $331,839 million, while Oracle\u0027s total revenue for 2026 was $67,357 million. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA; ORCL-10K-2026.html, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 331,839 million and 67,357 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "331,839, 67,357 at rank 2 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 331,839 from excerpts 1 (income_statement), 5 (narrative), 67,357 from excerpt 2 (income_statement)."
+        },
+        "metadata": {
+          "Stated 331,839": "excerpt 1 (income_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Revenue \u003E Total revenue \u2014 2026: 331,839 | 2025: 281,724 | 2024: 245,122\u0022; excerpt 5 (narrative, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS): \u0022Revenue \u2014 2026: $331,839 | 2025: $281,724 | Percentage Change: 18%\u0022",
+          "Stated 67,357": "excerpt 2 (income_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Revenues \u003E Total revenues \u2014 2026: 67,357 | 2025: 57,399 | 2024: 52,961\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$331,839 million and $67,357 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "942",
+          "eval-output-tokens": "77",
+          "eval-total-tokens": "1019",
+          "eval-duration-ms": "0.83",
+          "Judge reply": "The predicted answer is almost identical to the correct answer, including the exact figures and sources. The only difference is the year mentioned in the predicted answer, which is 2026, whereas the correct answer does not specify a year. However, this difference is minor and does not affect the overall similarity between the two answers. Therefore, the Equivalence metric score should be 5.",
+          "Score taken from the reply\u0027s words": "yes"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008384,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2915,
+          "outputTokenCount": 93,
+          "totalTokenCount": 3008
+        },
+        "cacheKey": "A7A881BA0BDD9EDAFD3694FCE7F56B07C023151FAE4CF6F6ADFE5F790D22DA201AB616F0A3B2C0D328E6D0A47AB34649",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.0006321,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 942,
+          "outputTokenCount": 77,
+          "totalTokenCount": 1019
+        },
+        "cacheKey": "A1AE959FB30338AEE877AAA584EC9611180838B9C94F95016B99B4A1E71C3D172D438F572EC175029B7BAC99A0B9EEC5",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "company:MSFT",
+    "company:ORCL",
+    "statement:income_statement"
+  ],
+  "formatVersion": 1
+}

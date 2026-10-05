@@ -1,0 +1,140 @@
+{
+  "scenarioName": "HeldOut.H4",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:45:58.3424469Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much did Microsoft\u0027s research and development expenses increase in fiscal 2026 compared to fiscal 2025, in dollars?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s research and development expenses increased $3.1 billion or 9% in fiscal 2026 compared to fiscal 2025. (Source: MSFT-10K-2026.html, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 3,074 million (rounded, in billions)."
+        },
+        "metadata": {
+          "Grader note": "rounded, in billions"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "35,562, 32,488 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 3.1 from excerpt 1 (narrative), 9 from excerpts 1 (narrative), 2 (narrative), 3 (narrative)."
+        },
+        "metadata": {
+          "Stated 3.1": "excerpt 1 (narrative, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS): \u0022Research and development expenses increased $3.1 billion or 9% driven by continued investments in compute capacity, AI talent, and data to support product devel...\u0022",
+          "Stated 9": "excerpt 1 (narrative, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS): \u0022Research and development \u2014 2026: $35,562 | 2025: $32,488 | Percentage Change: 9%\u0022 (\u002B2 more lines); excerpt 2 (narrative, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS): \u0022Operating expenses increased $2.5 billion or 9% driven by continued investments in research and development compute capacity, AI talent, and data to support pro...\u0022; excerpt 3 (narrative, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS): \u0022Search advertising revenue increased $1.3 billion or 9%. Search advertising revenue excluding traffic acquisition costs increased 12% driven by higher search vo...\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 4,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$3,074 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "927",
+          "eval-output-tokens": "32",
+          "eval-total-tokens": "959",
+          "eval-duration-ms": "0.75",
+          "Judge reply": "The predicted answer is mostly similar to the correct answer, but with some minor differences in wording and units. Therefore, the Equivalence score is 4.",
+          "Score taken from the reply\u0027s words": "yes"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007237,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2656,
+          "outputTokenCount": 68,
+          "totalTokenCount": 2724
+        },
+        "cacheKey": "2A88CCA09DDA8120079FDD3E33E5933CF79BD78EDC3F83E8C23DF0603880466F38E1D8CAC9E54B47375DD4A17D3CE6F3",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.0005621,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 927,
+          "outputTokenCount": 32,
+          "totalTokenCount": 959
+        },
+        "cacheKey": "4A1F624DD3DBE3247798408862716CD128DE237112586CC14EB24B03D3E82434A6C9378A010297C6BA07A141C716885A",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "calculation",
+    "has traps",
+    "company:MSFT",
+    "statement:none"
+  ],
+  "formatVersion": 1
+}

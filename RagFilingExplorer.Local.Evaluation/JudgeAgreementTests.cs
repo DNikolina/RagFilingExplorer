@@ -35,6 +35,7 @@ public class JudgeAgreementTests
 
         Assert.That(report, Does.Contain("Judge calls: 4, 1 min in all, 20 s per call"));
         Assert.That(report, Does.Contain("Reply not read as a score: 1"));
+        Assert.That(report, Does.Contain("Reply a bare score, as the prompt asks: 3; score taken from the reply's words: 0"));
         Assert.That(report, Does.Contain("  Main.Q1: no score in the reply"));
         Assert.That(report, Does.Contain("strict passed: 1:   1  2:   0  3:   0  4:   0  5:   1"));
         Assert.That(report, Does.Contain("Agreement with the strict grade at the library's verdict: 1/3 (judge passes a strict failure: 1, judge fails a strict pass: 1)"));

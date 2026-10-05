@@ -1,0 +1,134 @@
+{
+  "scenarioName": "Main.Q19",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:45:55.5560785Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Netflix\u0027s total assets?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "As of December 31, 2025, Netflix\u0027s total assets were $55,596,993 thousand. (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 55,596,993 thousand."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "55,596,993 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 55,596,993 from excerpts 1 (balance_sheet), 2 (balance_sheet)."
+        },
+        "metadata": {
+          "Stated 55,596,993": "excerpt 1 (balance_sheet, PART IV \u003E Financial Statements): \u0022Total assets \u2014 2025: $55,596,993 | 2024: $53,630,374\u0022; excerpt 2 (balance_sheet, PART IV \u003E Financial Statements): \u0022Total liabilities and stockholders\u2019 equity \u2014 2025: $55,596,993 | 2024: $53,630,374\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 4,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$55,596,993 thousand"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "886",
+          "eval-output-tokens": "2",
+          "eval-total-tokens": "888",
+          "eval-duration-ms": "1.05",
+          "Judge reply": "4",
+          "Score taken from the reply\u0027s words": "no"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008431,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2477,
+          "outputTokenCount": 43,
+          "totalTokenCount": 2520
+        },
+        "cacheKey": "43EFA174EBEA935E4922A1FC26E414CC7657C5098F5F413E35D510C9C8546539D1700BE264FAB91E597645DD39C12C97",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.0008215,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 886,
+          "outputTokenCount": 2,
+          "totalTokenCount": 888
+        },
+        "cacheKey": "66F3F802C955CA464DB8B3646CB0B955C89A198AC684C0C359A18D66E458DBA60E705408084E2E67FA43321F76DF5C22",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "company:NFLX",
+    "statement:balance_sheet"
+  ],
+  "formatVersion": 1
+}

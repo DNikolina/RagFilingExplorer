@@ -1,0 +1,135 @@
+{
+  "scenarioName": "HeldOut.H35",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:46:02.0710922Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Netflix\u0027s income before income taxes in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s income before income taxes in 2025 was $12,722,552 thousand. (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements \u003E Income Taxes)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 12,722,552 thousand."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "12,722,552 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 12,722,552 from excerpts 1 (narrative), 2 (income_statement), 3 (narrative)."
+        },
+        "metadata": {
+          "Stated 12,722,552": "excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Income Taxes): \u0022Income before income taxes \u2014 2025: $12,722,552 | 2024: $9,965,657 | 2023: $6,205,405\u0022; excerpt 2 (income_statement, PART IV \u003E Financial Statements): \u0022Other income (expense) \u003E Income before income taxes \u2014 2025: 12,722,552 | 2024: 9,965,657 | 2023: 6,205,405\u0022; excerpt 3 (narrative, PART IV \u003E Financial Statements \u003E Segment and Geographic Information): \u0022Other income (expense) \u003E Income before income taxes \u2014 2025: 12,722,552 | 2024: 9,965,657 | 2023: 6,205,405\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$12,722,552 thousand"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "891",
+          "eval-output-tokens": "29",
+          "eval-total-tokens": "920",
+          "eval-duration-ms": "0.77",
+          "Judge reply": "The predicted answer is identical to the correct answer, including the exact figure and source. Therefore, the Equivalence metric should be 5.",
+          "Score taken from the reply\u0027s words": "yes"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007481,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2521,
+          "outputTokenCount": 42,
+          "totalTokenCount": 2563
+        },
+        "cacheKey": "0F862C0993D872FD3A39DEC8D0AA386614541153A18A6EA04EB9599E1A427F3FB35AA935192B516F2BDF622B64F80A1F",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.0006449,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 891,
+          "outputTokenCount": 29,
+          "totalTokenCount": 920
+        },
+        "cacheKey": "D9530C95A5EFEB63E6CA22FE047D9DDFCC33728217CE9F9BDE4859D8C1D2F498239ED9D48359664D611C44ADAA8D4E1E",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:NFLX",
+    "statement:none"
+  ],
+  "formatVersion": 1
+}

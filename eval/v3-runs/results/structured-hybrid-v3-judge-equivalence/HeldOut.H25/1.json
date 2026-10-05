@@ -1,0 +1,139 @@
+{
+  "scenarioName": "HeldOut.H25",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-judge-equivalence",
+  "creationTime": "2026-10-05T20:46:01.1836682Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Oracle\u0027s total operating expenses in fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s total operating expenses in fiscal 2026 were $67,357 million. (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "States 67,357 instead of the expected 46,751 million."
+        },
+        "metadata": {
+          "Grader note": "expected figure absent"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 11,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "46,751 at rank 11 of 25 - outside the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 67,357 from excerpt 1 (income_statement); the expected 46,751 was in none of the excerpts - retrieval missed it."
+        },
+        "metadata": {
+          "Stated 67,357": "excerpt 1 (income_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Revenues \u003E Total revenues \u2014 2026: 67,357 | 2025: 57,399 | 2024: 52,961\u0022",
+          "Expected 46,751": "in none of the excerpts - retrieval missed it"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$46,751 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "893",
+          "eval-output-tokens": "55",
+          "eval-total-tokens": "948",
+          "eval-duration-ms": "0.77",
+          "Judge reply": "The predicted answer is almost identical to the correct answer, with the only difference being the exact amount of operating expenses. The predicted answer also includes a source to support the answer, which suggests a high level of accuracy. Therefore, the Equivalence metric should be 5.",
+          "Score taken from the reply\u0027s words": "yes"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008584,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2881,
+          "outputTokenCount": 46,
+          "totalTokenCount": 2927
+        },
+        "cacheKey": "CC8DEF86F8FFED02AF155A02D58955DA6784368225A38F3C2A5366BAB366EA4CB212DACD843464C13EC5C2FF23307680",
+        "cacheHit": true
+      },
+      {
+        "latency": 0.0006092,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 893,
+          "outputTokenCount": 55,
+          "totalTokenCount": 948
+        },
+        "cacheKey": "D9EAE02880062FBE1332FD10CCF519F779EEDF0894D88580AD997B76BDE4EE245201F5B063A3911E370EEFB6BCE5B2BD",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:ORCL",
+    "statement:none"
+  ],
+  "formatVersion": 1
+}

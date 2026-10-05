@@ -1,0 +1,95 @@
+{
+  "scenarioName": "AnswerSide.A8",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-variance-1",
+  "creationTime": "2026-10-05T17:49:19.8296661Z",
+  "messages": [
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What cash dividends per common share did Oracle declare in fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle declared a quarterly cash dividend of $0.50 per share of its outstanding common stock in June 2026. (Source: ORCL-10K-2026.html, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "States 0.50 instead of the expected $2.00."
+        },
+        "metadata": {
+          "Grader note": "expected figure absent"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "($2.00 per share) at rank 5 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "A misreading - every figure is in an excerpt: 0.50 from excerpts 1 (narrative), 2 (narrative); the expected 2.00 was in excerpts 1 (narrative), 2 (narrative), 5 (equity_statement)."
+        },
+        "metadata": {
+          "Stated 0.50": "excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022... $1,625 per share of our outstanding Mandatory Convertible Preferred Stock and $0.50 per share of our outstanding common stock. The Mandatory Convertible Prefer...\u0022; excerpt 2 (narrative, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Stockholders\u0027 Equity): \u0022... $1,625 per share of our outstanding Mandatory Convertible Preferred Stock and $0.50 per share of our outstanding common stock. The Mandatory Convertible Prefer...\u0022",
+          "Expected 2.00": "excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...outstanding Mandatory Convertible Preferred Stock that totaled $63 million and $2.00 per share of outstanding common stock that totaled $5.7 billion. In June 20...\u0022; excerpt 2 (narrative, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Stockholders\u0027 Equity): \u0022...eriod. During fiscal 2026, 2025 and 2024, the Board declared cash dividends of $2.00, $1.70 and $1.60 per share of our outstanding common stock, respectively, w...\u0022; excerpt 5 (equity_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Common stock dividends ($2.00 per share) (fiscal 2026, year ended May 31, 2026) \u2014 Accumulated Deficit: (5,725) | Total Stockholders\u2019 Equity: (5,725)\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 83.0030844,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2903,
+          "outputTokenCount": 58,
+          "totalTokenCount": 2961
+        }
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:ORCL",
+    "statement:none"
+  ],
+  "formatVersion": 1
+}
