@@ -394,6 +394,7 @@ docs/Implementation_Plan.md             current-state reference: ground rules, p
 docs/Decision-Log.md                    the full build history: every step, decision point, and debugging path
 docs/Manual-Test-Questions.md           every evaluated question, with its expected answer and where it comes from
 docs/Design-FAQ.md                      short answers to "why not X?" design questions, linked to the log
+LICENSE                                 MIT, for the code (not data/)
 ```
 
 ## Further reading
@@ -403,3 +404,10 @@ docs/Design-FAQ.md                      short answers to "why not X?" design que
 [docs/Decision-Log.md](docs/Decision-Log.md) has the complete build history — every dead end and bug found along the
 way (MEDI's abandonment, a SqliteVec upsert bug, statement-type false positives that silently mistagged 96 chunks,
 three real bugs found onboarding a fourth filing, and more).
+
+## License
+
+The code is [MIT](LICENSE). The filings and XBRL taxonomies in `data/` are public SEC filings, downloaded from
+[EDGAR](https://www.sec.gov/edgar) and included for convenience - they belong to their filers and aren't covered by
+this license. The models (`nomic-embed-text`, `llama3.1:8b`, the optional reranker) aren't part of the repo and come
+with their own licenses.
