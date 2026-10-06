@@ -19,8 +19,8 @@ namespace RagFilingExplorer.Local.Evaluation.Judging;
 /// </summary>
 internal sealed class JudgeContextChatClient(IChatClient inner) : DelegatingChatClient(inner)
 {
-    /// <summary>The judge's context window: the largest judge prompt measured (~6k tokens, Retrieval with its examples)
-    /// plus the evaluators' output budget.</summary>
+    /// <summary>The judge's context window: Groundedness's ~4.5k-token prompt plus the evaluators' output budget, with
+    /// room for the largest Quality prompt measured (Retrieval's ~6k - measured, not offered as a judge).</summary>
     public const int JudgeContextTokens = 8192;
 
     public bool JudgeContext { get; set; }
@@ -45,8 +45,9 @@ internal sealed class JudgeContextChatClient(IChatClient inner) : DelegatingChat
 }
 
 /// <summary>
-/// v3 step 6, the local-judge spike: Microsoft's Quality evaluators, judged by the app's own chat model, set against the
-/// project's deterministic metrics - Equivalence against the strict grade, Groundedness against the figure source.
+/// v3 step 6, the local judge - kept alongside the strict grade, never the grade (Graders: judge or both): Microsoft's
+/// Quality evaluators, judged by the app's own chat model, set against the project's deterministic metrics - Equivalence
+/// against the strict grade, Groundedness against the figure source.
 /// </summary>
 internal static partial class JudgeSetup
 {

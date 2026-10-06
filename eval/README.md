@@ -118,8 +118,9 @@ Logs before 2026-10-01 were written in the console's OEM code page (a non-breaki
 `'`); the app writes UTF-8 since. The tools read both.
 
 Temperature 0 is deterministic here: the baseline's 40 main answers are word-for-word identical to the
-2026-09-25 run on the same code, so a changed answer means a changed input, not sampling. (This held through v2; v3 found it
-no longer does - same prompt, different wording, once a different figure - see `v3-runs/` and the variance measurement.)
+2026-09-25 run on the same code, so a changed answer means a changed input, not sampling. (v3's variance measurement
+narrowed this: it holds within one Ollama build - two fresh passes identical, 102/102 - but an Ollama update can change
+answers, so runs are compared only on the same build; one change, A16's on 2026-10-02, stays unexplained. See `v3-runs/`.)
 
 **`v3-retrieval-parity/`** - v3 step 3's oracle: `tools/replay_recall.py`'s output on the three v2 baseline logs
 (`structured-5a/` main and held-out, `answer-side-norerank/`), which `RetrievalParityTests` matches rank for rank.

@@ -56,7 +56,8 @@ internal sealed class ScenarioChatClient : IChatClient
 /// the cache (keyed by scenario, so shared by every execution) nor overwrite it. <paramref name="unloadBeforeEachQuestion"/>
 /// unloads the chat model before every question, so none starts from a prompt prefix Ollama still holds - the variance
 /// measurement's check on whether that reuse causes the drift. <paramref name="judges"/> adds Microsoft's Quality
-/// evaluators, judged by the same chat model (step 6, <see cref="JudgeSetup"/>).
+/// evaluators, judged by the same chat model (step 6, <see cref="JudgeSetup"/>); <paramref name="strictGrade"/> false
+/// leaves the strict grade out (Graders: judge).
 /// </summary>
 internal sealed class EvaluationRunner(
     DirectoryInfo repoRoot, string storageRoot, string executionName, TimeSpan? cacheTimeToLive, bool unloadBeforeEachQuestion = false,

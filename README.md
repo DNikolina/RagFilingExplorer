@@ -51,7 +51,7 @@ can only decline them (3/3 clean declines); v2 answers two and gets the third wr
 (`baseline-v1/`, `structured-5a/`, `answer-side-norerank/`; the README there maps every folder), each measured
 step in [docs/Decision-Log.md](docs/Decision-Log.md), "XBRL hybrid (v2)". v3's .NET evaluation re-ran all 102
 questions on the v2 defaults and reproduced every grade but one (A16, where the model added an unrequested sum to the
-same prompt - `llama3.1:8b` at temperature 0 doesn't repeat word for word here).
+same prompt - a change not explained; see [Repeatability](#the-evaluation)).
 
 ## How it works
 
@@ -131,7 +131,7 @@ Everything runs locally: the embedding model and `llama3.1:8b` through Ollama, t
 - **Microsoft.ML.Tokenizers** (offline Tiktoken, `cl100k_base`) — token-bounded chunking
 - **Microsoft.ML.OnnxRuntime** — an optional local cross-encoder reranker, off by default
 - **Microsoft.Extensions.AI.Evaluation** (+ `.Reporting`, `.Quality`) — the evaluation (v3): custom evaluators, stored
-  results, response caching and the HTML report; `.Quality`'s model-judged evaluators only for the local-judge spike
+  results, response caching and the HTML report; `.Quality`'s Equivalence as a local judge, run alongside the strict grade when asked for (`Graders`)
 - **Local models**: `nomic-embed-text` (274MB, embeddings) and `llama3.1:8b` (4.9GB, answer generation)
 - **Source data**: public [SEC EDGAR](https://www.sec.gov/edgar) 10-K filings (raw HTML)
 
@@ -504,7 +504,7 @@ own ASP.NET Core test docs use; .NET has no built-in HTML parser - and keeps v1'
 ```
 RagFilingExplorer.Local/                the app - chunking, retrieval, vector store, interactive loop
 RagFilingExplorer.Local.Tests/          NUnit + Moq test suite
-RagFilingExplorer.Local.Evaluation/     the evaluation (v3): evaluators, runner, report, variance and judge spikes
+RagFilingExplorer.Local.Evaluation/     the evaluation (v3): evaluators, runner, report, variance and judge measurements
 data/                                   source 10-K filings (HTML, from sec.gov/edgar), plus each filing's XBRL
                                         taxonomy (.xsd, and _pre/_lab/_cal/_def.xml where not embedded); EDGAR's
                                         extracted facts (_htm.xml) are gitignored - download them to run the XBRL

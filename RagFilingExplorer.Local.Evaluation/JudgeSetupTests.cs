@@ -7,7 +7,7 @@ using RagFilingExplorer.Local.Evaluation.Judging;
 
 namespace RagFilingExplorer.Local.Evaluation;
 
-/// <summary>The judge spike's setup (v3 step 6), offline: ground truth, grounding text, evaluators, the judge's context window.</summary>
+/// <summary>The local judge's setup (v3 step 6), offline: ground truth, grounding text, evaluators, the judge's context window.</summary>
 [TestFixture]
 public class JudgeSetupTests
 {

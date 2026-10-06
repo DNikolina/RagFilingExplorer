@@ -65,6 +65,8 @@ public class EvaluationRunTests
             settings.UnloadEachQuestion, settings.JudgeNames, settings.UsesStrictGrade);
         List<QuestionOutcome> outcomes = await runner.RunAsync(sets, settings.OnlyIds.ToHashSet(), line => TestContext.Progress.WriteLine(line));
 
+        // What the model reads - Retrieval:GenerationTopK, from the app's appsettings.json.
+        int generationTopK = AppSettings.Load(Path.Combine(Repo.FullName, "RagFilingExplorer.Local")).Retrieval.GenerationTopK;
         StringBuilder summary = new();
         List<string> differences = new();
         summary.AppendLine($"Execution {execution}: {outcomes.Count} questions, {outcomes.Sum(o => o.Elapsed.TotalMinutes):F0} min, graders {settings.Graders}"
@@ -72,14 +74,14 @@ public class EvaluationRunTests
             + (settings.NoCache ? ", every answer asked afresh (no cache)" : "") + (settings.UnloadEachQuestion ? ", the model unloaded before each" : ""));
         foreach (IGrouping<string, QuestionOutcome> set in outcomes.GroupBy(o => o.Set))
         {
-            int inContext = set.Count(o => o.Rank is <= 5);
+            int inContext = set.Count(o => o.Rank <= generationTopK);
             string strict = settings.UsesStrictGrade
                 ? $"reliable {set.Count(o => o.Grade!.Passed)}/{set.Count()}  "
                     + string.Join("  ", set.GroupBy(o => o.Grade!.Status).OrderBy(g => g.Key).Select(g => $"{g.Key} {g.Count()}")) + "  | "
                 : "";
             string judged = string.Concat(set.SelectMany(o => o.JudgePassed ?? new Dictionary<string, bool>()).GroupBy(kv => kv.Key)
                 .Select(g => $"{g.Key} passes {g.Count(kv => kv.Value)}/{g.Count()}  | "));
-            summary.AppendLine($"{set.Key}: {strict}{judged}answer in the top 5: {inContext}  | figures: "
+            summary.AppendLine($"{set.Key}: {strict}{judged}answer in the top {generationTopK}: {inContext}  | figures: "
                 + string.Join("  ", set.GroupBy(o => o.FigureSource).OrderBy(g => g.Key).Select(g => $"{g.Key} {g.Count()}")));
 
             if (!settings.UsesStrictGrade)

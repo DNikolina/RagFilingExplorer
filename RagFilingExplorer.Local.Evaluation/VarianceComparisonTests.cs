@@ -5,7 +5,8 @@ namespace RagFilingExplorer.Local.Evaluation;
 /// <summary>
 /// The variance comparison, offline: the classification, and the stored v3 baseline read back. Compare_Executions writes
 /// the comparison of real executions - [Explicit], because it writes into the repository:
-///   Evaluation__Compare=structured-hybrid-v3-baseline,variance-1,variance-2 Evaluation__CompareName=variance-2026-10-05
+///   Evaluation__Compare=structured-hybrid-v3-baseline,structured-hybrid-v3-variance-1,structured-hybrid-v3-variance-2
+///   Evaluation__CompareName=structured-hybrid-v3-variance
 ///   dotnet test RagFilingExplorer.Local.Evaluation --filter "FullyQualifiedName~VarianceComparisonTests.Compare_Executions"
 /// </summary>
 [TestFixture]
