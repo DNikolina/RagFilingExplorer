@@ -3311,3 +3311,12 @@ A second review of the chunking, page-reader and XBRL code followed; its finding
 10. Comments: step labels/counts in XbrlModel, StatementLabels, IxTransformations, HtmlTableLinearizer,
     LinearizedChunkingStrategy; HtmlTableLinearizer's "contextRef for the test oracle only" is wrong (PeriodLabels uses it).
 Plan: fix 1-4, 6, 9, 10 with tests; 5 and 7 with the chunk dumps checked identical; record 8 as a limitation.
+
+**Second review - fixed (2026-10-06).** 1-7 and 9 fixed with regression tests (each fails without its fix), 10 the
+comments, 8 documented on `HtmlTableLinearizer` as a known limitation (rowspan not expanded; every rowspan in the four
+filings sits at a row's edge). Every strategy's chunk dumps regenerated for the four filings: `Structured` and
+`Linearized` byte-identical; `Markdown` gained two chunks for NFLX - a page of its exhibit index (Exhibits 101 and 104
+with the table header) that #1 had silently dropped since v1. So #1 was a shipped bug, not only a latent one; the dump is
+updated, and `rag.markdown.db` lacks those two chunks until rebuilt (`--rebuild` with `Chunking:Strategy` = Markdown).
+The fixes for 2-4 and 6 change nothing on the four filings; they protect a new filer. 393 unit tests, 166 offline
+evaluation tests.

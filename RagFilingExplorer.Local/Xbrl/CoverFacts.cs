@@ -16,10 +16,16 @@ internal static partial class CoverFacts
     /// <summary>The registrant's name as tagged, cleaned ("Microsoft Corporation"), or null.</summary>
     public static string? RegistrantName(XbrlDocument xbrl) => Clean(xbrl.First("dei:EntityRegistrantName")?.Text);
 
-    /// <summary>The name a question uses: the registrant name without its legal form ("Microsoft", "Nasdaq").</summary>
+    /// <summary>The name a question uses: the registrant name without a leading "The" or its legal form ("Microsoft",
+    /// "Nasdaq", "Coca-Cola" for "The Coca-Cola Company") - questions don't say "The Coca-Cola's revenue".</summary>
     public static string ShortName(string registrantName)
     {
         string name = registrantName.Trim();
+        if (name.StartsWith("The ", StringComparison.OrdinalIgnoreCase))
+        {
+            name = name[4..].Trim();
+        }
+
         for (Match m = LegalFormRegex().Match(name); m.Success && m.Index > 0; m = LegalFormRegex().Match(name))
         {
             name = name[..m.Index].Trim();
@@ -90,7 +96,7 @@ internal static partial class CoverFacts
 
         if (v.Any(char.IsLetter) && v.Where(char.IsLetter).All(char.IsUpper) && v.Count(char.IsLetter) > 4)
         {
-            v = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(v.ToLowerInvariant());
+            v = string.Join(" ", v.Split(' ').Select(TitleCaseWord));
             foreach (string suffix in new[] { "LLP", "LLC", "LP", "USA" })
             {
                 v = Regex.Replace(v, $@"\b{suffix}\b", suffix, RegexOptions.IgnoreCase);
@@ -99,4 +105,11 @@ internal static partial class CoverFacts
 
         return v;
     }
+
+    // One word of an all-capital value in title case - unless it reads as an acronym: no vowel ("KPMG", "NY") or an
+    // ampersand ("AT&T"), which title case would turn into "Kpmg" and "At&T".
+    private static string TitleCaseWord(string word) =>
+        word.Any(char.IsLetter) && (!word.Any(c => "AEIOU".Contains(char.ToUpperInvariant(c))) || word.Contains('&'))
+            ? word
+            : CultureInfo.InvariantCulture.TextInfo.ToTitleCase(word.ToLowerInvariant());
 }

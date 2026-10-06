@@ -95,9 +95,8 @@ internal static partial class IxTransformations
 
     // A fractional number of years becomes years, months and days, as EDGAR's own extraction does: the fraction of a
     // year times 12 gives months; the fraction of a month times an average month (365.25 / 12 = 30.4375 days),
-    // truncated, gives days. Fitted to all seven fractional durations in the four filings: MSFT 2.3 = P2Y3M18D,
-    // NFLX 1.53 = P1Y6M10D, ORCL 7.58 = P7Y6M29D, NDAQ 2.1 / 3.2 / 8.4 = 6, 12, 24 days - a 30-day month got ORCL
-    // wrong (28D) and rounding got NFLX wrong (11D). Found by comparing every fact against EDGAR's extracted instance.
+    // truncated, gives days - matching EDGAR's extraction on every fractional duration in the four filings (MSFT 2.3 =
+    // P2Y3M18D), where a 30-day month or rounding would each get one wrong.
     private static string YearsToDuration(decimal years)
     {
         int whole = (int)Math.Floor(years);
@@ -108,15 +107,31 @@ internal static partial class IxTransformations
         return "P" + (duration.Length > 0 ? duration : "0Y");
     }
 
-    // "six years" -> P6Y, "15 years" -> P15Y, "one year and six months" -> P1Y6M. A hyphen counts as a space:
-    // "one-year", and NDAQ's "one- year" (hyphenated across a line break).
-    private static string DurationFromWords(string text)
+    private static readonly string[] TensWords = ["twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+
+    // "six years" -> P6Y, "15 years" -> P15Y, "one year and six months" -> P1Y6M, "twenty-five years" -> P25Y. A hyphen
+    // counts as a space: "one-year", and NDAQ's "one- year" (hyphenated across a line break). The word before the number
+    // is read too, so a compound number isn't taken for its last word ("twenty five" as 5); a decimal ("1.5 years") has
+    // no exact Y/M/D form in words and throws rather than be cut to its last digits.
+    internal static string DurationFromWords(string text)
     {
         string years = "", months = "", days = "";
-        foreach (Match m in Regex.Matches(text.ToLowerInvariant().Replace('-', ' '), @"([a-z]+|\d+)\s+(year|month|day)s?"))
+        foreach (Match m in Regex.Matches(text.ToLowerInvariant().Replace('-', ' '), @"(?:\b([a-z]+)\s+)?\b([a-z]+|\d+(?:\.\d+)?)\s+(year|month|day)s?\b"))
         {
-            string value = WordsToNumber(m.Groups[1].Value).ToString(CultureInfo.InvariantCulture);
-            switch (m.Groups[2].Value)
+            string before = m.Groups[1].Value, number = m.Groups[2].Value;
+            if (number.Contains('.'))
+            {
+                throw new FormatException($"'{text}' has a fractional duration in words - not converted");
+            }
+
+            int tens = Array.IndexOf(TensWords, before);
+            decimal amount = tens >= 0 && WordsToNumber(number) is > 0 and < 10 and var unit
+                ? (tens + 2) * 10 + unit
+                : Array.IndexOf(NumberWords, before) >= 0 || tens >= 0
+                    ? throw new FormatException($"'{text}' has a number in words that isn't converted: '{before} {number}'")
+                    : WordsToNumber(number);
+            string value = amount.ToString(CultureInfo.InvariantCulture);
+            switch (m.Groups[3].Value)
             {
                 case "year": years = value + "Y"; break;
                 case "month": months = value + "M"; break;

@@ -301,6 +301,13 @@ internal static class TokenChunker
             }
         }
 
+        // A short table with no label or data-looking row reads as all header, which would leave no rows to emit and
+        // drop the table (and its caption) silently - its header is then just the Markdown header row and separator.
+        if (headerEnd >= lines.Count)
+        {
+            headerEnd = 2;
+        }
+
         string header = string.Join('\n', lines.Take(headerEnd));
         int headerTokens = tokenizer.CountTokens(header);
         List<string> currentRows = new();

@@ -12,7 +12,7 @@ namespace RagFilingExplorer.Local.Chunking;
 /// exhibit indexes, one small NDAQ table) stay HTML and reach TokenChunker as Markdown tables, exactly as in
 /// the Markdown strategy. Everything else - sections, prose chunking, statement-type tagging - is shared.
 ///
-/// Why from the HTML: markitdown discards colspan (68-83 tables per filing use it), which is what left the
+/// Why from the HTML: markitdown discards colspan (most of a filing's tables use it), which is what left the
 /// Markdown strategy guessing which row holds the periods and which value sits under which year. See
 /// docs/Decision-Log.md, "linearized tables as a second chunking strategy", for the spike's numbers.
 /// </summary>

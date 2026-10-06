@@ -21,7 +21,7 @@ internal enum LinearizedTableKind
 }
 
 /// <param name="ColumnKey">Identity of the column within the table ("b{header block}c{leaf}"), for checks.</param>
-/// <param name="ContextRef">The inline-XBRL contextRef of a tagged value - carried through, with its concept and unit, for the test oracle only; never used for alignment.</param>
+/// <param name="ContextRef">The inline-XBRL contextRef of a tagged value - carried through, with its concept and unit - PeriodLabels names a roll-forward row's period from it, and the tests check alignment against it; never used for alignment.</param>
 internal sealed record LinearizedValue(string ColumnKey, string ColumnLabel, string Text, string? ContextRef, string? Concept, string? Unit);
 
 internal sealed record LinearizedRow(string? GroupLabel, string Label, IReadOnlyList<LinearizedValue> Values);
@@ -35,12 +35,14 @@ internal sealed record LinearizedTable(
 
 /// <summary>
 /// Turns one HTML table into self-contained lines - "Label — Column: value | Column: value" - working from
-/// the HTML itself rather than markitdown's Markdown, because markitdown drops colspan (68-83 tables per
-/// filing use it), which is what left Markdown rows misaligned and forced the Markdown strategy to guess.
+/// the HTML itself rather than markitdown's Markdown, because markitdown drops colspan (most of a filing's
+/// tables use it), which is what left Markdown rows misaligned and forced the Markdown strategy to guess.
 ///
 /// Only layout is used: expanded colspan positions, which rows carry numbers, which carry header text.
-/// Inline-XBRL tags are read only to pass their contextRef through on each value for the test oracle -
-/// using them for alignment would make that check circular. A table the rules can't linearize
+/// Inline-XBRL tags are read only to pass their contextRef through on each value (for PeriodLabels and the
+/// tests) - using them for alignment would make the tests' alignment check circular. Known limitation:
+/// rowspan isn't expanded, so a cell spanning rows at the left or middle of a header would shift the cells
+/// below it; in the four filings every rowspan sits at a row's edge, where it shifts nothing. A table the rules can't linearize
 /// unambiguously is reported as Fallback with a reason, never guessed.
 /// </summary>
 internal static partial class HtmlTableLinearizer

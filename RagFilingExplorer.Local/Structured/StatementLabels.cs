@@ -10,15 +10,14 @@ namespace RagFilingExplorer.Local.Structured;
 /// type, and a concept only that statement presents confirms it - checked on all four filings, where each check
 /// concept is presented by exactly one primary role. A disagreement, a missing or doubled type, fails loudly.
 ///
-/// A role then goes to the one table covering most of the concepts it presents. In the four filings the 20
-/// primary statements are one table each, covering 50-86% of their role's concepts; the closest other table is
-/// NFLX's segment table at 53% of the operations role (it repeats income-statement lines per segment) - above the
-/// equity statements' 50%, so no fixed threshold separates them, but it loses its role to the statement itself
-/// (79%). A statement split across two HTML tables would label only its larger half; none of the four has one.
+/// A role then goes to the one table covering most of the concepts it presents - the best match, not a fixed
+/// threshold: a segment table that repeats income-statement lines can cover as much of the operations role as a
+/// real equity statement covers of its own, but it loses its role to the statement itself. A statement split
+/// across two HTML tables would label only its larger half; none of the four filings has one.
 /// </summary>
 internal static class StatementLabels
 {
-    // Below this the best table is not taken to be the statement at all (the lowest real one covers 50%).
+    // Below this the best table is not taken to be the statement at all; real statements cover clearly more.
     private const double MinCoverage = 0.4;
 
     // Tried in order: a comprehensive income title also contains "INCOME", so it comes first.
@@ -35,6 +34,7 @@ internal static class StatementLabels
     public static Dictionary<string, string> MapRoles(XbrlTaxonomy taxonomy)
     {
         Dictionary<string, string> types = new();
+        bool combinedIncome = false;
         foreach (XbrlRole role in taxonomy.PrimaryStatements)
         {
             string title = role.Title.ToUpperInvariant();
@@ -45,6 +45,17 @@ internal static class StatementLabels
             }
 
             IReadOnlySet<string> presented = taxonomy.PresentedConcepts.GetValueOrDefault(role.Uri) ?? new HashSet<string>();
+
+            // A combined "Statement of Operations and Comprehensive Income" is one table: its title reads as comprehensive
+            // income, but it also presents the income statement's check concept. It's labelled the income statement, and
+            // the filing then has no separate comprehensive income statement to find.
+            (string Type, string[] TitleWords, string[] Concepts) income = Types.Single(t => t.Type == "income_statement");
+            if (match.Type == "comprehensive_income" && income.Concepts.All(presented.Contains))
+            {
+                match = income;
+                combinedIncome = true;
+            }
+
             if (!match.Concepts.All(presented.Contains))
             {
                 throw new InvalidOperationException($"Statement role '{role.Title}' reads as {match.Type} but doesn't present {string.Join(" + ", match.Concepts)}.");
@@ -53,7 +64,10 @@ internal static class StatementLabels
             types.Add(role.Uri, match.Type);
         }
 
-        string[] missing = Types.Select(t => t.Type).Except(types.Values).ToArray();
+        string[] missing = Types.Select(t => t.Type)
+            .Where(t => !(combinedIncome && t == "comprehensive_income"))
+            .Except(types.Values)
+            .ToArray();
         string[] doubled = types.Values.GroupBy(t => t).Where(g => g.Count() > 1).Select(g => g.Key).ToArray();
         if (missing.Length > 0 || doubled.Length > 0)
         {

@@ -44,6 +44,24 @@ public class IxTransformationsTests
         Assert.That(IxTransformations.ToText("ixt-sec:durwordsen", "one- year"), Is.EqualTo("P1Y"));
     }
 
+    // "twenty-five years" was read as its last word - P5Y, silently wrong.
+    [TestCase("twenty-five years", "P25Y")]
+    [TestCase("twenty years", "P20Y")]
+    [TestCase("one year and six months", "P1Y6M")]
+    [TestCase("a period of three years", "P3Y")]
+    public void ToText_DurationInWords_CompoundNumbers(string text, string duration)
+    {
+        Assert.That(IxTransformations.ToText("ixt-sec:durwordsen", text), Is.EqualTo(duration));
+    }
+
+    // "1.5 years" was read as "5 years"; it has no exact form in words, so it stops the build like an unknown code.
+    [TestCase("1.5 years")]
+    [TestCase("thirty years")]
+    public void ToText_DurationInWords_NotConvertibleExactly_Throws(string text)
+    {
+        Assert.Throws<FormatException>(() => IxTransformations.ToText("ixt-sec:durwordsen", text));
+    }
+
     // A guessed conversion would be a quietly wrong number; an unknown code must stop the build instead.
     [Test]
     public void ToNumber_UnknownFormat_Throws()

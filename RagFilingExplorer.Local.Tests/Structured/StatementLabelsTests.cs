@@ -63,6 +63,23 @@ public class StatementLabelsTests
         Assert.That(StatementLabels.MapRoles(Taxonomy(incomeTitle: title))["r/is"], Is.EqualTo("income_statement"));
     }
 
+    // Many filers present one combined statement. Its title reads as comprehensive income, so it used to leave
+    // income_statement missing and stop the build.
+    [Test]
+    public void MapRoles_CombinedOperationsAndComprehensiveIncome_IsTheIncomeStatement()
+    {
+        XbrlTaxonomy separate = Taxonomy();
+        List<XbrlRole> roles = separate.Roles.Where(r => r.Uri is not ("r/is" or "r/ci")).ToList();
+        roles.Insert(0, new XbrlRole("r/combined", "990", "Statement", "CONSOLIDATED STATEMENTS OF OPERATIONS AND COMPREHENSIVE INCOME"));
+        Dictionary<string, IReadOnlySet<string>> presented = separate.PresentedConcepts.Where(p => p.Key is not ("r/is" or "r/ci")).ToDictionary();
+        presented["r/combined"] = new HashSet<string> { "us-gaap:EarningsPerShareBasic", "us-gaap:NetIncomeLoss", "us-gaap:ComprehensiveIncomeNetOfTax" };
+
+        Dictionary<string, string> types = StatementLabels.MapRoles(new XbrlTaxonomy(roles, presented, separate.Labels));
+
+        Assert.That(types["r/combined"], Is.EqualTo("income_statement"));
+        Assert.That(types.Values, Has.None.EqualTo("comprehensive_income"));
+    }
+
     [Test]
     public void MapRoles_TitleNotConfirmedByItsConcepts_FailsLoudly()
     {

@@ -130,6 +130,15 @@ internal static partial class FilingBlockReader
             : new RowBlock(null, lines);
     }
 
+    // An ordered list item's number: the list's start (1 unless set) plus the <li> elements before it - not the node
+    // index, which counts the whitespace text between items too.
+    private static int ListNumber(IElement item)
+    {
+        IElement list = item.ParentElement!;
+        int start = int.TryParse(list.GetAttribute("start"), out int s) ? s : 1;
+        return start + list.Children.TakeWhile(c => c != item).Count(c => c.LocalName == "li");
+    }
+
     // One row per line, trailing whitespace off, no empty rows: the shape a row block had after its round trip
     // through the page text (RowBlock.TryParse), which the chunk dumps were built from.
     private static RowBlock Normalize(RowBlock block) => new(
@@ -187,13 +196,26 @@ internal static partial class FilingBlockReader
                 topic = startsNote;
             }
 
+            // A table or a link is read whole, never walked into, so a note's start or end inside one would be missed:
+            // the last such element inside decides - a start gives the table its note, an end closes the note after it.
+            IElement? lastInside = IsReadWhole(element)
+                ? element.Descendants<IElement>().LastOrDefault(e => noteStarts.ContainsKey(e) || noteEnds.Contains(e))
+                : null;
+            if (lastInside is not null && noteStarts.TryGetValue(lastInside, out string? startsInside))
+            {
+                topic = startsInside;
+            }
+
             ReadElement(element);
 
-            if (noteEnds.Contains(element))
+            if (noteEnds.Contains(element) || (lastInside is not null && noteEnds.Contains(lastInside) && !noteStarts.ContainsKey(lastInside)))
             {
                 topic = null;
             }
         }
+
+        private static bool IsReadWhole(IElement element) =>
+            element is IHtmlTableElement || (element.LocalName == "a" && element.GetAttribute("href") is { Length: > 0 });
 
         private void ReadElement(IElement element)
         {
@@ -227,7 +249,7 @@ internal static partial class FilingBlockReader
                     FlushParagraph();
                     paragraphTopic = topic;
                     paragraphHasText = true;
-                    paragraph.Append(element.ParentElement?.LocalName == "ol" ? $"{element.Index() + 1}. " : "* ");
+                    paragraph.Append(element.ParentElement?.LocalName == "ol" ? $"{ListNumber(element)}. " : "* ");
                     ReadChildren(element);
                     FlushParagraph();
                     return;

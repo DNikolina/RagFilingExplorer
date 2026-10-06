@@ -14,6 +14,27 @@ public class StructuredSectionsTests
     private static List<StructuredSection> Split(string body) =>
         StructuredSections.Split(FilingBlockReader.Read(new HtmlParser().ParseDocument($"<html><body>{body}</body></html>")));
 
+    // Titles v1's patterns don't know put two statements in one section, where they could share a chunk (which then
+    // fails as unlabellable) or a table could lose its title. A labelled statement table now starts its own section.
+    [Test]
+    public void Split_StatementTitlesNotRecognised_EachStatementTableStartsASectionWithItsTitle()
+    {
+        List<FilingBlock> blocks = FilingBlockReader.Read(new HtmlParser().ParseDocument("<html><body>"
+            + "<p>PART II</p><p>Item 8. Financial Statements</p>"
+            + "<p>CONSOLIDATED STATEMENTS OF FINANCIAL POSITION</p><table><tr><td>Total assets</td><td>1,000</td></tr></table>"
+            + "<p>CONSOLIDATED STATEMENTS OF EARNINGS (LOSS)</p><table><tr><td>Net earnings</td><td>200</td></tr></table>"
+            + "</body></html>"));
+        string[] types = ["balance_sheet", "income_statement"];
+        int table = 0;
+        blocks = blocks.Select(b => b is TableBlock t ? t with { StatementType = types[table++] } : b).ToList();
+
+        List<StructuredSection> sections = StructuredSections.Split(blocks);
+
+        StructuredSection earnings = sections.Single(s => s.Blocks.OfType<TableBlock>().Any(t => t.StatementType == "income_statement"));
+        Assert.That(earnings.Blocks.OfType<TableBlock>().Select(t => t.StatementType), Is.EqualTo(new[] { "income_statement" }));
+        Assert.That(earnings.Blocks.OfType<TextBlock>().Select(t => t.Paragraph), Does.Contain("CONSOLIDATED STATEMENTS OF EARNINGS (LOSS)"));
+    }
+
     [Test]
     public void Split_HeadingAndPageNumberLines_AreDroppedAndHeadTheirSection()
     {

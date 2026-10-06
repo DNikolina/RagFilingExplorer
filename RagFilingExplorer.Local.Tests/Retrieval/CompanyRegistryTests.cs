@@ -151,9 +151,23 @@ public class CompanyRegistryTests
     [TestCase("Alphabet Inc.", "Alphabet")]
     [TestCase("Berkshire Hathaway Inc", "Berkshire Hathaway")]
     [TestCase("Corporation", "Corporation")] // never reduced to nothing
+    // A leading "The" was kept ("The Coca-Cola"), so "Coca-Cola's revenue" matched no filing and ran unfiltered.
+    [TestCase("The Coca-Cola Company", "Coca-Cola")]
+    [TestCase("The Walt Disney Company", "Walt Disney")]
     public void ShortName_DropsTheLegalForm(string registrant, string shortName)
     {
         Assert.That(CoverFacts.ShortName(registrant), Is.EqualTo(shortName));
+    }
+
+    // Title-casing an all-capital value turned acronyms into "Kpmg LLP" and "At&T Inc."; ordinary words still change.
+    [TestCase("MICROSOFT CORPORATION", "Microsoft Corporation")]
+    [TestCase("KPMG LLP", "KPMG LLP")]
+    [TestCase("AT&T INC.", "AT&T Inc.")]
+    [TestCase("NEW YORK, NY", "New York, NY")]
+    [TestCase("DELOITTE & TOUCHE LLP", "Deloitte & Touche LLP")]
+    public void Clean_AllCapitalValue_TitleCaseKeepingAcronyms(string tagged, string cleaned)
+    {
+        Assert.That(CoverFacts.Clean(tagged), Is.EqualTo(cleaned));
     }
 
     [Test]

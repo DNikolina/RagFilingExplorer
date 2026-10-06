@@ -63,6 +63,20 @@ internal static class StructuredSections
             }
             else
             {
+                // A statement table starts its own section when the title rules didn't - v1's title patterns miss some
+                // filers' titles ("Statements of Financial Position"), and two statements sharing a section could share
+                // a chunk, which can't be labelled. The text after the previous table (this statement's title and
+                // units) moves with it.
+                if (block is TableBlock { StatementType: not null } && current.Any(b => b is TableBlock { StatementType: not null }))
+                {
+                    EndParagraph();
+                    int afterLastTable = current.FindLastIndex(b => b is TableBlock) + 1;
+                    List<FilingBlock> lead = current.Skip(afterLastTable).ToList();
+                    current.RemoveRange(afterLastTable, lead.Count);
+                    FlushSection();
+                    current.AddRange(lead);
+                }
+
                 current.Add(block);
             }
         }

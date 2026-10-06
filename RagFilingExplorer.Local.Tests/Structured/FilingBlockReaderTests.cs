@@ -1,3 +1,4 @@
+using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
 using RagFilingExplorer.Local.Chunking;
@@ -16,6 +17,39 @@ public class FilingBlockReaderTests
     private static List<FilingBlock> Read(string body) => FilingBlockReader.Read(new HtmlParser().ParseDocument($"<html><body>{body}</body></html>"));
 
     private static List<string> Texts(string body) => Read(body).Select(b => b.Text).ToList();
+
+    // A table is read whole, so a note starting or ending inside one was missed: the note lost its topic, or its topic
+    // ran on past its end.
+    [Test]
+    public void Read_NoteStartingOrEndingInsideATable_TopicFollowsIt()
+    {
+        IDocument document = new HtmlParser().ParseDocument("<html><body>"
+            + "<p>before</p>"
+            + "<table><tr><td><span id=\"s\">5. INCOME TAXES</span></td><td>1,000</td></tr></table>"
+            + "<p>Income taxes text.</p>"
+            + "<table><tr><td>Deferred taxes</td><td><span id=\"e\">250</span></td></tr></table>"
+            + "<p>after</p></body></html>");
+        NoteSpan note = new(document.GetElementById("s")!, document.GetElementById("e")!, "Income Taxes");
+
+        List<FilingBlock> blocks = FilingBlockReader.Read(document, [note]);
+
+        Assert.That(blocks.Select(b => (b.Text, b.Topic)), Is.EqualTo(new (string, string?)[]
+        {
+            ("before", null),
+            (blocks[1].Text, "Income Taxes"),
+            ("Income taxes text.", "Income Taxes"),
+            (blocks[3].Text, "Income Taxes"),
+            ("after", null),
+        }));
+    }
+
+    // Numbering came from the node index, which counts the whitespace between items: "2. A", "4. B".
+    [Test]
+    public void Read_OrderedList_NumberedByItem()
+    {
+        Assert.That(Texts("<ol>\n<li>A</li>\n<li>B</li>\n</ol>"), Is.EqualTo(new[] { "1. A", "2. B" }));
+        Assert.That(Texts("<ol start=\"3\"><li>C</li><li>D</li></ol>"), Is.EqualTo(new[] { "3. C", "4. D" }));
+    }
 
     // SEC filing agents put each visual line in its own <div>/<p>; the heading rules need "PART I" and
     // "Item 1. Business" to arrive as whole lines of their own to find them.

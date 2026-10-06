@@ -17,6 +17,24 @@ public class TokenChunkerTests
     [OneTimeSetUp]
     public void OneTimeSetUp() => _tokenizer = TiktokenTokenizer.CreateForModel("gpt-4");
 
+    // An oversized table of long text cells - no "$", no comma-grouped number, no link, no label-only row - read as
+    // all header: it produced no pieces, so the table and its title vanished from the index without an error.
+    [Test]
+    public void OversizedTable_NoDataOrLabelRows_EveryRowStillChunked()
+    {
+        string cell = string.Join(" ", Enumerable.Repeat("served as an executive officer of the company and its subsidiaries", 12));
+        string[] names = ["Alice Example", "Bob Example", "Carol Example", "Dan Example"];
+        string body = "EXECUTIVE OFFICERS\n\n| Name | Background |\n| --- | --- |\n"
+            + string.Join("\n", names.Select(n => $"| {n} | {cell} |"));
+        Assume.That(_tokenizer.CountTokens(body), Is.GreaterThan(500), "the table must be oversized");
+
+        List<(string Content, int Tokens)> chunks = TokenChunker.Chunk(body, _tokenizer, 500, 50);
+
+        string all = string.Join("\n", chunks.Select(c => c.Content));
+        Assert.That(names, Has.All.Matches<string>(n => all.Contains(n)));
+        Assert.That(all, Does.Contain("EXECUTIVE OFFICERS"));
+    }
+
     [Test]
     public void OversizedTable_CarriesRowGroupLabelForwardAcrossSplits()
     {
