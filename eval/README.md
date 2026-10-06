@@ -144,6 +144,8 @@ baseline question by question (`VarianceComparison`): 89/102 identical, 11 wordi
 100/102 grades against the baseline - answered on Ollama 0.35.0, the passes on 0.35.1) and the judge run
 (`structured-hybrid-v3-judge-equivalence`, agreement `judge-structured-hybrid-v3-judge-equivalence.txt`) are here too;
 `logs/`, their console output, is gitignored.
+`structured-hybrid-v3-review-fixes` is a fresh pass after both code reviews' fixes, on the rebuilt index; compared with
+the two variance passes in `review-fixes-vs-variance.txt`: all 102 answers, grades and answer ranks identical.
 `report.html` is every execution in the store, newest first (it opens on the first), the history included: v1's baseline and each kept v2 step, imported from
 the folders above (strict grade only - no rank, since their indexes were rebuilt; `HistoricRunImporter`).
 
