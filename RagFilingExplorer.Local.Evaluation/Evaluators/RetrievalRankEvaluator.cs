@@ -77,7 +77,8 @@ internal sealed class RetrievalRankEvaluator(int generationTopK) : IEvaluator
         string description =
             "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-"
             + $"{generationTopK} are in the model's prompt; a later rank, or none, means retrieval missed it - so a wrong answer "
-            + "with a good rank is the model's misreading. Deterministic - tools/replay_recall.py's rank, ported and held to it.";
+            + "with a good rank is the model's misreading. Deterministic - ported from tools/replay_recall.py and matched to its "
+            + "ranks on all 102 questions (RetrievalParityTests).";
         NumericMetric metric;
         if (expected.ChunkExpect is not { Count: > 0 } chunkExpect)
         {

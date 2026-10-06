@@ -33,13 +33,21 @@ internal sealed class StrictFigureEvaluator : IEvaluator
     public const string Description =
         "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line's "
         + "figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn't say, "
+        + "a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers "
+        + "graded in v1 and v2 (GraderParityTests).";
+
+    // The description stored with results from 2026-10-05 until .NET became the source of truth (2026-10-06) - still the
+    // reason of the runs stored then, so it must not be read back as a grader note.
+    private const string DescriptionBefore20261006 =
+        "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line's "
+        + "figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn't say, "
         + "a decline passes. Deterministic - tools/grade_answers.py's rules, ported and held to it.";
 
     /// <summary>The grader's note on a stored grade - its metadata, or the reason in a run from before 2026-10-05.</summary>
     public static string GraderNote(EvaluationMetric metric) =>
         metric.Metadata is { } metadata && metadata.TryGetValue(GraderNoteKey, out string? note)
             ? note
-            : metric.Reason is { } reason && reason != Description ? reason : "";
+            : metric.Reason is { } reason && reason is not (Description or DescriptionBefore20261006) ? reason : "";
 
     public IReadOnlyCollection<string> EvaluationMetricNames => [MetricName];
 

@@ -24,8 +24,10 @@ internal sealed record StrictGrade(string Status, string Note)
 /// The period ("for the year ended ...") is not checked: the manual grading didn't enforce it either. "check" marks an
 /// answer only a reader can settle - the expected figure next to a lookalike, or a decline that still states figures.
 ///
-/// The Python grader is the specification: GraderParityTests holds this port to its grade - status and note - on every
-/// graded answer in eval/. A rule changes there first, then here, until the Python tools are retired.
+/// This port is the specification since v3 closed (user, 2026-10-06): a rule changes here, and tools/grade_answers.py is
+/// kept unchanged as the record of what it was ported from. GraderParityTests holds it to the grade - status and note -
+/// the Python grader gave every graded answer in eval/, so a change that regrades history shows; a deliberate one is a
+/// decision, recorded in docs/Decision-Log.md with the answers it regrades.
 /// </summary>
 internal static partial class StrictGrader
 {

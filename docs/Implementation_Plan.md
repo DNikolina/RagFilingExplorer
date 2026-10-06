@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 373 offline unit tests (176 at v1.0) + 156 offline evaluation tests (v3) |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 373 offline unit tests (176 at v1.0) + 157 offline evaluation tests (v3) |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -264,10 +264,10 @@ transitive via SqliteVec, referenced at the same version), `Microsoft.ML.OnnxRun
 - **Prompt + `Retrieval.MaxOutputTokens` must fit Ollama's `num_ctx`** (4096 by default; the app doesn't
   set it). Past it, Ollama silently drops the oldest tokens - the system prompt and the top-ranked chunks.
   Prompts reach ~3,000 tokens, so raising `MaxOutputTokens` or `GenerationTopK` needs `num_ctx` raised too.
-- **`tools/replay_recall.py` mirrors hybrid search's constants** (`HYBRID_CANDIDATES` = `Retrieval:HybridCandidates`,
-  `RRF_K` = `RankFusion.K`) - change one without the other and the replay stops reproducing the app, silently. Check
-  that its top score matches the log's `[1] score=` after any retrieval change (it did on all 55 questions at step 2) - under
-  reranking (step 2b), the `score=` of the line marked `hybrid=#1`, since `[1]` is then the reranker's first.
+- **The .NET evaluators are the source of truth, not the Python tools** (user, 2026-10-06). `tools/grade_answers.py` and
+  `tools/replay_recall.py` are kept unchanged as the record of what `StrictGrader` and `RetrievalRankEvaluator` were
+  ported from - a grading rule changes in .NET only. The replay mirrors v2's retrieval (`HYBRID_CANDIDATES`, `RRF_K`):
+  after a retrieval change it no longer reproduces the app, silently - read ranks from the evaluation's "Answer rank".
 - **The reranker's tokenization is Hugging Face's, reimplemented** (`BertPairEncoder`): `BertTokenizer`'s own basic
   tokenization drops line breaks, `|`, `$` and unknown symbols, and all 73,125 (question, chunk) pairs differed from
   what the spike measured. Another reranker model, or a `Microsoft.ML.Tokenizers` upgrade, needs the token-for-token

@@ -149,8 +149,8 @@ Everything runs locally: the embedding model and `llama3.1:8b` through Ollama, t
 - **Optional:** the reranker's model (`Retrieval:Rerank`, off by default), fetched separately - see
   `appsettings.json` and Decision-Log.md, "Step 2b resumed".
 - The evaluation runs in .NET (v3) and needs nothing more. The Python scripts in `tools/` are the grader and
-  retrieval replay it was ported from (standard library only), kept as the reference the parity tests were
-  measured against, and v2's reranker spikes (also `numpy`, `onnxruntime`, `tokenizers`).
+  retrieval replay it was ported from (standard library only) - kept as the record, not maintained: the .NET
+  evaluators are the source of truth - and v2's reranker spikes (also `numpy`, `onnxruntime`, `tokenizers`).
 
 No API keys, no `dotnet user-secrets`, no cloud account of any kind.
 
@@ -415,7 +415,7 @@ query-intent resolution, company registration, settings loading/validation, inde
 the retrieve+generate orchestration (mocked; hybrid search against a real FTS5 file, reranking with a fake
 scorer), the reranker's tokenization, and v2's page reader, structure labels and inline XBRL reader - checked
 against the filings in `data/`, read-only, including fact for fact against EDGAR's own extraction.
-`RagFilingExplorer.Local.Evaluation` (156 offline tests) checks the evaluators themselves.
+`RagFilingExplorer.Local.Evaluation` (157 offline tests) checks the evaluators themselves.
 
 ### The evaluation
 

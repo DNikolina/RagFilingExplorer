@@ -1,5 +1,7 @@
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.AI.Evaluation;
+using Microsoft.Extensions.AI.Evaluation.Reporting;
+using Microsoft.Extensions.AI.Evaluation.Reporting.Storage;
 using RagFilingExplorer.Local.Evaluation.Evaluators;
 using RagFilingExplorer.Local.Evaluation.Grading;
 
@@ -68,6 +70,24 @@ public class StrictFigureEvaluatorTests
 
         Assert.That(StrictFigureEvaluator.GraderNote(grade), Is.Empty);
         Assert.That(FigureSourceEvaluator.TraceText(source), Is.Empty);
+    }
+
+    [Test]
+    public async Task GraderNote_V3BaselineStoredWithTheEarlierDescription_OnlyRealNotes()
+    {
+        // The v3 baseline was stored with the description from before 2026-10-06 as each grade's reason; a grade without a
+        // note (most reliable ones) must not get that reason back as its note.
+        DiskBasedResultStore store = new(Path.Combine(RepoPaths.FindRoot(AppContext.BaseDirectory).FullName, "eval", "v3-runs"));
+        Dictionary<string, string> notes = new();
+        await foreach (ScenarioRunResult result in store.ReadResultsAsync("structured-hybrid-v3-baseline"))
+        {
+            notes[result.ScenarioName] = StrictFigureEvaluator.GraderNote(result.EvaluationResult.Get<StringMetric>(StrictFigureEvaluator.MetricName));
+        }
+
+        Assert.That(notes.Values, Has.None.Contains("Whether the answer states"));
+        Assert.That(notes["AnswerSide.A1"], Is.Empty);
+        Assert.That(notes["HeldOut.H4"], Is.EqualTo("rounded, in billions"));
+        Assert.That(notes["AnswerSide.A10"], Is.EqualTo("trap 27,034"));
     }
 
     [Test]

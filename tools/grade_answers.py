@@ -1,3 +1,6 @@
+# Kept as the record, not maintained (user, 2026-10-06): the evaluation's "Strict grade" (RagFilingExplorer.Local.Evaluation,
+# StrictGrader) is the source of truth since v3 - a rule changes there, not here.
+#
 # Answer grader: grades each answer in a question-run log against tools/expected-answers.json, using the
 # manual pass's rules (docs/Manual-Test-Questions.md, "Grading"):
 #   Correct  - the expected figure is stated (an alternative line's figure counts only if the answer names

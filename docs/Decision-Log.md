@@ -3249,3 +3249,17 @@ H25's $67,357M (total revenues, given as operating expenses) - 5, "a direct and 
 complete". All 18 replies were readable (Groundedness reads its score from `<S2>` tags, which llama follows). As expected:
 the wrong figures are in the excerpts, so "grounded" holds; the line is wrong. Groundedness stays available
 (`Judges: groundedness`) but isn't run by default.
+
+**Closing v3: comment review, and .NET the source of truth (user, 2026-10-06).** The comments were read against the code,
+as at the end of v2: eight stale ones fixed (wording the variance measurement superseded - temperature 0 repeats within
+one Ollama build; "spike" for the judge now kept alongside; the judge context explained by a Retrieval judge never
+offered) and the run summary's "top 5" now read from `Retrieval:GenerationTopK`. Then, from the report: the Answer rank's
+"tools/replay_recall.py's rank, ported and held to it" read as if the script still ran - nothing in the evaluation runs
+either Python tool; the parity tests compare with their committed output. **Decided (user): the .NET evaluators are the
+source of truth; the Python files stay, unchanged, as the record of what was ported** - this replaces the plan's "then
+they're retired" (v3 plan, above). A grading rule changes in `StrictGrader` only; `GraderParityTests` still holds it to
+every v1/v2 grade, so a deliberate change is a decision recorded here with the answers it regrades. The replay mirrors
+v2's retrieval and is no longer kept in step (the plan's live constraint reworded). Both evaluators' descriptions now say
+"ported from ... and matched to it" (1,029 grades, 102 ranks). Runs stored before keep the earlier description as their
+reason: `StrictFigureEvaluator.GraderNote` recognises it, or every reliable answer of the v3 baseline would show it as a
+grader note (a test reads the stored baseline). 373 unit tests, 157 offline evaluation tests.
