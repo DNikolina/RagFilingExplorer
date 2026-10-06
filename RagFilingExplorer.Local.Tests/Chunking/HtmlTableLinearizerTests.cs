@@ -41,6 +41,29 @@ public class HtmlTableLinearizerTests
         }));
     }
 
+    // A rowspan header cell in the middle of a row holds its column in the row below. Laid out row by row from column 0,
+    // the second row's "Expenses" years shifted one column left, and values went under the wrong header with no text lost.
+    [Test]
+    public void RowspanHeaderCellInTheMiddle_LowerHeaderRowKeepsItsColumns()
+    {
+        LinearizedTable table = HtmlTableLinearizer.Linearize(Table("<table>"
+            + Tr("", "<td colspan=\"2\">Revenue</td>", "<td rowspan=\"2\">Change</td>", "<td colspan=\"2\">Expenses</td>")
+            + Tr("", "2026", "2025", "2026", "2025")
+            + Tr("Segment A", "1,000", "900", "11%", "500", "400")
+            + Tr("Segment B", "2,000", "1,800", "11%", "700", "600")
+            + "</table>"));
+
+        Assert.That(table.Kind, Is.EqualTo(LinearizedTableKind.Financial), table.FallbackReason);
+        Assert.That(Row(table, "Segment B").Values.Select(v => (v.ColumnLabel, v.Text)), Is.EqualTo(new[]
+        {
+            ("Revenue 2026", "2,000"),
+            ("Revenue 2025", "1,800"),
+            ("Change", "11%"),
+            ("Expenses 2026", "700"),
+            ("Expenses 2025", "600"),
+        }));
+    }
+
     // NFLX/NDAQ: colspan everywhere, and the units as the *last* header row, spanning every column. Taken
     // as a column header it used to swallow the whole header block into one column.
     [Test]

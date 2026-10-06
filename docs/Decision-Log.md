@@ -3320,3 +3320,9 @@ with the table header) that #1 had silently dropped since v1. So #1 was a shippe
 updated, and `rag.markdown.db` lacks those two chunks until rebuilt (`--rebuild` with `Chunking:Strategy` = Markdown).
 The fixes for 2-4 and 6 change nothing on the four filings; they protect a new filer. 393 unit tests, 166 offline
 evaluation tests.
+**#8 fixed too (user: not just recorded).** `HtmlTableLinearizer` now lays out a table as the HTML table model does: a
+rowspan cell holds its columns in the rows below, whose cells start after it (`ReadRows`, replacing the row-by-row
+`ReadRow`). A test with a rowspan header cell mid-row: without the fix the table fell back to text rows (its header
+text lost to misplacement - the content guard caught it; with no text lost the values would have gone under the wrong
+year silently), with it every value sits under its own header. All three strategies' chunk dumps byte-identical on the
+four filings - their 66 rowspans all sit at a row's edge. 394 unit tests.

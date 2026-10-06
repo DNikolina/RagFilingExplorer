@@ -38,11 +38,9 @@ internal sealed record LinearizedTable(
 /// the HTML itself rather than markitdown's Markdown, because markitdown drops colspan (most of a filing's
 /// tables use it), which is what left Markdown rows misaligned and forced the Markdown strategy to guess.
 ///
-/// Only layout is used: expanded colspan positions, which rows carry numbers, which carry header text.
-/// Inline-XBRL tags are read only to pass their contextRef through on each value (for PeriodLabels and the
-/// tests) - using them for alignment would make the tests' alignment check circular. Known limitation:
-/// rowspan isn't expanded, so a cell spanning rows at the left or middle of a header would shift the cells
-/// below it; in the four filings every rowspan sits at a row's edge, where it shifts nothing. A table the rules can't linearize
+/// Only layout is used: cell positions with colspan and rowspan expanded, which rows carry numbers, which carry
+/// header text. Inline-XBRL tags are read only to pass their contextRef through on each value (for PeriodLabels and
+/// the tests) - using them for alignment would make the tests' alignment check circular. A table the rules can't linearize
 /// unambiguously is reported as Fallback with a reason, never guessed.
 /// </summary>
 internal static partial class HtmlTableLinearizer
@@ -77,7 +75,7 @@ internal static partial class HtmlTableLinearizer
 
     public static LinearizedTable Linearize(IHtmlTableElement table)
     {
-        List<List<Cell>> rows = table.Rows.Select(ReadRow).ToList();
+        List<List<Cell>> rows = ReadRows(table);
         List<List<Cell>> nonEmptyRows = rows.Select(r => r.Where(c => c.Text.Length > 0).ToList()).Where(r => r.Count > 0).ToList();
 
         if (nonEmptyRows.Count == 0)
@@ -298,7 +296,7 @@ internal static partial class HtmlTableLinearizer
     /// </summary>
     public static LinearizedTable LinearizeAsText(IHtmlTableElement table)
     {
-        List<string> lines = table.Rows.Select(ReadRow)
+        List<string> lines = ReadRows(table)
             .Select(r => r.Where(c => c.Text.Length > 0).ToList())
             .Where(r => r.Count > 0)
             .Select(r => string.Join(" | ", r.Select(c => c.Text)))
@@ -413,22 +411,63 @@ internal static partial class HtmlTableLinearizer
         return labels.All(l => l.Length > prefix.Length + 1) ? prefix.Trim() : string.Empty;
     }
 
-    private static List<Cell> ReadRow(IHtmlTableRowElement row)
+    /// <summary>
+    /// Every row's cells at their column positions, as the HTML table model places them: a cell spans its colspan, and
+    /// a cell with rowspan also holds its columns in the rows below, so their cells start after it. Laid out row by row
+    /// from column 0, a rowspan cell at the left or in the middle of a header would shift the next row's year cells
+    /// left, and values would go under the wrong year with no text lost. The spanning cell's text stays in its own row.
+    /// </summary>
+    private static List<List<Cell>> ReadRows(IHtmlTableElement table)
     {
-        List<Cell> cells = new();
-        int position = 0;
-        foreach (IHtmlTableCellElement cell in row.Cells)
+        List<List<Cell>> rows = new();
+        Dictionary<int, int> held = new(); // column -> how many more rows a rowspan cell above still holds it for
+        foreach (IHtmlTableRowElement row in table.Rows)
         {
-            int span = Math.Max(1, cell.ColumnSpan);
-            List<Fact> facts = cell.Descendants<IElement>()
-                .Where(e => e.LocalName.Equals("ix:nonfraction", StringComparison.OrdinalIgnoreCase))
-                .Select(e => new Fact(e.GetAttribute("contextref") ?? string.Empty, e.GetAttribute("name") ?? string.Empty, e.GetAttribute("unitref") ?? string.Empty))
-                .ToList();
-            cells.Add(new Cell(position, position + span - 1, CellText(cell), facts));
-            position += span;
+            List<Cell> cells = new();
+            Dictionary<int, int> heldFromHere = new();
+            int position = 0;
+            foreach (IHtmlTableCellElement cell in row.Cells)
+            {
+                while (held.ContainsKey(position))
+                {
+                    position++;
+                }
+
+                int span = Math.Max(1, cell.ColumnSpan);
+                List<Fact> facts = cell.Descendants<IElement>()
+                    .Where(e => e.LocalName.Equals("ix:nonfraction", StringComparison.OrdinalIgnoreCase))
+                    .Select(e => new Fact(e.GetAttribute("contextref") ?? string.Empty, e.GetAttribute("name") ?? string.Empty, e.GetAttribute("unitref") ?? string.Empty))
+                    .ToList();
+                cells.Add(new Cell(position, position + span - 1, CellText(cell), facts));
+
+                // rowspan="0" holds the columns to the end of the table.
+                int below = cell.RowSpan == 0 ? int.MaxValue : cell.RowSpan - 1;
+                for (int column = position; below > 0 && column < position + span; column++)
+                {
+                    heldFromHere[column] = below;
+                }
+
+                position += span;
+            }
+
+            rows.Add(cells);
+
+            // This row used up one row of every hold from above; the holds this row started apply from the next row.
+            foreach (int column in held.Keys.ToList())
+            {
+                if (held[column] != int.MaxValue && --held[column] == 0)
+                {
+                    held.Remove(column);
+                }
+            }
+
+            foreach ((int column, int count) in heldFromHere)
+            {
+                held[column] = count;
+            }
         }
 
-        return cells;
+        return rows;
     }
 
     // TextContent would glue "comprehensive<br>income" into one word; block boundaries become spaces.
