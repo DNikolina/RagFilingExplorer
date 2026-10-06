@@ -409,5 +409,5 @@ three real bugs found onboarding a fourth filing, and more).
 
 The code is [MIT](LICENSE). The filings and XBRL taxonomies in `data/` are public SEC filings, downloaded from
 [EDGAR](https://www.sec.gov/edgar) and included for convenience - they belong to their filers and aren't covered by
-this license. The models (`nomic-embed-text`, `llama3.1:8b`, the optional reranker) aren't part of the repo and come
-with their own licenses.
+this license. The models aren't part of the repo and come with their own licenses: `nomic-embed-text` and the optional
+reranker are Apache-2.0; `llama3.1:8b` is under Meta's Llama 3.1 Community License (free to use, but not open source).
