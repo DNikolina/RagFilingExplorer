@@ -56,7 +56,7 @@ public class FilingChunkRecordsTests
         Assert.That(records[0].Content, Is.EqualTo("Some prose."));
     }
 
-    // Step 1d: the context line opens the embedding text only - what the model reads (Content) is unchanged.
+    // The context line opens the embedding text only - what the model reads (Content) is unchanged.
     [Test]
     public void Build_EmbeddingContext_OpensTheEmbeddingTextOnly()
     {

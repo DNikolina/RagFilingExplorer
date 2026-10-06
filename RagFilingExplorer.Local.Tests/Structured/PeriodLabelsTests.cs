@@ -5,7 +5,7 @@ using RagFilingExplorer.Local.Xbrl;
 namespace RagFilingExplorer.Local.Tests.Structured;
 
 /// <summary>
-/// Step 1b-iii-c: a roll-forward row gets its period from its values' XBRL contexts - only where the row doesn't
+/// A roll-forward row gets its period from its values' XBRL contexts - only where the row doesn't
 /// show it and the table spans more than one period.
 /// </summary>
 [TestFixture]

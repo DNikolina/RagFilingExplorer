@@ -4,8 +4,8 @@ using RagFilingExplorer.Local.Retrieval;
 namespace RagFilingExplorer.Local.Tests.Retrieval;
 
 /// <summary>
-/// The pair encoder must tokenize as Hugging Face's tokenizers did in the step 2b spike - checked against it on all 73,125
-/// (question, chunk) pairs of both question files (docs/Decision-Log.md, "Step 2b - build"). These pin the differences
+/// The pair encoder must tokenize as Hugging Face's tokenizers does - checked against it on every (question, chunk)
+/// pair of both question files (docs/Decision-Log.md, "Step 2b - build"). These pin the differences
 /// that check found in BertTokenizer's own basic tokenization, offline, with a vocabulary of just the words they use.
 /// </summary>
 [TestFixture]

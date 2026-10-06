@@ -23,7 +23,8 @@ extend (e.g. `RagAnswerServiceTests.MakeMocks`, `CreateService`).
 - **Naming:** `Subject_Condition_ExpectedResult`, e.g. `Split_ItemHeadingWithNoSpaceAfterPeriod_IsStillTreatedAsABoundary`.
   Use `[TestCase(...)]` for input tables (see `QueryIntentResolverTests`).
 - **A test that reproduces a real bug gets a comment** naming the filing and what broke, e.g. "NFLX: 21 of
-  22 Item headings have no space after the period...". These comments are the regression record.
+  22 Item headings have no space after the period...". These comments are the regression record - what broke
+  is the test's reason; leave out dates, step labels and how it was found (CLAUDE.md's comment rule).
 - **Fully offline:** no Ollama, no `rag.*.db`, no `markitdown`. Use the real tokenizer
   (`TiktokenTokenizer.CreateForModel("gpt-4")`, offline via `Data.Cl100kBase`) in `[OneTimeSetUp]`, and
   compute token budgets from it instead of hard-coding counts (see `TokenChunkerTests`).
@@ -50,4 +51,4 @@ extend (e.g. `RagAnswerServiceTests.MakeMocks`, `CreateService`).
   positions are all the linearizer aligns by.
 - **Running:** `dotnet test` from the repo root (`RagFilingExplorer.slnx`; `tools/LinearizeSpike` is
   deliberately outside it). Don't build or test while the app is running - the locked DLL fails the build.
-  The test count is quoted in README.md and the plan's Status table - update both when adding tests.
+  The test count is quoted in the plan's Status table - update it when adding tests.

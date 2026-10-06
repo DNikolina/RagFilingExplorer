@@ -3,7 +3,7 @@ using RagFilingExplorer.Local.Xbrl;
 
 namespace RagFilingExplorer.Local.Tests.Xbrl;
 
-/// <summary>The reader's rules on small fixtures shaped like the filings' own markup (step 1b-i).</summary>
+/// <summary>The reader's rules on small fixtures shaped like the filings' own markup.</summary>
 [TestFixture]
 public class InlineXbrlReaderTests
 {

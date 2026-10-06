@@ -393,7 +393,7 @@ public class RagAnswerServiceTests
         Assert.That(string.Concat(chunks), Is.EqualTo("The answer."));
     }
 
-    // Hybrid search (v2 step 2). The keyword side runs against a real FTS5 index in a temp database whose chunks
+    // Hybrid search. The keyword side runs against a real FTS5 index in a temp database whose chunks
     // table holds the same records the mocked vector search draws from.
     private static FilingChunkRecord Record(int key, string sourceFiling, string content, string statementType = "narrative") => new()
     {
@@ -558,7 +558,7 @@ public class RagAnswerServiceTests
         Assert.Throws<ArgumentNullException>(() => new RagAnswerService(collection.Object, chatClient.Object, retrieval, false, Companies));
     }
 
-    // Reranking (v2 step 2b). The scorer is the ONNX model's boundary, stood in for by a fake that scores a passage by the
+    // Reranking. The scorer is the ONNX model's boundary, stood in for by a fake that scores a passage by the
     // number in it ("score:N"), which makes the expected order explicit. A fake rather than a Moq mock: Castle proxies an
     // interface like this one into its unsigned assembly, which AssemblyInfo's strong-name-scoped grant doesn't cover.
     private sealed class ScoreFromText(List<IReadOnlyList<string>>? capturedPassages = null) : IRelevanceScorer

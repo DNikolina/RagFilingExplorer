@@ -7,7 +7,7 @@ using RagFilingExplorer.Local.Xbrl;
 namespace RagFilingExplorer.Local.Tests.Structured;
 
 /// <summary>
-/// Step 1b-iii-b: notes to the financial statements from the filer's text-block tags and Disclosure roles. Rules on
+/// Notes to the financial statements from the filer's text-block tags and Disclosure roles. Rules on
 /// small fixtures; the four real filings (offline, from data/) for what was measured.
 /// </summary>
 [TestFixture]
@@ -104,7 +104,7 @@ public class NoteTopicsTests
         Assert.That(NoteTopics.TopicOf(roleTitle), Is.EqualTo(topic));
     }
 
-    // Counted 2026-09-29. NDAQ's revenue text block is one fact over two notes, "Revenue from Contracts with
+    // Counted in the four filings. NDAQ's revenue text block is one fact over two notes, "Revenue from Contracts with
     // Customers" and "Deferred Revenue", four notes apart - split into two, named in role order.
     [TestCase("MSFT-10K-2026.html", 18)]
     [TestCase("NDAQ-10K-2025.html", 20)]

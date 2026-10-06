@@ -6,7 +6,7 @@ using RagFilingExplorer.Local.Xbrl;
 namespace RagFilingExplorer.Local.Tests.Xbrl;
 
 /// <summary>
-/// Step 1b-i's verification, against the real filings in data/ (read-only, offline): every reference resolves,
+/// The XBRL reader's verification, against the real filings in data/ (read-only, offline): every reference resolves,
 /// every format code is known, every continuation chain completes, the taxonomy is found and declares the five
 /// primary statements, and known figures come out exactly - including the ones v1 answered wrong (Q10's two
 /// near-identical lines, T9's roll-forward row with no year).
@@ -99,7 +99,7 @@ public class FilingXbrlTests
     }
 
     // Every filing declares exactly its five primary statements as Statement roles - including NDAQ's "Changes in
-    // Stockholders' Equity", which v1's title patterns missed until the second review.
+    // Stockholders' Equity", which v1's title patterns once missed.
     [TestCaseSource(nameof(Filings))]
     public void Taxonomy_DeclaresFivePrimaryStatements_EachPresentingConcepts(string filing)
     {
@@ -123,7 +123,7 @@ public class FilingXbrlTests
         Assert.That(_read[filing].Taxonomy.Labels[concept], Is.EqualTo(label));
     }
 
-    // Step 1b-ii's profile, built from the cover facts. ORCL lists its preferred depositary shares ("ORCL PRD") first
+    // The filing profile, built from the cover facts. ORCL lists its preferred depositary shares ("ORCL PRD") first
     // and NDAQ four note issues besides its common stock: the symbol comes from the common stock's own context.
     // MSFT's all-capital cover values and NDAQ's "New York," (a comma inside the tag) are cleaned.
     [TestCase("MSFT-10K-2026.html", "Microsoft Corporation - annual report on Form 10-K for the fiscal year ended June 30, 2026 (fiscal year 2026).",

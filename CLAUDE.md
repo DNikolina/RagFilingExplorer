@@ -26,7 +26,9 @@ covers changes, update its answer in the same change; keep it to stable facts an
   approach, falling back from a preview library) rather than pushing straight through silently.
 - Code comments say what the code does and why it's shaped that way - the constraint or pitfall the code alone
   doesn't show. Never when or who: no dates, "(user, ...)", step numbers, measured counts or before/after stories.
-  That history belongs in `docs/Decision-Log.md`; a comment may point to a section there by name.
+  That history belongs in `docs/Decision-Log.md`; a comment may point to a section there by name. Settings are
+  documented on their class in `AppSettings.cs`, not in `appsettings.json` (one-line warnings only). One exception:
+  a test reproducing a real bug names the filing and what broke - its regression record (`.claude/rules/testing.md`).
 - Don't skip the testing step (Step 7) or treat it as optional — it's how "it works" gets verified
   rather than assumed.
 

@@ -22,7 +22,7 @@ public class StructuredStrategyTests
     }
 
     // The four real filings, offline: every chunk names the blocks it came from, and every table block is in some
-    // chunk - the property the structure labels (step 1b-iii) are read through.
+    // chunk - the property the structure labels are read through.
     [TestCase("MSFT-10K-2026.html")]
     [TestCase("NDAQ-10K-2025.html")]
     [TestCase("NFLX-10K-2025.html")]

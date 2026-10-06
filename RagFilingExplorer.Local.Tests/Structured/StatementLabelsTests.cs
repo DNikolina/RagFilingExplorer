@@ -6,7 +6,7 @@ using RagFilingExplorer.Local.Xbrl;
 namespace RagFilingExplorer.Local.Tests.Structured;
 
 /// <summary>
-/// Step 1b-iii-a: statement types from the filer's Statement roles. Rules on small fixtures; the four real filings
+/// Statement types from the filer's Statement roles. Rules on small fixtures; the four real filings
 /// (offline, from data/) for what was measured - every role maps to one type, and each filing gets exactly its
 /// five statement tables.
 /// </summary>

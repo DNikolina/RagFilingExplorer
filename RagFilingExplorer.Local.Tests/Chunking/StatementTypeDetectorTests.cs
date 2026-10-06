@@ -3,12 +3,10 @@ using RagFilingExplorer.Local.Chunking;
 namespace RagFilingExplorer.Local.Tests.Chunking;
 
 /// <summary>
-/// Regression coverage for two distinct real bugs found in this detector, both via direct inspection
-/// of what it actually tagged rather than assuming the regexes were correct:
+/// Regression coverage for two distinct real bugs found in this detector:
 /// (1) an earlier version made "STATEMENTS" fully optional, which caused bare, unrelated subsection
 /// headings (e.g. a lone "OPERATIONS" line in MSFT's business narrative) to be mistagged as
-/// financial-statement titles - 96 consecutive chunks in one case, confirmed by direct SQL inspection
-/// of rag.db; and (2) the carried-forward statement type had no reset boundary for leaving the primary
+/// financial-statement titles - 96 consecutive chunks in one case; and (2) the carried-forward statement type had no reset boundary for leaving the primary
 /// statements and entering the Notes section, so whichever type was detected last leaked across every
 /// subsequent chunk for the rest of the filing - fixed by <see cref="StatementTypeDetector.IsNotesToFinancialStatementsBoundary"/>.
 /// See StatementTypeDetector's own doc comments for the full history of both.

@@ -2,7 +2,7 @@ using RagFilingExplorer.Local.Xbrl;
 
 namespace RagFilingExplorer.Local.Tests.Xbrl;
 
-/// <summary>The format codes the four filings use (step 1b-i), each with a displayed form found in them.</summary>
+/// <summary>The format codes the four filings use, each with a displayed form found in them.</summary>
 [TestFixture]
 public class IxTransformationsTests
 {

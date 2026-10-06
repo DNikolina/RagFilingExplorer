@@ -71,7 +71,8 @@ public class CoverFactsTests
         Assert.That(CoverFacts.EmbeddingContext(cover), Is.EqualTo("Alphabet Inc. (GOOGL, GOOGB), Form 10-K for fiscal year 2026."));
     }
 
-    // Step 1d was measured with these four lines typed by hand (the "co" variant); what ships must be exactly them.
+    // The company line was measured with these four lines typed by hand (Decision-Log.md, "Step 1d"); what ships
+    // must be exactly them.
     [TestCase("MSFT-10K-2026.html", "Microsoft Corporation (MSFT), Form 10-K for fiscal year 2026.")]
     [TestCase("NDAQ-10K-2025.html", "Nasdaq, Inc. (NDAQ), Form 10-K for fiscal year 2025.")]
     [TestCase("NFLX-10K-2025.html", "Netflix, Inc. (NFLX), Form 10-K for fiscal year 2025.")]

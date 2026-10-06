@@ -326,7 +326,7 @@ public class TokenChunkerTests
     }
 
     // Pack is what the Structured strategy calls with its own blocks: every chunk says which blocks it holds, so
-    // labels read from a table (step 1b-iii) reach every piece of it, caption and footer included.
+    // labels read from a table reach every piece of it, caption and footer included.
     [Test]
     public void Pack_SplitRowBlockWithCaptionAndFooter_EveryPieceListsTheBlocksItHolds()
     {

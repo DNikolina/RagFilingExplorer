@@ -6,7 +6,7 @@ using RagFilingExplorer.Local.Structured;
 namespace RagFilingExplorer.Local.Tests.Structured;
 
 /// <summary>
-/// The Structured strategy's page reader. Its paragraph text keeps the shape markitdown produced (step 1a: each
+/// The Structured strategy's page reader. Its paragraph text keeps the shape markitdown produced (each
 /// case below is a markitdown behaviour read off its output for the four filings), since the shared heading and
 /// packing rules were written against it; its tables are blocks of their own, never text to parse back.
 /// </summary>

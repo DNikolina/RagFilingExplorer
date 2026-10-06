@@ -43,8 +43,7 @@ public class AppSettingsTests
     // MaxOutputTokens shipped as 4096 - Ollama's whole default context window, which the prompt shares, so
     // the ceiling could never be reached: runaway llama3.1:8b answers (1,400-1,700 tokens, in Ollama's
     // server log) filled the window first, and Ollama then dropped the oldest tokens - the system prompt
-    // and the top-ranked chunks. The largest prompt measured in that log was ~3,000 tokens; the longer
-    // prompt-v1 system prompt raised it to 3,103 in the 2026-09-25 re-run (both strategies).
+    // and the top-ranked chunks. The largest prompt measured is ~3,100 tokens.
     [Test]
     public void Load_ShippedAppSettings_OutputCeilingLeavesRoomForThePromptInOllamasDefaultContext()
     {

@@ -52,8 +52,7 @@ public class MarkItDownConverterTests
     // Regression coverage for the actual bug: NFLX-10K-2025.html declares (and is genuinely encoded
     // as) windows-1252, unlike the raw EDGAR HTML for the other three filings, which declares no
     // charset at all. Reading it as UTF-8 unconditionally silently replaced every non-ASCII character
-    // with U+FFFD - confirmed directly by diffing chunk output against the other filings (0 corrupted
-    // characters there, 700+ in NFLX's before this fix).
+    // with U+FFFD - 700+ of them in NFLX's chunks.
     [Test]
     public void DetectEncoding_MetaHttpEquivCharsetDeclaration_ReturnsThatEncoding()
     {
