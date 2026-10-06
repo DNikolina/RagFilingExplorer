@@ -1,0 +1,163 @@
+{
+  "scenarioName": "AnswerSide.A10",
+  "iterationName": "1",
+  "executionName": "groundedness-screen",
+  "creationTime": "2026-10-06T00:16:30.9301287Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\r\n\u0060\u0060\u0060\r\nSTOCKHOLDERS\u2019 EQUITY STATEMENTS\n\n(In millions, except per share amounts) Year Ended June 30,\nCommon stock and paid-in capital\nCommon stock and paid-in capital \u003E Balance, beginning of period \u2014 2026: $109,095 | 2025: $100,923 | 2024: $93,718\nCommon stock and paid-in capital \u003E Common stock issued \u2014 2026: 2,009 | 2025: 2,056 | 2024: 2,002\nCommon stock and paid-in capital \u003E Common stock repurchased \u2014 2026: (6,105) | 2025: (5,856) | 2024: (5,712)\nCommon stock and paid-in capital \u003E Stock-based compensation expense \u2014 2026: 12,405 | 2025: 11,974 | 2024: 10,734\nCommon stock and paid-in capital \u003E Other, net \u2014 2026: 2 | 2025: (2) | 2024: 181\nCommon stock and paid-in capital \u003E Balance, end of period \u2014 2026: 117,406 | 2025: 109,095 | 2024: 100,923\nRetained earnings\nRetained earnings \u003E Balance, beginning of period \u2014 2026: 237,731 | 2025: 173,144 | 2024: 118,848\nRetained earnings \u003E Net income \u2014 2026: 133,749 | 2025: 101,832 | 2024: 88,136\nRetained earnings \u003E Common stock cash dividends \u2014 2026: (27,034) | 2025: (24,677) | 2024: (22,293)\nRetained earnings \u003E Common stock repurchased \u2014 2026: (16,181) | 2025: (12,568) | 2024: (11,547)\nRetained earnings \u003E Balance, end of period \u2014 2026: 328,265 | 2025: 237,731 | 2024: 173,144\nAccumulated other comprehensive loss\nAccumulated other comprehensive loss \u003E Balance, beginning of period \u2014 2026: (3,347) | 2025: (5,590) | 2024: (6,343)\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\r\n\u0060\u0060\u0060\r\nSTOCKHOLDERS\u2019 EQUITY STATEMENTS\n\n(In millions, except per share amounts) Year Ended June 30,\nAccumulated other comprehensive loss \u003E Other comprehensive income \u2014 2026: 63 | 2025: 2,243 | 2024: 753\nAccumulated other comprehensive loss \u003E Balance, end of period \u2014 2026: (3,284) | 2025: (3,347) | 2024: (5,590)\nAccumulated other comprehensive loss \u003E Total stockholders\u2019 equity \u2014 2026: $442,387 | 2025: $343,479 | 2024: $268,477\nCash dividends declared per common share \u2014 2026: $3.64 | 2025: $3.32 | 2024: $3.00\n\nRefer to accompanying notes.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\r\n\u0060\u0060\u0060\r\nCASH FLOWS STATEMENTS\n\n(In millions) Year Ended June 30,\nChanges in operating assets and liabilities \u003E Income taxes \u2014 2026: (1,875) | 2025: (38) | 2024: 1,687\nChanges in operating assets and liabilities \u003E Other current liabilities \u2014 2026: 6,847 | 2025: 5,922 | 2024: 4,867\nChanges in operating assets and liabilities \u003E Other long-term liabilities \u2014 2026: (4,707) | 2025: (975) | 2024: 749\nChanges in operating assets and liabilities \u003E Net cash from operations \u2014 2026: 182,935 | 2025: 136,162 | 2024: 118,548\nFinancing\nFinancing \u003E Proceeds from issuance (repayments) of debt, maturities of 90 days or less, net \u2014 2026: 0 | 2025: (5,746) | 2024: 5,250\nFinancing \u003E Proceeds from issuance of debt \u2014 2026: 0 | 2025: 0 | 2024: 24,395\nFinancing \u003E Repayments of debt \u2014 2026: (3,000) | 2025: (3,216) | 2024: (29,070)\nFinancing \u003E Common stock issued \u2014 2026: 2,009 | 2025: 2,056 | 2024: 2,002\nFinancing \u003E Common stock repurchased \u2014 2026: (22,271) | 2025: (18,420) | 2024: (17,254)\nFinancing \u003E Common stock cash dividends paid \u2014 2026: (26,445) | 2025: (24,082) | 2024: (21,771)\nFinancing \u003E Other, net \u2014 2026: (2,839) | 2025: (2,291) | 2024: (1,309)\nFinancing \u003E Net cash used in financing \u2014 2026: (52,546) | 2025: (51,699) | 2024: (37,757)\nInvesting\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 5. MARKET FOR REGISTRANT\u2019S COMMON EQUITY, RELATED STOCKHOLDER MATTERS, AND ISSUER PURCHASES OF EQUITY SECURITIES ---\r\n\u0060\u0060\u0060\r\nMARKET AND STOCKHOLDERS\n\nOur common stock is traded on the NASDAQ Stock Market under the symbol MSFT. On July 23, 2026, there were 74,199 registered holders of record of our common stock.\n\nSHARE REPURCHASES AND DIVIDENDS\n\nFollowing are our monthly share repurchases for the fourth quarter of fiscal year 2026:\n\n(In millions) Period\nApril 1, 2026 \u2013 April 30, 2026 \u2014 Total Number of Shares Purchased: 1,002,119 | Average Price Paid Per Share: $398.88 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: 1,002,119 | Approximate Dollar Value of Shares That May Yet Be Purchased Under the Plans or Programs: $43,630\nMay 1, 2026 \u2013 May 31, 2026 \u2014 Total Number of Shares Purchased: 3,559,509 | Average Price Paid Per Share: 416.81 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: 3,559,509 | Approximate Dollar Value of Shares That May Yet Be Purchased Under the Plans or Programs: 42,147\nJune 1, 2026 \u2013 June 30, 2026 \u2014 Total Number of Shares Purchased: 3,828,061 | Average Price Paid Per Share: 396.19 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: 3,828,061 | Approximate Dollar Value of Shares That May Yet Be Purchased Under the Plans or Programs: 40,630\nTotal Number of Shares Purchased: 8,389,689 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: 8,389,689\n\nAll share repurchases were made using cash resources. Our share repurchases may occur through open market purchases or pursuant to a Rule 10b5-1 trading plan. The above table excludes shares repurchased to settle employee tax withholding related to the vesting of stock awards.\n\nOur Board of Directors declared the following dividends during the fourth quarter of fiscal year 2026:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Stockholders\u0027 Equity ---\r\n\u0060\u0060\u0060\r\nWe repurchased the following shares of common stock under the share repurchase programs:\n\n(In millions) Year Ended June 30,\nFirst Quarter \u2014 2026 Shares: 8 | 2026 Amount: $3,955 | 2025 Shares: 7 | 2025 Amount: $2,800 | 2024 Shares: 11 | 2024 Amount: $3,560\nSecond Quarter \u2014 2026 Shares: 12 | 2026 Amount: 5,964 | 2025 Shares: 8 | 2025 Amount: 3,500 | 2024 Shares: 7 | 2024 Amount: 2,800\nThird Quarter \u2014 2026 Shares: 7 | 2026 Amount: 3,400 | 2025 Shares: 8 | 2025 Amount: 3,500 | 2024 Shares: 7 | 2024 Amount: 2,800\nFourth Quarter \u2014 2026 Shares: 9 | 2026 Amount: 3,400 | 2025 Shares: 8 | 2025 Amount: 3,200 | 2024 Shares: 7 | 2024 Amount: 2,800\nTotal \u2014 2026 Shares: 36 | 2026 Amount: $16,719 | 2025 Shares: 31 | 2025 Amount: $13,000 | 2024 Shares: 32 | 2024 Amount: $11,960\n\nAll share repurchases were made using cash resources. Shares repurchased during fiscal year 2026 were under the share repurchase program approved on September 16, 2024. Shares repurchased during the fourth quarter of fiscal year 2025 were under the share repurchase programs approved on September 14, 2021 and September 16, 2024. All other shares repurchased were under the share repurchase program approved on September 14, 2021. The above table excludes shares repurchased to settle employee tax withholding related to the vesting of stock awards of $5.6 billion, $5.4 billion, and $5.3 billion for fiscal years 2026, 2025, and 2024, respectively.\n\nDividends\n\nOur Board of Directors declared the following dividends:\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much cash did Microsoft pay in common stock dividends in fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft paid $27,034 million in common stock cash dividends in fiscal 2026 (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "States 27,034 (dividends declared (equity statement), not paid (cash flow statement)) instead of the expected 26,445 million."
+        },
+        "metadata": {
+          "Grader note": "trap 27,034"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 3,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "(26,445) at rank 3 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "A misreading - every figure is in an excerpt: 27,034 from excerpt 1 (equity_statement); the expected 26,445 was in excerpt 3 (cash_flow_statement)."
+        },
+        "metadata": {
+          "Stated 27,034": "excerpt 1 (equity_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Retained earnings \u003E Common stock cash dividends \u2014 2026: (27,034) | 2025: (24,677) | 2024: (22,293)\u0022",
+          "Expected 26,445": "excerpt 3 (cash_flow_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Financing \u003E Common stock cash dividends paid \u2014 2026: (26,445) | 2025: (24,082) | 2024: (21,771)\u0022"
+        }
+      },
+      "Groundedness": {
+        "$type": "numeric",
+        "value": 4,
+        "name": "Groundedness",
+        "reason": "The response accurately answers the query by citing the relevant section of the 10-K report and providing the correct amount of cash paid in common stock dividends in fiscal 2026.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        },
+        "context": {
+          "Grounding Context (Groundedness)": {
+            "name": "Grounding Context (Groundedness)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "--- Excerpt from MSFT-10K-2026.html, section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\nSTOCKHOLDERS\u2019 EQUITY STATEMENTS\n\n(In millions, except per share amounts) Year Ended June 30,\nCommon stock and paid-in capital\nCommon stock and paid-in capital \u003E Balance, beginning of period \u2014 2026: $109,095 | 2025: $100,923 | 2024: $93,718\nCommon stock and paid-in capital \u003E Common stock issued \u2014 2026: 2,009 | 2025: 2,056 | 2024: 2,002\nCommon stock and paid-in capital \u003E Common stock repurchased \u2014 2026: (6,105) | 2025: (5,856) | 2024: (5,712)\nCommon stock and paid-in capital \u003E Stock-based compensation expense \u2014 2026: 12,405 | 2025: 11,974 | 2024: 10,734\nCommon stock and paid-in capital \u003E Other, net \u2014 2026: 2 | 2025: (2) | 2024: 181\nCommon stock and paid-in capital \u003E Balance, end of period \u2014 2026: 117,406 | 2025: 109,095 | 2024: 100,923\nRetained earnings\nRetained earnings \u003E Balance, beginning of period \u2014 2026: 237,731 | 2025: 173,144 | 2024: 118,848\nRetained earnings \u003E Net income \u2014 2026: 133,749 | 2025: 101,832 | 2024: 88,136\nRetained earnings \u003E Common stock cash dividends \u2014 2026: (27,034) | 2025: (24,677) | 2024: (22,293)\nRetained earnings \u003E Common stock repurchased \u2014 2026: (16,181) | 2025: (12,568) | 2024: (11,547)\nRetained earnings \u003E Balance, end of period \u2014 2026: 328,265 | 2025: 237,731 | 2024: 173,144\nAccumulated other comprehensive loss\nAccumulated other comprehensive loss \u003E Balance, beginning of period \u2014 2026: (3,347) | 2025: (5,590) | 2024: (6,343)\n\n--- Excerpt from MSFT-10K-2026.html, section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\nSTOCKHOLDERS\u2019 EQUITY STATEMENTS\n\n(In millions, except per share amounts) Year Ended June 30,\nAccumulated other comprehensive loss \u003E Other comprehensive income \u2014 2026: 63 | 2025: 2,243 | 2024: 753\nAccumulated other comprehensive loss \u003E Balance, end of period \u2014 2026: (3,284) | 2025: (3,347) | 2024: (5,590)\nAccumulated other comprehensive loss \u003E Total stockholders\u2019 equity \u2014 2026: $442,387 | 2025: $343,479 | 2024: $268,477\nCash dividends declared per common share \u2014 2026: $3.64 | 2025: $3.32 | 2024: $3.00\n\nRefer to accompanying notes.\n\n--- Excerpt from MSFT-10K-2026.html, section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\nCASH FLOWS STATEMENTS\n\n(In millions) Year Ended June 30,\nChanges in operating assets and liabilities \u003E Income taxes \u2014 2026: (1,875) | 2025: (38) | 2024: 1,687\nChanges in operating assets and liabilities \u003E Other current liabilities \u2014 2026: 6,847 | 2025: 5,922 | 2024: 4,867\nChanges in operating assets and liabilities \u003E Other long-term liabilities \u2014 2026: (4,707) | 2025: (975) | 2024: 749\nChanges in operating assets and liabilities \u003E Net cash from operations \u2014 2026: 182,935 | 2025: 136,162 | 2024: 118,548\nFinancing\nFinancing \u003E Proceeds from issuance (repayments) of debt, maturities of 90 days or less, net \u2014 2026: 0 | 2025: (5,746) | 2024: 5,250\nFinancing \u003E Proceeds from issuance of debt \u2014 2026: 0 | 2025: 0 | 2024: 24,395\nFinancing \u003E Repayments of debt \u2014 2026: (3,000) | 2025: (3,216) | 2024: (29,070)\nFinancing \u003E Common stock issued \u2014 2026: 2,009 | 2025: 2,056 | 2024: 2,002\nFinancing \u003E Common stock repurchased \u2014 2026: (22,271) | 2025: (18,420) | 2024: (17,254)\nFinancing \u003E Common stock cash dividends paid \u2014 2026: (26,445) | 2025: (24,082) | 2024: (21,771)\nFinancing \u003E Other, net \u2014 2026: (2,839) | 2025: (2,291) | 2024: (1,309)\nFinancing \u003E Net cash used in financing \u2014 2026: (52,546) | 2025: (51,699) | 2024: (37,757)\nInvesting\n\n--- Excerpt from MSFT-10K-2026.html, section PART II \u003E Item 5. MARKET FOR REGISTRANT\u2019S COMMON EQUITY, RELATED STOCKHOLDER MATTERS, AND ISSUER PURCHASES OF EQUITY SECURITIES ---\nMARKET AND STOCKHOLDERS\n\nOur common stock is traded on the NASDAQ Stock Market under the symbol MSFT. On July 23, 2026, there were 74,199 registered holders of record of our common stock.\n\nSHARE REPURCHASES AND DIVIDENDS\n\nFollowing are our monthly share repurchases for the fourth quarter of fiscal year 2026:\n\n(In millions) Period\nApril 1, 2026 \u2013 April 30, 2026 \u2014 Total Number of Shares Purchased: 1,002,119 | Average Price Paid Per Share: $398.88 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: 1,002,119 | Approximate Dollar Value of Shares That May Yet Be Purchased Under the Plans or Programs: $43,630\nMay 1, 2026 \u2013 May 31, 2026 \u2014 Total Number of Shares Purchased: 3,559,509 | Average Price Paid Per Share: 416.81 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: 3,559,509 | Approximate Dollar Value of Shares That May Yet Be Purchased Under the Plans or Programs: 42,147\nJune 1, 2026 \u2013 June 30, 2026 \u2014 Total Number of Shares Purchased: 3,828,061 | Average Price Paid Per Share: 396.19 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: 3,828,061 | Approximate Dollar Value of Shares That May Yet Be Purchased Under the Plans or Programs: 40,630\nTotal Number of Shares Purchased: 8,389,689 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: 8,389,689\n\nAll share repurchases were made using cash resources. Our share repurchases may occur through open market purchases or pursuant to a Rule 10b5-1 trading plan. The above table excludes shares repurchased to settle employee tax withholding related to the vesting of stock awards.\n\nOur Board of Directors declared the following dividends during the fourth quarter of fiscal year 2026:\n\n--- Excerpt from MSFT-10K-2026.html, section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Stockholders\u0027 Equity ---\nWe repurchased the following shares of common stock under the share repurchase programs:\n\n(In millions) Year Ended June 30,\nFirst Quarter \u2014 2026 Shares: 8 | 2026 Amount: $3,955 | 2025 Shares: 7 | 2025 Amount: $2,800 | 2024 Shares: 11 | 2024 Amount: $3,560\nSecond Quarter \u2014 2026 Shares: 12 | 2026 Amount: 5,964 | 2025 Shares: 8 | 2025 Amount: 3,500 | 2024 Shares: 7 | 2024 Amount: 2,800\nThird Quarter \u2014 2026 Shares: 7 | 2026 Amount: 3,400 | 2025 Shares: 8 | 2025 Amount: 3,500 | 2024 Shares: 7 | 2024 Amount: 2,800\nFourth Quarter \u2014 2026 Shares: 9 | 2026 Amount: 3,400 | 2025 Shares: 8 | 2025 Amount: 3,200 | 2024 Shares: 7 | 2024 Amount: 2,800\nTotal \u2014 2026 Shares: 36 | 2026 Amount: $16,719 | 2025 Shares: 31 | 2025 Amount: $13,000 | 2024 Shares: 32 | 2024 Amount: $11,960\n\nAll share repurchases were made using cash resources. Shares repurchased during fiscal year 2026 were under the share repurchase program approved on September 16, 2024. Shares repurchased during the fourth quarter of fiscal year 2025 were under the share repurchase programs approved on September 14, 2021 and September 16, 2024. All other shares repurchased were under the share repurchase program approved on September 14, 2021. The above table excludes shares repurchased to settle employee tax withholding related to the vesting of stock awards of $5.6 billion, $5.4 billion, and $5.3 billion for fiscal years 2026, 2025, and 2024, respectively.\n\nDividends\n\nOur Board of Directors declared the following dividends:"
+              }
+            ]
+          }
+        },
+        "diagnostics": [
+          {
+            "severity": "informational",
+            "message": "Model\u0027s evaluation chain of thought: Let\u0027s think step by step:"
+          }
+        ],
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "3504",
+          "eval-output-tokens": "198",
+          "eval-total-tokens": "3702",
+          "eval-duration-ms": "107882.85"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0020132,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2609,
+          "outputTokenCount": 49,
+          "totalTokenCount": 2658
+        },
+        "cacheKey": "006846A089940C3BD312A59D17E4F69AE0E84CA4B5CF92CB7A7113E8873CEB0739FD1A01582AB0DC1338EFAE37303EFF",
+        "cacheHit": true
+      },
+      {
+        "latency": 107.8826062,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 3504,
+          "outputTokenCount": 198,
+          "totalTokenCount": 3702
+        },
+        "cacheKey": "B7AED33E592E4B2C185BEFC0F122A69EBE74B0653B2DBA305B9B5429E0140BDB8580E4A6BC7812C8234AC81138A90117",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:MSFT",
+    "statement:none",
+    "ollama:0.35.1"
+  ],
+  "formatVersion": 1
+}

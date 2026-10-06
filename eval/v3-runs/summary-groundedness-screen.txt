@@ -1,0 +1,6 @@
+Execution groundedness-screen: 18 questions, 32 min, graders both (groundedness)
+Main: reliable 4/7  decline-ok 1  reliable 3  wrong 3  | Groundedness passes 7/7  | answer in the top 5: 6  | figures: no figure stated 2  traced 5
+HeldOut: reliable 1/4  reliable 1  wrong 3  | Groundedness passes 4/4  | answer in the top 5: 2  | figures: traced 4
+AnswerSide: reliable 2/7  reliable 2  wrong 5  | Groundedness passes 7/7  | answer in the top 5: 6  | figures: traced 7
+No untraced figure.
+Every grade equals the v2 baseline.

@@ -117,7 +117,7 @@ internal static class JudgeAgreement
 
             List<JudgedAnswer> unread = judged.Where(a => a.Verdicts[name].Score is null).ToList();
             int recoveredCount = judged.Count(a => a.Verdicts[name].Recovered);
-            text.AppendLine($"Reply a bare score, as the prompt asks: {judged.Count - unread.Count - recoveredCount}; score taken from the reply's words: {recoveredCount}"
+            text.AppendLine($"Score read as the prompt asks for it: {judged.Count - unread.Count - recoveredCount}; score taken from the reply's words: {recoveredCount}"
                 + " (the library's own verdict for that score)");
             text.AppendLine($"Reply not read as a score: {unread.Count}");
             unread.ForEach(a => text.AppendLine($"  {a.Scenario}: {a.Verdicts[name].Error ?? "no score"}"));

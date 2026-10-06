@@ -1,0 +1,159 @@
+{
+  "scenarioName": "AnswerSide.A1",
+  "iterationName": "1",
+  "executionName": "groundedness-screen",
+  "creationTime": "2026-10-06T00:12:41.4701891Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\r\n\u0060\u0060\u0060\r\nINCOME STATEMENTS\n\n(In millions, except per share amounts) Year Ended June 30,\nEarnings per share \u003E Basic \u2014 2026: $18.00 | 2025: $13.70 | 2024: $11.86\nEarnings per share \u003E Diluted \u2014 2026: $17.95 | 2025: $13.64 | 2024: $11.80\nWeighted average shares outstanding:\nWeighted average shares outstanding \u003E Basic \u2014 2026: 7,429 | 2025: 7,433 | 2024: 7,431\nWeighted average shares outstanding \u003E Diluted \u2014 2026: 7,453 | 2025: 7,465 | 2024: 7,469\n\nRefer to accompanying notes.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\r\n\u0060\u0060\u0060\r\nINCOME STATEMENTS\n\n(In millions, except per share amounts) Year Ended June 30,\nRevenue:\nRevenue \u003E Product \u2014 2026: $64,696 | 2025: $63,946 | 2024: $64,773\nRevenue \u003E Service and other \u2014 2026: 267,143 | 2025: 217,778 | 2024: 180,349\nRevenue \u003E Total revenue \u2014 2026: 331,839 | 2025: 281,724 | 2024: 245,122\nCost of revenue:\nCost of revenue \u003E Product \u2014 2026: 12,098 | 2025: 13,501 | 2024: 15,272\nCost of revenue \u003E Service and other \u2014 2026: 94,276 | 2025: 74,330 | 2024: 58,842\nCost of revenue \u003E Total cost of revenue \u2014 2026: 106,374 | 2025: 87,831 | 2024: 74,114\nGross margin \u2014 2026: 225,465 | 2025: 193,893 | 2024: 171,008\nResearch and development \u2014 2026: 35,562 | 2025: 32,488 | 2024: 29,510\nSales and marketing \u2014 2026: 26,710 | 2025: 25,654 | 2024: 24,456\nGeneral and administrative \u2014 2026: 7,956 | 2025: 7,223 | 2024: 7,609\nOperating income \u2014 2026: 155,237 | 2025: 128,528 | 2024: 109,433\nOther income (expense), net \u2014 2026: 10,697 | 2025: (4,901) | 2024: (1,646)\nIncome before income taxes \u2014 2026: 165,934 | 2025: 123,627 | 2024: 107,787\nProvision for income taxes \u2014 2026: 32,185 | 2025: 21,795 | 2024: 19,651\nNet income \u2014 2026: $133,749 | 2025: $101,832 | 2024: $88,136\nEarnings per share:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Earnings Per Share ---\r\n\u0060\u0060\u0060\r\nNOTE 2 \u2014 EARNINGS PER SHARE\n\nBasic earnings per share (\u201CEPS\u201D) is computed based on the weighted average number of shares of common stock outstanding during the period. Diluted EPS is computed based on the weighted average number of shares of common stock plus the effect of dilutive potential common shares outstanding during the period using the treasury stock method. Dilutive potential common shares include outstanding stock options and stock awards.\n\nThe components of basic and diluted EPS were as follows:\n\n(In millions, except per share amounts) Year Ended June 30,\nNet income available for common shareholders (A) \u2014 2026: $133,749 | 2025: $101,832 | 2024: $88,136\nWeighted average outstanding shares of common stock (B) \u2014 2026: 7,429 | 2025: 7,433 | 2024: 7,431\nDilutive effect of stock-based awards \u2014 2026: 24 | 2025: 32 | 2024: 38\nCommon stock and common stock equivalents (C) \u2014 2026: 7,453 | 2025: 7,465 | 2024: 7,469\nEarnings Per Share\nEarnings Per Share \u003E Basic (A/B) \u2014 2026: $18.00 | 2025: $13.70 | 2024: $11.86\nEarnings Per Share \u003E Diluted (A/C) \u2014 2026: $17.95 | 2025: $13.64 | 2024: $11.80\n\nAnti-dilutive stock-based awards excluded from the calculations of diluted EPS were immaterial during the periods presented.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS ---\r\n\u0060\u0060\u0060\r\nSUMMARY RESULTS OF OPERATIONS\n\n(In millions, except percentages and per share amounts)\nRevenue \u2014 2026: $331,839 | 2025: $281,724 | Percentage Change: 18%\nGross margin \u2014 2026: 225,465 | 2025: 193,893 | Percentage Change: 16%\nOperating income \u2014 2026: 155,237 | 2025: 128,528 | Percentage Change: 21%\nNet income \u2014 2026: 133,749 | 2025: 101,832 | Percentage Change: 31%\nDiluted earnings per share \u2014 2026: 17.95 | 2025: 13.64 | Percentage Change: 32%\nAdjusted net income (non-GAAP) \u2014 2026: 128,786 | 2025: 105,452 | Percentage Change: 22%\nAdjusted diluted earnings per share (non-GAAP) \u2014 2026: 17.28 | 2025: 14.13 | Percentage Change: 22%\n\nAdjusted net income and adjusted diluted earnings per share (\u201CEPS\u201D) are non-GAAP financial measures. These non-GAAP financial measures exclude net gains and losses from investments in OpenAI. Refer to the Non-GAAP Financial Measures section below for a reconciliation of our financial results reported in accordance with GAAP to non-GAAP financial results.\n\nFiscal Year 2026 Compared with Fiscal Year 2025\n\nRevenue increased $50.1 billion or 18% driven by growth in Microsoft Cloud. Intelligent Cloud revenue increased driven by Azure. Productivity and Business Processes revenue increased driven by Microsoft 365 Commercial cloud. More Personal Computing revenue decreased driven by XBOX (formerly Gaming), offset in part by growth in Search advertising.\n\nCost of revenue increased $18.5 billion or 21% driven by growth in Microsoft Cloud.\n\nGross margin increased $31.6 billion or 16% with growth across each of our segments.\n\n\u2022\n\nGross margin percentage decreased slightly driven by continued investments in AI infrastructure and growing AI product usage, offset in part by efficiency gains across the Microsoft Cloud.\n\n\u2022\n\nMicrosoft Cloud gross margin percentage decreased to 66% driven by continued investments in AI infrastructure and growing AI product usage, offset in part by efficiency gains in Azure and Microsoft 365 Commercial cloud.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS ---\r\n\u0060\u0060\u0060\r\n(In millions, except percentages and per share amounts)\nNet (gains) losses from investments in OpenAI \u2014 2026: (0.67) | 2025: 0.49 | 2024: 0.15 | Percentage Change 2026 Versus 2025: (237)% | Percentage Change 2025 Versus 2024: 227%\nAdjusted diluted earnings per share (non-GAAP) \u2014 2026: $17.28 | 2025: $14.13 | 2024: $11.95 | Percentage Change 2026 Versus 2025: 22% | Percentage Change 2025 Versus 2024: 18%\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Microsoft\u0027s diluted earnings per share for fiscal year 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s diluted earnings per share for fiscal year 2026 were $17.95. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Earnings Per Share)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected $17.95."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - tools/replay_recall.py\u0027s rank, ported and held to it.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "17.95 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 17.95 from excerpts 1 (income_statement), 3 (narrative), 4 (narrative)."
+        },
+        "metadata": {
+          "Stated 17.95": "excerpt 1 (income_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Earnings per share \u003E Diluted \u2014 2026: $17.95 | 2025: $13.64 | 2024: $11.80\u0022; excerpt 3 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Earnings Per Share): \u0022Earnings Per Share \u003E Diluted (A/C) \u2014 2026: $17.95 | 2025: $13.64 | 2024: $11.80\u0022; excerpt 4 (narrative, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS): \u0022Diluted earnings per share \u2014 2026: 17.95 | 2025: 13.64 | Percentage Change: 32%\u0022"
+        }
+      },
+      "Groundedness": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Groundedness",
+        "reason": "The RESPONSE accurately and completely answers the QUERY by providing the specific value for Microsoft\u0027s diluted earnings per share for fiscal year 2026, which is directly extracted from the provided CONTEXT.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Grounding Context (Groundedness)": {
+            "name": "Grounding Context (Groundedness)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "--- Excerpt from MSFT-10K-2026.html, section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\nINCOME STATEMENTS\n\n(In millions, except per share amounts) Year Ended June 30,\nEarnings per share \u003E Basic \u2014 2026: $18.00 | 2025: $13.70 | 2024: $11.86\nEarnings per share \u003E Diluted \u2014 2026: $17.95 | 2025: $13.64 | 2024: $11.80\nWeighted average shares outstanding:\nWeighted average shares outstanding \u003E Basic \u2014 2026: 7,429 | 2025: 7,433 | 2024: 7,431\nWeighted average shares outstanding \u003E Diluted \u2014 2026: 7,453 | 2025: 7,465 | 2024: 7,469\n\nRefer to accompanying notes.\n\n--- Excerpt from MSFT-10K-2026.html, section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\nINCOME STATEMENTS\n\n(In millions, except per share amounts) Year Ended June 30,\nRevenue:\nRevenue \u003E Product \u2014 2026: $64,696 | 2025: $63,946 | 2024: $64,773\nRevenue \u003E Service and other \u2014 2026: 267,143 | 2025: 217,778 | 2024: 180,349\nRevenue \u003E Total revenue \u2014 2026: 331,839 | 2025: 281,724 | 2024: 245,122\nCost of revenue:\nCost of revenue \u003E Product \u2014 2026: 12,098 | 2025: 13,501 | 2024: 15,272\nCost of revenue \u003E Service and other \u2014 2026: 94,276 | 2025: 74,330 | 2024: 58,842\nCost of revenue \u003E Total cost of revenue \u2014 2026: 106,374 | 2025: 87,831 | 2024: 74,114\nGross margin \u2014 2026: 225,465 | 2025: 193,893 | 2024: 171,008\nResearch and development \u2014 2026: 35,562 | 2025: 32,488 | 2024: 29,510\nSales and marketing \u2014 2026: 26,710 | 2025: 25,654 | 2024: 24,456\nGeneral and administrative \u2014 2026: 7,956 | 2025: 7,223 | 2024: 7,609\nOperating income \u2014 2026: 155,237 | 2025: 128,528 | 2024: 109,433\nOther income (expense), net \u2014 2026: 10,697 | 2025: (4,901) | 2024: (1,646)\nIncome before income taxes \u2014 2026: 165,934 | 2025: 123,627 | 2024: 107,787\nProvision for income taxes \u2014 2026: 32,185 | 2025: 21,795 | 2024: 19,651\nNet income \u2014 2026: $133,749 | 2025: $101,832 | 2024: $88,136\nEarnings per share:\n\n--- Excerpt from MSFT-10K-2026.html, section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Earnings Per Share ---\nNOTE 2 \u2014 EARNINGS PER SHARE\n\nBasic earnings per share (\u201CEPS\u201D) is computed based on the weighted average number of shares of common stock outstanding during the period. Diluted EPS is computed based on the weighted average number of shares of common stock plus the effect of dilutive potential common shares outstanding during the period using the treasury stock method. Dilutive potential common shares include outstanding stock options and stock awards.\n\nThe components of basic and diluted EPS were as follows:\n\n(In millions, except per share amounts) Year Ended June 30,\nNet income available for common shareholders (A) \u2014 2026: $133,749 | 2025: $101,832 | 2024: $88,136\nWeighted average outstanding shares of common stock (B) \u2014 2026: 7,429 | 2025: 7,433 | 2024: 7,431\nDilutive effect of stock-based awards \u2014 2026: 24 | 2025: 32 | 2024: 38\nCommon stock and common stock equivalents (C) \u2014 2026: 7,453 | 2025: 7,465 | 2024: 7,469\nEarnings Per Share\nEarnings Per Share \u003E Basic (A/B) \u2014 2026: $18.00 | 2025: $13.70 | 2024: $11.86\nEarnings Per Share \u003E Diluted (A/C) \u2014 2026: $17.95 | 2025: $13.64 | 2024: $11.80\n\nAnti-dilutive stock-based awards excluded from the calculations of diluted EPS were immaterial during the periods presented.\n\n--- Excerpt from MSFT-10K-2026.html, section PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS ---\nSUMMARY RESULTS OF OPERATIONS\n\n(In millions, except percentages and per share amounts)\nRevenue \u2014 2026: $331,839 | 2025: $281,724 | Percentage Change: 18%\nGross margin \u2014 2026: 225,465 | 2025: 193,893 | Percentage Change: 16%\nOperating income \u2014 2026: 155,237 | 2025: 128,528 | Percentage Change: 21%\nNet income \u2014 2026: 133,749 | 2025: 101,832 | Percentage Change: 31%\nDiluted earnings per share \u2014 2026: 17.95 | 2025: 13.64 | Percentage Change: 32%\nAdjusted net income (non-GAAP) \u2014 2026: 128,786 | 2025: 105,452 | Percentage Change: 22%\nAdjusted diluted earnings per share (non-GAAP) \u2014 2026: 17.28 | 2025: 14.13 | Percentage Change: 22%\n\nAdjusted net income and adjusted diluted earnings per share (\u201CEPS\u201D) are non-GAAP financial measures. These non-GAAP financial measures exclude net gains and losses from investments in OpenAI. Refer to the Non-GAAP Financial Measures section below for a reconciliation of our financial results reported in accordance with GAAP to non-GAAP financial results.\n\nFiscal Year 2026 Compared with Fiscal Year 2025\n\nRevenue increased $50.1 billion or 18% driven by growth in Microsoft Cloud. Intelligent Cloud revenue increased driven by Azure. Productivity and Business Processes revenue increased driven by Microsoft 365 Commercial cloud. More Personal Computing revenue decreased driven by XBOX (formerly Gaming), offset in part by growth in Search advertising.\n\nCost of revenue increased $18.5 billion or 21% driven by growth in Microsoft Cloud.\n\nGross margin increased $31.6 billion or 16% with growth across each of our segments.\n\n\u2022\n\nGross margin percentage decreased slightly driven by continued investments in AI infrastructure and growing AI product usage, offset in part by efficiency gains across the Microsoft Cloud.\n\n\u2022\n\nMicrosoft Cloud gross margin percentage decreased to 66% driven by continued investments in AI infrastructure and growing AI product usage, offset in part by efficiency gains in Azure and Microsoft 365 Commercial cloud.\n\n--- Excerpt from MSFT-10K-2026.html, section PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS ---\n(In millions, except percentages and per share amounts)\nNet (gains) losses from investments in OpenAI \u2014 2026: (0.67) | 2025: 0.49 | 2024: 0.15 | Percentage Change 2026 Versus 2025: (237)% | Percentage Change 2025 Versus 2024: 227%\nAdjusted diluted earnings per share (non-GAAP) \u2014 2026: $17.28 | 2025: $14.13 | 2024: $11.95 | Percentage Change 2026 Versus 2025: 22% | Percentage Change 2025 Versus 2024: 18%"
+              }
+            ]
+          }
+        },
+        "diagnostics": [
+          {
+            "severity": "informational",
+            "message": "Model\u0027s evaluation chain of thought: Let\u0027s think step by step: The RESPONSE directly addresses the QUERY by providing the specific value for Microsoft\u0027s diluted earnings per share for fiscal year 2026, which is $17.95. This value is extracted from the provided CONTEXT, specifically from the section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Earnings Per Share. The RESPONSE accurately reflects the information presented in the CONTEXT, without any additional or unrelated information. Therefore, the RESPONSE is fully grounded in the CONTEXT and directly answers the QUERY."
+          }
+        ],
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "llama3.1:8b",
+          "eval-input-tokens": "3069",
+          "eval-output-tokens": "165",
+          "eval-total-tokens": "3234",
+          "eval-duration-ms": "86716.68"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0020989,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2168,
+          "outputTokenCount": 55,
+          "totalTokenCount": 2223
+        },
+        "cacheKey": "2BD245FDC8CF4B9C072556176F3A62090ADEB4DCCCECC9812E09C5860FBF85E0A5D4D3D26F790214DC5541D23F79C9EA",
+        "cacheHit": true
+      },
+      {
+        "latency": 86.7164831,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 3069,
+          "outputTokenCount": 165,
+          "totalTokenCount": 3234
+        },
+        "cacheKey": "E0397DE165DEEE0B403FE04720D27BF58749356AF7E8F20330B3D04D583DF4B7C9FCB527EDBC9EB9546583221EC57551",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:MSFT",
+    "statement:income_statement",
+    "ollama:0.35.1"
+  ],
+  "formatVersion": 1
+}

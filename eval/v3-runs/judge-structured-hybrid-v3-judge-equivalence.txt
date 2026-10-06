@@ -2,7 +2,7 @@ Judge agreement for structured-hybrid-v3-judge-equivalence: 102 answers
 Judge calls: 102, 0 min in all, 0 s per call (0 s: from the cache)
 
 == Equivalence (102 answers)
-Reply a bare score, as the prompt asks: 15; score taken from the reply's words: 86 (the library's own verdict for that score)
+Score read as the prompt asks for it: 15; score taken from the reply's words: 86 (the library's own verdict for that score)
 Reply not read as a score: 1
   Main.T7: Failed to parse numeric score for 'Equivalence' from the following text:
 The predicted answer is: The effect of the Ireland statutory tax rate difference on Microsoft's effective tax rate in fiscal year 2026 was a decrease of 2.6% of the federal statutory rate, which was $(4,301) million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Income Taxes)

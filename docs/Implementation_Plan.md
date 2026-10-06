@@ -66,7 +66,7 @@ its context. **Variance measured (2026-10-05):** two fresh passes identical to e
 other (102/102); against the baseline 100/102 grades - the baseline was answered on Ollama 0.35.0, the passes on 0.35.1
 (llama.cpp bumped). Compare runs only on the same Ollama build. **Step 6 (local judge) measured, kept alongside:** Equivalence
 by `llama3.1:8b` passes 14 of 18 wrong answers, so the strict grade stays the grade; `Graders` in `evalsettings.json`
-chooses strict, judge or both. Decision-Log, "Variance measurement - done", "Step 6 - the local judge".
+chooses strict, judge or both. Groundedness screened (18 answers): fails 0 of 11 wrong ones - not run in full. Decision-Log, "Variance measurement - done", "Step 6 - the local judge".
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the

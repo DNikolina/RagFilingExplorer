@@ -124,6 +124,9 @@ no longer does - same prompt, different wording, once a different figure - see `
 **`v3-retrieval-parity/`** - v3 step 3's oracle: `tools/replay_recall.py`'s output on the three v2 baseline logs
 (`structured-5a/` main and held-out, `answer-side-norerank/`), which `RetrievalParityTests` matches rank for rank.
 
+**Groundedness screen** (2026-10-05) - in `v3-runs/`: execution `groundedness-screen` (18 cached answers, `Graders:
+both`, `Judges: groundedness`), agreement `judge-groundedness-screen.txt`. 0 of 11 wrong answers failed; no full run.
+
 **`relevance-hint-screen/`** - a screen (2026-10-05): the prompt told what the excerpts' order means. 0/4 targets fixed,
 0/12 controls lost, no full run. `results.txt` has every answer, current and hinted. Decision-Log, "Screen: tell the model
 what the excerpts' order means".

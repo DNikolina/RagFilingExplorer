@@ -1,0 +1,48 @@
+Judge agreement for groundedness-screen: 18 answers
+Judge calls: 18, 31 min in all, 103 s per call (0 s: from the cache)
+
+== Groundedness (18 answers)
+Score read as the prompt asks for it: 18; score taken from the reply's words: 0 (the library's own verdict for that score)
+Reply not read as a score: 0
+Score by strict grade (rows: strict passed / failed; columns: score 1-5):
+  strict passed: 1:   0  2:   0  3:   0  4:   2  5:   5
+  strict failed: 1:   0  2:   0  3:   0  4:   5  5:   6
+Score by figure source:
+  no figure stated: 1:   0  2:   0  3:   0  4:   1  5:   1
+  traced          : 1:   0  2:   0  3:   0  4:   6  5:  10
+Agreement on library-read scores only: 7/18
+Agreement with the strict grade at the library's verdict: 7/18 (judge passes a strict failure: 11, judge fails a strict pass: 0)
+Disagreements:
+  AnswerSide.A10: strict wrong, Groundedness 4 (passed)
+    expected: $26,445 million
+    answer:   Microsoft paid $27,034 million in common stock cash dividends in fiscal 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA).
+  AnswerSide.A11: strict wrong, Groundedness 5 (passed)
+    expected: $5,787 million
+    answer:   Oracle paid $63 million in dividends to its Mandatory Convertible Preferred Stock holders and $5.7 billion in dividends to its common stock holders in fiscal 2026. (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  AnswerSide.A14: strict wrong, Groundedness 5 (passed)
+    expected: $55,663 million
+    answer:   Oracle spent $55.7 billion on capital expenditures in fiscal 2026. (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  AnswerSide.A15: strict wrong, Groundedness 5 (passed)
+    expected: $22,271 million
+    answer:   Microsoft spent $16,719 million in cash repurchasing its common stock in fiscal 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Stockholders' Equity).
+  AnswerSide.A8: strict wrong, Groundedness 4 (passed)
+    expected: $2.00
+    answer:   Oracle declared a quarterly cash dividend of $0.50 per share of its outstanding common stock in June 2026. (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  HeldOut.H13: strict wrong, Groundedness 4 (passed)
+    expected: $9,033,681 thousand
+    answer:   Netflix's cash and cash equivalents at December 31, 2025 were $5,208,710 thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Cash, Cash Equivalents, Restricted Cash, and Short-term Investments).
+  HeldOut.H25: strict wrong, Groundedness 5 (passed)
+    expected: $46,751 million
+    answer:   Oracle's total operating expenses in fiscal 2026 were $67,357 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)
+  HeldOut.H34: strict wrong, Groundedness 5 (passed)
+    expected: $9,127,167 thousand
+    answer:   Netflix repurchased 86,536,215 shares of common stock for an aggregate amount of $9.1 billion in 2025 (Source: NFLX-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations).
+  Main.Q2: strict wrong, Groundedness 5 (passed)
+    expected: $43,056 million
+    answer:   Oracle's total stockholders' equity as of May 31, 2026 was $42,508 million, and as of May 31, 2025 was $20,451 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)
+  Main.T1: strict wrong, Groundedness 4 (passed)
+    expected: $2,243 million
+    answer:   Microsoft's other comprehensive income for fiscal year 2025 was $104,075 million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
+  Main.T9: strict wrong, Groundedness 4 (passed)
+    expected: $4,743 million
+    answer:   Oracle declared $1.70 per share in common stock dividends in fiscal 2025. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)

@@ -3233,3 +3233,19 @@ never repeated in an answer. The unchanged prompt reproduced the variance pass o
 2026, were"), same figure and grade: the first difference seen within one Ollama build, with questions sent in another order
 (prefix reuse is a candidate; not tested). Within a build, "repeats exactly" holds for grades and figures, not always to the
 comma.
+
+**Screen: Groundedness (user, 2026-10-05) - planned before running.** Microsoft's GroundednessEvaluator, judged by
+`llama3.1:8b`, on the baseline's cached answers, as a screen instead of a ~3.5 h full run: `Graders: both`, `Judges:
+groundedness`, execution `groundedness-screen`. 18 questions: the 11 wrong-figure answers (A8, A10, A11, A14, A15, H13, H25,
+H34, Q2, T1, T9), 4 correct figures (Q1, A1, A13, H16), 2 facts (Q12 "Austin", Q13 "Ernst & Young") and a correct decline
+(Q15). Its prompt reads only the question (no history), the excerpts as context and the answer, with a 800-token reply
+cap - inside the judge's 8,192 context. Expectation stated: the wrong answers score high - every figure they state is in
+their excerpts (figure source, 0 untraced in 306 answers). **Bar: a full run only if it fails (score below 4) at least 3
+of the 11 wrong-figure answers and no correct one.**
+**Outcome (`eval/v3-runs/judge-groundedness-screen.txt`, 31 min, ~103 s a call): bar not met - 0 of the 11 wrong-figure
+answers failed; no full run.** Every answer scored 4 or 5 - wrong ones 5x4, 6x5; correct ones 2x4, 5x5. The judge calls a
+wrong figure correct: A10's $27,034M (declared) - 4, "providing the correct amount of cash paid in common stock dividends";
+H25's $67,357M (total revenues, given as operating expenses) - 5, "a direct and accurate answer ... fully correct and
+complete". All 18 replies were readable (Groundedness reads its score from `<S2>` tags, which llama follows). As expected:
+the wrong figures are in the excerpts, so "grounded" holds; the line is wrong. Groundedness stays available
+(`Judges: groundedness`) but isn't run by default.
