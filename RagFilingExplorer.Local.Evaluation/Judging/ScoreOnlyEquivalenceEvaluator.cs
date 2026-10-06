@@ -43,10 +43,10 @@ internal sealed class ScoreOnlyChatClient(IChatClient inner) : DelegatingChatCli
 }
 
 /// <summary>
-/// Microsoft's <see cref="EquivalenceEvaluator"/>, given the judge's score alone (user, 2026-10-05). Its parser requires the
+/// Microsoft's <see cref="EquivalenceEvaluator"/>, given the judge's score alone. Its parser requires the
 /// whole reply to be the number (<c>TryParseEvaluationResponseWithValue</c>: the trimmed text, parsed as a value) - its
 /// prompt asks for "a single integer value ... no other text", and it was tested only with GPT-4o. llama3.1:8b writes the
-/// score in a sentence; read as given, 87 of the first full run's 102 replies failed. The score is taken from the words as
+/// score in a sentence, so read as given most replies fail to parse. The score is taken from the words as
 /// <see cref="JudgeSetup.ScoreInReply"/> reads them - in the spirit of the library's own repair prompt for malformed JSON
 /// replies - and the library then parses and interprets it as its own (scores below 4 fail). Nothing is hidden: the metric
 /// keeps the judge's reply ("Judge reply") and says whether its score was taken from the words; a reply with no score in it

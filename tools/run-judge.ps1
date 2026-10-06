@@ -6,8 +6,8 @@
 .DESCRIPTION
     One execution, stored in eval/v3-runs/ like any run; the answers come from the response cache (the same scenarios
     as the baseline), so only the judges ask the model. The agreement is written to eval/v3-runs/judge-<execution>.txt.
-    Equivalence took ~8 s a call, 13 min for all 102 (2026-10-05); Groundedness ~100 s a call - screened on 18 answers
-    (-Judges groundedness -Only ...), not run in full. Builds once, then runs with --no-build.
+    Equivalence takes ~8 s a call, ~15 min for all 102 questions; Groundedness ~100 s a call, so screen it on a few
+    questions first (-Judges groundedness -Only ...). Builds once, then runs with --no-build.
 
     After the variance passes, in one detached process:
         Start-Process powershell -WindowStyle Minimized -ArgumentList '-NoProfile -ExecutionPolicy Bypass -Command "& .\tools\run-variance.ps1; & .\tools\run-judge.ps1"'

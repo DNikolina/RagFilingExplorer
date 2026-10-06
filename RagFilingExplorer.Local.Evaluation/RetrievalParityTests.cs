@@ -9,7 +9,7 @@ using RagFilingExplorer.Local.Retrieval;
 namespace RagFilingExplorer.Local.Evaluation;
 
 /// <summary>
-/// v3 step 3's bar: the app, asked in-process with its shipped settings (AppComposition - the console's own wiring),
+/// The app, asked in-process with its shipped settings (AppComposition - the console's own wiring),
 /// ranks every question's answer exactly where tools/replay_recall.py ranked it from the v2 baseline logs - the replay's
 /// output is committed in eval/v3-retrieval-parity/. Also the fused score of the first chunk, to the replay's four
 /// decimals. Needs Ollama (question embeddings) and the built rag.structured.db; the chat model is never asked - its

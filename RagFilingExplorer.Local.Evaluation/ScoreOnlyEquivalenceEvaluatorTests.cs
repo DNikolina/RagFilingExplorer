@@ -37,7 +37,7 @@ public class ScoreOnlyEquivalenceEvaluatorTests
     [Test]
     public async Task EvaluateAsync_ScoreInASentence_ParsedByTheLibraryAsItsOwn()
     {
-        // A10's reply in the first full run, word for word: read as given, the library failed to parse it.
+        // A10's reply in the judge run, word for word: read as given, the library failed to parse it.
         const string reply = "The predicted answer is mostly similar to the correct answer, but with a slight difference in the amount. Therefore, the Equivalence score is 4.";
 
         NumericMetric metric = await JudgeAsync(reply);

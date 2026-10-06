@@ -5,13 +5,13 @@ using RagFilingExplorer.Local.Evaluation.Grading;
 
 namespace RagFilingExplorer.Local.Evaluation;
 
-/// <summary>The figure-source trace and its evaluator (v3 step 5), offline.</summary>
+/// <summary>The figure-source trace and its evaluator, offline.</summary>
 [TestFixture]
 public class FigureSourceEvaluatorTests
 {
     private const string Filing = "MSFT-10K-2026.html";
 
-    // A10's case, the misreading step 5 exists to show: the answer's $27,034M is the equity statement's dividends
+    // A10's case, the misreading the trace exists to show: the answer's $27,034M is the equity statement's dividends
     // declared, not the cash flow statement's dividends paid (26,445).
     private static readonly RetrievedExcerpt CashFlow = new(Filing, "PART II > Item 8 > Cash Flows Statements", "cash_flow_statement",
         "CASH FLOWS STATEMENTS\n(In millions)\nFinancing > Common stock repurchased — 2026: (18,420) | 2025: (18,420)\n"
@@ -76,7 +76,7 @@ public class FigureSourceEvaluatorTests
     [Test]
     public void Trace_DayOfADate_IsNotAFigure()
     {
-        // Q2, Q19 and 32 more v3-baseline answers: "as of December 31, 2025" made 31 a figure, found in nearly every excerpt.
+        // Q2, Q19 and many more baseline answers: "as of December 31, 2025" made 31 a figure, found in nearly every excerpt.
         List<FigureSource> sources = FigureSourceEvaluator.Trace("As of June 30, 2026, dividends paid were $26,445 million.", "q", [CashFlow]);
 
         Assert.That(sources.Select(s => s.Figure), Is.EqualTo(new[] { "26,445" }));

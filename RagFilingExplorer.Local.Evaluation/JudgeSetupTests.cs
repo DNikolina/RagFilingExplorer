@@ -7,7 +7,7 @@ using RagFilingExplorer.Local.Evaluation.Judging;
 
 namespace RagFilingExplorer.Local.Evaluation;
 
-/// <summary>The local judge's setup (v3 step 6), offline: ground truth, grounding text, evaluators, the judge's context window.</summary>
+/// <summary>The local judge's setup, offline: ground truth, grounding text, evaluators, the judge's context window.</summary>
 [TestFixture]
 public class JudgeSetupTests
 {
@@ -68,13 +68,13 @@ public class JudgeSetupTests
 
     private const string Unread = "Failed to parse numeric score for 'Equivalence' from the following text:\r\n";
 
-    // The step 6 smoke test's two replies, word for word (A10, Q1).
+    // The first judge test's two replies, word for word (A10, Q1).
     [TestCase(Unread + "The predicted answer is mostly similar to the correct answer, but with a slight difference in the amount. Therefore, the Equivalence score is 4.", 4)]
     [TestCase(Unread + "The predicted answer is mostly similar to the correct answer, as it provides the same numerical value and mentions the same date. However, it also includes additional information that is not present in the correct answer, such as the source of the data. Therefore, I would rate the Equivalence metric as 4 stars.", 4)]
     [TestCase(Unread + "Equivalence score: 2", 2)]
     [TestCase(Unread + "I'd give it 5/5.", 5)]
     [TestCase(Unread + "Rather than 5 stars, the score is 3.", 3)]   // the last phrase wins
-    // The first full run's most common phrasings (structured-hybrid-v3-judge-equivalence), word for word.
+    // The judge run's most common phrasings (structured-hybrid-v3-judge-equivalence), word for word.
     [TestCase(Unread + "The predicted answer is identical to the correct answer, including the exact figure and source. Therefore, the Equivalence metric should be 5.", 5)]
     [TestCase(Unread + "The predicted answer is completely similar to the correct answer, as both answers state that the information is not available in the filings. Therefore, the Equivalence metric value is 5.", 5)]
     [TestCase(Unread + "The only difference is the inclusion of the source, which is not relevant to the calculation. Therefore, the Equivalence score should be 5", 5)]

@@ -45,7 +45,7 @@ internal sealed class JudgeContextChatClient(IChatClient inner) : DelegatingChat
 }
 
 /// <summary>
-/// v3 step 6, the local judge - kept alongside the strict grade, never the grade (Graders: judge or both): Microsoft's
+/// The local judge - kept alongside the strict grade, never the grade (Graders: judge or both): Microsoft's
 /// Quality evaluators, judged by the app's own chat model, set against the project's deterministic metrics - Equivalence
 /// against the strict grade, Groundedness against the figure source.
 /// </summary>
@@ -117,8 +117,8 @@ internal static partial class JudgeSetup
     }
 
     // The score as llama3.1:8b writes it instead of the bare integer asked for: "Therefore, the Equivalence score is 4.",
-    // "I would rate the Equivalence metric as 4 stars." (the smoke test), and - the most common in the first full run -
-    // "the Equivalence metric should be 5", "the Equivalence metric value is 5", "the Equivalence score should be 5". A
+    // "I would rate the Equivalence metric as 4 stars.", "the Equivalence metric should be 5", "the Equivalence metric
+    // value is 5", "the Equivalence score should be 5" (JudgeSetupTests has the replies word for word). A
     // score word (score, metric, value, rating, rate) must come first: a reply cut off before its score (the evaluator caps
     // its length) can end on a figure ("$4 million"), which isn't a score. The last such phrase wins.
     [GeneratedRegex(@"\b(?:score|metric|value|rating|rate[ds]?)\b[^.\d]{0,30}?\b(?:is|of|be|as|at)\s*(?:an?\s+)?\**([1-5])\b(?![.,]\d)"
@@ -134,7 +134,7 @@ internal static partial class JudgeSetup
     /// <summary>
     /// The score a judge wrote in words, recovered from the library's "Failed to parse numeric score" error, which quotes
     /// the reply; null when the error isn't that or no score phrase is found. A second reading next to the library's -
-    /// the agreement report counts the two apart (user, 2026-10-05).
+    /// the agreement report counts the two apart.
     /// </summary>
     public static int? RecoverScore(string? error)
     {

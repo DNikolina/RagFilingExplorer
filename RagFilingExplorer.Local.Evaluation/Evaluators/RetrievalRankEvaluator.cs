@@ -8,7 +8,7 @@ namespace RagFilingExplorer.Local.Evaluation.Evaluators;
 internal sealed record RetrievedExcerpt(string SourceFiling, string Heading, string StatementType, string Content);
 
 /// <summary>The chunks the app retrieved for the question, best first (RagAnswer.RetrievedChunks), as additional context.
-/// The stored context is each chunk's text, as before the excerpts carried their metadata (step 5).</summary>
+/// The stored context is each chunk's text only; the metadata travels in <see cref="Excerpts"/>.</summary>
 internal sealed class RetrievedChunksContext(IReadOnlyList<RetrievedExcerpt> excerpts)
     : EvaluationContext(ContextName, excerpts.Select(e => (AIContent)new TextContent(e.Content)).ToList())
 {
@@ -73,7 +73,7 @@ internal sealed class RetrievalRankEvaluator(int generationTopK) : IEvaluator
             ?? throw new ArgumentException($"{nameof(RetrievalRankEvaluator)} needs a {nameof(RetrievedChunksContext)}.", nameof(additionalContext));
 
         // The sentence is the interpretation's reason - the report's "Why this score?"; the metric's own reason, shown as
-        // "What this measures?", is the description (2026-10-05).
+        // "What this measures?", is the description.
         string description =
             "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-"
             + $"{generationTopK} are in the model's prompt; a later rank, or none, means retrieval missed it - so a wrong answer "

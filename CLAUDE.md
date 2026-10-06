@@ -24,6 +24,9 @@ covers changes, update its answer in the same change; keep it to stable facts an
 - Correctness over speed. This is not a race against any deadline.
 - Stop and check in at the decision points the plan calls out (e.g. filing selection, chunking
   approach, falling back from a preview library) rather than pushing straight through silently.
+- Code comments say what the code does and why it's shaped that way - the constraint or pitfall the code alone
+  doesn't show. Never when or who: no dates, "(user, ...)", step numbers, measured counts or before/after stories.
+  That history belongs in `docs/Decision-Log.md`; a comment may point to a section there by name.
 - Don't skip the testing step (Step 7) or treat it as optional — it's how "it works" gets verified
   rather than assumed.
 

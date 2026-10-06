@@ -22,7 +22,7 @@ public class HistoricRunImportTests
         Dictionary<string, int> imported = await HistoricRunImporter.ImportAsync(Repo, storage, HistoricRunImporter.MainLine);
         await EvaluationRunner.WriteReportAsync(storage, Path.Combine(storage, "report.html"), executionName: null);
 
-        // 40 main questions in every run; H1-H15 until step 2 added H16-H35; A1-A27 from step 5a.
+        // 40 main questions in every run; H1-H15 until the hybrid-search run added H16-H35; A1-A27 from the decline-form run.
         Assert.That(imported.Values.Take(8), Is.All.EqualTo(55));
         Assert.That(imported["2026-09-30-v2-2-hybrid-search"], Is.EqualTo(75));
         Assert.That(imported["2026-09-30-v2-5a-decline-form"], Is.EqualTo(102));

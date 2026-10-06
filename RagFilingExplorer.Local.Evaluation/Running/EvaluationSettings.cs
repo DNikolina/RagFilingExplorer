@@ -6,8 +6,7 @@ namespace RagFilingExplorer.Local.Evaluation.Running;
 
 /// <summary>
 /// How an evaluation run is set up - <c>RagFilingExplorer.Local.Evaluation/evalsettings.json</c>, the evaluation's
-/// counterpart of the app's appsettings.json (user, 2026-10-05: one configuration style, not a settings file here and
-/// environment variables there). The file holds the defaults; an environment variable overrides one key for one run with
+/// counterpart of the app's appsettings.json - one configuration style for both. The file holds the defaults; an environment variable overrides one key for one run with
 /// the same name - <c>Evaluation__NoCache=true</c> - which is how tools/run-variance.ps1 and run-judge.ps1 set a pass.
 /// Every key is required and checked at load, as AppSettings does: no default hides in code.
 ///

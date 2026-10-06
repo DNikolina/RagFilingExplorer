@@ -47,16 +47,16 @@ internal sealed class ScenarioChatClient : IChatClient
 }
 
 /// <summary>
-/// v3 step 4: an evaluation run - the app as configured (AppComposition), every question of the given sets asked
+/// An evaluation run - the app as configured (AppComposition), every question of the given sets asked
 /// in-process, each answer graded (<see cref="StrictFigureEvaluator"/>), its retrieval ranked
-/// (<see cref="RetrievalRankEvaluator"/>) and its figures traced to the excerpts (<see cref="FigureSourceEvaluator"/>,
-/// step 5), stored on disk as one scenario per question under one execution name, with
+/// (<see cref="RetrievalRankEvaluator"/>) and its figures traced to the excerpts (<see cref="FigureSourceEvaluator"/>),
+/// stored on disk as one scenario per question under one execution name, with
 /// the model's responses cached, and an HTML report written from the stored results at the end. A null
 /// <paramref name="cacheTimeToLive"/> asks the model afresh and caches nothing - a variance pass, which must neither replay
 /// the cache (keyed by scenario, so shared by every execution) nor overwrite it. <paramref name="unloadBeforeEachQuestion"/>
-/// unloads the chat model before every question, so none starts from a prompt prefix Ollama still holds - the variance
-/// measurement's check on whether that reuse causes the drift. <paramref name="judges"/> adds Microsoft's Quality
-/// evaluators, judged by the same chat model (step 6, <see cref="JudgeSetup"/>); <paramref name="strictGrade"/> false
+/// unloads the chat model before every question, so none starts from a prompt prefix Ollama still holds - a check on
+/// whether that reuse changes answers. <paramref name="judges"/> adds Microsoft's Quality
+/// evaluators, judged by the same chat model (<see cref="JudgeSetup"/>); <paramref name="strictGrade"/> false
 /// leaves the strict grade out (Graders: judge).
 /// </summary>
 internal sealed class EvaluationRunner(
@@ -203,8 +203,8 @@ internal sealed class EvaluationRunner(
 
         // The report lists executions in the order they first appear in its data, and opens on the first one - the picker's
         // order and the run it opens on can't be set apart, and the run picked is remembered only in that browser tab.
-        // Newest first (user, 2026-10-05; oldest first from 2026-10-02 opened every new tab on v1's 55 questions): each
-        // execution kept together, latest run first. The history and comparison views sort runs by date themselves.
+        // Newest first, so a new tab opens on the latest run; each execution kept together. The history and comparison
+        // views sort runs by date themselves.
         Dictionary<string, DateTime> ranAt = results.GroupBy(r => r.ExecutionName).ToDictionary(g => g.Key, g => g.Min(r => r.CreationTime));
         List<ScenarioRunResult> ordered = results
             .OrderByDescending(r => ranAt[r.ExecutionName]).ThenBy(r => r.ExecutionName, StringComparer.Ordinal)

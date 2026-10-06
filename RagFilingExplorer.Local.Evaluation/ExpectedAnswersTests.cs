@@ -60,7 +60,7 @@ public class ExpectedAnswersTests
     [Test]
     public void BaselineGrades_SetWithoutAV2Baseline_IsEmptyNotAFailure()
     {
-        // A set added after v2 has no baseline to compare with - the run's summary skips the comparison.
+        // A set with no v2 baseline has nothing to compare with - the run's summary skips the comparison.
         Assert.That(EvaluationRunTests.BaselineGrades("SomeNewSet"), Is.Empty);
         Assert.That(EvaluationRunTests.BaselineGrades("AnswerSide"), Has.Count.EqualTo(27));
     }

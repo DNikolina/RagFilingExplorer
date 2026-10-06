@@ -4,11 +4,11 @@ using RagFilingExplorer.Local.Evaluation.Grading;
 namespace RagFilingExplorer.Local.Evaluation;
 
 /// <summary>
-/// v3 step 2's bar: <see cref="StrictGrader"/> grades every graded answer in eval/ exactly as tools/grade_answers.py did -
+/// <see cref="StrictGrader"/> grades every graded answer in eval/ exactly as tools/grade_answers.py did -
 /// status and note - offline, from the answers as logged. A grading is any eval/ JSON whose results carry an id, status,
-/// note and answer (34 runs, 1,029 answers when this was written: v1, every v2 step, both granite models). The Python
+/// note and answer (v1, every v2 step, both granite models). The Python
 /// grade is "graded" where a reader later resolved it (H2, H10, T9...) - "status" then holds the reader's decision - and
-/// "status" otherwise; on 2026-10-02 the Python grader reproduced all 1,029 that way.
+/// "status" otherwise - the Python grader reproduces every grading that way.
 /// </summary>
 [TestFixture]
 public class GraderParityTests

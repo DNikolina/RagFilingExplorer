@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <!-- v3: the evaluation in .NET (docs/Decision-Log.md, "evaluation in .NET (v3)"). The evaluators and their checks
+  <!-- The evaluation in .NET (docs/Decision-Log.md, "evaluation in .NET (v3)"). The evaluators and their checks
        live here, so the app never references the evaluation packages. Offline checks run in every `dotnet test`;
        anything that needs Ollama is [Explicit] and runs only when asked for. -->
   <PropertyGroup>

@@ -12,10 +12,10 @@ internal sealed record FigureSource(string Figure, IReadOnlyList<FigureSighting>
 internal sealed record FigureSighting(int Position, RetrievedExcerpt Excerpt, string Line, int MoreLines);
 
 /// <summary>
-/// v3 step 5: which excerpt each figure in the answer came from. The excerpts are the ones the model was given - the top
+/// Which excerpt each figure in the answer came from. The excerpts are the ones the model was given - the top
 /// <c>generationTopK</c> retrieved chunks, exactly the prompt's - and the figures are the ones the strict grader reads as
 /// stated (<see cref="StrictGrader.StatedFigures"/>: years, citation text and the question's own numbers skipped), less
-/// the day of a date ("December 31" - in 34 of the v3 baseline's answers, matching nearly every excerpt). For each
+/// the day of a date ("December 31" - common in answers, and found in nearly every excerpt). For each
 /// figure: every excerpt holding it, its statement type and section, and the line it sits on. A figure in two excerpts
 /// lists both - which one the model read can't be known.
 ///
@@ -24,8 +24,8 @@ internal sealed record FigureSighting(int Position, RetrievedExcerpt Excerpt, st
 ///   calculated       a figure is in none, and the question asks for a calculation (its chunk_expect lists two or more
 ///                    inputs and not the expected figure - H4, A21-A27): the result isn't printed anywhere
 ///   untraced         a figure is in none, on a question that doesn't ask for one - an invention to read (failed)
-///   no figure stated a text answer ("Austin") or a decline - nothing to trace (user, 2026-10-05: not matched against the
-///                    expected text)
+///   no figure stated a text answer ("Austin") or a decline - nothing to trace (a text answer isn't matched against
+///                    the expected text)
 /// Deterministic - no model is asked. A figure is matched as the grader tokenizes numbers, so "(26,445)" holds 26,445;
 /// a figure the answer restates in other units ("$3.1 billion" for 3,074) isn't found.
 /// </summary>
@@ -187,8 +187,7 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
 
     /// <summary>
     /// A stored figure source's trace as text, one "Stated 27,034: ..." / "Expected 26,445: ..." line each - from its
-    /// metadata, or its reason in a run from before 2026-10-05 (when the trace was the reason, shown by the report under
-    /// "What this measures?").
+    /// metadata, or its reason in older stored runs, which kept the trace there (Decision-Log, "Report layout").
     /// </summary>
     public static string TraceText(EvaluationMetric metric) =>
         metric.Metadata is { Count: > 0 } metadata
@@ -238,7 +237,7 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
 
         // The verdict in one sentence is the interpretation's reason - the report's "Why this score?"; every figure's
         // excerpts and line are metadata - its Name/Value table. The metric's own reason, shown as "What this measures?",
-        // is the description (2026-10-05).
+        // is the description.
         string stated = string.Join(", ", sources.Select(Summary));
         string expectedPart = string.Join("; ", expectedAt.Select(l => l.Summary));
         string Joined(string first) => expectedPart.Length > 0 ? $"{first}; {expectedPart}." : $"{first}.";

@@ -13,7 +13,7 @@ internal sealed record StrictGrade(string Status, string Note)
 }
 
 /// <summary>
-/// tools/grade_answers.py's rules, ported line for line (v3 step 2) - the manual pass's strict grading
+/// tools/grade_answers.py's rules, ported line for line - the manual pass's strict grading
 /// (docs/Manual-Test-Questions.md, "Grading"):
 ///   Correct  - the expected figure is stated (an alternative line's figure counts only if the answer names that line,
 ///              e.g. Q10's "attributable to Nasdaq")
@@ -24,7 +24,7 @@ internal sealed record StrictGrade(string Status, string Note)
 /// The period ("for the year ended ...") is not checked: the manual grading didn't enforce it either. "check" marks an
 /// answer only a reader can settle - the expected figure next to a lookalike, or a decline that still states figures.
 ///
-/// This port is the specification since v3 closed (user, 2026-10-06): a rule changes here, and tools/grade_answers.py is
+/// This port is the specification: a rule changes here, and tools/grade_answers.py is
 /// kept unchanged as the record of what it was ported from. GraderParityTests holds it to the grade - status and note -
 /// the Python grader gave every graded answer in eval/, so a change that regrades history shows; a deliberate one is a
 /// decision, recorded in docs/Decision-Log.md with the answers it regrades.
@@ -39,7 +39,7 @@ internal static partial class StrictGrader
     [GeneratedRegex(@"\G\)?\s*(million|thousand|billion)", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
     private static partial Regex ScaleAfterRegex();
 
-    // A curly apostrophe reaches the log since the app writes UTF-8 (2026-10-01); before, it arrived as "'".
+    // ['’]: the app writes UTF-8, so a curly apostrophe reaches the answer; logs in the console's code page have "'".
     [GeneratedRegex(@"(?:don['’]t|do not|does not|doesn['’]t) (?:contain|include|provide|mention|state|specify)"
         + @"|not (?:explicitly |directly |specifically )?"
         + @"(?:stated|provided|available|included|mentioned|found|specified|reported|disclosed)"
@@ -47,7 +47,7 @@ internal static partial class StrictGrader
         RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
     private static partial Regex DeclineRegex();
 
-    // The prompt-v1 failure: the units rule came out as the whole answer ("The unit for the figures is not stated.").
+    // The units rule of the prompt given back as the whole answer ("The unit for the figures is not stated.").
     [GeneratedRegex(@"^\W*the units?\b[^.]{0,40}\bnot stated\W*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
     private static partial Regex UnitOnlyRegex();
 

@@ -18,7 +18,7 @@ internal sealed record JudgedAnswer(
     IReadOnlyDictionary<string, JudgeVerdict> Verdicts, double JudgeSeconds, int JudgeCalls);
 
 /// <summary>
-/// Step 6's measure: do the judges agree with the project's deterministic metrics? Equivalence against the strict grade
+/// Do the judges agree with the project's deterministic metrics? Equivalence against the strict grade
 /// (passed = reliable or decline-ok), Groundedness against the figure source. Agreement is read at the library's own
 /// verdict (a metric interpreted as failed), and every score is listed against the strict grade, so the threshold isn't
 /// chosen after the fact.
@@ -74,8 +74,8 @@ internal static class JudgeAgreement
                 {
                     string? error = metric.Diagnostics?.FirstOrDefault(d => d.Severity == EvaluationDiagnosticSeverity.Error)?.Message;
                     double? score = (metric as NumericMetric)?.Value;
-                    // Scored by the library from the reply's words (ScoreOnlyEquivalenceEvaluator, 2026-10-05) - or, in a run
-                    // stored before, recovered here from the library's "failed to parse" error.
+                    // Scored by the library from the reply's words (ScoreOnlyEquivalenceEvaluator) - or, in a run stored
+                    // without that evaluator, recovered here from the library's "failed to parse" error.
                     bool fromWords = metric.Metadata is { } metadata
                         && metadata.TryGetValue(ScoreOnlyEquivalenceEvaluator.TakenFromWordsKey, out string? taken) && taken == "yes";
                     verdicts[name] = score is null && JudgeSetup.RecoverScore(error) is int recovered

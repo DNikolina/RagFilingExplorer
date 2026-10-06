@@ -34,7 +34,7 @@ public class PromptTranscriptTests
     public void Messages_TheQuestionIsWhatTheEvaluatorsRead()
     {
         // Microsoft's evaluators take the last message, if it's the user's, as the request - the judge must read only the
-        // question, as it did before the conversation was stored.
+        // question.
         Assert.That(PromptTranscript.Messages(Prompt, [CashFlow], Question).TryGetUserRequest(out ChatMessage? request), Is.True);
         Assert.That(request!.Text, Is.EqualTo(Question));
     }

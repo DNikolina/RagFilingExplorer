@@ -10,7 +10,7 @@ namespace RagFilingExplorer.Local.Evaluation.Running;
 /// model was given, each headed as the app heads it with the filing's name linking to the filing in data/, and the
 /// question. The app sends the excerpts and the question in one user message; here they're two, so the question stays
 /// the last message - the only one Microsoft's evaluators read as the request (<c>TryGetUserRequest</c>: the last
-/// message, if it's the user's), so a judge reads exactly what it read before (user, 2026-10-05).
+/// message, if it's the user's), so a judge reads the question alone, not the excerpts.
 /// </summary>
 internal static class PromptTranscript
 {

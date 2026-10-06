@@ -8,7 +8,7 @@ using RagFilingExplorer.Local.Retrieval;
 namespace RagFilingExplorer.Local.Evaluation;
 
 /// <summary>
-/// Screen (2026-10-05, user): does telling the model what the excerpts' order means help? Each question is asked through
+/// Screen: does telling the model what the excerpts' order means help? Each question is asked through
 /// the app as usual, but with a chat client that records the exact messages and options instead of sending them; those
 /// are then sent to Ollama twice - unchanged (must reproduce today's variance pass word for word) and with the hint - and
 /// both answers graded. Plan, targets, controls and bar: Decision-Log, "Screen: tell the model what the excerpts' order

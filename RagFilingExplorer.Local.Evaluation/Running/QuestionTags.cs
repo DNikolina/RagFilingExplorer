@@ -9,8 +9,8 @@ namespace RagFilingExplorer.Local.Evaluation.Running;
 /// (<c>CompanyRegistry.ResolveFilings</c>, <c>QueryIntentResolver.ResolveStatementType</c>, as RagAnswerService calls
 /// them), so a routing question shows where the app sent it, not where the answer is. Tags never affect a grade.
 ///
-/// <c>ollama:&lt;version&gt;</c> is the Ollama build serving the run (2026-10-05: an Ollama update, 0.35.0 -> 0.35.1, changed 14
-/// of 102 answers at temperature 0 - compare runs only on the same build). An answer replayed from the response cache was
+/// <c>ollama:&lt;version&gt;</c> is the Ollama build serving the run: an Ollama update can change answers at temperature 0,
+/// so runs are compared only on the same build. An answer replayed from the response cache was
 /// produced by the build that first answered it; the tag is exact for a fresh run (NoCache) and names the build
 /// that ran a cached one.
 /// </summary>

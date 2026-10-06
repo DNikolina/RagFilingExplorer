@@ -21,8 +21,8 @@ internal sealed record HistoricRun(string ExecutionName, DateTime RanAt, IReadOn
 /// </summary>
 internal static class HistoricRunImporter
 {
-    /// <summary>The main line, user's choice (2026-10-02): v1's baseline and each kept v2 step - not the side experiments.
-    /// Sets of one configuration that ran on different days are one execution (step 5a's answer-side set ran on 10-02).</summary>
+    /// <summary>The main line: v1's baseline and each kept v2 step - not the side experiments. Sets of one configuration
+    /// that ran on different days are one execution.</summary>
     public static readonly IReadOnlyList<HistoricRun> MainLine =
     [
         Run("2026-09-28-v1-baseline", "2026-09-28 14:00", ("Main", "baseline-v1/main.json"), ("HeldOut", "baseline-v1/heldout.json")),

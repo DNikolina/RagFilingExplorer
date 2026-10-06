@@ -6,7 +6,7 @@ using RagFilingExplorer.Local.Evaluation.Running;
 namespace RagFilingExplorer.Local.Evaluation;
 
 /// <summary>
-/// v3 step 4: a full evaluation run of the app as configured - every question asked, graded and ranked, stored under
+/// A full evaluation run of the app as configured - every question asked, graded and ranked, stored under
 /// eval/v3-runs/ (one scenario per question; responses cached there, gitignored), with report-&lt;execution&gt;.html and
 /// summary-&lt;execution&gt;.txt written at the end. Each strict grade is compared with the v2 baselines' (structured-5a main
 /// and held-out, answer-side-norerank - the grader's own verdict, as GraderParityTests reads them); a difference is a
@@ -31,8 +31,8 @@ public class EvaluationRunTests
         ["AnswerSide"] = ["eval/answer-side-norerank/answers.json"],
     };
 
-    /// <summary>The v2 baseline's grade for each question of the set - empty for a set with no v2 baseline (one added
-    /// later), so its run is summarized without a comparison instead of failing after every question was asked.</summary>
+    /// <summary>The v2 baseline's grade for each question of the set - empty for a set with no v2 baseline, so its run is
+    /// summarized without a comparison instead of failing after every question was asked.</summary>
     internal static Dictionary<string, string> BaselineGrades(string set)
     {
         Dictionary<string, string> grades = new();
@@ -104,7 +104,7 @@ public class EvaluationRunTests
             }
         }
 
-        // Step 5: every figure that's in none of the model's excerpts on a question that doesn't ask for a calculation.
+        // Every figure that's in none of the model's excerpts on a question that doesn't ask for a calculation.
         List<QuestionOutcome> untraced = outcomes.Where(o => o.FigureSource == "untraced").ToList();
         summary.AppendLine(untraced.Count == 0 ? "No untraced figure." : $"{untraced.Count} answer(s) state a figure in none of the excerpts:");
         untraced.ForEach(o => summary.AppendLine($"  {o.Set}.{o.Id}: {o.FigureTrace.Replace("\n", " | ")} - {o.Answer}"));
@@ -121,8 +121,8 @@ public class EvaluationRunTests
         File.WriteAllText(Path.Combine(storage, $"summary-{execution}.txt"), summary.ToString());
         TestContext.Progress.WriteLine(summary.ToString());
 
-        // A warning, not a failure (user, 2026-10-02): a difference is something to read, not proof the evaluation broke -
-        // within one Ollama build the model repeats exactly, but an update changes answers (2026-10-05: 0.35.0 -> 0.35.1).
+        // A warning, not a failure: a difference is something to read, not proof the evaluation broke - within one Ollama
+        // build the model repeats exactly, but an Ollama update can change answers.
         // The evaluators themselves are held exactly by GraderParityTests and RetrievalParityTests.
         if (differences.Count > 0)
         {

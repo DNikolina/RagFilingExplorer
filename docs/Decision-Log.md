@@ -3263,3 +3263,7 @@ v2's retrieval and is no longer kept in step (the plan's live constraint reworde
 "ported from ... and matched to it" (1,029 grades, 102 ranks). Runs stored before keep the earlier description as their
 reason: `StrictFigureEvaluator.GraderNote` recognises it, or every reliable answer of the v3 baseline would show it as a
 grader note (a test reads the stored baseline). 373 unit tests, 157 offline evaluation tests.
+**Comments: what and why, never when or who (user, 2026-10-06).** Most of the review's fixes were comments carrying
+history (dates, "(user, ...)", step numbers, measured counts, before/after stories) that a later measurement had moved past,
+repeating this log. A rule in CLAUDE.md now keeps history here; the evaluation project's comments were rewritten to it
+(each keeps its reason; test comments naming the real answer they use stay). The app's comments are left for later.

@@ -5,7 +5,7 @@ using Microsoft.Extensions.AI.Evaluation.Reporting.Storage;
 namespace RagFilingExplorer.Local.Evaluation;
 
 /// <summary>
-/// v3 step 1: the project can see the app's internal types (the evaluators wrap them) and build a disk-based
+/// The project can see the app's internal types (the evaluators wrap them) and build a disk-based
 /// reporting configuration - offline, no model, into a temp directory.
 /// </summary>
 [TestFixture]

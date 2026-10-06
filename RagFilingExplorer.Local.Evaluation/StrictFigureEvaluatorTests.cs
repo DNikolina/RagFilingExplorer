@@ -50,9 +50,9 @@ public class StrictFigureEvaluatorTests
     }
 
     [Test]
-    public void Readers_ResultsStoredBefore20261005_ReadTheReason()
+    public void Readers_OlderStoredResults_ReadTheReason()
     {
-        // Until 2026-10-05 the note and the figure trace were the metrics' reasons (the imported v1/v2 runs still are).
+        // Older stored runs keep the note and the figure trace as the metrics' reasons (the imported v1/v2 runs among them).
         StringMetric grade = new(StrictFigureEvaluator.MetricName, "wrong", "trap 27,034");
         StringMetric source = new(FigureSourceEvaluator.MetricName, "traced", "27,034: excerpt 1 (equity_statement, Item 8): \"...\"");
 
@@ -75,7 +75,7 @@ public class StrictFigureEvaluatorTests
     [Test]
     public async Task GraderNote_V3BaselineStoredWithTheEarlierDescription_OnlyRealNotes()
     {
-        // The v3 baseline was stored with the description from before 2026-10-06 as each grade's reason; a grade without a
+        // The v3 baseline was stored with the earlier description as each grade's reason; a grade without a
         // note (most reliable ones) must not get that reason back as its note.
         DiskBasedResultStore store = new(Path.Combine(RepoPaths.FindRoot(AppContext.BaseDirectory).FullName, "eval", "v3-runs"));
         Dictionary<string, string> notes = new();

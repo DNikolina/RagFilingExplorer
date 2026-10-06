@@ -4,7 +4,7 @@ namespace RagFilingExplorer.Local.Evaluation;
 
 /// <summary>
 /// Rewrites eval/v3-runs/report.html from every execution stored there, and each run's report-<execution>.html - after a
-/// change to how the report is written or to stored results (2026-10-05: the Ollama tags filled in),
+/// change to how the report is written or to stored results,
 /// without asking the model again. Offline, but [Explicit], because it writes into the repository:
 ///   dotnet test RagFilingExplorer.Local.Evaluation --filter "FullyQualifiedName~ReportWriteTests"
 /// </summary>

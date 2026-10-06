@@ -13,8 +13,8 @@ internal sealed record StoredAnswer(string Execution, string Scenario, string Qu
     /// two answers that differ only in wording.</summary>
     public IReadOnlyList<string> Figures { get; } = FigureSourceEvaluator.Figures(Answer, Question).Order(StringComparer.Ordinal).ToList();
 
-    /// <summary>The answer as compared: a curly apostrophe read as a straight one - runs logged before the console encoding
-    /// fix (2026-10-01) have only straight ones, the model's copy of a heading like "Management’s" turned into "'".</summary>
+    /// <summary>The answer as compared: a curly apostrophe read as a straight one - runs logged in the console's code page
+    /// have only straight ones, the model's copy of a heading like "Management’s" turned into "'".</summary>
     public string ComparedText { get; } = Answer.Replace('’', '\'');
 }
 
@@ -27,7 +27,7 @@ internal enum AnswerVariation
     /// <summary>Different text, the same figures and grade.</summary>
     Wording,
 
-    /// <summary>A figure added or dropped, the same grade (A16's first drift: "$616M + $4M = $620M" was graded down).</summary>
+    /// <summary>A figure added or dropped, the same grade.</summary>
     Figures,
 
     /// <summary>A different grade.</summary>
@@ -35,7 +35,7 @@ internal enum AnswerVariation
 }
 
 /// <summary>
-/// The variance measurement (v3, after step 5): the same questions asked afresh in several executions - identical prompts,
+/// The variance measurement: the same questions asked afresh in several executions - identical prompts,
 /// since retrieval is deterministic - compared question by question. Answers are read from the result store, so any
 /// executions can be compared: the cached baseline and NoCache passes.
 /// </summary>

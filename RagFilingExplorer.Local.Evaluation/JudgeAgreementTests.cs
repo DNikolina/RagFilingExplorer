@@ -4,7 +4,7 @@ using RagFilingExplorer.Local.Evaluation.Judging;
 namespace RagFilingExplorer.Local.Evaluation;
 
 /// <summary>
-/// The judge agreement report (v3 step 6), offline. Report_Execution writes the agreement of a stored judge run -
+/// The judge agreement report, offline. Report_Execution writes the agreement of a stored judge run -
 /// [Explicit], because it writes into the repository:
 ///   Evaluation__JudgeExecution=structured-hybrid-v3-judge-equivalence (or JudgeExecution in evalsettings.json)
 ///   dotnet test RagFilingExplorer.Local.Evaluation --filter "FullyQualifiedName~JudgeAgreementTests.Report_Execution"

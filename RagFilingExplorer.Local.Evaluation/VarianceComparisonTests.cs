@@ -36,7 +36,7 @@ public class VarianceComparisonTests
     [Test]
     public void Classify_CurlyAgainstStraightApostrophe_IsIdentical()
     {
-        // H2: v2's 5a run, logged before the console encoding fix, cites "MANAGEMENT'S"; the v3 baseline "MANAGEMENT’S".
+        // H2: v2's 5a run, logged in the console's code page, cites "MANAGEMENT'S"; the v3 baseline "MANAGEMENT’S".
         Assert.That(VarianceComparison.Classify([Answer("a", "19% (Source: Item 7. MANAGEMENT'S DISCUSSION)"), Answer("b", "19% (Source: Item 7. MANAGEMENT’S DISCUSSION)")]),
             Is.EqualTo(AnswerVariation.Identical));
     }
@@ -59,7 +59,7 @@ public class VarianceComparisonTests
     [Test]
     public void Classify_DifferentGrade_IsGrade()
     {
-        // A16, 2026-10-02: the same prompt answered $616M (reliable), then "$616M + $4M excise tax = $620M" (check).
+        // A16: the same prompt answered $616M (reliable), then "$616M + $4M excise tax = $620M" (check).
         Assert.That(VarianceComparison.Classify(
             [Answer("a", "Nasdaq spent $616 million."), Answer("b", "$616 million plus $4 million is $620 million.", "check")]),
             Is.EqualTo(AnswerVariation.Grade));
