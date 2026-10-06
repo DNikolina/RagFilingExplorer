@@ -1,0 +1,110 @@
+{
+  "scenarioName": "HeldOut.H27",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-review-fixes",
+  "creationTime": "2026-10-06T19:50:40.9158237Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity ---\r\n\u0060\u0060\u0060\r\nfollowing cash dividends:\n\n(in millions) Declaration Date\nJanuary 28, 2025 \u2014 Dividend Per Common Share: $0.24 | Record Date: March 14, 2025 | Total Amount Paid: $138 | Payment Date: March 28, 2025\nApril 23, 2025 \u2014 Dividend Per Common Share: 0.27 | Record Date: June 13, 2025 | Total Amount Paid: 155 | Payment Date: June 27, 2025\nJuly 23, 2025 \u2014 Dividend Per Common Share: 0.27 | Record Date: September 12, 2025 | Total Amount Paid: 155 | Payment Date: September 26, 2025\nOctober 20, 2025 \u2014 Dividend Per Common Share: 0.27 | Record Date: December 5, 2025 | Total Amount Paid: 153 | Payment Date: December 19, 2025\nTotal Amount Paid: $601\n\nThe total amount paid of $601 million was recorded in\n\nretained earnings in the Consolidated Balance Sheets at\n\nDecember 31, 2025.\n\nIn January 2026, the board of directors approved a regular\n\nquarterly cash dividend of $0.27 per share on our outstanding\n\ncommon stock. The dividend is payable on March 30, 2026\n\nto shareholders of record at the close of business on March\n\n16, 2026. The estimated aggregate payment of this dividend\n\nis $154 million. Future declarations of quarterly dividends\n\nand the establishment of future record and payment dates are\n\nsubject to approval by the board of directors.\n\nThe board of directors maintains a dividend policy with the\n\nintention to provide shareholders with regular and increasing\n\ndividends as earnings and cash flows increase.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of ---\r\n\u0060\u0060\u0060\r\n(in millions, except per share amounts)\nCash dividends declared per common share \u2014 Year Ended December 31, 2025: $1.05 | Year Ended December 31, 2024: $0.94 | Year Ended December 31, 2023: $0.86 | Percentage Change 2025 vs. 2024: 11.7% | Percentage Change 2024 vs. 2023: 9.3%\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Income\n\n(in millions, except per share amounts)\n\nYear Ended December 31,\nPer share information \u003E Diluted earnings per share \u2014 2025: $3.09 | 2024: $1.93 | 2023: $2.08\nPer share information \u003E Cash dividends declared per common share \u2014 2025: $1.05 | 2024: $0.94 | 2023: $0.86\n\nSee accompanying notes to consolidated financial statements.\n\nNasdaq, Inc.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity ---\r\n\u0060\u0060\u0060\r\nIn November 2025, we entered into an ASR agreement, in\n\nwhich we paid $75 million to a third-party financial\n\ninstitution and initially received and immediately retired\n\n697,512 shares of our common stock. In December 2025,\n\nupon the final settlement of this transaction, we received an\n\nadditional 117,855 shares which were immediately retired.\n\nIn January 2026, we entered into a variable notional ASR\n\nagreement, for which we paid $300\u00A0million to a third-party\n\nfinancial institution in exchange for an initial delivery of\n\nshares of common stock. The final notional amount is subject\n\nto a minimum and maximum and will depend on the price of\n\nour shares of common stock during the term of the ASR. The\n\nfinal settlement of the ASR agreement is expected to be\n\ncompleted in the first quarter of 2026. At settlement,\n\nadditional shares of common stock may be delivered to us or,\n\nunder certain circumstances, we may be required to deliver\n\nshares of our common stock or may elect to make a cash\n\npayment. In addition, we may receive the excess of the\n\namount we prepaid over the final notional amount of the\n\nASR in cash or, at our election, in shares of our common\n\nstock.\n\nPreferred Stock\n\nOur certificate of incorporation authorizes the issuance of\n\n30,000,000 shares of preferred stock, par value $0.01 per\n\nshare, issuable from time to time in one or more series. As of\n\nDecember 31, 2025 and December 31, 2024, no shares of\n\npreferred stock were issued or outstanding.\n\nCash Dividends on Common Stock\n\nDuring 2025, our board of directors declared and paid the\n\nfollowing cash dividends:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of ---\r\n\u0060\u0060\u0060\r\nand the combined excess capital totaled $25\u00A0million,\n\nsubstantially all of which is held in cash and cash equivalents\n\nin the Consolidated Balance Sheets. The required minimum\n\nnet capital is included in restricted cash and cash equivalents\n\nin the Consolidated Balance Sheets.\n\nNordic and Baltic Exchange Regulatory Capital\n\nRequirements\n\nThe entities that operate trading venues in the Nordic and\n\nBaltic countries are each subject to local regulations and are\n\nrequired to maintain regulatory capital intended to ensure\n\ntheir general financial soundness and liquidity. As of\n\nDecember 31, 2025, our required regulatory capital of $47\n\nmillion was primarily invested in cash and cash equivalents,\n\nwhich is included in restricted cash and cash equivalents in\n\nthe Consolidated Balance Sheets and European government\n\ndebt securities that are included in financial investments in\n\nthe Consolidated Balance Sheets.\n\nOther Capital Requirements\n\nWe operate several other businesses which are subject to\n\nlocal regulation and are required to maintain certain levels of\n\nregulatory capital. As of December 31, 2025, other required\n\nregulatory capital of $13 million, primarily related to Nasdaq\n\nCentral Securities Depository, was primarily invested in\n\nEuropean government debt securities that are included in\n\nfinancial investments in the Consolidated Balance Sheets and\n\ncash and cash equivalents, which is included in restricted\n\ncash and cash equivalents in the Consolidated Balance\n\nSheets.\n\nEquity and dividends\n\nShare Repurchase Program\n\nSee \u201CShare Repurchase Program,\u201D of Note 12, \u201CNasdaq\n\nStockholders\u2019 Equity,\u201D to the consolidated financial\n\nstatements for further discussion of our share repurchase\n\nprogram, including our ASR agreements.\n\nCash Dividends on Common Stock\n\nThe following table presents our quarterly cash dividends\n\npaid per common share on our outstanding common stock:\n\nFirst quarter \u2014 2025: $0.24 | 2024: $0.22\nSecond quarter \u2014 2025: 0.27 | 2024: 0.24\nThird quarter \u2014 2025: 0.27 | 2024: 0.24\nFourth quarter \u2014 2025: 0.27 | 2024: 0.24\nTotal \u2014 2025: $1.05 | 2024: $0.94\n\nSee \u201CCash Dividends on Common Stock,\u201D of Note 12,\n\n\u201CNasdaq Stockholders\u2019 Equity,\u201D to the consolidated financial\n\nstatements for further discussion of the dividends.\n\nDebt Obligations\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Nasdaq\u0027s cash dividends declared per common share in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s cash dividends declared per common share in 2025 was $1.05. (Source: NDAQ-10K-2025.html, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected $1.05."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "1.05 at rank 2 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 1.05 from excerpts 2 (narrative), 3 (income_statement), 5 (narrative)."
+        },
+        "metadata": {
+          "Stated 1.05": "excerpt 2 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of): \u0022Cash dividends declared per common share \u2014 Year Ended December 31, 2025: $1.05 | Year Ended December 31, 2024: $0.94 | Year Ended December 31, 2023: $0.86 | Per...\u0022; excerpt 3 (income_statement, PART IV \u003E Financial Statements): \u0022Per share information \u003E Cash dividends declared per common share \u2014 2025: $1.05 | 2024: $0.94 | 2023: $0.86\u0022; excerpt 5 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of): \u0022Total \u2014 2025: $1.05 | 2024: $0.94\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 50.2637618,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 1903,
+          "outputTokenCount": 48,
+          "totalTokenCount": 1951
+        }
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:NDAQ",
+    "statement:none",
+    "ollama:0.35.1"
+  ],
+  "formatVersion": 1
+}

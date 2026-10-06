@@ -1,0 +1,12 @@
+Variance across 3 executions: structured-hybrid-v3-variance-1, structured-hybrid-v3-variance-2, structured-hybrid-v3-review-fixes
+102 questions answered in every execution.
+
+All: identical 102  wording 0  figures 0  grade 0
+AnswerSide: identical 27  wording 0  figures 0  grade 0
+HeldOut: identical 35  wording 0  figures 0  grade 0
+Main: identical 40  wording 0  figures 0  grade 0
+
+Pairs (same text / same grade):
+  structured-hybrid-v3-variance-1 vs structured-hybrid-v3-variance-2: 102/102 / 102/102
+  structured-hybrid-v3-variance-1 vs structured-hybrid-v3-review-fixes: 102/102 / 102/102
+  structured-hybrid-v3-variance-2 vs structured-hybrid-v3-review-fixes: 102/102 / 102/102

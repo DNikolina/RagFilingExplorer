@@ -3326,3 +3326,9 @@ rowspan cell holds its columns in the rows below, whose cells start after it (`R
 text lost to misplacement - the content guard caught it; with no text lost the values would have gone under the wrong
 year silently), with it every value sits under its own header. All three strategies' chunk dumps byte-identical on the
 four filings - their 66 rowspans all sit at a row's edge. 394 unit tests.
+**Both reviews' fixes measured: no answer changed (2026-10-06, `eval/v3-runs/review-fixes-vs-variance.txt`).** All 102
+questions asked afresh (`structured-hybrid-v3-review-fixes`, NoCache, 112 min, Ollama 0.35.1) on the rebuilt index and
+compared with the two fresh variance passes on the same build: 102/102 answers word for word identical, 102/102 grades,
+and every question's answer rank the same - retrieval and answers both unchanged by the fixes. Against the v2 baseline
+the same three as before (T6, A16, A21 - the Ollama-update differences). Main 33/40, held-out 31/35, answer-side 19/27,
+no untraced figure.

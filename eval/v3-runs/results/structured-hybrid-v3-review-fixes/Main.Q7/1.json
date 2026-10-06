@@ -1,0 +1,109 @@
+{
+  "scenarioName": "Main.Q7",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-v3-review-fixes",
+  "creationTime": "2026-10-06T18:44:28.1943269Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\r\n\u0060\u0060\u0060\r\nBALANCE SHEETS\n\n(In millions) June 30,\nCurrent liabilities \u003E Other current liabilities \u2014 2026: 26,738 | 2025: 25,020\nCurrent liabilities \u003E Total current liabilities \u2014 2026: 168,825 | 2025: 141,218\nLong-term debt \u2014 2026: 31,067 | 2025: 40,152\nLong-term income taxes \u2014 2026: 28,647 | 2025: 25,986\nLong-term unearned revenue \u2014 2026: 2,747 | 2025: 2,710\nDeferred income taxes \u2014 2026: 3,054 | 2025: 2,835\nOperating lease liabilities \u2014 2026: 16,532 | 2025: 17,437\nOther long-term liabilities \u2014 2026: 65,117 | 2025: 45,186\nTotal liabilities \u2014 2026: 315,989 | 2025: 275,524\nCommitments and contingencies\nStockholders\u2019 equity:\nStockholders\u2019 equity \u003E Common stock and paid-in capital \u2013 shares authorized 24,000; outstanding 7,427 and 7,434 \u2014 2026: 117,406 | 2025: 109,095\nStockholders\u2019 equity \u003E Retained earnings \u2014 2026: 328,265 | 2025: 237,731\nStockholders\u2019 equity \u003E Accumulated other comprehensive loss \u2014 2026: (3,284) | 2025: (3,347)\nStockholders\u2019 equity \u003E Total stockholders\u2019 equity \u2014 2026: 442,387 | 2025: 343,479\nTotal liabilities and stockholders\u2019 equity \u2014 2026: $758,376 | 2025: $619,003\n\nRefer to accompanying notes.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\r\n\u0060\u0060\u0060\r\nBALANCE SHEETS\n\n(In millions) June 30,\nAssets\nCurrent assets:\nCurrent assets \u003E Cash and cash equivalents \u2014 2026: $20,935 | 2025: $30,242\nCurrent assets \u003E Short-term investments \u2014 2026: 55,908 | 2025: 64,323\nCurrent assets \u003E Total cash, cash equivalents, and short-term investments \u2014 2026: 76,843 | 2025: 94,565\nAccounts receivable, net of allowance for doubtful accounts of $1,040 and $944 \u2014 2026: 80,876 | 2025: 69,905\nInventories \u2014 2026: 1,397 | 2025: 938\nOther current assets \u2014 2026: 48,594 | 2025: 25,723\nTotal current assets \u2014 2026: 207,710 | 2025: 191,131\nProperty and equipment, net of accumulated depreciation of $118,691 and $93,653 \u2014 2026: 313,076 | 2025: 204,966\nOperating lease right-of-use assets \u2014 2026: 24,177 | 2025: 24,823\nEquity and other investments \u2014 2026: 36,348 | 2025: 15,405\nGoodwill \u2014 2026: 119,651 | 2025: 119,509\nIntangible assets, net \u2014 2026: 18,609 | 2025: 22,604\nOther long-term assets \u2014 2026: 38,805 | 2025: 40,565\nTotal assets \u2014 2026: $758,376 | 2025: $619,003\nLiabilities and stockholders\u2019 equity\nCurrent liabilities:\nCurrent liabilities \u003E Accounts payable \u2014 2026: $42,416 | 2025: $27,724\nCurrent liabilities \u003E Current portion of long-term debt \u2014 2026: 9,227 | 2025: 2,999\nCurrent liabilities \u003E Accrued compensation \u2014 2026: 14,945 | 2025: 13,709\nCurrent liabilities \u003E Short-term income taxes \u2014 2026: 2,534 | 2025: 7,211\nCurrent liabilities \u003E Short-term unearned revenue \u2014 2026: 72,965 | 2025: 64,555\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\r\n\u0060\u0060\u0060\r\nSTOCKHOLDERS\u2019 EQUITY STATEMENTS\n\n(In millions, except per share amounts) Year Ended June 30,\nAccumulated other comprehensive loss \u003E Other comprehensive income \u2014 2026: 63 | 2025: 2,243 | 2024: 753\nAccumulated other comprehensive loss \u003E Balance, end of period \u2014 2026: (3,284) | 2025: (3,347) | 2024: (5,590)\nAccumulated other comprehensive loss \u003E Total stockholders\u2019 equity \u2014 2026: $442,387 | 2025: $343,479 | 2024: $268,477\nCash dividends declared per common share \u2014 2026: $3.64 | 2025: $3.32 | 2024: $3.00\n\nRefer to accompanying notes.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Stockholders\u0027 Equity ---\r\n\u0060\u0060\u0060\r\nNOTE 15 \u2014 STOCKHOLDERS\u2019 EQUITY\n\nShares Outstanding\n\nShares of common stock outstanding were as follows:\n\n(In millions) Year Ended June 30,\nBalance, beginning of year \u2014 2026: 7,434 | 2025: 7,434 | 2024: 7,432\nIssued \u2014 2026: 29 | 2025: 31 | 2024: 34\nRepurchased \u2014 2026: (36) | 2025: (31) | 2024: (32)\nBalance, end of year \u2014 2026: 7,427 | 2025: 7,434 | 2024: 7,434\n\nShare Repurchases\n\nOn September 14, 2021, our Board of Directors approved a share repurchase program authorizing up to $60.0 billion in share repurchases. This share repurchase program commenced in November 2021 and was completed in April 2025.\n\nOn September 16, 2024, our Board of Directors approved a share repurchase program authorizing up to $60.0 billion in share repurchases. This share repurchase program commenced in April 2025, following completion of the program approved on September 14, 2021, has no expiration date, and may be terminated at any time. As of June 30, 2026, $40.6 billion remained of this $60.0 billion share repurchase program.\n\nWe repurchased the following shares of common stock under the share repurchase programs:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 5. MARKET FOR REGISTRANT\u2019S COMMON EQUITY, RELATED STOCKHOLDER MATTERS, AND ISSUER PURCHASES OF EQUITY SECURITIES ---\r\n\u0060\u0060\u0060\r\nOur Board of Directors declared the following dividends during the fourth quarter of fiscal year 2026:\n\n(In millions) Declaration Date\nJune 10, 2026 \u2014 Record Date: August 20, 2026 | Payment Date: September 10, 2026 | Dividend Per Share: $0.91 | Amount: $6,759\n\nWe returned $10.2 billion to shareholders in the form of share repurchases and dividends in the fourth quarter of fiscal year 2026. Refer to Note 15 \u2013 Stockholders\u2019 Equity of the Notes to Financial Statements (Part II, Item 8 of this Form 10-K) for further discussion regarding share repurchases and dividends.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Microsoft\u0027s total stockholders\u0027 equity?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s total stockholders\u0027 equity was $442,387 million as of June 30, 2026 (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E STOCKHOLDERS\u2019 EQUITY STATEMENTS)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 442,387 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "442,387 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 442,387 from excerpts 1 (balance_sheet), 3 (equity_statement)."
+        },
+        "metadata": {
+          "Stated 442,387": "excerpt 1 (balance_sheet, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Stockholders\u2019 equity \u003E Total stockholders\u2019 equity \u2014 2026: 442,387 | 2025: 343,479\u0022; excerpt 3 (equity_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Accumulated other comprehensive loss \u003E Total stockholders\u2019 equity \u2014 2026: $442,387 | 2025: $343,479 | 2024: $268,477\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 58.5417591,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2065,
+          "outputTokenCount": 65,
+          "totalTokenCount": 2130
+        }
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "company:MSFT",
+    "statement:balance_sheet",
+    "ollama:0.35.1"
+  ],
+  "formatVersion": 1
+}
