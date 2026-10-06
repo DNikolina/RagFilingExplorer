@@ -390,7 +390,8 @@ tools/                                  the question files and expected-answers.
                                         LinearizeSpike + xbrl_column_check.py
 eval/                                   every measured run: logs, grades, replays, screens - mapped in its README;
                                         v3-runs/ holds the .NET evaluation's stored runs and reports
-.claude/                                Claude Code config: filer-onboarding-checker subagent, test-convention rule
+.claude/                                Claude Code config: filer-onboarding-checker subagent, run-evaluation skill,
+                                        test-convention rule
 docs/Implementation_Plan.md             current-state reference: ground rules, pipeline, live constraints
 docs/Decision-Log.md                    the full build history: every step, decision point, and debugging path
 docs/Manual-Test-Questions.md           every evaluated question, with its expected answer and where it comes from
