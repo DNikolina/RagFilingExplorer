@@ -144,7 +144,7 @@ flowchart TB
 - **Only for v1's strategies** (`Markdown`, `Linearized`): Python 3.12 + `pip install markitdown`. The default
   `Structured` strategy reads the HTML itself, and the evaluation runs in .NET - neither needs Python.
 - **Optional:** the reranker's model (`Retrieval:Rerank`, off by default), fetched separately - see
-  `appsettings.json` and Decision-Log.md, "Step 2b resumed".
+  `RetrievalSettings` in `AppSettings.cs` and Decision-Log.md, "Step 2b resumed".
 
 ## Hardware expectations
 
@@ -204,7 +204,8 @@ exits with a one-line fix instead of a stack trace:
 
 The tunable knobs — model names, Ollama's base URL/timeout, chunking strategy and chunk size/overlap,
 tokenizer model, vector-store upsert batch size, search mode, reranking, and retrieval top-K/temperature — live in
-[`RagFilingExplorer.Local/appsettings.json`](RagFilingExplorer.Local/appsettings.json). Every key is required: the
+[`RagFilingExplorer.Local/appsettings.json`](RagFilingExplorer.Local/appsettings.json), and each one is documented
+on the class it binds to, in [`AppSettings.cs`](RagFilingExplorer.Local/AppSettings.cs). Every key is required: the
 app validates on startup that each one is present and fails with an error naming the missing key, rather than
 falling back to a default hiding in code.
 
