@@ -3272,3 +3272,42 @@ keeps its reason, written as the rule it serves ("otherwise X happens"), and los
 numbers and "used to... confirmed..." stories; facts about the filings that justify a rule stay. Two comments pointed to
 README sections the trim removed - now to the Design-FAQ and this log. 41 files, comments only (every changed line is a
 comment; no rebuild needed).
+
+**Code review before going public (user, 2026-10-06).** A review of the app, the evaluation and the run scripts (`/code-review
+high`) found ten issues, each checked against the code before fixing; none affected the shipped defaults' results.
+- The index manifest hashed only `data/*.html`; `Structured` also reads each filer's taxonomy, so an edited `.xsd` or
+  linkbase left a stale index trusted. Under `Structured` the manifest now records every `.xsd`/`.xml` in `data/` except
+  EDGAR's `_htm.xml` test files - the existing index rebuilt once; its chunk dumps came out identical.
+- A run reusing a stored run's name overwrote only the questions it asked again; the rest stayed and every reader took
+  them as part of the run. Not auto-deleted (a smoke run under the baseline's name would wipe it): the runner lists them,
+  the summary and a test warning say so, and the docs no longer claim the name "replaces that run".
+- A mistyped `Only` id asked nothing and passed - now an error naming it (also for an id outside the sets run).
+- Ollama's version was asked before the readiness check, so a stopped Ollama gave a stack trace - order swapped.
+- `FigureSourceEvaluator` threw on an expected value holding two numbers ("2025-2030") - now matched as text.
+- Judges with `NoCache` refused: the judge's larger context window makes Ollama reload the model around every answer.
+- A variance comparison of a run without the strict grade counted every question as a grade change - now skipped.
+- Windows PowerShell deletes a variable set to `''`, so the scripts' "all sets / every question" fell back to
+  evalsettings.json silently - all sets are passed explicitly, and a non-empty `Only` in the file stops the script. The
+  scripts' shared helpers moved to `tools/eval-common.ps1`; `run-variance.ps1` no longer takes `-Graders`.
+- Comments with measured counts or step labels that the earlier cleanup missed.
+A second review of the chunking, page-reader and XBRL code followed; its findings are below.
+375 unit tests, 166 offline evaluation tests.
+
+**Second review - chunking, page reader, XBRL (2026-10-06): recorded, to fix next (user).** Checked against the code:
+1. `TokenChunker.SplitOversizedTable`: a 3-12 line oversized Markdown table with no data-looking or label row is read as
+   all header and yields no pieces - table and title dropped silently (Markdown strategy). Fix: fall back to the 2-line
+   header; regression test.
+2. `StatementLabels`: a combined "Operations and Comprehensive Income" role maps to comprehensive_income only, so
+   income_statement is missing and the build stops (new filers).
+3. `CoverFacts.ShortName`: a leading "The" is kept ("The Coca-Cola"), so questions don't match - unfiltered search.
+4. `CoverFacts.Clean`: all-caps names title-cased ("KPMG LLP" -> "Kpmg LLP", "AT&T INC." -> "At&T Inc.").
+5. `SectionSplitter` (Structured): sections start at v1's title patterns; a missed title can merge two statements
+   (build stops) or orphan a title. Fix: start a section at every labelled statement table; chunk dumps must stay identical.
+6. `IxTransformations.DurationFromWords`: "twenty-five years" -> P5Y, "1.5 years" -> P5Y, silently.
+7. `FilingBlockReader`: a note start/end inside a table or link is missed - wrong or leaking note topic.
+8. `HtmlTableLinearizer.ReadRow`: rowspan ignored when placing cells; 66 uses in the filings, all at row edges, so no
+   effect today. Planned as a known limitation, not a fix.
+9. `FilingBlockReader`: ordered lists numbered 2, 4, ... (Index() counts whitespace nodes); no filing uses <ol> today.
+10. Comments: step labels/counts in XbrlModel, StatementLabels, IxTransformations, HtmlTableLinearizer,
+    LinearizedChunkingStrategy; HtmlTableLinearizer's "contextRef for the test oracle only" is wrong (PeriodLabels uses it).
+Plan: fix 1-4, 6, 9, 10 with tests; 5 and 7 with the chunk dumps checked identical; record 8 as a limitation.

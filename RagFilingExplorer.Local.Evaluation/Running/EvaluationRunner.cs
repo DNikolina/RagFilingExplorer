@@ -16,6 +16,9 @@ namespace RagFilingExplorer.Local.Evaluation.Running;
 /// <summary>One question set: its file in tools/ and the name its scenarios are grouped under in the report.</summary>
 internal sealed record QuestionSet(string Name, string File);
 
+/// <summary>A question a run asks: its set, its text as the set's file has it, and its expected answer.</summary>
+internal sealed record SelectedQuestion(QuestionSet Set, string Question, ExpectedAnswer Entry);
+
 /// <summary>One question's outcome in a run. <see cref="FigureSource"/> is the figure-source status, <see cref="FigureTrace"/>
 /// where each stated figure was found.</summary>
 internal sealed record QuestionOutcome(
@@ -70,20 +73,72 @@ internal sealed class EvaluationRunner(
         new("AnswerSide", "answer-questions.txt"),
     ];
 
+    /// <summary>
+    /// The questions a run asks, in the sets' order: every question of the sets, or only the ids in
+    /// <paramref name="onlyIds"/>. An id that names no question of the sets is an error - a mistyped id would otherwise
+    /// make a smoke run that asks nothing and still passes.
+    /// </summary>
+    internal static List<SelectedQuestion> SelectQuestions(DirectoryInfo repoRoot, IReadOnlyList<QuestionSet> sets, IReadOnlySet<string> onlyIds)
+    {
+        Dictionary<string, ExpectedAnswer> byQuestion = ExpectedAnswer.LoadAll(repoRoot).Values.ToDictionary(e => e.Question);
+        List<SelectedQuestion> all = sets
+            .SelectMany(set => File.ReadAllLines(Path.Combine(repoRoot.FullName, "tools", set.File))
+                .Where(q => q.Trim().Length > 0)
+                .Select(q => new SelectedQuestion(set, q, byQuestion[q.Trim()])))
+            .ToList();
+        if (onlyIds.Count == 0)
+        {
+            return all;
+        }
+
+        List<string> unknown = onlyIds.Where(id => all.All(q => q.Entry.Id != id)).Order(StringComparer.Ordinal).ToList();
+        if (unknown.Count > 0)
+        {
+            throw new InvalidOperationException(
+                $"Only names {string.Join(", ", unknown)}, which isn't a question of the sets run ({string.Join(", ", sets.Select(s => s.Name))}).");
+        }
+
+        return all.Where(q => onlyIds.Contains(q.Entry.Id)).ToList();
+    }
+
+    /// <summary>
+    /// Scenarios already stored under this run's name that it won't ask again. A run only overwrites the questions it
+    /// asks; the rest stay under the name, and every reader of the store - the report, the variance comparison, the
+    /// judge agreement - takes them as part of this run. Not deleted: a smoke run under a stored run's name would
+    /// otherwise wipe that run.
+    /// </summary>
+    public IReadOnlyList<string> KeptFromEarlierRun { get; private set; } = [];
+
+    /// <summary>The scenarios stored under <paramref name="executionName"/> that aren't in <paramref name="asked"/>.</summary>
+    internal static async Task<List<string>> EarlierScenariosAsync(
+        string storageRoot, string executionName, IReadOnlySet<string> asked, CancellationToken cancellationToken = default)
+    {
+        HashSet<string> stored = new(StringComparer.Ordinal);
+        await foreach (ScenarioRunResult result in new DiskBasedResultStore(storageRoot).ReadResultsAsync(executionName, cancellationToken: cancellationToken))
+        {
+            stored.Add(result.ScenarioName);
+        }
+
+        return stored.Where(s => !asked.Contains(s)).Order(StringComparer.Ordinal).ToList();
+    }
+
     /// <summary>Runs the sets (only the listed ids, when <paramref name="onlyIds"/> isn't empty) and writes report.html.</summary>
     public async Task<List<QuestionOutcome>> RunAsync(
         IReadOnlyList<QuestionSet> sets, IReadOnlySet<string> onlyIds, Action<string> progress, CancellationToken cancellationToken = default)
     {
         AppSettings settings = AppSettings.Load(Path.Combine(repoRoot.FullName, "RagFilingExplorer.Local"));
-        IReadOnlyDictionary<string, ExpectedAnswer> expected = ExpectedAnswer.LoadAll(repoRoot);
-        Dictionary<string, ExpectedAnswer> byQuestion = expected.Values.ToDictionary(e => e.Question);
+        List<SelectedQuestion> questions = SelectQuestions(repoRoot, sets, onlyIds);
+        KeptFromEarlierRun = await EarlierScenariosAsync(
+            storageRoot, executionName, questions.Select(q => $"{q.Set.Name}.{q.Entry.Id}").ToHashSet(), cancellationToken);
+        if (KeptFromEarlierRun.Count > 0)
+        {
+            progress($"Warning: {KeptFromEarlierRun.Count} stored result(s) under '{executionName}' aren't asked again and stay part of it.");
+        }
 
         // The model's own client; the reporting configuration wraps it per scenario with a response cache.
         (_, OllamaSharp.OllamaApiClient chat) = AppComposition.CreateOllamaClients(settings.Ollama);
         IReadOnlyCollection<string> judgeNames = judges ?? [];
         JudgeContextChatClient judgeChat = new(chat);
-        // The Ollama build serving this run, tagged on every case (QuestionTags) - an update can change answers.
-        string ollamaVersion = (await chat.GetVersionAsync(cancellationToken)).ToString();
         ReportingConfiguration reporting = DiskBasedReportingConfiguration.Create(
             storageRootPath: storageRoot,
             evaluators:
@@ -100,18 +155,15 @@ internal sealed class EvaluationRunner(
 
         ScenarioChatClient scenarioChat = new();
         using RagRuntime runtime = await AppComposition.OpenExistingIndexAsync(settings, repoRoot, scenarioChat);
+        // The Ollama build serving this run, tagged on every case (QuestionTags) - an update can change answers. Asked
+        // after OpenExistingIndexAsync, whose readiness check turns "Ollama isn't running" into a message naming the fix.
+        string ollamaVersion = (await chat.GetVersionAsync(cancellationToken)).ToString();
 
         List<QuestionOutcome> outcomes = new();
         foreach (QuestionSet set in sets)
         {
-            foreach (string question in File.ReadAllLines(Path.Combine(repoRoot.FullName, "tools", set.File)).Where(q => q.Trim().Length > 0))
+            foreach ((_, string question, ExpectedAnswer entry) in questions.Where(q => q.Set == set))
             {
-                ExpectedAnswer entry = byQuestion[question.Trim()];
-                if (onlyIds.Count > 0 && !onlyIds.Contains(entry.Id))
-                {
-                    continue;
-                }
-
                 Stopwatch clock = Stopwatch.StartNew();
                 // Tags by name: the parameter before them is additionalCachingKeys - tags there would change every
                 // cache key and re-ask the model for every answer.

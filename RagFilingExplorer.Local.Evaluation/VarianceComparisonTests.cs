@@ -65,6 +65,16 @@ public class VarianceComparisonTests
             Is.EqualTo(AnswerVariation.Grade));
     }
 
+    // A judge-only run stores no strict grade; against a graded run that must not read as a grade change.
+    [Test]
+    public void Classify_RunWithoutStrictGrade_NoGradeChange()
+    {
+        Assert.That(VarianceComparison.Classify([Answer("a", "Nasdaq spent $616 million."), Answer("b", "Nasdaq spent $616 million.", VarianceComparison.NoGrade)]),
+            Is.EqualTo(AnswerVariation.Identical));
+        Assert.That(VarianceComparison.Report(["a", "b"], [Answer("a", "x"), Answer("b", "x", VarianceComparison.NoGrade)]),
+            Does.Contain("a vs b: 1/1 / no strict grade"));
+    }
+
     [Test]
     public void Report_OnlyQuestionsInEveryExecution_AreCompared()
     {

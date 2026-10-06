@@ -31,6 +31,19 @@ public class FigureSourceEvaluatorTests
         "A26", "By how much did Microsoft's net income increase from fiscal 2025 to fiscal 2026?", "figure",
         Expect: ["31,917"], Unit: "million", Exact: true, ChunkExpect: ["133,749", "101,832"]);
 
+    // An expected value holding two numbers ("2025-2030") is matched as text: reading it as one figure threw and would
+    // have stopped the whole run at that question.
+    [Test]
+    public void ExpectedLocations_ValueWithTwoNumbers_MatchedAsText()
+    {
+        ExpectedAnswer fact = new("X1", "Over which years does the plan run?", "fact", Expect: ["2025-2030"], ChunkExpect: ["2025-2030"]);
+        RetrievedExcerpt plan = new(Filing, "PART II > Item 7", "narrative", "The plan runs over 2025-2030.");
+
+        List<FigureSourceEvaluator.ExpectedLocation> locations = FigureSourceEvaluator.ExpectedLocations(fact, "It runs for five years.", [plan]);
+
+        Assert.That(locations.Single().InAnExcerpt, Is.True);
+    }
+
     private static async Task<StringMetric> SourceAsync(ExpectedAnswer expected, string answer, IReadOnlyList<RetrievedExcerpt> excerpts, int generationTopK = 5)
     {
         EvaluationResult result = await new FigureSourceEvaluator(generationTopK).EvaluateAsync(

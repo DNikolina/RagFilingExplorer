@@ -21,7 +21,7 @@ internal sealed class KeywordIndex(string dbPath)
 
     /// <summary>
     /// Creates and fills the index if the database doesn't have it yet - a fresh build, or an index built without
-    /// one. Cheap (about a second for ~1,000 chunks), and derived only from <c>chunks</c>: a rebuild deletes
+    /// one. Cheap next to embedding, and derived only from <c>chunks</c>: a rebuild deletes
     /// the whole database, so the two can't drift apart.
     /// </summary>
     public void EnsureCreated()

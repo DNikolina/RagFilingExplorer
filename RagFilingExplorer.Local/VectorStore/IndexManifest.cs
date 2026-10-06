@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using System.Text.Json;
+using RagFilingExplorer.Local.Chunking;
 
 namespace RagFilingExplorer.Local.VectorStore;
 
@@ -31,7 +32,8 @@ internal sealed class IndexManifest
     public required int MaxTokensPerChunk { get; init; }
     public required int OverlapTokens { get; init; }
 
-    /// <summary>Filing file name -> lowercase hex SHA-256 of its bytes.</summary>
+    /// <summary>Input file name -> lowercase hex SHA-256 of its bytes: every filing, and under the Structured strategy
+    /// its taxonomy files too (<see cref="InputFiles"/>).</summary>
     public required SortedDictionary<string, string> FilingHashes { get; init; }
 
     public static IndexManifest Create(AppSettings settings, IEnumerable<FileInfo> filings) => new()
@@ -42,9 +44,33 @@ internal sealed class IndexManifest
         MaxTokensPerChunk = settings.Chunking.MaxTokensPerChunk,
         OverlapTokens = settings.Chunking.OverlapTokens,
         FilingHashes = new SortedDictionary<string, string>(
-            filings.ToDictionary(f => f.Name, f => Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(f.FullName)))),
+            InputFiles(settings.Chunking.Strategy, filings.ToList())
+                .ToDictionary(f => f.Name, f => Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(f.FullName)))),
             StringComparer.Ordinal),
     };
+
+    /// <summary>
+    /// The files an index is built from. The Structured strategy also reads each filer's XBRL taxonomy from the filings'
+    /// folder - the .xsd and its linkbases - and a changed taxonomy changes statement types and note topics, so those
+    /// are inputs too. EDGAR's extracted instances (*_htm.xml) are left out: only a test reads them, and downloading
+    /// them mustn't make the index stale.
+    /// </summary>
+    internal static List<FileInfo> InputFiles(ChunkingStrategyKind strategy, IReadOnlyList<FileInfo> filings)
+    {
+        List<FileInfo> inputs = [.. filings];
+        if (strategy == ChunkingStrategyKind.Structured)
+        {
+            inputs.AddRange(filings
+                .Select(f => f.Directory)
+                .OfType<DirectoryInfo>()
+                .DistinctBy(d => d.FullName, StringComparer.OrdinalIgnoreCase)
+                .SelectMany(d => d.GetFiles("*.xsd").Concat(d.GetFiles("*.xml")))
+                .Where(f => !f.Name.EndsWith("_htm.xml", StringComparison.OrdinalIgnoreCase))
+                .OrderBy(f => f.Name, StringComparer.Ordinal));
+        }
+
+        return inputs;
+    }
 
     /// <summary>Returns null if the file doesn't exist or can't be parsed (treated the same as missing).</summary>
     public static IndexManifest? TryLoad(string path)

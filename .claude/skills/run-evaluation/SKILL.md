@@ -57,7 +57,7 @@ the defaults clean.
 |---|---|
 | `Graders` | `strict` (default), `judge`, or `both` - the judge is a model; answer rank and figure source always run |
 | `Judges` | `equivalence`, `groundedness` (used when `Graders` includes the judge) |
-| `Execution` | the run's name; empty = `structured-hybrid-<yyyyMMddTHHmm>`. Reusing a name replaces that run |
+| `Execution` | the run's name; empty = `structured-hybrid-<yyyyMMddTHHmm>`. Reusing a name overwrites the questions asked again and keeps the rest (the summary lists them) - use a new name to keep runs apart |
 | `Sets` / `Only` | which questions: sets `Main`, `HeldOut`, `AnswerSide`; or ids like `Q1,A16` |
 | `NoCache` | `true` = ask the model afresh and cache nothing (a variance pass) |
 | `UnloadEachQuestion` | unload the model before each question; needs `NoCache` |
@@ -150,6 +150,8 @@ tag back in its `results/*.json` afterwards, or later comparisons will name the 
 - **"... doesn't exist - build it by running the app once"** or a stale-index message: build or `--rebuild` the index.
 - **Ollama connection or model errors**: start Ollama, `ollama pull` the model the message names.
 - **evalsettings.json validation error**: it names the bad key - an unknown grader, judge or set, `UnloadEachQuestion`
-  without `NoCache`, or a judge asked for with no `Judges` listed.
-- **The run stopped part-way**: questions already answered are cached; re-running with the same `Execution` resumes
-  cheaply and replaces the partial run.
+  without `NoCache`, a judge with `NoCache` (the judge's larger context window would reload the model around every
+  answer - judge cached answers), or a judge asked for with no `Judges` listed.
+- **"Only names ..., which isn't a question of the sets run"**: a mistyped id, or an id from a set the run excludes.
+- **The run stopped part-way**: questions already answered are cached; re-running the same questions with the same
+  `Execution` resumes cheaply and overwrites the partial run.

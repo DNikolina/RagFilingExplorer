@@ -86,7 +86,7 @@ internal static class IndexBuilder
         // against a fresh vec0 virtual table (even the very first batch of all-new keys, so it's not a real
         // duplicate-key issue in our data). Its delete-then-insert upsert workaround
         // (vec0 has no native UPSERT) appears to only be exercised correctly for single-record batches. In
-        // practice this isn't much slower than batching: ~5 records/sec either way on this hardware.
+        // practice this costs little: embedding each chunk, not the upsert, is what takes the time.
         DateTime start = DateTime.UtcNow;
         for (int i = 0; i < records.Count; i += batchSize)
         {

@@ -118,6 +118,12 @@ public class EvaluationRunTests
             summary.AppendLine("Not strictly graded (Graders: judge) - no comparison with the v2 baseline.");
         }
 
+        if (runner.KeptFromEarlierRun.Count > 0)
+        {
+            summary.AppendLine($"{runner.KeptFromEarlierRun.Count} result(s) from an earlier run under this name weren't asked again and stay part of it"
+                + $" (choose a new Execution name to keep runs apart): {string.Join(", ", runner.KeptFromEarlierRun)}");
+        }
+
         File.WriteAllText(Path.Combine(storage, $"summary-{execution}.txt"), summary.ToString());
         TestContext.Progress.WriteLine(summary.ToString());
 
@@ -127,6 +133,11 @@ public class EvaluationRunTests
         if (differences.Count > 0)
         {
             Assert.Warn($"{differences.Count} grade(s) differ from the v2 baseline:\n" + string.Join("\n", differences));
+        }
+
+        if (runner.KeptFromEarlierRun.Count > 0)
+        {
+            Assert.Warn($"{runner.KeptFromEarlierRun.Count} result(s) from an earlier run named {execution} are mixed into this one.");
         }
     }
 }

@@ -50,11 +50,11 @@ public class EvaluationSettingsTests
     [Test]
     public void Overrides_ListsAndFlags_ReadAsWritten()
     {
-        EvaluationSettings settings = With(("Only", "Q1, A16"), ("Sets", "Main,AnswerSide"), ("NoCache", "true"), ("Graders", "both"), ("Judges", "Equivalence,groundedness"));
+        EvaluationSettings settings = With(("Only", "Q1, A16"), ("Sets", "Main,AnswerSide"), ("CacheTimeToLiveDays", "30"), ("Graders", "both"), ("Judges", "Equivalence,groundedness"));
 
         Assert.That(settings.OnlyIds, Is.EqualTo(new[] { "Q1", "A16" }));
         Assert.That(settings.SetNames, Is.EqualTo(new[] { "Main", "AnswerSide" }));
-        Assert.That(settings.NoCache, Is.True);
+        Assert.That(settings.CacheTimeToLiveDays, Is.EqualTo(30));
         Assert.That(settings.JudgeNames, Is.EqualTo(new[] { "equivalence", "groundedness" }));
     }
 
@@ -73,6 +73,15 @@ public class EvaluationSettingsTests
     public void Validate_JudgeWithNoJudges_Fails()
     {
         Assert.That(() => With(("Graders", "judge"), ("Judges", "")), Throws.InvalidOperationException.With.Message.Contains("Judges is empty"));
+    }
+
+    // The judge's larger context window makes Ollama reload the model; with fresh answers that happens around every
+    // question, and a variance pass would measure reloads instead of the app.
+    [TestCase("judge")]
+    [TestCase("both")]
+    public void Validate_JudgeWithNoCache_Fails(string graders)
+    {
+        Assert.That(() => With(("Graders", graders), ("NoCache", "true")), Throws.InvalidOperationException.With.Message.Contains("judge cached answers"));
     }
 
     [Test]

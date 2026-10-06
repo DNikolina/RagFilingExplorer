@@ -41,6 +41,9 @@ internal enum AnswerVariation
 /// </summary>
 internal static class VarianceComparison
 {
+    /// <summary>The grade of a run without the strict grade (Graders: judge).</summary>
+    public const string NoGrade = "-";
+
     /// <summary>Every stored answer of the given executions (the latest iteration of each scenario).</summary>
     public static async Task<List<StoredAnswer>> LoadAsync(string storageRoot, IReadOnlyList<string> executions, CancellationToken cancellationToken = default)
     {
@@ -70,8 +73,8 @@ internal static class VarianceComparison
                     result.ScenarioName,
                     result.Messages.Last().Text,
                     result.ModelResponse.Text.Trim(),
-                    // A run with Graders: judge has no strict grade - "-", so wording and figures still compare.
-                    evaluation.Metrics.TryGetValue(StrictFigureEvaluator.MetricName, out EvaluationMetric? strict) ? ((StringMetric)strict).Value ?? "" : "-",
+                    // A run with Graders: judge has no strict grade, so wording and figures still compare.
+                    evaluation.Metrics.TryGetValue(StrictFigureEvaluator.MetricName, out EvaluationMetric? strict) ? ((StringMetric)strict).Value ?? "" : NoGrade,
                     evaluation.Metrics.TryGetValue(FigureSourceEvaluator.MetricName, out EvaluationMetric? source) ? ((StringMetric)source).Value ?? "" : ""));
             }
         }
@@ -79,11 +82,12 @@ internal static class VarianceComparison
         return answers;
     }
 
-    /// <summary>How a question's answers vary: <see cref="AnswerVariation.Grade"/> if any two grades differ, else
-    /// <see cref="AnswerVariation.Figures"/> if any two figure lists do, else wording, else identical.</summary>
+    /// <summary>How a question's answers vary: <see cref="AnswerVariation.Grade"/> if any two strict grades differ, else
+    /// <see cref="AnswerVariation.Figures"/> if any two figure lists do, else wording, else identical. A run without the
+    /// strict grade ("-") takes no part in the grade comparison - against a graded run it would read as a change.</summary>
     public static AnswerVariation Classify(IReadOnlyList<StoredAnswer> answers)
     {
-        if (answers.Select(a => a.Grade).Distinct().Count() > 1)
+        if (answers.Select(a => a.Grade).Where(g => g != NoGrade).Distinct().Count() > 1)
         {
             return AnswerVariation.Grade;
         }
@@ -132,8 +136,10 @@ internal static class VarianceComparison
             for (int j = i + 1; j < executions.Count; j++)
             {
                 int sameText = questions.Count(row => row[i].ComparedText == row[j].ComparedText);
-                int sameGrade = questions.Count(row => row[i].Grade == row[j].Grade);
-                text.AppendLine($"  {executions[i]} vs {executions[j]}: {sameText}/{questions.Count} / {sameGrade}/{questions.Count}");
+                List<List<StoredAnswer>> graded = questions.Where(row => row[i].Grade != NoGrade && row[j].Grade != NoGrade).ToList();
+                int sameGrade = graded.Count(row => row[i].Grade == row[j].Grade);
+                string grades = graded.Count > 0 ? $"{sameGrade}/{graded.Count}" : "no strict grade";
+                text.AppendLine($"  {executions[i]} vs {executions[j]}: {sameText}/{questions.Count} / {grades}");
             }
         }
 

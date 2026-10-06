@@ -192,7 +192,7 @@ exits with a one-line fix instead of a stack trace:
 - The reranker is on but its model is missing or fails its SHA-256 check, or `Retrieval:Search` isn't `Hybrid`.
 - **The index can't be trusted.** A build writes `rag.<strategy>.db.manifest.json` only after every
   chunk has been embedded. It records the embedding model, the chunking strategy and settings, and a
-  SHA-256 hash of every filing. If the index has no manifest, the last build was interrupted or failed. If the manifest doesn't match
+  SHA-256 hash of every filing (under `Structured`, of its taxonomy files too). If the index has no manifest, the last build was interrupted or failed. If the manifest doesn't match
   the current `appsettings.json` and `data/`, the index is stale. Either way the app says exactly what's
   wrong and asks for `--rebuild` rather than silently answering from a partial or mismatched index.
   (A changed embedding model is the worst case: query vectors from the new model compared against

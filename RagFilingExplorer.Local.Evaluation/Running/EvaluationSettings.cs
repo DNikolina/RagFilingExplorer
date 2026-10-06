@@ -25,7 +25,8 @@ internal sealed class EvaluationSettings
     /// <summary>The model judges, comma-separated - equivalence, groundedness - used when <see cref="Graders"/> includes them.</summary>
     public required string Judges { get; set; }
 
-    /// <summary>The execution name; empty: structured-hybrid-&lt;yyyyMMddTHHmm&gt;. The same name replaces that run.</summary>
+    /// <summary>The execution name; empty: structured-hybrid-&lt;yyyyMMddTHHmm&gt;. Reusing a name overwrites the questions
+    /// asked again and keeps the rest of that run (the summary lists them) - use a new name to keep runs apart.</summary>
     public required string Execution { get; set; }
 
     /// <summary>Question sets, comma-separated - Main, HeldOut, AnswerSide; empty: all three.</summary>
@@ -122,6 +123,13 @@ internal sealed class EvaluationSettings
         if (UnloadEachQuestion && !NoCache)
         {
             errors.Add("UnloadEachQuestion without NoCache would unload the model for cached answers");
+        }
+
+        // The judge runs with a larger context window than the app, and Ollama reloads the model when it changes - with
+        // fresh answers that's two reloads per question, so the pass no longer measures the app as it runs.
+        if (UsesJudges && NoCache)
+        {
+            errors.Add($"Graders \"{Graders}\" with NoCache would reload the model around every answer - judge cached answers instead");
         }
 
         if (CacheTimeToLiveDays <= 0)

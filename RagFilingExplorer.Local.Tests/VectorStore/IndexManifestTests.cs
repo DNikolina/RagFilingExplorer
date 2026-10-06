@@ -1,3 +1,4 @@
+using RagFilingExplorer.Local.Chunking;
 using RagFilingExplorer.Local.VectorStore;
 
 namespace RagFilingExplorer.Local.Tests.VectorStore;
@@ -122,5 +123,40 @@ public class IndexManifestTests
 
         Assert.That(before.FilingHashes["X.html"], Has.Length.EqualTo(64));
         Assert.That(before.DescribeDifferences(after), Is.EqualTo(new[] { "data/X.html changed since the index was built" }));
+    }
+
+    // The Structured strategy reads the filer's taxonomy too: an edited .xsd or linkbase changes statement types and
+    // note topics, so it must make the index stale like an edited filing.
+    [Test]
+    public void Create_StructuredTaxonomyEdited_IsDetected()
+    {
+        FileInfo filing = new(Path.Combine(_tempDirectory, "X.html"));
+        File.WriteAllText(filing.FullName, "<p>filing</p>");
+        File.WriteAllText(Path.Combine(_tempDirectory, "x-20261231.xsd"), "<schema/>");
+        File.WriteAllText(Path.Combine(_tempDirectory, "x-20261231_pre.xml"), "<linkbase/>");
+        AppSettings settings = AppSettingsTests.LoadShippedSettings();
+
+        IndexManifest before = IndexManifest.Create(settings, [filing]);
+        File.WriteAllText(Path.Combine(_tempDirectory, "x-20261231_pre.xml"), "<linkbase>edited</linkbase>");
+        IndexManifest after = IndexManifest.Create(settings, [filing]);
+
+        Assert.That(before.FilingHashes.Keys, Is.EqualTo(new[] { "X.html", "x-20261231.xsd", "x-20261231_pre.xml" }));
+        Assert.That(before.DescribeDifferences(after), Is.EqualTo(new[] { "data/x-20261231_pre.xml changed since the index was built" }));
+    }
+
+    // EDGAR's extracted instance is a test oracle the app never reads; downloading it must not make the index stale.
+    // v1's strategies don't read the taxonomy at all.
+    [Test]
+    public void InputFiles_ExtractedInstanceAndOtherStrategies_LeftOut()
+    {
+        FileInfo filing = new(Path.Combine(_tempDirectory, "X.html"));
+        File.WriteAllText(filing.FullName, "<p>filing</p>");
+        File.WriteAllText(Path.Combine(_tempDirectory, "x-20261231.xsd"), "<schema/>");
+        File.WriteAllText(Path.Combine(_tempDirectory, "x-20261231_htm.xml"), "<xbrl/>");
+
+        Assert.That(IndexManifest.InputFiles(ChunkingStrategyKind.Structured, [filing]).Select(f => f.Name),
+            Is.EqualTo(new[] { "X.html", "x-20261231.xsd" }));
+        Assert.That(IndexManifest.InputFiles(ChunkingStrategyKind.Markdown, [filing]).Select(f => f.Name),
+            Is.EqualTo(new[] { "X.html" }));
     }
 }

@@ -26,7 +26,7 @@ internal sealed class CompanyRegistry(IReadOnlyList<CompanyRegistration> registr
 {
     public IReadOnlyList<CompanyRegistration> Registrations { get; } = registrations;
 
-    /// <summary>Reads each filing's cover facts (about a second for the four here - each page is parsed).</summary>
+    /// <summary>Reads each filing's cover facts - each page is parsed, so this costs a little time per filing at startup.</summary>
     public static CompanyRegistry FromFilings(IEnumerable<FileInfo> filings) => new(filings.Select(filing =>
     {
         byte[] bytes = File.ReadAllBytes(filing.FullName);

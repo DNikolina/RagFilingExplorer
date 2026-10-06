@@ -134,8 +134,9 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
 
         foreach (string value in expect)
         {
-            // A figure matches as the grader reads numbers; a fact ("Austin") as text.
-            bool isNumber = StrictGrader.Numbers(value).SingleOrDefault() == value;
+            // A figure matches as the grader reads numbers; a fact ("Austin", "2025-2030") as text.
+            List<string> numbers = StrictGrader.Numbers(value).ToList();
+            bool isNumber = numbers.Count == 1 && numbers[0] == value;
             List<string> found = new();
             List<string> foundShort = new();
             for (int i = 0; i < excerpts.Count; i++)

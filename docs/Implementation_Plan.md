@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 373 offline unit tests (176 at v1.0) + 157 offline evaluation tests (v3) |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 375 offline unit tests (176 at v1.0) + 166 offline evaluation tests (v3) |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -260,7 +260,8 @@ transitive via SqliteVec, referenced at the same version), `Microsoft.ML.OnnxRun
   gets lost among near-identical fragments (ORCL: rank 8-9 of 17). "Changes in ... equity" questions
   still go to the equity statement via `ResolveStatementType`'s longest-match rule.
 - **Chunking/embedding *code* changes need `--rebuild`.** Settings and filing changes are detected
-  automatically via `rag.<strategy>.db.manifest.json`; code changes can't be.
+  automatically via `rag.<strategy>.db.manifest.json` - under `Structured`, the filers' taxonomy files in `data/` too
+  (not EDGAR's `_htm.xml` test files); code changes can't be.
 - **Statement-type regexes must require "STATEMENTS"** (except balance sheet) — without it, bare
   headings like "OPERATIONS" or "Cash Flows" mistagged up to 96 consecutive chunks.
 - **Never send a reasoning ("think") request to a model without the `thinking` capability** — Ollama
