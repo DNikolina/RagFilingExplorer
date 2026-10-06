@@ -16,21 +16,34 @@ The evaluation asks every question in `tools/*-questions.txt` through the app ex
 - **Figure source** - each figure the answer states, traced to the excerpt and line it came from: `traced`,
   `calculated` (an asked-for sum or ratio), `untraced` (in no excerpt - a possible invention), `no figure stated`.
 
-Results are stored per question under `eval/v3-runs/results/<execution>/`, model responses are cached in
-`eval/v3-runs/cache/` (gitignored), and each run writes `summary-<execution>.txt` and `report-<execution>.html`;
-`report.html` holds every stored run, newest first.
+Each run has a name - the library calls it an *execution*, hence the `Execution` setting. Results are stored per
+question under `eval/v3-runs/results/<run>/`, model responses are cached in `eval/v3-runs/cache/` (gitignored), and each
+run writes `summary-<run>.txt` and `report-<run>.html`; `report.html` holds every stored run, newest first.
+
+## A full run, step by step
+
+Copy this checklist and work through it:
+
+```
+- [ ] Prerequisites checked (Before a run, below)
+- [ ] Smoke run on two or three questions passes; its results deleted
+- [ ] Full run started detached, progress followed in its log
+- [ ] Summary read: grades, ranks, untraced figures, differences from the stored baselines
+- [ ] Each difference explained from the report before drawing conclusions
+```
 
 ## Before a run
 
 Check these first - each one otherwise costs a long run or a confusing failure:
 
-1. **Ollama is running with the configured models** (`RagFilingExplorer.Local/appsettings.json`: `nomic-embed-text`,
+1. **The .NET SDK** pinned in `global.json` is installed (`dotnet --version`).
+2. **Ollama is running with the configured models** (`RagFilingExplorer.Local/appsettings.json`: `nomic-embed-text`,
    `llama3.1:8b` by default). Note the Ollama version (`ollama --version`): every result is tagged `ollama:<version>`,
    and an Ollama update can change answers at temperature 0 even with identical code.
-2. **The index is built and current.** The evaluation never builds one. If it's missing or stale the run stops with the
+3. **The index is built and current.** The evaluation never builds one. If it's missing or stale the run stops with the
    fix; build it by running the app once: `dotnet run --project RagFilingExplorer.Local` (then `exit`).
-3. **Nothing else is building or running the app** - a locked DLL fails the build.
-4. **Know whether answers will come from the cache.** A fresh clone has no cache, so the first full run asks the model
+4. **Nothing else is building or running the app** - a locked DLL fails the build.
+5. **Know whether answers will come from the cache.** A fresh clone has no cache, so the first full run asks the model
    all 102 questions - about two hours on a CPU-only machine. Later runs replay cached answers in minutes; only new or
    changed questions are asked.
 
@@ -70,8 +83,8 @@ checks. A smoke run's results stay in the store and in `report.html` - delete `e
 sleeping machine pauses the run - so start it detached and check its progress instead of waiting on it. On Windows:
 
 ```powershell
-New-Item -ItemType Directory -Force eval\v3-runs\logs | Out-Null
-Start-Process cmd -WindowStyle Minimized -ArgumentList '/c dotnet test RagFilingExplorer.Local.Evaluation --filter FullyQualifiedName~EvaluationRunTests --logger "console;verbosity=detailed" > eval\v3-runs\logs\run.log 2>&1'
+New-Item -ItemType Directory -Force eval/v3-runs/logs | Out-Null
+Start-Process cmd -WindowStyle Minimized -ArgumentList '/c dotnet test RagFilingExplorer.Local.Evaluation --filter FullyQualifiedName~EvaluationRunTests --logger "console;verbosity=detailed" > eval/v3-runs/logs/run.log 2>&1'
 ```
 
 The redirect goes through `cmd`: Windows PowerShell 5.1's `*>` writes the log as UTF-16 and turns stderr lines into
@@ -80,27 +93,27 @@ question writes one progress line (grade, rank, figure source, seconds); environ
 starts the run are inherited by it.
 
 Two scripts wrap the longer measurements (Windows PowerShell; read their headers for parameters):
-- `tools/run-variance.ps1` - the questions asked afresh N times, then compared question by question with a baseline.
+- `tools/run-variance.ps1` - the questions asked afresh N times, then compared question by question with a reference run you name.
 - `tools/run-judge.ps1` - the local judge over cached answers, then its agreement with the strict grade.
 
 ## Reading the results
 
-Start with `eval/v3-runs/summary-<execution>.txt`: per set, reliable count and statuses, answers with the figure in the
-top 5, figure sources; every untraced figure; and every grade that differs from the v2 baselines the run is compared
-with (`eval/structured-5a/`, `eval/answer-side-norerank/`).
+Start with `eval/v3-runs/summary-<run>.txt`: per set, reliable count and statuses, answers with the figure in the
+top 5, figure sources; every untraced figure; and every grade that differs from the stored baselines - the graded v2
+runs each question set is compared with (`eval/structured-5a/`, `eval/answer-side-norerank/`).
 
-A difference from the baseline is a **warning, not a failure** - read it before concluding anything:
-- Different Ollama build, hardware or model quantization than the baseline? Answers can change with no code change. The
-  stored baselines were answered on a CPU-only machine; compare like with like. To measure your own change, run once
+A difference from the stored baselines is a **warning, not a failure** - read it before concluding anything:
+- Different Ollama build, hardware or model quantization than the stored baselines? Answers can change with no code
+  change. The stored baselines were answered on a CPU-only machine; compare like with like. To measure your own change, run once
   **before** it and once after, on the same machine and Ollama build, and compare those two.
 - Same build, same machine? Then a changed grade is a changed input - look at the code, prompt or setting you changed.
 
-To see why an answer failed, open `report-<execution>.html` in a browser. Each case shows the strict grade's reason in
+To see why an answer failed, open `report-<run>.html` in a browser. Each case shows the strict grade's reason in
 words (what it stated vs. what was expected, and what any trap figure is), where the expected figure was (a line in an
 excerpt = misreading; derived from given figures = calculation; in no excerpt = retrieval miss), the prompt the model
 was given, and tags (kind, company, statement routed to, Ollama build) to filter by.
 
-To compare two runs question by question (wording, figures, grade), set `Evaluation__Compare=<exec1>,<exec2>` and
+To compare two runs question by question (wording, figures, grade), set `Evaluation__Compare=<run1>,<run2>` and
 `Evaluation__CompareName=<name>` and run `--filter "FullyQualifiedName~VarianceComparisonTests.Compare_Executions"`;
 the comparison is written to `eval/v3-runs/<name>.txt`.
 
@@ -110,7 +123,7 @@ the comparison is written to `eval/v3-runs/<name>.txt`.
 rates similarity, not the exact figure - it passed most of the strict grade's wrong figures - so treat it as a second
 view, never as the grade. It needs a larger context window, which the evaluation sets for the judge's calls only.
 Groundedness is far slower (~100 s a call on CPU); screen it on a few questions (`Only`) before a full run.
-`JudgeAgreementTests.Report_Execution` (with `Evaluation__JudgeExecution=<execution>`) writes the agreement report.
+`JudgeAgreementTests.Report_Execution` (with `Evaluation__JudgeExecution=<run>`) writes the agreement report.
 
 ## Regenerating reports
 
@@ -118,7 +131,7 @@ After changing how results are written, or after deleting a run, rewrite the HTM
 asking the model: `dotnet test RagFilingExplorer.Local.Evaluation --filter "FullyQualifiedName~ReportWriteTests"`.
 
 A run replayed from the cache is re-tagged with the Ollama build that's running now, though the answers came from the
-build that first produced them. If you refresh a stored baseline from the cache, put its original `ollama:<version>`
+build that first produced them. If you refresh a stored run from the cache, put its original `ollama:<version>`
 tag back in its `results/*.json` afterwards, or later comparisons will name the wrong build.
 
 ## Adding a question
