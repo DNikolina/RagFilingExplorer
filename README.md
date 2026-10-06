@@ -25,11 +25,11 @@ reranking, a calculator tool, or a bigger model - is answered briefly in [docs/D
 
 - **v1** (tag `v1.0`) - `markitdown` converts each filing to text, which is split into sections and
   token-bounded chunks; a question's company and financial statement are hard filters on a vector search.
-- **v2** (the current default) - the `Structured` strategy reads each filing's HTML and inline XBRL directly:
+- **v2** (tag `v2.0`, the current default) - the `Structured` strategy reads each filing's HTML and inline XBRL directly:
   tables stay whole blocks, every chunk knows its statement or note from the filer's own tags, roll-forward rows
   carry their period, and each chunk's embedding text opens with the company. Retrieval is hybrid - vector and
   SQLite FTS5 keyword search fused by reciprocal rank fusion, the statement a boost instead of a filter.
-- **v3** (branch `v3`) - the app and its defaults unchanged; the evaluation moved from Python scripts into .NET with
+- **v3** (tag `v3.0`) - the app and its defaults unchanged; the evaluation moved from Python scripts into .NET with
   `Microsoft.Extensions.AI.Evaluation`: the strict grader and the retrieval rank as custom evaluators held exact to the
   Python originals, plus a new one that traces each figure in an answer to the excerpt and line it came from - every run
   stored, cached and reported ([The evaluation](#the-evaluation)).

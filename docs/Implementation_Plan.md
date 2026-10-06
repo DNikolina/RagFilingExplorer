@@ -67,6 +67,10 @@ other (102/102); against the baseline 100/102 grades - the baseline was answered
 (llama.cpp bumped). Compare runs only on the same Ollama build. **Step 6 (local judge) measured, kept alongside:** Equivalence
 by `llama3.1:8b` passes 14 of 18 wrong answers, so the strict grade stays the grade; `Graders` in `evalsettings.json`
 chooses strict, judge or both. Groundedness screened (18 answers): fails 0 of 11 wrong ones - not run in full. Decision-Log, "Variance measurement - done", "Step 6 - the local judge".
+**Closing v3 (2026-10-06):** code comments reviewed against the code and rewritten to the new comment rule (CLAUDE.md);
+the .NET evaluators made the source of truth, the Python tools kept as the record; README trimmed; MIT license added.
+**v3 complete: merged to `main`, tag `v3.0` (2026-10-06).** Nothing further is assumed or owed - a later version (e.g.
+comparing paid services with the local stack) starts only when the user asks.
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the
