@@ -7,16 +7,15 @@ using RagFilingExplorer.Local.Xbrl;
 namespace RagFilingExplorer.Local.Chunking;
 
 /// <summary>
-/// v2's strategy, built up in measured steps (docs/Decision-Log.md, "XBRL hybrid (v2)"). The filing is parsed
-/// once as a DOM (step 1a - no markitdown), its inline XBRL read before anything else (1b-i), and the page read
-/// into typed blocks, sections and chunks - the block model in <see cref="Structured"/> - rather than written
-/// out as text for v1's splitter and chunker to parse back. The heading and packing rules are v1's, shared.
-/// Step 1b-ii: a profile built from the tagged cover facts is the first section, "Cover Page"
-/// (<see cref="FilingProfile"/>). Step 1b-iii-a: the primary statements' tables are labelled from the filer's
-/// taxonomy (<see cref="StatementLabels"/>), and each chunk's statement type comes from the table it holds.
-/// Step 1b-iii-b: each note to the financial statements is a section headed by its topic (<see cref="NoteTopics"/>).
-/// Step 1b-iii-c and 1c-a: a roll-forward row states its own period, named by the filer's fiscal calendar
-/// (<see cref="PeriodLabels"/>). Step 1d: every chunk's embedding text opens with the company and filing
+/// The default strategy (how it was built, step by step: docs/Decision-Log.md, "XBRL hybrid (v2)"). The filing is
+/// parsed once as a DOM (no markitdown), its inline XBRL read before anything else, and the page read into typed
+/// blocks, sections and chunks - the block model in <see cref="Structured"/> - rather than written out as text for
+/// v1's splitter and chunker to parse back. The heading and packing rules are v1's, shared. From the filing's own
+/// tags: a profile built from the cover facts is the first section, "Cover Page" (<see cref="FilingProfile"/>); the
+/// primary statements' tables are labelled from the filer's taxonomy (<see cref="StatementLabels"/>), and each
+/// chunk's statement type comes from the table it holds; each note to the financial statements is a section headed
+/// by its topic (<see cref="NoteTopics"/>); a roll-forward row states its own period, named by the filer's fiscal
+/// calendar (<see cref="PeriodLabels"/>); and every chunk's embedding text opens with the company and filing
 /// (<see cref="CoverFacts.EmbeddingContext"/>).
 /// </summary>
 internal sealed class StructuredChunkingStrategy(Tokenizer tokenizer, int maxTokensPerChunk, int overlapTokens) : IChunkingStrategy

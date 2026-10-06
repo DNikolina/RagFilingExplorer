@@ -16,12 +16,10 @@ internal static partial class SectionSplitter
 {
     // "Item 1. Business" / "ITEM 1C. Cybersecurity" - a real heading, always carries a title after the
     // period. The space between the period and the title is optional (\.\s*, not \.\s+): Netflix's
-    // filing (NFLX-10K-2025.html) has no space at all in 21 of its 22 Item headings ("Item 1.Business"),
-    // confirmed directly by inspecting the converted output - a \.\s+ requirement would have silently
-    // lost every one of those as a section boundary, collapsing the whole filing into 4 giant PART-only
-    // sections with no Item-level heading. Verified the relaxed pattern still correctly excludes the
-    // bare "Item 1" noise case (no period at all - see BareItemNoiseRegex) and still matches every
-    // other filer's with-space convention.
+    // filing (NFLX-10K-2025.html) has no space in most of its Item headings ("Item 1.Business"), and a
+    // \.\s+ requirement would silently lose every one of those as a section boundary, collapsing the
+    // filing into a few giant PART-only sections. The relaxed pattern still excludes the bare "Item 1"
+    // noise case (no period at all - see BareItemNoiseRegex).
     [GeneratedRegex(@"^Item\s+(\d{1,2}[A-Za-z]?)\.\s*(\S.*)$", RegexOptions.IgnoreCase)]
     private static partial Regex TitledItemHeaderRegex();
 
@@ -36,9 +34,9 @@ internal static partial class SectionSplitter
     // A lone page number - matches unconditionally wherever it appears, not just when adjacent to a
     // "---" thematic break (there's no adjacency check in Split; this regex alone decides). Assumes a
     // standalone 1-4 digit line is always pagination noise (a page number or footer) and never real
-    // filing content. The optional "F-" covers financial-statement page numbers ("F-3"): NDAQ has 45
-    // of them, the only other page-marker style found across all four filings, and they were landing
-    // in chunks - one even carried forward as a chunk's overlap text. Lone roman numerals (NDAQ's
+    // filing content. The optional "F-" covers financial-statement page numbers ("F-3", NDAQ's), the only
+    // other page-marker style across the four filings - otherwise they land in chunks, even as a chunk's
+    // overlap text. Lone roman numerals (NDAQ's
     // "i"-"iv") are deliberately not matched: a lone "x" can be a real checkbox mark on a cover page.
     [GeneratedRegex(@"^(?:F-)?\d{1,4}$")]
     private static partial Regex PageNumberRegex();
@@ -50,9 +48,9 @@ internal static partial class SectionSplitter
 
     // Back matter after the last Item - the financial statement pages, signatures, exhibit index. Form 10-K
     // lets a filer place the financial statements after Part IV, referenced from Item 8/15: NFLX and NDAQ
-    // do, right after "Item 16. Form 10-K Summary - None.", so every statement, auditor's report and Note
-    // (249 NFLX chunks, 110 NDAQ) was headed "Item 16. Form 10-K Summary" - in the embedding text and in
-    // the model's citations. Each title here is a standalone line that appears only as back matter across
+    // do, right after "Item 16. Form 10-K Summary - None.", so without this every statement, auditor's report
+    // and Note would be headed "Item 16. Form 10-K Summary" - in the embedding text and in the model's
+    // citations. Each title here is a standalone line that appears only as back matter across
     // all four filings (the auditor's report title isn't usable: it also appears inside Items 8 and 9A).
     [GeneratedRegex(@"^(?:(?<fs>INDEX\s+TO\s+(?:CONSOLIDATED\s+)?FINANCIAL\s+STATEMENTS)|(?<sig>SIGNATURES)|(?<ex>EXHIBIT\s+INDEX|INDEX\s+OF\s+EXHIBITS))$", RegexOptions.IgnoreCase)]
     private static partial Regex BackMatterRegex();

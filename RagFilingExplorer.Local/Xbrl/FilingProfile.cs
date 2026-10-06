@@ -4,11 +4,10 @@ using System.Text;
 namespace RagFilingExplorer.Local.Xbrl;
 
 /// <summary>
-/// Step 1b-ii: a short, plain-sentence profile of the filing, built from its tagged cover facts (dei:), which
+/// A short, plain-sentence profile of the filing, built from its tagged cover facts (dei:), which
 /// becomes one chunk headed "Cover Page". It answers identity questions - where the principal executive offices
-/// are, who the auditor is, which fiscal year the report covers, the ticker - from one dense chunk, where v1
-/// found them (or didn't) in a cover-page table or in Item 2 prose: NDAQ's address ranked 16-17th, and H11 was
-/// right on Linearized only through the cover page's table (docs/Decision-Log.md, "structured-1c-early").
+/// are, who the auditor is, which fiscal year the report covers, the ticker - from one dense chunk, rather than
+/// from a cover-page table or Item 2 prose, which rank poorly for such questions.
 ///
 /// Only identity facts, deliberately - no share counts or public float: a profile naming the company and its
 /// fiscal year could otherwise also rank for ordinary figure questions. The filing's own wording ("principal

@@ -43,8 +43,8 @@ internal static class OllamaSetup
     }
 
     // Ollama doesn't quietly ignore a "think" request for a model that can't reason - it throws a hard
-    // OllamaException ("<model> does not support thinking"), confirmed directly when routing tried to send
-    // one to llama3.1:8b and crashed the whole app on the first synthesis question. Checked once at startup
+    // OllamaException ("<model> does not support thinking"), which would end the session on the first
+    // synthesis question. Checked once at startup
     // via Ollama's own /api/show capabilities list, rather than assumed, so RagAnswerService only ever
     // engages reasoning for a model that genuinely supports it.
     public static async Task<bool> ChatModelSupportsThinkingAsync(OllamaApiClient client, string model)

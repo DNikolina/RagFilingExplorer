@@ -248,8 +248,8 @@ internal static partial class HtmlTableLinearizer
         }
 
         // Rows read as headers that no data row ever followed aren't headers at all - MSFT's exhibit index
-        // ends with text-only rows ("31.1 | Certification of Chief Executive Officer ... | X"), which were
-        // silently dropped until kept here as plain lines.
+        // ends with text-only rows ("31.1 | Certification of Chief Executive Officer ... | X"), which would
+        // otherwise be dropped silently - kept here as plain lines.
         output.AddRange(unconsumedHeaderRows.Select(text => new LinearizedRow(null, text, [])));
 
         LinearizedTable linearized = new(LinearizedTableKind.Financial, null, units, output, []);

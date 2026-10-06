@@ -10,7 +10,7 @@ namespace RagFilingExplorer.Local.Xbrl;
 /// versions. An unknown code throws: a guessed conversion would produce a quietly wrong number.
 ///
 /// The SEC's cover-page codes that map a name to an EDGAR code (exchange, state, filer category) keep the
-/// displayed text as their value: the full code lists aren't needed for anything v2 reads from them.
+/// displayed text as their value: the full code lists aren't needed for anything read from them.
 /// </summary>
 internal static partial class IxTransformations
 {

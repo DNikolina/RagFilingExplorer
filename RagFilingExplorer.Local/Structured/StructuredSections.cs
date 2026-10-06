@@ -7,7 +7,7 @@ namespace RagFilingExplorer.Local.Structured;
 /// v1's <see cref="SectionSplitter"/> applies to text (<see cref="SectionSplitter.HeadingTracker"/>): a paragraph's
 /// heading and page-noise lines are dropped, a statement title starts a new section; a table is never read for
 /// headings (a table of contents' "PART I" rows would otherwise take the Part heading - see SectionSplitter).
-/// Step 1b-iii-b: a note to the financial statements is a section of its own, its topic the heading's last part
+/// A note to the financial statements is a section of its own, its topic the heading's last part
 /// ("PART II &gt; Item 8. ... &gt; Income Taxes") - so no chunk spans two notes, and a chunk from the middle of a
 /// note still says which note it is.
 /// </summary>

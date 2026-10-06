@@ -8,11 +8,11 @@ namespace RagFilingExplorer.Local.VectorStore;
 /// strategy and settings, and a SHA-256 hash of every filing. Written next to the index only after
 /// every chunk has been upserted, so it doubles as a completion marker.
 ///
-/// It closes two gaps in the old "rag.db exists => skip the build" check:
-/// - An interrupted or failed build (Ctrl+C during the ~10-minute embedding pass, markitdown missing,
-///   Ollama going away) left a partial rag.db behind - SqliteVectorStore creates the file before any
-///   chunking starts - which every later run then trusted as complete.
-/// - Changing EmbeddingModel, chunk size/overlap, or the filings in data/ silently reused the old index.
+/// It closes two gaps a bare "the index exists => skip the build" check leaves open:
+/// - An interrupted or failed build (Ctrl+C during the embedding pass, markitdown missing, Ollama going
+///   away) leaves a partial index behind - SqliteVectorStore creates the file before any chunking starts -
+///   which a later run would trust as complete.
+/// - Changing EmbeddingModel, chunk size/overlap, or the filings in data/ would silently reuse the old index.
 ///   An embedding-model change is the worst case: query vectors from the new model get compared against
 ///   stored vectors from the old one, so retrieval returns noise with no error at all.
 ///

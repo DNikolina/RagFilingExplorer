@@ -47,7 +47,7 @@ static async Task RunAsync(string[] args)
     bool verbose = args.Contains("--verbose");
     Console.WriteLine($"Chunking strategy: {settings.Chunking.Strategy} (index: {index.DbFileName})");
 
-    // The wiring shared with the evaluation (v3) is AppComposition's; building the index stays here.
+    // The wiring shared with the evaluation is AppComposition's; building the index stays here.
     FileInfo[] filings = AppComposition.FindFilings(repoRoot);
     CompanyRegistry companies = AppComposition.RegisterCompanies(filings);
 
@@ -57,8 +57,8 @@ static async Task RunAsync(string[] args)
     }
 
     // --chunks-only: chunk every filing and write chunk-review/<strategy>/, nothing else - no Ollama, no
-    // index. Reading the real chunk output is how nearly every chunking bug here was found; this makes that
-    // a one-minute loop instead of a ten-minute re-embed.
+    // index. Reading the real chunk output is how chunking bugs are found; this makes that a one-minute loop
+    // instead of a ten-minute re-embed.
     if (args.Contains("--chunks-only"))
     {
         List<FilingChunk> chunks = await IndexBuilder.ChunkFilingsAsync(settings, filings, reviewDirectoryPath);

@@ -57,9 +57,9 @@ internal static partial class CoverFacts
     }
 
     /// <summary>
-    /// Step 1d: the line that opens every chunk's embedding text - "Oracle Corporation (ORCL), Form 10-K for fiscal year
-    /// 2026." - from the filing's own cover facts. Measured before it was built (docs/Decision-Log.md, "Step 1d"): with
-    /// it, a number-heavy table chunk stops losing to prose - targeted recall@5 8/10 -> 9/10, held-out 9/13 -> 11/13.
+    /// The line that opens every chunk's embedding text - "Oracle Corporation (ORCL), Form 10-K for fiscal year
+    /// 2026." - from the filing's own cover facts. With it, a number-heavy table chunk stops losing to prose
+    /// (docs/Decision-Log.md, "Step 1d").
     /// Null without a registrant name.
     /// </summary>
     public static string? EmbeddingContext(XbrlDocument xbrl)

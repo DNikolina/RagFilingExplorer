@@ -9,11 +9,11 @@ namespace RagFilingExplorer.Local.Structured;
 internal sealed record NoteSpan(IElement Start, IElement End, string Topic);
 
 /// <summary>
-/// Step 1b-iii-b: where each note to the financial statements sits, and its name, from the filing's own tags rather
+/// Where each note to the financial statements sits, and its name, from the filing's own tags rather
 /// than its headings (ORCL's notes are unnumbered; a heading pattern would be one more filer convention). Every note
 /// is tagged as a text block, and the filer's taxonomy presents that concept in a Disclosure role titled with the
-/// note's name ("995567 - Disclosure - INCOME TAXES"). Measured 2026-09-29: the notes are exactly the outermost
-/// such blocks - MSFT 18, NDAQ 19, NFLX 14, ORCL 15 - none overlapping.
+/// note's name ("995567 - Disclosure - INCOME TAXES"). In all four filings the notes are exactly the outermost such
+/// blocks, none overlapping.
 ///
 /// Rules, each from the filings:
 /// - Text blocks of the SEC's form taxonomies (dei cover, cyd Item 1C, ecd Item 9B) aren't notes, whatever their role.

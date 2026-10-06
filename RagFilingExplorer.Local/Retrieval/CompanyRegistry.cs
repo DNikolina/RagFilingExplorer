@@ -15,14 +15,12 @@ internal sealed record CompanyRegistration(string Filing, IReadOnlyList<string> 
 /// <summary>
 /// Which filing(s) a question names, for the company filter. Built from each filing's own tagged cover facts - the
 /// registrant name without its legal form ("MICROSOFT CORPORATION" -> "Microsoft", "Nasdaq, Inc." -> "Nasdaq") and
-/// the trading symbol of each class of common stock (not notes or preferred stock) - replacing v1's hand-written QueryIntentResolver.CompanyToFiling table
-/// (docs/Decision-Log.md, "registration from the cover facts"). That table was the manual step of onboarding: NFLX
-/// ran every question unfiltered across all filings until it had an entry, and a hallucinated figure found it.
-/// Every 10-K tags its cover page in inline XBRL, so a filing added to data/ now registers itself; one without a
-/// registrant name fails at startup instead.
+/// the trading symbol of each class of common stock (not notes or preferred stock). No hand-kept table to forget: a
+/// company without an entry runs its questions unfiltered across every filing, which can produce a hallucinated
+/// figure. Every 10-K tags its cover page in inline XBRL, so a filing added to data/ registers itself; one without a
+/// registrant name fails at startup instead (docs/Decision-Log.md, "registration from the cover facts").
 ///
-/// Names match as whole words, ignoring case: v1 matched substrings, which a future short name ("Meta" in
-/// "metadata") would misread; on every question in the question files the two agree (CompanyRegistryTests).
+/// Names match as whole words, ignoring case - a substring match would misread a short name ("Meta" in "metadata").
 /// </summary>
 internal sealed class CompanyRegistry(IReadOnlyList<CompanyRegistration> registrations)
 {

@@ -8,7 +8,7 @@ namespace RagFilingExplorer.Local.Chunking;
 /// <summary>
 /// Tables become self-contained row lines before markitdown ever sees them: each table
 /// <see cref="HtmlTableLinearizer"/> can linearize is replaced by a &lt;pre&gt; <see cref="RowBlock"/>,
-/// which markitdown passes through as a fenced block; tables it can't (5 of 371 across the four filings -
+/// which markitdown passes through as a fenced block; tables it can't (a few -
 /// exhibit indexes, one small NDAQ table) stay HTML and reach TokenChunker as Markdown tables, exactly as in
 /// the Markdown strategy. Everything else - sections, prose chunking, statement-type tagging - is shared.
 ///

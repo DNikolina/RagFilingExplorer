@@ -4,13 +4,13 @@ using RagFilingExplorer.Local.Xbrl;
 namespace RagFilingExplorer.Local.Structured;
 
 /// <summary>
-/// Step 1b-iii-a: which table is which primary financial statement, from the filer's own taxonomy instead of v1's
+/// Which table is which primary financial statement, from the filer's own taxonomy instead of v1's
 /// title patterns (StatementTypeDetector). Every filing declares its primary statements as Statement roles
 /// (parentheticals excluded - <see cref="XbrlTaxonomy.PrimaryStatements"/>); a small title rule names each role's
 /// type, and a concept only that statement presents confirms it - checked on all four filings, where each check
 /// concept is presented by exactly one primary role. A disagreement, a missing or doubled type, fails loudly.
 ///
-/// A role then goes to the one table covering most of the concepts it presents. Measured 2026-09-29: the 20
+/// A role then goes to the one table covering most of the concepts it presents. In the four filings the 20
 /// primary statements are one table each, covering 50-86% of their role's concepts; the closest other table is
 /// NFLX's segment table at 53% of the operations role (it repeats income-statement lines per segment) - above the
 /// equity statements' 50%, so no fixed threshold separates them, but it loses its role to the statement itself

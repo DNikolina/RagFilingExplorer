@@ -11,7 +11,7 @@ namespace RagFilingExplorer.Local.Retrieval;
 /// than filtered, <see cref="KeywordQuery"/> is what the keyword search matched (null: no content words), and each
 /// retrieved chunk's score is its fused score, not a distance. When reranked, <see cref="Reranked"/> holds each retrieved
 /// chunk's (by key) reranker score and its rank before reranking. <see cref="Prompt"/> is the messages sent to the chat
-/// model, exactly - the evaluation shows them in its report (v3).
+/// model, exactly - the evaluation shows them in its report.
 /// </summary>
 internal sealed record RagAnswer(
     IReadOnlyList<string> MatchedFilings,
@@ -35,9 +35,8 @@ internal sealed record RerankedChunk(float Score, int HybridRank);
 /// (<see cref="VectorStoreCollection{TKey, TRecord}"/> and <see cref="IChatClient"/>) can be mocked in tests
 /// instead of requiring a live Ollama instance and a populated vector store.
 ///
-/// Tunables come in as <see cref="RetrievalSettings"/> with no defaults of their own - an earlier version
-/// had constructor defaults that duplicated appsettings.json, and one (maxOutputTokens = 2048 vs. 4096)
-/// had already drifted.
+/// Tunables come in as <see cref="RetrievalSettings"/> with no defaults of their own - defaults here would
+/// duplicate appsettings.json and drift from it.
 /// </summary>
 internal sealed class RagAnswerService(
     VectorStoreCollection<int, FilingChunkRecord> collection,
@@ -57,16 +56,12 @@ internal sealed class RagAnswerService(
         ? reranker
         : throw new ArgumentException("Reranking needs hybrid search - it was measured on hybrid candidates only.", nameof(reranker));
 
-    // Each rule after the first answers a failure seen in the 2026-09-25 manual pass (Decision-Log.md,
-    // "manual pass"): bare figures with no unit (7 of 24 main answers - "$45,183,036" for $45.2 billion), a
-    // figure named after the wrong one of two near-identical lines (Q10), citations by excerpt number only,
-    // pasted pipe-table rows, unrequested and wrong arithmetic, and declines padded with unrelated figures.
-    // Two further revisions (2026-09-28) each fixed what they targeted and broke other answers - neither
-    // beat this one overall, so it stays; see Decision-Log.md, "manual pass (v1)". The fixed decline form (v2 step 5a)
-    // is the one part of that v2 revision that did what it targeted - declines written as the units rule ("The unit is
-    // not stated." - H20, and H8, H15, Q15, T2 in earlier runs) - changed alone this time: every decline clean, no answer
-    // lost. A first version also said "Do not add figures or units to it." and two NFLX answers dropped "thousand"
-    // (T10, H31): a decline-only clause about units leaked into figure answers. Keep unit wording out of this sentence.
+    // Each rule answers a failure seen in graded answers: bare figures with no unit ("$45,183,036" for $45.2 billion),
+    // a figure named after the wrong one of two near-identical lines, citations by excerpt number only, pasted
+    // pipe-table rows, unrequested and wrong arithmetic, and declines padded with unrelated figures. The fixed decline
+    // form stops declines written as the units rule ("The unit is not stated."). Keep unit wording out of the decline
+    // sentence: a decline-only clause about units leaks into figure answers, which then drop their unit. Every wording
+    // tried, and what each fixed and broke: Decision-Log.md, "manual pass (v1)" and "Step 5a".
     private const string SystemPrompt = """
         You are a financial research assistant answering questions about SEC 10-K filings.
         Answer using ONLY the context excerpts provided below - do not use any outside knowledge about
@@ -103,8 +98,8 @@ internal sealed class RagAnswerService(
         {
             // A question naming 2+ companies gets one filtered search per company, interleaved by rank
             // (A1, B1, A2, B2, ...), so every named company is represented in the top results. A single
-            // unfiltered search shared its slots across all filings, and "Compare Microsoft's and
-            // Oracle's total revenue" lost ORCL's revenue chunk to rank 10.
+            // unfiltered search shares its slots across all filings, and one company's chunk can fall out
+            // of the top 5 ("Compare Microsoft's and Oracle's total revenue").
             int perFilingTopK = (int)Math.Ceiling(searchTopK / (double)targetFilings.Length);
             List<List<VectorSearchResult<FilingChunkRecord>>> perFiling = new();
             foreach (string filing in targetFilings)
@@ -119,9 +114,9 @@ internal sealed class RagAnswerService(
         }
 
         List<VectorSearchResult<FilingChunkRecord>> topForGeneration = results.Take(retrieval.GenerationTopK).ToList();
-        // Unnumbered labels in a form that isn't a citation: "[1] Source: X | Section: Y" was a second citation
-        // format the model copied ("According to excerpt [1], Source: ..."), sometimes as the only citation -
-        // an excerpt number the reader never sees.
+        // Unnumbered labels in a form that isn't a citation: a numbered "[1] Source: X | Section: Y" label is
+        // a second citation format the model copies ("According to excerpt [1], Source: ..."), sometimes as the
+        // only citation - an excerpt number the reader never sees.
         StringBuilder contextBuilder = new();
         foreach (VectorSearchResult<FilingChunkRecord> result in topForGeneration)
         {
@@ -139,15 +134,13 @@ internal sealed class RagAnswerService(
 
         // Reasoning is only worth its cost (extra latency, extra output-token budget) for questions that
         // actually need multi-step synthesis - a plain single-fact lookup gets Effort.None regardless of
-        // the configured ReasoningEffort. This is what stops a reasoning model from spending its whole
-        // generation budget "thinking" about a simple question and never reaching the answer, which is
-        // exactly what happened testing qwen3.5:2b as a reference model before this routing existed.
+        // the configured ReasoningEffort. This stops a reasoning model from spending its whole generation
+        // budget "thinking" about a simple question and never reaching the answer.
         //
         // chatModelSupportsThinking gates this further, and matters just as much: Ollama doesn't quietly
         // ignore a think request for a model that can't do it - it throws a hard OllamaException
-        // ("<model> does not support thinking"), confirmed directly when llama3.1:8b crashed the whole
-        // app on the first synthesis question. OllamaSetup.ChatModelSupportsThinkingAsync checks the chat model's real
-        // capabilities via Ollama's own /api/show once at startup, rather than assuming.
+        // ("<model> does not support thinking"). OllamaSetup.ChatModelSupportsThinkingAsync checks the chat
+        // model's real capabilities via Ollama's own /api/show once at startup, rather than assuming.
         ReasoningEffort effectiveReasoningEffort = chatModelSupportsThinking && QueryIntentResolver.RequiresSynthesis(question)
             ? retrieval.ReasoningEffort
             : ReasoningEffort.None;
@@ -178,8 +171,8 @@ internal sealed class RagAnswerService(
             return await HybridSearchAsync(keywords, question, keywordQuery, top, filing, statementType, cancellationToken);
         }
 
-        // Step 2b: the company's top RerankCandidates, reordered by the cross-encoder, then cut - for a question naming
-        // several companies this runs once per company, so each keeps its own share of the slots, as the spike measured.
+        // The company's top RerankCandidates, reordered by the cross-encoder, then cut - for a question naming several
+        // companies this runs once per company, so each keeps its own share of the slots.
         List<VectorSearchResult<FilingChunkRecord>> candidates =
             await HybridSearchAsync(keywords, question, keywordQuery, Math.Max(top, retrieval.RerankCandidates), filing, statementType, cancellationToken);
         IReadOnlyList<float> scores = reranker.Score(question, candidates.Select(c => RerankPassage(c.Record)).ToList());
@@ -192,8 +185,8 @@ internal sealed class RagAnswerService(
         return candidates.OrderByDescending(c => reranked![c.Record.Key].Score).Take(top).ToList();
     }
 
-    // What the reranker reads for a chunk: its company line (as in its embedding text - the spike's "company" text; without
-    // it both models ranked worse than no reranking at all), then the excerpt header the chat model sees, then the chunk.
+    // What the reranker reads for a chunk: its company line (as in its embedding text - without it the reranker ranks
+    // worse than no reranking at all), then the excerpt header the chat model sees, then the chunk.
     private string RerankPassage(FilingChunkRecord record)
     {
         string excerpt = $"Excerpt from {record.SourceFiling}, section {record.Heading}\n{record.Content}";
@@ -205,9 +198,9 @@ internal sealed class RagAnswerService(
     // and - when the question resolved a statement type - the vector search within that statement too. That third list
     // is the statement label as a boost: a chunk of the named statement gets a second vote, but nothing is excluded, so
     // a question the keyword rules route to the wrong statement (R1: "deferred revenues" -> income statement; the
-    // answer is on the balance sheet) can still reach its answer. Measured by replay first - docs/Decision-Log.md,
-    // "Step 2 - hybrid search": a hard filter (v1) misses R1, R2 and H14 outright; hybrid without the boost loses
-    // statement questions (Q23 rank 1 -> 11); keyword + vector + this one boosting list beat or tied every other mix.
+    // answer is on the balance sheet) can still reach its answer. A hard filter can't reach such answers at all, and
+    // hybrid without the boost loses statement questions; the variants compared: docs/Decision-Log.md, "Step 2 -
+    // hybrid search".
     private async Task<List<VectorSearchResult<FilingChunkRecord>>> HybridSearchAsync(
         KeywordIndex keywordIndex, string question, string? keywordQuery, int top, string? filing, string? statementType,
         CancellationToken cancellationToken)

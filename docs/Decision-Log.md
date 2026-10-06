@@ -3267,3 +3267,8 @@ grader note (a test reads the stored baseline). 373 unit tests, 157 offline eval
 history (dates, "(user, ...)", step numbers, measured counts, before/after stories) that a later measurement had moved past,
 repeating this log. A rule in CLAUDE.md now keeps history here; the evaluation project's comments were rewritten to it
 (each keeps its reason; test comments naming the real answer they use stay). The app's comments are left for later.
+**The app's comments rewritten to the rule too (user, 2026-10-06, after v3.0).** Same approach as the evaluation project: each
+keeps its reason, written as the rule it serves ("otherwise X happens"), and loses the step labels, dates, rank/recall
+numbers and "used to... confirmed..." stories; facts about the filings that justify a rule stay. Two comments pointed to
+README sections the trim removed - now to the Design-FAQ and this log. 41 files, comments only (every changed line is a
+comment; no rebuild needed).

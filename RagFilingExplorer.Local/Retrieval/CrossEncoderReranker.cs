@@ -12,17 +12,14 @@ internal interface IRelevanceScorer
 }
 
 /// <summary>
-/// v2 step 2b: a cross-encoder (ms-marco-MiniLM-L6-v2, run locally by ONNX Runtime) reading each (question, chunk) pair
-/// whole, where the embedding and keyword searches only compared them. Chosen by a replay-only spike - docs/Decision-Log.md,
-/// "Step 2b spike - measured": reranking each company's top 25 hybrid candidates, each chunk opened by its company line,
-/// took the answers in the model's top 5 from 64 to 67 of 68 and lost none, for ~1-3 s of CPU per question.
-/// Off by default since 2026-10-02 (Retrieval:Rerank): on the answer-side questions it pushed cash-flow statement rows
-/// out for prose, and across every question set hybrid search alone puts as many answers in the model's context
-/// (docs/Decision-Log.md, "A1-A27 with reranking off" onwards).
+/// A cross-encoder (ms-marco-MiniLM-L6-v2, run locally by ONNX Runtime) reading each (question, chunk) pair whole, where
+/// the embedding and keyword searches only compared them; ~1-3 s of CPU per question. Off by default (Retrieval:Rerank):
+/// it prefers prose to statement rows, and across every question set hybrid search alone puts as many answers in the
+/// model's context (docs/Decision-Log.md, "Step 2b spike - measured" and "A1-A27 with reranking off" onwards).
 ///
 /// The model lives outside the repo (~91 MB, Apache 2.0) and is checked against its recorded SHA-256 before ONNX Runtime
-/// reads it: the file was vetted once (provenance, operators, no external data - the same section), and a swapped or
-/// corrupted file is refused rather than trusted.
+/// reads it: the file was vetted once (provenance, operators, no external data - Decision-Log.md, "Step 2b resumed"), and
+/// a swapped or corrupted file is refused rather than trusted.
 /// </summary>
 internal sealed class CrossEncoderReranker : IRelevanceScorer, IDisposable
 {

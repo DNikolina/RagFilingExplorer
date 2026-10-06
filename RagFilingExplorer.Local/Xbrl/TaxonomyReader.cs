@@ -4,7 +4,7 @@ using AngleSharp.Dom;
 namespace RagFilingExplorer.Local.Xbrl;
 
 /// <summary>
-/// Reads a filer's extension taxonomy from data/ (step 1b-i): the role list and, per role, the concepts its
+/// Reads a filer's extension taxonomy from data/: the role list and, per role, the concepts its
 /// presentation linkbase presents, plus each concept's standard label. Handles both layouts found across the four
 /// filings - linkbases embedded in the .xsd (MSFT, ORCL - DFIN's packaging) or separate _pre/_lab/_cal/_def.xml
 /// files named by the .xsd's link:linkbaseRef (NDAQ, NFLX). An XML parser, not patterns: attribute order differs

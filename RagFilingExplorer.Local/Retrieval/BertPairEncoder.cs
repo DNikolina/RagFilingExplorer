@@ -7,14 +7,14 @@ namespace RagFilingExplorer.Local.Retrieval;
 /// <summary>
 /// Turns a (question, passage) pair into a BERT cross-encoder's inputs - <c>[CLS] question [SEP] passage [SEP]</c>, token
 /// type 0 then 1, the passage cut to what fits in <c>maxLength</c> - exactly as Hugging Face's <c>tokenizers</c> does for
-/// the ms-marco cross-encoders, which is how step 2b's spike scored them (tools/rerank_spike.py).
+/// the ms-marco cross-encoders, which is how the reranking spike scored them (tools/rerank_spike.py).
 ///
 /// <see cref="BertTokenizer"/>'s own basic tokenization differs from Hugging Face's on this project's text: it drops line
 /// breaks (fusing the words either side - "STATES\n\nSECURITIES" became "states" "##se" "##cu"...), ASCII symbols such
 /// as <c>|</c> and <c>$</c> (every table row's separators), and unknown symbols such as the cover page's "☒" (Hugging Face:
-/// <c>[UNK]</c>). Every one of the 73,125 (question, chunk) pairs of both question files differed. So <see cref="Normalize"/>
-/// does Hugging Face's BertNormalizer and BertPreTokenizer here, and BertTokenizer only runs WordPiece - after which all
-/// 73,125 pairs matched token for token (docs/Decision-Log.md, "Step 2b - build").
+/// <c>[UNK]</c>) - on this project's questions and chunks, every pair. So <see cref="Normalize"/> does Hugging Face's
+/// BertNormalizer and BertPreTokenizer here, and BertTokenizer only runs WordPiece; the parity check against Python's
+/// <c>tokenizers</c> is in docs/Decision-Log.md, "Step 2b - build".
 /// </summary>
 internal sealed class BertPairEncoder(BertTokenizer tokenizer, int maxLength)
 {

@@ -5,7 +5,7 @@ using AngleSharp.Dom;
 namespace RagFilingExplorer.Local.Xbrl;
 
 /// <summary>
-/// Reads a filing's inline XBRL from its parsed page (step 1b-i): the contexts and units declared in the hidden
+/// Reads a filing's inline XBRL from its parsed page: the contexts and units declared in the hidden
 /// &lt;ix:header&gt; (XBRL 2.1 contexts and units, Dimensions 1.0 members) and every fact in the page (Inline XBRL
 /// 1.1 ix:nonFraction / ix:nonNumeric), including those in ix:hidden. Works from the DOM, not patterns: facts
 /// nest (MSFT's dei:DocumentPeriodEndDate wraps the "June 30" and "2026" facts - its value is "June 30, 2026"),

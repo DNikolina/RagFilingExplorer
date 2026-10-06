@@ -11,8 +11,7 @@ namespace RagFilingExplorer.Local.Chunking;
 /// carried-forward statement type there instead of letting it leak into every subsequent chunk.
 ///
 /// The four filings in this project use three different naming conventions for the exact same
-/// statements, confirmed by direct inspection - a detector tuned to only one would silently miss the
-/// others:
+/// statements - a detector tuned to only one would silently miss the others:
 /// - ORCL (and NFLX): "CONSOLIDATED STATEMENTS OF OPERATIONS", "CONSOLIDATED BALANCE SHEETS",
 ///   "CONSOLIDATED STATEMENTS OF CASH FLOWS", "CONSOLIDATED STATEMENTS OF STOCKHOLDERS' EQUITY"
 /// - MSFT: "INCOME STATEMENTS", "BALANCE SHEETS", "CASH FLOWS STATEMENTS",
@@ -26,13 +25,10 @@ namespace RagFilingExplorer.Local.Chunking;
 /// </summary>
 internal static partial class StatementTypeDetector
 {
-    // Detect() checks ComprehensiveIncomeRegex before IncomeStatementRegex, but - verified directly,
-    // not just assumed - that ordering isn't actually load-bearing: both regexes now require
-    // "STATEMENTS" to appear (see IncomeStatementRegex's and ComprehensiveIncomeRegex's own comments
-    // below for why), which already makes them mutually exclusive on every convention seen.
-    // IncomeStatementRegex does not match "STATEMENTS OF COMPREHENSIVE INCOME" or "COMPREHENSIVE
-    // INCOME STATEMENTS" in either order - confirmed with a direct regex test, not assumed from a
-    // resemblance between the two patterns. The order is kept anyway as cheap, harmless precaution.
+    // Detect() checks ComprehensiveIncomeRegex before IncomeStatementRegex, though the order isn't
+    // load-bearing: both require "STATEMENTS" (see their own comments below), which makes them mutually
+    // exclusive on every convention seen - IncomeStatementRegex matches neither "STATEMENTS OF COMPREHENSIVE
+    // INCOME" nor "COMPREHENSIVE INCOME STATEMENTS". The order is kept as a cheap precaution.
     //
     // "BALANCE SHEETS" is intentionally NOT required to contain "STATEMENTS" - unlike every other
     // statement type, the real title never includes that word in any of the conventions seen
@@ -40,10 +36,9 @@ internal static partial class StatementTypeDetector
     [GeneratedRegex(@"^(CONSOLIDATED\s+)?(STATEMENTS?\s+OF\s+)?BALANCE\s+SHEETS?$", RegexOptions.IgnoreCase)]
     private static partial Regex BalanceSheetRegex();
 
-    // "STATEMENTS" required (prefix or suffix) - "Cash Flows" alone is also used as a bare MD&A
-    // subsection heading (e.g. "Cash Flows" before a narrative discussion of the trends), confirmed
-    // by inspecting rag.db directly: it mistagged 14 chunks inside Item 7's MD&A before the real
-    // statement title appeared in Item 8.
+    // "STATEMENTS" required (prefix or suffix) - "Cash Flows" alone is also a bare MD&A subsection
+    // heading (before a narrative discussion of the trends), and matching it would tag Item 7's MD&A
+    // chunks as the cash flow statement until the real title in Item 8.
     [GeneratedRegex(@"^(CONSOLIDATED\s+)?(STATEMENTS?\s+OF\s+CASH\s+FLOWS?|CASH\s+FLOWS?\s+STATEMENTS?)$", RegexOptions.IgnoreCase)]
     private static partial Regex CashFlowRegex();
 
@@ -52,25 +47,20 @@ internal static partial class StatementTypeDetector
     // there's no evidence-based reason to leave it optional here either.
     //
     // "CHANGES IN" is optional after "OF": NDAQ titles its statement "Consolidated Statements of
-    // Changes in Stockholders' Equity", which the pattern originally didn't allow - so NDAQ's equity
-    // statement was never detected, its chunks inherited the preceding comprehensive_income tag, and
-    // an NDAQ equity question filtered to equity_statement found zero chunks ("(no results)",
-    // confirmed live against rag.db before this fix).
+    // Changes in Stockholders' Equity". Undetected, its chunks would inherit the preceding
+    // comprehensive_income tag, and an NDAQ equity question filtered to equity_statement would find nothing.
     [GeneratedRegex(@"^(CONSOLIDATED\s+)?(STATEMENTS?\s+OF\s+(CHANGES\s+IN\s+)?(STOCKHOLDERS|SHAREHOLDERS).{0,3}\s+EQUITY|(STOCKHOLDERS|SHAREHOLDERS).{0,3}\s+EQUITY\s+STATEMENTS?)$", RegexOptions.IgnoreCase)]
     private static partial Regex EquityRegex();
 
-    // "STATEMENTS" must appear somewhere (prefix "STATEMENTS OF X" or suffix "X STATEMENTS") - the
-    // word "STATEMENTS" was previously fully optional here to accommodate MSFT's "INCOME STATEMENTS"
-    // convention, but that made a bare, unrelated line reading just "COMPREHENSIVE INCOME" match too.
+    // "STATEMENTS" must appear somewhere (prefix "STATEMENTS OF X" or suffix "X STATEMENTS", MSFT's
+    // convention) - otherwise a bare, unrelated line reading just "COMPREHENSIVE INCOME" matches too.
     [GeneratedRegex(@"^(CONSOLIDATED\s+)?(STATEMENTS?\s+OF\s+COMPREHENSIVE\s+INCOME|COMPREHENSIVE\s+INCOME\s+STATEMENTS?)$", RegexOptions.IgnoreCase)]
     private static partial Regex ComprehensiveIncomeRegex();
 
-    // Same fix, more critical here: without requiring "STATEMENTS" somewhere, this matched a bare
-    // line reading just "OPERATIONS" - a normal business-section subheading ("Devices face
-    // competition... OPERATIONS We have a global operations service center...") completely unrelated
-    // to the income statement. Confirmed by inspecting rag.db directly: this false positive mistagged
-    // 96 consecutive chunks (all of Items 1-7) as "income_statement" before the real title line ever
-    // appeared in Item 8.
+    // The same requirement, more critical here: without "STATEMENTS" this matches a bare line reading
+    // just "OPERATIONS" - a normal business-section subheading ("Devices face competition... OPERATIONS
+    // We have a global operations service center...") - and every chunk from there to the real title in
+    // Item 8 (all of Items 1-7) would be tagged income_statement.
     [GeneratedRegex(@"^(CONSOLIDATED\s+)?(STATEMENTS?\s+OF\s+(OPERATIONS|INCOME)|(OPERATIONS|INCOME)\s+STATEMENTS?)$", RegexOptions.IgnoreCase)]
     private static partial Regex IncomeStatementRegex();
 
@@ -79,9 +69,8 @@ internal static partial class StatementTypeDetector
     // the "carry the last detected type forward" logic in FilingChunkRecords.Build has nothing to
     // reset on: whichever statement type was detected last (typically the equity statement, since it's
     // conventionally the final one of the five) silently "leaks" across every Note chunk for the rest
-    // of the filing - confirmed by inspecting a --verbose retrieval dump directly, where Notes chunks
-    // about employee stock plans, leases, and even later Items (12, 15, 16) were all tagged
-    // equity_statement, burying the real equity-statement numbers among hundreds of unrelated chunks.
+    // of the filing - notes on stock plans and leases, even later Items, tagged equity_statement,
+    // burying the real equity-statement numbers among hundreds of unrelated chunks.
     [GeneratedRegex(@"^NOTES\s+TO\s+(CONSOLIDATED\s+)?FINANCIAL\s+STATEMENTS$", RegexOptions.IgnoreCase)]
     private static partial Regex NotesToFinancialStatementsRegex();
 

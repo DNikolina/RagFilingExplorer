@@ -7,9 +7,8 @@ namespace RagFilingExplorer.Local.Retrieval;
 /// joined by OR, so bm25 ranks a chunk by how many of them it holds and how rare they are. Dropped: question and
 /// function words, words every chunk of a filing shares ("fiscal", "total", "statement"), four-digit years (every
 /// table has several), and the question's company names - the company is already the search's filter, and a name
-/// would only favour chunks that repeat it. Measured by replay before it was built (docs/Decision-Log.md, "Step 2 -
-/// hybrid search"). Two-word phrases were tried there too and not kept: T5's "U.S. government securities" went 4 -> 2,
-/// H6 and H13 1 -> 2.
+/// would only favour chunks that repeat it. Single words, not two-word phrases: phrases ranked answers worse
+/// (docs/Decision-Log.md, "Step 2 - hybrid search").
 /// </summary>
 internal static class KeywordQuery
 {

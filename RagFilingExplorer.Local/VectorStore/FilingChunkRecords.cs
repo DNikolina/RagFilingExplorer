@@ -8,7 +8,7 @@ namespace RagFilingExplorer.Local.VectorStore;
 /// nomic-embed-text expects task-specific prefixes for good retrieval matching: "search_document: "
 /// on stored text, "search_query: " on the query text at search time. EmbeddingTextBuilder enriches
 /// table chunks with their row labels as plain text before that prefix, since sparse tables otherwise
-/// embed poorly - see its doc comment. A chunk with an embedding context (Structured, step 1d: "Oracle
+/// embed poorly - see its doc comment. A chunk with an embedding context (Structured: "Oracle
 /// Corporation (ORCL), Form 10-K for fiscal year 2026.") has that line first. Content stays exactly as
 /// chunked - only Text (the embedding input) changes.
 ///
@@ -56,9 +56,8 @@ internal static class FilingChunkRecords
             records.Add(new FilingChunkRecord
             {
                 // Keys start at 1: an int key of 0 is the vector store's "generate a key" value. SqliteVec
-                // stored the first chunk (MSFT's cover page) under a generated key 1, which the real key-1
-                // chunk then overwrote - so every index silently lacked that chunk, confirmed by querying
-                // both rag.<strategy>.db files and a standalone repro against the same package version.
+                // stores a key-0 chunk under a generated key 1, which the real key-1 chunk then overwrites -
+                // the index silently loses the filing's first chunk.
                 Key = i + 1,
                 SourceFiling = chunk.SourceFiling,
                 Heading = chunk.Heading,

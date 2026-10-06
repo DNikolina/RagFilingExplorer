@@ -7,7 +7,7 @@ namespace RagFilingExplorer.Local.Xbrl;
 /// (<c>dei:DocumentFiscalYearFocus</c>, e.g. 2026) ends on <c>dei:DocumentPeriodEndDate</c> (2026-05-31), and the
 /// years before it end a year apart - so a year ending May 31, 2025 is ORCL's fiscal 2025. Named from the focus, not
 /// the end date: a filer whose year ends in January may call the year ending January 31, 2026 "fiscal 2025".
-/// Step 1c-a (docs/Decision-Log.md): questions say "fiscal 2025" where the filing's rows say "year ended May 31, 2025".
+/// Questions say "fiscal 2025" where the filing's rows say "year ended May 31, 2025".
 /// </summary>
 internal sealed record FiscalCalendar(int FocusYear, DateOnly PeriodEnd)
 {

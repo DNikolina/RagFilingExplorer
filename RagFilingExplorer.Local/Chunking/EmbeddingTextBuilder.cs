@@ -8,25 +8,18 @@ namespace RagFilingExplorer.Local.Chunking;
 /// terms a real question is likely to use, while <c>Content</c> - what's shown to the user and the
 /// LLM - stays untouched.
 ///
-/// Worth being honest about what this did and didn't fix: Step 7's retrieval-quality debugging tried
-/// this specifically to help distinguish "the revenue table" from "the balance sheet table" from "the
-/// equity table" in filings with many similarly-shaped tables (e.g. an "Item 15" appendix), but on its
-/// own it did **not** move the needle on the actual blocking questions (documented in
-/// Decision-Log.md's "Follow-up: retrieval quality" as "tried and found insufficient"). The fix
-/// that actually solved that problem was metadata filtering - <see cref="StatementTypeDetector"/> +
-/// <c>QueryIntentResolver</c> narrowing the vector search itself (v1; v2's hybrid search keeps the statement
-/// type as a boost). This class is kept as a cheap, still-reasonable secondary signal alongside that, not as
-/// the fix in its own right. It only reads Markdown (pipe) tables; the Structured strategy's row lines carry
-/// their labels already, and its chunks also open with the company line (step 1d - see FilingChunkRecords).
+/// On its own this doesn't tell "the revenue table" from "the balance sheet table" in a filing with many
+/// similarly-shaped tables - that's metadata filtering's job (<see cref="StatementTypeDetector"/> +
+/// <c>QueryIntentResolver</c>; hybrid search keeps the statement type as a boost). This is a cheap secondary
+/// signal alongside it (Decision-Log.md, "Follow-up: retrieval quality"). It only reads Markdown (pipe) tables;
+/// the Structured strategy's row lines carry their labels already, and its chunks also open with the company line
+/// (see FilingChunkRecords).
 /// </summary>
 internal static class EmbeddingTextBuilder
 {
-    // Applies to any chunk that *contains* a table, not just one that starts with a table row. The
-    // original "starts with |" check silently skipped the first piece of every oversized table once
-    // TokenChunker started prefixing it with a short caption (the statement title) - and the first piece
-    // is exactly the one holding the headline rows. ORCL's revenue piece dropped to last of its income
-    // statement's 4 chunks, out of Q20's context. It also skipped the prose-plus-table chunks that had
-    // always started with a lead-in sentence ("The following table shows...").
+    // Applies to any chunk that *contains* a table, not just one that starts with a table row: the first
+    // piece of an oversized table opens with its caption (the statement title, from TokenChunker) and holds
+    // the headline rows, and a prose-plus-table chunk opens with a lead-in ("The following table shows...").
     public static string Build(string heading, string content)
     {
         if (!content.Split('\n').Any(line => line.TrimStart().StartsWith('|')))

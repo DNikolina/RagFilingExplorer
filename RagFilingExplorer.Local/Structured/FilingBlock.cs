@@ -5,7 +5,7 @@ using RagFilingExplorer.Local.Xbrl;
 namespace RagFilingExplorer.Local.Structured;
 
 /// <summary>
-/// The Structured strategy's document model (v2; docs/Decision-Log.md, "XBRL hybrid (v2)", "block model"). The
+/// The Structured strategy's document model (docs/Decision-Log.md, "XBRL hybrid (v2)", "block model"). The
 /// filing is read once from the DOM into typed blocks, so what the DOM knows - that a table is one table, which
 /// XBRL facts it holds, where it sits - stays attached to it instead of being written into the text and parsed
 /// back out. v1's pipeline (markitdown text -> SectionSplitter -> TokenChunker) keeps only strings.

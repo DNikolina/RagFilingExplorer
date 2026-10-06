@@ -25,7 +25,7 @@ internal enum ChunkingStrategyKind
     /// <summary>Tables linearized from the HTML into self-contained row lines first, then the same pipeline.</summary>
     Linearized,
 
-    /// <summary>v2: the filing read as a DOM, no markitdown; built up in measured steps (see StructuredChunkingStrategy).</summary>
+    /// <summary>The filing read as a DOM and its inline XBRL, no markitdown (see StructuredChunkingStrategy).</summary>
     Structured,
 }
 

@@ -5,21 +5,20 @@ using RagFilingExplorer.Local.Xbrl;
 namespace RagFilingExplorer.Local.Structured;
 
 /// <summary>
-/// Step 1b-iii-c: a roll-forward row states its own period. In a roll-forward the columns aren't periods (equity
+/// A roll-forward row states its own period. In a roll-forward the columns aren't periods (equity
 /// components, share counts and prices) and the year follows only from a "Balances as of May 31, 2024" row somewhere
-/// above - T9: ORCL's "Cash dividends declared ($1.70 per share) — Accumulated Deficit: (4,743)" is fiscal 2025, which
-/// no line of its chunk says, and the model answered with the wrong year's row. Each value's XBRL context carries the
+/// above - e.g. ORCL's "Cash dividends declared ($1.70 per share) — Accumulated Deficit: (4,743)" is fiscal 2025, which
+/// no line of its chunk says, so the model can answer with the wrong year's row. Each value's XBRL context carries the
 /// period, so the row's label gets it: "... ($1.70 per share) (year ended May 31, 2025)".
 ///
-/// Only where it's missing and needed (measured 2026-09-29): a row whose tagged values all share one period, whose
+/// Only where it's missing and needed: a row whose tagged values all share one period, whose
 /// label and column names don't show that period's year, in a table whose rows span more than one period. That is the
-/// roll-forwards - equity statements, award activity, goodwill and other comprehensive income - 123 rows in 16 tables
-/// across the four filings. Without the last condition 145 more rows in single-period tables would repeat what their
-/// table already says.
+/// roll-forwards - equity statements, award activity, goodwill and other comprehensive income. Without the last
+/// condition, rows in single-period tables would repeat what their table already says.
 ///
-/// Step 1c-a: a filer whose fiscal year isn't the calendar year also gets the year's name, from its own calendar
-/// (<see cref="FiscalCalendar"/>) - "(fiscal 2025, year ended May 31, 2025)". T9 asks for "fiscal 2025"; 1b-iii-c's
-/// label put the right row, "year ended May 31, 2025", in front of the model, which didn't connect the two.
+/// A filer whose fiscal year isn't the calendar year also gets the year's name, from its own calendar
+/// (<see cref="FiscalCalendar"/>) - "(fiscal 2025, year ended May 31, 2025)". Questions say "fiscal 2025"; with only
+/// "year ended May 31, 2025" on the row, the model doesn't connect the two.
 /// </summary>
 internal static class PeriodLabels
 {

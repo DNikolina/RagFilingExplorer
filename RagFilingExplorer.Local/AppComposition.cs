@@ -23,7 +23,7 @@ internal sealed class RagRuntime(RagAnswerService answerService, CompanyRegistry
 }
 
 /// <summary>
-/// How the app is put together, in one place, for the console (Program.cs) and the evaluation (v3) - so an evaluation
+/// How the app is put together, in one place, for the console (Program.cs) and the evaluation - so an evaluation
 /// measures the app exactly as it answers questions, not a copy of its wiring. Building an index stays in Program.cs:
 /// <see cref="OpenExistingIndexAsync"/> only opens one that's already built and current.
 /// </summary>
@@ -80,14 +80,13 @@ internal static class AppComposition
         // Metadata filtering (Microsoft's own retrieval-quality guidance ranks this above chunk-size/text
         // tweaks): a question that names a company is searched within that company's filing, and one that points
         // at a specific financial statement favours it - a hard filter under Vector search, a boost under Hybrid.
-        // Directly targets the cross-company/cross-statement contamination seen repeatedly in Step 7 testing
-        // (e.g. an MSFT-specific question pulling in ORCL chunks, or a single filing's many similarly-shaped
-        // "Item 15" tables burying the right one). See RagAnswerService/QueryIntentResolver for the resolution +
-        // search + prompt + generation flow, and InteractiveSession for the question loop - kept out of here so
-        // they can be unit-tested with mocked dependencies.
+        // It targets cross-company and cross-statement contamination (an MSFT question pulling in ORCL chunks, or
+        // a filing's many similarly-shaped tables burying the right one). See RagAnswerService/QueryIntentResolver
+        // for the resolution + search + prompt + generation flow, and InteractiveSession for the question loop -
+        // kept out of here so they can be unit-tested with mocked dependencies.
         //
         // Hybrid search (Retrieval:Search) adds an FTS5 keyword index to the same database - created on first use, so an
-        // index built before hybrid search existed needs no rebuild (see KeywordIndex.EnsureCreated).
+        // index built without one needs no rebuild (see KeywordIndex.EnsureCreated).
         KeywordIndex? keywordIndex = null;
         if (settings.Retrieval.Search == SearchMode.Hybrid)
         {
@@ -95,7 +94,7 @@ internal static class AppComposition
             keywordIndex.EnsureCreated();
         }
 
-        // Reranking (Retrieval:Rerank, v2 step 2b): a local cross-encoder reorders each company's top hybrid candidates. Its
+        // Reranking (Retrieval:Rerank): a local cross-encoder reorders each company's top hybrid candidates. Its
         // model is fetched separately and checked against its recorded SHA-256 before it's loaded - see CrossEncoderReranker.
         CrossEncoderReranker? reranker = settings.Retrieval.Rerank ? LoadReranker(settings.Retrieval) : null;
 

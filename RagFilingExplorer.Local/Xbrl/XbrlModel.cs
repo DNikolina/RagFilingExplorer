@@ -3,7 +3,7 @@ using AngleSharp.Dom;
 namespace RagFilingExplorer.Local.Xbrl;
 
 /// <summary>
-/// One filing's inline XBRL, read by <see cref="InlineXbrlReader"/> (v2 step 1b-i; docs/Decision-Log.md, "XBRL
+/// One filing's inline XBRL, read by <see cref="InlineXbrlReader"/> (docs/Decision-Log.md, "XBRL
 /// hybrid (v2)"). Contexts and units come from the hidden &lt;ix:header&gt;; facts from the ix: elements in the
 /// page. The Structured strategy reads it for the filing profile (1b-ii), the structure labels (1b-iii) and the
 /// company line (1d); CompanyRegistry for the company filter.
@@ -56,7 +56,7 @@ internal sealed record XbrlFact(
     bool IsTextBlock,
     IReadOnlyList<IElement> Elements);
 
-/// <summary>A filer's extension taxonomy (step 1b): its roles and, per role, the concepts it presents; plus labels.</summary>
+/// <summary>A filer's extension taxonomy: its roles and, per role, the concepts it presents; plus labels.</summary>
 internal sealed record XbrlTaxonomy(
     IReadOnlyList<XbrlRole> Roles,
     IReadOnlyDictionary<string, IReadOnlySet<string>> PresentedConcepts,

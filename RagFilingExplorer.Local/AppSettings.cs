@@ -54,9 +54,8 @@ internal sealed class AppSettings
     }
 
     /// <summary>
-    /// Every leaf key this type binds (e.g. "Ollama:ChatModel"), derived by reflection. This used to be a
-    /// hand-maintained list in Program.cs, which meant adding a setting and forgetting the list would
-    /// silently reintroduce the "missing key binds as null" gap the check exists to close.
+    /// Every leaf key this type binds (e.g. "Ollama:ChatModel"), derived by reflection - a hand-maintained list
+    /// could miss a new setting and silently reopen the "missing key binds as null" gap the check exists to close.
     /// </summary>
     internal static IEnumerable<string> RequiredConfigurationKeys() => LeafKeys(typeof(AppSettings), prefix: null);
 
@@ -106,14 +105,14 @@ internal sealed class RetrievalSettings
     public required int GenerationTopK { get; set; }
     public required float ChatTemperature { get; set; }
 
-    // Vector (v1: the statement type is a hard filter) or Hybrid (v2 step 2: vectors + FTS5 keywords, fused, the
-    // statement type a boost) - bound straight to the enum, so a typo fails at startup. See RagAnswerService.
+    // Vector (the statement type is a hard filter) or Hybrid (vectors + FTS5 keywords, fused, the statement type a
+    // boost) - bound straight to the enum, so a typo fails at startup. See RagAnswerService.
     public required SearchMode Search { get; set; }
 
     // How deep each of hybrid search's ranked lists goes before they're fused. Unused by Vector search.
     public required int HybridCandidates { get; set; }
 
-    // v2 step 2b: rerank each company's top RerankCandidates hybrid candidates with a local cross-encoder before the
+    // Rerank each company's top RerankCandidates hybrid candidates with a local cross-encoder before the
     // top-K is cut (CrossEncoderReranker). Hybrid only - it was measured on hybrid candidates. The model lives outside
     // the repo, in RerankModelDirectory (environment variables expanded), and is refused unless its SHA-256 matches.
     public required bool Rerank { get; set; }
@@ -125,19 +124,15 @@ internal sealed class RetrievalSettings
     // bound straight to the enum, so a typo fails at startup rather than when it's first used.
     // NOT applied to every question - only ones QueryIntentResolver.RequiresSynthesis flags as needing
     // multi-step reasoning (comparisons, ratios, trends). A single-fact lookup always gets Effort.None
-    // regardless of this setting, since a reasoning model's "thinking" phase is wasted overhead on those
-    // and was the direct cause of a real bug: qwen3.5:2b, tested as a reference model, burned its entire
-    // generation budget on chain-of-thought for a simple lookup against this app's longer retrieved-context
-    // prompt and never produced an answer. See RagAnswerService.AskAsync for the routing logic, and
-    // MaxOutputTokens below for the other half of the fix (giving reasoning room to actually finish).
+    // regardless of this setting: on a simple lookup with this app's long retrieved-context prompt, a reasoning
+    // model can spend its entire generation budget thinking and never produce an answer. See
+    // RagAnswerService.AskAsync for the routing logic, and MaxOutputTokens below for the other half.
     public required ReasoningEffort ReasoningEffort { get; set; }
 
     // Ceiling for ChatOptions.MaxOutputTokens (Ollama's num_predict), applied to every question and every
-    // chat model. Previously left unset, which meant Ollama's own default governed - the same qwen3.5:2b
-    // bug above meant the model could exhaust that default while thinking and never reach the answer, with
-    // no error, just silence. Bounded by the context window: prompt + this must fit Ollama's num_ctx
-    // (4096 by default; this app doesn't set it) - see appsettings.json for the measured sizing. See
-    // RagAnswerService's starved-response guard for what happens if a model still hits this ceiling
-    // without producing real answer text - it now fails loudly instead.
+    // chat model - set explicitly rather than left to Ollama's default, which a thinking model can exhaust
+    // silently. Bounded by the context window: prompt + this must fit Ollama's num_ctx (4096 by default; this
+    // app doesn't set it) - see appsettings.json for the measured sizing. A model that still hits this ceiling
+    // without producing answer text fails loudly (RagAnswerService's starved-response guard).
     public required int MaxOutputTokens { get; set; }
 }

@@ -9,11 +9,11 @@ namespace RagFilingExplorer.Local.Structured;
 
 /// <summary>
 /// Reads a parsed filing into <see cref="FilingBlock"/>s in reading order - the Structured strategy's replacement
-/// for the markitdown CLI (step 1a) and, since the block model, for writing the page out as one string: one
+/// for the markitdown CLI: one
 /// <see cref="TextBlock"/> per block element (SEC filing agents put each visual line in its own
 /// &lt;div&gt;/&lt;p&gt;, and the heading rules find "PART I" / "Item 1. Business" as whole lines), whitespace
 /// collapsed but non-breaking spaces kept, links as [text](url); one <see cref="TableBlock"/> per top-level table.
-/// The text keeps markitdown's shape (docs/Decision-Log.md, step 1a), which the heading and packing rules were
+/// The text keeps markitdown's shape, which the heading and packing rules were
 /// written against. No headings or bold are produced: these filers style &lt;span&gt;s instead of using
 /// &lt;b&gt; or &lt;h1&gt;-&lt;h6&gt;. The hidden inline-XBRL header is skipped - read it first
 /// (<see cref="Xbrl.InlineXbrlReader"/>).
@@ -26,9 +26,8 @@ internal static partial class FilingBlockReader
         "blockquote", "figure", "figcaption", "form", "h1", "h2", "h3", "h4", "h5", "h6", "ul", "ol", "dl", "dt", "dd", "pre",
     };
 
-    // Collapses runs of whitespace other than non-breaking spaces, which markitdown keeps. Written as an escape:
-    // the step-1a converter had a literal U+00A0 here, which reads as a space and was lost when the code was
-    // copied into this reader - four spaces then survived in ORCL's cover-page lines.
+    // Collapses runs of whitespace other than non-breaking spaces, which markitdown keeps. The non-breaking space
+    // is written as an escape: a literal U+00A0 looks like a space and is easily lost when the code is copied.
     [GeneratedRegex(@"[^\S ]+")]
     private static partial Regex WhitespaceRunRegex();
 
@@ -48,10 +47,10 @@ internal static partial class FilingBlockReader
 
     /// <summary>
     /// A block between two notes belongs to the next one. NDAQ and NFLX tag a note from its title, leaving its number
-    /// outside ("2." + "SUMMARY OF SIGNIFICANT ACCOUNTING"), so the heading paragraph began outside the note and split
-    /// off as a section of its own - 32 of them; the other gaps are page furniture (a "Table of Contents" link, a lone
-    /// non-breaking space) at a page break before the next note. Measured 2026-09-29: every gap between two notes in
-    /// the four filings is one of the two.
+    /// outside ("2." + "SUMMARY OF SIGNIFICANT ACCOUNTING"), so the heading paragraph begins outside the note and
+    /// would split off as a section of its own; the other gaps are page furniture (a "Table of Contents" link, a lone
+    /// non-breaking space) at a page break before the next note. Every gap between two notes in the four filings is
+    /// one of the two.
     /// </summary>
     private static List<FilingBlock> JoinGapsToNextNote(List<FilingBlock> blocks)
     {
@@ -60,7 +59,7 @@ internal static partial class FilingBlockReader
 
         // Likewise the Notes' own title ("NOTES TO CONSOLIDATED FINANCIAL STATEMENTS" - where the section rules
         // already start a section) and what follows it up to the first note - Note 1's number, a date: on its own it
-        // was an 8-20 token title-only chunk in every filing, the kind that took top-5 slots for statement questions.
+        // would be a title-only chunk of a few tokens, the kind that takes top-5 slots for statement questions.
         // Only across paragraphs: a table between them would mean the title isn't the one right before the notes.
         int notesTitle = first < 0 ? -1 : blocks.FindLastIndex(first, first + 1,
             b => b is TextBlock t && t.Paragraph.Split('\n').Any(StatementTypeDetector.IsNotesToFinancialStatementsBoundary));
@@ -84,11 +83,10 @@ internal static partial class FilingBlockReader
 
     /// <summary>
     /// A top-level table as a row block, or null for a table with no text (decorative spacers). A table the
-    /// financial path can't linearize becomes text rows (step 1c's first change): MSFT's exhibit index is seven
-    /// tables, one per page; the two holding management-contract exhibits ("10.6*") read as financial - a text
-    /// label beside a number ("10.4", the referenced exhibit) - and fell back ("two values in row '10.6*' map to
-    /// one column", "cell text lost: 'Filed Herewith'") to pipe tables that were mostly empty cells, while the
-    /// other five pages came out as text rows. Same for all 5 fallbacks of 371.
+    /// financial path can't linearize becomes text rows, not a pipe table of mostly empty cells: e.g. an exhibit
+    /// index page whose management-contract exhibits ("10.6*") read as financial - a text label beside a number
+    /// ("10.4", the referenced exhibit) - then fail the financial path ("two values in row '10.6*' map to one
+    /// column").
     /// </summary>
     internal static TableBlock? ReadTable(IHtmlTableElement table, IReadOnlyDictionary<string, XbrlContext>? contexts = null, FiscalCalendar? calendar = null)
     {
@@ -121,8 +119,8 @@ internal static partial class FilingBlockReader
 
     /// <summary>
     /// A text table's column-name rows go in the row block's context line, which the chunker repeats on every
-    /// piece of a split block (step 1c's second change). MSFT chunk 198 was "4.24 | Description of Securities |
-    /// 10-K | 6/30/2024 | 4.26 | 7/30/2024" with no "Exhibit Number | ... | Form | ... | Exhibit" above it.
+    /// piece of a split block - otherwise a later piece reads "4.24 | Description of Securities | 10-K | 6/30/2024 |
+    /// 4.26 | 7/30/2024" with no "Exhibit Number | ... | Form | ... | Exhibit" above it.
     /// </summary>
     internal static RowBlock TextRowBlock(LinearizedTable table, int headerRows)
     {

@@ -83,8 +83,8 @@ internal static class IndexBuilder
 
         // Default (appsettings.json's VectorStore.UpsertBatchSize) must stay 1: SqliteVec 1.0.1-preview
         // throws "UNIQUE constraint failed on vec_chunks primary key" on any multi-record UpsertAsync batch
-        // against a fresh vec0 virtual table (confirmed - crashes on the very first batch of all-new keys,
-        // so it's not a real duplicate-key issue in our data). Its delete-then-insert upsert workaround
+        // against a fresh vec0 virtual table (even the very first batch of all-new keys, so it's not a real
+        // duplicate-key issue in our data). Its delete-then-insert upsert workaround
         // (vec0 has no native UPSERT) appears to only be exercised correctly for single-record batches. In
         // practice this isn't much slower than batching: ~5 records/sec either way on this hardware.
         DateTime start = DateTime.UtcNow;
@@ -97,8 +97,8 @@ internal static class IndexBuilder
 
         Console.WriteLine($"Upserted {records.Count} records in {(DateTime.UtcNow - start).TotalSeconds:F0}s.");
 
-        // Upserts report no per-record outcome, so a record lost in the store is otherwise silent - a key-0
-        // record overwritten by key 1 went unnoticed through every build until the index was queried directly.
+        // Upserts report no per-record outcome, so a record lost in the store is otherwise silent (a key-0
+        // record overwritten by key 1 is one way - see FilingChunkRecords).
         // Thrown before the manifest is written, so a short index is never trusted.
         int stored = 0;
         await foreach (FilingChunkRecord _ in collection.GetAsync(r => true, records.Count + 1))

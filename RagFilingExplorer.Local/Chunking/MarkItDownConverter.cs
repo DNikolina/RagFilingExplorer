@@ -30,14 +30,11 @@ internal static partial class MarkItDownConverter
     internal static string StripIxHeader(string html) => IxHeaderRegex().Replace(html, string.Empty);
 
     // Raw EDGAR HTML (MSFT/ORCL/NDAQ's source here) declares no charset at all and is safely read as
-    // UTF-8 - that was this method's original, unconditional assumption. It broke on
-    // NFLX-10K-2025.html, a browser-saved copy that declares (and is genuinely encoded as)
-    // windows-1252: reading its bytes as UTF-8 silently replaced every non-ASCII character (curly
-    // quotes, etc.) with U+FFFD before markitdown ever saw the content - confirmed directly by
-    // comparing chunk output byte-for-byte against the other three filings, which had zero such
-    // corruption. CodePagesEncodingProvider is needed for GetEncoding("windows-1252") to resolve at
-    // all - confirmed it throws ArgumentException without it, even though the type is available from
-    // the shared framework with no separate package reference required.
+    // UTF-8, but a browser-saved copy can declare (and genuinely be encoded as) something else -
+    // NFLX-10K-2025.html is windows-1252. Read as UTF-8, its bytes would silently turn every non-ASCII
+    // character (curly quotes, etc.) into U+FFFD. CodePagesEncodingProvider is needed for
+    // GetEncoding("windows-1252") to resolve at all - without it, it throws ArgumentException, even
+    // though the type is available from the shared framework with no separate package reference.
     internal static Encoding DetectEncoding(byte[] sourceBytes)
     {
         if (sourceBytes.Length >= 3 && sourceBytes[0] == 0xEF && sourceBytes[1] == 0xBB && sourceBytes[2] == 0xBF)

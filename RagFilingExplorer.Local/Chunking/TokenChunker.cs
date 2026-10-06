@@ -86,15 +86,14 @@ internal static class TokenChunker
 
             // A row block that doesn't fit after its short lead-in (a statement title, "(In millions)") goes
             // the oversized route too, so the lead-in travels with it as a caption instead of being flushed
-            // as a title-only chunk - the same problem the caption rule below fixed for Markdown tables.
+            // as a title-only chunk - the caption rule below, applied to row blocks too.
             if (blockTokens > maxTokens || (rowBlock is not null && shortLeadIn && currentTokens + blockTokens > maxTokens))
             {
                 // A short lead-in right before an oversized table (e.g. "CONSOLIDATED STATEMENTS OF
-                // STOCKHOLDERS' EQUITY" + "For the Years Ended ...") used to be flushed as a near-empty
-                // chunk of its own. Once statement titles started their own sections (SectionSplitter),
-                // those title-only chunks landed in the top 5 for statement questions - rank 1 or 2 for
-                // the MSFT, NDAQ and ORCL equity questions, confirmed with --verbose - wasting a context
-                // slot on no data. It now becomes the first table piece's caption instead.
+                // STOCKHOLDERS' EQUITY" + "For the Years Ended ...") becomes the first table piece's caption,
+                // not a near-empty chunk of its own: statement titles start their own sections
+                // (SectionSplitter), so a title-only chunk ranks near the top for statement questions and
+                // wastes a context slot on no data.
                 string? caption = null;
                 List<int> pieceBlocks = [index];
                 if (isTable && shortLeadIn)
@@ -153,11 +152,10 @@ internal static class TokenChunker
         }
 
         // A short trailing remainder right after an oversized table's last piece - a statement's "See
-        // accompanying notes..." footer, a one-line footnote - used to become a tiny chunk of its own.
-        // Those ranked in the top 5 for statement questions (rank 1 for all five NFLX statement
-        // questions, confirmed with --verbose), wasting a context slot on no data. It's appended to that
-        // last table piece instead, where it belongs. Deliberately limited to this case: the short final
-        // paragraph of an ordinary narrative section is left alone.
+        // accompanying notes..." footer, a one-line footnote - is appended to that piece, where it belongs:
+        // as a tiny chunk of its own it ranks near the top for statement questions and wastes a context
+        // slot on no data. Deliberately limited to this case: the short final paragraph of an ordinary
+        // narrative section is left alone.
         string remainderText = string.Join("\n\n", current.Select(b => b.Text));
         if (lastChunkIsOversizedTablePiece && current.Count > 0 && !current.Any(IsTableLike)
             && tokenizer.CountTokens(remainderText) <= MaxAttachedTextTokens)
@@ -177,9 +175,9 @@ internal static class TokenChunker
 
     // Rows are atomic and self-contained, so a row block splits between any two rows. Every piece repeats
     // the caption (the statement title and units that preceded the table) and the block's context line:
-    // a row says which line item and which period, but not which statement - exactly what MSFT's
-    // comprehensive income total lacked on its second Markdown piece, when the model answered with the
-    // titled first piece's Net income instead. A single row over budget is emitted alone, never cut.
+    // a row says which line item and which period, but not which statement - without it, a total on a
+    // later piece reaches the model unlabelled, and it answers with the titled first piece's figure
+    // instead. A single row over budget is emitted alone, never cut.
     private static IEnumerable<string> SplitRowBlock(RowBlock block, Tokenizer tokenizer, int maxTokens, string? caption)
     {
         string header = (caption is null ? string.Empty : caption + "\n\n") + (block.Context is null ? string.Empty : block.Context + "\n");
@@ -292,9 +290,8 @@ internal static class TokenChunker
 
         // A label-only row can still sit above the fiscal-period row: MSFT's statements put
         // "(In millions)" (text in the first cell only, so it reads as a row-group label) above
-        // "Year Ended June 30, ... 2026 ... 2025 ... 2024". Stopping there dropped the years from every
-        // piece after the first - the right "Comprehensive income" total then reached the model with no
-        // year and no title, and it picked the titled piece's first figure (Net income) instead. So the
+        // "Year Ended June 30, ... 2026 ... 2025 ... 2024". Stopping there would drop the years from every
+        // piece after the first, and a total there would reach the model with no year and no title. So the
         // header extends through the last period row found before the first data row.
         for (int i = headerEnd; i < lines.Count && i < 12 && !LooksLikeDataRow(lines[i]); i++)
         {

@@ -34,9 +34,8 @@ internal static class InteractiveSession
 
             // Broad catch deliberately: this is a live call to an external service (Ollama), which can fail
             // in ways this app can't predict (a starved-reasoning response, a model rejecting an unsupported
-            // option, a dropped connection, ...) - confirmed the hard way when an unhandled OllamaException
-            // from mid-stream took down the entire interactive session over what should have been one bad
-            // turn. One failed question should never end the session; report it and keep going.
+            // option, a dropped connection, ...), and an OllamaException from mid-stream would otherwise end the
+            // whole session. One failed question should never end the session; report it and keep going.
             try
             {
                 RagAnswer answer = await ragAnswerService.AskAsync(question, searchTopK: verbose ? retrieval.VerboseSearchTopK : retrieval.DefaultSearchTopK);
@@ -118,7 +117,7 @@ internal static class InteractiveSession
 
     // Reasoning content (a reasoning model's "thinking", separate from its final answer - see
     // AppSettings.RetrievalSettings.ReasoningEffort) is only shown under --verbose, under its own header,
-    // printed lazily so a plain lookup that never reasons looks exactly like it did before this existed.
+    // printed lazily so a plain lookup that never reasons shows no reasoning header at all.
     private static async Task StreamAnswerAsync(IAsyncEnumerable<ChatResponseUpdate> answerStream, bool verbose)
     {
         bool printedReasoningHeader = false;

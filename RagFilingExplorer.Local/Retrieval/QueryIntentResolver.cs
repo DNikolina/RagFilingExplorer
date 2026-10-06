@@ -6,9 +6,9 @@ namespace RagFilingExplorer.Local.Retrieval;
 /// filings' cover facts), and to a reasoning-worthiness signal via <see cref="RequiresSynthesis"/>.
 ///
 /// Metadata filtering (Microsoft's own retrieval-quality guidance ranks this above chunk-size/text
-/// tweaks) directly targets the cross-company and cross-statement contamination seen repeatedly in
-/// Step 7 testing (e.g. an MSFT-specific question pulling in ORCL chunks, or a single filing's many
-/// similarly-shaped "Item 15" tables burying the right one). The statement type is a hard filter under
+/// tweaks) targets cross-company and cross-statement contamination (e.g. an MSFT-specific question
+/// pulling in ORCL chunks, or a single filing's many similarly-shaped "Item 15" tables burying the right
+/// one). The statement type is a hard filter under
 /// Vector search and a boost under Hybrid. <c>ResolveStatementType</c> requires exactly one statement type
 /// to act - zero or ambiguous matches resolve to null, leaving that dimension alone rather than guessing.
 ///
@@ -22,17 +22,15 @@ internal static class QueryIntentResolver
     {
         ["income_statement"] = ["revenue", "revenues", "gross margin", "gross profit", "cost of revenue", "operating income", "operating margin", "net income", "earnings per share"],
         // A plain "(total) stockholders' equity" question is about a period-end value, which the balance
-        // sheet states as one clean "Total stockholders' equity" row in every filing. It used to route to
-        // the equity statement, a wide roll-forward table: ORCL's splits into 15 near-identical
-        // fragments, and the one holding the closing balance ranked 8th-9th of 17, outside the top 5 -
-        // so "What was Oracle's total stockholders' equity?" failed, both before and after the second
-        // review's changes (confirmed by rebuilding the initial commit's index side by side). Questions
+        // sheet states as one clean "Total stockholders' equity" row in every filing. The equity statement
+        // is a wide roll-forward table that splits into many near-identical fragments, and the one holding
+        // the closing balance can rank outside the top 5 (ORCL's does). Questions
         // about *changes* in equity still go to the equity statement; ResolveStatementType's
         // longest-match rule lets "changes in stockholders' equity" win over the "stockholders' equity"
         // it contains.
         ["balance_sheet"] = ["total assets", "total liabilities", "balance sheet", "stockholders equity", "shareholders equity", "stockholders' equity", "shareholders' equity", "total equity"],
         // "cash from operations" covers MSFT's own line label ("Net cash from operations"), which none
-        // of the other phrases matched - that question used to run with no statement filter at all.
+        // of the other phrases match.
         ["cash_flow_statement"] = ["cash flow", "operating activities", "financing activities", "investing activities", "cash from operations"],
         ["equity_statement"] =
         [
@@ -46,7 +44,7 @@ internal static class QueryIntentResolver
     // Questions that need genuine multi-step reasoning (comparing/deriving across figures) rather than
     // a single-fact lookup - used to decide when a reasoning model's "thinking" phase is actually worth
     // its cost (see RagAnswerService.AskAsync). Deliberately conservative: false negatives just mean a
-    // synthesis question gets answered without extended reasoning (same as today), not a wrong filter.
+    // synthesis question gets answered without extended reasoning, not a wrong filter.
     private static readonly string[] SynthesisKeywords =
     [
         "compare", "comparison", "versus", " vs ", " vs.", "difference between", "trend", "ratio",
