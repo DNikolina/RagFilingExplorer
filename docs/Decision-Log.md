@@ -3332,3 +3332,7 @@ compared with the two fresh variance passes on the same build: 102/102 answers w
 and every question's answer rank the same - retrieval and answers both unchanged by the fixes. Against the v2 baseline
 the same three as before (T6, A16, A21 - the Ollama-update differences). Main 33/40, held-out 31/35, answer-side 19/27,
 no untraced figure.
+**`rag.markdown.db` rebuilt (2026-10-06):** 1,446 chunks (NFLX 390 - the two recovered exhibit-index chunks included).
+Smoke: "Which exhibit number in Netflix's 10-K is the cover page formatted in Inline XBRL?" under `Markdown` answers
+"104" citing PART IV > Exhibit Index - a line only that recovered page holds. Default path smoke (Q1, H2, A10) replayed
+from the cache unchanged - same prompts as before the fixes.
