@@ -1,0 +1,114 @@
+{
+  "scenarioName": "Main.T9",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-ollama040",
+  "creationTime": "2026-10-07T20:00:44.985936Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF STOCKHOLDERS\u2019 EQUITY\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions, except per share data)\nCash dividends declared ($1.60 per share) (fiscal 2024, year ended May 31, 2024) \u2014 Accumulated Deficit: (4,391) | Total Stockholders\u2019 Equity: (4,391)\nOther, net (fiscal 2024, year ended May 31, 2024) \u2014 Preferred and Common Stock and Additional Paid in Capital Amount: (10) | Accumulated Deficit: (1) | Accumulated Other Comprehensive Loss: 90 | Noncontrolling Interests: (134) | Total Stockholders\u2019 Equity: (55)\nNet income (fiscal 2024, year ended May 31, 2024) \u2014 Accumulated Deficit: 10,467 | Noncontrolling Interests: 186 | Total Stockholders\u2019 Equity: 10,653\nBalances as of May 31, 2024 \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 2,755 | Preferred and Common Stock and Additional Paid in Capital Amount: 32,764 | Accumulated Deficit: (22,628) | Accumulated Other Comprehensive Loss: (1,432) | Noncontrolling Interests: 535 | Total Stockholders\u2019 Equity: 9,239\nCommon stock issued under stock-based compensation plans (fiscal 2025, year ended May 31, 2025) \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 62 | Preferred and Common Stock and Additional Paid in Capital Amount: 447 | Total Stockholders\u2019 Equity: 447\nCommon stock issued under stock purchase plans (fiscal 2025, year ended May 31, 2025) \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 1 | Preferred and Common Stock and Additional Paid in Capital Amount: 206 | Total Stockholders\u2019 Equity: 206\nStock-based compensation (fiscal 2025, year ended May 31, 2025) \u2014 Preferred and Common Stock and Additional Paid in Capital Amount: 4,674 | Total Stockholders\u2019 Equity: 4,674\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF STOCKHOLDERS\u2019 EQUITY\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions, except per share data)\nRepurchases of common stock (fiscal 2025, year ended May 31, 2025) \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: (4) | Preferred and Common Stock and Additional Paid in Capital Amount: (47) | Accumulated Deficit: (553) | Total Stockholders\u2019 Equity: (600)\nShares repurchased for tax withholdings upon vesting of restricted stock-based awards (fiscal 2025, year ended May 31, 2025) \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: (7) | Preferred and Common Stock and Additional Paid in Capital Amount: (900) | Total Stockholders\u2019 Equity: (900)\nCash dividends declared ($1.70 per share) (fiscal 2025, year ended May 31, 2025) \u2014 Accumulated Deficit: (4,743) | Total Stockholders\u2019 Equity: (4,743)\nOther, net (fiscal 2025, year ended May 31, 2025) \u2014 Preferred and Common Stock and Additional Paid in Capital Amount: (37) | Accumulated Other Comprehensive Loss: 257 | Noncontrolling Interests: (201) | Total Stockholders\u2019 Equity: 19\nNet income (fiscal 2025, year ended May 31, 2025) \u2014 Accumulated Deficit: 12,443 | Noncontrolling Interests: 184 | Total Stockholders\u2019 Equity: 12,627\nBalances as of May 31, 2025 \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 2,807 | Preferred and Common Stock and Additional Paid in Capital Amount: 37,107 | Accumulated Deficit: (15,481) | Accumulated Other Comprehensive Loss: (1,175) | Noncontrolling Interests: 518 | Total Stockholders\u2019 Equity: 20,969\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF STOCKHOLDERS\u2019 EQUITY\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions, except per share data)\nBalances as of May 31, 2023 \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 2,713 | Preferred and Common Stock and Additional Paid in Capital Amount: $30,215 | Accumulated Deficit: $(27,620) | Accumulated Other Comprehensive Loss: $(1,522) | Noncontrolling Interests: $483 | Total Stockholders\u2019 Equity: $1,556\nCommon stock issued under stock-based compensation plans (fiscal 2024, year ended May 31, 2024) \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 68 | Preferred and Common Stock and Additional Paid in Capital Amount: 545 | Total Stockholders\u2019 Equity: 545\nCommon stock issued under stock purchase plans (fiscal 2024, year ended May 31, 2024) \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 2 | Preferred and Common Stock and Additional Paid in Capital Amount: 197 | Total Stockholders\u2019 Equity: 197\nStock-based compensation (fiscal 2024, year ended May 31, 2024) \u2014 Preferred and Common Stock and Additional Paid in Capital Amount: 3,974 | Total Stockholders\u2019 Equity: 3,974\nRepurchases of common stock (fiscal 2024, year ended May 31, 2024) \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: (11) | Preferred and Common Stock and Additional Paid in Capital Amount: (117) | Accumulated Deficit: (1,083) | Total Stockholders\u2019 Equity: (1,200)\nShares repurchased for tax withholdings upon vesting of restricted stock-based awards (fiscal 2024, year ended May 31, 2024) \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: (17) | Preferred and Common Stock and Additional Paid in Capital Amount: (2,040) | Total Stockholders\u2019 Equity: (2,040)\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF STOCKHOLDERS\u2019 EQUITY\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions, except per share data)\nMandatory convertible preferred stock issued (fiscal 2026, year ended May 31, 2026) \u2014 Preferred and Common Stock and Additional Paid in Capital Preferred Stock Shares: \u2014 (1) | Preferred and Common Stock and Additional Paid in Capital Amount: 4,954 | Total Stockholders\u2019 Equity: 4,954\nCommon stock issued under stock-based compensation plans (fiscal 2026, year ended May 31, 2026) \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 72 | Preferred and Common Stock and Additional Paid in Capital Amount: 1,241 | Total Stockholders\u2019 Equity: 1,241\nCommon stock issued under stock purchase plans (fiscal 2026, year ended May 31, 2026) \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 1 | Preferred and Common Stock and Additional Paid in Capital Amount: 208 | Total Stockholders\u2019 Equity: 208\nStock-based compensation (fiscal 2026, year ended May 31, 2026) \u2014 Preferred and Common Stock and Additional Paid in Capital Amount: 4,811 | Total Stockholders\u2019 Equity: 4,811\nRepurchases of common stock (fiscal 2026, year ended May 31, 2026) \u2014 Preferred and Common Stock and Additional Paid in Capital Amount: (6) | Accumulated Deficit: (87) | Total Stockholders\u2019 Equity: (93)\nShares repurchased for tax withholdings upon vesting of restricted stock-based awards (fiscal 2026, year ended May 31, 2026) \u2014 Preferred and Common Stock and Additional Paid in Capital Amount: (111) | Total Stockholders\u2019 Equity: (111)\nPreferred stock dividends ($1,263.89 per share) (fiscal 2026, year ended May 31, 2026) \u2014 Accumulated Deficit: (103) | Total Stockholders\u2019 Equity: (103)\nCommon stock dividends ($2.00 per share) (fiscal 2026, year ended May 31, 2026) \u2014 Accumulated Deficit: (5,725) | Total Stockholders\u2019 Equity: (5,725)\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF STOCKHOLDERS\u2019 EQUITY\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions, except per share data)\nOther, net (fiscal 2026, year ended May 31, 2026) \u2014 Preferred and Common Stock and Additional Paid in Capital Amount: (7) | Accumulated Other Comprehensive Loss: (205) | Noncontrolling Interests: (192) | Total Stockholders\u2019 Equity: (404)\nNet income (fiscal 2026, year ended May 31, 2026) \u2014 Accumulated Deficit: 17,087 | Noncontrolling Interests: 222 | Total Stockholders\u2019 Equity: 17,309\nBalances as of May 31, 2026 \u2014 Preferred and Common Stock and Additional Paid in Capital Preferred Stock Shares: \u2014 (1) | Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 2,880 | Preferred and Common Stock and Additional Paid in Capital Amount: $48,197 | Accumulated Deficit: $(4,309) | Accumulated Other Comprehensive Loss: $(1,380) | Noncontrolling Interests: $548 | Total Stockholders\u2019 Equity: $43,056\n\n(1)\n\nWe issued 50,000 shares of our 6.50% Series D Mandatory Convertible Preferred Stock on February 5, 2026. As of May 31, 2026, 50,000 shares were outstanding.\n\nSee notes to consolidated financial statements.\n\n[Table of Contents](#toc_page)\n\nORACLE CORPORATION\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "According to Oracle\u0027s statement of stockholders\u0027 equity, how much in common stock dividends did Oracle declare in fiscal 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle declared $1.70 per share in common stock dividends in fiscal 2025. (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "States 1.70 instead of the expected 4,743 million."
+        },
+        "metadata": {
+          "Grader note": "expected figure absent"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "4,743 at rank 2 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "A misreading - every figure is in an excerpt: 1.70 from excerpt 2 (equity_statement); the expected 4,743 was in excerpt 2 (equity_statement)."
+        },
+        "metadata": {
+          "Stated 1.70": "excerpt 2 (equity_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Cash dividends declared ($1.70 per share) (fiscal 2025, year ended May 31, 2025) \u2014 Accumulated Deficit: (4,743) | Total Stockholders\u2019 Equity: (4,743)\u0022",
+          "Expected 4,743": "excerpt 2 (equity_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Cash dividends declared ($1.70 per share) (fiscal 2025, year ended May 31, 2025) \u2014 Accumulated Deficit: (4,743) | Total Stockholders\u2019 Equity: (4,743)\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 78.0588062,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2709,
+          "outputTokenCount": 47,
+          "totalTokenCount": 2756
+        }
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:ORCL",
+    "statement:equity_statement",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}

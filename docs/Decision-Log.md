@@ -3169,6 +3169,10 @@ afresh twice (`structured-hybrid-v3-variance-1`, `-2`; 113 and 116 min), compare
   input. Across builds, a set can move by a question (A21) - compare grades only on the same build; record it with a run.
   Sources: github.com/ollama/ollama/releases/tag/v0.35.1, github.com/ollama/ollama/pull/18652,
   github.com/ggml-org/llama.cpp/compare/b11081...b11232.
+- **Ollama 0.40.0 checked (2026-10-07, `eval/v3-runs/variance-ollama040.txt`): no change.** Ollama updated itself from
+  0.35.1 to 0.40.0; all 102 questions asked afresh (`structured-hybrid-ollama040`, 114 min, on the `ponytail-cleanup`
+  code) match variance pass 1 word for word and grade for grade (102/102). Against the v3 baseline the same two grades
+  differ as above (T6, A21). This run is the reference on 0.40.0.
 
 **Step 6 - the local judge: done, kept alongside the strict grade - not as the grade (2026-10-05, `eval/v3-runs/judge-structured-hybrid-v3-judge-equivalence.txt`).**
 Equivalence, judged by `llama3.1:8b`, over the baseline's 102 cached answers: 13 min, ~8 s a call.

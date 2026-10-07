@@ -1,0 +1,110 @@
+{
+  "scenarioName": "HeldOut.H29",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-ollama040",
+  "creationTime": "2026-10-07T20:40:28.4073584Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Income\n\n(in millions, except per share amounts)\n\nYear Ended December 31,\nRevenues:\nRevenues \u003E Capital Access Platforms \u2014 2025: $2,137 | 2024: $1,945 | 2023: $1,744\nRevenues \u003E Financial Technology \u2014 2025: 1,850 | 2024: 1,621 | 2023: 1,099\nRevenues \u003E Market Services \u2014 2025: 4,214 | 2024: 3,771 | 2023: 3,156\nRevenues \u003E Other revenues \u2014 2025: 61 | 2024: 63 | 2023: 65\nRevenues \u003E Total revenues \u2014 2025: 8,262 | 2024: 7,400 | 2023: 6,064\nTransaction-based expenses:\nTransaction-based expenses \u003E Transaction rebates \u2014 2025: (2,572) | 2024: (2,026) | 2023: (1,838)\nTransaction-based expenses \u003E Brokerage, clearance and exchange fees \u2014 2025: (441) | 2024: (725) | 2023: (331)\nTransaction-based expenses \u003E Revenues less transaction-based expenses \u2014 2025: 5,249 | 2024: 4,649 | 2023: 3,895\nOperating expenses:\nOperating expenses \u003E Compensation and benefits \u2014 2025: 1,392 | 2024: 1,324 | 2023: 1,082\nOperating expenses \u003E Professional and contract services \u2014 2025: 160 | 2024: 152 | 2023: 128\nOperating expenses \u003E Technology and communication infrastructure \u2014 2025: 316 | 2024: 281 | 2023: 233\nOperating expenses \u003E Occupancy \u2014 2025: 124 | 2024: 112 | 2023: 129\nOperating expenses \u003E General, administrative and other \u2014 2025: 75 | 2024: 109 | 2023: 113\nOperating expenses \u003E Marketing and advertising \u2014 2025: 65 | 2024: 54 | 2023: 47\nOperating expenses \u003E Depreciation and amortization \u2014 2025: 632 | 2024: 613 | 2023: 323\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 5. Market for Registrant\u2019s Common Equity, Related ---\r\n\u0060\u0060\u0060\r\ndividends.\n\nYear Ended December 31,*\nNasdaq, Inc. \u2014 2020: $100 | 2021: $160 | 2022: $142 | 2023: $137 | 2024: $185 | 2025: $235\nNasdaq Composite Index \u2014 2020: 100 | 2021: 122 | 2022: 82 | 2023: 119 | 2024: 154 | 2025: 187\nS\u0026P 500 \u2014 2020: 100 | 2021: 129 | 2022: 105 | 2023: 133 | 2024: 166 | 2025: 196\nS\u0026P 500 GICS 4020 Index \u2014 2020: 100 | 2021: 136 | 2022: 121 | 2023: 139 | 2024: 179 | 2025: 197\n\nCOMPARISON OF 5 YEAR CUMULATIVE TOTAL RETURN\n\nAmong Nasdaq, Inc., the Nasdaq Composite Index, the S\u0026P 500 and S\u0026P 500 GICS 4020 Index\n\n![829](ndaq-20251231_g3.gif)\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nfor $882 billion in AUM. Our flagship index, the Nasdaq-100\n\nIndex, or NDX, includes the top 100 non-financial companies\n\nlisted on The Nasdaq Stock Market. More than 100 ETPs\n\nworldwide track Nasdaq-100 core indices, which had $640\n\nbillion in assets tracking the indices as of December 31,\n\n2025, or 73% of total AUM.\n\nWe provide index data products based on Nasdaq indices.\n\nIndex data products include our Global Index Data Service,\n\nwhich delivers real-time and historical index values\n\nthroughout the trading day, and Global Index Watch/Global\n\nIndex File Delivery Service, which delivers daily and\n\nhistorical weightings and components data, corporate actions\n\nand a breadth of additional data for the indices that we\n\noperate.\n\nWorkflow \u0026 Insights\n\nWorkflow \u0026 Insights includes our analytics and corporate\n\nsolutions products.\n\nOur analytics products provide asset managers, investment\n\nconsultants and institutional asset owners with information\n\nand analytics to make data-driven investment decisions,\n\ndeploy their resources more productively, and provide\n\nliquidity solutions for private funds. Through our eVestment\n\nplatform, we provide a suite of cloud-based solutions that\n\nhelp institutional investors and consultants conduct pre-\n\ninvestment due diligence, and monitor their portfolios post-\n\ninvestment. The eVestment platform also enables asset\n\nmanagers to efficiently distribute information about their\n\nfirms and funds to asset owners and consultants worldwide.\n\nOur eVestment platform has expanded the scale and reach of\n\ndata assets to meet the evolving needs of clients and enhance\n\nthe value to asset owners and asset managers, including in the\n\nprivate markets space, with over 80,000 private funds\n\ncovered. In October 2025, we sold our Solovis business, a\n\nfinancial technology platform offering portfolio monitoring\n\nand analytics tools.\n\nThe Nasdaq Fund Network and Nasdaq Data Link are\n\nadditional platforms in our suite of investment data analytics\n\nofferings and data management tools. Nasdaq Fund Network\n\ngathers and distributes daily net asset values from over\n\n100,000 funds and other investment vehicles across North\n\nAmerica. Nasdaq Data Link strengthens our position as a\n\nleading source for financial, economic, and alternative\n\ndatasets.\n\nCorporate solutions serves both public and private companies\n\nand organizations through our Investor Relations\n\nIntelligence, Governance Solutions and Sustainability\n\nSolutions products. Our public company clients can be\n\ncompanies listed on our exchanges or other U.S. and global\n\nexchanges. Our private company clients include a diverse\n\ngroup of organizations ranging from family-owned\n\ncompanies, government organizations, law firms, privately\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of ---\r\n\u0060\u0060\u0060\r\nin ARR and revenue, reflecting an increase in new clients,\n\ncross-sells and upsells.\n\n\u2022Market Services delivered record revenue, reflecting\n\nstrength across U.S. cash equities and U.S. equities options\n\nvolumes in 2025.\n\nMacroeconomic environment\n\nOur business performance can be positively or negatively\n\nimpacted by a number of factors, including general economic\n\nconditions, the geopolitical environment, current or expected\n\ninflation, interest rate fluctuations, the threat or imposition of\n\nbroad-based tariffs, market volatility, changes in investment\n\npatterns and priorities, regulatory changes, pandemics and\n\nother factors that are generally beyond our control. For\n\nexample, higher overall U.S. trading volumes in 2025 as\n\ncompared to 2024 led to an increase in our U.S. equities\n\noptions and U.S. cash equities revenues. Market factors also\n\ncontributed to higher valuations in Nasdaq Indices, higher\n\noverall volumes in Index derivatives and an improving IPO\n\nlandscape. To the extent that global or national economic\n\nconditions weaken and result in slower growth or recessions,\n\nour business may be negatively impacted.\n\nNasdaq\u2019s Operating Results\n\nThe following table summarizes our financial performance\n\nfor the year ended December 31, 2025 compared to the same\n\nperiod in 2024 and for the year ended December 31, 2024\n\ncompared to the same period in 2023. The comparability of\n\nour results of operations between reported periods is\n\nprimarily impacted by our acquisition of Adenza in\n\nNovember 2023. See Note 4, \u201CAcquisition and Divestitures,\u201D\n\nto the consolidated financial statements for further\n\ndiscussion. For a detailed discussion of our results of\n\noperations, see \u201CSegment Operating Results\u201D below.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of ---\r\n\u0060\u0060\u0060\r\nIn the tables above:\n\n\u2022The number of total listed companies on The Nasdaq Stock\n\nMarket for the years ended December 31, 2025, 2024 and\n\n2023 included 1,112, 768 and 600 ETPs, respectively.\n\n\u2022IPOs, new listings (which includes IPOs) and total listed\n\ncompanies for exchanges that comprise Nasdaq Nordic and\n\nNasdaq Baltic represent companies listed on the Nasdaq\n\nNordic and Nasdaq Baltic exchanges and companies listed\n\non the alternative markets of Nasdaq First North.\n\nData \u0026 Listing Services revenues increased for the year\n\nended December 31, 2025 compared with the same period in\n\n2024 due to new data sales, usage and pricing, increased\n\nannual listings revenues due to new listings and the favorable\n\nimpact from changes in foreign currency rates, partially\n\noffset by delistings.\n\nIndex Revenues\n\nThe following table presents key drivers from our Index\n\nbusiness:\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much revenue did Nasdaq\u0027s Index business generate in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The excerpts don\u0027t contain the revenue generated by Nasdaq\u0027s Index business in 2025."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "declined",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "Declines, though the filing states 827 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 7,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "827 at rank 7 of 25 - outside the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "no figure stated",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "No figure stated - a text answer or a decline; the expected 827 was in none of the excerpts - retrieval missed it."
+        },
+        "metadata": {
+          "Expected 827": "in none of the excerpts - retrieval missed it"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 46.1876274,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2326,
+          "outputTokenCount": 20,
+          "totalTokenCount": 2346
+        }
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:NDAQ",
+    "statement:income_statement",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}

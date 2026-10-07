@@ -1,0 +1,9 @@
+Execution structured-hybrid-ollama040: 102 questions, 114 min, graders Strict, every answer asked afresh (no cache)
+Main: reliable 33/40  decline-ok 3  no-unit 1  reliable 30  wrong 6  | answer in the top 5: 36  | figures: no figure stated 5  traced 35
+HeldOut: reliable 31/35  decline-ok 4  declined 1  reliable 27  wrong 3  | answer in the top 5: 28  | figures: no figure stated 6  traced 29
+AnswerSide: reliable 19/27  check 1  decline-ok 1  reliable 18  wrong 7  | answer in the top 5: 22  | figures: calculated 6  no figure stated 1  traced 20
+No untraced figure.
+3 grade(s) differ from the v2 baseline:
+  Main.T6: baseline declined, now wrong (trap 5,933) - The goodwill recognized is attributable primarily to expected synergies and is assigned to our Financial Technology segment, and the excess purchase price over the net tangible and acquired intangible assets has been recorded as goodwill, which is $5,933 million (Source: NDAQ-10K-2025.html, section PART IV > Financial Statements > Acquisition and Divestitures).
+  AnswerSide.A16: baseline reliable, now check (also states 620) - Nasdaq spent $616 million in total purchase price for repurchasing its common stock in 2025, and an additional $4 million of accrued excise tax that had not been paid as of December 31, 2025, is excluded from the total purchase price. Therefore, the total cash spent repurchasing its common stock in 2025 is $620 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Nasdaq Stockholders’ Equity)
+  AnswerSide.A21: baseline reliable, now wrong (trap 12,443, 17,087) - Oracle's combined net income for fiscal 2025 and fiscal 2026 was $17,087 million for 2026 and $12,443 million for 2025. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules and PART IV > Item 15. Exhibits and Financial Statement Schedules)

@@ -1,0 +1,105 @@
+{
+  "scenarioName": "HeldOut.H15",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-ollama040",
+  "creationTime": "2026-10-07T20:26:02.0148872Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\n(1) During the year ended December 31, 2025, we discontinued the reporting of membership numbers, including average paying memberships and average monthly revenue per paying membership, focusing instead on revenue and operating margin as the primary financial metrics that we believe best represent our business performance.\n\n(2) We discontinued our DVD-by-mail service in the year ended December 31, 2023. The discontinuance of our DVD business had an immaterial impact on our operations and financial results.\n\n(3) See the \u201CNon-GAAP Constant Currency Information\u201D section below for additional details on our use of constant currency revenue.\n\nOperating margin for the year ended December\u00A031, 2025 increased by approximately three percentage points as compared to the prior comparative period, primarily driven by the growth in revenues outpacing the growth in cost of revenues, sales and marketing, and general and administrative expenses.\n\nNet income for the year ended December\u00A031, 2025 increased $2,270 million as compared to the prior comparative period, primarily due to a $2,909 million increase in operating income, driven by a $6,182 million increase in revenues and partially offset by a $2,237 million increase in cost of revenues primarily due to the increase in content amortization and other cost of revenues. The impact of higher operating income was partially offset by a $487 million increase in the provision for income taxes.\n\nRevenues\n\nWe primarily derive revenues from monthly membership fees for services related to streaming content to our members. We offer a variety of streaming membership plans, the price of which varies by country and the features of the plan. As of December 31, 2025, pricing on our paid plans ranged from the U.S. dollar equivalent of $1 to $37 per month, and pricing on our extra member sub accounts ranged from the U.S. dollar equivalent of $2 to $9 per month. We expect that from time to time the prices of our membership plans in each country may change and we may test other plan and price variations.\n\nWe also earn revenue from advertisements presented on our streaming service, consumer products, live experiences and various other sources. Revenues earned from sources other than monthly membership fees were not a material component of revenues for the years ended December\u00A031, 2025, 2024, and 2023.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements \u003E Revenue Recognition ---\r\n\u0060\u0060\u0060\r\n2.Revenue Recognition\n\nThe following table summarizes streaming revenues by region for the years ended December\u00A031, 2025, 2024 and 2023. Total streaming revenues are inclusive of hedging gains (losses) of $(91)\u00A0million and $124\u00A0million for the years ended December\u00A031, 2025 and 2024, respectively. No hedging gains and losses were recognized in total streaming revenues for the year ended December\u00A031, 2023. See Note 8 Derivative Financial Instruments and Hedging Activities for further information.\n\n(in thousands) Year Ended December 31,\nUnited States and Canada (UCAN) \u2014 2025: $19,957,152 | 2024: $17,359,369 | 2023: $14,873,783\nEurope, Middle East, and Africa (EMEA) \u2014 2025: 14,514,646 | 2024: 12,387,035 | 2023: 10,556,487\nLatin America (LATAM) \u2014 2025: 5,357,521 | 2024: 4,839,816 | 2023: 4,446,461\nAsia-Pacific (APAC) \u2014 2025: 5,353,717 | 2024: 4,414,746 | 2023: 3,763,727\nTotal Streaming Revenues \u2014 2025: $45,183,036 | 2024: $39,000,966 | 2023: $33,640,458\n\nDeferred revenue consists of membership fees billed that have not been recognized, as well as gift and other prepaid memberships that have not been fully redeemed. As of December 31, 2025, total deferred revenue was $1,776\u00A0million, the vast majority of which was related to membership fees billed that are expected to be recognized as revenue within the next month. The remaining deferred revenue balance, which is related to gift cards and other prepaid memberships, will be recognized as revenue over the period of service after redemption, which is expected to occur over the next 12 months. Deferred revenue increased $255 million from $1,521 million as of December\u00A031, 2024 to $1,776 million as of December\u00A031, 2025. Deferred revenue balances may fluctuate due to the number of paid memberships and the price of our memberships.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\n(in thousands, except revenue per membership and percentages)\nUnited States and Canada (UCAN) \u2014 Year Ended December 31, 2025: $19,957,152 | Year Ended December 31, 2024: $17,359,369 | Year Ended December 31, 2023: $14,873,783 | Change 2025 vs. 2024: $2,597,783 / 15%\nEurope, Middle East, and Africa (EMEA) \u2014 Year Ended December 31, 2025: 14,514,646 | Year Ended December 31, 2024: 12,387,035 | Year Ended December 31, 2023: 10,556,487 | Change 2025 vs. 2024: 2,127,611 / 17%\nLatin America (LATAM) \u2014 Year Ended December 31, 2025: 5,357,521 | Year Ended December 31, 2024: 4,839,816 | Year Ended December 31, 2023: 4,446,461 | Change 2025 vs. 2024: 517,705 / 11%\nAsia-Pacific (APAC) \u2014 Year Ended December 31, 2025: 5,353,717 | Year Ended December 31, 2024: 4,414,746 | Year Ended December 31, 2023: 3,763,727 | Change 2025 vs. 2024: 938,971 / 21%\nTotal Streaming Revenues \u2014 Year Ended December 31, 2025: $45,183,036 | Year Ended December 31, 2024: $39,000,966 | Year Ended December 31, 2023: $33,640,458 | Change 2025 vs. 2024: $6,182,070 / 16%\n\nNon-GAAP Constant Currency Information\n\nWe believe the non-GAAP financial measure of constant currency revenue is useful in analyzing period-to-period comparisons in revenues absent foreign currency fluctuations. However, this non-GAAP financial measure should be considered in addition to, not as a substitute for, or superior to other financial measures prepared in accordance with GAAP.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\n[Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)\n\n(in thousands, except percentages)\nRevenues \u2014 Year Ended December 31, 2025: $45,183,036 | Year Ended December 31, 2024: $39,000,966 | Year Ended December 31, 2023: $33,723,297 | Change 2025 vs. 2024: $6,182,070 / 16%\n\nRevenues for the year ended December\u00A031, 2025 increased 16% as compared to the year ended December\u00A031, 2024, primarily due to the growth in memberships, price increases, and increased advertising revenue, partially offset by unfavorable changes in foreign exchange rates, net of hedging.\n\nThe following table summarizes streaming revenues by region for the years ended December\u00A031, 2025, 2024 and 2023. Total streaming revenues are inclusive of hedging gains (losses) of $(91) million and $124\u00A0million for the years ended December\u00A031, 2025 and 2024, respectively. No hedging gains and losses were recognized in total streaming revenues for the year ended December\u00A031, 2023. See Note 8 Derivative Financial Instruments and Hedging Activities to the consolidated financial statements for further information regarding the Company\u2019s derivative and non-derivative financial instruments.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements \u003E Organization and Summary of Significant Accounting Policies ---\r\n\u0060\u0060\u0060\r\nAcquisitions\n\nThe Company uses its best estimates and assumptions to assign fair value to the tangible and intangible assets acquired and liabilities assumed at the acquisition date. In addition, uncertain tax positions, tax-related valuation allowances and pre-acquisition contingencies of an entity acquired in a business combination are recorded as of the acquisition date.\n\n[Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)\n\nProperty and Equipment\n\nProperty and equipment are carried at cost less accumulated depreciation. Depreciation is calculated using the straight-line method over the shorter of the estimated useful lives of the respective assets, generally up to 30 years, or the expected lease term for leasehold improvements, if applicable.\n\nTrade Receivables\n\nTrade receivables primarily consist of membership and advertising fees due to the Company. The Company evaluates the need for an allowance for credit losses based on historical collection trends, the financial condition of its payment partners, and external market factors.\n\nRevenue Recognition\n\nThe Company\u0027s primary source of revenues is from monthly membership fees. Members are billed in advance of the start of their monthly membership and revenues are recognized ratably over each monthly membership period. Revenues are presented net of the taxes that are collected from members and remitted to governmental authorities. The Company is the principal in all its relationships where partners, including consumer electronics (\u201CCE\u201D) manufacturers, multichannel video programming distributors (\u201CMVPDs\u201D), mobile operators and internet service providers (\u201CISPs\u201D), provide access to the service as the Company retains control over service delivery to its members. In circumstances in which the price that the member pays is established by a partner and there is no standalone price for the Netflix service (for instance, in a bundle), the net amount collected from the partner is recognized as revenue.\n\nThe Company also earns revenue from advertisements presented on its streaming service, consumer products, live experiences and various other sources. Revenues earned from sources other than monthly membership fees were not a material component of revenues for the years ended December\u00A031, 2025, 2024, and 2023. See Note 2 Revenue Recognition to the consolidated financial statements for further information regarding revenues.\n\nSales and Marketing\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How many paid memberships did Netflix have at the end of 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The excerpts don\u0027t contain the number of paid memberships Netflix had at the end of 2025."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "decline-ok",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Declines correctly: the filings don\u0027t contain this."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "Not scored: a negative has no answer to find."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "no figure stated",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "No figure stated - a text answer or a decline."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 74.7838785,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2723,
+          "outputTokenCount": 21,
+          "totalTokenCount": 2744
+        }
+      }
+    ]
+  },
+  "tags": [
+    "kind:negative",
+    "company:NFLX",
+    "statement:none",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}

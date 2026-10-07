@@ -1,0 +1,110 @@
+{
+  "scenarioName": "AnswerSide.A5",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-ollama040",
+  "creationTime": "2026-10-07T20:51:52.5285011Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Income Taxes ---\r\n\u0060\u0060\u0060\r\nThe provision for income taxes consisted of the following:\n\n(Dollars in millions) Year Ended May 31,\nCurrent provision:\nCurrent provision \u003E Federal \u2014 2026: $1,072 | 2025: $1,172 | 2024: $999\nCurrent provision \u003E State \u2014 2026: 307 | 2025: 196 | 2024: 420\nCurrent provision \u003E Foreign \u2014 2026: 2,005 | 2025: 1,986 | 2024: 1,994\nCurrent provision \u003E Total current provision \u2014 2026: $3,384 | 2025: $3,354 | 2024: $3,413\nDeferred benefit:\nDeferred benefit \u003E Federal \u2014 2026: $(1,783) | 2025: $(2,208) | 2024: $(2,020)\nDeferred benefit \u003E State \u2014 2026: (152) | 2025: (202) | 2024: (280)\nDeferred benefit \u003E Foreign \u2014 2026: 1,018 | 2025: 773 | 2024: 161\nDeferred benefit \u003E Total deferred benefit \u2014 2026: $(917) | 2025: $(1,637) | 2024: $(2,139)\nTotal provision for income taxes \u2014 2026: $2,467 | 2025: $1,717 | 2024: $1,274\nEffective income tax rate \u2014 2026: 12.6% | 2025: 12.1% | 2024: 10.9%\n\n[Table of Contents](#toc_page)\n\nIn fiscal year ended May 31, 2026, we adopted ASU 2023-09 prospectively. The following table reconciles the provision for income taxes to the amount computed by applying the statutory U.S. federal income tax rate to income before income taxes for the year ended May 31, 2026:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Income Taxes ---\r\n\u0060\u0060\u0060\r\n[Table of Contents](#toc_page)\n\n12.\n\nINCOME TAXES\n\nOur effective tax rates for each of the periods presented are the result of the mix of income earned and losses incurred in various tax jurisdictions that apply a broad range of income tax rates. Our provision for income taxes varied from the tax computed at the U.S. federal statutory income tax rate for fiscal 2026, 2025 and 2024 primarily due to earnings in foreign operations, state taxes, the U.S. research and development tax credit, settlements with tax authorities, the tax effects of stock-based compensation, the Foreign Derived Intangible Income deduction and the tax effect of Global Intangible Low-Taxed Income (GILTI).\n\nThe following is a geographical breakdown of income before income taxes:\n\n(in millions) Year Ended May 31,\nDomestic \u2014 2026: $8,693 | 2025: $4,376 | 2024: $3,023\nForeign \u2014 2026: 10,861 | 2025: 9,784 | 2024: 8,718\nIncome before income taxes \u2014 2026: $19,554 | 2025: $14,160 | 2024: $11,741\n\nThe provision for income taxes consisted of the following:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nProvision for income taxes increased in fiscal 2026 relative to fiscal 2025 primarily related to an unfavorable impact of $933 million from the enactment of the U.S. One, Big, Beautiful Bill Act, which was signed into law on July 4, 2025 that required a remeasurement of a deferred tax liability previously recorded during fiscal 2021 as part of the partial realignment of our legal entity structure, an unfavorable jurisdictional mix of earnings of $589 million, higher income before provision for income taxes of $584 million and a net change in unrecognized tax benefits associated with settlements with tax authorities and other events of $240 million, substantially offset by an increase in tax benefits related to stock-based compensation of $1.5 billion and the realization of a one-time tax attribute of $125 million.\n\nLiquidity and Capital Resources\n\n(Dollars in millions) As of May 31,\nWorking capital \u2014 2026: $4,803 | Change: * | 2025: $(8,064)\nCash, cash equivalents and marketable securities \u2014 2026: $31,894 | Change: 185% | 2025: $11,203\n\n* | Not meaningful\n\nWorking capital: The increase in working capital as of May 31, 2026 in comparison to May 31, 2025 was primarily due to favorable impacts from net income; proceeds from the issuance of senior notes, net of issuance costs, of $42.7 billion during fiscal 2026; $5.0 billion of cash proceeds from the issuance of Mandatory Convertible Preferred Stock, net of issuance costs; $4.9 billion of cash proceeds from the sale of our investments, primarily in Ampere; and $1.3 billion of net cash proceeds from our employee stock programs, partially offset by $55.7 billion of cash used for capital expenditures; $5.8 billion of cash used to pay dividends to our preferred and common stockholders; $5.7 billion of long-term borrowings that were reclassified to current liabilities; $864 million of cash used for purchases of non-current investments; and $95 million of cash used for repurchases of our common stock, in each case during fiscal 2026. Our working capital may be impacted by some or all of the aforementioned factors in future periods, the amounts and timing of which are variable.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\n[Table of Contents](#toc_page)\n\nOur non-operating income, net increased by $3.5 billion in reported currency in fiscal 2026 relative to fiscal 2025 primarily due to a $2.7 billion gain from the sale of our investment in Ampere Computing Holdings LLC (Ampere), a $380 million gain from other investments, net, a $205 million increase in gains from our investment portfolio related to our deferred compensation plan included in other income, net and a $202 million increase in interest income. Refer to Note 1 of Notes to Consolidated Financial Statements included elsewhere in this Annual Report for additional information on the Ampere transaction.\n\nProvision for Income Taxes: Our effective income tax rates for each of the periods presented were the result of the mix of income earned and losses incurred in various tax jurisdictions that apply a broad range of income tax rates. Refer to Note 12 of Notes to Consolidated Financial Statements included elsewhere in this Annual Report for a discussion regarding the differences between the effective income tax rates as presented for the periods below and the U.S. federal statutory income tax rates that were in effect during these periods. Future effective tax rates could be adversely affected by an unfavorable shift of earnings weighted to jurisdictions with higher tax rates, by unfavorable changes in tax laws and regulations, by adverse rulings in tax-related litigation, or by shortfalls in stock-based compensation realized by employees relative to stock-based compensation that was recorded for book purposes, among others.\n\n(Dollars in millions) Year Ended May 31,\nProvision for income taxes \u2014 2026: $2,467 | Percent Change Actual: 44% | Percent Change Constant: 39% | 2025: $1,717\nEffective tax rate \u2014 2026: 12.6% | 2025: 12.1%\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions) Year Ended May 31,\nNet income \u2014 2026: $17,087 | 2025: $12,443 | 2024: $10,467\nOther comprehensive (loss) income, net of tax:\nOther comprehensive (loss) income, net of tax \u003E Net foreign currency translation (losses) gains \u2014 2026: (232) | 2025: 369 | 2024: (17)\nOther comprehensive (loss) income, net of tax \u003E Net unrealized gains on defined benefit plans \u2014 2026: 45 | 2025: 13 | 2024: 31\nOther comprehensive (loss) income, net of tax \u003E Net unrealized (losses) gains on cash flow hedges \u2014 2026: (18) | 2025: (125) | 2024: 77\nOther comprehensive (loss) income, net of tax \u003E Other, net \u2014 2024: (1)\nOther comprehensive (loss) income, net of tax \u003E Total other comprehensive (loss) income, net \u2014 2026: (205) | 2025: 257 | 2024: 90\nComprehensive income \u2014 2026: $16,882 | 2025: $12,700 | 2024: $10,557\n\nSee notes to consolidated financial statements.\n\n[Table of Contents](#toc_page)\n\nORACLE CORPORATION\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Oracle\u0027s income before income taxes in fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s income before income taxes in fiscal 2026 was $19,554 million. (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Income Taxes)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 19,554 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "19,554 at rank 2 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 19,554 from excerpt 2 (narrative)."
+        },
+        "metadata": {
+          "Stated 19,554": "excerpt 2 (narrative, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Income Taxes): \u0022Income before income taxes \u2014 2026: $19,554 | 2025: $14,160 | 2024: $11,741\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 63.6277926,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2354,
+          "outputTokenCount": 50,
+          "totalTokenCount": 2404
+        }
+      }
+    ]
+  },
+  "tags": [
+    "kind:figure",
+    "has traps",
+    "company:ORCL",
+    "statement:none",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}

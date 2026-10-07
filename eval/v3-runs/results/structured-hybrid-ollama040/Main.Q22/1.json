@@ -1,0 +1,106 @@
+{
+  "scenarioName": "Main.Q22",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-ollama040",
+  "creationTime": "2026-10-07T19:44:27.7414667Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART I \u003E Item 2. Properties ---\r\n\u0060\u0060\u0060\r\nWe have leased principal properties in both Los Gatos, California, which is the location of our corporate headquarters, and in Los Angeles, California. In addition, we own and lease various office and production space throughout the world.\n\nWe believe that our existing facilities are adequate to meet current requirements, and that suitable additional or substitute space will be available as needed to accommodate any further physical expansion of operations and for any additional offices.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nHUMAN CAPITAL\n\nOur business is to entertain the world across different countries, cultures, languages and tastes. To entertain an audience this global, our Company needs to reflect the world and the variety of stories we tell. To help ensure our workforce is representative of the members we serve, we employ people in multiple countries around the world and work to maintain a global culture of inclusion. We view our employees and our culture as key to our success. As of December\u00A031, 2025, we had approximately 16,000 full-time employees. Of these, approximately 10,900 (68%) were located in the United States and Canada, 2,500 (16%) in Europe, Middle East, and Africa, 1,900 (12%) in Asia-Pacific and 700 (4%) in Latin America. We also have a number of employees engaged in content production, some of whom are part-time or temporary, and whose numbers fluctuate throughout the year and may be covered by collective bargaining agreements.\n\nWe believe an important component of our success is our company culture as detailed in the \u201CNetflix Culture Memo\u201D, which was updated in 2024. Our culture is focused on excellence and creating an environment where talented people can thrive \u2014 lifting ourselves, each other and our audiences higher and higher. We engage employees and seek feedback through regular town halls, surveys, business reviews and memos, which we often share broadly, inviting comments. We aim to attract and retain great people \u2014 representing a broad array of perspectives and skills \u2014 to work together as a dream team. For more people and cultures to see themselves reflected on screen, it is important that our employee base represents the communities we serve.\n\nWe aim generally to pay our employees at their personal top of market, and they generally are able to choose the form of their compensation between cash and stock options. This permits employee compensation to be highly personalized and reflective of each employee\u0027s individual needs and preferences. We conduct pay equity analyses at least annually, and have adopted practices to help ensure that employees from underrepresented groups are not being underpaid based on gender identity (globally) and race or ethnicity (United States (\u201CU.S.\u201D)) relative to others doing the same or similar work under comparable circumstances. We aim to rectify any pay gaps that we find through this analysis.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements \u003E Organization and Summary of Significant Accounting Policies ---\r\n\u0060\u0060\u0060\r\nAcquisitions\n\nThe Company uses its best estimates and assumptions to assign fair value to the tangible and intangible assets acquired and liabilities assumed at the acquisition date. In addition, uncertain tax positions, tax-related valuation allowances and pre-acquisition contingencies of an entity acquired in a business combination are recorded as of the acquisition date.\n\n[Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)\n\nProperty and Equipment\n\nProperty and equipment are carried at cost less accumulated depreciation. Depreciation is calculated using the straight-line method over the shorter of the estimated useful lives of the respective assets, generally up to 30 years, or the expected lease term for leasehold improvements, if applicable.\n\nTrade Receivables\n\nTrade receivables primarily consist of membership and advertising fees due to the Company. The Company evaluates the need for an allowance for credit losses based on historical collection trends, the financial condition of its payment partners, and external market factors.\n\nRevenue Recognition\n\nThe Company\u0027s primary source of revenues is from monthly membership fees. Members are billed in advance of the start of their monthly membership and revenues are recognized ratably over each monthly membership period. Revenues are presented net of the taxes that are collected from members and remitted to governmental authorities. The Company is the principal in all its relationships where partners, including consumer electronics (\u201CCE\u201D) manufacturers, multichannel video programming distributors (\u201CMVPDs\u201D), mobile operators and internet service providers (\u201CISPs\u201D), provide access to the service as the Company retains control over service delivery to its members. In circumstances in which the price that the member pays is established by a partner and there is no standalone price for the Netflix service (for instance, in a bundle), the net amount collected from the partner is recognized as revenue.\n\nThe Company also earns revenue from advertisements presented on its streaming service, consumer products, live experiences and various other sources. Revenues earned from sources other than monthly membership fees were not a material component of revenues for the years ended December\u00A031, 2025, 2024, and 2023. See Note 2 Revenue Recognition to the consolidated financial statements for further information regarding revenues.\n\nSales and Marketing\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section Cover Page ---\r\n\u0060\u0060\u0060\r\nNetflix, Inc. - annual report on Form 10-K for the fiscal year ended December 31, 2025 (fiscal year 2025). Common stock trading symbol: NFLX, on the NASDAQ Global Select Market. Address of principal executive offices: 121 Albright Way, Los Gatos, California 95032. State of incorporation: Delaware. Independent registered public accounting firm (auditor): Ernst \u0026 Young LLP, San Jose, California (PCAOB ID 42).\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART I \u003E Item 1A. Risk Factors ---\r\n\u0060\u0060\u0060\r\nIf any of the following risks actually occur, our business, financial condition and results of operations could be harmed. In that case, the trading price of our common stock could decline, and you could lose all or part of your investment.\n\nRisks Related to Our Business\n\nIf our efforts to attract and retain members are not successful, our business will be adversely affected.\n\nWe must continually add new members both to replace canceled memberships and to grow our business beyond our current membership base. Our ability to continue to attract and retain members will depend in part on our ability to consistently provide our members in countries around the globe with compelling content choices that keep our members engaged with our service, effectively drive conversation around our content and service, as well as provide a quality experience for choosing and enjoying TV series, films and games. Our penetration and growth rates have fluctuated and vary across the jurisdictions where we provide our service. In countries where we have been operating for many years or where we are highly penetrated, our membership growth is slower than in newer or less penetrated countries. Furthermore, the relative service levels, content offerings, pricing and related features of competitors to our service may adversely impact our ability to attract and retain members. Competitors include other entertainment video providers, such as linear television, streaming entertainment providers (including those that provide pirated content), video gaming providers, open content platform providers, which provide access to user-generated and professionally produced content, as well as more broadly against other sources of entertainment, such as social media, that our members could choose in their moments of free time.\n\nMembers cancel our service for many reasons, including a perception that they do not use the service sufficiently, that they need to cut household expenses, dissatisfaction with content, including any advertisements that may appear on our service, a preference for competitive services and customer service issues that they believe are not satisfactorily resolved. Adverse macroeconomic conditions, including as a result of inflation, may also adversely impact our ability to attract and retain members. If we do not grow as expected, given, in particular, that our content costs are largely fixed in nature, we may not be able to adjust our expenditures or increase our revenues, including by adjusting membership pricing, commensurate with the lowered growth rate such that our margins, liquidity and results of operations may be adversely impacted. If we are unable to successfully compete with current and new competitors in providing compelling content, retaining our existing members and attracting new members, our business will be adversely affected.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Where is Netflix headquartered?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s corporate headquarters is located in Los Gatos, California. (Source: NFLX-10K-2025.html, PART I \u003E Item 2. Properties)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected Los Gatos."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "Los Gatos at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "no figure stated",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "No figure stated - a text answer or a decline."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 53.3504044,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2057,
+          "outputTokenCount": 36,
+          "totalTokenCount": 2093
+        }
+      }
+    ]
+  },
+  "tags": [
+    "kind:fact",
+    "company:NFLX",
+    "statement:none",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}
