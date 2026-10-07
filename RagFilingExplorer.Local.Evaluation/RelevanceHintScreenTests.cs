@@ -109,7 +109,7 @@ public class RelevanceHintScreenTests
         report.AppendLine($"Hint: {Hint}");
         report.AppendLine();
         int reproduced = 0;
-        List<string> fixedTargets = new(), lostControls = new();
+        List<string> fixedTargets = [], lostControls = [];
 
         foreach (string id in Targets.Concat(Controls))
         {

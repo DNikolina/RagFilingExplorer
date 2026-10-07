@@ -15,11 +15,11 @@ internal static class StructuredSections
 {
     public static List<StructuredSection> Split(IEnumerable<FilingBlock> blocks)
     {
-        List<StructuredSection> sections = new();
+        List<StructuredSection> sections = [];
         SectionSplitter.HeadingTracker headings = new();
-        List<FilingBlock> current = new();
+        List<FilingBlock> current = [];
         string? currentTopic = null;
-        List<string> lines = new(); // the kept lines of the paragraph being read
+        List<string> lines = []; // the kept lines of the paragraph being read
 
         void EndParagraph()
         {

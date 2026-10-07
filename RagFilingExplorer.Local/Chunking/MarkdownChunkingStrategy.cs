@@ -17,7 +17,7 @@ internal sealed class MarkdownChunkingStrategy(Tokenizer tokenizer, int maxToken
     {
         List<DocumentSection> sections = SectionSplitter.Split(raw);
 
-        List<FilingChunk> chunks = new();
+        List<FilingChunk> chunks = [];
         foreach (DocumentSection section in sections)
         {
             foreach ((string content, int tokens) in TokenChunker.Chunk(section.Body, tokenizer, maxTokensPerChunk, overlapTokens))

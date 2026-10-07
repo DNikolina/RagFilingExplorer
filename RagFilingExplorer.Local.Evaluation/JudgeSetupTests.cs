@@ -106,7 +106,7 @@ public class JudgeSetupTests
 
     private sealed class CapturingChatClient : IChatClient
     {
-        public List<ChatOptions?> Options { get; } = new();
+        public List<ChatOptions?> Options { get; } = [];
 
         public Task<ChatResponse> GetResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options = null, CancellationToken cancellationToken = default)
         {

@@ -170,7 +170,7 @@ internal sealed class EvaluationRunner(
         // after OpenExistingIndexAsync, whose readiness check turns "Ollama isn't running" into a message naming the fix.
         string ollamaVersion = (await chat.GetVersionAsync(cancellationToken)).ToString();
 
-        List<QuestionOutcome> outcomes = new();
+        List<QuestionOutcome> outcomes = [];
         foreach (QuestionSet set in sets)
         {
             foreach ((_, string question, ExpectedAnswer entry) in questions.Where(q => q.Set == set))

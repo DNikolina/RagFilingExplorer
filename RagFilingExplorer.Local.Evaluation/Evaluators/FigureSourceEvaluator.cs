@@ -62,10 +62,10 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
     /// <summary>Each distinct stated figure, in the answer's order, with the excerpts holding it.</summary>
     public static List<FigureSource> Trace(string answer, string question, IReadOnlyList<RetrievedExcerpt> excerpts)
     {
-        List<FigureSource> sources = new();
+        List<FigureSource> sources = [];
         foreach (string figure in Figures(answer, question))
         {
-            List<FigureSighting> sightings = new();
+            List<FigureSighting> sightings = [];
             for (int i = 0; i < excerpts.Count; i++)
             {
                 List<string> lines = excerpts[i].Content.Split('\n')
@@ -126,7 +126,7 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
     /// </summary>
     public static List<ExpectedLocation> ExpectedLocations(ExpectedAnswer expected, string answer, IReadOnlyList<RetrievedExcerpt> excerpts)
     {
-        List<ExpectedLocation> locations = new();
+        List<ExpectedLocation> locations = [];
         if (expected.Kind == "negative" || expected.Expect is not { Count: > 0 } expect || StrictGrader.Grade(expected, answer).Passed)
         {
             return locations;
@@ -137,8 +137,8 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
             // A figure matches as the grader reads numbers; a fact ("Austin", "2025-2030") as text.
             List<string> numbers = StrictGrader.Numbers(value).ToList();
             bool isNumber = numbers.Count == 1 && numbers[0] == value;
-            List<string> found = new();
-            List<string> foundShort = new();
+            List<string> found = [];
+            List<string> foundShort = [];
             for (int i = 0; i < excerpts.Count; i++)
             {
                 List<string> holding = excerpts[i].Content.Split('\n')

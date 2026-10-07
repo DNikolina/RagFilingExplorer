@@ -16,7 +16,7 @@ public class FilingXbrlTests
 {
     private static readonly string[] Filings = ["MSFT-10K-2026.html", "NDAQ-10K-2025.html", "NFLX-10K-2025.html", "ORCL-10K-2026.html"];
 
-    private readonly Dictionary<string, (IDocument Page, XbrlDocument Xbrl, XbrlTaxonomy Taxonomy)> _read = new();
+    private readonly Dictionary<string, (IDocument Page, XbrlDocument Xbrl, XbrlTaxonomy Taxonomy)> _read = [];
     private DirectoryInfo _data = null!;
 
     [OneTimeSetUp]

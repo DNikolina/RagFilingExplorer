@@ -104,7 +104,7 @@ public class RagAnswerServiceTests
         collection
             .Setup(c => c.SearchAsync<string>(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<VectorSearchOptions<FilingChunkRecord>>(), It.IsAny<CancellationToken>()))
             .Callback<string, int, VectorSearchOptions<FilingChunkRecord>, CancellationToken>((_, _, options, _) => onSearch?.Invoke(options))
-            .Returns(AsAsync(searchResults ?? Enumerable.Empty<VectorSearchResult<FilingChunkRecord>>()));
+            .Returns(AsAsync(searchResults ?? []));
 
         Mock<IChatClient> chatClient = new();
         chatClient
@@ -166,7 +166,7 @@ public class RagAnswerServiceTests
             MakeResult("ORCL-10K-2026.html", "H", "o3", "income_statement"),
             MakeResult("NDAQ-10K-2025.html", "H", "n1", "income_statement"),
         ];
-        List<int> requestedTops = new();
+        List<int> requestedTops = [];
         (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks();
         collection
             .Setup(c => c.SearchAsync<string>(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<VectorSearchOptions<FilingChunkRecord>>(), It.IsAny<CancellationToken>()))
@@ -210,7 +210,7 @@ public class RagAnswerServiceTests
         RagAnswerService service = CreateService(collection, chatClient);
         RagAnswer answer = await service.AskAsync("What was total revenue?", SearchTopK);
 
-        List<string> chunks = new();
+        List<string> chunks = [];
         await foreach (ChatResponseUpdate update in answer.AnswerStream)
         {
             chunks.Add(update.Text);
@@ -384,7 +384,7 @@ public class RagAnswerServiceTests
         RagAnswerService service = CreateService(collection, chatClient);
         RagAnswer answer = await service.AskAsync("What was total revenue?", SearchTopK);
 
-        List<string> chunks = new();
+        List<string> chunks = [];
         await foreach (ChatResponseUpdate update in answer.AnswerStream)
         {
             chunks.Add(update.Text);
@@ -524,7 +524,7 @@ public class RagAnswerServiceTests
     public async Task AskAsync_Hybrid_EachVectorSearchRequestsHybridCandidates_ResultCutToTopK()
     {
         FilingChunkRecord[] pool = Enumerable.Range(1, 12).Select(k => Record(k, "ORCL-10K-2026.html", $"Revenues line {k}", "income_statement")).ToArray();
-        List<int> requestedTops = new();
+        List<int> requestedTops = [];
         (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks();
         SearchPoolInOrder(collection, pool, requestedTops);
 
@@ -594,7 +594,7 @@ public class RagAnswerServiceTests
     public async Task AskAsync_Rerank_ScoresRerankCandidatesNotTopK()
     {
         FilingChunkRecord[] pool = Enumerable.Range(1, 30).Select(k => Record(k, "ORCL-10K-2026.html", $"Revenues line {k} score:{k}")).ToArray();
-        List<IReadOnlyList<string>> scored = new();
+        List<IReadOnlyList<string>> scored = [];
         (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks();
         SearchPoolInOrder(collection, pool);
 
@@ -612,7 +612,7 @@ public class RagAnswerServiceTests
     public async Task AskAsync_Rerank_PassageOpensWithCompanyLineThenExcerptHeader()
     {
         FilingChunkRecord[] pool = [Record(1, "ORCL-10K-2026.html", "Total revenues 57,399 score:1")];
-        List<IReadOnlyList<string>> scored = new();
+        List<IReadOnlyList<string>> scored = [];
         (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks();
         SearchPoolInOrder(collection, pool);
 
@@ -636,7 +636,7 @@ public class RagAnswerServiceTests
             Record(4, "ORCL-10K-2026.html", "Oracle revenue b score:60"),
             Record(5, "ORCL-10K-2026.html", "Oracle revenue c score:70"),
         ];
-        List<IReadOnlyList<string>> scored = new();
+        List<IReadOnlyList<string>> scored = [];
         (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks();
         SearchPoolInOrder(collection, pool);
 

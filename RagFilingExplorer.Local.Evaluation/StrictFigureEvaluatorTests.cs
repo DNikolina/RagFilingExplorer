@@ -78,7 +78,7 @@ public class StrictFigureEvaluatorTests
         // The v3 baseline was stored with the earlier description as each grade's reason; a grade without a
         // note (most reliable ones) must not get that reason back as its note.
         DiskBasedResultStore store = new(Path.Combine(RepoPaths.FindRoot(AppContext.BaseDirectory).FullName, "eval", "v3-runs"));
-        Dictionary<string, string> notes = new();
+        Dictionary<string, string> notes = [];
         await foreach (ScenarioRunResult result in store.ReadResultsAsync("structured-hybrid-v3-baseline"))
         {
             notes[result.ScenarioName] = StrictFigureEvaluator.GraderNote(result.EvaluationResult.Get<StringMetric>(StrictFigureEvaluator.MetricName));

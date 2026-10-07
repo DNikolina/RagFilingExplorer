@@ -153,7 +153,7 @@ internal static partial class FilingBlockReader
 
     private sealed class Reader(IReadOnlyList<NoteSpan> notes, IReadOnlyDictionary<string, XbrlContext>? contexts, FiscalCalendar? calendar)
     {
-        private readonly List<FilingBlock> blocks = new();
+        private readonly List<FilingBlock> blocks = [];
         private readonly StringBuilder paragraph = new();
         private readonly Dictionary<IElement, string> noteStarts = notes.ToDictionary(n => n.Start, n => n.Topic);
         private readonly HashSet<IElement> noteEnds = notes.Select(n => n.End).ToHashSet();

@@ -101,7 +101,7 @@ internal sealed class RagAnswerService(
             // unfiltered search shares its slots across all filings, and one company's chunk can fall out
             // of the top 5 ("Compare Microsoft's and Oracle's total revenue").
             int perFilingTopK = (int)Math.Ceiling(searchTopK / (double)targetFilings.Length);
-            List<List<VectorSearchResult<FilingChunkRecord>>> perFiling = new();
+            List<List<VectorSearchResult<FilingChunkRecord>>> perFiling = [];
             foreach (string filing in targetFilings)
             {
                 perFiling.Add(await RetrieveAsync(question, keywordQuery, perFilingTopK, filing, targetStatementType, reranked, cancellationToken));
@@ -212,7 +212,7 @@ internal sealed class RagAnswerService(
             ? []
             : await SearchAsync(question, depth, filing, statementType, cancellationToken);
 
-        Dictionary<int, FilingChunkRecord> records = new();
+        Dictionary<int, FilingChunkRecord> records = [];
         foreach (FilingChunkRecord record in semantic.Concat(boost).Select(r => r.Record).Concat(keyword))
         {
             records.TryAdd(record.Key, record);

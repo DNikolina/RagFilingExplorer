@@ -33,7 +33,7 @@ internal static class StatementLabels
     /// <summary>Each primary Statement role's URI -> its statement type (one of the five), confirmed by its concepts.</summary>
     public static Dictionary<string, string> MapRoles(XbrlTaxonomy taxonomy)
     {
-        Dictionary<string, string> types = new();
+        Dictionary<string, string> types = [];
         bool combinedIncome = false;
         foreach (XbrlRole role in taxonomy.PrimaryStatements)
         {
@@ -82,11 +82,11 @@ internal static class StatementLabels
     {
         Dictionary<string, string> roleTypes = MapRoles(taxonomy);
         List<(int Index, HashSet<string> Concepts)> tables = blocks
-            .Select((b, i) => (Index: i, Concepts: b is TableBlock t ? TaggedConcepts(t) : new HashSet<string>()))
+            .Select((b, i) => (Index: i, Concepts: b is TableBlock t ? TaggedConcepts(t) : []))
             .Where(t => t.Concepts.Count > 0)
             .ToList();
 
-        Dictionary<int, string> labels = new();
+        Dictionary<int, string> labels = [];
         foreach ((string roleUri, string type) in roleTypes)
         {
             IReadOnlySet<string> presented = taxonomy.PresentedConcepts[roleUri];

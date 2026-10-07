@@ -65,7 +65,7 @@ internal static partial class JudgeSetup
             throw new ArgumentException($"Unknown judge(s) {string.Join(", ", unknown)}; known: {string.Join(", ", Known)}.", nameof(judges));
         }
 
-        List<IEvaluator> evaluators = new();
+        List<IEvaluator> evaluators = [];
         if (judges.Contains(Equivalence))
         {
             evaluators.Add(new ScoreOnlyEquivalenceEvaluator());

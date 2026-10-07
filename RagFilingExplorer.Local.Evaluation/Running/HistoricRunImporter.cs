@@ -49,12 +49,12 @@ internal static class HistoricRunImporter
         IReadOnlyDictionary<string, ExpectedAnswer> expected = ExpectedAnswer.LoadAll(repoRoot);
         StrictFigureEvaluator grader = new();
         DiskBasedResultStore store = new(storageRoot);
-        Dictionary<string, int> imported = new();
+        Dictionary<string, int> imported = [];
 
         foreach (HistoricRun run in runs)
         {
             await store.DeleteResultsAsync(run.ExecutionName);
-            List<ScenarioRunResult> results = new();
+            List<ScenarioRunResult> results = [];
             foreach ((string set, string grading) in run.Gradings)
             {
                 using JsonDocument document = JsonDocument.Parse(File.ReadAllText(Path.Combine(repoRoot.FullName, "eval", grading)));

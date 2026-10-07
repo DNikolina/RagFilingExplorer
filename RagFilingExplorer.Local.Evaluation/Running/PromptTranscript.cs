@@ -19,7 +19,7 @@ internal static class PromptTranscript
 
     public static List<ChatMessage> Messages(IReadOnlyList<ChatMessage>? prompt, IReadOnlyList<RetrievedExcerpt> excerpts, string question)
     {
-        List<ChatMessage> messages = new();
+        List<ChatMessage> messages = [];
         if (prompt?.FirstOrDefault(m => m.Role == ChatRole.System) is { } system)
         {
             messages.Add(new ChatMessage(ChatRole.System, system.Text));

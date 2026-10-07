@@ -35,7 +35,7 @@ public class EvaluationRunTests
     /// summarized without a comparison instead of failing after every question was asked.</summary>
     internal static Dictionary<string, string> BaselineGrades(string set)
     {
-        Dictionary<string, string> grades = new();
+        Dictionary<string, string> grades = [];
         foreach (string path in Baselines.GetValueOrDefault(set, []))
         {
             using JsonDocument document = JsonDocument.Parse(File.ReadAllText(Path.Combine(Repo.FullName, path)));
@@ -68,7 +68,7 @@ public class EvaluationRunTests
         // What the model reads - Retrieval:GenerationTopK, from the app's appsettings.json.
         int generationTopK = AppSettings.Load(Path.Combine(Repo.FullName, "RagFilingExplorer.Local")).Retrieval.GenerationTopK;
         StringBuilder summary = new();
-        List<string> differences = new();
+        List<string> differences = [];
         summary.AppendLine($"Execution {execution}: {outcomes.Count} questions, {outcomes.Sum(o => o.Elapsed.TotalMinutes):F0} min, graders {settings.Graders}"
             + (settings.JudgeNames.Count > 0 ? $" ({string.Join(", ", settings.JudgeNames)})" : "")
             + (settings.NoCache ? ", every answer asked afresh (no cache)" : "") + (settings.UnloadEachQuestion ? ", the model unloaded before each" : ""));

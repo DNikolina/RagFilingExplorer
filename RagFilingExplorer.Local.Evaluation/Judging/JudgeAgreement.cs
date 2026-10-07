@@ -28,7 +28,7 @@ internal static class JudgeAgreement
     public static readonly IReadOnlyList<string> MetricNames =
         [EquivalenceEvaluator.EquivalenceMetricName, GroundednessEvaluator.GroundednessMetricName];
 
-    private static readonly Dictionary<(string, int), bool> LibraryVerdicts = new();
+    private static readonly Dictionary<(string, int), bool> LibraryVerdicts = [];
 
     private static async Task<bool> LibraryFailsCachedAsync(string metricName, int score)
     {
@@ -44,7 +44,7 @@ internal static class JudgeAgreement
     /// <summary>Every answer of the execution, with its judges' verdicts.</summary>
     public static async Task<List<JudgedAnswer>> LoadAsync(string storageRoot, string execution, CancellationToken cancellationToken = default)
     {
-        List<JudgedAnswer> answers = new();
+        List<JudgedAnswer> answers = [];
         foreach (ScenarioRunResult result in (await EvaluationRunner.LatestResultsAsync(storageRoot, execution, cancellationToken)).OrderBy(r => r.ScenarioName, StringComparer.Ordinal))
         {
             EvaluationResult evaluation = result.EvaluationResult;
@@ -52,7 +52,7 @@ internal static class JudgeAgreement
                 ? (StringMetric)strict
                 : throw new InvalidOperationException(
                     $"{execution} has no strict grade ({result.ScenarioName}) - the agreement needs a run with Graders: both.");
-            Dictionary<string, JudgeVerdict> verdicts = new();
+            Dictionary<string, JudgeVerdict> verdicts = [];
             foreach (string name in MetricNames)
             {
                 if (evaluation.Metrics.TryGetValue(name, out EvaluationMetric? metric))

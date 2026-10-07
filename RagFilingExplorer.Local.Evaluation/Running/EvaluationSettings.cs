@@ -86,7 +86,7 @@ internal sealed class EvaluationSettings
 
     private void Validate()
     {
-        List<string> errors = new();
+        List<string> errors = [];
         List<string> unknownJudges = Lower(Judges).Where(j => !JudgeSetup.Known.Contains(j)).ToList();
         if (unknownJudges.Count > 0)
         {

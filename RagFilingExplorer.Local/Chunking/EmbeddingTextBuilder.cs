@@ -38,7 +38,7 @@ internal static class EmbeddingTextBuilder
     // Each label once, in first-seen order (HashSet.Add as the filter: Enumerable.Distinct doesn't promise an order).
     private static List<string> ExtractRowLabels(string tableContent)
     {
-        HashSet<string> seen = new();
+        HashSet<string> seen = [];
         return tableContent.Split('\n')
             .Select(line => line.Trim())
             .Where(line => line.StartsWith('|'))

@@ -61,7 +61,7 @@ public class RetrievalParityTests
         Assert.That(replay, Has.Count.EqualTo(questions.Length), "one replay line per question");
 
         using RagRuntime runtime = await AppComposition.OpenExistingIndexAsync(settings, Repo, new NoChatClient());
-        List<string> differences = new();
+        List<string> differences = [];
         for (int i = 0; i < questions.Length; i++)
         {
             // Line i of the questions file is line i of the replay. (The replay labels main-set lines by position - its

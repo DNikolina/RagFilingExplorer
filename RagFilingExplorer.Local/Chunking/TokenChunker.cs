@@ -52,8 +52,8 @@ internal static class TokenChunker
     /// </summary>
     public static List<PackedChunk> Pack(IReadOnlyList<ChunkerBlock> blocks, Tokenizer tokenizer, int maxTokens, int overlapTokens)
     {
-        List<PackedChunk> chunks = new();
-        List<(string Text, bool TableLike, int Index)> current = new();
+        List<PackedChunk> chunks = [];
+        List<(string Text, bool TableLike, int Index)> current = [];
         int currentTokens = 0;
 
         // True while the most recent chunk is the last piece of an oversized table, with nothing flushed
@@ -182,7 +182,7 @@ internal static class TokenChunker
     {
         string header = (caption is null ? string.Empty : caption + "\n\n") + (block.Context is null ? string.Empty : block.Context + "\n");
         int headerTokens = tokenizer.CountTokens(header);
-        List<string> piece = new();
+        List<string> piece = [];
         int pieceTokens = headerTokens;
 
         foreach (string row in block.Rows)
@@ -208,8 +208,8 @@ internal static class TokenChunker
     private static List<string> SplitIntoBlocks(string body)
     {
         string[] lines = body.Split('\n');
-        List<string> blocks = new();
-        List<string> current = new();
+        List<string> blocks = [];
+        List<string> current = [];
         bool inTable = false;
 
         void Flush()
@@ -310,7 +310,7 @@ internal static class TokenChunker
 
         string header = string.Join('\n', lines.Take(headerEnd));
         int headerTokens = tokenizer.CountTokens(header);
-        List<string> currentRows = new();
+        List<string> currentRows = [];
 
         // The caption rides on the first piece only, so only the first piece's row budget shrinks.
         int currentTokens = headerTokens + (caption is null ? 0 : tokenizer.CountTokens(captionPrefix));

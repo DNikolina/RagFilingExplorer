@@ -12,8 +12,8 @@ internal static class RankFusion
     /// <summary>Every key any list ranks, best first; ties keep the order keys were first seen in.</summary>
     public static List<(int Key, double Score)> Fuse(IEnumerable<IReadOnlyList<int>> rankings)
     {
-        Dictionary<int, double> scores = new();
-        List<int> firstSeen = new();
+        Dictionary<int, double> scores = [];
+        List<int> firstSeen = [];
         foreach (IReadOnlyList<int> ranking in rankings)
         {
             for (int i = 0; i < ranking.Count; i++)

@@ -50,19 +50,19 @@ internal static class TaxonomyReader
 
         List<XbrlRole> roles = xsd.Descendants(Link + "roleType").Select(ReadRole).ToList();
 
-        Dictionary<string, HashSet<string>> presented = new();
+        Dictionary<string, HashSet<string>> presented = [];
         foreach (XElement link in linkbases.SelectMany(d => d.Descendants(Link + "presentationLink")))
         {
             string role = link.Attribute(XLink + "role")!.Value;
             if (!presented.TryGetValue(role, out HashSet<string>? concepts))
             {
-                presented[role] = concepts = new HashSet<string>();
+                presented[role] = concepts = [];
             }
 
             concepts.UnionWith(link.Elements(Link + "loc").Select(l => ConceptOf(l.Attribute(XLink + "href")!.Value)));
         }
 
-        Dictionary<string, string> labels = new();
+        Dictionary<string, string> labels = [];
         foreach (XElement link in linkbases.SelectMany(d => d.Descendants(Link + "labelLink")))
         {
             Dictionary<string, string> locConcept = link.Elements(Link + "loc")

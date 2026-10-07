@@ -86,7 +86,7 @@ internal static class InteractiveSession
     /// </summary>
     internal static string? FormatMatchedFilter(RagAnswer answer)
     {
-        List<string> parts = new();
+        List<string> parts = [];
         if (answer.MatchedFilings.Count == 1)
         {
             parts.Add($"filtering to {answer.MatchedFilings[0]}");

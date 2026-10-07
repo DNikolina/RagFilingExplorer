@@ -35,7 +35,7 @@ public class ProjectSetupTests
     public void DiskBasedReporting_CreatesAConfigurationWithoutAModel()
     {
         ReportingConfiguration configuration = DiskBasedReportingConfiguration.Create(
-            _tempDirectory, evaluators: Array.Empty<IEvaluator>(), enableResponseCaching: false);
+            _tempDirectory, evaluators: [], enableResponseCaching: false);
 
         Assert.That(configuration.ExecutionName, Is.EqualTo("Default"));
     }

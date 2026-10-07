@@ -24,7 +24,7 @@ internal static class FilingChunkRecords
 {
     public static List<FilingChunkRecord> Build(IReadOnlyList<FilingChunk> allChunks)
     {
-        List<FilingChunkRecord> records = new();
+        List<FilingChunkRecord> records = [];
         string? currentStatementType = null;
         string? previousFiling = null;
 

@@ -51,7 +51,7 @@ public class StatementLabelsTests
     {
         Dictionary<string, string> types = StatementLabels.MapRoles(Taxonomy());
 
-        Assert.That(types.Keys, Is.EquivalentTo(new[] { "r/is", "r/ci", "r/bs", "r/cf", "r/eq" }));
+        Assert.That(types.Keys, Is.EquivalentTo(["r/is", "r/ci", "r/bs", "r/cf", "r/eq"]));
         Assert.That(types["r/ci"], Is.EqualTo("comprehensive_income"), "a comprehensive income title also contains INCOME");
         Assert.That(types["r/is"], Is.EqualTo("income_statement"));
     }

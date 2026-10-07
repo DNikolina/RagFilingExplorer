@@ -98,7 +98,7 @@ internal sealed class IndexManifest
     /// </summary>
     public List<string> DescribeDifferences(IndexManifest current)
     {
-        List<string> differences = new();
+        List<string> differences = [];
 
         void Compare<T>(string name, T built, T now)
         {

@@ -58,7 +58,7 @@ internal static partial class SectionSplitter
     public static List<DocumentSection> Split(string markdown)
     {
         string[] lines = markdown.Replace("\r\n", "\n").Split('\n');
-        List<DocumentSection> sections = new();
+        List<DocumentSection> sections = [];
         HeadingTracker headings = new();
         StringBuilder currentBody = new();
         bool inFence = false;
@@ -107,7 +107,7 @@ internal static partial class SectionSplitter
     /// </summary>
     internal sealed class HeadingTracker
     {
-        private readonly HashSet<string> seenParts = new();
+        private readonly HashSet<string> seenParts = [];
         private string currentPart = string.Empty;
         private string currentItem = string.Empty;
 

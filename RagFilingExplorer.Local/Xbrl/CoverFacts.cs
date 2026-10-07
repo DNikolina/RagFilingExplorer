@@ -47,7 +47,7 @@ internal static partial class CoverFacts
     /// </summary>
     public static List<(string Symbol, string? Exchange, string Title)> CommonStocks(XbrlDocument xbrl)
     {
-        List<(string Symbol, string? Exchange, string Title)> classes = new();
+        List<(string Symbol, string? Exchange, string Title)> classes = [];
         foreach (XbrlFact title in xbrl.Facts.Where(f => f.Concept == "dei:Security12bTitle" && f.Text is not null && CommonEquityRegex().IsMatch(f.Text)))
         {
             // A symbol is trimmed, never re-cased: Clean's title case for all-capital values turned "GOOGL" into "Googl".

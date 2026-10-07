@@ -53,7 +53,7 @@ internal static partial class NoteTopics
             .ToList();
         List<int> starts = notes.Select(n => position[n.Pieces[0]]).ToList();
 
-        List<(int Start, int End, NoteSpan Span)> spans = new();
+        List<(int Start, int End, NoteSpan Span)> spans = [];
         foreach ((List<IElement> pieces, List<XbrlRole> roles) in notes)
         {
             // Runs of pieces with no other note starting in the gap between them.

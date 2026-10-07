@@ -140,7 +140,7 @@ public class TokenChunkerTests
         const string cashFlowLabel = "| Cash flow hedges: |  |  |";
         const string fairValueLabel = "| Fair value hedges: |  |  |";
         (string Row, string? Label)[] body =
-        {
+        [
             ("| Net income | $ 10,981 | $ 8,711 |", null),
             (cashFlowLabel, null),
             ("| Net unrealized gains | $ 1,071 | $ 921 |", cashFlowLabel),
@@ -150,7 +150,7 @@ public class TokenChunkerTests
             ("| Net change excluded | $ 9,838 | $ 7,113 |", fairValueLabel),
             ("| Total other comprehensive loss | $ 9,425 | $ 5,861 |", fairValueLabel),
             ("| Comprehensive income | $ 10,038 | $ 9,297 |", null),
-        };
+        ];
 
         string table = string.Join('\n', new[] { header1, header2 }.Concat(body.Select(b => b.Row)));
         int headerTokens = _tokenizer.CountTokens(header1 + "\n" + header2);

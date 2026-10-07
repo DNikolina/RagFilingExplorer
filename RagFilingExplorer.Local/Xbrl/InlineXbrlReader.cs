@@ -84,7 +84,7 @@ internal static class InlineXbrlReader
         // The fact's own element, then each continuation in chain order; a chain that loops or names a missing
         // id is an error, not a shorter text.
         List<IElement> elements = [element];
-        HashSet<string> seen = new();
+        HashSet<string> seen = [];
         for (string? next = element.GetAttribute("continuedat"); next is not null;)
         {
             if (!seen.Add(next) || !continuations.TryGetValue(next, out IElement? part))

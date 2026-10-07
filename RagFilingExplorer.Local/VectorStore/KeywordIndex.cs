@@ -65,7 +65,7 @@ internal sealed class KeywordIndex(string dbPath)
         search.Parameters.AddWithValue("$filing", (object?)filing ?? DBNull.Value);
         search.Parameters.AddWithValue("$top", top);
 
-        List<FilingChunkRecord> results = new();
+        List<FilingChunkRecord> results = [];
         using SqliteDataReader reader = search.ExecuteReader();
         while (reader.Read())
         {

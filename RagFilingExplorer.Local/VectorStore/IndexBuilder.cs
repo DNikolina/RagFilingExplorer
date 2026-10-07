@@ -28,7 +28,7 @@ internal static class IndexBuilder
 
         IChunkingStrategy strategy = ChunkingStrategies.Create(settings.Chunking);
 
-        List<FilingChunk> allChunks = new();
+        List<FilingChunk> allChunks = [];
         foreach (FileInfo filing in filings)
         {
             allChunks.AddRange(await IngestFilingAsync(filing, strategy, reviewDirectory));

@@ -46,7 +46,7 @@ internal static class VarianceComparison
     /// <summary>Every stored answer of the given executions (the latest iteration of each scenario).</summary>
     public static async Task<List<StoredAnswer>> LoadAsync(string storageRoot, IReadOnlyList<string> executions, CancellationToken cancellationToken = default)
     {
-        List<StoredAnswer> answers = new();
+        List<StoredAnswer> answers = [];
         foreach (string execution in executions)
         {
             foreach (ScenarioRunResult result in await EvaluationRunner.LatestResultsAsync(storageRoot, execution, cancellationToken))

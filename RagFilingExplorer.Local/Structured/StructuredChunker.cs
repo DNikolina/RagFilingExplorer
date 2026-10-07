@@ -13,8 +13,8 @@ internal static class StructuredChunker
 {
     public static List<StructuredChunk> Chunk(StructuredSection section, Tokenizer tokenizer, int maxTokens, int overlapTokens)
     {
-        List<ChunkerBlock> input = new();
-        List<FilingBlock> source = new(); // input[i] came from source[i]
+        List<ChunkerBlock> input = [];
+        List<FilingBlock> source = []; // input[i] came from source[i]
         foreach (FilingBlock block in section.Blocks)
         {
             if (block is TableBlock table)

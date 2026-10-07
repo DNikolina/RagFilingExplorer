@@ -103,13 +103,13 @@ internal static partial class HtmlTableLinearizer
         string? groupLabel = null;
         string? periodCaption = null; // a label-column period row ("June 30, 2026") - on every row path below it
         int block = -1;
-        List<HeaderCell> headerCells = new();
-        List<string> tableCaptions = new(); // above every header row, e.g. "June 30, 2026" - kept for the whole table
-        List<string> captions = new();      // label-column text of the current header block's rows
-        List<Leaf> leaves = new();
-        List<string> unconsumedHeaderRows = new(); // header rows not yet followed by a data row
+        List<HeaderCell> headerCells = [];
+        List<string> tableCaptions = []; // above every header row, e.g. "June 30, 2026" - kept for the whole table
+        List<string> captions = [];      // label-column text of the current header block's rows
+        List<Leaf> leaves = [];
+        List<string> unconsumedHeaderRows = []; // header rows not yet followed by a data row
         bool lastWasData = false;
-        List<LinearizedRow> output = new();
+        List<LinearizedRow> output = [];
 
         for (int rowIndex = 0; rowIndex < nonEmptyRows.Count; rowIndex++)
         {
@@ -197,7 +197,7 @@ internal static partial class HtmlTableLinearizer
             lastWasData = true;
             unconsumedHeaderRows.Clear(); // they label this row's columns
 
-            List<LinearizedValue> values = new();
+            List<LinearizedValue> values = [];
             if (leaves.Count == 0)
             {
                 // No header above the data: only a single-value row is unambiguous ("Label: value").
@@ -210,7 +210,7 @@ internal static partial class HtmlTableLinearizer
             }
             else
             {
-                HashSet<string> used = new();
+                HashSet<string> used = [];
                 foreach (ValueGroup group in groups)
                 {
                     Leaf? leaf = NearestLeaf(leaves, group);
@@ -370,7 +370,7 @@ internal static partial class HtmlTableLinearizer
 
             string path = row.GroupLabel is null ? row.Label : $"{row.GroupLabel.TrimEnd(':')} > {row.Label}";
             IEnumerable<LinearizedValue> shown = omitNil ? row.Values.Where(v => !DashRegex().IsMatch(v.Text)) : row.Values;
-            List<(string Column, List<string> Texts)> columns = new();
+            List<(string Column, List<string> Texts)> columns = [];
             foreach (LinearizedValue v in shown)
             {
                 string column = v.ColumnLabel[Math.Min(caption.Length, v.ColumnLabel.Length)..].Trim();
@@ -419,12 +419,12 @@ internal static partial class HtmlTableLinearizer
     /// </summary>
     private static List<List<Cell>> ReadRows(IHtmlTableElement table)
     {
-        List<List<Cell>> rows = new();
-        Dictionary<int, int> held = new(); // column -> how many more rows a rowspan cell above still holds it for
+        List<List<Cell>> rows = [];
+        Dictionary<int, int> held = []; // column -> how many more rows a rowspan cell above still holds it for
         foreach (IHtmlTableRowElement row in table.Rows)
         {
-            List<Cell> cells = new();
-            Dictionary<int, int> heldFromHere = new();
+            List<Cell> cells = [];
+            Dictionary<int, int> heldFromHere = [];
             int position = 0;
             foreach (IHtmlTableCellElement cell in row.Cells)
             {
@@ -507,7 +507,7 @@ internal static partial class HtmlTableLinearizer
     // them in cells of their own (MSFT: "$" | "133,812"; negatives as "(5" | ")").
     private static List<ValueGroup> MergeFragments(List<Cell> cells)
     {
-        List<ValueGroup> groups = new();
+        List<ValueGroup> groups = [];
         string prefix = string.Empty;
 
         foreach (Cell cell in cells)
