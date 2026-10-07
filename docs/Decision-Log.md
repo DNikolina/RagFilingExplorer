@@ -724,6 +724,22 @@ session the very first time a synthesis question tried to route `llama3.1:8b` (t
 `RequiresSynthesis` routing, the `chatModelSupportsThinking` capability gate, `MaxOutputTokens` wiring,
 and both the throw and no-throw cases of the starved-response guard.
 
+**Effort levels checked (2026-10-07, Ollama 0.40.0): on these models the level is an on/off switch.** The request
+OllamaSharp 5.4.30 sends, logged by a throwaway probe on the app's package versions: `Effort.None` -> `"think": false`,
+`Effort.Medium` -> `"think": "medium"`, temperature and `MaxOutputTokens` as `options.temperature`/`num_predict`.
+`qwen3.5:2b` asked the same question at temperature 0 with `think` = `true`, `"low"`, `"medium"`, `"high"` and
+`"bogus"`: five identical responses (2,235 characters of thinking, 879 tokens, the same answer). Ollama's `/api/show`
+now says why - `qwen3.5:2b` reports `"thinking": {"values": [false, true], "default": true}`, and per Ollama's docs
+(docs.ollama.com/capabilities/thinking) a named level is honoured only by a model that lists it there (their example:
+`gpt-oss`, low/medium/high); other names fall back to the model's default, on for qwen. `llama3.1:8b` and both
+granite4.1 models report no thinking capability at all. So for every model this project has run, only `None` versus
+any other value matters; the levels matter for `gpt-oss` (not pulled, not measured) and paid reasoning models (v4).
+Kept as an effort level, not replaced by a boolean (user): it's Microsoft.Extensions.AI's provider-neutral setting
+and v4 needs the levels. Fixed: the setting's comment (`AppSettings.cs`) and the README say this, and the
+starved-response error now suggests setting `ReasoningEffort` to `None`, not "lowering" it - lowering does nothing
+on qwen. Also seen: qwen thinks by default, so the explicit `"think": false` on lookups is load-bearing. Reading
+`thinking.values` instead of the capability list would tell levels from on/off - left for v4.
+
 ---
 
 ## Follow-up: onboarding a new filer (NFLX) — DONE, outcome below

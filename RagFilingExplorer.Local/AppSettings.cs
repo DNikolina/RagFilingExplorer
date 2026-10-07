@@ -160,8 +160,11 @@ internal sealed class RetrievalSettings
     /// simple lookup with this app's long retrieved-context prompt, a reasoning model can spend its entire generation
     /// budget thinking and never produce an answer. Safe to leave non-None with a non-reasoning model such as
     /// llama3.1:8b: a think request is only sent to a model whose Ollama /api/show lists the capability, since Ollama
-    /// hard-rejects one otherwise. See RagAnswerService.AskAsync, <see cref="MaxOutputTokens"/> for the other half, and
-    /// docs/Decision-Log.md, "Follow-up: reasoning-model support".
+    /// hard-rejects one otherwise. The level reaches Ollama as the request's "think" field, and only a model whose
+    /// /api/show "thinking.values" lists named levels (gpt-oss: low, medium, high) honours it; a model listing only
+    /// false/true (qwen3.5) resolves any level to its default, on - so for it only None versus any other value matters.
+    /// See RagAnswerService.AskAsync, <see cref="MaxOutputTokens"/> for the other half, and docs/Decision-Log.md,
+    /// "Follow-up: reasoning-model support".
     /// </summary>
     public required ReasoningEffort ReasoningEffort { get; set; }
 

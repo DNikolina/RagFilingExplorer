@@ -244,7 +244,9 @@ alone puts as many answers in the model's context ([docs/Design-FAQ.md](docs/Des
 
 A reasoning model (`deepseek-r1`, `qwen3.5`, ...) works as `ChatModel`. Whether it can reason is read from Ollama's
 `/api/show` at startup, never guessed from its name - Ollama rejects a "think" request to a model that can't.
-`Retrieval.ReasoningEffort` applies only to questions that need synthesis (comparisons, ratios, trends);
+`Retrieval.ReasoningEffort` applies only to questions that need synthesis (comparisons, ratios, trends). Its level
+reaches Ollama as `think`, and only a model that lists levels in `/api/show` (`gpt-oss`) honours it - for `qwen3.5`,
+which lists only on/off, any value but `None` means on;
 `Retrieval.MaxOutputTokens` caps thinking plus answer, and an answer that runs out before any text appears is
 reported as an error, not shown empty. For `llama3.1:8b` only the output cap applies. Details: Decision-Log.md,
 "Follow-up: reasoning-model support".

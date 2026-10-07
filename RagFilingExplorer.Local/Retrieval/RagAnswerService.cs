@@ -277,8 +277,8 @@ internal sealed class RagAnswerService(
         {
             throw new InvalidOperationException(
                 "The model hit its output token limit without producing an answer - it likely spent the "
-                + "whole budget on reasoning (\"thinking\"). Try raising Retrieval.MaxOutputTokens, lowering "
-                + "Retrieval.ReasoningEffort, or using a non-reasoning model, in appsettings.json.");
+                + "whole budget on reasoning (\"thinking\"). Try raising Retrieval.MaxOutputTokens, setting "
+                + "Retrieval.ReasoningEffort to None, or using a non-reasoning model, in appsettings.json.");
         }
     }
 }
