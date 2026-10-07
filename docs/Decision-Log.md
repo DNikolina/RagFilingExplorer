@@ -3381,3 +3381,13 @@ text in one expression. Checked with a throwaway snapshot of everything chunking
 three strategies over the four filings - every section, chunk, statement type, embedding text and company
 registration: byte-identical (Structured 975 chunks, Markdown 1,446, Linearized 999 - the committed dumps' counts). So
 no index needs rebuilding. 394 + 166 tests.
+
+**C - async LINQ.** Four `await foreach` loops that only collected or counted became .NET 10's built-in
+`System.Linq.AsyncEnumerable` (in the shared framework, no package): `ToListAsync` in `RagAnswerService.SearchAsync` and
+`EvaluationRunner.WriteReportAsync`, `ToHashSetAsync` in `EvaluationRunner.EarlierScenariosAsync`, `CountAsync` in
+`IndexBuilder`'s after-upsert check. Checked on Ollama 0.40.0 (auto-updated from 0.35.1 since the v3 runs): the full
+evaluation replayed from the cache - all 102 questions in 0-2 s each, so every prompt was byte-identical to the one
+cached - and its stored results matched `structured-hybrid-v3-baseline` question by question: prompts, answers, strict
+grades, answer ranks and figure sources with all their diagnostics (the only difference, every metric's description, is
+the rewording the baseline was deliberately not refreshed for). Every report regenerated identical but for its
+`createdAt`. The replay was then deleted. `IndexBuilder`'s count runs only on an index build, not rebuilt for this.

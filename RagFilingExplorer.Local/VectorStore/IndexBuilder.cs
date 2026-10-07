@@ -100,11 +100,7 @@ internal static class IndexBuilder
         // Upserts report no per-record outcome, so a record lost in the store is otherwise silent (a key-0
         // record overwritten by key 1 is one way - see FilingChunkRecords).
         // Thrown before the manifest is written, so a short index is never trusted.
-        int stored = 0;
-        await foreach (FilingChunkRecord _ in collection.GetAsync(r => true, records.Count + 1))
-        {
-            stored++;
-        }
+        int stored = await collection.GetAsync(r => true, records.Count + 1).CountAsync();
 
         if (stored != records.Count)
         {

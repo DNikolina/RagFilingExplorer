@@ -241,13 +241,7 @@ internal sealed class RagAnswerService(
             searchOptions.Filter = r => r.StatementType == statementType;
         }
 
-        List<VectorSearchResult<FilingChunkRecord>> results = new();
-        await foreach (VectorSearchResult<FilingChunkRecord> result in collection.SearchAsync($"search_query: {question}", top, searchOptions, cancellationToken))
-        {
-            results.Add(result);
-        }
-
-        return results;
+        return await collection.SearchAsync($"search_query: {question}", top, searchOptions, cancellationToken).ToListAsync(cancellationToken);
     }
 
     // A reasoning model can spend its entire MaxOutputTokens budget on "thinking" (see

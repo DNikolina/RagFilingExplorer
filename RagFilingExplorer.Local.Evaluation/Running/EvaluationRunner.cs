@@ -113,11 +113,9 @@ internal sealed class EvaluationRunner(
     internal static async Task<List<string>> EarlierScenariosAsync(
         string storageRoot, string executionName, IReadOnlySet<string> asked, CancellationToken cancellationToken = default)
     {
-        HashSet<string> stored = new(StringComparer.Ordinal);
-        await foreach (ScenarioRunResult result in new DiskBasedResultStore(storageRoot).ReadResultsAsync(executionName, cancellationToken: cancellationToken))
-        {
-            stored.Add(result.ScenarioName);
-        }
+        HashSet<string> stored = await new DiskBasedResultStore(storageRoot).ReadResultsAsync(executionName, cancellationToken: cancellationToken)
+            .Select(result => result.ScenarioName)
+            .ToHashSetAsync(StringComparer.Ordinal, cancellationToken);
 
         return stored.Where(s => !asked.Contains(s)).Order(StringComparer.Ordinal).ToList();
     }
@@ -247,11 +245,7 @@ internal sealed class EvaluationRunner(
     public static async Task WriteReportAsync(string storageRoot, string reportPath, string? executionName, CancellationToken cancellationToken = default)
     {
         DiskBasedResultStore store = new(storageRoot);
-        List<ScenarioRunResult> results = new();
-        await foreach (ScenarioRunResult result in store.ReadResultsAsync(executionName, cancellationToken: cancellationToken))
-        {
-            results.Add(result);
-        }
+        List<ScenarioRunResult> results = await store.ReadResultsAsync(executionName, cancellationToken: cancellationToken).ToListAsync(cancellationToken);
 
         // The report lists executions in the order they first appear in its data, and opens on the first one - the picker's
         // order and the run it opens on can't be set apart, and the run picked is remembered only in that browser tab.
