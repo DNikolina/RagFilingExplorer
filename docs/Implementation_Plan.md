@@ -227,7 +227,7 @@ Shared by all three:
 
 Packages: `AngleSharp` (the DOM - v2's reader and the linearizer), `Microsoft.Extensions.AI`, `Microsoft.Extensions.VectorData.Abstractions`,
 `CommunityToolkit.VectorData.SqliteVec` (1.0.1-preview), `OllamaSharp`,
-`Microsoft.ML.Tokenizers.Data.Cl100kBase`, `Microsoft.Extensions.Configuration(.Json/.Binder)`,
+`Microsoft.ML.Tokenizers.Data.Cl100kBase`, `Microsoft.Extensions.Configuration.Json` and `.Binder` (the base package comes with `.Json`),
 `Microsoft.Bcl.Memory` (pinned — see below), `Microsoft.Data.Sqlite` (hybrid search's FTS5 queries; already
 transitive via SqliteVec, referenced at the same version), `Microsoft.ML.OnnxRuntime` 1.30.0 and
 `Microsoft.ML.Tokenizers` 2.0.0 (the reranker; its model is fetched separately). Tests: NUnit + Moq. Tunables live in

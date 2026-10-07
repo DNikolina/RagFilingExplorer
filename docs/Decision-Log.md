@@ -3352,3 +3352,21 @@ no untraced figure.
 Smoke: "Which exhibit number in Netflix's 10-K is the cover page formatted in Inline XBRL?" under `Markdown` answers
 "104" citing PART IV > Exhibit Index - a line only that recovered page holds. Default path smoke (Q1, H2, A10) replayed
 from the cache unchanged - same prompts as before the fixes.
+
+---
+
+## Follow-up: over-engineering audit (ponytail) - IN PROGRESS (branch `ponytail-cleanup`)
+
+**Context (user, 2026-10-07, after v3.0):** the `ponytail` Claude Code plugin's `/ponytail-audit` was run over the repo
+as a read-only trial, to see what an over-engineering audit finds before deciding whether to use the plugin. It listed
+17 findings. Four were the project's deliberate records and options and stay: the opt-in reranker, the v1 chunking
+strategies, the one-off evaluation code kept as explicit tests (`HistoricRunImporter`, `RelevanceHintScreenTests`), and
+the Python tools and `LinearizeSpike`. `Chunking:TokenizerModel` stays (it costs nothing and sits in the manifest), and
+so does `VectorStore:UpsertBatchSize` (user): it is the switch for the day a SqliteVec build fixes multi-record upserts.
+The rest is done in five commits (A-E), each checked against real output, not only the unit tests: chunk dumps and
+embedding texts byte-identical, evaluation replays hitting the response cache (every prompt byte-identical), reports
+regenerated identical.
+
+**A - packages.** `coverlet.collector` removed from the tests (nothing collects coverage) and the explicit
+`Microsoft.Extensions.Configuration` reference from the app (`.Configuration.Json` 10.0.12 depends on it at the same
+version, so it still resolves to 10.0.12). Build clean, 394 + 166 tests, no vulnerable packages.
