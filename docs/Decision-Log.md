@@ -3391,3 +3391,15 @@ cached - and its stored results matched `structured-hybrid-v3-baseline` question
 grades, answer ranks and figure sources with all their diagnostics (the only difference, every metric's description, is
 the rewording the baseline was deliberately not refreshed for). Every report regenerated identical but for its
 `createdAt`. The replay was then deleted. `IndexBuilder`'s count runs only on an index build, not rebuilt for this.
+
+**D - settings.** One required-key check for both settings files: `AppSettings.EnsureKeysPresent(configuration, type,
+prefix, fileName)`, on the existing `LeafKeys` reflection walk, which now skips read-only properties (computed from the
+others - `EvaluationSettings.UsesStrictGrade`, `JudgeNames`, ...); `EvaluationSettings.From` had its own copy. Same
+message as before ("evalsettings.json is missing required key(s): Evaluation:Judges, ..."). `Evaluation:Graders` is an
+enum (`Graders`: Strict, Judge, Both), like `Chunking:Strategy` and `Retrieval:Search`: the binder ignores case and
+fails a typo at load, so its hand validation and lower-casing went. The typo's error is now .NET's ("Failed to convert
+configuration value 'judges' at 'Evaluation:Graders' to type '...Graders'") - it names the key and value but no longer
+lists the choices, as the app's enum settings already do. `VectorStore:UpsertBatchSize` stays (user): the switch for a
+SqliteVec build that fixes multi-record upserts. Checked: 394 + 166 tests (the settings tests on the enum); the app
+started on the current index; an evaluation started with `Evaluation__Graders=STRICT` (Q1 from the cache, reliable,
+rank 1) and failed at load with `judges`.

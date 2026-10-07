@@ -25,7 +25,7 @@ public class EvaluationSettingsTests
         // The defaults are what a plain run does - Load reads the same file, with this process's environment over it.
         EvaluationSettings settings = With();
 
-        Assert.That(settings.Graders, Is.EqualTo("strict"));
+        Assert.That(settings.Graders, Is.EqualTo(Graders.Strict));
         Assert.That(settings.UsesStrictGrade, Is.True);
         Assert.That(settings.JudgeNames, Is.Empty, "judges are listed, but only asked when Graders includes them");
         Assert.That(settings.Judges, Is.EqualTo("equivalence"));
@@ -58,7 +58,7 @@ public class EvaluationSettingsTests
         Assert.That(settings.JudgeNames, Is.EqualTo(new[] { "equivalence", "groundedness" }));
     }
 
-    [TestCase("Graders", "judges", "Graders is \"judges\"")]
+    [TestCase("Graders", "judges", "Evaluation:Graders")]
     [TestCase("Judges", "relevance", "Judges names relevance")]
     [TestCase("Sets", "Main,Extra", "Sets names Extra")]
     [TestCase("CacheTimeToLiveDays", "0", "CacheTimeToLiveDays must be positive")]

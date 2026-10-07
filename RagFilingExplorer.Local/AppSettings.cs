@@ -37,19 +37,22 @@ internal sealed class AppSettings
         AppSettings settings = configuration.Get<AppSettings>()
             ?? throw new InvalidOperationException("appsettings.json is missing or failed to bind to AppSettings.");
 
-        EnsureAllKeysPresent(configuration);
+        EnsureKeysPresent(configuration, typeof(AppSettings), prefix: null, "appsettings.json");
         return settings;
     }
 
-    // Checks presence against the raw configuration tree rather than the bound values, specifically so a
-    // legitimately-zero setting (e.g. OverlapTokens: 0, ChatTemperature: 0) is never mistaken for
-    // "missing" - see the class summary for why `required` alone doesn't catch this.
-    private static void EnsureAllKeysPresent(IConfiguration configuration)
+    /// <summary>
+    /// Fails naming every key <paramref name="type"/> binds (under <paramref name="prefix"/>) that the configuration
+    /// lacks - the evaluation's settings use it too. Checks presence against the raw configuration tree rather than the
+    /// bound values, so a legitimately-zero setting (e.g. OverlapTokens: 0, ChatTemperature: 0) is never mistaken for
+    /// "missing" - see the class summary for why `required` alone doesn't catch this.
+    /// </summary>
+    internal static void EnsureKeysPresent(IConfiguration configuration, Type type, string? prefix, string fileName)
     {
-        string[] missing = RequiredConfigurationKeys().Where(key => configuration[key] is null).ToArray();
+        string[] missing = LeafKeys(type, prefix).Where(key => configuration[key] is null).ToArray();
         if (missing.Length > 0)
         {
-            throw new InvalidOperationException($"appsettings.json is missing required key(s): {string.Join(", ", missing)}.");
+            throw new InvalidOperationException($"{fileName} is missing required key(s): {string.Join(", ", missing)}.");
         }
     }
 
@@ -59,9 +62,10 @@ internal sealed class AppSettings
     /// </summary>
     internal static IEnumerable<string> RequiredConfigurationKeys() => LeafKeys(typeof(AppSettings), prefix: null);
 
+    // Settable properties only: a read-only one is computed from the others, not bound.
     private static IEnumerable<string> LeafKeys(Type type, string? prefix)
     {
-        foreach (PropertyInfo property in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+        foreach (PropertyInfo property in type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanWrite))
         {
             string key = prefix is null ? property.Name : $"{prefix}:{property.Name}";
             bool isSection = property.PropertyType.IsClass && property.PropertyType != typeof(string);

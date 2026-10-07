@@ -1,4 +1,3 @@
-using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using RagFilingExplorer.Local.Evaluation.Judging;
 
@@ -18,9 +17,10 @@ internal sealed class EvaluationSettings
     public const string FileName = "evalsettings.json";
     public const string Section = "Evaluation";
 
-    /// <summary>Which grader(s) a run uses: "strict" (the strict grade), "judge" (the model judges in
-    /// <see cref="Judges"/>), or "both". Answer rank and figure source always run - they need no model.</summary>
-    public required string Graders { get; set; }
+    /// <summary>Which grader(s) a run uses: strict (the strict grade), judge (the model judges in <see cref="Judges"/>),
+    /// or both. Answer rank and figure source always run - they need no model. Bound as an enum, ignoring case, so a
+    /// typo fails at load.</summary>
+    public required Graders Graders { get; set; }
 
     /// <summary>The model judges, comma-separated - equivalence, groundedness - used when <see cref="Graders"/> includes them.</summary>
     public required string Judges { get; set; }
@@ -53,9 +53,9 @@ internal sealed class EvaluationSettings
     /// <summary>The run the judge agreement report reads (JudgeAgreementTests).</summary>
     public required string JudgeExecution { get; set; }
 
-    public bool UsesStrictGrade => Graders is "strict" or "both";
+    public bool UsesStrictGrade => Graders is Graders.Strict or Graders.Both;
 
-    public bool UsesJudges => Graders is "judge" or "both";
+    public bool UsesJudges => Graders is Graders.Judge or Graders.Both;
 
     /// <summary>The judges a run asks - none unless <see cref="Graders"/> includes them.</summary>
     public IReadOnlyList<string> JudgeNames => UsesJudges ? Lower(Judges) : [];
@@ -77,20 +77,9 @@ internal sealed class EvaluationSettings
     /// <summary>The settings from a configuration - every key present, every value valid, or an error naming it.</summary>
     public static EvaluationSettings From(IConfiguration configuration)
     {
-        IConfigurationSection section = configuration.GetSection(Section);
-        string[] missing = typeof(EvaluationSettings).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-            .Where(p => p.CanWrite)
-            .Select(p => p.Name)
-            .Where(name => section[name] is null)
-            .ToArray();
-        if (missing.Length > 0)
-        {
-            throw new InvalidOperationException($"{FileName} is missing required key(s): {string.Join(", ", missing.Select(m => $"{Section}:{m}"))}.");
-        }
-
-        EvaluationSettings settings = section.Get<EvaluationSettings>()
+        AppSettings.EnsureKeysPresent(configuration, typeof(EvaluationSettings), Section, FileName);
+        EvaluationSettings settings = configuration.GetSection(Section).Get<EvaluationSettings>()
             ?? throw new InvalidOperationException($"{FileName} failed to bind its {Section} section.");
-        settings.Graders = settings.Graders.Trim().ToLowerInvariant();
         settings.Validate();
         return settings;
     }
@@ -98,11 +87,6 @@ internal sealed class EvaluationSettings
     private void Validate()
     {
         List<string> errors = new();
-        if (Graders is not ("strict" or "judge" or "both"))
-        {
-            errors.Add($"Graders is \"{Graders}\" - one of strict, judge, both");
-        }
-
         List<string> unknownJudges = Lower(Judges).Where(j => !JudgeSetup.Known.Contains(j)).ToList();
         if (unknownJudges.Count > 0)
         {
@@ -147,4 +131,12 @@ internal sealed class EvaluationSettings
         value.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
 
     private static List<string> Lower(string value) => List(value).Select(v => v.ToLowerInvariant()).ToList();
+}
+
+/// <summary>The values <see cref="EvaluationSettings.Graders"/> accepts.</summary>
+internal enum Graders
+{
+    Strict,
+    Judge,
+    Both,
 }
