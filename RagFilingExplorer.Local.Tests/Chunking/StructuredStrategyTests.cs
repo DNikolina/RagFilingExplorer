@@ -27,12 +27,12 @@ public class StructuredStrategyTests
     [TestCase("NDAQ-10K-2025.html")]
     [TestCase("NFLX-10K-2025.html")]
     [TestCase("ORCL-10K-2026.html")]
-    public async Task ReadAsync_RealFiling_EveryChunkKnowsItsBlocksAndEveryTableIsChunked(string filing)
+    public void Read_RealFiling_EveryChunkKnowsItsBlocksAndEveryTableIsChunked(string filing)
     {
         FileInfo file = new(Path.Combine(RepoPaths.FindRoot(TestContext.CurrentContext.TestDirectory).FullName, "data", filing));
         StructuredChunkingStrategy strategy = new(Microsoft.ML.Tokenizers.TiktokenTokenizer.CreateForModel("gpt-4"), 500, 50);
 
-        StructuredFiling read = await strategy.ReadAsync(file);
+        StructuredFiling read = strategy.Read(file);
 
         Assert.That(read.Chunks, Is.Not.Empty);
         Assert.That(read.Chunks.Where(c => c.Blocks.Count == 0), Is.Empty);

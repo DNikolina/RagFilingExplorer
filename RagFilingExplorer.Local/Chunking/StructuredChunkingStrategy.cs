@@ -20,19 +20,18 @@ namespace RagFilingExplorer.Local.Chunking;
 /// </summary>
 internal sealed class StructuredChunkingStrategy(Tokenizer tokenizer, int maxTokensPerChunk, int overlapTokens) : IChunkingStrategy
 {
-    public async Task<ChunkedFiling> ChunkAsync(FileInfo filing)
+    public Task<ChunkedFiling> ChunkAsync(FileInfo filing)
     {
-        StructuredFiling read = await ReadAsync(filing);
+        StructuredFiling read = Read(filing);
         string? context = CoverFacts.EmbeddingContext(read.Xbrl);
-        return new ChunkedFiling(
+        return Task.FromResult(new ChunkedFiling(
             read.Sections.Select(s => new DocumentSection(s.Heading, string.Join("\n\n", s.Blocks.Select(b => b.Text)))).ToList(),
-            read.Chunks.Select(c => new FilingChunk(filing.Name, c.Heading, c.Content, c.Tokens, c.StatementType, context)).ToList());
+            read.Chunks.Select(c => new FilingChunk(filing.Name, c.Heading, c.Content, c.Tokens, c.StatementType, context)).ToList()));
     }
 
-    public async Task<StructuredFiling> ReadAsync(FileInfo filing)
+    public StructuredFiling Read(FileInfo filing)
     {
-        byte[] bytes = await File.ReadAllBytesAsync(filing.FullName);
-        IHtmlDocument document = new HtmlParser().ParseDocument(MarkItDownConverter.DetectEncoding(bytes).GetString(bytes));
+        IHtmlDocument document = new HtmlParser().ParseDocument(MarkItDownConverter.ReadFiling(filing));
 
         // The taxonomy sits next to the filing in data/, downloaded with it from EDGAR (docs/Decision-Log.md).
         FileInfo schema = TaxonomyReader.FindForFiling(document, filing.Directory!)

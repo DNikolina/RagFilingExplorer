@@ -27,11 +27,9 @@ internal sealed class CompanyRegistry(IReadOnlyList<CompanyRegistration> registr
     public IReadOnlyList<CompanyRegistration> Registrations { get; } = registrations;
 
     /// <summary>Reads each filing's cover facts - each page is parsed, so this costs a little time per filing at startup.</summary>
-    public static CompanyRegistry FromFilings(IEnumerable<FileInfo> filings) => new(filings.Select(filing =>
-    {
-        byte[] bytes = File.ReadAllBytes(filing.FullName);
-        return Register(filing.Name, InlineXbrlReader.Read(new HtmlParser().ParseDocument(MarkItDownConverter.DetectEncoding(bytes).GetString(bytes))));
-    }).ToList());
+    public static CompanyRegistry FromFilings(IEnumerable<FileInfo> filings) => new(filings
+        .Select(filing => Register(filing.Name, InlineXbrlReader.Read(new HtmlParser().ParseDocument(MarkItDownConverter.ReadFiling(filing)))))
+        .ToList());
 
     public static CompanyRegistration Register(string filing, XbrlDocument xbrl)
     {

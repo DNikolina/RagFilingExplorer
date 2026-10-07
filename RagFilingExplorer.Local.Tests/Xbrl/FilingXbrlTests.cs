@@ -25,8 +25,7 @@ public class FilingXbrlTests
         _data = new DirectoryInfo(Path.Combine(RepoPaths.FindRoot(TestContext.CurrentContext.TestDirectory).FullName, "data"));
         foreach (string filing in Filings)
         {
-            byte[] bytes = File.ReadAllBytes(Path.Combine(_data.FullName, filing));
-            IDocument page = new HtmlParser().ParseDocument(MarkItDownConverter.DetectEncoding(bytes).GetString(bytes));
+            IDocument page = new HtmlParser().ParseDocument(MarkItDownConverter.ReadFiling(new FileInfo(Path.Combine(_data.FullName, filing))));
             FileInfo schema = TaxonomyReader.FindForFiling(page, _data) ?? throw new InvalidOperationException($"No taxonomy for {filing}");
             _read[filing] = (page, InlineXbrlReader.Read(page), TaxonomyReader.Read(schema));
         }

@@ -31,16 +31,17 @@ internal enum ChunkingStrategyKind
 
 internal static class ChunkingStrategies
 {
-    public static IChunkingStrategy Create(ChunkingSettings settings) => settings.Strategy switch
+    public static IChunkingStrategy Create(ChunkingSettings settings)
     {
-        ChunkingStrategyKind.Markdown => new MarkdownChunkingStrategy(
-            TiktokenTokenizer.CreateForModel(settings.TokenizerModel), settings.MaxTokensPerChunk, settings.OverlapTokens),
-        ChunkingStrategyKind.Linearized => new LinearizedChunkingStrategy(
-            TiktokenTokenizer.CreateForModel(settings.TokenizerModel), settings.MaxTokensPerChunk, settings.OverlapTokens),
-        ChunkingStrategyKind.Structured => new StructuredChunkingStrategy(
-            TiktokenTokenizer.CreateForModel(settings.TokenizerModel), settings.MaxTokensPerChunk, settings.OverlapTokens),
-        _ => throw new ArgumentOutOfRangeException(nameof(settings), settings.Strategy, "Unknown chunking strategy."),
-    };
+        Tokenizer tokenizer = TiktokenTokenizer.CreateForModel(settings.TokenizerModel);
+        return settings.Strategy switch
+        {
+            ChunkingStrategyKind.Markdown => new MarkdownChunkingStrategy(tokenizer, settings.MaxTokensPerChunk, settings.OverlapTokens),
+            ChunkingStrategyKind.Linearized => new LinearizedChunkingStrategy(tokenizer, settings.MaxTokensPerChunk, settings.OverlapTokens),
+            ChunkingStrategyKind.Structured => new StructuredChunkingStrategy(tokenizer, settings.MaxTokensPerChunk, settings.OverlapTokens),
+            _ => throw new ArgumentOutOfRangeException(nameof(settings), settings.Strategy, "Unknown chunking strategy."),
+        };
+    }
 
     /// <summary>Lowercase name used in the strategy's index and chunk-dump paths, e.g. "markdown".</summary>
     public static string FileName(ChunkingStrategyKind strategy) => strategy.ToString().ToLowerInvariant();

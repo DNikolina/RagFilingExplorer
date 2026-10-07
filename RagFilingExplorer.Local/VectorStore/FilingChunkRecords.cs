@@ -63,9 +63,8 @@ internal static class FilingChunkRecords
                 Heading = chunk.Heading,
                 StatementType = chunk.StatementType ?? currentStatementType ?? "narrative",
                 Content = chunk.Content,
-                Text = chunk.EmbeddingContext is null
-                    ? $"search_document: {EmbeddingTextBuilder.Build(chunk.Heading, chunk.Content)}"
-                    : $"search_document: {chunk.EmbeddingContext}\n{EmbeddingTextBuilder.Build(chunk.Heading, chunk.Content)}",
+                Text = $"search_document: {(chunk.EmbeddingContext is null ? "" : chunk.EmbeddingContext + "\n")}"
+                    + EmbeddingTextBuilder.Build(chunk.Heading, chunk.Content),
             });
         }
 

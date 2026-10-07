@@ -20,21 +20,9 @@ internal sealed class LinearizedChunkingStrategy(Tokenizer tokenizer, int maxTok
 {
     public async Task<ChunkedFiling> ChunkAsync(FileInfo filing)
     {
-        byte[] bytes = await File.ReadAllBytesAsync(filing.FullName);
-        string html = MarkItDownConverter.StripIxHeader(MarkItDownConverter.DetectEncoding(bytes).GetString(bytes));
+        string html = MarkItDownConverter.StripIxHeader(MarkItDownConverter.ReadFiling(filing));
         string raw = await MarkItDownConverter.ConvertHtmlAsync(LinearizeTables(html), filing.Name);
-        List<DocumentSection> sections = SectionSplitter.Split(raw);
-
-        List<FilingChunk> chunks = new();
-        foreach (DocumentSection section in sections)
-        {
-            foreach ((string content, int tokens) in TokenChunker.Chunk(section.Body, tokenizer, maxTokensPerChunk, overlapTokens))
-            {
-                chunks.Add(new FilingChunk(filing.Name, section.Heading, content, tokens));
-            }
-        }
-
-        return new ChunkedFiling(sections, chunks);
+        return MarkdownChunkingStrategy.ChunkText(raw, filing.Name, tokenizer, maxTokensPerChunk, overlapTokens);
     }
 
     /// <summary>Replaces every linearizable top-level table with its row block; returns the rewritten HTML.</summary>

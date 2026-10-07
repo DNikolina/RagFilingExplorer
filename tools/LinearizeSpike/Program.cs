@@ -19,8 +19,7 @@ HtmlParser parser = new();
 
 foreach (FileInfo filing in new DirectoryInfo(Path.Combine(repoRoot.FullName, "data")).GetFiles("*.html").OrderBy(f => f.Name))
 {
-    byte[] bytes = await File.ReadAllBytesAsync(filing.FullName);
-    string html = MarkItDownConverter.StripIxHeader(MarkItDownConverter.DetectEncoding(bytes).GetString(bytes));
+    string html = MarkItDownConverter.StripIxHeader(MarkItDownConverter.ReadFiling(filing));
     IHtmlDocument document = parser.ParseDocument(html);
 
     List<IHtmlTableElement> tables = document.QuerySelectorAll("table").OfType<IHtmlTableElement>().ToList();

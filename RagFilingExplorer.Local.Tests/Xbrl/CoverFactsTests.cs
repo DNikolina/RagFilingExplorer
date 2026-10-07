@@ -80,9 +80,8 @@ public class CoverFactsTests
     public void EmbeddingContext_RealFiling_IsTheLineStep1dWasMeasuredWith(string filing, string expected)
     {
         string path = Path.Combine(RepoPaths.FindRoot(TestContext.CurrentContext.TestDirectory).FullName, "data", filing);
-        byte[] bytes = File.ReadAllBytes(path);
         XbrlDocument xbrl = InlineXbrlReader.Read(new AngleSharp.Html.Parser.HtmlParser().ParseDocument(
-            RagFilingExplorer.Local.Chunking.MarkItDownConverter.DetectEncoding(bytes).GetString(bytes)));
+            RagFilingExplorer.Local.Chunking.MarkItDownConverter.ReadFiling(new FileInfo(path))));
 
         Assert.That(CoverFacts.EmbeddingContext(xbrl), Is.EqualTo(expected));
     }

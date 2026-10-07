@@ -35,40 +35,17 @@ internal static class EmbeddingTextBuilder
         return $"{heading}\n{labelSummary}\n\n{content}";
     }
 
+    // Each label once, in first-seen order (HashSet.Add as the filter: Enumerable.Distinct doesn't promise an order).
     private static List<string> ExtractRowLabels(string tableContent)
     {
         HashSet<string> seen = new();
-        List<string> labels = new();
-
-        foreach (string line in tableContent.Split('\n'))
-        {
-            string trimmed = line.Trim();
-            if (!trimmed.StartsWith('|'))
-            {
-                continue;
-            }
-
-            string[] cells = trimmed.Trim('|').Split('|');
-            if (cells.Length == 0)
-            {
-                continue;
-            }
-
-            string label = cells[0].Trim();
-
-            // Skip blank cells, separator rows ("---"), and purely numeric labels - not useful
-            // natural-language signal.
-            if (label.Length < 2 || label.All(c => c == '-') || !label.Any(char.IsLetter))
-            {
-                continue;
-            }
-
-            if (seen.Add(label))
-            {
-                labels.Add(label);
-            }
-        }
-
-        return labels;
+        return tableContent.Split('\n')
+            .Select(line => line.Trim())
+            .Where(line => line.StartsWith('|'))
+            .Select(line => line.Trim('|').Split('|')[0].Trim())
+            // Skip blank cells, separator rows ("---"), and purely numeric labels - not useful natural-language signal.
+            .Where(label => label.Length >= 2 && !label.All(c => c == '-') && label.Any(char.IsLetter))
+            .Where(seen.Add)
+            .ToList();
     }
 }

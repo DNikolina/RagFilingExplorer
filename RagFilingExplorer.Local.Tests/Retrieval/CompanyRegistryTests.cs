@@ -53,8 +53,7 @@ public class CompanyRegistryTests
     [TestCaseSource(nameof(DataFilingNames))]
     public void Register_EveryFilingInData_HasItsNameATickerAndItsCompanyLine(string filing)
     {
-        byte[] bytes = File.ReadAllBytes(Path.Combine(Repo.FullName, "data", filing));
-        XbrlDocument xbrl = InlineXbrlReader.Read(new HtmlParser().ParseDocument(MarkItDownConverter.DetectEncoding(bytes).GetString(bytes)));
+        XbrlDocument xbrl = InlineXbrlReader.Read(new HtmlParser().ParseDocument(MarkItDownConverter.ReadFiling(new FileInfo(Path.Combine(Repo.FullName, "data", filing)))));
 
         CompanyRegistration registration = CompanyRegistry.Register(filing, xbrl);
 

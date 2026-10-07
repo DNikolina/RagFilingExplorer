@@ -9,9 +9,12 @@ namespace RagFilingExplorer.Local.Chunking;
 /// </summary>
 internal sealed class MarkdownChunkingStrategy(Tokenizer tokenizer, int maxTokensPerChunk, int overlapTokens) : IChunkingStrategy
 {
-    public async Task<ChunkedFiling> ChunkAsync(FileInfo filing)
+    public async Task<ChunkedFiling> ChunkAsync(FileInfo filing) =>
+        ChunkText(await MarkItDownConverter.ConvertAsync(filing), filing.Name, tokenizer, maxTokensPerChunk, overlapTokens);
+
+    /// <summary>markitdown's text into sections and chunks - shared with the Linearized strategy.</summary>
+    internal static ChunkedFiling ChunkText(string raw, string filingName, Tokenizer tokenizer, int maxTokensPerChunk, int overlapTokens)
     {
-        string raw = await MarkItDownConverter.ConvertAsync(filing);
         List<DocumentSection> sections = SectionSplitter.Split(raw);
 
         List<FilingChunk> chunks = new();
@@ -19,7 +22,7 @@ internal sealed class MarkdownChunkingStrategy(Tokenizer tokenizer, int maxToken
         {
             foreach ((string content, int tokens) in TokenChunker.Chunk(section.Body, tokenizer, maxTokensPerChunk, overlapTokens))
             {
-                chunks.Add(new FilingChunk(filing.Name, section.Heading, content, tokens));
+                chunks.Add(new FilingChunk(filingName, section.Heading, content, tokens));
             }
         }
 

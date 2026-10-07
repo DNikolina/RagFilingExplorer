@@ -127,12 +127,12 @@ public class StatementLabelsTests
     }
 
     [TestCaseSource(nameof(Filings))]
-    public async Task ReadAsync_RealFiling_LabelsExactlyItsFiveStatementTables(string filing)
+    public void Read_RealFiling_LabelsExactlyItsFiveStatementTables(string filing)
     {
         FileInfo file = new(Path.Combine(RepoPaths.FindRoot(TestContext.CurrentContext.TestDirectory).FullName, "data", filing));
         StructuredChunkingStrategy strategy = new(Microsoft.ML.Tokenizers.TiktokenTokenizer.CreateForModel("gpt-4"), 500, 50);
 
-        StructuredFiling read = await strategy.ReadAsync(file);
+        StructuredFiling read = strategy.Read(file);
 
         List<string> labelled = read.Sections.SelectMany(s => s.Blocks).OfType<TableBlock>().Select(t => t.StatementType).OfType<string>().ToList();
         Assert.That(labelled, Is.EquivalentTo(FiveTypes));

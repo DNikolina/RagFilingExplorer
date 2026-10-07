@@ -3370,3 +3370,14 @@ regenerated identical.
 **A - packages.** `coverlet.collector` removed from the tests (nothing collects coverage) and the explicit
 `Microsoft.Extensions.Configuration` reference from the app (`.Configuration.Json` 10.0.12 depends on it at the same
 version, so it still resolves to 10.0.12). Build clean, 394 + 166 tests, no vulnerable packages.
+
+**B - chunking code.** One `MarkItDownConverter.ReadFiling` (read + `DetectEncoding`) for every reader of a filing:
+the three strategies, `CompanyRegistry`, four tests and `LinearizeSpike` had each decoded it themselves. Being
+synchronous, it made `StructuredChunkingStrategy.ReadAsync` a plain `Read(FileInfo)`. `MarkdownChunkingStrategy.ChunkText`
+is the section-to-chunk loop the Linearized strategy had copied; `ChunkingStrategies.Create` makes the tokenizer once;
+`EmbeddingTextBuilder.ExtractRowLabels` is one LINQ query (its `HashSet` kept as the filter - `Enumerable.Distinct`
+doesn't promise first-seen order, and the order is in the embedding text); `FilingChunkRecords` builds the embedding
+text in one expression. Checked with a throwaway snapshot of everything chunking produces, before and after, for all
+three strategies over the four filings - every section, chunk, statement type, embedding text and company
+registration: byte-identical (Structured 975 chunks, Markdown 1,446, Linearized 999 - the committed dumps' counts). So
+no index needs rebuilding. 394 + 166 tests.

@@ -59,12 +59,15 @@ internal static partial class MarkItDownConverter
         }
     }
 
-    public static async Task<string> ConvertAsync(FileInfo source, CancellationToken cancellationToken = default)
+    /// <summary>A filing's HTML, decoded by <see cref="DetectEncoding"/> - how every reader opens a filing.</summary>
+    internal static string ReadFiling(FileInfo filing)
     {
-        byte[] sourceBytes = await File.ReadAllBytesAsync(source.FullName, cancellationToken).ConfigureAwait(false);
-        string html = DetectEncoding(sourceBytes).GetString(sourceBytes);
-        return await ConvertHtmlAsync(StripIxHeader(html), source.Name, cancellationToken).ConfigureAwait(false);
+        byte[] bytes = File.ReadAllBytes(filing.FullName);
+        return DetectEncoding(bytes).GetString(bytes);
     }
+
+    public static Task<string> ConvertAsync(FileInfo source, CancellationToken cancellationToken = default) =>
+        ConvertHtmlAsync(StripIxHeader(ReadFiling(source)), source.Name, cancellationToken);
 
     /// <summary>
     /// Converts already-decoded, already-cleaned HTML - for a strategy that rewrites the HTML first (the
