@@ -3355,7 +3355,7 @@ from the cache unchanged - same prompts as before the fixes.
 
 ---
 
-## Follow-up: over-engineering audit (ponytail) - IN PROGRESS (branch `ponytail-cleanup`)
+## Follow-up: over-engineering audit (ponytail) - DONE (branch `ponytail-cleanup`), outcome below
 
 **Context (user, 2026-10-07, after v3.0):** the `ponytail` Claude Code plugin's `/ponytail-audit` was run over the repo
 as a read-only trial, to see what an over-engineering audit finds before deciding whether to use the plugin. It listed
@@ -3403,3 +3403,14 @@ lists the choices, as the app's enum settings already do. `VectorStore:UpsertBat
 SqliteVec build that fixes multi-record upserts. Checked: 394 + 166 tests (the settings tests on the enum); the app
 started on the current index; an evaluation started with `Evaluation__Graders=STRICT` (Q1 from the cache, reliable,
 rank 1) and failed at load with `judges`.
+
+**E - evaluation code.** `EvaluationRunner.LatestResultsAsync` - the latest iteration of each question in a stored run,
+failing if there is none - replaces the identical loop `JudgeAgreement.LoadAsync` and `VarianceComparison.LoadAsync`
+each had (`GroupBy` + `MaxBy` keep the old order and its first-wins tie). Checked: the five stored comparison reports
+(the three variance comparisons and both judge agreements) regenerated from the stored results before the change and
+after it - identical to the committed files both times. 394 + 166 tests.
+
+**Outcome.** 11 of the audit's 17 findings done in A-E (the other six kept, above); behaviour checked unchanged at
+every step - chunking output, every prompt, answer, grade, rank and figure source, and every stored report. The
+audit's four largest findings were the project's deliberate records and options, which bears on using the plugin as a
+standing mode rather than on demand - the user's call.

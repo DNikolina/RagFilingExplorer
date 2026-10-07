@@ -2,8 +2,8 @@ using System.Text;
 using Microsoft.Extensions.AI.Evaluation;
 using Microsoft.Extensions.AI.Evaluation.Quality;
 using Microsoft.Extensions.AI.Evaluation.Reporting;
-using Microsoft.Extensions.AI.Evaluation.Reporting.Storage;
 using RagFilingExplorer.Local.Evaluation.Evaluators;
+using RagFilingExplorer.Local.Evaluation.Running;
 
 namespace RagFilingExplorer.Local.Evaluation.Judging;
 
@@ -44,23 +44,8 @@ internal static class JudgeAgreement
     /// <summary>Every answer of the execution, with its judges' verdicts.</summary>
     public static async Task<List<JudgedAnswer>> LoadAsync(string storageRoot, string execution, CancellationToken cancellationToken = default)
     {
-        DiskBasedResultStore store = new(storageRoot);
-        Dictionary<string, ScenarioRunResult> latest = new();
-        await foreach (ScenarioRunResult result in store.ReadResultsAsync(execution, cancellationToken: cancellationToken))
-        {
-            if (!latest.TryGetValue(result.ScenarioName, out ScenarioRunResult? seen) || result.CreationTime > seen.CreationTime)
-            {
-                latest[result.ScenarioName] = result;
-            }
-        }
-
-        if (latest.Count == 0)
-        {
-            throw new InvalidOperationException($"No stored results for execution {execution} under {storageRoot}.");
-        }
-
         List<JudgedAnswer> answers = new();
-        foreach (ScenarioRunResult result in latest.Values.OrderBy(r => r.ScenarioName, StringComparer.Ordinal))
+        foreach (ScenarioRunResult result in (await EvaluationRunner.LatestResultsAsync(storageRoot, execution, cancellationToken)).OrderBy(r => r.ScenarioName, StringComparer.Ordinal))
         {
             EvaluationResult evaluation = result.EvaluationResult;
             StringMetric grade = evaluation.Metrics.TryGetValue(StrictFigureEvaluator.MetricName, out EvaluationMetric? strict)

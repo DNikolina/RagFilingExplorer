@@ -1,7 +1,6 @@
 using System.Text;
 using Microsoft.Extensions.AI.Evaluation;
 using Microsoft.Extensions.AI.Evaluation.Reporting;
-using Microsoft.Extensions.AI.Evaluation.Reporting.Storage;
 using RagFilingExplorer.Local.Evaluation.Evaluators;
 
 namespace RagFilingExplorer.Local.Evaluation.Running;
@@ -47,25 +46,10 @@ internal static class VarianceComparison
     /// <summary>Every stored answer of the given executions (the latest iteration of each scenario).</summary>
     public static async Task<List<StoredAnswer>> LoadAsync(string storageRoot, IReadOnlyList<string> executions, CancellationToken cancellationToken = default)
     {
-        DiskBasedResultStore store = new(storageRoot);
         List<StoredAnswer> answers = new();
         foreach (string execution in executions)
         {
-            Dictionary<string, ScenarioRunResult> latest = new();
-            await foreach (ScenarioRunResult result in store.ReadResultsAsync(execution, cancellationToken: cancellationToken))
-            {
-                if (!latest.TryGetValue(result.ScenarioName, out ScenarioRunResult? seen) || result.CreationTime > seen.CreationTime)
-                {
-                    latest[result.ScenarioName] = result;
-                }
-            }
-
-            if (latest.Count == 0)
-            {
-                throw new InvalidOperationException($"No stored results for execution {execution} under {storageRoot}.");
-            }
-
-            foreach (ScenarioRunResult result in latest.Values)
+            foreach (ScenarioRunResult result in await EvaluationRunner.LatestResultsAsync(storageRoot, execution, cancellationToken))
             {
                 EvaluationResult evaluation = result.EvaluationResult;
                 answers.Add(new StoredAnswer(

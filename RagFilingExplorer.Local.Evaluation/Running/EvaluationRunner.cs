@@ -109,6 +109,19 @@ internal sealed class EvaluationRunner(
     /// </summary>
     public IReadOnlyList<string> KeptFromEarlierRun { get; private set; } = [];
 
+    /// <summary>
+    /// The latest iteration of each scenario stored under <paramref name="execution"/>, in the order the store first lists
+    /// them; fails if there are none. A question asked again in the same run is stored as a new iteration.
+    /// </summary>
+    internal static async Task<List<ScenarioRunResult>> LatestResultsAsync(string storageRoot, string execution, CancellationToken cancellationToken = default)
+    {
+        List<ScenarioRunResult> latest = (await new DiskBasedResultStore(storageRoot).ReadResultsAsync(execution, cancellationToken: cancellationToken).ToListAsync(cancellationToken))
+            .GroupBy(result => result.ScenarioName)
+            .Select(iterations => iterations.MaxBy(result => result.CreationTime)!)
+            .ToList();
+        return latest.Count > 0 ? latest : throw new InvalidOperationException($"No stored results for execution {execution} under {storageRoot}.");
+    }
+
     /// <summary>The scenarios stored under <paramref name="executionName"/> that aren't in <paramref name="asked"/>.</summary>
     internal static async Task<List<string>> EarlierScenariosAsync(
         string storageRoot, string executionName, IReadOnlySet<string> asked, CancellationToken cancellationToken = default)
