@@ -1,0 +1,118 @@
+{
+  "scenarioName": "Main.V3",
+  "iterationName": "1",
+  "executionName": "claude-opus55-low",
+  "creationTime": "2026-10-08T18:20:49.4845664Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF CASH FLOWS\n\n(in thousands)\n\nYear Ended December 31,\nCash flows from operating activities:\nCash flows from operating activities \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\nAdjustments to reconcile net income to net cash provided by operating activities:\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Additions to content assets \u2014 2025: (17,096,617) | 2024: (16,223,617) | 2023: (12,554,703)\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Change in content liabilities \u2014 2025: (610,838) | 2024: (779,135) | 2023: (585,602)\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Amortization of content assets \u2014 2025: 16,422,166 | 2024: 15,301,517 | 2023: 14,197,437\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Depreciation and amortization of property, equipment and intangibles \u2014 2025: 333,389 | 2024: 328,914 | 2023: 356,947\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Stock-based compensation expense \u2014 2025: 368,449 | 2024: 272,588 | 2023: 339,368\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Foreign currency remeasurement loss (gain) on debt \u2014 2025: 72,348 | 2024: (121,539) | 2023: 176,296\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Other non-cash items \u2014 2025: 577,451 | 2024: 494,778 | 2023: 512,075\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Deferred income taxes \u2014 2025: (442,056) | 2024: (590,698) | 2023: (459,359)\nChanges in operating assets and liabilities:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF CASH FLOWS\n\n(in thousands)\n\nYear Ended December 31,\nChanges in operating assets and liabilities \u003E Other current assets \u2014 2025: (790,661) | 2024: 22,180 | 2023: (181,003)\nChanges in operating assets and liabilities \u003E Accounts payable \u2014 2025: (8,039) | 2024: 121,353 | 2023: 93,502\nChanges in operating assets and liabilities \u003E Accrued expenses and other liabilities \u2014 2025: 881,218 | 2024: 191,899 | 2023: 103,565\nChanges in operating assets and liabilities \u003E Deferred revenue \u2014 2025: 254,917 | 2024: 77,844 | 2023: 178,708\nChanges in operating assets and liabilities \u003E Other non-current assets and liabilities \u2014 2025: (793,655) | 2024: (446,351) | 2023: (310,920)\nChanges in operating assets and liabilities \u003E Net cash provided by operating activities \u2014 2025: 10,149,273 | 2024: 7,361,364 | 2023: 7,274,301\nCash flows from investing activities:\nCash flows from investing activities \u003E Purchases of property and equipment \u2014 2025: (688,220) | 2024: (439,538) | 2023: (348,552)\nCash flows from investing activities \u003E Acquisitions \u2014 2025: (17,194)\nCash flows from investing activities \u003E Purchases of investments \u2014 2025: (169,965) | 2024: (1,742,246) | 2023: (504,862)\nCash flows from investing activities \u003E Proceeds from maturities and sales of investments \u2014 2025: 1,917,067 | 2023: 1,395,165\nCash flows from investing activities \u003E Net cash provided by (used in) investing activities \u2014 2025: 1,041,688 | 2024: (2,181,784) | 2023: 541,751\nCash flows from financing activities:\nCash flows from financing activities \u003E Proceeds from issuance of debt \u2014 2024: 1,794,460\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF CASH FLOWS\n\n(in thousands)\n\nYear Ended December 31,\nCash flows from financing activities \u003E Repayments of debt \u2014 2025: (1,833,450) | 2024: (400,000)\nCash flows from financing activities \u003E Proceeds from issuance of common stock \u2014 2025: 666,965 | 2024: 832,887 | 2023: 169,990\nCash flows from financing activities \u003E Repurchases of common stock \u2014 2025: (9,127,167) | 2024: (6,263,746) | 2023: (6,045,347)\nCash flows from financing activities \u003E Taxes paid related to net share settlement of equity awards \u2014 2025: (46,165) | 2024: (8,285)\nCash flows from financing activities \u003E Other financing activities \u2014 2025: (5,806) | 2024: (29,743) | 2023: (75,446)\nCash flows from financing activities \u003E Net cash used in financing activities \u2014 2025: (10,345,623) | 2024: (4,074,427) | 2023: (5,950,803)\nCash flows from financing activities \u003E Effect of exchange rate changes on cash, cash equivalents and restricted cash \u2014 2025: 386,519 | 2024: (416,331) | 2023: 82,684\nCash flows from financing activities \u003E Net increase in cash, cash equivalents and restricted cash \u2014 2025: 1,231,857 | 2024: 688,822 | 2023: 1,947,933\nCash flows from financing activities \u003E Cash, cash equivalents and restricted cash, beginning of year \u2014 2025: 7,807,337 | 2024: 7,118,515 | 2023: 5,170,582\nCash flows from financing activities \u003E Cash, cash equivalents and restricted cash, end of year \u2014 2025: $9,039,194 | 2024: $7,807,337 | 2023: $7,118,515\nSupplemental disclosure:\nSupplemental disclosure \u003E Interest paid \u2014 2025: 718,611 | 2024: 674,502 | 2023: 684,504\n\nSee accompanying notes to consolidated financial statements.\n\n[Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)\n\nNETFLIX, INC.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nThe following table summarizes our cash flows:\n\n(in thousands)\nNet cash provided by operating activities \u2014 Year Ended December 31, 2025: $10,149,273 | Year Ended December 31, 2024: $7,361,364 | Year Ended December 31, 2023: $7,274,301 | Change 2025 vs. 2024: $2,787,909 / 38%\nNet cash provided by (used in) investing activities \u2014 Year Ended December 31, 2025: 1,041,688 | Year Ended December 31, 2024: (2,181,784) | Year Ended December 31, 2023: 541,751 | Change 2025 vs. 2024: 3,223,472 / 148%\nNet cash used in financing activities \u2014 Year Ended December 31, 2025: (10,345,623) | Year Ended December 31, 2024: (4,074,427) | Year Ended December 31, 2023: (5,950,803) | Change 2025 vs. 2024: 6,271,196 / 154%\n\nNet cash provided by operating activities for the year ended December\u00A031, 2025 increased $2,788 million as compared to the year ended December\u00A031, 2024, primarily driven by a $2,270 million or 26% increase in net income and a $1,646\u00A0million increase in adjustments for non-cash expenses, partially offset by a $705 million increase in payments for content assets and $423\u00A0million in unfavorable changes in working capital.\n\nNet cash provided by (used in) investing activities for the year ended December\u00A031, 2025 increased $3,223 million as compared to the year ended December\u00A031, 2024, primarily due to net cash inflows of $1,747\u00A0million from maturities, sales and purchases of investments in the year ended December\u00A031, 2025 as compared to cash outflows of $1,742\u00A0million from purchases of investments in the corresponding period in 2024, partially offset by a $249 million increase in purchases of property and equipment.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nContent\n\nWe acquire, license and produce content, including original programming, in order to offer our members unlimited viewing of video entertainment. The content licenses are for a fixed fee and specific windows of availability. Payment terms for certain content licenses and the production of content require more upfront cash payments relative to the amortization expense. Payments for content, including additions to content assets and the changes in related liabilities, are classified within \u201CNet cash provided by operating activities\u201D on the Consolidated Statements of Cash Flows.\n\nWe recognize content assets (licensed and produced) as \u201CContent assets, net\u201D on the Consolidated Balance Sheets. For licensed content, we capitalize the fee per title and record a corresponding liability at the gross amount of the liability when the license period begins, the cost of the title is known and the title is accepted and available for streaming. For produced content, we capitalize costs associated with the production, including development costs, direct costs and production overhead, as costs are incurred.\n\nBased on factors including historical and estimated viewing patterns, we amortize the content assets (licensed and produced) in \u201CCost of revenues\u201D on the Consolidated Statements of Operations over the shorter of each title\u0027s contractual window of availability, estimated period of use or ten years, beginning with the month of first availability. The amortization is on an accelerated basis, as we typically expect more upfront viewing, and film amortization is more accelerated than TV series amortization. On average, over 90% of a licensed or produced content asset is expected to be amortized within four years after its month of first availability. We review factors that impact the amortization of the content assets on a regular basis. Our estimates related to these factors require considerable management judgment.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Netflix\u0027s net cash provided by operating activities, sum up the numbers?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s net cash provided by operating activities totaled **$24,784,938 thousand** across the three years. I read \u0022sum up the numbers\u0022 as adding the three reported years.\n\n- **2025:** Net cash provided by operating activities was $10,149,273 thousand for the year ended December 31, 2025 (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements).\n- **2024:** It was $7,361,364 thousand for the year ended December 31, 2024 (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements).\n- **2023:** It was $7,274,301 thousand for the year ended December 31, 2023 (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements).\n\n**Sum:** $10,149,273 thousand \u002B $7,361,364 thousand \u002B $7,274,301 thousand = $24,784,938 thousand."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 24,784,938 thousand."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "10,149,273 at rank 2 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "untraced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "24,784,938 in none of the excerpts the model was given; 24,784,938 from no excerpt, 10,149,273 from excerpts 2 (cash_flow_statement), 4 (narrative), 7,361,364 from excerpts 2 (cash_flow_statement), 4 (narrative), 7,274,301 from excerpts 2 (cash_flow_statement), 4 (narrative)."
+        },
+        "metadata": {
+          "Stated 24,784,938": "in none of the excerpts",
+          "Stated 10,149,273": "excerpt 2 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022Changes in operating assets and liabilities \u003E Net cash provided by operating activities \u2014 2025: 10,149,273 | 2024: 7,361,364 | 2023: 7,274,301\u0022; excerpt 4 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Net cash provided by operating activities \u2014 Year Ended December 31, 2025: $10,149,273 | Year Ended December 31, 2024: $7,361,364 | Year Ended December 31, 2023:...\u0022",
+          "Stated 7,361,364": "excerpt 2 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022Changes in operating assets and liabilities \u003E Net cash provided by operating activities \u2014 2025: 10,149,273 | 2024: 7,361,364 | 2023: 7,274,301\u0022; excerpt 4 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...es \u2014 Year Ended December 31, 2025: $10,149,273 | Year Ended December 31, 2024: $7,361,364 | Year Ended December 31, 2023: $7,274,301 | Change 2025 vs. 2024: $2,...\u0022",
+          "Stated 7,274,301": "excerpt 2 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022Changes in operating assets and liabilities \u003E Net cash provided by operating activities \u2014 2025: 10,149,273 | 2024: 7,361,364 | 2023: 7,274,301\u0022; excerpt 4 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...ed December 31, 2025: $10,149,273 | Year Ended December 31, 2024: $7,361,364 | Year Ended December 31, 2023: $7,274,301 | Change 2025 vs. 2024: $2,787,909 / 38%\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 3.5747323,
+        "model": "claude-opus-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 3944,
+          "outputTokenCount": 378,
+          "totalTokenCount": 4322,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "39D73C21BE181D746EA693A186D89A1AE42A7B16DEB722D567AEF370AB42FC1FACAFA1AE66154EDFB0B76D86CD7AEB0D",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-opus-5-5",
+    "effort:Low/Low",
+    "kind:figure",
+    "has traps",
+    "company:NFLX",
+    "statement:cash_flow_statement",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}

@@ -3620,3 +3620,11 @@ Same prompts as Opus (identical input token count). Strictly graded: Main 33/40,
 
 Read, Sonnet is 96/102 with 3 hedges (99 if a labelled hedge counts), Opus 98/102; one trap taken (H34), none by Opus.
 Sonnet costs under half as much, writes ~40% fewer output tokens and ran in under half the time.
+
+**Opus 5.5, low effort, all 102 (`claude-opus55-low`): 8 min, 384,306 input + 25,364 output tokens, ~$2.04.** Strictly
+graded: Main 36/40, HeldOut 31/35, AnswerSide 23/27 - 90/102. Against medium, one grade differs: H11 now names only New
+York (medium added the European headquarters, a `check`). The other 12 non-passes are the same questions with the same
+readings: 9 correct answers explaining a lookalike line, retrieval misses H25 and H29 declined, H34 MD&A's rounded
+$9.1 billion, A11 an equity-statement sum. Read, **98/102, the same as medium.** Low effort saved 15% of output tokens
+but only ~4% of the cost: every answer reads a ~3,800-token prompt and writes a few hundred tokens, so input dominates
+the bill and thinking is small at either level. For lookups over five excerpts, effort buys nothing measurable here.
