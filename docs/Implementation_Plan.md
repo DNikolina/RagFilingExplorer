@@ -75,7 +75,8 @@ comparing paid services with the local stack) starts only when the user asks.
 model only (same embeddings, index and retrieval), in a separate `RagFilingExplorer.Claude` project - Local stays
 zero-cost. Steps 1-4 done (branch `v4`): the chat model's options passed in, the Claude app, and the evaluation's
 `ChatModel` (Local or Claude; the cache keyed by model), the docs. Step 5 started: Opus 5.5 medium, all 102 - 89/102 strictly, 98/102 with its `check` grades
-read (llama 84/102); every remaining miss a retrieval miss. Sonnet, Opus low and a variance pass to come. Decision-Log.md, "paid services (v4)".
+read (llama 84/102); every remaining miss a retrieval miss. Sonnet 5.5 medium: 85/102 strictly, 96/102 read plus 3
+hedges, ~$0.95. Opus low and a variance pass to come. Decision-Log.md, "paid services (v4)".
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the

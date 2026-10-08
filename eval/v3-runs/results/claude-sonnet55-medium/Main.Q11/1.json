@@ -1,0 +1,120 @@
+{
+  "scenarioName": "Main.Q11",
+  "iterationName": "1",
+  "executionName": "claude-sonnet55-medium",
+  "creationTime": "2026-10-08T18:06:15.1228627Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART I \u003E Item 1. BUSINESS ---\r\n\u0060\u0060\u0060\r\nDevices face competition from various computer, tablet, and hardware manufacturers who offer a unique combination of high-quality industrial design and innovative technologies across various price points. Many of these manufacturers are also current or potential partners and customers, including our Windows OEMs.\n\nXBOX and our cloud gaming services face competition from various online gaming ecosystems and game streaming services. Our gaming platform competes with other console platforms. We believe our gaming platform is effectively positioned against, and uniquely differentiated from, competitive products and services based on significant innovation in hardware architecture, user interface, developer tools, online gaming and entertainment services, and continued strong content from our own first-party game franchises as well as other digital content offerings.\n\nOur Search advertising business competes with search engines, and a wide array of websites, social platforms, and portals that provide content and online offerings to end users.\n\nHUMAN CAPITAL RESOURCES\n\nAs of June 30, 2026, we employed approximately 223,000 people on a full-time basis, 121,000 in the U.S. and 102,000 internationally. Of the total employees, 89,000 were in operations, including product support and consulting services, datacenter operations, and manufacturing and distribution; 77,000 were in product research and development; 43,000 were in sales and marketing; and 14,000 were in general and administration. Certain employees are subject to collective bargaining agreements.\n\nWe design our programs to attract, reward, and retain top talent while fostering continuous employee development and reinforcing our organizational culture and values. Our total compensation offering is both highly differentiated and competitive within the market, and we also monitor pay equity across multiple dimensions. We have invested significantly in employee wellbeing and offer a differentiated benefits package which includes many physical, emotional, and financial wellness programs. We also provide access to continuous learning through a wide range of internal and external content, supporting professional growth across roles and disciplines. Through our employee listening systems, we gather direct feedback from our workforce, enabling us to adapt our programs and address employee needs globally with real-time insights. Additionally, our culture prioritizes the security of both our customers and Microsoft, embedding this responsibility across all teams and functions.\n\nOPERATIONS\n\nWe have a global operations service center covering the Americas, Asia Pacific, Europe, and the Middle East that supports our business operations, including customer contract and order processing, billing, credit and collections, customer lifecycle AI and cloud operations, and vendor management and logistics.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART I \u003E Item 1. BUSINESS ---\r\n\u0060\u0060\u0060\r\nThe Ambitions That Drive Us\n\nTo achieve our vision, our research and development efforts focus on three interconnected ambitions:\n\n\u2022\n\nReinvent productivity and business processes to help organizations and individuals work and collaborate more securely and efficiently.\n\n\u2022\n\nBuild the intelligent cloud and intelligent edge platform to provide a foundation for our customers\u2019 digital workloads, including hybrid consistency, developer productivity, data and AI capabilities, and trusted security and compliance.\n\n\u2022\n\nCreate more personal computing experiences that empower people to play, create, and interact with technology in more intuitive, engaging, and dynamic ways.\n\nOur Future Opportunity\n\nWe are focused on helping customers use the breadth and depth of the Microsoft Cloud to get the most value out of their digital spend while leading the AI platform wave across our solution areas. We continue to develop complete, intelligent solutions for our customers that empower people to be productive and collaborate, while safeguarding businesses and simplifying IT management. Our goal is to lead the industry in several distinct areas of technology over the long term, which we expect will translate to sustained growth. We are investing significant resources in:\n\n\u2022\n\nTackling security from all angles with our integrated, end-to-end solutions spanning security, compliance, identity, and management, across all clouds and platforms.\n\n\u2022\n\nTransforming the workplace to deliver new, modern, modular business applications, drive deeper insights, and improve how people communicate, collaborate, learn, work, and interact with one another.\n\n\u2022\n\nBuilding and running cloud-based services in ways that utilize ubiquitous computing to unleash new experiences and opportunities for businesses and individuals.\n\n\u2022\n\nApplying AI and ambient intelligence to drive insights, revolutionize many types of work and business processes, and provide substantive productivity gains using Microsoft 365 Copilot and agents.\n\n\u2022\n\nHelping customers drive frontier transformation by applying frontier AI capabilities, engineering expertise, and trusted platforms to reinvent how their organizations operate, improve decision-making, create new value, and deliver measurable business outcomes from AI.\n\n\u2022\n\nProviding a unified intelligence layer for enterprise AI to ground AI in a continuously evolving understanding of an organization\u2019s data.\n\n\u2022\n\nProviding training on generative AI and greater access to digital learning and resources through skilling programs and initiatives, grants, and LinkedIn learning pathways.\n\n\u2022\n\nInventing new gaming experiences that bring people together around their shared love for games on any device and pushing the boundaries of innovation with console and PC gaming.\n\n\u2022\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART I \u003E Item 1. BUSINESS ---\r\n\u0060\u0060\u0060\r\nGENERAL\n\nMicrosoft is a technology company committed to making digital technology and artificial intelligence (\u201CAI\u201D) available broadly and doing so responsibly. Our mission is to empower every person and every organization on the planet to achieve more.\n\nWe develop and support a broad portfolio of technology solutions for individuals and businesses, focusing on secure, trusted, and innovative platforms and applications that meet evolving customer needs across AI, cloud computing, productivity and collaboration, and personal computing. We strive to create opportunity, growth, and impact in every country around the world.\n\nAI is fundamentally transforming productivity for every individual, organization, and industry. Microsoft\u0027s AI offerings span every layer of the technology stack, enabling transformative outcomes across sectors and unlocking opportunity for every country, community, and individual.\n\nWe believe AI should be as empowering as it is powerful, and we\u2019re committed to designing and deploying AI responsibly with safety and security from the outset.\n\nWhat We Offer\n\nFounded in 1975, we develop and support software, services, devices, and solutions that deliver new value for customers and help people and businesses realize their full potential.\n\nWe offer an array of services, including cloud-based solutions that provide customers with AI, software, services, platforms, and content, and we provide solution support and consulting services. We also deliver relevant online advertising to a global audience.\n\nOur products include operating systems, server applications, business solution applications, software development tools, desktop and server management tools, and video games. We also design and sell devices, including PCs, tablets, gaming and entertainment consoles, other intelligent devices, and related accessories.\n\nDigital transformation and adoption of AI continues to revolutionize more business workstreams for organizations in every sector across the globe. For enterprises, digital technology empowers employees, optimizes operations, engages customers, and in some cases, changes the very core of products and services.\n\nThe Microsoft Cloud provides integration across the technology stack while offering openness, improving time to value, reducing costs, and increasing agility. Our cloud business benefits from three economies of scale: datacenters that deploy computational resources at significantly lower cost per unit than smaller ones; datacenters that coordinate and aggregate diverse customer, geographic, and application demand patterns, improving the utilization of computing, storage, and network resources; and multi-tenancy locations that lower application maintenance labor costs.\n\nWe prioritize security above all else and we offer our customers integrated AI-driven products addressing security, compliance, identity, management, and privacy across customers\u2019 multi-cloud, application, and device assets.\n\nThe Ambitions That Drive Us\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART I \u003E Item 1. BUSINESS ---\r\n\u0060\u0060\u0060\r\nMs. Hood was appointed Executive Vice President and Chief Financial Officer in July 2013, subsequent to her appointment as Chief Financial Officer in May 2013. From 2010 to 2013, Ms. Hood was Chief Financial Officer of the Microsoft Business Division. Since joining Microsoft in 2002, Ms. Hood has also held finance-related positions in the Server and Tools Business and the corporate finance organization.\n\nMr. Numoto was appointed Executive Vice President and Chief Marketing Officer in October 2023. He served as Executive Vice President and Commercial Chief Marketing Officer from March 2020. Mr. Numoto served as a Corporate Vice President, Cloud Marketing from January 2012. Prior to that, Mr. Numoto served as a Corporate Vice President for Office 365 Marketing from 2004, where he led the transformation from traditional on-premises packaged software to the introduction of Office 365. Since joining Microsoft in 1997, Mr. Numoto has held multiple roles in Windows Program Management and Office Marketing.\n\nMr. Smith was appointed Vice Chair and President in September 2021. Prior to that, he served as President and Chief Legal Officer since September 2015. He served as Executive Vice President, General Counsel, and Secretary from 2011 to 2015, and served as Senior Vice President, General Counsel, and Secretary from 2001 to 2011. Mr. Smith was also named Chief Compliance Officer in 2002. Since joining Microsoft in 1993, he was Deputy General Counsel for Worldwide Sales and previously was responsible for managing the European Law and Corporate Affairs Group, based in Paris. Mr. Smith also serves on the Board of Directors of Netflix, Inc.\n\nAVAILABLE INFORMATION\n\nOur Internet address is www.microsoft.com. At our Investor Relations website, www.microsoft.com/investor, we make available free of charge a variety of information for investors. Our goal is to maintain the Investor Relations website as a portal through which investors can easily find or navigate to pertinent information about us, including:\n\n\u2022\n\nOur annual report on Form 10-K, quarterly reports on Form 10-Q, current reports on Form 8-K, and any amendments to those reports, as soon as reasonably practicable after we electronically file that material with, or furnish it to, the Securities and Exchange Commission (\u201CSEC\u201D) at www.sec.gov.\n\n\u2022\n\nInformation on our business strategies, financial results, and metrics for investors.\n\n\u2022\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS ---\r\n\u0060\u0060\u0060\r\nThe following Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations (\u201CMD\u0026A\u201D) is intended to help the reader understand the results of operations and financial condition of Microsoft Corporation. MD\u0026A is provided as a supplement to, and should be read in conjunction with, our consolidated financial statements and the accompanying Notes to Financial Statements (Part II, Item 8 of this Form 10-K). This section generally discusses the results of our operations for the year ended June 30, 2026 compared to the year ended June 30, 2025. For a discussion of the year ended June 30, 2025 compared to the year ended June 30, 2024, please refer to Part II, Item 7, \u201CManagement\u2019s Discussion and Analysis of Financial Condition and Results of Operations\u201D in our Annual Report on Form 10-K for the year ended June 30, 2025.\n\nOVERVIEW\n\nMicrosoft is a technology company committed to making digital technology and artificial intelligence (\u201CAI\u201D) available broadly and doing so responsibly, with a mission to empower every person and every organization on the planet to achieve more. We create platforms and applications, powered by AI, that deliver innovative solutions that meet the evolving needs of our customers.\n\nWe generate revenue by offering a wide range of cloud-based solutions, content, and other services to people and businesses; licensing and supporting an array of software products; delivering relevant online advertising to a global audience; and designing and selling devices. Our most significant expenses are related to compensating employees; supporting and investing in our cloud-based services, including datacenter operations; designing, manufacturing, marketing, and selling our other products and services; and income taxes.\n\nHighlights from fiscal year 2026 compared with fiscal year 2025 included:\n\n\u2022\n\nMicrosoft Cloud revenue increased 27% to $214.4 billion.\n\n\u2022\n\nCommercial remaining performance obligation increased 84% to $678 billion.\n\n\u2022\n\nMicrosoft 365 Commercial cloud revenue increased 17%.\n\n\u2022\n\nMicrosoft 365 Consumer cloud revenue increased 28%.\n\n\u2022\n\nLinkedIn revenue increased 11%.\n\n\u2022\n\nDynamics 365 revenue increased 18%.\n\n\u2022\n\nAzure and other cloud services revenue increased 41%.\n\n\u2022\n\nWindows OEM and Devices revenue decreased slightly.\n\n\u2022\n\nXBOX content and services revenue decreased 5%.\n\n\u2022\n\nSearch advertising (formerly Search and news advertising) revenue excluding traffic acquisition costs increased 12%.\n\nIndustry Trends and Opportunities\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How many people did Microsoft employ, and where?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "As of June 30, 2026, Microsoft employed approximately 223,000 people on a full-time basis, with 121,000 in the U.S. and 102,000 internationally (Source: MSFT-10K-2026.html, PART I \u003E Item 1. BUSINESS).\n\nBy function, 89,000 were in operations (including product support and consulting services, datacenter operations, and manufacturing and distribution), 77,000 in product research and development, 43,000 in sales and marketing, and 14,000 in general and administration (Source: MSFT-10K-2026.html, PART I \u003E Item 1. BUSINESS)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 223,000 and 121,000 and 102,000."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "223,000 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 223,000 from excerpt 1 (narrative), 121,000 from excerpt 1 (narrative), 102,000 from excerpt 1 (narrative), 89,000 from excerpt 1 (narrative), 77,000 from excerpt 1 (narrative), 43,000 from excerpt 1 (narrative), 14,000 from excerpt 1 (narrative)."
+        },
+        "metadata": {
+          "Stated 223,000": "excerpt 1 (narrative, PART I \u003E Item 1. BUSINESS): \u0022As of June 30, 2026, we employed approximately 223,000 people on a full-time basis, 121,000 in the U.S. and 102,000 internationally. Of the total employees, 89,...\u0022",
+          "Stated 121,000": "excerpt 1 (narrative, PART I \u003E Item 1. BUSINESS): \u0022...f June 30, 2026, we employed approximately 223,000 people on a full-time basis, 121,000 in the U.S. and 102,000 internationally. Of the total employees, 89,000 ...\u0022",
+          "Stated 102,000": "excerpt 1 (narrative, PART I \u003E Item 1. BUSINESS): \u0022...oyed approximately 223,000 people on a full-time basis, 121,000 in the U.S. and 102,000 internationally. Of the total employees, 89,000 were in operations, incl...\u0022",
+          "Stated 89,000": "excerpt 1 (narrative, PART I \u003E Item 1. BUSINESS): \u0022...basis, 121,000 in the U.S. and 102,000 internationally. Of the total employees, 89,000 were in operations, including product support and consulting services, da...\u0022",
+          "Stated 77,000": "excerpt 1 (narrative, PART I \u003E Item 1. BUSINESS): \u0022...consulting services, datacenter operations, and manufacturing and distribution; 77,000 were in product research and development; 43,000 were in sales and market...\u0022",
+          "Stated 43,000": "excerpt 1 (narrative, PART I \u003E Item 1. BUSINESS): \u0022...anufacturing and distribution; 77,000 were in product research and development; 43,000 were in sales and marketing; and 14,000 were in general and administratio...\u0022",
+          "Stated 14,000": "excerpt 1 (narrative, PART I \u003E Item 1. BUSINESS): \u0022...re in product research and development; 43,000 were in sales and marketing; and 14,000 were in general and administration. Certain employees are subject to coll...\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 1.82153,
+        "model": "claude-sonnet-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 4850,
+          "outputTokenCount": 199,
+          "totalTokenCount": 5049,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "3C794F78ED2C40012EA5BDA95DB33DBF1CCB913842021EEF79F8DE9167E6426884B35AC02FB504670DF715E2F8DD461D",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-sonnet-5-5",
+    "effort:Medium/Medium",
+    "kind:fact",
+    "company:MSFT",
+    "statement:none",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}

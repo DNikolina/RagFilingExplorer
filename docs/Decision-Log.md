@@ -3600,3 +3600,23 @@ failure is retrieval - what the plan predicted batch 1 could and couldn't fix. K
 the Sonnet and low-effort runs are read too; then decide, on all three runs' `check`s, whether it should accept a trap
 figure stated as the contrast. Paused here (user) before the next run; still to run: Sonnet 5.5 medium, Opus 5.5 low, a
 no-cache variance pass.
+
+**Sonnet 5.5, medium effort, all 102 (`claude-sonnet55-medium`): 3 min, 384,306 input + 17,831 output tokens, ~$0.95.**
+Same prompts as Opus (identical input token count). Strictly graded: Main 33/40, HeldOut 27/35, AnswerSide 25/27 -
+85/102 (Opus 89, llama 84). Every one of the 17 non-passes read by hand:
+- **6 `check` grades are correct declines** with an added reason - Q15, V2, H8, H30 name the years the excerpts do
+  cover, H15 says Netflix stopped reporting memberships, R3 gives MD&A's growth figure but no total. The decline form
+  allows no extra figure; Opus declined these in the bare form.
+- **5 `check` grades are correct answers** that also explain a lookalike line (Q2, H6, H19, H32, A10).
+- **3 hedge**: Q10, V1, Q23 give both lookalike lines, each correctly labelled, without choosing - "The question is
+  ambiguous between 'Comprehensive income' and 'Comprehensive income attributable to Nasdaq,' so I give both." Opus
+  chose the asked-for line on all three and named the other as the contrast.
+- **3 misses**: H34 states the equity statement's $9,154,855 thousand (the trap) as the cash spent - its expected cash
+  flow line ranked 9, outside the excerpts; H29 (rank 7) declined; A11 (rank 12) gives MD&A's $63 million + $5.7 billion.
+- **H25 answered right where Opus declined**: its total (rank 11) isn't in the excerpts, but the operating expense lines
+  are, and Sonnet added them - $46,751 million, the expected figure, saying the total line wasn't shown. Figure source
+  calls the sum untraced (not an asked-for calculation); the other two untraced figures are V3's asked-for sum and Q18's
+  "about $10.98 billion" for $10,981,201 thousand.
+
+Read, Sonnet is 96/102 with 3 hedges (99 if a labelled hedge counts), Opus 98/102; one trap taken (H34), none by Opus.
+Sonnet costs under half as much, writes ~40% fewer output tokens and ran in under half the time.

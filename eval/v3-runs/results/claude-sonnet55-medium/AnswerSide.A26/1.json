@@ -1,0 +1,122 @@
+{
+  "scenarioName": "AnswerSide.A26",
+  "iterationName": "1",
+  "executionName": "claude-sonnet55-medium",
+  "creationTime": "2026-10-08T18:09:04.2716808Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\r\n\u0060\u0060\u0060\r\nINCOME STATEMENTS\n\n(In millions, except per share amounts) Year Ended June 30,\nRevenue:\nRevenue \u003E Product \u2014 2026: $64,696 | 2025: $63,946 | 2024: $64,773\nRevenue \u003E Service and other \u2014 2026: 267,143 | 2025: 217,778 | 2024: 180,349\nRevenue \u003E Total revenue \u2014 2026: 331,839 | 2025: 281,724 | 2024: 245,122\nCost of revenue:\nCost of revenue \u003E Product \u2014 2026: 12,098 | 2025: 13,501 | 2024: 15,272\nCost of revenue \u003E Service and other \u2014 2026: 94,276 | 2025: 74,330 | 2024: 58,842\nCost of revenue \u003E Total cost of revenue \u2014 2026: 106,374 | 2025: 87,831 | 2024: 74,114\nGross margin \u2014 2026: 225,465 | 2025: 193,893 | 2024: 171,008\nResearch and development \u2014 2026: 35,562 | 2025: 32,488 | 2024: 29,510\nSales and marketing \u2014 2026: 26,710 | 2025: 25,654 | 2024: 24,456\nGeneral and administrative \u2014 2026: 7,956 | 2025: 7,223 | 2024: 7,609\nOperating income \u2014 2026: 155,237 | 2025: 128,528 | 2024: 109,433\nOther income (expense), net \u2014 2026: 10,697 | 2025: (4,901) | 2024: (1,646)\nIncome before income taxes \u2014 2026: 165,934 | 2025: 123,627 | 2024: 107,787\nProvision for income taxes \u2014 2026: 32,185 | 2025: 21,795 | 2024: 19,651\nNet income \u2014 2026: $133,749 | 2025: $101,832 | 2024: $88,136\nEarnings per share:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS ---\r\n\u0060\u0060\u0060\r\nSUMMARY RESULTS OF OPERATIONS\n\n(In millions, except percentages and per share amounts)\nRevenue \u2014 2026: $331,839 | 2025: $281,724 | Percentage Change: 18%\nGross margin \u2014 2026: 225,465 | 2025: 193,893 | Percentage Change: 16%\nOperating income \u2014 2026: 155,237 | 2025: 128,528 | Percentage Change: 21%\nNet income \u2014 2026: 133,749 | 2025: 101,832 | Percentage Change: 31%\nDiluted earnings per share \u2014 2026: 17.95 | 2025: 13.64 | Percentage Change: 32%\nAdjusted net income (non-GAAP) \u2014 2026: 128,786 | 2025: 105,452 | Percentage Change: 22%\nAdjusted diluted earnings per share (non-GAAP) \u2014 2026: 17.28 | 2025: 14.13 | Percentage Change: 22%\n\nAdjusted net income and adjusted diluted earnings per share (\u201CEPS\u201D) are non-GAAP financial measures. These non-GAAP financial measures exclude net gains and losses from investments in OpenAI. Refer to the Non-GAAP Financial Measures section below for a reconciliation of our financial results reported in accordance with GAAP to non-GAAP financial results.\n\nFiscal Year 2026 Compared with Fiscal Year 2025\n\nRevenue increased $50.1 billion or 18% driven by growth in Microsoft Cloud. Intelligent Cloud revenue increased driven by Azure. Productivity and Business Processes revenue increased driven by Microsoft 365 Commercial cloud. More Personal Computing revenue decreased driven by XBOX (formerly Gaming), offset in part by growth in Search advertising.\n\nCost of revenue increased $18.5 billion or 21% driven by growth in Microsoft Cloud.\n\nGross margin increased $31.6 billion or 16% with growth across each of our segments.\n\n\u2022\n\nGross margin percentage decreased slightly driven by continued investments in AI infrastructure and growing AI product usage, offset in part by efficiency gains across the Microsoft Cloud.\n\n\u2022\n\nMicrosoft Cloud gross margin percentage decreased to 66% driven by continued investments in AI infrastructure and growing AI product usage, offset in part by efficiency gains in Azure and Microsoft 365 Commercial cloud.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\r\n\u0060\u0060\u0060\r\nCOMPREHENSIVE INCOME STATEMENTS\n\n(In millions) Year Ended June 30,\nNet income \u2014 2026: $133,749 | 2025: $101,832 | 2024: $88,136\nOther comprehensive income (loss), net of tax:\nOther comprehensive income (loss), net of tax \u003E Net change related to derivatives \u2014 2026: 8 | 2025: (5) | 2024: 24\nOther comprehensive income (loss), net of tax \u003E Net change related to investments \u2014 2026: 215 | 2025: 1,574 | 2024: 957\nOther comprehensive income (loss), net of tax \u003E Translation adjustments and other \u2014 2026: (160) | 2025: 674 | 2024: (228)\nOther comprehensive income (loss), net of tax \u003E Other comprehensive income \u2014 2026: 63 | 2025: 2,243 | 2024: 753\nOther comprehensive income (loss), net of tax \u003E Comprehensive income \u2014 2026: $133,812 | 2025: $104,075 | 2024: $88,889\n\nRefer to accompanying notes.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS ---\r\n\u0060\u0060\u0060\r\nFiscal Year 2026 Compared with Fiscal Year 2025\n\nInterest and dividends income increased primarily due to higher portfolio balances and higher yields on debt securities. Interest expense increased primarily due to higher finance lease interest expense, offset in part by higher capitalization of debt interest expense. Net recognized gains on investments increased primarily due to higher gains on equity securities and lower impairments in the current period. Net gains on derivatives increased primarily due to gains on equity derivatives in the current period as compared to losses in the prior period. Other, net primarily reflects net recognized gains on equity method investments, including OpenAI.\n\nINCOME TAXES\n\nEffective Tax Rate\n\nOur effective tax rate for fiscal years 2026 and 2025 was 19% and 18%, respectively. The increase in our effective tax rate was primarily due to changes in the mix of our earnings and tax expenses between the U.S. and foreign countries.\n\nOur effective tax rate was lower than the U.S. federal statutory rate, primarily due to earnings taxed at lower rates in foreign jurisdictions resulting from producing and distributing our products and services through our foreign regional operations center in Ireland.\n\nThe mix of income before income taxes between the U.S. and foreign countries impacted our effective tax rate as a result of the geographic distribution of, and customer demand for, our products and services. In fiscal year 2026, our U.S. income before income taxes was $103.6 billion and our foreign income before income taxes was $62.3 billion. In fiscal year 2025, our U.S. income before income taxes was $69.2 billion and our foreign income before income taxes was $54.4 billion.\n\nUncertain Tax Positions\n\nWe remain under audit by the IRS for tax years 2014 to 2017. With respect to the audit for tax years 2004 to 2013, on September 26, 2023, we received Notices of Proposed Adjustment (\u201CNOPAs\u201D) from the IRS. The primary issues in the NOPAs relate to intercompany transfer pricing. In the NOPAs, the IRS is seeking an additional tax payment of $28.9 billion plus penalties and interest. As of June 30, 2026, we believe our allowances for income tax contingencies are adequate. We disagree with the proposed adjustments and will vigorously contest the NOPAs through the IRS\u2019s administrative appeals office and, if necessary, judicial proceedings.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\r\n\u0060\u0060\u0060\r\nCASH FLOWS STATEMENTS\n\n(In millions) Year Ended June 30,\nOperations\nOperations \u003E Net income \u2014 2026: $133,749 | 2025: $101,832 | 2024: $88,136\nAdjustments to reconcile net income to net cash from operations:\nAdjustments to reconcile net income to net cash from operations \u003E Depreciation, amortization, and other \u2014 2026: 38,534 | 2025: 29,433 | 2024: 20,958\nAdjustments to reconcile net income to net cash from operations \u003E Stock-based compensation expense \u2014 2026: 12,405 | 2025: 11,974 | 2024: 10,734\nAdjustments to reconcile net income to net cash from operations \u003E Net recognized losses (gains) on investments and derivatives \u2014 2026: (11,047) | 2025: 5,329 | 2024: 1,634\nAdjustments to reconcile net income to net cash from operations \u003E Deferred income taxes \u2014 2026: 14,189 | 2025: (7,056) | 2024: (4,738)\nChanges in operating assets and liabilities:\nChanges in operating assets and liabilities \u003E Accounts receivable \u2014 2026: (12,737) | 2025: (10,581) | 2024: (7,191)\nChanges in operating assets and liabilities \u003E Inventories \u2014 2026: (461) | 2025: 309 | 2024: 1,284\nChanges in operating assets and liabilities \u003E Other current assets \u2014 2026: (2,627) | 2025: (3,044) | 2024: (1,648)\nChanges in operating assets and liabilities \u003E Other long-term assets \u2014 2026: (3,964) | 2025: (2,950) | 2024: (6,817)\nChanges in operating assets and liabilities \u003E Accounts payable \u2014 2026: 5,268 | 2025: 569 | 2024: 3,545\nChanges in operating assets and liabilities \u003E Unearned revenue \u2014 2026: 9,361 | 2025: 5,438 | 2024: 5,348\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "By how much did Microsoft\u0027s net income increase from fiscal 2025 to fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s net income increased by $32,000 million (about $32.0 billion) from fiscal 2025 to fiscal 2026. The Income Statements line \u0022Net income\u0022 shows $133,749 million for the year ended June 30, 2026 and $101,832 million for the year ended June 30, 2025 (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data). The calculation is $133,749 million minus $101,832 million, which equals $31,917 million (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\n\nThe increase of $31,917 million is the figure to use; the \u0022$32,000 million\u0022 above was a rounding and should be read as approximately $31.9 billion. The MD\u0026A also reports this change as a 31% increase (Source: MSFT-10K-2026.html, PART II \u003E Item 7. Management\u0027s Discussion and Analysis of Financial Condition and Results of Operations)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 31,917 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "133,749, 101,832 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "calculated",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "32,000, 32.0, 31,917, 31.9 in no excerpt - the question asks for a calculation; 32,000 from no excerpt, 32.0 from no excerpt, 133,749 from excerpts 1 (income_statement), 2 (narrative), 3 (comprehensive_income), 5 (cash_flow_statement), 101,832 from excerpts 1 (income_statement), 2 (narrative), 3 (comprehensive_income), 5 (cash_flow_statement), 31,917 from no excerpt, 31.9 from no excerpt, 31 from excerpt 2 (narrative)."
+        },
+        "metadata": {
+          "Stated 32,000": "in none of the excerpts",
+          "Stated 32.0": "in none of the excerpts",
+          "Stated 133,749": "excerpt 1 (income_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Net income \u2014 2026: $133,749 | 2025: $101,832 | 2024: $88,136\u0022; excerpt 2 (narrative, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS): \u0022Net income \u2014 2026: 133,749 | 2025: 101,832 | Percentage Change: 31%\u0022; excerpt 3 (comprehensive_income, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Net income \u2014 2026: $133,749 | 2025: $101,832 | 2024: $88,136\u0022; excerpt 5 (cash_flow_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Operations \u003E Net income \u2014 2026: $133,749 | 2025: $101,832 | 2024: $88,136\u0022",
+          "Stated 101,832": "excerpt 1 (income_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Net income \u2014 2026: $133,749 | 2025: $101,832 | 2024: $88,136\u0022; excerpt 2 (narrative, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS): \u0022Net income \u2014 2026: 133,749 | 2025: 101,832 | Percentage Change: 31%\u0022; excerpt 3 (comprehensive_income, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Net income \u2014 2026: $133,749 | 2025: $101,832 | 2024: $88,136\u0022; excerpt 5 (cash_flow_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Operations \u003E Net income \u2014 2026: $133,749 | 2025: $101,832 | 2024: $88,136\u0022",
+          "Stated 31,917": "in none of the excerpts",
+          "Stated 31.9": "in none of the excerpts",
+          "Stated 31": "excerpt 2 (narrative, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS): \u0022Net income \u2014 2026: 133,749 | 2025: 101,832 | Percentage Change: 31%\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 2.5995079,
+        "model": "claude-sonnet-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 4069,
+          "outputTokenCount": 330,
+          "totalTokenCount": 4399,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "B66B2CB80EF1D8E019A7830870F01FD65AC74C8089A05697353DDD683DA13458CCE6EA4578710359A55F08C6659D4939",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-sonnet-5-5",
+    "effort:Medium/Medium",
+    "kind:figure",
+    "calculation",
+    "has traps",
+    "company:MSFT",
+    "statement:income_statement",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}
