@@ -3574,3 +3574,29 @@ before any call, and any other API error at the model check is a one-line startu
 paste with a right-click and print the key's length. (Before that, the dummy-key check above cleared the store after the
 user had already saved the real key in it - a test of the secrets path must not use the project's own store.) 409 + 172
 tests (`ClaudeChatTests`).
+
+**Step 5, first runs (2026-10-08).** Smoke run (Q1, A10; ~$0.04): every part recorded - model `claude-opus-5-5`,
+`cacheHit: false`, tags `chat:`/`effort:`/`ollama:`, tokens and latency; ~3.5 s an answer (llama: about a minute on this
+machine). Claude's tokenizer counts the same prompt ~1.5x llama's (A10: 3,732 vs 2,168 input tokens).
+
+**Opus 5.5, medium effort, all 102 (`claude-opus55-medium`): 7 min, 384,306 input + 29,755 output tokens, ~$2.10.**
+Strictly graded: Main 36/40, HeldOut 30/35, AnswerSide 23/27 - 89/102, against llama's 84/102
+(`structured-hybrid-v3-baseline`: 33, 31, 20). Every one of the 13 non-passes read by hand:
+- **9 `check` grades are correct answers** (Q2, Q10, Q23, V1, H6, H11, A7, A10, A16): each states the expected figure as
+  its answer, then names a lookalike line to explain why it's not that one - Q10 "Comprehensive income ... $2,113
+  million. The separate line 'Comprehensive income attributable to Nasdaq' was $2,114 million, because it adds back $1
+  million of comprehensive loss attributable to noncontrolling interests". The strict grader marks any trap figure stated
+  as `check`, a rule written for llama, which stated a second figure only when unsure. Read, the run is **Main 40/40,
+  HeldOut 32/35, AnswerSide 26/27 - 98/102**.
+- **The 4 misses are all retrieval misses** - the expected figure ranked 7-12, outside the 5 excerpts: H25 (rank 11) and
+  H29 (7) declined in the fixed form; H34 (9) gave MD&A's rounded "$9.1 billion" and said the cash flow line wasn't in
+  its excerpts; A11 (12) added the equity statement's two dividend lines ($5,828M against the cash flow statement's
+  $5,787M) and noted its two sources disagreed.
+- **Both untraced figures are correct arithmetic**, not inventions: V3's asked-for three-year sum (24,784,938) and A11's
+  sum of two excerpt lines.
+
+So every misreading recorded for llama (A10, A14, A15, A27, T1, T9, V3 among them) is answered right, and every remaining
+failure is retrieval - what the plan predicted batch 1 could and couldn't fix. Kept: the strict grader unchanged until
+the Sonnet and low-effort runs are read too; then decide, on all three runs' `check`s, whether it should accept a trap
+figure stated as the contrast. Paused here (user) before the next run; still to run: Sonnet 5.5 medium, Opus 5.5 low, a
+no-cache variance pass.
