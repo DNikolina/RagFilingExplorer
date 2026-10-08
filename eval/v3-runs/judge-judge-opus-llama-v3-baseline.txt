@@ -1,0 +1,27 @@
+Judge agreement for judge-opus-llama-v3-baseline: 102 answers
+Judge calls: not in the stored chat details - a Claude judge's calls go through its own client; the run's summary gives the tokens it billed
+
+== Equivalence (102 answers)
+Score read as the prompt asks for it: 102; score taken from the reply's words: 0 (the library's own verdict for that score)
+Reply not read as a score: 0
+Score by strict grade (rows: strict passed / failed; columns: score 1-5):
+  strict passed: 1:   0  2:   0  3:   0  4:   2  5:  82
+  strict failed: 1:   8  2:   5  3:   0  4:   4  5:   1
+Agreement on library-read scores only: 97/102
+Agreement with the strict grade at the library's verdict: 97/102 (judge passes a strict failure: 5, judge fails a strict pass: 0)
+Disagreements:
+  AnswerSide.A11: strict wrong, Equivalence 4 (passed)
+    expected: $5,787 million
+    answer:   Oracle paid $63 million in dividends to its Mandatory Convertible Preferred Stock holders and $5.7 billion in dividends to its common stock holders in fiscal 2026. (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  AnswerSide.A14: strict wrong, Equivalence 5 (passed)
+    expected: $55,663 million
+    answer:   Oracle spent $55.7 billion on capital expenditures in fiscal 2026. (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  HeldOut.H34: strict wrong, Equivalence 4 (passed)
+    expected: $9,127,167 thousand
+    answer:   Netflix repurchased 86,536,215 shares of common stock for an aggregate amount of $9.1 billion in 2025 (Source: NFLX-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations).
+  Main.Q21: strict no-unit, Equivalence 4 (passed)
+    expected: $10,038,657 thousand
+    answer:   Netflix's comprehensive income for the year ended December 31, 2025 was $10,038,657. (Source: NFLX-10K-2025.html, PART IV > Financial Statements > CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME)
+  Main.V3: strict wrong, Equivalence 4 (passed)
+    expected: $24,784,938 thousand
+    answer:   Netflix's net cash provided by operating activities for the year ended December 31, 2025 was $10,149,273 thousand, for the year ended December 31, 2024 was $7,361,364 thousand, and for the year ended December 31, 2023 was $7,274,301 thousand.

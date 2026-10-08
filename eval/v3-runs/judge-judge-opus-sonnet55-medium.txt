@@ -1,0 +1,21 @@
+Judge agreement for judge-opus-sonnet55-medium: 102 answers
+Judge calls: not in the stored chat details - a Claude judge's calls go through its own client; the run's summary gives the tokens it billed
+
+== Equivalence (102 answers)
+Score read as the prompt asks for it: 102; score taken from the reply's words: 0 (the library's own verdict for that score)
+Reply not read as a score: 0
+Score by strict grade (rows: strict passed / failed; columns: score 1-5):
+  strict passed: 1:   0  2:   0  3:   0  4:   2  5:  93
+  strict failed: 1:   1  2:   1  3:   2  4:   2  5:   1
+Agreement on library-read scores only: 99/102
+Agreement with the strict grade at the library's verdict: 99/102 (judge passes a strict failure: 3, judge fails a strict pass: 0)
+Disagreements:
+  HeldOut.H8: strict check, Equivalence 4 (passed)
+    expected: The filings don't contain this information, so the answer should say so instead of giving a figure.
+    answer:   The excerpts don't contain Oracle's total revenue for fiscal 2023. They only cover fiscal 2024 through 2026, and total revenues for those years were $52,961 million (2024), $57,399 million (2025), and $67,357 million (2026).
+  Main.Q23: strict check, Equivalence 5 (passed)
+    expected: $12,227 million
+    answer:   The question could refer to either of two lines, so I give both.  - "Total Nasdaq stockholders' equity" was $12,227 million at December 31, 2025, compared with $11,191 million at December 31, 2024. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements) - "Total equity," which also includes noncontrolling interests of $5 million, was $12,232 million at December 31, 2025, compared with $11,200 million at December 31, 2024. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements)
+  Main.V1: strict check, Equivalence 4 (passed)
+    expected: $940 million
+    answer:   The question is ambiguous between "Comprehensive income" and "Comprehensive income attributable to Nasdaq," so I give both.  The line "Comprehensive income" was $940 million for the year ended December 31, 2024 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements).  The line "Comprehensive income attributable to Nasdaq" was $942 million for the year ended December 31, 2024 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements).

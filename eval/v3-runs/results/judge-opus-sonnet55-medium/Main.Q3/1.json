@@ -1,0 +1,147 @@
+{
+  "scenarioName": "Main.Q3",
+  "iterationName": "1",
+  "executionName": "judge-opus-sonnet55-medium",
+  "creationTime": "2026-10-08T19:46:51.3410132Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Balance Sheets\n\n(in millions, except share and par value amounts)\n\nDecember 31,\nLong-term debt \u2014 2025: 8,573 | 2024: 9,081\nDeferred tax liabilities, net \u2014 2025: 1,584 | 2024: 1,594\nOperating lease liabilities \u2014 2025: 462 | 2024: 388\nOther non-current liabilities \u2014 2025: 241 | 2024: 230\nTotal liabilities \u2014 2025: 18,821 | 2024: 19,195\nCommitments and contingencies\nEquity\nNasdaq stockholders\u2019 equity:\nNasdaq stockholders\u2019 equity \u003E Common stock, $0.01 par value, 900,000,000 shares authorized, shares issued: 594,620,320 at December 31, 2025 and 598,920,378 at December 31, 2024; shares outstanding: 569,894,024 at December 31, 2025 and 575,062,217 at December 31, 2024 \u2014 2025: 6 | 2024: 6\nNasdaq stockholders\u2019 equity \u003E Additional paid-in capital \u2014 2025: 5,122 | 2024: 5,530\nNasdaq stockholders\u2019 equity \u003E Common stock in treasury, at cost: 24,726,296 shares at December 31, 2025 and 23,858,161 shares at December 31, 2024 \u2014 2025: (716) | 2024: (647)\nNasdaq stockholders\u2019 equity \u003E Accumulated other comprehensive loss \u2014 2025: (1,773) | 2024: (2,099)\nNasdaq stockholders\u2019 equity \u003E Retained earnings \u2014 2025: 9,588 | 2024: 8,401\nNasdaq stockholders\u2019 equity \u003E Total Nasdaq stockholders\u2019 equity \u2014 2025: 12,227 | 2024: 11,191\nNoncontrolling interests \u2014 2025: 5 | 2024: 9\nTotal equity \u2014 2025: 12,232 | 2024: 11,200\nTotal liabilities and equity \u2014 2025: $31,053 | 2024: $30,395\n\nSee accompanying notes to consolidated financial statements.\n\nNasdaq, Inc.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Balance Sheets\n\n(in millions, except share and par value amounts)\n\nDecember 31,\nAssets\nCurrent assets:\nCurrent assets \u003E Cash and cash equivalents \u2014 2025: $604 | 2024: $592\nCurrent assets \u003E Restricted cash and cash equivalents \u2014 2025: 210 | 2024: 31\nCurrent assets \u003E Default funds and margin deposits (including restricted cash and cash equivalents of $3,120 and $4,383, respectively) \u2014 2025: 5,842 | 2024: 5,664\nCurrent assets \u003E Financial investments \u2014 2025: 28 | 2024: 184\nCurrent assets \u003E Receivables, net \u2014 2025: 943 | 2024: 1,022\nCurrent assets \u003E Other current assets \u2014 2025: 376 | 2024: 293\nCurrent assets \u003E Total current assets \u2014 2025: 8,003 | 2024: 7,786\nProperty and equipment, net \u2014 2025: 728 | 2024: 593\nGoodwill \u2014 2025: 14,371 | 2024: 13,957\nIntangible assets, net \u2014 2025: 6,511 | 2024: 6,905\nOperating lease assets \u2014 2025: 447 | 2024: 375\nOther non-current assets \u2014 2025: 993 | 2024: 779\nTotal assets \u2014 2025: $31,053 | 2024: $30,395\nLiabilities\nCurrent liabilities:\nCurrent liabilities \u003E Accounts payable and accrued expenses \u2014 2025: $280 | 2024: $269\nCurrent liabilities \u003E Section 31 fees payable to SEC \u2014 2024: 319\nCurrent liabilities \u003E Accrued personnel costs \u2014 2025: 364 | 2024: 325\nCurrent liabilities \u003E Deferred revenue \u2014 2025: 785 | 2024: 711\nCurrent liabilities \u003E Other current liabilities \u2014 2025: 259 | 2024: 215\nCurrent liabilities \u003E Default funds and margin deposits \u2014 2025: 5,842 | 2024: 5,664\nCurrent liabilities \u003E Short-term debt \u2014 2025: 431 | 2024: 399\nCurrent liabilities \u003E Total current liabilities \u2014 2025: 7,961 | 2024: 7,902\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Income Taxes ---\r\n\u0060\u0060\u0060\r\n(in millions) Deferred tax assets: December 31,\nReported as \u003E Deferred tax liabilities, net \u2014 2025: (1,584) | 2024: (1,594)\nReported as \u003E Net deferred tax liabilities \u2014 2025: $(1,557) | 2024: $(1,580)\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Leases ---\r\n\u0060\u0060\u0060\r\n16. LEASES\n\nWe have operating leases, which are primarily real estate\n\nleases, predominantly for our U.S. and European\n\nheadquarters, data centers and for general office space. The\n\nfollowing table provides supplemental balance sheet\n\ninformation related to Nasdaq\u2019s operating leases:\n\n(in millions) Assets:\nOperating lease assets \u2014 Balance Sheet Classification: Operating lease assets | December 31, 2025: $447 | December 31, 2024: $375\nLiabilities:\nLiabilities \u003E Current lease liabilities \u2014 Balance Sheet Classification: Other current liabilities | December 31, 2025: $60 | December 31, 2024: $55\nLiabilities \u003E Non- current lease liabilities \u2014 Balance Sheet Classification: Operating lease liabilities | December 31, 2025: 462 | December 31, 2024: 388\nLiabilities \u003E Total lease liabilities \u2014 December 31, 2025: $522 | December 31, 2024: $443\n\nThe following table summarizes Nasdaq\u2019s lease cost:\n\n(in millions) Year Ended December 31,\nOperating lease cost \u2014 2025: $82 | 2024: $78 | 2023: $88\nVariable lease cost \u2014 2025: 44 | 2024: 37 | 2023: 44\nSublease income \u2014 2025: (2) | 2024: (3) | 2023: (3)\nTotal lease cost \u2014 2025: $124 | 2024: $112 | 2023: $129\n\nIn the table above, operating lease costs include short-term\n\nlease costs, which were immaterial.\n\nThere were no material operating lease assets impairments in\n\n2025 and 2024. In the first quarter of 2023, we initiated a\n\nreview of our real estate and facility capacity requirements\n\ndue to our new and evolving work models. As a result of this\n\nongoing review, for the year ended December 31, 2023, we\n\nrecorded impairment charges of $23\u00A0million, of which\n\n$13\u00A0million related to operating lease asset impairment and is\n\nincluded in operating lease cost in the table above, $5\u00A0million\n\nrelated to exit costs and is included in variable lease cost in\n\nthe table above and $5\u00A0million related to impairment of\n\nleasehold improvements, which are recorded in depreciation\n\nand amortization expense in the Consolidated Statements of\n\nIncome. We fully impaired our lease assets for locations that\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Cash Flows\n\n(in millions)\n\nYear Ended December 31,\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Receivables, net \u2014 2025: 91 | 2024: (193) | 2023: 3\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Other assets \u2014 2025: (96) | 2024: (50) | 2023: 9\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Accounts payable and accrued expenses \u2014 2025: (6) | 2024: (60) | 2023: 149\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Section 31 fees payable to SEC \u2014 2025: (319) | 2024: 235 | 2023: (160)\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Accrued personnel costs \u2014 2025: 25 | 2024: 34 | 2023: 13\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Deferred revenue \u2014 2025: 69 | 2024: 67 | 2023: 88\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Other liabilities \u2014 2025: 1 | 2024: 13 | 2023: (63)\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Net cash provided by operating activities \u2014 2025: 2,255 | 2024: 1,939 | 2023: 1,696\nCash flows from investing activities:\nCash flows from investing activities \u003E Purchases of securities \u2014 2025: (243) | 2024: (206) | 2023: (712)\nCash flows from investing activities \u003E Proceeds from sales and redemptions of securities \u2014 2025: 427 | 2024: 199 | 2023: 719\nCash flows from investing activities \u003E Proceeds from divestitures, net of cash divested \u2014 2025: 140\nCash flows from investing activities \u003E Acquisition of businesses, net of cash and cash equivalents acquired \u2014 2023: (5,766)\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Nasdaq\u0027s total liabilities?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s total liabilities were $18,821 million at December 31, 2025, compared with $19,195 million at December 31, 2024. (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 18,821 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "18,821 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 18,821 from excerpt 1 (balance_sheet), 19,195 from excerpt 1 (balance_sheet)."
+        },
+        "metadata": {
+          "Stated 18,821": "excerpt 1 (balance_sheet, PART IV \u003E Financial Statements): \u0022Total liabilities \u2014 2025: 18,821 | 2024: 19,195\u0022",
+          "Stated 19,195": "excerpt 1 (balance_sheet, PART IV \u003E Financial Statements): \u0022Total liabilities \u2014 2025: 18,821 | 2024: 19,195\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$18,821 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "claude-opus-5-5",
+          "eval-input-tokens": "1476",
+          "eval-output-tokens": "3",
+          "eval-total-tokens": "1479",
+          "eval-duration-ms": "2297.14",
+          "Judge reply": "5",
+          "Score taken from the reply\u0027s words": "no"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007236,
+        "model": "claude-sonnet-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 3558,
+          "outputTokenCount": 78,
+          "totalTokenCount": 3636,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "679CAC895B586FD9D5EE6EBCD280A60440C1B6F3EA022BE315B4C898B31DA9FD365BA93D5F885351B4D998DE9387AFC2",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-sonnet-5-5",
+    "effort:Medium/Medium",
+    "judge:claude-opus-5-5",
+    "kind:figure",
+    "has traps",
+    "company:NDAQ",
+    "statement:balance_sheet",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}

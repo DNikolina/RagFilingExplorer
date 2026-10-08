@@ -1,0 +1,147 @@
+{
+  "scenarioName": "Main.T5",
+  "iterationName": "1",
+  "executionName": "judge-opus-opus55-medium",
+  "creationTime": "2026-10-08T19:44:21.0356296Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Investments ---\r\n\u0060\u0060\u0060\r\n(In millions)\nJune 30, 2025 \u003E Changes in Fair Value Recorded in Other Comprehensive Income \u003E Mortgage- and asset-backed securities \u2014 Fair Value Level: Level 2 | Adjusted Cost Basis: 2,558 | Unrealized Gains: 10 | Unrealized Losses: (27) | Recorded Basis: 2,541 | Cash and Cash Equivalents: 0 | Short-term Investments: 2,541 | Equity and Other Investments: 0\nJune 30, 2025 \u003E Changes in Fair Value Recorded in Other Comprehensive Income \u003E Corporate notes and bonds \u2014 Fair Value Level: Level 2 | Adjusted Cost Basis: 10,763 | Unrealized Gains: 124 | Unrealized Losses: (101) | Recorded Basis: 10,786 | Cash and Cash Equivalents: 0 | Short-term Investments: 10,786 | Equity and Other Investments: 0\nJune 30, 2025 \u003E Changes in Fair Value Recorded in Other Comprehensive Income \u003E Corporate notes and bonds \u2014 Fair Value Level: Level 3 | Adjusted Cost Basis: 2,511 | Unrealized Gains: 65 | Unrealized Losses: (5) | Recorded Basis: 2,571 | Cash and Cash Equivalents: 0 | Short-term Investments: 111 | Equity and Other Investments: 2,460\nJune 30, 2025 \u003E Changes in Fair Value Recorded in Other Comprehensive Income \u003E Municipal securities \u2014 Fair Value Level: Level 2 | Adjusted Cost Basis: 207 | Unrealized Gains: 1 | Unrealized Losses: (7) | Recorded Basis: 201 | Cash and Cash Equivalents: 0 | Short-term Investments: 201 | Equity and Other Investments: 0\nJune 30, 2025 \u003E Changes in Fair Value Recorded in Other Comprehensive Income \u003E Municipal securities \u2014 Fair Value Level: Level 3 | Adjusted Cost Basis: 104 | Unrealized Gains: 0 | Unrealized Losses: (14) | Recorded Basis: 90 | Cash and Cash Equivalents: 0 | Short-term Investments: 90 | Equity and Other Investments: 0\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Investments ---\r\n\u0060\u0060\u0060\r\n(In millions)\nJune 30, 2026\nJune 30, 2026 \u003E U.S. government and agency securities \u2014 Less than 12 Months Fair Value: $19,100 | Less than 12 Months Unrealized Losses: $(100) | 12 Months or Greater Fair Value: $22,042 | 12 Months or Greater Unrealized Losses: $(1,054) | Total Fair Value: $41,142 | Total Unrealized Losses: $(1,154)\nJune 30, 2026 \u003E Foreign government bonds \u2014 Less than 12 Months Fair Value: 74 | Less than 12 Months Unrealized Losses: (1) | 12 Months or Greater Fair Value: 30 | 12 Months or Greater Unrealized Losses: (6) | Total Fair Value: 104 | Total Unrealized Losses: (7)\nJune 30, 2026 \u003E Mortgage- and asset-backed securities \u2014 Less than 12 Months Fair Value: 905 | Less than 12 Months Unrealized Losses: (5) | 12 Months or Greater Fair Value: 129 | 12 Months or Greater Unrealized Losses: (18) | Total Fair Value: 1,034 | Total Unrealized Losses: (23)\nJune 30, 2026 \u003E Corporate notes and bonds \u2014 Less than 12 Months Fair Value: 5,066 | Less than 12 Months Unrealized Losses: (31) | 12 Months or Greater Fair Value: 909 | 12 Months or Greater Unrealized Losses: (40) | Total Fair Value: 5,975 | Total Unrealized Losses: (71)\nJune 30, 2026 \u003E Municipal securities \u2014 Less than 12 Months Fair Value: 0 | Less than 12 Months Unrealized Losses: 0 | 12 Months or Greater Fair Value: 122 | 12 Months or Greater Unrealized Losses: (19) | Total Fair Value: 122 | Total Unrealized Losses: (19)\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Investments ---\r\n\u0060\u0060\u0060\r\n(In millions)\nJune 30, 2025\nJune 30, 2025 \u003E U.S. government and agency securities \u2014 Less than 12 Months Fair Value: $2,569 | Less than 12 Months Unrealized Losses: $(51) | 12 Months or Greater Fair Value: $34,608 | 12 Months or Greater Unrealized Losses: $(1,411) | Total Fair Value: $37,177 | Total Unrealized Losses: $(1,462)\nJune 30, 2025 \u003E Foreign government bonds \u2014 Less than 12 Months Fair Value: 43 | Less than 12 Months Unrealized Losses: (2) | 12 Months or Greater Fair Value: 106 | 12 Months or Greater Unrealized Losses: (7) | Total Fair Value: 149 | Total Unrealized Losses: (9)\nJune 30, 2025 \u003E Mortgage- and asset-backed securities \u2014 Less than 12 Months Fair Value: 841 | Less than 12 Months Unrealized Losses: (4) | 12 Months or Greater Fair Value: 189 | 12 Months or Greater Unrealized Losses: (23) | Total Fair Value: 1,030 | Total Unrealized Losses: (27)\nJune 30, 2025 \u003E Corporate notes and bonds \u2014 Less than 12 Months Fair Value: 1,107 | Less than 12 Months Unrealized Losses: (8) | 12 Months or Greater Fair Value: 3,105 | 12 Months or Greater Unrealized Losses: (98) | Total Fair Value: 4,212 | Total Unrealized Losses: (106)\nJune 30, 2025 \u003E Municipal securities \u2014 Less than 12 Months Fair Value: 0 | Less than 12 Months Unrealized Losses: 0 | 12 Months or Greater Fair Value: 168 | 12 Months or Greater Unrealized Losses: (21) | Total Fair Value: 168 | Total Unrealized Losses: (21)\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Investments ---\r\n\u0060\u0060\u0060\r\nNOTE 4 \u2014 INVESTMENTS\n\nInvestment Components\n\nThe components of investments were as follows:\n\n(In millions)\nJune 30, 2026\nChanges in Fair Value Recorded in Other Comprehensive Income\nJune 30, 2026 \u003E Changes in Fair Value Recorded in Other Comprehensive Income \u003E Commercial paper \u2014 Fair Value Level: Level 2 | Adjusted Cost Basis: $2,987 | Unrealized Gains: $0 | Unrealized Losses: $0 | Recorded Basis: $2,987 | Cash and Cash Equivalents: $2,373 | Short-term Investments: $614 | Equity and Other Investments: $0\nJune 30, 2026 \u003E Changes in Fair Value Recorded in Other Comprehensive Income \u003E Certificates of deposit \u2014 Fair Value Level: Level 2 | Adjusted Cost Basis: 1,745 | Unrealized Gains: 0 | Unrealized Losses: 0 | Recorded Basis: 1,745 | Cash and Cash Equivalents: 1,701 | Short-term Investments: 44 | Equity and Other Investments: 0\nJune 30, 2026 \u003E Changes in Fair Value Recorded in Other Comprehensive Income \u003E U.S. government securities \u2014 Fair Value Level: Level 1 | Adjusted Cost Basis: 49,714 | Unrealized Gains: 2 | Unrealized Losses: (1,154) | Recorded Basis: 48,562 | Cash and Cash Equivalents: 399 | Short-term Investments: 40,675 | Equity and Other Investments: 7,488\nJune 30, 2026 \u003E Changes in Fair Value Recorded in Other Comprehensive Income \u003E U.S. agency securities \u2014 Fair Value Level: Level 2 | Adjusted Cost Basis: 3,133 | Unrealized Gains: 0 | Unrealized Losses: 0 | Recorded Basis: 3,133 | Cash and Cash Equivalents: 1,787 | Short-term Investments: 1,346 | Equity and Other Investments: 0\nJune 30, 2026 \u003E Changes in Fair Value Recorded in Other Comprehensive Income \u003E Foreign government bonds \u2014 Fair Value Level: Level 2 | Adjusted Cost Basis: 221 | Unrealized Gains: 12 | Unrealized Losses: (7) | Recorded Basis: 226 | Cash and Cash Equivalents: 0 | Short-term Investments: 226 | Equity and Other Investments: 0\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Investments ---\r\n\u0060\u0060\u0060\r\nNOTE 4 \u2014 INVESTMENTS\n\nInvestment Components\n\nThe components of investments were as follows:\n\n(In millions)\nJune 30, 2026 \u003E Changes in Fair Value Recorded in Other Comprehensive Income \u003E Mortgage- and asset-backed securities \u2014 Fair Value Level: Level 2 | Adjusted Cost Basis: 1,813 | Unrealized Gains: 5 | Unrealized Losses: (23) | Recorded Basis: 1,795 | Cash and Cash Equivalents: 0 | Short-term Investments: 1,795 | Equity and Other Investments: 0\nJune 30, 2026 \u003E Changes in Fair Value Recorded in Other Comprehensive Income \u003E Corporate notes and bonds \u2014 Fair Value Level: Level 2 | Adjusted Cost Basis: 10,682 | Unrealized Gains: 49 | Unrealized Losses: (71) | Recorded Basis: 10,660 | Cash and Cash Equivalents: 0 | Short-term Investments: 10,660 | Equity and Other Investments: 0\nJune 30, 2026 \u003E Changes in Fair Value Recorded in Other Comprehensive Income \u003E Corporate notes and bonds \u2014 Fair Value Level: Level 3 | Adjusted Cost Basis: 1,618 | Unrealized Gains: 120 | Unrealized Losses: 0 | Recorded Basis: 1,738 | Cash and Cash Equivalents: 0 | Short-term Investments: 118 | Equity and Other Investments: 1,620\nJune 30, 2026 \u003E Changes in Fair Value Recorded in Other Comprehensive Income \u003E Municipal securities \u2014 Fair Value Level: Level 2 | Adjusted Cost Basis: 152 | Unrealized Gains: 0 | Unrealized Losses: (5) | Recorded Basis: 147 | Cash and Cash Equivalents: 0 | Short-term Investments: 147 | Equity and Other Investments: 0\nJune 30, 2026 \u003E Changes in Fair Value Recorded in Other Comprehensive Income \u003E Municipal securities \u2014 Fair Value Level: Level 3 | Adjusted Cost Basis: 105 | Unrealized Gains: 0 | Unrealized Losses: (14) | Recorded Basis: 91 | Cash and Cash Equivalents: 0 | Short-term Investments: 91 | Equity and Other Investments: 0\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was the recorded basis of Microsoft\u0027s U.S. government securities as of June 30, 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The recorded basis of Microsoft\u0027s U.S. government securities (Level 1) was $48,562 million as of June 30, 2026 (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Investments)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 48,562 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 4,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "48,562 at rank 4 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 1 from excerpts 1 (narrative), 2 (narrative), 4 (narrative), 48,562 from excerpt 4 (narrative)."
+        },
+        "metadata": {
+          "Stated 1": "excerpt 1 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Investments): \u0022...ties \u2014 Fair Value Level: Level 2 | Adjusted Cost Basis: 207 | Unrealized Gains: 1 | Unrealized Losses: (7) | Recorded Basis: 201 | Cash and Cash Equivalents: 0 ...\u0022; excerpt 2 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Investments): \u0022... \u2014 Less than 12 Months Fair Value: 74 | Less than 12 Months Unrealized Losses: (1) | 12 Months or Greater Fair Value: 30 | 12 Months or Greater Unrealized Losse...\u0022; excerpt 4 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Investments): \u0022...her Comprehensive Income \u003E U.S. government securities \u2014 Fair Value Level: Level 1 | Adjusted Cost Basis: 49,714 | Unrealized Gains: 2 | Unrealized Losses: (1,15...\u0022",
+          "Stated 48,562": "excerpt 4 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Investments): \u0022...is: 49,714 | Unrealized Gains: 2 | Unrealized Losses: (1,154) | Recorded Basis: 48,562 | Cash and Cash Equivalents: 399 | Short-term Investments: 40,675 | Equit...\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$48,562 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "claude-opus-5-5",
+          "eval-input-tokens": "1521",
+          "eval-output-tokens": "3",
+          "eval-total-tokens": "1524",
+          "eval-duration-ms": "2133.75",
+          "Judge reply": "5",
+          "Score taken from the reply\u0027s words": "no"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0010505,
+        "model": "claude-opus-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 4609,
+          "outputTokenCount": 181,
+          "totalTokenCount": 4790,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "4AA15451EB809E7C09291BB3C75EF55736561831C44C55A4DC2D84BB548B7EC94B5246E438CE6553662B1946909527EA",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-opus-5-5",
+    "effort:Medium/Medium",
+    "judge:claude-opus-5-5",
+    "kind:figure",
+    "has traps",
+    "company:MSFT",
+    "statement:none",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}

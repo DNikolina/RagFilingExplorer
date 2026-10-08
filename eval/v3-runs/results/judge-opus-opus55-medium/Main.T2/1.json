@@ -1,0 +1,147 @@
+{
+  "scenarioName": "Main.T2",
+  "iterationName": "1",
+  "executionName": "judge-opus-opus55-medium",
+  "creationTime": "2026-10-08T19:44:14.518734Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Stockholders\u0027 Equity ---\r\n\u0060\u0060\u0060\r\nWe repurchased the following shares of common stock under the share repurchase programs:\n\n(In millions) Year Ended June 30,\nFirst Quarter \u2014 2026 Shares: 8 | 2026 Amount: $3,955 | 2025 Shares: 7 | 2025 Amount: $2,800 | 2024 Shares: 11 | 2024 Amount: $3,560\nSecond Quarter \u2014 2026 Shares: 12 | 2026 Amount: 5,964 | 2025 Shares: 8 | 2025 Amount: 3,500 | 2024 Shares: 7 | 2024 Amount: 2,800\nThird Quarter \u2014 2026 Shares: 7 | 2026 Amount: 3,400 | 2025 Shares: 8 | 2025 Amount: 3,500 | 2024 Shares: 7 | 2024 Amount: 2,800\nFourth Quarter \u2014 2026 Shares: 9 | 2026 Amount: 3,400 | 2025 Shares: 8 | 2025 Amount: 3,200 | 2024 Shares: 7 | 2024 Amount: 2,800\nTotal \u2014 2026 Shares: 36 | 2026 Amount: $16,719 | 2025 Shares: 31 | 2025 Amount: $13,000 | 2024 Shares: 32 | 2024 Amount: $11,960\n\nAll share repurchases were made using cash resources. Shares repurchased during fiscal year 2026 were under the share repurchase program approved on September 16, 2024. Shares repurchased during the fourth quarter of fiscal year 2025 were under the share repurchase programs approved on September 14, 2021 and September 16, 2024. All other shares repurchased were under the share repurchase program approved on September 14, 2021. The above table excludes shares repurchased to settle employee tax withholding related to the vesting of stock awards of $5.6 billion, $5.4 billion, and $5.3 billion for fiscal years 2026, 2025, and 2024, respectively.\n\nDividends\n\nOur Board of Directors declared the following dividends:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Stockholders\u0027 Equity ---\r\n\u0060\u0060\u0060\r\nNOTE 15 \u2014 STOCKHOLDERS\u2019 EQUITY\n\nShares Outstanding\n\nShares of common stock outstanding were as follows:\n\n(In millions) Year Ended June 30,\nBalance, beginning of year \u2014 2026: 7,434 | 2025: 7,434 | 2024: 7,432\nIssued \u2014 2026: 29 | 2025: 31 | 2024: 34\nRepurchased \u2014 2026: (36) | 2025: (31) | 2024: (32)\nBalance, end of year \u2014 2026: 7,427 | 2025: 7,434 | 2024: 7,434\n\nShare Repurchases\n\nOn September 14, 2021, our Board of Directors approved a share repurchase program authorizing up to $60.0 billion in share repurchases. This share repurchase program commenced in November 2021 and was completed in April 2025.\n\nOn September 16, 2024, our Board of Directors approved a share repurchase program authorizing up to $60.0 billion in share repurchases. This share repurchase program commenced in April 2025, following completion of the program approved on September 14, 2021, has no expiration date, and may be terminated at any time. As of June 30, 2026, $40.6 billion remained of this $60.0 billion share repurchase program.\n\nWe repurchased the following shares of common stock under the share repurchase programs:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 5. MARKET FOR REGISTRANT\u2019S COMMON EQUITY, RELATED STOCKHOLDER MATTERS, AND ISSUER PURCHASES OF EQUITY SECURITIES ---\r\n\u0060\u0060\u0060\r\nMARKET AND STOCKHOLDERS\n\nOur common stock is traded on the NASDAQ Stock Market under the symbol MSFT. On July 23, 2026, there were 74,199 registered holders of record of our common stock.\n\nSHARE REPURCHASES AND DIVIDENDS\n\nFollowing are our monthly share repurchases for the fourth quarter of fiscal year 2026:\n\n(In millions) Period\nApril 1, 2026 \u2013 April 30, 2026 \u2014 Total Number of Shares Purchased: 1,002,119 | Average Price Paid Per Share: $398.88 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: 1,002,119 | Approximate Dollar Value of Shares That May Yet Be Purchased Under the Plans or Programs: $43,630\nMay 1, 2026 \u2013 May 31, 2026 \u2014 Total Number of Shares Purchased: 3,559,509 | Average Price Paid Per Share: 416.81 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: 3,559,509 | Approximate Dollar Value of Shares That May Yet Be Purchased Under the Plans or Programs: 42,147\nJune 1, 2026 \u2013 June 30, 2026 \u2014 Total Number of Shares Purchased: 3,828,061 | Average Price Paid Per Share: 396.19 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: 3,828,061 | Approximate Dollar Value of Shares That May Yet Be Purchased Under the Plans or Programs: 40,630\nTotal Number of Shares Purchased: 8,389,689 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: 8,389,689\n\nAll share repurchases were made using cash resources. Our share repurchases may occur through open market purchases or pursuant to a Rule 10b5-1 trading plan. The above table excludes shares repurchased to settle employee tax withholding related to the vesting of stock awards.\n\nOur Board of Directors declared the following dividends during the fourth quarter of fiscal year 2026:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\r\n\u0060\u0060\u0060\r\nSTOCKHOLDERS\u2019 EQUITY STATEMENTS\n\n(In millions, except per share amounts) Year Ended June 30,\nCommon stock and paid-in capital\nCommon stock and paid-in capital \u003E Balance, beginning of period \u2014 2026: $109,095 | 2025: $100,923 | 2024: $93,718\nCommon stock and paid-in capital \u003E Common stock issued \u2014 2026: 2,009 | 2025: 2,056 | 2024: 2,002\nCommon stock and paid-in capital \u003E Common stock repurchased \u2014 2026: (6,105) | 2025: (5,856) | 2024: (5,712)\nCommon stock and paid-in capital \u003E Stock-based compensation expense \u2014 2026: 12,405 | 2025: 11,974 | 2024: 10,734\nCommon stock and paid-in capital \u003E Other, net \u2014 2026: 2 | 2025: (2) | 2024: 181\nCommon stock and paid-in capital \u003E Balance, end of period \u2014 2026: 117,406 | 2025: 109,095 | 2024: 100,923\nRetained earnings\nRetained earnings \u003E Balance, beginning of period \u2014 2026: 237,731 | 2025: 173,144 | 2024: 118,848\nRetained earnings \u003E Net income \u2014 2026: 133,749 | 2025: 101,832 | 2024: 88,136\nRetained earnings \u003E Common stock cash dividends \u2014 2026: (27,034) | 2025: (24,677) | 2024: (22,293)\nRetained earnings \u003E Common stock repurchased \u2014 2026: (16,181) | 2025: (12,568) | 2024: (11,547)\nRetained earnings \u003E Balance, end of period \u2014 2026: 328,265 | 2025: 237,731 | 2024: 173,144\nAccumulated other comprehensive loss\nAccumulated other comprehensive loss \u003E Balance, beginning of period \u2014 2026: (3,347) | 2025: (5,590) | 2024: (6,343)\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 5. MARKET FOR REGISTRANT\u2019S COMMON EQUITY, RELATED STOCKHOLDER MATTERS, AND ISSUER PURCHASES OF EQUITY SECURITIES ---\r\n\u0060\u0060\u0060\r\nOur Board of Directors declared the following dividends during the fourth quarter of fiscal year 2026:\n\n(In millions) Declaration Date\nJune 10, 2026 \u2014 Record Date: August 20, 2026 | Payment Date: September 10, 2026 | Dividend Per Share: $0.91 | Amount: $6,759\n\nWe returned $10.2 billion to shareholders in the form of share repurchases and dividends in the fourth quarter of fiscal year 2026. Refer to Note 15 \u2013 Stockholders\u2019 Equity of the Notes to Financial Statements (Part II, Item 8 of this Form 10-K) for further discussion regarding share repurchases and dividends.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much did Microsoft spend repurchasing its shares in the second quarter of fiscal year 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft spent **$3,500 million** repurchasing 8 million shares under its share repurchase programs in the second quarter of the fiscal year ended June 30, 2025 (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Stockholders\u0027 Equity). This figure excludes shares repurchased to settle employee tax withholding related to the vesting of stock awards (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Stockholders\u0027 Equity)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 3,500 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "3,500 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 3,500 from excerpt 1 (narrative), 8 from excerpts 1 (narrative), 5 (narrative)."
+        },
+        "metadata": {
+          "Stated 3,500": "excerpt 1 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Stockholders\u0027 Equity): \u0022Second Quarter \u2014 2026 Shares: 12 | 2026 Amount: 5,964 | 2025 Shares: 8 | 2025 Amount: 3,500 | 2024 Shares: 7 | 2024 Amount: 2,800\u0022 (\u002B1 more line)",
+          "Stated 8": "excerpt 1 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Stockholders\u0027 Equity): \u0022First Quarter \u2014 2026 Shares: 8 | 2026 Amount: $3,955 | 2025 Shares: 7 | 2025 Amount: $2,800 | 2024 Shares: 11 | 2024 Amount: $3,560\u0022 (\u002B3 more lines); excerpt 5 (narrative, PART II \u003E Item 5. MARKET FOR REGISTRANT\u2019S COMMON EQUITY, RELATED STOCKHOLDER MATTERS, AND ISSUER PURCHASES OF EQUITY SECURITIES): \u0022...e 15 \u2013 Stockholders\u2019 Equity of the Notes to Financial Statements (Part II, Item 8 of this Form 10-K) for further discussion regarding share repurchases and divi...\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$3,500 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "claude-opus-5-5",
+          "eval-input-tokens": "1644",
+          "eval-output-tokens": "3",
+          "eval-total-tokens": "1647",
+          "eval-duration-ms": "12231.67",
+          "Judge reply": "5",
+          "Score taken from the reply\u0027s words": "no"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0006904,
+        "model": "claude-opus-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 3600,
+          "outputTokenCount": 337,
+          "totalTokenCount": 3937,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "CAAB9A524B7AFDA7D0B717065BC6FEE6B001C257A68AE626F07F3876CFA3FDBA2040E318D75150AD2AD957352D6FFA9A",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-opus-5-5",
+    "effort:Medium/Medium",
+    "judge:claude-opus-5-5",
+    "kind:figure",
+    "has traps",
+    "company:MSFT",
+    "statement:none",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}

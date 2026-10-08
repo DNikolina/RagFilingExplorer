@@ -3786,7 +3786,22 @@ Every disagreement read:
 
 So a capable judge does what the local one couldn't - it tells a wrong figure from the right one - but it is a similarity
 judge: it doesn't hold a unit or the exact figure. The strict grade stays the grade; the paid judge is a usable second
-view, and a cheap reader of the leftover `check`s. Opus as the judge is not run (the plan's "if Sonnet leaves a question
-open"): the open points are the prompt's similarity criterion, which a stronger judge model wouldn't change.
+view, and a cheap reader of the leftover `check`s. Opus as the judge was proposed to skip - the open points are the prompt's
+similarity criterion, which a stronger judge model wouldn't change - and run anyway (user: "I want us to have this as
+well"), below.
 The agreement report now says where a Claude judge's calls are recorded (its own client, not the scenario's chat details),
 instead of "Judge calls: 0". 409 + 191 tests.
+
+**Step 3b - Equivalence by Opus 5.5 (Low effort), the same three runs (user, 2026-10-08).** 306/306 answers from the
+cache; the judge billed 466,972 input + 2,417 output tokens, **~$1.92**. Reports `eval/v3-runs/judge-judge-opus-*.txt`.
+**Opus and Sonnet as judges agree on 304 of 306 verdicts**, and on Opus's and Sonnet's answers verdict for verdict:
+- llama's **V3** - only apparently: Sonnet's "unread" reply ended with the score alone on its last line, 4, Opus's 4;
+  both pass an answer that lists the three years' figures without the sum asked for.
+- llama's **A11** - "$63 million ... and $5.7 billion" (MD&A's rounded figures) for the exact $5,787 million: Sonnet 3
+  (fail), Opus 4 (pass).
+So, on llama's answers: Opus 97/102 with the strict grade, 5 of 18 strict failures passed (A11, A14, H34, Q21, V3 -
+rounded figures, a missing unit, an unstated sum - never a wrong figure); Sonnet 3 of 17; llama's judge 14 of 18. On
+Claude's answers both 99/102. **No self-preference shows** - Opus judged its own answers exactly as Sonnet did - and **a
+stronger judge doesn't remove the leniency**, it adds a little: it comes from Equivalence's similarity criterion. Sonnet
+is the judge to use here - slightly stricter at half the price. Batch 2's judging so far: ~$2.86 (Sonnet ~$0.94, Opus
+~$1.92).

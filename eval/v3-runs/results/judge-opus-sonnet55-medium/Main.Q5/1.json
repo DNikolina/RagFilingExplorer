@@ -1,0 +1,147 @@
+{
+  "scenarioName": "Main.Q5",
+  "iterationName": "1",
+  "executionName": "judge-opus-sonnet55-medium",
+  "creationTime": "2026-10-08T19:46:55.2180381Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF CASH FLOWS\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions) Year Ended May 31,\nCash flows from operating activities:\nCash flows from operating activities \u003E Net income \u2014 2026: $17,087 | 2025: $12,443 | 2024: $10,467\nAdjustments to reconcile net income to net cash provided by operating activities:\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Depreciation \u2014 2026: 7,623 | 2025: 3,867 | 2024: 3,129\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Amortization of intangible assets \u2014 2026: 1,671 | 2025: 2,307 | 2024: 3,010\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Deferred income taxes \u2014 2026: (917) | 2025: (1,637) | 2024: (2,139)\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Stock-based compensation \u2014 2026: 4,811 | 2025: 4,674 | 2024: 3,974\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Gains from investments and other, net \u2014 2026: (2,433) | 2025: 667 | 2024: 720\nChanges in operating assets and liabilities:\nChanges in operating assets and liabilities \u003E Increase in trade receivables, net \u2014 2026: (2,190) | 2025: (653) | 2024: (965)\nChanges in operating assets and liabilities \u003E Decrease in prepaid expenses and other assets \u2014 2026: 2,179 | 2025: 266 | 2024: 542\nChanges in operating assets and liabilities \u003E Decrease in accounts payable and other liabilities \u2014 2026: (240) | 2025: (608) | 2024: (594)\nChanges in operating assets and liabilities \u003E Decrease in income taxes payable \u2014 2026: (256) | 2025: (659) | 2024: (127)\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF CASH FLOWS\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions) Year Ended May 31,\nChanges in operating assets and liabilities \u003E Increase in deferred revenues from customer prepayments with significant financing component \u2014 2026: 4,592\nChanges in operating assets and liabilities \u003E Increase in other deferred revenues \u2014 2026: 50 | 2025: 154 | 2024: 656\nChanges in operating assets and liabilities \u003E Net cash provided by operating activities \u2014 2026: 31,977 | 2025: 20,821 | 2024: 18,673\nCash flows from investing activities:\nCash flows from investing activities \u003E Purchases of marketable securities and other investments and acquisitions \u2014 2026: (2,039) | 2025: (1,272) | 2024: (1,066)\nCash flows from investing activities \u003E Proceeds from sales and maturities of marketable securities and other investments \u2014 2026: 5,848 | 2025: 776 | 2024: 572\nCash flows from investing activities \u003E Capital expenditures \u2014 2026: (55,663) | 2025: (21,215) | 2024: (6,866)\nCash flows from investing activities \u003E Net cash used for investing activities \u2014 2026: (51,854) | 2025: (21,711) | 2024: (7,360)\nCash flows from financing activities:\nCash flows from financing activities \u003E Proceeds from issuances of common stock \u2014 2026: 1,449 | 2025: 653 | 2024: 742\nCash flows from financing activities \u003E Payments for repurchases of common stock \u2014 2026: (95) | 2025: (600) | 2024: (1,202)\nCash flows from financing activities \u003E Shares repurchased for tax withholdings upon vesting of restricted stock-based awards \u2014 2026: (111) | 2025: (900) | 2024: (2,040)\nCash flows from financing activities \u003E Proceeds from issuances of mandatory convertible preferred stock, net of issuance costs \u2014 2026: 4,954\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF CASH FLOWS\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions) Year Ended May 31,\nNon-cash investing activities:\nNon-cash investing activities \u003E Unpaid capital expenditures \u2014 2026: $5,279 | 2025: $2,970 | 2024: $1,637\nSupplemental schedule of cash flow data:\nSupplemental schedule of cash flow data \u003E Cash paid for income taxes \u2014 2026: $3,704 | 2025: $4,020 | 2024: $3,560\nSupplemental schedule of cash flow data \u003E Cash paid for interest \u2014 2026: $3,896 | 2025: $3,374 | 2024: $3,655\n\nSee notes to consolidated financial statements.\n\n[Table of Contents](#toc_page)\n\nORACLE CORPORATION\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF CASH FLOWS\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions) Year Ended May 31,\nCash flows from financing activities \u003E Payments of dividends to stockholders \u2014 2026: (5,787) | 2025: (4,743) | 2024: (4,391)\nCash flows from financing activities \u003E (Repayments of) proceeds from issuances of commercial paper, net \u2014 2026: (2,285) | 2025: 1,889 | 2024: (167)\nCash flows from financing activities \u003E Proceeds from short-term financing related to capital expenditures, net \u2014 2026: 3,345 | 2025: 1,422\nCash flows from financing activities \u003E Proceeds from issuances of senior notes, term loan credit agreements and other borrowings, net of issuance costs \u2014 2026: 46,093 | 2025: 19,548\nCash flows from financing activities \u003E Repayments of senior notes, term loan credit agreements and other borrowings \u2014 2026: (6,942) | 2025: (15,841) | 2024: (3,500)\nCash flows from financing activities \u003E Other financing activities, net \u2014 2026: (337) | 2025: (330) | 2024: 4\nCash flows from financing activities \u003E Net cash provided by (used for) financing activities \u2014 2026: 40,284 | 2025: 1,098 | 2024: (10,554)\nCash flows from financing activities \u003E Effect of exchange rate changes on cash and cash equivalents \u2014 2026: 96 | 2025: 124 | 2024: (70)\nCash flows from financing activities \u003E Net increase in cash and cash equivalents \u2014 2026: 20,503 | 2025: 332 | 2024: 689\nCash flows from financing activities \u003E Cash and cash equivalents at beginning of period \u2014 2026: 10,786 | 2025: 10,454 | 2024: 9,765\nCash flows from financing activities \u003E Cash and cash equivalents at end of period \u2014 2026: $31,289 | 2025: $10,786 | 2024: $10,454\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nCash flows from operating activities: Our largest source of operating cash flows is cash collections from our customers following the purchase and renewal of their cloud and software support agreements. Over the course of a fiscal year, we also generate cash from the sales of software licenses, hardware offerings and other services. Our primary uses of cash from operating activities are typically for employee-related expenditures, expenses related to data center leases and power for our cloud business, taxes, and interest payments.\n\nNet cash provided by operating activities increased by $11.2 billion in fiscal 2026 relative to fiscal 2025 primarily due to higher net income adjusted for certain non-cash charges and higher cash favorable working capital changes, net, which includes $4.6 billion cash inflows from customer prepayments with significant financing component.\n\nCash flows from investing activities: The changes in cash flows from investing activities primarily relate to our investments in capital assets to support the growth in our cloud and software business and purchases, maturities and sales of our investments in marketable securities and other instruments.\n\nNet cash used for investing activities increased by $30.1 billion in fiscal 2026 relative to fiscal 2025 primarily due to a $34.4 billion increase in capital expenditures, partially offset by $4.3 billion of cash proceeds from the sale of our investment in Ampere.\n\nCash flows from financing activities: The changes in cash flows from financing activities primarily relate to borrowings and repayments related to our debt instruments, issuance of other financing or equity instruments, stock repurchases, dividend payments and net proceeds related to employee stock programs.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Oracle\u0027s net cash provided by operating activities?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s \u0022Net cash provided by operating activities\u0022 was $31,977 million for the year ended May 31, 2026, compared with $20,821 million for the year ended May 31, 2025 and $18,673 million for the year ended May 31, 2024. (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 31,977 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "31,977 at rank 2 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 31,977 from excerpt 2 (cash_flow_statement), 20,821 from excerpt 2 (cash_flow_statement), 18,673 from excerpt 2 (cash_flow_statement)."
+        },
+        "metadata": {
+          "Stated 31,977": "excerpt 2 (cash_flow_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Changes in operating assets and liabilities \u003E Net cash provided by operating activities \u2014 2026: 31,977 | 2025: 20,821 | 2024: 18,673\u0022",
+          "Stated 20,821": "excerpt 2 (cash_flow_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Changes in operating assets and liabilities \u003E Net cash provided by operating activities \u2014 2026: 31,977 | 2025: 20,821 | 2024: 18,673\u0022",
+          "Stated 18,673": "excerpt 2 (cash_flow_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Changes in operating assets and liabilities \u003E Net cash provided by operating activities \u2014 2026: 31,977 | 2025: 20,821 | 2024: 18,673\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$31,977 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "claude-opus-5-5",
+          "eval-input-tokens": "1527",
+          "eval-output-tokens": "3",
+          "eval-total-tokens": "1530",
+          "eval-duration-ms": "1815.15",
+          "Judge reply": "5",
+          "Score taken from the reply\u0027s words": "no"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008722,
+        "model": "claude-sonnet-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 3562,
+          "outputTokenCount": 126,
+          "totalTokenCount": 3688,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "C393B98E1599CE02251AC5B95FD6020BF9125E153C9AEDC85E70C716539F8EA58D649D7320FFA5AB8BE79DD2EF3EBB7B",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-sonnet-5-5",
+    "effort:Medium/Medium",
+    "judge:claude-opus-5-5",
+    "kind:figure",
+    "company:ORCL",
+    "statement:cash_flow_statement",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}

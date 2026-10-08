@@ -1,0 +1,148 @@
+{
+  "scenarioName": "HeldOut.H1",
+  "iterationName": "1",
+  "executionName": "judge-opus-sonnet55-medium",
+  "creationTime": "2026-10-08T19:48:11.6855952Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS ---\r\n\u0060\u0060\u0060\r\n\u2022\n\nOperating expenses increased $940 million or 6% driven by impairment and other related expenses in our XBOX business and continued investments in research and development compute capacity, AI talent, and data to support product development that benefits the entire portfolio.\n\nOperating income included a favorable foreign currency impact of 2%.\n\nOPERATING EXPENSES\n\nResearch and Development\n\n(In millions, except percentages)\nResearch and development \u2014 2026: $35,562 | 2025: $32,488 | Percentage Change: 9%\nAs a percent of revenue \u2014 2026: 11% | 2025: 12% | Percentage Change: (1)ppt\n\nResearch and development expenses include payroll, stock-based compensation expense, employee benefits, and other headcount-related expenses associated with product development. Research and development expenses also include technology development costs, including AI training and other infrastructure costs, third-party development and programming costs, and the depreciation and amortization of assets used to conduct research and development.\n\nFiscal Year 2026 Compared with Fiscal Year 2025\n\nResearch and development expenses increased $3.1 billion or 9% driven by continued investments in compute capacity, AI talent, and data to support product development that benefits the entire portfolio, as well as impairment and other related expenses in our XBOX business.\n\nSales and Marketing\n\n(In millions, except percentages)\nSales and marketing \u2014 2026: $26,710 | 2025: $25,654 | Percentage Change: 4%\nAs a percent of revenue \u2014 2026: 8% | 2025: 9% | Percentage Change: (1)ppt\n\nSales and marketing expenses include payroll, stock-based compensation expense, employee benefits, and other headcount-related expenses associated with sales and marketing personnel, and the costs of advertising, promotions, trade shows, seminars, and other programs.\n\nFiscal Year 2026 Compared with Fiscal Year 2025\n\nSales and marketing expenses increased $1.1 billion or 4% driven by investments in commercial sales and higher Copilot advertising expenses.\n\nGeneral and Administrative\n\n(In millions, except percentages)\nGeneral and administrative \u2014 2026: $7,956 | 2025: $7,223 | Percentage Change: 10%\nAs a percent of revenue \u2014 2026: 2% | 2025: 3% | Percentage Change: (1)ppt\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\r\n\u0060\u0060\u0060\r\nINCOME STATEMENTS\n\n(In millions, except per share amounts) Year Ended June 30,\nRevenue:\nRevenue \u003E Product \u2014 2026: $64,696 | 2025: $63,946 | 2024: $64,773\nRevenue \u003E Service and other \u2014 2026: 267,143 | 2025: 217,778 | 2024: 180,349\nRevenue \u003E Total revenue \u2014 2026: 331,839 | 2025: 281,724 | 2024: 245,122\nCost of revenue:\nCost of revenue \u003E Product \u2014 2026: 12,098 | 2025: 13,501 | 2024: 15,272\nCost of revenue \u003E Service and other \u2014 2026: 94,276 | 2025: 74,330 | 2024: 58,842\nCost of revenue \u003E Total cost of revenue \u2014 2026: 106,374 | 2025: 87,831 | 2024: 74,114\nGross margin \u2014 2026: 225,465 | 2025: 193,893 | 2024: 171,008\nResearch and development \u2014 2026: 35,562 | 2025: 32,488 | 2024: 29,510\nSales and marketing \u2014 2026: 26,710 | 2025: 25,654 | 2024: 24,456\nGeneral and administrative \u2014 2026: 7,956 | 2025: 7,223 | 2024: 7,609\nOperating income \u2014 2026: 155,237 | 2025: 128,528 | 2024: 109,433\nOther income (expense), net \u2014 2026: 10,697 | 2025: (4,901) | 2024: (1,646)\nIncome before income taxes \u2014 2026: 165,934 | 2025: 123,627 | 2024: 107,787\nProvision for income taxes \u2014 2026: 32,185 | 2025: 21,795 | 2024: 19,651\nNet income \u2014 2026: $133,749 | 2025: $101,832 | 2024: $88,136\nEarnings per share:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS ---\r\n\u0060\u0060\u0060\r\n\u2022\n\nServer products and cloud services revenue increased $31.0 billion or 31% driven by Azure and other cloud services. Azure and other cloud services revenue grew 41% driven by demand for services across the platform with continued growth across all workloads. Server products revenue increased 1% primarily driven by higher purchases of licenses running in multi-cloud environments, offset in part by continued customer shift to cloud.\n\n\u2022\n\nEnterprise and partner services revenue increased $500 million or 6% driven by growth in Enterprise Support Services.\n\nOperating income increased $12.4 billion or 28%.\n\n\u2022\n\nCost of revenue increased $17.7 billion or 44% driven by investments in AI infrastructure to support growing customer demand.\n\n\u2022\n\nGross margin increased $13.8 billion or 21% driven by growth in Azure. Gross margin percentage decreased driven by the continued investments in AI infrastructure as well as sales mix shift to Azure, offset in part by efficiency gains in Azure.\n\n\u2022\n\nOperating expenses increased $1.4 billion or 7% driven by continued investments in research and development compute capacity, AI talent, and data to support product development that benefits the entire portfolio.\n\nCost of revenue included an unfavorable foreign currency impact of 2%.\n\nMore Personal Computing\n\nRevenue decreased $597 million or 1%.\n\n\u2022\n\nWindows and Devices revenue decreased $230 million or 1%. Windows OEM and Devices revenue decreased slightly driven by a decline in Devices, offset in part by Windows OEM growth of 5% with inventory levels that remained elevated.\n\n\u2022\n\nXBOX revenue decreased $1.7 billion or 7% driven by declines in XBOX content and services and XBOX hardware. XBOX content and services revenue decreased 5% on a prior year comparable that benefited from strong first-party content performance, offset in part by growth in XBOX Game Pass. XBOX hardware revenue decreased 29% driven by lower volume of consoles sold.\n\n\u2022\n\nSearch advertising revenue increased $1.3 billion or 9%. Search advertising revenue excluding traffic acquisition costs increased 12% driven by higher search volume and revenue per search, as well as benefit from third-party partnerships.\n\nOperating income increased $220 million or 2%.\n\n\u2022\n\nCost of revenue decreased $1.8 billion or 7% driven by lower hardware sales.\n\n\u2022\n\nGross margin increased $1.2 billion or 4% driven by growth in Search advertising and Windows OEM. Gross margin percentage increased driven by sales mix shift to higher margin businesses.\n\n\u2022\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS ---\r\n\u0060\u0060\u0060\r\nReportable Segments\n\nFiscal Year 2026 Compared with Fiscal Year 2025\n\nProductivity and Business Processes\n\nRevenue increased $19.2 billion or 16%.\n\n\u2022\n\nMicrosoft 365 Commercial products and cloud services revenue increased $14.2 billion or 16%. Microsoft 365 Commercial cloud revenue grew 17% with growth in revenue per user driven by Microsoft 365 Copilot and Microsoft 365 E5. Microsoft 365 Commercial seats grew 6% driven by small and medium businesses and frontline worker offerings. Microsoft 365 Commercial products revenue grew 13% driven by growth in the Windows Commercial on-premises components of Microsoft 365 suite sales, as well as an increase in Office 2024 transactional purchasing.\n\n\u2022\n\nMicrosoft 365 Consumer products and cloud services revenue increased $1.8 billion or 24%. Microsoft 365 Consumer cloud revenue grew 28% driven by growth in revenue per user and Microsoft 365 Consumer subscriber growth of 7%.\n\n\u2022\n\nLinkedIn revenue increased $2.0 billion or 11% with growth across all lines of business.\n\n\u2022\n\nDynamics products and cloud services revenue increased $1.2 billion or 15% driven by growth in Dynamics 365. Dynamics 365 revenue grew 18% with growth across all workloads.\n\nOperating income increased $14.1 billion or 20%.\n\n\u2022\n\nCost of revenue increased $2.6 billion or 12% driven by investments in AI infrastructure to support Microsoft 365 Copilot seat and usage growth.\n\n\u2022\n\nGross margin increased $16.6 billion or 17% driven by growth in Microsoft 365 Commercial cloud. Gross margin percentage increased slightly primarily driven by efficiency gains in Microsoft 365 Commercial cloud, offset in part by continued investments in AI infrastructure and growing AI product usage.\n\n\u2022\n\nOperating expenses increased $2.5 billion or 9% driven by continued investments in research and development compute capacity, AI talent, and data to support product development that benefits the entire portfolio, as well as investments in commercial sales and higher Copilot advertising expenses.\n\nRevenue, gross margin, and operating income included a favorable foreign currency impact of 2%, 3%, and 3%, respectively.\n\nIntelligent Cloud\n\nRevenue increased $31.5 billion or 30%.\n\n\u2022\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS ---\r\n\u0060\u0060\u0060\r\nDividends\n\nDuring fiscal years 2026 and 2025, our Board of Directors declared dividends totaling $27.0 billion and $24.7 billion, respectively. We intend to continue returning capital to shareholders in the form of dividends, subject to declaration by our Board of Directors. Refer to Note 15 \u2013 Stockholders\u2019 Equity of the Notes to Financial Statements (Part II, Item 8 of this Form 10-K).\n\nOther Planned Uses of Capital\n\nWe will continue to invest in sales, marketing, product support infrastructure, and existing and advanced areas of technology, as well as acquisitions that align with our business strategy. Additions to property and equipment will continue, including new facilities, datacenters, and computer systems for research and development, sales and marketing, support, and administrative staff. We will continue to invest in capital expenditures to support growth in our cloud offerings and our investments in AI training and other infrastructure. We have operating and finance leases for datacenters and related infrastructure, servers and network equipment, corporate offices, and research and development facilities. We have not engaged in any related party transactions or arrangements with unconsolidated entities or other persons that are reasonably likely to materially affect liquidity or the availability of capital resources.\n\nRECENT ACCOUNTING GUIDANCE\n\nRefer to Note 1 \u2013 Accounting Policies of the Notes to Financial Statements (Part II, Item 8 of this Form 10-K).\n\nCRITICAL ACCOUNTING ESTIMATES\n\nOur consolidated financial statements and accompanying notes are prepared in accordance with GAAP. Preparing consolidated financial statements requires management to make estimates and assumptions that affect the reported amounts of assets, liabilities, revenue, and expenses. Critical accounting estimates are those estimates that involve a significant level of estimation uncertainty and could have a material impact on our financial condition or results of operations. We have critical accounting estimates in the areas of revenue recognition, measurement and impairment of investment securities, goodwill, research and development costs, legal and other contingencies, and income taxes.\n\nRevenue Recognition\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Microsoft\u0027s research and development expenses in fiscal year 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s research and development expenses were $35,562 million for the year ended June 30, 2026 (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA).\n\nThe same figure appears in the MD\u0026A, which shows an increase from $32,488 million in fiscal year 2025, or 9% (Source: MSFT-10K-2026.html, PART II \u003E Item 7. MANAGEMENT\u0027S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 35,562 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "35,562 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 35,562 from excerpts 1 (narrative), 2 (income_statement), 32,488 from excerpts 1 (narrative), 2 (income_statement), 9 from excerpts 1 (narrative), 3 (narrative), 4 (narrative)."
+        },
+        "metadata": {
+          "Stated 35,562": "excerpt 1 (narrative, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS): \u0022Research and development \u2014 2026: $35,562 | 2025: $32,488 | Percentage Change: 9%\u0022; excerpt 2 (income_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Research and development \u2014 2026: 35,562 | 2025: 32,488 | 2024: 29,510\u0022",
+          "Stated 32,488": "excerpt 1 (narrative, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS): \u0022Research and development \u2014 2026: $35,562 | 2025: $32,488 | Percentage Change: 9%\u0022; excerpt 2 (income_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Research and development \u2014 2026: 35,562 | 2025: 32,488 | 2024: 29,510\u0022",
+          "Stated 9": "excerpt 1 (narrative, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS): \u0022Research and development \u2014 2026: $35,562 | 2025: $32,488 | Percentage Change: 9%\u0022 (\u002B2 more lines); excerpt 3 (narrative, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS): \u0022Search advertising revenue increased $1.3 billion or 9%. Search advertising revenue excluding traffic acquisition costs increased 12% driven by higher search vo...\u0022; excerpt 4 (narrative, PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS): \u0022Operating expenses increased $2.5 billion or 9% driven by continued investments in research and development compute capacity, AI talent, and data to support pro...\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$35,562 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "claude-opus-5-5",
+          "eval-input-tokens": "1622",
+          "eval-output-tokens": "3",
+          "eval-total-tokens": "1625",
+          "eval-duration-ms": "2207.09",
+          "Judge reply": "5",
+          "Score taken from the reply\u0027s words": "no"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007087,
+        "model": "claude-sonnet-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 4629,
+          "outputTokenCount": 215,
+          "totalTokenCount": 4844,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "602ABB32CCF4C9260F07A4EB2033CB81E5738B5173C50C5660F66612608F852E67EC269A0FF52E9E23B506FDEF6ED4AA",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-sonnet-5-5",
+    "effort:Medium/Medium",
+    "judge:claude-opus-5-5",
+    "kind:figure",
+    "has traps",
+    "company:MSFT",
+    "statement:none",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}

@@ -1,0 +1,143 @@
+{
+  "scenarioName": "HeldOut.H5",
+  "iterationName": "1",
+  "executionName": "judge-opus-llama-v3-baseline",
+  "creationTime": "2026-10-08T19:40:08.4066249Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nResearch and Development\n\nWe develop the substantial majority of our products and services offerings internally utilizing the skills and diversity of a global workforce. In addition, we have extended our products and services offerings and intellectual property through acquisitions of businesses and technologies. We also purchase or license intellectual property rights in certain circumstances. Internal development allows us to maintain technical control over the design and development of our products. We have a number of U.S. and foreign patents and pending applications that relate to various aspects of our products and technology. However, although we believe that our patents have value, neither our business as a whole nor any of our principal businesses are materially dependent on a single patent. Rapid technological advances in cloud, software and hardware development, evolving standards in computer hardware and software technology, changing customer needs and frequent new product introductions, offerings and enhancements characterize the markets in which we compete. We plan to continue to dedicate a significant amount of resources to research and development efforts to develop new products and services offerings, as well as maintain and improve our current offerings. We may not receive significant revenues from our current research and development efforts for several years, if at all, and this risk is further described in Risk Factors included in Item 1A of this Annual Report.\n\nHuman Capital Resources\n\nAt Oracle, our success is driven by the quality of our people, who we believe are among the best and brightest in the industry. We strive to attract and retain talented employees, to support our employees\u2019 success and well-being and to foster a culture of inclusion where everyone is empowered to have a voice in driving innovation. The\n\n[Table of Contents](#toc_page)\n\nCompensation Committee of our Board of Directors (the Compensation Committee) is responsible for reviewing and monitoring matters related to human capital management, including talent acquisition and retention.\n\nWorkforce\n\nAs of May 31, 2026, we employed approximately 141,000 full-time employees, of which approximately 49,000 were employed in the U.S. and approximately 92,000 were employed internationally. Our approximate employee counts by lines of business are:\n\n26,000 | Cloud and software | 34,000 | Services\n25,000 | Sales and marketing | 43,000 | Research and development\n2,000 | Hardware | 11,000 | General and administrative\n\nThe average tenure of our employees is approximately eight years and 31% of our employees have been employed with Oracle for ten or more years.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nLeaders Who Listen\n\nWe believe that an important aspect of creating a workforce that supports employee, customer and business success is listening to employee feedback. We share the results of our annual employee engagement survey with leaders, including members of our Board of Directors (the Board). In fiscal 2026, more than 105,000 employees participated in the annual survey. Leaders listen to employees, evaluate feedback and prioritize actions to enhance employee, business and customer success.\n\n[Table of Contents](#toc_page)\n\nMaking a Difference\n\nEach year, through our volunteering and giving programs, Oracle employees donate tens of thousands of volunteer hours and millions of dollars (matched by Oracle) to a wide variety of causes. Oracle and our employees also rise to the occasion in times of crisis.\n\nDuring fiscal 2026, Oracle donated tens of millions of dollars to advance education, promote health, strengthen communities and protect the environment. We also have two nonprofit foundations that focus on children and young people. Oracle Health Foundation makes pediatric case grants available around the world that fund medical care ranging from hearing aids to major surgeries. Oracle Education Foundation teaches young people how to innovate, solve problems with technology and shape a better future. Oracle Academy, our global philanthropic educational program, is helping build a scalable, job-ready talent pipeline for data centers by aligning education with industry needs through targeted curriculum, partnerships and educator support. Since 2014, Oracle has also partnered with Design Tech High School, a public charter school for which we built a home at our Redwood Shores, California campus in 2016. Most recently, Oracle has brought its philanthropic efforts to the communities near its data center sites, funding local nonprofit organizations that deliver a range of programs, including education, food security, housing and health.\n\nSeasonality and Cyclicality\n\nOur quarterly revenues have historically been affected by a variety of seasonal factors, including the structure of our sales force incentive compensation plans, which are common in the IT industry. In each fiscal year, our total revenues and operating margins are typically highest in our fourth fiscal quarter and lowest in our first fiscal quarter. See \u201CCloud and Software Business\u201D in Item 7 of this Annual Report for more information regarding the seasonality and cyclicality of the revenues, expenses and margins of our cloud and software business, which is our largest business.\n\nCompetition\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nThe average tenure of our employees is approximately eight years and 31% of our employees have been employed with Oracle for ten or more years.\n\nNone of our employees in the U.S. are represented by labor unions; however, in certain foreign subsidiaries, labor unions or workers\u2019 councils represent some of our employees.\n\nEmployee Experience\n\nIn order to attract and retain high quality talent, Oracle strives to deliver a great employee experience, anchored by an inclusive culture where employees can thrive, engage in meaningful work, leverage growth opportunities and focus on their well-being. We support employee well-being from multiple dimensions, including flexible benefits, economic, health, development, lifestyle and compensation.\n\nWe believe that one of the primary reasons candidates join Oracle is for the opportunity to develop their career and participate in our global inclusive culture. We have programs and resources to help our employees explore, build and achieve their career goals. By promoting an inclusive culture that leverages a broad range of perspectives and fosters a sense of belonging, we inspire and engage our workforce to solve complex problems to help our customers across the globe.\n\nWe promote regular career conversations between leaders and employees, focused on helping employees identify and take steps to grow their careers. Our Talent Review process, which runs on Oracle Fusion Cloud HCM, provides the mechanism for leaders to review and discuss opportunities and action plans to develop employees. 20% of our open non-entry level positions were filled internally in fiscal 2026, providing growth opportunities and retaining critical knowledge and talent.\n\nWe believe that helping our employees learn and apply new skills is key to retaining and engaging them. It is also critical to our ability to innovate and rapidly evolve. We believe that our easily accessible learning resources enable us to improve our employees\u2019 learning experience and better measure learning consumption. Oracle employees received more than 4.2 million hours of training in fiscal 2026 and accessed online learning content at an average rate of approximately 2.6 million views per month. Our employees take advantage of instructor-led classes, virtual library content and online learning resources on AI, sales, business, product, market/industry, leadership, technical and compliance skills, well-being and personal development related topics.\n\nLeaders Who Listen\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART I \u003E Item 1A. Risk Factors ---\r\n\u0060\u0060\u0060\r\nTo manage expenses, we hire personnel in countries where advanced technical and other expertise are available at lower costs. When we make adjustments to our workforce, we may incur expenses associated with workforce reductions that delay the benefit of a more efficient workforce structure. We are experiencing increased competition for employees in these countries as the trend toward globalization continues, which has affected our employee retention efforts and increased our expenses in an effort to offer a competitive compensation program. In addition, changes to immigration and labor law policies may adversely impact our access to technical and professional talent.\n\nOur general compensation program includes restricted stock units (RSUs), stock options and performance-based equity, which are important tools in attracting and retaining employees in our industry. Our stock price has been volatile in recent periods, and if it were to stagnate or further decline, our ability to retain or attract employees may be harmed. We continually evaluate our compensation practices and consider changes from time to time, which may have an impact on our ability to retain employees and the amount of stock-based compensation expense that we record. Any changes in our compensation practices or those of our competitors could affect our ability to retain and motivate existing personnel and recruit new personnel.\n\n[Table of Contents](#toc_page)\n\nThere are risks associated with our cloud and software and hardware indirect sales channels which could affect our future operating results. Our cloud and software and hardware indirect channel networks consist primarily of resellers, system integrators/implementers, consultants, education providers, internet service providers, network integrators and ISVs. Our relationships with these channel participants are important elements of our cloud, software and hardware marketing and sales efforts. Our financial results could be adversely affected if:\n\n\u2022\n\nour contracts with channel participants were terminated or our relationships with channel participants were to deteriorate;\n\n\u2022\n\nany of our competitors enter into strategic relationships with or acquire a significant channel participant;\n\n\u2022\n\nthe financial condition or operations of our channel participants were to weaken; or\n\n\u2022\n\nthe level of demand for our channel participants\u2019 products and services were to decrease.\n\nWe may not successfully maintain, expand or develop our relationships with channel participants. If we are not successful, we may lose sales opportunities, customers and revenues. In addition, we do not control channel participants, some of whom operate in jurisdictions with elevated corruption risks. Our compliance policies and procedures may fail to prevent or detect violations of anti-corruption or other laws, and channel participants may violate such laws, all of which could subject us to litigation or regulatory risk and result in liability.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Employee Benefit Plans ---\r\n\u0060\u0060\u0060\r\nEmployee Stock Purchase Plan\n\nWe have an Employee Stock Purchase Plan (Purchase Plan) that allows employees to purchase shares of common stock at a price per share that is 95% of the fair market value of Oracle stock as of the end of the semi-annual option period. As of May 31, 2026, 33 million shares were reserved for future issuances under the Purchase Plan. We issued approximately 1 million shares in each of fiscal 2026 and 2025 and 2 million shares in fiscal 2024 under the Purchase Plan.\n\nDefined Contribution and Other Postretirement Plans\n\nWe offer various defined contribution plans for our U.S. and non-U.S. employees. Total defined contribution plan expense was $478 million, $485 million and $468 million for fiscal 2026, 2025 and 2024, respectively. In the U.S., regular employees can participate in the Oracle Corporation 401(k) Savings and Investment Plan (Oracle 401(k) Plan). Participants can generally contribute up to 40% of their eligible compensation on a per-pay-period basis as defined by the Oracle 401(k) Plan document or by the section 402(g) limit as defined by the U.S. Internal Revenue Service (IRS). We match a portion of employee contributions, currently 50% up to 6% of compensation each pay period, subject to maximum aggregate matching amounts. Our contributions to the Oracle 401(k) Plan, net of forfeitures, were $194 million, $206 million and $200 million in fiscal 2026, 2025 and 2024, respectively.\n\nWe also offer non-qualified deferred compensation plans to certain employees whereby they may defer a portion of their annual base and/or variable compensation until retirement or a date specified by the employee in accordance with the plans. Deferred compensation plan assets and liabilities were each approximately $1.4 billion and approximately $1.1 billion as of May 31, 2026 and 2025, respectively, and were presented in other non-current assets and other non-current liabilities in the accompanying consolidated balance sheets.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How many full-time employees did Oracle have?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "As of May 31, 2026, Oracle employed approximately 141,000 full-time employees (Source: ORCL-10K-2026.html, PART I \u003E Item 1. Business)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 141,000."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "141,000 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 141,000 from excerpt 1 (narrative)."
+        },
+        "metadata": {
+          "Stated 141,000": "excerpt 1 (narrative, PART I \u003E Item 1. Business): \u0022As of May 31, 2026, we employed approximately 141,000 full-time employees, of which approximately 49,000 were employed in the U.S. and approximately 92,000 were...\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "141,000"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "claude-opus-5-5",
+          "eval-input-tokens": "1454",
+          "eval-output-tokens": "3",
+          "eval-total-tokens": "1457",
+          "eval-duration-ms": "4163.65",
+          "Judge reply": "5",
+          "Score taken from the reply\u0027s words": "no"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.000558,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2770,
+          "outputTokenCount": 43,
+          "totalTokenCount": 2813
+        },
+        "cacheKey": "6846CCF67FDC2218BB34FDE430E5F8EF63518CDFF0011459948237904380CA1BB47C54F31AFB4351C3145A48D3D8864D",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "judge:claude-opus-5-5",
+    "kind:fact",
+    "company:ORCL",
+    "statement:none",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}

@@ -1,0 +1,9 @@
+Execution judge-opus-llama-v3-baseline: 102 questions, 4 min, chat model Local, graders Both (equivalence)
+Main: reliable 33/40  decline-ok 3  declined 1  no-unit 1  reliable 30  wrong 5  | Equivalence passes 35/40  | answer in the top 5: 36  | figures: no figure stated 6  traced 34
+HeldOut: reliable 31/35  decline-ok 4  declined 1  reliable 27  wrong 3  | Equivalence passes 32/35  | answer in the top 5: 28  | figures: no figure stated 6  traced 29
+AnswerSide: reliable 20/27  check 1  decline-ok 1  reliable 19  wrong 6  | Equivalence passes 22/27  | answer in the top 5: 22  | figures: calculated 7  no figure stated 1  traced 19
+Tokens: 261,492 input, 5,168 output.
+Judge (claude-opus-5-5, effort Low) billed: 150,554 input, 991 output tokens.
+No untraced figure.
+1 grade(s) differ from the v2 baseline:
+  AnswerSide.A16: baseline reliable, now check (also states 620) - Nasdaq spent $616 million in total purchase price for repurchasing its common stock in 2025, and an additional $4 million of accrued excise tax that had not been paid as of December 31, 2025, is excluded from the total purchase price. Therefore, the total cash spent on repurchasing common stock in 2025 is $620 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Nasdaq Stockholders’ Equity)
