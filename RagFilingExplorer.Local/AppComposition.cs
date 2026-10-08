@@ -67,16 +67,15 @@ internal static class AppComposition
         return collection;
     }
 
-    /// <summary>
-    /// The answer service over a built index. <paramref name="chatClient"/> answers the questions - the chat model's own
-    /// client unless an evaluation passes one that caches responses; the thinking-capability check always asks Ollama.
-    /// </summary>
-    public static async Task<RagRuntime> CreateRuntimeAsync(
-        AppSettings settings, IndexFiles index, VectorStoreCollection<int, FilingChunkRecord> collection, CompanyRegistry companies,
-        OllamaApiClient chatApiClient, IChatClient? chatClient = null)
-    {
-        bool chatModelSupportsThinking = await OllamaSetup.ChatModelSupportsThinkingAsync(chatApiClient, settings.Ollama.ChatModel);
+    /// <summary>The configured Ollama chat model's options - its thinking capability asked of Ollama itself.</summary>
+    public static async Task<ChatModelOptions> OllamaChatModelAsync(AppSettings settings, OllamaApiClient chatApiClient) =>
+        ChatModelOptions.ForOllama(settings.Retrieval, await OllamaSetup.ChatModelSupportsThinkingAsync(chatApiClient, settings.Ollama.ChatModel));
 
+    /// <summary>The answer service over a built index, answering with <paramref name="chatClient"/> as <paramref name="chatModel"/> describes.</summary>
+    public static RagRuntime CreateRuntime(
+        AppSettings settings, IndexFiles index, VectorStoreCollection<int, FilingChunkRecord> collection, CompanyRegistry companies,
+        IChatClient chatClient, ChatModelOptions chatModel)
+    {
         // Company and statement-type filtering, search, prompt and generation are RagAnswerService's (see
         // QueryIntentResolver for why the filters exist); the question loop is InteractiveSession's.
         //
@@ -94,15 +93,18 @@ internal static class AppComposition
         CrossEncoderReranker? reranker = settings.Retrieval.Rerank ? LoadReranker(settings.Retrieval) : null;
 
         RagAnswerService answerService = new(
-            collection, chatClient ?? chatApiClient, settings.Retrieval, chatModelSupportsThinking, companies, keywordIndex, reranker);
+            collection, chatClient, settings.Retrieval, chatModel, companies, keywordIndex, reranker);
         return new RagRuntime(answerService, companies, reranker);
     }
 
     /// <summary>
     /// For an evaluation: the app as configured, over its existing index - never built here. A missing, incomplete or
-    /// stale index is a <see cref="StartupException"/> naming the fix, as at the console's startup.
+    /// stale index is a <see cref="StartupException"/> naming the fix, as at the console's startup. The configured Ollama
+    /// chat model answers unless <paramref name="chatClient"/> and <paramref name="chatModel"/> say otherwise - an
+    /// evaluation passes a client that caches the model's responses.
     /// </summary>
-    public static async Task<RagRuntime> OpenExistingIndexAsync(AppSettings settings, DirectoryInfo repoRoot, IChatClient? chatClient = null)
+    public static async Task<RagRuntime> OpenExistingIndexAsync(
+        AppSettings settings, DirectoryInfo repoRoot, IChatClient? chatClient = null, ChatModelOptions? chatModel = null)
     {
         FileInfo[] filings = FindFilings(repoRoot);
         CompanyRegistry companies = RegisterCompanies(filings);
@@ -117,7 +119,7 @@ internal static class AppComposition
 
         index.EnsureCurrent(IndexManifest.Create(settings, filings));
         VectorStoreCollection<int, FilingChunkRecord> collection = await OpenCollectionAsync(index, embedding);
-        return await CreateRuntimeAsync(settings, index, collection, companies, chat, chatClient);
+        return CreateRuntime(settings, index, collection, companies, chatClient ?? chat, chatModel ?? await OllamaChatModelAsync(settings, chat));
     }
 
     private static CrossEncoderReranker LoadReranker(RetrievalSettings retrieval)

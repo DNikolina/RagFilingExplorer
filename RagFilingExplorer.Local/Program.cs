@@ -109,7 +109,8 @@ static async Task RunAsync(string[] args)
         currentManifest.Save(index.ManifestPath);
     }
 
-    using RagRuntime runtime = await AppComposition.CreateRuntimeAsync(settings, index, collection, companies, chatApiClient);
+    using RagRuntime runtime = AppComposition.CreateRuntime(
+        settings, index, collection, companies, chatApiClient, await AppComposition.OllamaChatModelAsync(settings, chatApiClient));
 
     Console.WriteLine(runtime.Reranker is null
         ? $"Search: {settings.Retrieval.Search}"

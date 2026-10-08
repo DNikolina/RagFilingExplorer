@@ -3490,3 +3490,13 @@ figure source already splits every failure into those two.
 
 **Needed from the user before any paid call:** an Anthropic account and key, and a spending limit for the batch (also
 settable in the Console). Step 1 needs neither.
+
+**Step 1 - done (2026-10-08).** `ChatModelOptions` (temperature - null sends none -, effort for a lookup and for a
+synthesis question, output ceiling) replaces the `bool chatModelSupportsThinking` `RagAnswerService` took and the
+`OllamaApiClient` `AppComposition.CreateRuntimeAsync` took only to ask `/api/show`. `ChatModelOptions.ForOllama` builds
+it as before: lookups None, synthesis the configured effort only when Ollama lists the thinking capability.
+`CreateRuntime` takes any `IChatClient` with its options; `OpenExistingIndexAsync` takes both optionally, the Ollama
+model's by default. One new test (a model that reasons on lookups and takes no temperature). Checked: 395 + 166 tests;
+every chunk-review dump identical on all three strategies; the full evaluation replayed from the cache (every question
+0 s but the first's warm-up, so every prompt byte-identical) matched `structured-hybrid-v3-baseline` 102/102, text and
+grade, summary identical; the console app answered Microsoft's revenue as before. The replay was then deleted.

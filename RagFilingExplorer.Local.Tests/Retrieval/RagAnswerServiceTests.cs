@@ -50,7 +50,8 @@ public class RagAnswerServiceTests
             RerankModelSha256 = "unused",
         };
 
-        return new RagAnswerService(collection.Object, chatClient.Object, retrieval, chatModelSupportsThinking, Companies, keywordIndex, reranker);
+        return new RagAnswerService(
+            collection.Object, chatClient.Object, retrieval, ChatModelOptions.ForOllama(retrieval, chatModelSupportsThinking), Companies, keywordIndex, reranker);
     }
 
     // The two companies these tests name, as their filings register them (CompanyRegistryTests checks the real ones).
@@ -264,7 +265,7 @@ public class RagAnswerServiceTests
     // must still be explicitly set to Effort.None (not left null) - Microsoft.Extensions.AI's ChatOptions.
     // Reasoning maps through OllamaSharp to Ollama's think field, and leaving it unset lets a reasoning
     // model default to thinking on its own. See the tests below for the fuller routing/gating story
-    // (RequiresSynthesis, chatModelSupportsThinking) this default composes with.
+    // (RequiresSynthesis, ChatModelOptions.ForOllama's thinking capability) this default composes with.
     [Test]
     public async Task AskAsync_NoReasoningConfigured_SetsReasoningEffortNoneOnChatOptions()
     {
@@ -312,8 +313,8 @@ public class RagAnswerServiceTests
     // Regression coverage for a second real bug, found immediately after the first live test of the
     // routing above: Ollama doesn't quietly ignore a "think" request for a model that can't reason - it
     // throws a hard OllamaException ("<model> does not support thinking"), which crashed the whole app
-    // the first time a synthesis question tried to route llama3.1:8b to Effort.Medium. chatModelSupportsThinking
-    // (set from Ollama's own /api/show capabilities by OllamaSetup at startup, not assumed) must gate the routing too.
+    // the first time a synthesis question tried to route llama3.1:8b to Effort.Medium. ChatModelOptions.ForOllama's
+    // supportsThinking (from Ollama's own /api/show capabilities at startup, not assumed) must gate the routing too.
     [Test]
     public async Task AskAsync_SynthesisQuestion_ButModelDoesNotSupportThinking_UsesNone()
     {
@@ -326,6 +327,40 @@ public class RagAnswerServiceTests
 
         Assert.That(captured?.Reasoning?.Effort, Is.EqualTo(ReasoningEffort.None), "must never request thinking from a model that can't do it");
         Assert.That(answer.UsedReasoningEffort, Is.EqualTo(ReasoningEffort.None));
+    }
+
+    // A model that always reasons (no "None" it accepts) gets its own effort for lookups, and a model that rejects a
+    // temperature gets none sent: both come from the chat model's options, not from the Ollama settings.
+    [Test]
+    public async Task AskAsync_ChatModelWithLookupEffortAndNoTemperature_SendsThemAsGiven()
+    {
+        ChatOptions? captured = null;
+        (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) =
+            MakeMocks(onChatOptions: o => captured = o);
+        RetrievalSettings retrieval = new()
+        {
+            DefaultSearchTopK = SearchTopK,
+            VerboseSearchTopK = 25,
+            GenerationTopK = 5,
+            ChatTemperature = 0,
+            ReasoningEffort = ReasoningEffort.None,
+            MaxOutputTokens = 768,
+            Search = SearchMode.Vector,
+            HybridCandidates = 50,
+            Rerank = false,
+            RerankCandidates = 25,
+            RerankModelDirectory = "unused",
+            RerankModelSha256 = "unused",
+        };
+        ChatModelOptions alwaysThinks = new(Temperature: null, LookupEffort: ReasoningEffort.Low, SynthesisEffort: ReasoningEffort.High, MaxOutputTokens: 8000);
+
+        RagAnswer answer = await new RagAnswerService(collection.Object, chatClient.Object, retrieval, alwaysThinks, Companies)
+            .AskAsync("What was total revenue?", SearchTopK);
+
+        Assert.That(captured?.Reasoning?.Effort, Is.EqualTo(ReasoningEffort.Low));
+        Assert.That(answer.UsedReasoningEffort, Is.EqualTo(ReasoningEffort.Low));
+        Assert.That(captured?.Temperature, Is.Null);
+        Assert.That(captured?.MaxOutputTokens, Is.EqualTo(8000));
     }
 
     [Test]
@@ -555,7 +590,8 @@ public class RagAnswerServiceTests
             RerankModelSha256 = "unused",
         };
 
-        Assert.Throws<ArgumentNullException>(() => new RagAnswerService(collection.Object, chatClient.Object, retrieval, false, Companies));
+        Assert.Throws<ArgumentNullException>(() => new RagAnswerService(
+            collection.Object, chatClient.Object, retrieval, ChatModelOptions.ForOllama(retrieval, supportsThinking: false), Companies));
     }
 
     // Reranking. The scorer is the ONNX model's boundary, stood in for by a fake that scores a passage by the

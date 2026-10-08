@@ -35,14 +35,14 @@ internal sealed record RerankedChunk(float Score, int HybridRank);
 /// <see cref="IChatClient"/>) are injected so tests can mock them instead of requiring a live Ollama instance
 /// and a populated vector store.
 ///
-/// Tunables come in as <see cref="RetrievalSettings"/> with no defaults of their own - defaults here would
-/// duplicate appsettings.json and drift from it.
+/// Tunables come in as <see cref="RetrievalSettings"/> and <see cref="ChatModelOptions"/> with no defaults of their own -
+/// defaults here would duplicate appsettings.json and drift from it.
 /// </summary>
 internal sealed class RagAnswerService(
     VectorStoreCollection<int, FilingChunkRecord> collection,
     IChatClient chatClient,
     RetrievalSettings retrieval,
-    bool chatModelSupportsThinking,
+    ChatModelOptions chatModel,
     CompanyRegistry companies,
     KeywordIndex? keywordIndex = null,
     IRelevanceScorer? reranker = null)
@@ -132,23 +132,17 @@ internal sealed class RagAnswerService(
             new ChatMessage(ChatRole.User, $"Context excerpts:\n\n{contextBuilder}\nQuestion: {question}"),
         ];
 
-        // Reasoning is only worth its cost (extra latency, extra output-token budget) for questions that
-        // actually need multi-step synthesis - a plain single-fact lookup gets Effort.None regardless of
-        // the configured ReasoningEffort. This stops a reasoning model from spending its whole generation
-        // budget "thinking" about a simple question and never reaching the answer.
-        //
-        // chatModelSupportsThinking gates this further, and matters just as much: Ollama doesn't quietly
-        // ignore a think request for a model that can't do it - it throws a hard OllamaException
-        // ("<model> does not support thinking"). OllamaSetup.ChatModelSupportsThinkingAsync checks the chat
-        // model's real capabilities via Ollama's own /api/show once at startup, rather than assuming.
-        ReasoningEffort effectiveReasoningEffort = chatModelSupportsThinking && QueryIntentResolver.RequiresSynthesis(question)
-            ? retrieval.ReasoningEffort
-            : ReasoningEffort.None;
+        // Reasoning is only worth its cost (extra latency, extra output-token budget) for questions that need
+        // multi-step synthesis; which effort each kind gets is the chat model's (ChatModelOptions). The effort is set
+        // even when it's None: left unset, a reasoning model defaults to thinking on its own.
+        ReasoningEffort effectiveReasoningEffort = QueryIntentResolver.RequiresSynthesis(question)
+            ? chatModel.SynthesisEffort
+            : chatModel.LookupEffort;
         ChatOptions chatOptions = new()
         {
-            Temperature = retrieval.ChatTemperature,
+            Temperature = chatModel.Temperature,
             Reasoning = new ReasoningOptions { Effort = effectiveReasoningEffort },
-            MaxOutputTokens = retrieval.MaxOutputTokens,
+            MaxOutputTokens = chatModel.MaxOutputTokens,
         };
 
         IAsyncEnumerable<ChatResponseUpdate> rawStream = chatClient.GetStreamingResponseAsync(chatMessages, chatOptions, cancellationToken);
