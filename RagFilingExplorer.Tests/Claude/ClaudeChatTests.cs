@@ -16,7 +16,7 @@ public class ClaudeChatTests
     // and the API answered the model check with a 400 with no body.
     [TestCase("\u0016")]
     [TestCase("sk-ant-abc ")]
-    public void CreateAsync_KeyWithUnprintableCharacter_FailsBeforeAnyCall(string key)
+    public void CreateAsync_KeyWithSpaceOrUnprintableCharacter_FailsBeforeAnyCall(string key)
     {
         StartupException ex = Assert.ThrowsAsync<StartupException>(() => ClaudeChat.CreateAsync(WithKey(key)))!;
 

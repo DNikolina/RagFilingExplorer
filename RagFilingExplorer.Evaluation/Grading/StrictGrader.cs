@@ -27,8 +27,7 @@ internal sealed record StrictGrade(string Status, string Note)
 /// The period ("for the year ended ...") is not checked: the manual grading didn't enforce it either. "check" marks an
 /// answer only a reader can settle - the expected figure next to a lookalike, or a decline that still states figures.
 ///
-/// Two rules go beyond the Python grader, written once Claude's answers showed what it hadn't met (docs/Decision-Log.md,
-/// "the strict grader extended"): a lookalike the answer names only as the contrast to the expected figure doesn't make
+/// Two rules go beyond the Python grader (docs/Decision-Log.md, "the strict grader extended"): a lookalike the answer names only as the contrast to the expected figure doesn't make
 /// it a check (<see cref="NamesLookalikeAsContrast"/>), and a date's day ("December 31") isn't a stated figure.
 ///
 /// This port is the specification: a rule changes here, and tools/grade_answers.py is

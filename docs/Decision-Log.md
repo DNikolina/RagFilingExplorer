@@ -3831,3 +3831,9 @@ and a nullable `claudeJudgeModel` computed from `EvaluationSettings.LocalJudge`,
 place; `ClaudeSettings.Load(DirectoryInfo repoRoot)` holds the project path both callers built; usage summed in plain
 loops; the agreement report's no-calls line no longer assumes a Claude judge. Checked: 410 + 194; a cached replay with the
 local judge, 204/204 calls from the cache, answers and agreement identical; a cached Claude answer (Q1) from the cache.
+Step C, comments and tests: two comments told history instead of reasons ("what v4 measures first" on `ClaudeSettings`'
+effort, "written once Claude's answers showed..." on `StrictGrader`) - cut; the settings-file tests use the per-test
+temporary directory of the test conventions (done with step A); a test for the judge client's streaming path (options
+rewritten, every update passed through, usage counted); a test name that covers the space it tests. A sweep of v4's added
+code for versions, dates and steps found only section pointers and a regression test's record, both allowed.
+410 + 195 tests. Review complete.

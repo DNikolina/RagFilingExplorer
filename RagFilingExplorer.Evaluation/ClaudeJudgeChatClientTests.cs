@@ -20,8 +20,14 @@ public class ClaudeJudgeChatClientTests
             });
         }
 
-        public IAsyncEnumerable<ChatResponseUpdate> GetStreamingResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options = null, CancellationToken cancellationToken = default) =>
-            throw new NotSupportedException();
+        public async IAsyncEnumerable<ChatResponseUpdate> GetStreamingResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options = null,
+            [System.Runtime.CompilerServices.EnumeratorCancellation] CancellationToken cancellationToken = default)
+        {
+            Sent = options;
+            await Task.Yield();
+            yield return new ChatResponseUpdate(ChatRole.Assistant, "5");
+            yield return new ChatResponseUpdate { Contents = [new UsageContent(new UsageDetails { InputTokenCount = 900, OutputTokenCount = 40 })] };
+        }
 
         public object? GetService(Type serviceType, object? serviceKey = null) => null;
 
@@ -57,6 +63,26 @@ public class ClaudeJudgeChatClientTests
             [new ChatMessage(ChatRole.User, "q")], new ChatOptions { Temperature = 0.0f, MaxOutputTokens = 800 });
 
         Assert.That(inner.Sent!.MaxOutputTokens, Is.EqualTo(16000));
+    }
+
+    [Test]
+    public async Task GetStreamingResponseAsync_EquivalenceOptions_SentForClaudeAndUsageCounted()
+    {
+        Recorder inner = new();
+        ClaudeJudgeChatClient judge = new(inner, ReasoningEffort.Low, 16000);
+
+        List<ChatResponseUpdate> updates = [];
+        await foreach (ChatResponseUpdate update in judge.GetStreamingResponseAsync([new ChatMessage(ChatRole.User, "q")], new ChatOptions { Temperature = 0.0f, TopP = 1.0f }))
+        {
+            updates.Add(update);
+        }
+
+        Assert.That(updates.ToChatResponse().Text, Is.EqualTo("5"), "every update passed through");
+        Assert.That(inner.Sent!.Temperature, Is.Null);
+        Assert.That(inner.Sent.TopP, Is.Null);
+        Assert.That(inner.Sent.Reasoning?.Effort, Is.EqualTo(ReasoningEffort.Low));
+        Assert.That(judge.Usage.InputTokenCount, Is.EqualTo(900));
+        Assert.That(judge.Usage.OutputTokenCount, Is.EqualTo(40));
     }
 
     [Test]

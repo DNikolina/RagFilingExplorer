@@ -26,8 +26,7 @@ internal sealed class ClaudeSettings
     /// <summary>
     /// The reasoning effort for a single-fact lookup and for a question QueryIntentResolver.RequiresSynthesis flags:
     /// Low, Medium, High or ExtraHigh. Never None - the SDK sends it as thinking disabled, which current Opus and Sonnet
-    /// models reject with a 400; effort is their only control over thinking. One level for both is what v4 measures
-    /// first (docs/Decision-Log.md, "paid services (v4)").
+    /// models reject with a 400; effort is their only control over thinking.
     /// </summary>
     public required ReasoningEffort LookupEffort { get; set; }
 
