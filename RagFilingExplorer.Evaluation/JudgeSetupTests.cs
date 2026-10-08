@@ -134,6 +134,9 @@ public class JudgeSetupTests
     [TestCase(Unread + "The only difference is the inclusion of the source, which is not relevant to the calculation. Therefore, the Equivalence score should be 5", 5)]
     [TestCase(Unread + "The information and content in the predicted answer is completely similar to the correct answer.   The value of the Equivalence metric should be 5.", 5)]
     [TestCase(Unread + "4  The predicted answer is mostly similar to the correct answer, with the only difference being the inclusion of a specific date and a source citation.", 4)]
+    // Claude as the judge (claude-sonnet-5-5) reasoning first, the score alone on the last line - V3, word for word.
+    [TestCase(Unread + "Sum of predicted numbers: 10,149,273 + 7,361,364 + 7,274,301 = 24,784,938. This matches the correct answer, but the predicted answer doesn't state the sum explicitly. The numbers are listed and sum to the correct value, so the content is equivalent, though the final sum is missing.\n\n4", 4)]
+    [TestCase(Unread + "The total differs by $24 million.\n2,435", null)]   // a figure on the last line isn't a score
     [TestCase(Unread + "26,445 million is the figure in both answers.", null)]   // a figure first isn't a score
     // Cut off before its score - it ends on a figure, which isn't one.
     [TestCase(Unread + "The predicted answer is very similar to the correct answer, with the only difference being the inclusion of an additional $4 million of accrued excise tax", null)]

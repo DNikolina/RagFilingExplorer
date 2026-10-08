@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 409 offline unit tests (176 at v1.0) + 191 offline evaluation tests |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 409 offline unit tests (176 at v1.0) + 193 offline evaluation tests |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -82,7 +82,8 @@ isn't a figure): Opus medium 97, Opus low 98, Sonnet 95 strictly. **Batch 1 comp
 (Claude scoring Equivalence on cached answers, against the strict grade) - Decision-Log.md, "Batch 2 - a paid judge". Steps 1-3 done:
 Sonnet as judge agrees with the strict grade on 98-99 of ~102 per run and passes no wrong figure (llama's judge passed
 14 of 18), but is lenient on rounding and units; Opus as judge
-agrees with it on 304 of 306 verdicts, slightly more lenient (A11) - no self-preference. Decision-Log.md, "paid services (v4)".
+agrees with it on 305 of 306 verdicts, slightly more lenient (A11) - no self-preference. Groundedness not run (user).
+**Batch 2 complete.** The strict grade stays the grade; a Claude judge (`JudgeModel`) is an optional second view. Decision-Log.md, "paid services (v4)".
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the
@@ -300,7 +301,9 @@ transitive via SqliteVec, referenced at the same version), `Microsoft.ML.OnnxRun
 - **The evaluation's answering client must be its reporting configuration's chat client** (v4). The response cache
   key holds the model only through it - the library adds that client's provider and model id - and the prompts are
   byte-identical across models, so a Claude answer asked through any other client would silently replay llama's cached
-  answer (or Opus's for Sonnet). `ResponseCacheKeyTests` holds the key; Decision-Log.md, "Step 3 - done".
+  answer (or Opus's for Sonnet). `ResponseCacheKeyTests` holds the key; Decision-Log.md, "Step 3 - done". For the same reason a
+  Claude judge never becomes that client: it gets its own, per question (`JudgeChatEvaluator`), or every cached answer
+  would be asked again.
 - **Config values live only in `appsettings.json`** — no duplicate defaults in code (this has drifted
   twice). Presence of every key is validated at load, since `required` doesn't apply to the binder.
   The evaluation follows the same rule in its own `evalsettings.json` (graders, judges, run options; v3) - environment

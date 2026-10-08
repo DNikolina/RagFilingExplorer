@@ -129,6 +129,18 @@ Ollama for them. A shared library for the code both use was considered and defer
 model, and the natural point is paid embeddings, when that code would no longer depend on Ollama. Decision-Log.md,
 "paid services (v4)".
 
+### Why is the strict grade the grade, not a model judge?
+
+Because a judge rates similarity and the project's question is exactness. Microsoft's Equivalence evaluator was tried with
+two judges over the same cached answers. Scored by `llama3.1:8b` it passed most of the wrong answers - a dividends-declared
+figure against the dividends-paid one is "a slight difference" - and Microsoft's own documentation says its prompt is tuned
+for GPT-4o and can be especially poor with a small local model. Scored by Claude (Sonnet 5.5 or Opus 5.5) it tells a wrong
+figure from the right one, but still passes what's close: MD&A's rounded "$55.7 billion" for $55,663 million, a figure
+without its unit, the right numbers without the sum the question asked for - the very cases the strict grade (the figure,
+its unit, the exact line) was written to catch. So the strict grade decides; a judge runs alongside it when asked
+(`Graders: both`), as a second view and a cheap first reader of the answers the strict grade leaves to a person
+(`check`). Decision-Log.md, "Step 6 - the local judge" and "Batch 2 - a paid judge".
+
 ### Why doesn't the model use a calculator tool for arithmetic?
 
 Because with this model it made answers worse. The model predicts digits rather than calculating, so a

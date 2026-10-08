@@ -2,17 +2,13 @@ Judge agreement for judge-sonnet-llama-v3-baseline: 102 answers
 Judge calls: not in the stored chat details - a Claude judge's calls go through its own client; the run's summary gives the tokens it billed
 
 == Equivalence (102 answers)
-Score read as the prompt asks for it: 101; score taken from the reply's words: 0 (the library's own verdict for that score)
-Reply not read as a score: 1
-  Main.V3: Failed to parse numeric score for 'Equivalence' from the following text:
-Sum of predicted numbers: 10,149,273 + 7,361,364 + 7,274,301 = 24,784,938. This matches the correct answer, but the predicted answer doesn't state the sum explicitly. The numbers are listed and sum to the correct value, so the content is equivalent, though the final sum is missing.
-
-4
+Score read as the prompt asks for it: 101; score taken from the reply's words: 1 (the library's own verdict for that score)
+Reply not read as a score: 0
 Score by strict grade (rows: strict passed / failed; columns: score 1-5):
   strict passed: 1:   0  2:   0  3:   0  4:   2  5:  82
-  strict failed: 1:  10  2:   2  3:   2  4:   2  5:   1
+  strict failed: 1:  10  2:   2  3:   2  4:   3  5:   1
 Agreement on library-read scores only: 98/101
-Agreement with the strict grade at the library's verdict: 98/101 (judge passes a strict failure: 3, judge fails a strict pass: 0)
+Agreement with the strict grade at the library's verdict: 98/102 (judge passes a strict failure: 4, judge fails a strict pass: 0)
 Disagreements:
   AnswerSide.A14: strict wrong, Equivalence 5 (passed)
     expected: $55,663 million
@@ -23,3 +19,6 @@ Disagreements:
   Main.Q21: strict no-unit, Equivalence 4 (passed)
     expected: $10,038,657 thousand
     answer:   Netflix's comprehensive income for the year ended December 31, 2025 was $10,038,657. (Source: NFLX-10K-2025.html, PART IV > Financial Statements > CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME)
+  Main.V3: strict wrong, Equivalence 4 (passed, recovered)
+    expected: $24,784,938 thousand
+    answer:   Netflix's net cash provided by operating activities for the year ended December 31, 2025 was $10,149,273 thousand, for the year ended December 31, 2024 was $7,361,364 thousand, and for the year ended December 31, 2023 was $7,274,301 thousand.

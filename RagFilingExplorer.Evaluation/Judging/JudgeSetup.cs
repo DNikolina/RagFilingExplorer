@@ -149,6 +149,11 @@ internal static partial class JudgeSetup
     [GeneratedRegex(@"^\**([1-5])\**(?![\d.,%])\s", RegexOptions.CultureInvariant)]
     private static partial Regex LeadingScoreRegex();
 
+    // The score alone on the reply's last line, after reasoning in prose - Claude's form (V3: "...though the final sum is
+    // missing.\n\n4").
+    [GeneratedRegex(@"\n\s*\**([1-5])\**$", RegexOptions.CultureInvariant)]
+    private static partial Regex TrailingScoreRegex();
+
     private const string UnreadReplyMarker = "from the following text:";
 
     /// <summary>
@@ -175,6 +180,12 @@ internal static partial class JudgeSetup
         if (last is not null)
         {
             return int.Parse(last.Groups.Values.Skip(1).First(g => g.Success).Value, CultureInfo.InvariantCulture);
+        }
+
+        Match trailing = TrailingScoreRegex().Match(reply);
+        if (trailing.Success)
+        {
+            return int.Parse(trailing.Groups[1].Value, CultureInfo.InvariantCulture);
         }
 
         // The score first, then an explanation the library didn't expect: "4  The predicted answer is mostly similar..." (Q4).

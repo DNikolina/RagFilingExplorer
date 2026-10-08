@@ -2,7 +2,7 @@
   "scenarioName": "AnswerSide.A18",
   "iterationName": "1",
   "executionName": "judge-sonnet-llama-v3-baseline",
-  "creationTime": "2026-10-08T19:17:40.8035559Z",
+  "creationTime": "2026-10-08T19:59:29.2622891Z",
   "messages": [
     {
       "role": "system",
@@ -108,7 +108,7 @@
           "eval-input-tokens": "1489",
           "eval-output-tokens": "3",
           "eval-total-tokens": "1492",
-          "eval-duration-ms": "1146.64",
+          "eval-duration-ms": "1.29",
           "Judge reply": "5",
           "Score taken from the reply\u0027s words": "no"
         }
@@ -118,7 +118,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0005497,
+        "latency": 0.0010719,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

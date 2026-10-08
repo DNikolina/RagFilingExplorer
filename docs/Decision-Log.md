@@ -3805,3 +3805,15 @@ Claude's answers both 99/102. **No self-preference shows** - Opus judged its own
 stronger judge doesn't remove the leniency**, it adds a little: it comes from Equivalence's similarity criterion. Sonnet
 is the judge to use here - slightly stricter at half the price. Batch 2's judging so far: ~$2.86 (Sonnet ~$0.94, Opus
 ~$1.92).
+
+**Step 4 (Groundedness screen) - not run (user, 2026-10-08).** The figure source already traces every stated figure to
+its excerpt (no wrong answer of batch 1 states a figure missing from its excerpts), so Groundedness was left out; it stays
+available (`Judges: groundedness`), and the Claude judge client raises its 800-token limit for it.
+
+**Step 5 - done (2026-10-08).** The score reader also takes a score alone on the reply's last line after reasoning in
+prose - Sonnet's V3 reply ("...though the final sum is missing.", a blank line, then "4"); a figure on that line isn't one. Re-applied to
+`judge-sonnet-llama-v3-baseline` by a replay - answers and judge verdicts from the cache, the judge billed 0: V3 reads 4,
+so Sonnet as judge on llama's answers is 98/102, 4 of 18 strict failures passed (A14, H34, Q21, V3), and Opus and Sonnet
+differ on one verdict of 306 (A11). Docs: the README's evaluation section (the judge model setting, a paid judge's results
+next to the local one's), the Design-FAQ ("Why is the strict grade the grade, not a model judge?"), the plan. 409 + 193
+tests. **Batch 2 complete.**

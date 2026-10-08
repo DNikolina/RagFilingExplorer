@@ -152,7 +152,8 @@ flowchart TB
 - **Microsoft.ML.Tokenizers** (offline Tiktoken, `cl100k_base`) — token-bounded chunking
 - **Microsoft.ML.OnnxRuntime** — an optional local cross-encoder reranker, off by default
 - **Microsoft.Extensions.AI.Evaluation** (+ `.Reporting`, `.Quality`) — the evaluation (v3): custom evaluators, stored
-  results, response caching and the HTML report; `.Quality`'s Equivalence as an optional local judge
+  results, response caching and the HTML report; `.Quality`'s Equivalence as an optional judge - the local model, or
+  Claude (v4)
 - **[Anthropic](https://github.com/anthropics/anthropic-sdk-csharp)** (the official C# SDK, through its `IChatClient`
   adapter) — the optional Claude app only (v4)
 - **Local models**: `nomic-embed-text` (274MB, embeddings) and `llama3.1:8b` (4.9GB, answer generation)
@@ -451,16 +452,17 @@ asks all 102 questions (about two hours on the hardware above; minutes from the 
 `eval/v3-runs/report-<execution>.html` and a summary; `eval/v3-runs/report.html` holds every run, v1's included,
 newest first. A run is set up in
 [`evalsettings.json`](RagFilingExplorer.Evaluation/evalsettings.json) - the chat model (`Local` or `Claude`), graders
-(`strict`, `judge` or `both`), which questions, cached or fresh - and an environment variable overrides one key for one
-run (`Evaluation__Only=Q1,A16`). The response cache is keyed by the answering model, so one model's cached answers never
-replay as another's; a Claude run is graded strictly (the judge is the local model), tagged with its model and effort,
-and its summary totals the tokens it was billed for.
+(`strict`, `judge` or `both`), the judge model (`Local` or a Claude model), which questions, cached or fresh - and an
+environment variable overrides one key for one run (`Evaluation__Only=Q1,A16`). The response cache is keyed by the
+answering model, so one model's cached answers never replay as another's; a Claude judge has a client of its own, so any
+model's cached answers can be judged without asking them again. A Claude run is tagged with its model and effort, and its
+summary totals the tokens it - and a Claude judge - was billed for.
 
 **Adding a question:** its text goes in its set's file in `tools/`, its source in `docs/Manual-Test-Questions.md`, and
 its entry - matched by the exact text - in `tools/expected-answers.json` (`kind`, `expect`, `unit`, `chunk_expect`,
 `traps` with `trap_why`). `dotnet test` checks the entry is complete; only the new question is asked afresh.
 
-Two measurements built on it:
+Three measurements built on it:
 
 - **Repeatability** (`tools/run-variance.ps1`): all 102 questions asked afresh twice came back word for word identical -
   at temperature 0 the model repeats exactly on the same setup. Against answers from three days earlier, 100/102 grades
@@ -469,6 +471,12 @@ Two measurements built on it:
   strict grade on 87 of 101 answers - but passed 14 of the 18 wrong ones, rating $27,034 million against $26,445 million
   "a slight difference". It rates similarity, not the exact figure, so the strict grade stays the grade and the judge
   runs alongside it only when asked for.
+- **A paid judge** (v4): the same evaluator scored by Claude, over the same cached answers. Sonnet 5.5 agreed with the
+  strict grade on 98 of llama's 102 and passed 4 of the 18 wrong ones - none a wrong figure: MD&A's rounded "$55.7
+  billion" for $55,663 million, a figure without its unit, an unstated sum. Opus 5.5 gave the same verdict on 305 of 306
+  answers across three runs, a little more lenient, and judged its own answers exactly as Sonnet did. A capable judge
+  tells a wrong figure from the right one, but still rates similarity, so it isn't the grade either - about $0.30 a run
+  with Sonnet.
 
 Every measured run, v1's on, is kept in `eval/`.
 

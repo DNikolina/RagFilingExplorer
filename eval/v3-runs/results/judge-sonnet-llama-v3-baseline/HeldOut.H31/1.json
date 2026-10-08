@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H31",
   "iterationName": "1",
   "executionName": "judge-sonnet-llama-v3-baseline",
-  "creationTime": "2026-10-08T19:17:14.6896507Z",
+  "creationTime": "2026-10-08T19:59:26.2252019Z",
   "messages": [
     {
       "role": "system",
@@ -108,7 +108,7 @@
           "eval-input-tokens": "1457",
           "eval-output-tokens": "3",
           "eval-total-tokens": "1460",
-          "eval-duration-ms": "1106.74",
+          "eval-duration-ms": "0.60",
           "Judge reply": "5",
           "Score taken from the reply\u0027s words": "no"
         }
@@ -118,7 +118,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0005819,
+        "latency": 0.001181,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {

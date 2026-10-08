@@ -2,7 +2,7 @@
   "scenarioName": "Main.V3",
   "iterationName": "1",
   "executionName": "judge-sonnet-llama-v3-baseline",
-  "creationTime": "2026-10-08T19:16:36.4048054Z",
+  "creationTime": "2026-10-08T19:59:21.352195Z",
   "messages": [
     {
       "role": "system",
@@ -91,11 +91,11 @@
       },
       "Equivalence": {
         "$type": "numeric",
+        "value": 4,
         "name": "Equivalence",
         "interpretation": {
-          "rating": "inconclusive",
-          "failed": true,
-          "reason": "Equivalence has no score."
+          "rating": "good",
+          "failed": false
         },
         "context": {
           "Ground Truth (Equivalence)": {
@@ -108,21 +108,15 @@
             ]
           }
         },
-        "diagnostics": [
-          {
-            "severity": "error",
-            "message": "Failed to parse numeric score for \u0027Equivalence\u0027 from the following text:\r\nSum of predicted numbers: 10,149,273 \u002B 7,361,364 \u002B 7,274,301 = 24,784,938. This matches the correct answer, but the predicted answer doesn\u0027t state the sum explicitly. The numbers are listed and sum to the correct value, so the content is equivalent, though the final sum is missing.\n\n4"
-          }
-        ],
         "metadata": {
           "built-in-eval": "True",
           "eval-model": "claude-sonnet-5-5",
           "eval-input-tokens": "1506",
           "eval-output-tokens": "109",
           "eval-total-tokens": "1615",
-          "eval-duration-ms": "1608.80",
+          "eval-duration-ms": "15.67",
           "Judge reply": "Sum of predicted numbers: 10,149,273 \u002B 7,361,364 \u002B 7,274,301 = 24,784,938. This matches the correct answer, but the predicted answer doesn\u0027t state the sum explicitly. The numbers are listed and sum to the correct value, so the content is equivalent, though the final sum is missing.\n\n4",
-          "Score taken from the reply\u0027s words": "no"
+          "Score taken from the reply\u0027s words": "yes"
         }
       }
     }
@@ -130,7 +124,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0005891,
+        "latency": 0.0011465,
         "model": "llama3.1:8b",
         "modelProvider": "ollama (local)",
         "usage": {
