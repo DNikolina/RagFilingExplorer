@@ -178,9 +178,12 @@ internal static partial class SectionSplitter
             if (backMatterMatch.Success)
             {
                 startSection();
-                currentItem = backMatterMatch.Groups["fs"].Success ? "Financial Statements"
-                    : backMatterMatch.Groups["sig"].Success ? "Signatures"
-                    : "Exhibit Index";
+                currentItem = backMatterMatch.Groups switch
+                {
+                    var g when g["fs"].Success => "Financial Statements",
+                    var g when g["sig"].Success => "Signatures",
+                    _ => "Exhibit Index",
+                };
                 return false;
             }
 

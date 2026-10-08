@@ -12,7 +12,7 @@ internal sealed record StrictGrade(string Status, string Note)
     public bool Passed => IsPassing(Status);
 
     /// <summary>The pass rule for a status read back from a stored result.</summary>
-    public static bool IsPassing(string status) => status is "reliable" or "decline-ok";
+    public static bool IsPassing(string? status) => status is "reliable" or "decline-ok";
 }
 
 /// <summary>

@@ -238,7 +238,12 @@ internal static partial class HtmlTableLinearizer
                 }
             }
 
-            string? path = periodCaption is null ? groupLabel : groupLabel is null ? periodCaption : $"{periodCaption} > {groupLabel.TrimEnd(':')}";
+            string? path = (periodCaption, groupLabel) switch
+            {
+                (null, _) => groupLabel,
+                (_, null) => periodCaption,
+                ({ } period, { } group) => $"{period} > {group.TrimEnd(':')}",
+            };
             output.Add(new LinearizedRow(path, label, values));
 
             if (label.StartsWith("Total", StringComparison.OrdinalIgnoreCase))

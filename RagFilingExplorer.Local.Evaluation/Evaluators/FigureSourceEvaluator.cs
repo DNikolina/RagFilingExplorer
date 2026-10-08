@@ -167,11 +167,12 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
                 .Select(m => (m, FirstExcerptHolding(excerpts, m)))
                 .ToList();
             string from = string.Join(", ", markers.Select(m => $"{m.Marker} ({(m.Position is { } p ? $"excerpt {p}" : "in no excerpt")})"));
-            locations.Add(markers.Count > 0 && markers.All(m => m.Position is not null)
-                ? new ExpectedLocation(value, $"not printed as such - derived from {from}", $"the expected {value} isn't printed - it's derived from {from}", InAnExcerpt: false)
-                : markers.Count > 0
-                    ? new ExpectedLocation(value, $"from {from} - retrieval missed it", $"the expected {value} comes from {from} - retrieval missed it", InAnExcerpt: false)
-                    : new ExpectedLocation(value, "in none of the excerpts - retrieval missed it", $"the expected {value} was in none of the excerpts - retrieval missed it", InAnExcerpt: false));
+            locations.Add(markers switch
+            {
+                [] => new ExpectedLocation(value, "in none of the excerpts - retrieval missed it", $"the expected {value} was in none of the excerpts - retrieval missed it", InAnExcerpt: false),
+                _ when markers.All(m => m.Position is not null) => new ExpectedLocation(value, $"not printed as such - derived from {from}", $"the expected {value} isn't printed - it's derived from {from}", InAnExcerpt: false),
+                _ => new ExpectedLocation(value, $"from {from} - retrieval missed it", $"the expected {value} comes from {from} - retrieval missed it", InAnExcerpt: false),
+            });
         }
 
         return locations;
@@ -225,10 +226,8 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
         CancellationToken cancellationToken = default)
     {
         List<EvaluationContext> contexts = additionalContext?.ToList() ?? [];
-        ExpectedAnswer expected = contexts.OfType<ExpectedAnswerContext>().SingleOrDefault()?.Expected
-            ?? throw new ArgumentException($"{nameof(FigureSourceEvaluator)} needs an {nameof(ExpectedAnswerContext)}.", nameof(additionalContext));
-        IReadOnlyList<RetrievedExcerpt> excerpts = contexts.OfType<RetrievedChunksContext>().SingleOrDefault()?.Excerpts
-            ?? throw new ArgumentException($"{nameof(FigureSourceEvaluator)} needs a {nameof(RetrievedChunksContext)}.", nameof(additionalContext));
+        ExpectedAnswer expected = EvaluationContexts.Require<ExpectedAnswerContext>(contexts, nameof(FigureSourceEvaluator)).Expected;
+        IReadOnlyList<RetrievedExcerpt> excerpts = EvaluationContexts.Require<RetrievedChunksContext>(contexts, nameof(FigureSourceEvaluator)).Excerpts;
 
         string answer = modelResponse.Text.Trim();
         List<RetrievedExcerpt> given = excerpts.Take(generationTopK).ToList();
@@ -243,19 +242,34 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
         string expectedPart = string.Join("; ", expectedAt.Select(l => l.Summary));
         string Joined(string first) => expectedPart.Length > 0 ? $"{first}; {expectedPart}." : $"{first}.";
 
-        (string status, EvaluationMetricInterpretation interpretation) = sources.Count == 0
-            ? ("no figure stated", new EvaluationMetricInterpretation(EvaluationRating.Inconclusive,
-                reason: expectedPart.Length > 0 ? $"No figure stated - a text answer or a decline; {expectedPart}." : "No figure stated - a text answer or a decline."))
-            : missing.Count == 0
-                ? ("traced", new EvaluationMetricInterpretation(EvaluationRating.Good,
-                    reason: expectedAt.Count > 0 && expectedAt.All(l => l.InAnExcerpt)
-                        ? Joined($"A misreading - every figure is in an excerpt: {stated}")
-                        : Joined($"Every figure is in an excerpt: {stated}")))
-                : AsksForCalculation(expected)
-                    ? ("calculated", new EvaluationMetricInterpretation(EvaluationRating.Good,
-                        reason: Joined($"{string.Join(", ", missing)} in no excerpt - the question asks for a calculation; {stated}")))
-                    : ("untraced", new EvaluationMetricInterpretation(EvaluationRating.Unacceptable, failed: true,
-                        reason: Joined($"{string.Join(", ", missing)} in none of the excerpts the model was given; {stated}")));
+        string status;
+        EvaluationMetricInterpretation interpretation;
+        if (sources.Count == 0)
+        {
+            status = "no figure stated";
+            interpretation = new EvaluationMetricInterpretation(EvaluationRating.Inconclusive,
+                reason: expectedPart.Length > 0 ? $"No figure stated - a text answer or a decline; {expectedPart}." : "No figure stated - a text answer or a decline.");
+        }
+        else if (missing.Count == 0)
+        {
+            status = "traced";
+            interpretation = new EvaluationMetricInterpretation(EvaluationRating.Good,
+                reason: expectedAt.Count > 0 && expectedAt.All(l => l.InAnExcerpt)
+                    ? Joined($"A misreading - every figure is in an excerpt: {stated}")
+                    : Joined($"Every figure is in an excerpt: {stated}"));
+        }
+        else if (AsksForCalculation(expected))
+        {
+            status = "calculated";
+            interpretation = new EvaluationMetricInterpretation(EvaluationRating.Good,
+                reason: Joined($"{string.Join(", ", missing)} in no excerpt - the question asks for a calculation; {stated}"));
+        }
+        else
+        {
+            status = "untraced";
+            interpretation = new EvaluationMetricInterpretation(EvaluationRating.Unacceptable, failed: true,
+                reason: Joined($"{string.Join(", ", missing)} in none of the excerpts the model was given; {stated}"));
+        }
 
         StringMetric metric = new(MetricName, status, Description) { Interpretation = interpretation };
         foreach (FigureSource source in sources)

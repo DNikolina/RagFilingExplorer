@@ -131,11 +131,19 @@ internal static partial class IxTransformations
             }
 
             int tens = Array.IndexOf(TensWords, before);
-            decimal amount = tens >= 0 && WordsToNumber(number) is > 0 and < 10 and var unit
-                ? (tens + 2) * 10 + unit
-                : Array.IndexOf(NumberWords, before) >= 0 || tens >= 0
-                    ? throw new FormatException($"'{text}' has a number in words that isn't converted: '{before} {number}'")
-                    : WordsToNumber(number);
+            decimal amount;
+            if (tens >= 0 && WordsToNumber(number) is > 0 and < 10 and var unit)
+            {
+                amount = (tens + 2) * 10 + unit;
+            }
+            else if (Array.IndexOf(NumberWords, before) >= 0 || tens >= 0)
+            {
+                throw new FormatException($"'{text}' has a number in words that isn't converted: '{before} {number}'");
+            }
+            else
+            {
+                amount = WordsToNumber(number);
+            }
             string value = amount.ToString(CultureInfo.InvariantCulture);
             switch (m.Groups[3].Value)
             {

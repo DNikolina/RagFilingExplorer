@@ -13,6 +13,15 @@ internal sealed class ExpectedAnswerContext(ExpectedAnswer expected)
     public ExpectedAnswer Expected { get; } = expected;
 }
 
+internal static class EvaluationContexts
+{
+    /// <summary>The one <typeparamref name="T"/> among an evaluator's additional context; throws, naming the evaluator,
+    /// when it wasn't given one.</summary>
+    public static T Require<T>(IEnumerable<EvaluationContext>? additionalContext, string evaluator) where T : EvaluationContext =>
+        additionalContext?.OfType<T>().SingleOrDefault()
+        ?? throw new ArgumentException($"{evaluator} needs its {typeof(T).Name}.", nameof(additionalContext));
+}
+
 /// <summary>
 /// The project's strict grading (<see cref="StrictGrader"/>, tools/grade_answers.py ported) as an evaluator: one string
 /// metric, "Strict grade", whose value is the status (reliable, decline-ok, no-unit, wrong-unit, declined, wrong,
@@ -58,8 +67,7 @@ internal sealed class StrictFigureEvaluator : IEvaluator
         IEnumerable<EvaluationContext>? additionalContext = null,
         CancellationToken cancellationToken = default)
     {
-        ExpectedAnswer expected = additionalContext?.OfType<ExpectedAnswerContext>().SingleOrDefault()?.Expected
-            ?? throw new ArgumentException($"{nameof(StrictFigureEvaluator)} needs an {nameof(ExpectedAnswerContext)}.", nameof(additionalContext));
+        ExpectedAnswer expected = EvaluationContexts.Require<ExpectedAnswerContext>(additionalContext, nameof(StrictFigureEvaluator)).Expected;
 
         string answer = modelResponse.Text.Trim();
         StrictGrade grade = StrictGrader.Grade(expected, answer);

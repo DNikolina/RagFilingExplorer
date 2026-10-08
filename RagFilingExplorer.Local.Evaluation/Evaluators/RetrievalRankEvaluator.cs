@@ -67,10 +67,8 @@ internal sealed class RetrievalRankEvaluator(int generationTopK) : IEvaluator
         CancellationToken cancellationToken = default)
     {
         List<EvaluationContext> contexts = additionalContext?.ToList() ?? [];
-        ExpectedAnswer expected = contexts.OfType<ExpectedAnswerContext>().SingleOrDefault()?.Expected
-            ?? throw new ArgumentException($"{nameof(RetrievalRankEvaluator)} needs an {nameof(ExpectedAnswerContext)}.", nameof(additionalContext));
-        IReadOnlyList<string> chunks = contexts.OfType<RetrievedChunksContext>().SingleOrDefault()?.Chunks
-            ?? throw new ArgumentException($"{nameof(RetrievalRankEvaluator)} needs a {nameof(RetrievedChunksContext)}.", nameof(additionalContext));
+        ExpectedAnswer expected = EvaluationContexts.Require<ExpectedAnswerContext>(contexts, nameof(RetrievalRankEvaluator)).Expected;
+        IReadOnlyList<string> chunks = EvaluationContexts.Require<RetrievedChunksContext>(contexts, nameof(RetrievalRankEvaluator)).Chunks;
 
         // The sentence is the interpretation's reason - the report's "Why this score?"; the metric's own reason, shown as
         // "What this measures?", is the description.
