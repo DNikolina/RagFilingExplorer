@@ -2,6 +2,7 @@ using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("RagFilingExplorer.Local.Tests")]
 [assembly: InternalsVisibleTo("RagFilingExplorer.Local.Evaluation")] // the evaluators wrap the app's internal types
+[assembly: InternalsVisibleTo("RagFilingExplorer.Claude")] // the same app with Claude answering
 [assembly: InternalsVisibleTo("LinearizeSpike")] // tools/LinearizeSpike - the linearization spike runner
 
 // Moq mocks VectorStoreCollection<int, FilingChunkRecord> via Castle DynamicProxy, which generates the

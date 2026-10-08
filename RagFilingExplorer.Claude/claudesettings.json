@@ -1,0 +1,10 @@
+{
+  "Claude": {
+    // See ClaudeSettings in ClaudeSettings.cs, which documents every setting here. The API key is never in a file:
+    // ANTHROPIC_API_KEY.
+    "Model": "claude-opus-5-5",
+    "LookupEffort": "Medium",
+    "SynthesisEffort": "Medium",
+    "MaxOutputTokens": 16000
+  }
+}

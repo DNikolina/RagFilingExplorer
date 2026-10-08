@@ -246,7 +246,8 @@ internal sealed class RagAnswerService(
     // answer text - Ollama still reports this as a normal completion (FinishReason.Length), so nothing
     // upstream throws and the caller would otherwise just see an empty answer with no explanation. This
     // wraps the raw stream to detect exactly that case and fail loudly instead, while still yielding every
-    // update as it arrives so the caller can keep streaming output live.
+    // update as it arrives so the caller can keep streaming output live. A refusal (the provider's content filter -
+    // Claude's stop_reason "refusal") fails loudly too, even after some text: what came before it isn't an answer.
     private static async IAsyncEnumerable<ChatResponseUpdate> GuardAgainstStarvedResponse(
         IAsyncEnumerable<ChatResponseUpdate> stream, [EnumeratorCancellation] CancellationToken cancellationToken)
     {
@@ -264,12 +265,17 @@ internal sealed class RagAnswerService(
             yield return update;
         }
 
+        if (finishReason == ChatFinishReason.ContentFilter)
+        {
+            throw new InvalidOperationException("The model declined to answer (a refusal or the provider's content filter).");
+        }
+
         if (!sawRealAnswerText && finishReason == ChatFinishReason.Length)
         {
             throw new InvalidOperationException(
                 "The model hit its output token limit without producing an answer - it likely spent the "
-                + "whole budget on reasoning (\"thinking\"). Try raising Retrieval.MaxOutputTokens, setting "
-                + "Retrieval.ReasoningEffort to None, or using a non-reasoning model, in appsettings.json.");
+                + "whole budget on reasoning (\"thinking\"). Try raising its MaxOutputTokens, lowering its reasoning "
+                + "effort, or using a non-reasoning model.");
         }
     }
 }

@@ -1,0 +1,67 @@
+using Microsoft.Extensions.AI;
+using Microsoft.Extensions.Configuration;
+using RagFilingExplorer.Local;
+
+namespace RagFilingExplorer.Claude;
+
+/// <summary>
+/// claudesettings.json's "Claude" section: which Claude model answers and how. Chunking, retrieval and the index stay
+/// Local's (appsettings.json, read unchanged), so only the model differs from the local app. Every key is required, as
+/// in appsettings.json; an environment variable of the same name overrides one for a single run
+/// (<c>Claude__Model=claude-sonnet-5-5</c>).
+/// </summary>
+internal sealed class ClaudeSettings
+{
+    public const string FileName = "claudesettings.json";
+    public const string Section = "Claude";
+
+    /// <summary>An exact model id from Anthropic's model list (claude-opus-5-5, claude-sonnet-5-5, claude-haiku-5-5),
+    /// checked against the Models API at startup.</summary>
+    public required string Model { get; set; }
+
+    /// <summary>
+    /// The reasoning effort for a single-fact lookup and for a question QueryIntentResolver.RequiresSynthesis flags:
+    /// Low, Medium, High or ExtraHigh. Never None - the SDK sends it as thinking disabled, which current Opus and Sonnet
+    /// models reject with a 400; effort is their only control over thinking. One level for both is what v4 measures
+    /// first (docs/Decision-Log.md, "paid services (v4)").
+    /// </summary>
+    public required ReasoningEffort LookupEffort { get; set; }
+
+    /// <inheritdoc cref="LookupEffort"/>
+    public required ReasoningEffort SynthesisEffort { get; set; }
+
+    /// <summary>
+    /// The API's max_tokens: thinking and answer together, since thinking counts toward it. No context window to share,
+    /// unlike Ollama's num_ctx (Claude's is 1M), and only the tokens used are billed - the ceiling is there so a starved
+    /// response fails (RagAnswerService's guard) instead of running long.
+    /// </summary>
+    public required int MaxOutputTokens { get; set; }
+
+    public static ClaudeSettings Load(string basePath) => From(new ConfigurationBuilder()
+        .SetBasePath(basePath)
+        .AddJsonFile(FileName, optional: false)
+        .AddEnvironmentVariables()
+        .Build());
+
+    /// <summary>The settings from a configuration - every key present, every value valid, or an error naming it.</summary>
+    public static ClaudeSettings From(IConfiguration configuration)
+    {
+        AppSettings.EnsureKeysPresent(configuration, typeof(ClaudeSettings), Section, FileName);
+        ClaudeSettings settings = configuration.GetSection(Section).Get<ClaudeSettings>()
+            ?? throw new InvalidOperationException($"{FileName} failed to bind its {Section} section.");
+
+        if (settings.LookupEffort == ReasoningEffort.None || settings.SynthesisEffort == ReasoningEffort.None)
+        {
+            throw new InvalidOperationException(
+                $"{FileName}: {Section}:LookupEffort and {Section}:SynthesisEffort can't be None - current Claude models reject "
+                + "thinking disabled; use Low to think least.");
+        }
+
+        if (settings.MaxOutputTokens <= 0)
+        {
+            throw new InvalidOperationException($"{FileName}: {Section}:MaxOutputTokens must be positive.");
+        }
+
+        return settings;
+    }
+}

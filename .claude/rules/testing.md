@@ -16,7 +16,7 @@ extend (e.g. `RagAnswerServiceTests.MakeMocks`, `CreateService`).
   .csproj) - don't add it per file. Constraint model only: `Assert.That(x, Is/Has/Does...)`, plus
   `Assert.Throws` / `Assert.ThrowsAsync` for exceptions.
 - **Layout:** mirror the app's folders - `Chunking/`, `Retrieval/`, `Structured/`, `VectorStore/`, `Xbrl/`, root
-  for root types.
+  for root types; `Claude/` for `RagFilingExplorer.Claude`'s types (the test project references it).
   File `<Class>Tests.cs`, namespace `RagFilingExplorer.Local.Tests.<Folder>`, `[TestFixture] public class`.
   App types are `internal` and visible to tests via `InternalsVisibleTo` (`AssemblyInfo.cs`) - test them
   directly; never make a type public for a test.

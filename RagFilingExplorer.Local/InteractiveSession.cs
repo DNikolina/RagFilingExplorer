@@ -32,9 +32,9 @@ internal static class InteractiveSession
                 break;
             }
 
-            // Broad catch deliberately: this is a live call to an external service (Ollama), which can fail
-            // in ways this app can't predict (a starved-reasoning response, a model rejecting an unsupported
-            // option, a dropped connection, ...), and an OllamaException from mid-stream would otherwise end the
+            // Broad catch deliberately: this is a live call to an external service (the chat model), which can fail
+            // in ways this app can't predict (a starved-reasoning response, a refusal, a model rejecting an unsupported
+            // option, a dropped connection, ...), and an exception from mid-stream would otherwise end the
             // whole session. One failed question should never end the session; report it and keep going.
             try
             {
@@ -52,7 +52,7 @@ internal static class InteractiveSession
 
                 if (answer.UsedReasoningEffort != ReasoningEffort.None)
                 {
-                    Console.WriteLine($"(reasoning: {answer.UsedReasoningEffort} - question matched RequiresSynthesis)");
+                    Console.WriteLine($"(reasoning: {answer.UsedReasoningEffort})");
                 }
 
                 if (answer.RetrievedChunks.Count == 0)

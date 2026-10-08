@@ -3500,3 +3500,26 @@ model's by default. One new test (a model that reasons on lookups and takes no t
 every chunk-review dump identical on all three strategies; the full evaluation replayed from the cache (every question
 0 s but the first's warm-up, so every prompt byte-identical) matched `structured-hybrid-v3-baseline` 102/102, text and
 grade, summary identical; the console app answered Microsoft's revenue as before. The replay was then deleted.
+
+**Step 2 - done (2026-10-08).** `RagFilingExplorer.Claude`, a console app referencing Local; `Anthropic` 12.54.1 (no
+vulnerable packages, direct or transitive). Read from the SDK's own source (`AnthropicClientExtensions.cs`) rather than
+assumed: `client.AsIChatClient(model, defaultMaxOutputTokens)` gives the `IChatClient`; `ChatOptions.Reasoning.Effort`
+Low/Medium/High/ExtraHigh becomes `output_config.effort` with adaptive thinking, and **None becomes thinking disabled -
+a 400 on Opus 5.5 and Sonnet 5.5**, so `ClaudeSettings` refuses None at load; a temperature is sent only when set, so
+`ChatModelOptions.Temperature` null sends none; `stop_reason` `refusal` arrives as `ChatFinishReason.ContentFilter`,
+`max_tokens` as `Length`. `claudesettings.json` (its own name - Local's `appsettings.json` is copied into the same output
+folder and read unchanged, so the index's manifest check passes): model `claude-opus-5-5`, lookup and synthesis effort
+Medium, `MaxOutputTokens` 16,000 (thinking + answer; only used tokens are billed); every key required, an environment
+variable overrides one for a run (`Claude__Model=claude-sonnet-5-5`). The key only from `ANTHROPIC_API_KEY` (or
+`ANTHROPIC_AUTH_TOKEN`); startup checks it's set and that the model exists (Models API, no tokens billed). No server-side
+refusal fallback: an answer from another model would be measured as this one's. The app is Local's question loop
+(`InteractiveSession`) over the existing index via `OpenExistingIndexAsync` - it never builds one; embeddings stay
+Ollama's.
+
+Shared changes in Local: a refusal now fails the answer loudly, even after some text (before, it would have read as an
+empty or cut-off answer and been graded as one); the starved-response message names no settings file; the console's
+reasoning line no longer claims every reasoning question matched `RequiresSynthesis` (Claude reasons on lookups too);
+the UTF-8 console setup is `Utf8Console`, used by both apps; `InternalsVisibleTo` for the Claude project. Checked:
+401 + 166 tests (a refusal test; `ClaudeSettingsTests` - the shipped file binds, None refused for either effort, a
+missing key named, an override applied); without a key the Claude app stops with one line naming `ANTHROPIC_API_KEY`;
+the local app answers as before. No call to the API yet - that needs the user's key (step 5).

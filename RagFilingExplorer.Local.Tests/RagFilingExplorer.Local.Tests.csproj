@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RagFilingExplorer.Claude\RagFilingExplorer.Claude.csproj" />
     <ProjectReference Include="..\RagFilingExplorer.Local\RagFilingExplorer.Local.csproj" />
   </ItemGroup>
 

@@ -403,6 +403,29 @@ public class RagAnswerServiceTests
         });
     }
 
+    // A refusal (Claude's stop_reason "refusal", ChatFinishReason.ContentFilter through IChatClient) is an ordinary
+    // completion to the stream; without the guard it would read as an empty or cut-off answer and be graded as one.
+    [Test]
+    public void AskAsync_Refusal_ThrowsEvenAfterSomeText()
+    {
+        (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks();
+        chatClient
+            .Setup(c => c.GetStreamingResponseAsync(It.IsAny<IEnumerable<ChatMessage>>(), It.IsAny<ChatOptions>(), It.IsAny<CancellationToken>()))
+            .Returns(AsAsync(
+            [
+                new ChatResponseUpdate(ChatRole.Assistant, "Microsoft's total"),
+                new ChatResponseUpdate(ChatRole.Assistant, "") { FinishReason = ChatFinishReason.ContentFilter },
+            ]));
+
+        Assert.ThrowsAsync<InvalidOperationException>(async () =>
+        {
+            RagAnswer answer = await CreateService(collection, chatClient).AskAsync("What was total revenue?", SearchTopK);
+            await foreach (ChatResponseUpdate _ in answer.AnswerStream)
+            {
+            }
+        });
+    }
+
     [Test]
     public async Task AskAsync_NormalCompletion_DoesNotThrowEvenWithFinishReasonLength()
     {
