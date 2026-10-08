@@ -175,75 +175,81 @@ internal sealed class EvaluationRunner(
         {
             foreach ((_, string question, ExpectedAnswer entry) in questions.Where(q => q.Set == set))
             {
-                Stopwatch clock = Stopwatch.StartNew();
-                // Tags by name: the parameter before them is additionalCachingKeys - tags there would change every
-                // cache key and re-ask the model for every answer.
-                List<string> tags = QuestionTags.For(entry, runtime.Companies.ResolveFilings(question), QueryIntentResolver.ResolveStatementType(question), ollamaVersion);
-                await using ScenarioRun scenario = await reporting.CreateScenarioRunAsync(
-                    $"{set.Name}.{entry.Id}", additionalTags: tags, cancellationToken: cancellationToken);
-                scenarioChat.Inner = scenario.ChatConfiguration!.ChatClient;
-                if (unloadBeforeEachQuestion)
-                {
-                    await chat.RequestModelUnloadAsync(settings.Ollama.ChatModel, cancellationToken);
-                }
-
-                RagAnswer answer = await runtime.AnswerService.AskAsync(question, settings.Retrieval.VerboseSearchTopK, cancellationToken);
-                StringBuilder text = new();
-                await foreach (ChatResponseUpdate update in answer.AnswerStream.WithCancellation(cancellationToken))
-                {
-                    text.Append(update.Text);
-                }
-
-                string answerText = text.ToString().Trim();
-                List<RetrievedExcerpt> chunks = answer.RetrievedChunks
-                    .Select(r => new RetrievedExcerpt(r.Record.SourceFiling, r.Record.Heading, r.Record.StatementType, r.Record.Content))
-                    .ToList();
-                List<EvaluationContext> contexts = [new ExpectedAnswerContext(entry), new RetrievedChunksContext(chunks)];
-                if (judgeNames.Count > 0)
-                {
-                    contexts.AddRange(JudgeSetup.Contexts(entry, chunks, settings.Retrieval.GenerationTopK));
-                }
-
-                // The judges' larger context window only while they run - the answer above was asked with the app's own.
-                judgeChat.JudgeContext = judgeNames.Count > 0;
-                EvaluationResult result;
-                try
-                {
-                    result = await scenario.EvaluateAsync(
-                        // The system prompt and the excerpts the model was given, then the question (last: what judges read).
-                        PromptTranscript.Messages(answer.Prompt, chunks.Take(settings.Retrieval.GenerationTopK).ToList(), question),
-                        new ChatResponse(new ChatMessage(ChatRole.Assistant, answerText)),
-                        additionalContext: contexts,
-                        cancellationToken);
-                }
-                finally
-                {
-                    judgeChat.JudgeContext = false;
-                }
-
-                StrictGrade? grade = result.Metrics.TryGetValue(StrictFigureEvaluator.MetricName, out EvaluationMetric? strict)
-                    ? new StrictGrade(((StringMetric)strict).Value!, StrictFigureEvaluator.GraderNote(strict))
-                    : null;
-                // Each judge's verdict: passed unless the library interprets its score as failed (an unread reply fails).
-                Dictionary<string, bool> judgePassed = result.Metrics.Values
-                    .Where(m => JudgeAgreement.MetricNames.Contains(m.Name))
-                    .ToDictionary(m => m.Name, m => m.Interpretation?.Failed != true);
-                double? rank = result.Get<NumericMetric>(RetrievalRankEvaluator.MetricName).Value;
-                StringMetric source = result.Get<StringMetric>(FigureSourceEvaluator.MetricName);
-                QuestionOutcome outcome = new(set.Name, entry.Id, grade, rank is null ? null : (int)rank, answerText, clock.Elapsed, source.Value!, FigureSourceEvaluator.TraceText(source), judgePassed);
-                outcomes.Add(outcome);
-                string graded = grade is null ? "not strictly graded" : grade.Status + (grade.Note.Length > 0 ? $" ({grade.Note})" : "");
-                progress($"{set.Name}.{entry.Id}: {graded}, rank {outcome.Rank?.ToString() ?? "-"}, "
-                    + $"figures {outcome.FigureSource}, "
-                    + string.Concat(result.Metrics.Values.OfType<NumericMetric>().Where(m => m.Name != RetrievalRankEvaluator.MetricName)
-                        .Select(m => $"{m.Name} {m.Value?.ToString() ?? "error"}, "))
-                    + $"{clock.Elapsed.TotalSeconds:F0}s");
+                outcomes.Add(await AskAndEvaluateAsync(set.Name, question, entry));
             }
         }
 
         scenarioChat.Inner = null;
         await WriteReportAsync(cancellationToken);
         return outcomes;
+
+        // One question: asked through the app, evaluated, and reported to progress.
+        async Task<QuestionOutcome> AskAndEvaluateAsync(string setName, string question, ExpectedAnswer entry)
+        {
+            Stopwatch clock = Stopwatch.StartNew();
+            // Tags by name: the parameter before them is additionalCachingKeys - tags there would change every
+            // cache key and re-ask the model for every answer.
+            List<string> tags = QuestionTags.For(entry, runtime.Companies.ResolveFilings(question), QueryIntentResolver.ResolveStatementType(question), ollamaVersion);
+            await using ScenarioRun scenario = await reporting.CreateScenarioRunAsync(
+                $"{setName}.{entry.Id}", additionalTags: tags, cancellationToken: cancellationToken);
+            scenarioChat.Inner = scenario.ChatConfiguration!.ChatClient;
+            if (unloadBeforeEachQuestion)
+            {
+                await chat.RequestModelUnloadAsync(settings.Ollama.ChatModel, cancellationToken);
+            }
+
+            RagAnswer answer = await runtime.AnswerService.AskAsync(question, settings.Retrieval.VerboseSearchTopK, cancellationToken);
+            StringBuilder text = new();
+            await foreach (ChatResponseUpdate update in answer.AnswerStream.WithCancellation(cancellationToken))
+            {
+                text.Append(update.Text);
+            }
+
+            string answerText = text.ToString().Trim();
+            List<RetrievedExcerpt> chunks = answer.RetrievedChunks
+                .Select(r => new RetrievedExcerpt(r.Record.SourceFiling, r.Record.Heading, r.Record.StatementType, r.Record.Content))
+                .ToList();
+            List<EvaluationContext> contexts = [new ExpectedAnswerContext(entry), new RetrievedChunksContext(chunks)];
+            if (judgeNames.Count > 0)
+            {
+                contexts.AddRange(JudgeSetup.Contexts(entry, chunks, settings.Retrieval.GenerationTopK));
+            }
+
+            // The judges' larger context window only while they run - the answer above was asked with the app's own.
+            judgeChat.JudgeContext = judgeNames.Count > 0;
+            EvaluationResult result;
+            try
+            {
+                result = await scenario.EvaluateAsync(
+                    // The system prompt and the excerpts the model was given, then the question (last: what judges read).
+                    PromptTranscript.Messages(answer.Prompt, chunks.Take(settings.Retrieval.GenerationTopK).ToList(), question),
+                    new ChatResponse(new ChatMessage(ChatRole.Assistant, answerText)),
+                    additionalContext: contexts,
+                    cancellationToken);
+            }
+            finally
+            {
+                judgeChat.JudgeContext = false;
+            }
+
+            StrictGrade? grade = result.Metrics.TryGetValue(StrictFigureEvaluator.MetricName, out EvaluationMetric? strict)
+                ? new StrictGrade(((StringMetric)strict).Value!, StrictFigureEvaluator.GraderNote(strict))
+                : null;
+            // Each judge's verdict: passed unless the library interprets its score as failed (an unread reply fails).
+            Dictionary<string, bool> judgePassed = result.Metrics.Values
+                .Where(m => JudgeAgreement.MetricNames.Contains(m.Name))
+                .ToDictionary(m => m.Name, m => m.Interpretation?.Failed != true);
+            double? rank = result.Get<NumericMetric>(RetrievalRankEvaluator.MetricName).Value;
+            StringMetric source = result.Get<StringMetric>(FigureSourceEvaluator.MetricName);
+            QuestionOutcome outcome = new(setName, entry.Id, grade, rank is null ? null : (int)rank, answerText, clock.Elapsed, source.Value!, FigureSourceEvaluator.TraceText(source), judgePassed);
+            string graded = grade is null ? "not strictly graded" : grade.Status + (grade.Note.Length > 0 ? $" ({grade.Note})" : "");
+            progress($"{setName}.{entry.Id}: {graded}, rank {outcome.Rank?.ToString() ?? "-"}, "
+                + $"figures {outcome.FigureSource}, "
+                + string.Concat(result.Metrics.Values.OfType<NumericMetric>().Where(m => m.Name != RetrievalRankEvaluator.MetricName)
+                    .Select(m => $"{m.Name} {m.Value?.ToString() ?? "error"}, "))
+                + $"{clock.Elapsed.TotalSeconds:F0}s");
+            return outcome;
+        }
     }
 
     /// <summary>report-&lt;execution&gt;.html in the storage root, from this execution's stored results, and report.html from
