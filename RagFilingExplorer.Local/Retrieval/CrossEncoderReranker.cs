@@ -13,7 +13,7 @@ internal interface IRelevanceScorer
 
 /// <summary>
 /// A cross-encoder (ms-marco-MiniLM-L6-v2, run locally by ONNX Runtime) reading each (question, chunk) pair whole, where
-/// the embedding and keyword searches only compared them; ~1-3 s of CPU per question. Off by default (Retrieval:Rerank):
+/// the embedding and keyword searches only compared them; it costs seconds of CPU per question. Off by default (Retrieval:Rerank):
 /// it prefers prose to statement rows, and across every question set hybrid search alone puts as many answers in the
 /// model's context (docs/Decision-Log.md, "Step 2b spike - measured" and "A1-A27 with reranking off" onwards).
 ///

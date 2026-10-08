@@ -8,8 +8,7 @@ namespace RagFilingExplorer.Local.Retrieval;
 /// Metadata filtering (Microsoft's own retrieval-quality guidance ranks this above chunk-size/text
 /// tweaks) targets cross-company and cross-statement contamination (e.g. an MSFT-specific question
 /// pulling in ORCL chunks, or a single filing's many similarly-shaped "Item 15" tables burying the right
-/// one). The statement type is a hard filter under
-/// Vector search and a boost under Hybrid. <c>ResolveStatementType</c> requires exactly one statement type
+/// one). The statement type is a hard filter under Vector search and a boost under Hybrid. <c>ResolveStatementType</c> requires exactly one statement type
 /// to act - zero or ambiguous matches resolve to null, leaving that dimension alone rather than guessing.
 ///
 /// <c>RequiresSynthesis</c> has different semantics on purpose: it's an any-match keyword check (not
@@ -57,7 +56,7 @@ internal static class QueryIntentResolver
     // Longest match wins: a matched keyword that is part of a longer matched keyword is ignored, so
     // "changes in stockholders' equity" (equity_statement) isn't made ambiguous by the
     // "stockholders' equity" (balance_sheet) inside it. Genuinely different matches ("revenue" and
-    // "total assets") still make the question ambiguous and resolve to null, as before.
+    // "total assets") still make the question ambiguous and resolve to null.
     public static string? ResolveStatementType(string question)
     {
         (string Type, string Keyword)[] matches = StatementTypeKeywords

@@ -81,12 +81,8 @@ internal static class IndexBuilder
     {
         Console.WriteLine("Embedding and upserting all chunks (this calls Ollama for every chunk - may take a few minutes)...");
 
-        // Default (appsettings.json's VectorStore.UpsertBatchSize) must stay 1: SqliteVec 1.0.1-preview
-        // throws "UNIQUE constraint failed on vec_chunks primary key" on any multi-record UpsertAsync batch
-        // against a fresh vec0 virtual table (even the very first batch of all-new keys, so it's not a real
-        // duplicate-key issue in our data). Its delete-then-insert upsert workaround
-        // (vec0 has no native UPSERT) appears to only be exercised correctly for single-record batches. In
-        // practice this costs little: embedding each chunk, not the upsert, is what takes the time.
+        // batchSize must stay 1 on SqliteVec 1.0.1-preview - see VectorStoreSettings.UpsertBatchSize. It costs little:
+        // embedding each chunk, not the upsert, is what takes the time.
         DateTime start = DateTime.UtcNow;
         for (int i = 0; i < records.Count; i += batchSize)
         {

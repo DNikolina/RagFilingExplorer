@@ -42,8 +42,7 @@ internal sealed class CompanyRegistry(IReadOnlyList<CompanyRegistration> registr
 
     /// <summary>
     /// Every filing the question names, in a stable (ordinal) order; empty when it names none. RagAnswerService
-    /// searches each one separately - one shared search let "Compare Microsoft's and Oracle's total revenue" lose
-    /// ORCL's revenue chunk to rank 10.
+    /// searches each one separately - in one shared search, one company's chunks can crowd the other's out of the top-K.
     /// </summary>
     public string[] ResolveFilings(string question) => Registrations
         .Where(r => r.Names.Any(name => Regex.IsMatch(question, $@"\b{Regex.Escape(name)}\b", RegexOptions.IgnoreCase)))

@@ -131,9 +131,8 @@ internal sealed class RetrievalSettings
     public required SearchMode Search { get; set; }
 
     /// <summary>
-    /// How many candidates each of hybrid search's ranked lists contributes before fusion; unused by Vector search. 50
-    /// matched fusing complete rankings on every question group in the replay (100 did slightly worse on the routing
-    /// tests); a filing has 199-294 chunks.
+    /// How many candidates each of hybrid search's ranked lists contributes before fusion; unused by Vector search. Deep
+    /// enough to match fusing complete rankings - docs/Decision-Log.md, "Step 2 - hybrid search".
     /// </summary>
     public required int HybridCandidates { get; set; }
 
@@ -145,8 +144,8 @@ internal sealed class RetrievalSettings
     /// </summary>
     public required bool Rerank { get; set; }
 
-    /// <summary>How many hybrid candidates per company the reranker reorders - 25 matched or beat 50 on every question
-    /// group in the replay.</summary>
+    /// <summary>How many hybrid candidates per company the reranker reorders - chosen in docs/Decision-Log.md, "Step 2b
+    /// spike - measured".</summary>
     public required int RerankCandidates { get; set; }
 
     /// <summary>Where the reranker's model lives, outside the repo (environment variables expanded):
@@ -177,8 +176,8 @@ internal sealed class RetrievalSettings
     /// reasoning model), for every question and every chat model - set explicitly rather than left to Ollama's default,
     /// which a thinking model can exhaust silently. The prompt and this output share Ollama's context window (num_ctx,
     /// not set by this app: 4096 by default), so prompt + this must stay under 4096 - past it, Ollama silently drops
-    /// the oldest tokens: the system prompt and the top-ranked chunks. Real answers are at most ~275 tokens and prompts
-    /// at most ~3,000, so 768 is ~3x the longest answer with ~300 tokens to spare. A reasoning model gets little room
+    /// the oldest tokens: the system prompt and the top-ranked chunks. The value leaves room for several times the longest
+    /// answer seen (docs/Decision-Log.md, "pre-manual-pass review"). A reasoning model gets little room
     /// to think within this; giving it more means raising num_ctx too. A model that still hits this ceiling without
     /// producing answer text fails loudly (RagAnswerService's starved-response guard).
     /// </summary>

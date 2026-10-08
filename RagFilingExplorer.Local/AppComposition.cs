@@ -77,13 +77,8 @@ internal static class AppComposition
     {
         bool chatModelSupportsThinking = await OllamaSetup.ChatModelSupportsThinkingAsync(chatApiClient, settings.Ollama.ChatModel);
 
-        // Metadata filtering (Microsoft's own retrieval-quality guidance ranks this above chunk-size/text
-        // tweaks): a question that names a company is searched within that company's filing, and one that points
-        // at a specific financial statement favours it - a hard filter under Vector search, a boost under Hybrid.
-        // It targets cross-company and cross-statement contamination (an MSFT question pulling in ORCL chunks, or
-        // a filing's many similarly-shaped tables burying the right one). See RagAnswerService/QueryIntentResolver
-        // for the resolution + search + prompt + generation flow, and InteractiveSession for the question loop -
-        // kept out of here so they can be unit-tested with mocked dependencies.
+        // Company and statement-type filtering, search, prompt and generation are RagAnswerService's (see
+        // QueryIntentResolver for why the filters exist); the question loop is InteractiveSession's.
         //
         // Hybrid search (Retrieval:Search) adds an FTS5 keyword index to the same database - created on first use, so an
         // index built without one needs no rebuild (see KeywordIndex.EnsureCreated).
