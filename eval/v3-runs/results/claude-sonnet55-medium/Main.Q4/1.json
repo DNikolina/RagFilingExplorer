@@ -2,7 +2,7 @@
   "scenarioName": "Main.Q4",
   "iterationName": "1",
   "executionName": "claude-sonnet55-medium",
-  "creationTime": "2026-10-08T18:06:02.1857385Z",
+  "creationTime": "2026-10-08T18:48:03.4951912Z",
   "messages": [
     {
       "role": "system",
@@ -92,7 +92,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 2.1002874,
+        "latency": 0.0006404,
         "model": "claude-sonnet-5-5",
         "modelProvider": "anthropic",
         "usage": {
@@ -102,7 +102,7 @@
           "cachedInputTokenCount": 0
         },
         "cacheKey": "04D16A4023DF377F252F2AFF770865C364D50EA8F3612F816ECA98CC55FD7B32325FF4456B491DFF49580920B0FD30D0",
-        "cacheHit": false
+        "cacheHit": true
       }
     ]
   },

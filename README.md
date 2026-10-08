@@ -398,7 +398,9 @@ through the app's own composition, each a stored scenario, the model's responses
 The questions and their sources are in [docs/Manual-Test-Questions.md](docs/Manual-Test-Questions.md); what grading
 checks is in `tools/expected-answers.json`. Three deterministic evaluators - no model judges an answer:
 
-- **Strict grade** - the expected figure, its unit and the exact line; a clean decline where the filing doesn't say.
+- **Strict grade** - the expected figure, its unit and the exact line; a clean decline where the filing doesn't say. A
+  lookalike line the answer names only to say it's not the one asked about passes; one stated next to the answer without
+  that, or as its conclusion, is left to a reader (`check`).
 - **Answer rank** - where the expected figure ranks among the retrieved chunks, so "retrieval missed it" is told
   apart from "the model misread it".
 - **Figure source** - each figure the answer states, traced to the excerpt and line the model was given. A figure in

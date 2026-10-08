@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H6",
   "iterationName": "1",
   "executionName": "claude-opus55-low",
-  "creationTime": "2026-10-08T18:21:25.1206611Z",
+  "creationTime": "2026-10-08T18:48:31.1209631Z",
   "messages": [
     {
       "role": "system",
@@ -49,16 +49,16 @@
     "metrics": {
       "Strict grade": {
         "$type": "string",
-        "value": "check",
+        "value": "reliable",
         "name": "Strict grade",
         "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
         "interpretation": {
-          "rating": "inconclusive",
+          "rating": "good",
           "failed": false,
-          "reason": "States the expected 10,272 million, but also 7,467 (MD\u0026A, excluding stock-based compensation) - a reader decides which it answers with."
+          "reason": "States the expected 10,272 million (names 7,467 as the contrast)."
         },
         "metadata": {
-          "Grader note": "also states 7,467"
+          "Grader note": "names 7,467 as the contrast"
         }
       },
       "Answer rank": {
@@ -80,13 +80,12 @@
         "interpretation": {
           "rating": "good",
           "failed": false,
-          "reason": "A misreading - every figure is in an excerpt: 10,272 from excerpts 1 (narrative), 3 (income_statement), 7,467 from excerpt 1 (narrative), 2,805 from excerpt 1 (narrative); the expected 10,272 was in excerpts 1 (narrative), 3 (income_statement)."
+          "reason": "Every figure is in an excerpt: 10,272 from excerpts 1 (narrative), 3 (income_statement), 7,467 from excerpt 1 (narrative), 2,805 from excerpt 1 (narrative)."
         },
         "metadata": {
           "Stated 10,272": "excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Total expenses \u2014 2026: $10,272 | Percent Change Actual: 4% | Percent Change Constant: 4% | 2025: $9,860\u0022; excerpt 3 (income_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Operating expenses \u003E Research and development \u2014 2026: 10,272 | 2025: 9,860 | 2024: 8,915\u0022",
           "Stated 7,467": "excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Research and development(1) \u2014 2026: $7,467 | Percent Change Actual: 3% | Percent Change Constant: 3% | 2025: $7,222\u0022",
-          "Stated 2,805": "excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Stock-based compensation \u2014 2026: 2,805 | Percent Change Actual: 6% | Percent Change Constant: 6% | 2025: 2,638\u0022",
-          "Expected 10,272": "excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Total expenses \u2014 2026: $10,272 | Percent Change Actual: 4% | Percent Change Constant: 4% | 2025: $9,860\u0022; excerpt 3 (income_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Operating expenses \u003E Research and development \u2014 2026: 10,272 | 2025: 9,860 | 2024: 8,915\u0022"
+          "Stated 2,805": "excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Stock-based compensation \u2014 2026: 2,805 | Percent Change Actual: 6% | Percent Change Constant: 6% | 2025: 2,638\u0022"
         }
       }
     }
@@ -94,7 +93,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 4.6736681,
+        "latency": 0.0005919,
         "model": "claude-opus-5-5",
         "modelProvider": "anthropic",
         "usage": {
@@ -104,7 +103,7 @@
           "cachedInputTokenCount": 0
         },
         "cacheKey": "7449338317FA1EFF983E5FE7DCA81C385563BB1548056A79F3EA08E363D86047EFA388784547B7B2CA84C6B3C4FA92A6",
-        "cacheHit": false
+        "cacheHit": true
       }
     ]
   },

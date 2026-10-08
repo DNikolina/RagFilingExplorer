@@ -2,7 +2,7 @@
   "scenarioName": "AnswerSide.A7",
   "iterationName": "1",
   "executionName": "claude-opus55-medium",
-  "creationTime": "2026-10-08T17:59:37.1323994Z",
+  "creationTime": "2026-10-08T18:47:49.1167124Z",
   "messages": [
     {
       "role": "system",
@@ -49,16 +49,16 @@
     "metrics": {
       "Strict grade": {
         "$type": "string",
-        "value": "check",
+        "value": "reliable",
         "name": "Strict grade",
         "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
         "interpretation": {
-          "rating": "inconclusive",
+          "rating": "good",
           "failed": false,
-          "reason": "States the expected 604 million, but also 3,934 (with restricted cash) - a reader decides which it answers with."
+          "reason": "States the expected 604 million (names 3,934 as the contrast)."
         },
         "metadata": {
-          "Grader note": "also states 3,934"
+          "Grader note": "names 3,934 as the contrast"
         }
       },
       "Answer rank": {
@@ -80,13 +80,12 @@
         "interpretation": {
           "rating": "good",
           "failed": false,
-          "reason": "A misreading - every figure is in an excerpt: 604 from excerpts 1 (narrative), 2 (cash_flow_statement), 4 (balance_sheet), 592 from excerpts 2 (cash_flow_statement), 4 (balance_sheet), 3,934 from excerpt 2 (cash_flow_statement); the expected 604 was in excerpts 1 (narrative), 2 (cash_flow_statement), 4 (balance_sheet)."
+          "reason": "Every figure is in an excerpt: 604 from excerpts 1 (narrative), 2 (cash_flow_statement), 4 (balance_sheet), 592 from excerpts 2 (cash_flow_statement), 4 (balance_sheet), 3,934 from excerpt 2 (cash_flow_statement)."
         },
         "metadata": {
           "Stated 604": "excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of): \u0022cash equivalents of $604 million were primarily invested in\u0022; excerpt 2 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022Reconciliation of Cash, Cash Equivalents and Restricted Cash and Cash Equivalents \u003E Cash and cash equivalents \u2014 2025: $604 | 2024: $592 | 2023: $453\u0022; excerpt 4 (balance_sheet, PART IV \u003E Financial Statements): \u0022Current assets \u003E Cash and cash equivalents \u2014 2025: $604 | 2024: $592\u0022",
           "Stated 592": "excerpt 2 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022Reconciliation of Cash, Cash Equivalents and Restricted Cash and Cash Equivalents \u003E Cash and cash equivalents \u2014 2025: $604 | 2024: $592 | 2023: $453\u0022; excerpt 4 (balance_sheet, PART IV \u003E Financial Statements): \u0022Current assets \u003E Cash and cash equivalents \u2014 2025: $604 | 2024: $592\u0022",
-          "Stated 3,934": "excerpt 2 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022... flows from financing activities \u003E Cash and cash equivalents, restricted cash and cash equivalents at end of period \u2014 2025: $3,934 | 2024: $5,006 | 2023: $7,118\u0022 (\u002B1 more line)",
-          "Expected 604": "excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of): \u0022cash equivalents of $604 million were primarily invested in\u0022; excerpt 2 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022Reconciliation of Cash, Cash Equivalents and Restricted Cash and Cash Equivalents \u003E Cash and cash equivalents \u2014 2025: $604 | 2024: $592 | 2023: $453\u0022; excerpt 4 (balance_sheet, PART IV \u003E Financial Statements): \u0022Current assets \u003E Cash and cash equivalents \u2014 2025: $604 | 2024: $592\u0022"
+          "Stated 3,934": "excerpt 2 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022... flows from financing activities \u003E Cash and cash equivalents, restricted cash and cash equivalents at end of period \u2014 2025: $3,934 | 2024: $5,006 | 2023: $7,118\u0022 (\u002B1 more line)"
         }
       }
     }
@@ -94,7 +93,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 3.8380567,
+        "latency": 0.000647,
         "model": "claude-opus-5-5",
         "modelProvider": "anthropic",
         "usage": {
@@ -104,7 +103,7 @@
           "cachedInputTokenCount": 0
         },
         "cacheKey": "65968C9D3997A25E6FD69404DA81DEF75F9AAC3C08A8B33C630854F55195C3C1CC60F67B867C032E99BA22F659041549",
-        "cacheHit": false
+        "cacheHit": true
       }
     ]
   },

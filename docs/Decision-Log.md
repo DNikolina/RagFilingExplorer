@@ -3640,3 +3640,22 @@ strict-grade count moves by a `check` or two between passes while what it answer
 read verdicts, or on the strict grade only alongside a variance pass.
 
 Batch 1 spent ~$7.30 (smoke ~$0.04, Opus medium ~$2.10, Sonnet ~$0.95, Opus low ~$2.04, variance ~$2.16).
+
+**The strict grader extended (user, 2026-10-08).** Its rules came from llama's answers, which stated a second figure only
+when unsure; Claude names the lookalike to rule it out, and gives a reason with a decline. Two rules added in .NET (the
+Python grader stays the record):
+- **A lookalike named as the contrast passes** (`reliable`, note "names <figure> as the contrast"): the first sentence
+  states every expected figure and no lookalike; nothing hedges ("ambiguous", "give both", "could refer"); no lookalike
+  is stated with a conclusion word ("therefore", "thus", "in total", ...). That last condition keeps llama's A16 - "$616
+  million ... Therefore, the total cash spent ... is $620 million" - a `check`: it answered the lookalike.
+- **A date's day isn't a stated figure**: "December 31" made clean declines "declines but states 31".
+Before writing them, all 58 `check` grades in `eval/v3-runs/` were read - llama's are the A16 above and declines stating
+real figures (H10, A17, T9), which both rules leave alone. Regraded, every change is an answer read as correct: 32 Claude
+answers (`check` -> `reliable`/`decline-ok`) and, in history, two granite4.1:8b clean declines (H30, Q15:
+`check` -> `decline-ok`, listed in `GraderParityTests.DeliberateRegrades`); every other v1-v3 grade is unchanged. Still
+`check`, for a reader: Sonnet's explicit hedges (V1, Q23), declines that state other periods' figures (H8, R3), H11
+naming a second city, H34's rounded figure. The three cached Claude runs replayed under their names - 306 answers, all
+from the cache, $0: **Opus medium 97/102, Opus low 98/102, Sonnet 95/102** strictly (were 89, 90, 85; read by hand 98,
+98, 96 + 3 hedges). The variance pass was asked with no cache and can't be replayed without asking again; its stored
+grades predate the rules (90/102) - regraded offline, 6 `check`s become `reliable` (96/102). 409 + 180 tests
+(`StrictGraderTests`, 8).

@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 409 offline unit tests (176 at v1.0) + 172 offline evaluation tests |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 409 offline unit tests (176 at v1.0) + 180 offline evaluation tests |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -77,7 +77,8 @@ zero-cost. Steps 1-4 done (branch `v4`): the chat model's options passed in, the
 `ChatModel` (Local or Claude; the cache keyed by model), the docs. Step 5 started: Opus 5.5 medium, all 102 - 89/102 strictly, 98/102 with its `check` grades
 read (llama 84/102); every remaining miss a retrieval miss. Sonnet 5.5 medium: 85/102 strictly, 96/102 read plus 3
 hedges, ~$0.95. Opus 5.5 low: 90/102 strictly, 98/102 read - as medium, ~4% cheaper. Variance pass (Opus medium, no cache): wording varies, answers don't - 1 grade changed,
-98/102 read again. ~$7.30 spent. Open: whether the strict grade should accept a lookalike named as the contrast. Decision-Log.md, "paid services (v4)".
+98/102 read again. ~$7.30 spent. Strict grader extended (a lookalike named as the contrast passes; a date's day
+isn't a figure): Opus medium 97, Opus low 98, Sonnet 95 strictly. Decision-Log.md, "paid services (v4)".
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the

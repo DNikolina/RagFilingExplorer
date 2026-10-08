@@ -2,7 +2,7 @@
   "scenarioName": "AnswerSide.A10",
   "iterationName": "1",
   "executionName": "claude-sonnet55-medium",
-  "creationTime": "2026-10-08T18:08:33.4373543Z",
+  "creationTime": "2026-10-08T18:48:12.3340553Z",
   "messages": [
     {
       "role": "system",
@@ -49,16 +49,16 @@
     "metrics": {
       "Strict grade": {
         "$type": "string",
-        "value": "check",
+        "value": "reliable",
         "name": "Strict grade",
         "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
         "interpretation": {
-          "rating": "inconclusive",
+          "rating": "good",
           "failed": false,
-          "reason": "States the expected 26,445 million, but also 27,034 (dividends declared (equity statement), not paid (cash flow statement)) - a reader decides which it answers with."
+          "reason": "States the expected 26,445 million (names 27,034 as the contrast)."
         },
         "metadata": {
-          "Grader note": "also states 27,034"
+          "Grader note": "names 27,034 as the contrast"
         }
       },
       "Answer rank": {
@@ -80,12 +80,11 @@
         "interpretation": {
           "rating": "good",
           "failed": false,
-          "reason": "A misreading - every figure is in an excerpt: 26,445 from excerpt 3 (cash_flow_statement), 27,034 from excerpt 1 (equity_statement); the expected 26,445 was in excerpt 3 (cash_flow_statement)."
+          "reason": "Every figure is in an excerpt: 26,445 from excerpt 3 (cash_flow_statement), 27,034 from excerpt 1 (equity_statement)."
         },
         "metadata": {
           "Stated 26,445": "excerpt 3 (cash_flow_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Financing \u003E Common stock cash dividends paid \u2014 2026: (26,445) | 2025: (24,082) | 2024: (21,771)\u0022",
-          "Stated 27,034": "excerpt 1 (equity_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Retained earnings \u003E Common stock cash dividends \u2014 2026: (27,034) | 2025: (24,677) | 2024: (22,293)\u0022",
-          "Expected 26,445": "excerpt 3 (cash_flow_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Financing \u003E Common stock cash dividends paid \u2014 2026: (26,445) | 2025: (24,082) | 2024: (21,771)\u0022"
+          "Stated 27,034": "excerpt 1 (equity_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Retained earnings \u003E Common stock cash dividends \u2014 2026: (27,034) | 2025: (24,677) | 2024: (22,293)\u0022"
         }
       }
     }
@@ -93,7 +92,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 2.0932255,
+        "latency": 0.0004783,
         "model": "claude-sonnet-5-5",
         "modelProvider": "anthropic",
         "usage": {
@@ -103,7 +102,7 @@
           "cachedInputTokenCount": 0
         },
         "cacheKey": "5CF320D3693B039280A53D125C9929DAB5D2114C0F55624804B59A000CD60B3CEEEF66457782EB3382A0BE6EBB2A1F68",
-        "cacheHit": false
+        "cacheHit": true
       }
     ]
   },

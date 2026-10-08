@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H19",
   "iterationName": "1",
   "executionName": "claude-sonnet55-medium",
-  "creationTime": "2026-10-08T18:07:43.6399015Z",
+  "creationTime": "2026-10-08T18:48:09.5415189Z",
   "messages": [
     {
       "role": "system",
@@ -49,16 +49,16 @@
     "metrics": {
       "Strict grade": {
         "$type": "string",
-        "value": "check",
+        "value": "reliable",
         "name": "Strict grade",
         "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
         "interpretation": {
-          "rating": "inconclusive",
+          "rating": "good",
           "failed": false,
-          "reason": "States the expected 119,651 million, but also 119,509 (2025) - a reader decides which it answers with."
+          "reason": "States the expected 119,651 million (names 119,509 as the contrast)."
         },
         "metadata": {
-          "Grader note": "also states 119,509"
+          "Grader note": "names 119,509 as the contrast"
         }
       },
       "Answer rank": {
@@ -80,15 +80,14 @@
         "interpretation": {
           "rating": "good",
           "failed": false,
-          "reason": "A misreading - every figure is in an excerpt: 119,651 from excerpts 1 (narrative), 3 (balance_sheet), 119,509 from excerpts 1 (narrative), 3 (balance_sheet), 31,570 from excerpt 1 (narrative), 25,741 from excerpt 1 (narrative), 62,340 from excerpt 1 (narrative); the expected 119,651 was in excerpts 1 (narrative), 3 (balance_sheet)."
+          "reason": "Every figure is in an excerpt: 119,651 from excerpts 1 (narrative), 3 (balance_sheet), 119,509 from excerpts 1 (narrative), 3 (balance_sheet), 31,570 from excerpt 1 (narrative), 25,741 from excerpt 1 (narrative), 62,340 from excerpt 1 (narrative)."
         },
         "metadata": {
           "Stated 119,651": "excerpt 1 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Goodwill): \u0022Total \u2014 June 30, 2024: $119,220 | Acquisitions: $0 | Other: $289 | June 30, 2025: $119,509 | Acquisitions: $108 | Other: $34 | June 30, 2026: $119,651\u0022; excerpt 3 (balance_sheet, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Goodwill \u2014 2026: 119,651 | 2025: 119,509\u0022",
           "Stated 119,509": "excerpt 1 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Goodwill): \u0022Total \u2014 June 30, 2024: $119,220 | Acquisitions: $0 | Other: $289 | June 30, 2025: $119,509 | Acquisitions: $108 | Other: $34 | June 30, 2026: $119,651\u0022; excerpt 3 (balance_sheet, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Goodwill \u2014 2026: 119,651 | 2025: 119,509\u0022",
           "Stated 31,570": "excerpt 1 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Goodwill): \u0022...d Business Processes \u2014 June 30, 2024: $31,361 | Acquisitions: $0 | Other: $96 | June 30, 2025: $31,457 | Acquisitions: $67 | Other: $46 | June 30, 2026: $31,570\u0022",
           "Stated 25,741": "excerpt 1 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Goodwill): \u0022Intelligent Cloud \u2014 June 30, 2024: 25,648 | Acquisitions: 0 | Other: 41 | June 30, 2025: 25,689 | Acquisitions: 36 | Other: 16 | June 30, 2026: 25,741\u0022",
-          "Stated 62,340": "excerpt 1 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Goodwill): \u0022More Personal Computing \u2014 June 30, 2024: 62,211 | Acquisitions: 0 | Other: 152 | June 30, 2025: 62,363 | Acquisitions: 5 | Other: (28) | June 30, 2026: 62,340\u0022",
-          "Expected 119,651": "excerpt 1 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Goodwill): \u0022Total \u2014 June 30, 2024: $119,220 | Acquisitions: $0 | Other: $289 | June 30, 2025: $119,509 | Acquisitions: $108 | Other: $34 | June 30, 2026: $119,651\u0022; excerpt 3 (balance_sheet, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Goodwill \u2014 2026: 119,651 | 2025: 119,509\u0022"
+          "Stated 62,340": "excerpt 1 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Goodwill): \u0022More Personal Computing \u2014 June 30, 2024: 62,211 | Acquisitions: 0 | Other: 152 | June 30, 2025: 62,363 | Acquisitions: 5 | Other: (28) | June 30, 2026: 62,340\u0022"
         }
       }
     }
@@ -96,7 +95,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 1.9917149,
+        "latency": 0.0004772,
         "model": "claude-sonnet-5-5",
         "modelProvider": "anthropic",
         "usage": {
@@ -106,7 +105,7 @@
           "cachedInputTokenCount": 0
         },
         "cacheKey": "4C32E9BBBF6C3FD281252F807876C3A70673169535F697A4F9C845E49353A46ECE1FB468FFA2F70CBBCF60E064B1F91C",
-        "cacheHit": false
+        "cacheHit": true
       }
     ]
   },

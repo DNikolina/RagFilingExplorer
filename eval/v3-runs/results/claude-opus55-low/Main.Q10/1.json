@@ -2,7 +2,7 @@
   "scenarioName": "Main.Q10",
   "iterationName": "1",
   "executionName": "claude-opus55-low",
-  "creationTime": "2026-10-08T18:18:30.3884918Z",
+  "creationTime": "2026-10-08T18:48:27.302844Z",
   "messages": [
     {
       "role": "system",
@@ -49,16 +49,16 @@
     "metrics": {
       "Strict grade": {
         "$type": "string",
-        "value": "check",
+        "value": "reliable",
         "name": "Strict grade",
         "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
         "interpretation": {
-          "rating": "inconclusive",
+          "rating": "good",
           "failed": false,
-          "reason": "States the expected 2,113 million, but also 2,114 (\u0022Comprehensive income attributable to Nasdaq\u0022 - counts only when the answer names that line) - a reader decides which it answers with."
+          "reason": "States the expected 2,113 million (names 2,114 as the contrast)."
         },
         "metadata": {
-          "Grader note": "also states 2,114"
+          "Grader note": "names 2,114 as the contrast"
         }
       },
       "Answer rank": {
@@ -80,12 +80,11 @@
         "interpretation": {
           "rating": "good",
           "failed": false,
-          "reason": "A misreading - every figure is in an excerpt: 2,113 from excerpt 1 (comprehensive_income), 2,114 from excerpt 1 (comprehensive_income); the expected 2,113 was in excerpt 1 (comprehensive_income)."
+          "reason": "Every figure is in an excerpt: 2,113 from excerpt 1 (comprehensive_income), 2,114 from excerpt 1 (comprehensive_income)."
         },
         "metadata": {
           "Stated 2,113": "excerpt 1 (comprehensive_income, PART IV \u003E Financial Statements): \u0022Comprehensive income \u2014 2025: 2,113 | 2024: 940 | 2023: 1,124\u0022",
-          "Stated 2,114": "excerpt 1 (comprehensive_income, PART IV \u003E Financial Statements): \u0022Comprehensive income attributable to Nasdaq \u2014 2025: $2,114 | 2024: $942 | 2023: $1,126\u0022",
-          "Expected 2,113": "excerpt 1 (comprehensive_income, PART IV \u003E Financial Statements): \u0022Comprehensive income \u2014 2025: 2,113 | 2024: 940 | 2023: 1,124\u0022"
+          "Stated 2,114": "excerpt 1 (comprehensive_income, PART IV \u003E Financial Statements): \u0022Comprehensive income attributable to Nasdaq \u2014 2025: $2,114 | 2024: $942 | 2023: $1,126\u0022"
         }
       }
     }
@@ -93,7 +92,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 3.0389555,
+        "latency": 0.0005913,
         "model": "claude-opus-5-5",
         "modelProvider": "anthropic",
         "usage": {
@@ -103,7 +102,7 @@
           "cachedInputTokenCount": 0
         },
         "cacheKey": "7461C139CDC4A6080634526A6817EBE4B0651F1BC12522CC9CE1632A4F5A8E6A41717530117AD8E7C9AEB5A0D3B50A4C",
-        "cacheHit": false
+        "cacheHit": true
       }
     ]
   },

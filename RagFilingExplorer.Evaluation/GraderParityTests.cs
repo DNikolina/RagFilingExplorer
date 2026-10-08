@@ -17,6 +17,15 @@ public class GraderParityTests
 
     private sealed record Graded(string Id, string Answer, string Status, string Note);
 
+    // Answers the .NET grader regrades on purpose, each with its new grade - every other answer still matches the Python
+    // grader exactly (docs/Decision-Log.md, "the strict grader extended"). granite's clean declines were checks only
+    // because "December 31" counted 31 as a stated figure.
+    private static readonly Dictionary<(string Run, string Id), (string Status, string Note)> DeliberateRegrades = new()
+    {
+        [("eval/granite41-8b/heldout.json", "H30")] = ("decline-ok", ""),
+        [("eval/granite41-8b/main.json", "Q15")] = ("decline-ok", ""),
+    };
+
     private static IReadOnlyList<Graded>? ReadGrading(string path)
     {
         using JsonDocument document = JsonDocument.Parse(File.ReadAllText(path));
@@ -60,7 +69,8 @@ public class GraderParityTests
 
         List<string> differences = ReadGrading(Path.Combine(Repo.FullName, run))!
             .Select(g => (g, mine: StrictGrader.Grade(expected[g.Id], g.Answer)))
-            .Where(x => x.mine.Status != x.g.Status || x.mine.Note != x.g.Note)
+            .Select(x => (x.g, x.mine, want: DeliberateRegrades.GetValueOrDefault((run, x.g.Id), (x.g.Status, x.g.Note))))
+            .Where(x => x.mine.Status != x.want.Status || x.mine.Note != x.want.Note)
             .Select(x => $"{x.g.Id}: Python {x.g.Status} '{x.g.Note}', .NET {x.mine.Status} '{x.mine.Note}'")
             .ToList();
 

@@ -2,7 +2,7 @@
   "scenarioName": "AnswerSide.A21",
   "iterationName": "1",
   "executionName": "claude-sonnet55-medium",
-  "creationTime": "2026-10-08T18:08:53.8305864Z",
+  "creationTime": "2026-10-08T18:48:13.4101393Z",
   "messages": [
     {
       "role": "system",
@@ -90,7 +90,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 1.7238722,
+        "latency": 0.0005867,
         "model": "claude-sonnet-5-5",
         "modelProvider": "anthropic",
         "usage": {
@@ -100,7 +100,7 @@
           "cachedInputTokenCount": 0
         },
         "cacheKey": "824F16625A25F4FB4B4D518A1DB41B1B3679D38B1B45CA2E068D5B58A919B7EC0141C0D8E8ACC01E7047D8B80798FA60",
-        "cacheHit": false
+        "cacheHit": true
       }
     ]
   },

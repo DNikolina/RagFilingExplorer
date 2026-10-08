@@ -2,7 +2,7 @@
   "scenarioName": "Main.Q10",
   "iterationName": "1",
   "executionName": "claude-sonnet55-medium",
-  "creationTime": "2026-10-08T18:06:13.24162Z",
+  "creationTime": "2026-10-08T18:48:04.2903523Z",
   "messages": [
     {
       "role": "system",
@@ -49,16 +49,16 @@
     "metrics": {
       "Strict grade": {
         "$type": "string",
-        "value": "check",
+        "value": "reliable",
         "name": "Strict grade",
         "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
         "interpretation": {
-          "rating": "inconclusive",
+          "rating": "good",
           "failed": false,
-          "reason": "States the expected 2,113 million, but also 2,114 (\u0022Comprehensive income attributable to Nasdaq\u0022 - counts only when the answer names that line) - a reader decides which it answers with."
+          "reason": "States the expected 2,113 million (names 2,114 as the contrast)."
         },
         "metadata": {
-          "Grader note": "also states 2,114"
+          "Grader note": "names 2,114 as the contrast"
         }
       },
       "Answer rank": {
@@ -80,13 +80,12 @@
         "interpretation": {
           "rating": "good",
           "failed": false,
-          "reason": "A misreading - every figure is in an excerpt: 2,113 from excerpt 1 (comprehensive_income), 1 from excerpts 1 (comprehensive_income), 2 (equity_statement), 3 (income_statement), 4 (narrative), 2,114 from excerpt 1 (comprehensive_income); the expected 2,113 was in excerpt 1 (comprehensive_income)."
+          "reason": "Every figure is in an excerpt: 2,113 from excerpt 1 (comprehensive_income), 1 from excerpts 1 (comprehensive_income), 2 (equity_statement), 3 (income_statement), 4 (narrative), 2,114 from excerpt 1 (comprehensive_income)."
         },
         "metadata": {
           "Stated 2,113": "excerpt 1 (comprehensive_income, PART IV \u003E Financial Statements): \u0022Comprehensive income \u2014 2025: 2,113 | 2024: 940 | 2023: 1,124\u0022",
           "Stated 1": "excerpt 1 (comprehensive_income, PART IV \u003E Financial Statements): \u0022Other comprehensive income (loss) \u003E Income tax benefit (expense)(1) \u2014 2025: 94 | 2024: (45) | 2023: 18\u0022 (\u002B4 more lines); excerpt 2 (equity_statement, PART IV \u003E Financial Statements): \u0022Common stock in treasury, at cost \u003E Employee shares withheld \u2014 2025 Shares: (1) | 2025 $: (69) | 2024 Shares: (1) | 2024 $: (60) | 2023 Shares: (2) | 2023 $: (7...\u0022; excerpt 3 (income_statement, PART IV \u003E Financial Statements): \u0022Other income (loss) \u2014 2025: (27) | 2024: 21 | 2023: (1)\u0022 (\u002B1 more line); excerpt 4 (narrative, PART II \u003E Item 8. Financial Statements and Supplementary Data): \u00222026, are attached hereto as pages F-1 through F-44 and\u0022",
-          "Stated 2,114": "excerpt 1 (comprehensive_income, PART IV \u003E Financial Statements): \u0022Comprehensive income attributable to Nasdaq \u2014 2025: $2,114 | 2024: $942 | 2023: $1,126\u0022",
-          "Expected 2,113": "excerpt 1 (comprehensive_income, PART IV \u003E Financial Statements): \u0022Comprehensive income \u2014 2025: 2,113 | 2024: 940 | 2023: 1,124\u0022"
+          "Stated 2,114": "excerpt 1 (comprehensive_income, PART IV \u003E Financial Statements): \u0022Comprehensive income attributable to Nasdaq \u2014 2025: $2,114 | 2024: $942 | 2023: $1,126\u0022"
         }
       }
     }
@@ -94,7 +93,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 2.2209054,
+        "latency": 0.0007778,
         "model": "claude-sonnet-5-5",
         "modelProvider": "anthropic",
         "usage": {
@@ -104,7 +103,7 @@
           "cachedInputTokenCount": 0
         },
         "cacheKey": "D3EC8FF4ACF4AC7A34EA86B9EE3D634BBF43FBDB41DF406DCB58E54C5122F7B124C4052D845FE114CC357FC7A925CB46",
-        "cacheHit": false
+        "cacheHit": true
       }
     ]
   },

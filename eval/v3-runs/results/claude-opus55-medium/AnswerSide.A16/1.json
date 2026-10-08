@@ -2,7 +2,7 @@
   "scenarioName": "AnswerSide.A16",
   "iterationName": "1",
   "executionName": "claude-opus55-medium",
-  "creationTime": "2026-10-08T18:00:31.4846301Z",
+  "creationTime": "2026-10-08T18:47:49.9850504Z",
   "messages": [
     {
       "role": "system",
@@ -49,16 +49,16 @@
     "metrics": {
       "Strict grade": {
         "$type": "string",
-        "value": "check",
+        "value": "reliable",
         "name": "Strict grade",
         "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
         "interpretation": {
-          "rating": "inconclusive",
+          "rating": "good",
           "failed": false,
-          "reason": "States the expected 616 million, but also 620 (equity statement) - a reader decides which it answers with."
+          "reason": "States the expected 616 million (names 620 as the contrast)."
         },
         "metadata": {
-          "Grader note": "also states 620"
+          "Grader note": "names 620 as the contrast"
         }
       },
       "Answer rank": {
@@ -80,7 +80,7 @@
         "interpretation": {
           "rating": "good",
           "failed": false,
-          "reason": "A misreading - every figure is in an excerpt: 616 from excerpt 1 (narrative), 7,202,346 from excerpt 1 (narrative), 85.47 from excerpt 1 (narrative), 4 from excerpt 1 (narrative), 868,135 from excerpt 1 (narrative), 250 from excerpts 1 (narrative), 4 (narrative), 45 from excerpts 1 (narrative), 4 (narrative), 620 from excerpt 5 (equity_statement); the expected 616 was in excerpt 1 (narrative)."
+          "reason": "Every figure is in an excerpt: 616 from excerpt 1 (narrative), 7,202,346 from excerpt 1 (narrative), 85.47 from excerpt 1 (narrative), 4 from excerpt 1 (narrative), 868,135 from excerpt 1 (narrative), 250 from excerpts 1 (narrative), 4 (narrative), 45 from excerpts 1 (narrative), 4 (narrative), 620 from excerpt 5 (equity_statement)."
         },
         "metadata": {
           "Stated 616": "excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity): \u0022Total purchase price (in millions) \u2014 Year Ended December 31, 2025: $616\u0022",
@@ -90,8 +90,7 @@
           "Stated 868,135": "excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity): \u0022an aggregate of 868,135 shares withheld to satisfy tax\u0022",
           "Stated 250": "excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity): \u0022agreement, in which we paid $250 million to a third-party\u0022; excerpt 4 (narrative, PART II \u003E Item 5. Market for Registrant\u2019s Common Equity, Related): \u0022ASR agreement, in which we delivered $250 million to a\u0022",
           "Stated 45": "excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity): \u0022immediately retired, and a $45 million cash payment, which\u0022; excerpt 4 (narrative, PART II \u003E Item 5. Market for Registrant\u2019s Common Equity, Related): \u0022shares, which were immediately retired, and (ii) a $45\u0022",
-          "Stated 620": "excerpt 5 (equity_statement, PART IV \u003E Financial Statements): \u0022Additional paid-in capital \u003E Share repurchase program \u2014 2025 Shares: (7) | 2025 $: (620) | 2024 Shares: (2) | 2024 $: (145) | 2023 Shares: (5) | 2023 $: (269)\u0022",
-          "Expected 616": "excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity): \u0022Total purchase price (in millions) \u2014 Year Ended December 31, 2025: $616\u0022"
+          "Stated 620": "excerpt 5 (equity_statement, PART IV \u003E Financial Statements): \u0022Additional paid-in capital \u003E Share repurchase program \u2014 2025 Shares: (7) | 2025 $: (620) | 2024 Shares: (2) | 2024 $: (145) | 2023 Shares: (5) | 2023 $: (269)\u0022"
         }
       }
     }
@@ -99,7 +98,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 9.6753567,
+        "latency": 0.0003625,
         "model": "claude-opus-5-5",
         "modelProvider": "anthropic",
         "usage": {
@@ -109,7 +108,7 @@
           "cachedInputTokenCount": 0
         },
         "cacheKey": "0B0455861BC64C2A06232884C27A5C5427E86860BFBD2511EC7150B3709B9689AD52BBEC309EEA81E4115F66E3F38A3E",
-        "cacheHit": false
+        "cacheHit": true
       }
     ]
   },

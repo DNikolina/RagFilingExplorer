@@ -2,7 +2,7 @@
   "scenarioName": "Main.Q4",
   "iterationName": "1",
   "executionName": "claude-opus55-low",
-  "creationTime": "2026-10-08T18:18:07.2023194Z",
+  "creationTime": "2026-10-08T18:48:26.5074156Z",
   "messages": [
     {
       "role": "system",
@@ -91,7 +91,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 3.2875847,
+        "latency": 0.0007655,
         "model": "claude-opus-5-5",
         "modelProvider": "anthropic",
         "usage": {
@@ -101,7 +101,7 @@
           "cachedInputTokenCount": 0
         },
         "cacheKey": "D40A8DE255F363F4E1AC8FF2B3E8539607E0126B83B73F024415A60363494BDD8E5709B6A7A6DB17B21B3555F766FA61",
-        "cacheHit": false
+        "cacheHit": true
       }
     ]
   },

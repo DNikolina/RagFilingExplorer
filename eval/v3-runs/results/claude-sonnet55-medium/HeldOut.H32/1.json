@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H32",
   "iterationName": "1",
   "executionName": "claude-sonnet55-medium",
-  "creationTime": "2026-10-08T18:08:09.5007973Z",
+  "creationTime": "2026-10-08T18:48:11.2636739Z",
   "messages": [
     {
       "role": "system",
@@ -49,16 +49,16 @@
     "metrics": {
       "Strict grade": {
         "$type": "string",
-        "value": "check",
+        "value": "reliable",
         "name": "Strict grade",
         "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
         "interpretation": {
-          "rating": "inconclusive",
+          "rating": "good",
           "failed": false,
-          "reason": "States the expected $2.53, but also 2.58 (basic) - a reader decides which it answers with."
+          "reason": "States the expected $2.53 (names 2.58 as the contrast)."
         },
         "metadata": {
-          "Grader note": "also states 2.58"
+          "Grader note": "names 2.58 as the contrast"
         }
       },
       "Answer rank": {
@@ -80,12 +80,11 @@
         "interpretation": {
           "rating": "good",
           "failed": false,
-          "reason": "A misreading - every figure is in an excerpt: 2.53 from excerpts 1 (income_statement), 3 (narrative), 2.58 from excerpts 2 (income_statement), 3 (narrative); the expected 2.53 was in excerpts 1 (income_statement), 3 (narrative)."
+          "reason": "Every figure is in an excerpt: 2.53 from excerpts 1 (income_statement), 3 (narrative), 2.58 from excerpts 2 (income_statement), 3 (narrative)."
         },
         "metadata": {
           "Stated 2.53": "excerpt 1 (income_statement, PART IV \u003E Financial Statements): \u0022Earnings per share \u003E Diluted \u2014 2025: $2.53 | 2024: $1.98 | 2023: $1.20\u0022; excerpt 3 (narrative, PART IV \u003E Financial Statements \u003E Earnings Per Share): \u0022Shares used in computation \u003E Diluted earnings per share \u2014 2025: $2.53 | 2024: $1.98 | 2023: $1.20\u0022",
-          "Stated 2.58": "excerpt 2 (income_statement, PART IV \u003E Financial Statements): \u0022Earnings per share \u003E Basic \u2014 2025: $2.58 | 2024: $2.03 | 2023: $1.22\u0022; excerpt 3 (narrative, PART IV \u003E Financial Statements \u003E Earnings Per Share): \u0022Shares used in computation \u003E Basic earnings per share \u2014 2025: $2.58 | 2024: $2.03 | 2023: $1.22\u0022",
-          "Expected 2.53": "excerpt 1 (income_statement, PART IV \u003E Financial Statements): \u0022Earnings per share \u003E Diluted \u2014 2025: $2.53 | 2024: $1.98 | 2023: $1.20\u0022; excerpt 3 (narrative, PART IV \u003E Financial Statements \u003E Earnings Per Share): \u0022Shares used in computation \u003E Diluted earnings per share \u2014 2025: $2.53 | 2024: $1.98 | 2023: $1.20\u0022"
+          "Stated 2.58": "excerpt 2 (income_statement, PART IV \u003E Financial Statements): \u0022Earnings per share \u003E Basic \u2014 2025: $2.58 | 2024: $2.03 | 2023: $1.22\u0022; excerpt 3 (narrative, PART IV \u003E Financial Statements \u003E Earnings Per Share): \u0022Shares used in computation \u003E Basic earnings per share \u2014 2025: $2.58 | 2024: $2.03 | 2023: $1.22\u0022"
         }
       }
     }
@@ -93,7 +92,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 1.6984501,
+        "latency": 0.0007357,
         "model": "claude-sonnet-5-5",
         "modelProvider": "anthropic",
         "usage": {
@@ -103,7 +102,7 @@
           "cachedInputTokenCount": 0
         },
         "cacheKey": "0EF3EAACEB62F0FC9B1E71F01BAB0237472EA5D846CFDB8D48A98387951797C4AC43FD389F8E8FDD0C6DBD2A81188F01",
-        "cacheHit": false
+        "cacheHit": true
       }
     ]
   },

@@ -1,7 +1,7 @@
-Execution claude-sonnet55-medium: 102 questions, 3 min, chat model Claude, graders Strict
-Main: reliable 33/40  check 7  decline-ok 1  reliable 32  | answer in the top 5: 36  | figures: no figure stated 3  traced 35  untraced 2
-HeldOut: reliable 27/35  check 7  decline-ok 1  declined 1  reliable 26  | answer in the top 5: 28  | figures: calculated 1  no figure stated 5  traced 28  untraced 1
-AnswerSide: reliable 25/27  check 1  decline-ok 1  reliable 24  wrong 1  | answer in the top 5: 22  | figures: calculated 7  no figure stated 1  traced 19
+Execution claude-sonnet55-medium: 102 questions, 0 min, chat model Claude, graders Strict
+Main: reliable 37/40  check 3  decline-ok 3  reliable 34  | answer in the top 5: 36  | figures: no figure stated 3  traced 35  untraced 2
+HeldOut: reliable 32/35  check 2  decline-ok 3  declined 1  reliable 29  | answer in the top 5: 28  | figures: calculated 1  no figure stated 5  traced 28  untraced 1
+AnswerSide: reliable 26/27  decline-ok 1  reliable 25  wrong 1  | answer in the top 5: 22  | figures: calculated 7  no figure stated 1  traced 19
 Tokens: 384,306 input, 17,831 output.
 3 answer(s) state a figure in none of the excerpts:
   Main.Q18: Stated 10,981,201: excerpt 1 (income_statement, PART IV > Financial Statements): "Other income (expense) > Net income — 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990"; excerpt 2 (narrative, PART IV > Financial Statements > Segment and Geographic Information): "Other income (expense) > Net income — 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990"; excerpt 3 (comprehensive_income, PART IV > Financial Statements): "Net income — 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990"; excerpt 4 (cash_flow_statement, PART IV > Financial Statements): "Cash flows from operating activities > Net income — 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990" | Stated 10.98: in none of the excerpts - Netflix's net income for the year ended December 31, 2025 was $10,981,201 thousand (about $10.98 billion). (Source: NFLX-10K-2025.html, PART IV > Financial Statements)
@@ -17,13 +17,11 @@ Summing the three years: 10,149,273 + 7,361,364 + 7,274,301 = $24,784,938 thousa
 The addition is 17,597 + 868 + 4,556 + 8,331 + 10,272 + 1,618 + 1,671 + 1,838 = 46,751, in millions of dollars. This sum assumes the table lists every operating expense line.
 
 The same lines for fiscal 2025 add up to $39,721 million, so the sum rises by about $7.0 billion. That matches management's statement that total GAAP operating expenses increased by $7.0 billion in reported currency in fiscal 2026 relative to fiscal 2025 (Source: ORCL-10K-2026.html, PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations).
-26 grade(s) differ from the v2 baseline:
-  Main.Q2: baseline wrong, now check (also states 42,508) - Oracle's "Total stockholders' equity" was $43,056 million as of May 31, 2026, compared with $20,969 million as of May 31, 2025 (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules).
+18 grade(s) differ from the v2 baseline:
+  Main.Q2: baseline wrong, now reliable (names 42,508 as the contrast) - Oracle's "Total stockholders' equity" was $43,056 million as of May 31, 2026, compared with $20,969 million as of May 31, 2025 (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules).
 
 This total includes "Total Oracle Corporation stockholders' equity" of $42,508 million as of May 31, 2026 and $20,451 million as of May 31, 2025 (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules). It also includes noncontrolling interests of $548 million as of May 31, 2026 and $518 million as of May 31, 2025 (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules).
-  Main.Q10: baseline reliable, now check (also states 2,114) - The line "Comprehensive income" shows $2,113 million for the year ended December 31, 2025 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements). After adding the comprehensive loss attributable to noncontrolling interests of $1 million, the line "Comprehensive income attributable to Nasdaq" is $2,114 million for the year ended December 31, 2025 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements).
   Main.Q21: baseline no-unit, now reliable () - Netflix's comprehensive income was $10,038,657 thousand for the year ended December 31, 2025 (Source: NFLX-10K-2025.html, PART IV > Financial Statements). It was $9,297,738 thousand for the year ended December 31, 2024 (Source: NFLX-10K-2025.html, PART IV > Financial Statements). It was $5,401,351 thousand for the year ended December 31, 2023 (Source: NFLX-10K-2025.html, PART IV > Financial Statements).
-  Main.Q15: baseline decline-ok, now check (declines but states figures) - The excerpts don't contain Nasdaq's total revenue for fiscal year 2030, since they report total revenues only for the years ended December 31, 2025, 2024 and 2023.
   Main.Q23: baseline reliable, now check (also states 12,232) - The question could refer to either of two lines, so I give both.
 
 - "Total Nasdaq stockholders' equity" was $12,227 million at December 31, 2025, compared with $11,191 million at December 31, 2024. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements)
@@ -37,7 +35,6 @@ This total includes "Total Oracle Corporation stockholders' equity" of $42,508 m
 The line "Comprehensive income" was $940 million for the year ended December 31, 2024 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements).
 
 The line "Comprehensive income attributable to Nasdaq" was $942 million for the year ended December 31, 2024 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements).
-  Main.V2: baseline decline-ok, now check (declines but states figures) - The excerpts don't contain Microsoft's comprehensive income for 2023; they only cover the years ended June 30, 2026, 2025, and 2024.
   Main.V3: baseline wrong, now reliable () - The question asks to "sum up the numbers," so I add the three annual figures for net cash provided by operating activities (all in thousands).
 
 - Netflix's net cash provided by operating activities was $10,149,273 thousand for the year ended December 31, 2025 (Source: NFLX-10K-2025.html, PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations).
@@ -45,35 +42,22 @@ The line "Comprehensive income attributable to Nasdaq" was $942 million for the 
 - It was $7,274,301 thousand for the year ended December 31, 2023 (Source: NFLX-10K-2025.html, PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations).
 
 Summing the three years: 10,149,273 + 7,361,364 + 7,274,301 = $24,784,938 thousand for the combined years 2023 through 2025 (Source: NFLX-10K-2025.html, PART IV > Financial Statements).
-  HeldOut.H6: baseline reliable, now check (also states 7,467) - Oracle's total research and development expenses were $10,272 million for the year ended May 31, 2026. This figure combines $7,467 million of research and development expenses excluding stock-based compensation with $2,805 million of stock-based compensation (Source: ORCL-10K-2026.html, PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations).
-
-The consolidated statements of operations also show the "Research and development" operating expense line at $10,272 million for the year ended May 31, 2026 (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules).
   HeldOut.H8: baseline decline-ok, now check (declines but states figures) - The excerpts don't contain Oracle's total revenue for fiscal 2023. They only cover fiscal 2024 through 2026, and total revenues for those years were $52,961 million (2024), $57,399 million (2025), and $67,357 million (2026).
   HeldOut.H13: baseline wrong, now reliable () - Netflix's cash and cash equivalents were $9,033,681 thousand as of December 31, 2025, which is the total of the "Cash and cash equivalents" column in the table of cash, cash equivalents, restricted cash and short-term investments. (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Cash, Cash Equivalents, Restricted Cash, and Short-term Investments)
 
 This is separate from the broader "Cash, cash equivalents, restricted cash and short-term investments" figure of $9,067,872 thousand as of December 31, 2025, which also includes short-term investments of $28,678 thousand and restricted cash held in other current assets and non-current assets. (Source: NFLX-10K-2025.html, PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations)
-  HeldOut.H15: baseline decline-ok, now check (declines but states figures) - The excerpts don't contain the number of paid memberships Netflix had at the end of 2025. They state that Netflix discontinued reporting membership numbers, including average paying memberships, during the year ended December 31, 2025, and now focuses on revenue and operating margin as its primary financial metrics (Source: NFLX-10K-2025.html, PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations).
-  HeldOut.H19: baseline reliable, now check (also states 119,509) - Microsoft's total goodwill balance was $119,651 million as of June 30, 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data > Goodwill).
-
-The balance sheet line "Goodwill" shows the same figure, $119,651 million at June 30, 2026, compared with $119,509 million at June 30, 2025 (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data).
-
-By segment, the balance was $31,570 million for Productivity and Business Processes, $25,741 million for Intelligent Cloud, and $62,340 million for More Personal Computing (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data > Goodwill).
   HeldOut.H25: baseline wrong, now reliable () - The excerpts don't show a "Total operating expenses" line, but the listed operating expense lines for the year ended May 31, 2026 add up to $46,751 million. The lines are Cloud and software $17,597 million, Hardware $868 million, Services $4,556 million, Sales and marketing $8,331 million, Research and development $10,272 million, General and administrative $1,618 million, Amortization of intangible assets $1,671 million, and Restructuring and other $1,838 million (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules).
 
 The addition is 17,597 + 868 + 4,556 + 8,331 + 10,272 + 1,618 + 1,671 + 1,838 = 46,751, in millions of dollars. This sum assumes the table lists every operating expense line.
 
 The same lines for fiscal 2025 add up to $39,721 million, so the sum rises by about $7.0 billion. That matches management's statement that total GAAP operating expenses increased by $7.0 billion in reported currency in fiscal 2026 relative to fiscal 2025 (Source: ORCL-10K-2026.html, PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations).
-  HeldOut.H30: baseline decline-ok, now check (declines but states figures) - The excerpts don't contain Nasdaq's net income for 2022; they cover only the years ended December 31, 2025, 2024, and 2023.
-  HeldOut.H32: baseline reliable, now check (also states 2.58) - Netflix's diluted earnings per share were $2.53 for the year ended December 31, 2025, per the "Earnings per share > Diluted" line (per-share data, as adjusted for the November 2025 stock split) (Source: NFLX-10K-2025.html, PART IV > Financial Statements).
-
-This compares with basic earnings per share of $2.58 for the same year (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Earnings Per Share).
   HeldOut.H34: baseline wrong, now check (declines but states 9,154,855, 86,536,215) - Netflix spent $9,154,855 thousand on repurchases of common stock for the year ended December 31, 2025, per the line "Repurchases of common stock" in the Consolidated Statements of Stockholders' Equity (Source: NFLX-10K-2025.html, PART IV > Financial Statements).
 
 The MD&A describes this as an aggregate of $9.1 billion for 86,536,215 shares in fiscal 2025, excluding the 1% excise tax (Source: NFLX-10K-2025.html, PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations).
 
 The excerpts do not include the cash flow statement, so I can't confirm the exact cash paid. The filing states there were no unsettled share repurchases as of December 31, 2025 (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Stockholders' Equity).
   AnswerSide.A8: baseline wrong, now reliable () - Oracle declared cash dividends of $2.00 per share of its outstanding common stock in fiscal 2026, and paid them in the same period (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules > Stockholders' Equity).
-  AnswerSide.A10: baseline wrong, now check (also states 27,034) - Microsoft paid $26,445 million in common stock cash dividends for the year ended June 30, 2026, shown on the "Common stock cash dividends paid" line within Financing in the cash flows statement. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
+  AnswerSide.A10: baseline wrong, now reliable (names 27,034 as the contrast) - Microsoft paid $26,445 million in common stock cash dividends for the year ended June 30, 2026, shown on the "Common stock cash dividends paid" line within Financing in the cash flows statement. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
 
 The stockholders' equity statement shows a different figure, "Common stock cash dividends," of $27,034 million for the year ended June 30, 2026. That line reflects dividends declared rather than cash paid. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
   AnswerSide.A14: baseline wrong, now reliable () - Oracle's capital expenditures were $55,663 million for the year ended May 31, 2026, shown as (55,663) in the "Capital expenditures" line, compared with $21,215 million in fiscal 2025 (Source: ORCL-10K-2026.html, PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations).

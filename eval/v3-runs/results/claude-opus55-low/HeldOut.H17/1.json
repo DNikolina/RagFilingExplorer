@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H17",
   "iterationName": "1",
   "executionName": "claude-opus55-low",
-  "creationTime": "2026-10-08T18:22:36.9614265Z",
+  "creationTime": "2026-10-08T18:48:32.3029788Z",
   "messages": [
     {
       "role": "system",
@@ -88,7 +88,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 1.526779,
+        "latency": 0.0008154,
         "model": "claude-opus-5-5",
         "modelProvider": "anthropic",
         "usage": {
@@ -98,7 +98,7 @@
           "cachedInputTokenCount": 0
         },
         "cacheKey": "0D4C1407BC7192FA4A42869F52ECBE7E13BE66682551DBFAEC3FFD46CF21EBB2ED14DF5A1FE0698975F3C8B9514E344F",
-        "cacheHit": false
+        "cacheHit": true
       }
     ]
   },

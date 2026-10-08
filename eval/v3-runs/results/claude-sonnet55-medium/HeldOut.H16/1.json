@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H16",
   "iterationName": "1",
   "executionName": "claude-sonnet55-medium",
-  "creationTime": "2026-10-08T18:07:38.7965542Z",
+  "creationTime": "2026-10-08T18:48:09.3090967Z",
   "messages": [
     {
       "role": "system",
@@ -90,7 +90,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 1.7136504,
+        "latency": 0.0006648,
         "model": "claude-sonnet-5-5",
         "modelProvider": "anthropic",
         "usage": {
@@ -100,7 +100,7 @@
           "cachedInputTokenCount": 0
         },
         "cacheKey": "F7C73FEEF098B59FC8919EBFB3F2CF164601CAABBBA6B24FDAB78AF6392F344107B26D97E585CDBDB8164838BFBF7609",
-        "cacheHit": false
+        "cacheHit": true
       }
     ]
   },

@@ -2,7 +2,7 @@
   "scenarioName": "Main.Q2",
   "iterationName": "1",
   "executionName": "claude-sonnet55-medium",
-  "creationTime": "2026-10-08T18:05:58.9494797Z",
+  "creationTime": "2026-10-08T18:48:03.2845083Z",
   "messages": [
     {
       "role": "system",
@@ -49,16 +49,16 @@
     "metrics": {
       "Strict grade": {
         "$type": "string",
-        "value": "check",
+        "value": "reliable",
         "name": "Strict grade",
         "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
         "interpretation": {
-          "rating": "inconclusive",
+          "rating": "good",
           "failed": false,
-          "reason": "States the expected 43,056 million, but also 42,508 - a reader decides which it answers with."
+          "reason": "States the expected 43,056 million (names 42,508 as the contrast)."
         },
         "metadata": {
-          "Grader note": "also states 42,508"
+          "Grader note": "names 42,508 as the contrast"
         }
       },
       "Answer rank": {
@@ -80,7 +80,7 @@
         "interpretation": {
           "rating": "good",
           "failed": false,
-          "reason": "A misreading - every figure is in an excerpt: 43,056 from excerpt 1 (balance_sheet), 20,969 from excerpt 1 (balance_sheet), 42,508 from excerpt 2 (balance_sheet), 20,451 from excerpt 2 (balance_sheet), 548 from excerpt 2 (balance_sheet), 518 from excerpt 2 (balance_sheet); the expected 43,056 was in excerpt 1 (balance_sheet)."
+          "reason": "Every figure is in an excerpt: 43,056 from excerpt 1 (balance_sheet), 20,969 from excerpt 1 (balance_sheet), 42,508 from excerpt 2 (balance_sheet), 20,451 from excerpt 2 (balance_sheet), 548 from excerpt 2 (balance_sheet), 518 from excerpt 2 (balance_sheet)."
         },
         "metadata": {
           "Stated 43,056": "excerpt 1 (balance_sheet, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Total stockholders\u2019 equity \u2014 2026: 43,056 | 2025: 20,969\u0022",
@@ -88,8 +88,7 @@
           "Stated 42,508": "excerpt 2 (balance_sheet, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Oracle Corporation stockholders\u2019 equity \u003E Total Oracle Corporation stockholders\u2019 equity \u2014 2026: 42,508 | 2025: 20,451\u0022",
           "Stated 20,451": "excerpt 2 (balance_sheet, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Oracle Corporation stockholders\u2019 equity \u003E Total Oracle Corporation stockholders\u2019 equity \u2014 2026: 42,508 | 2025: 20,451\u0022",
           "Stated 548": "excerpt 2 (balance_sheet, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Noncontrolling interests \u2014 2026: 548 | 2025: 518\u0022",
-          "Stated 518": "excerpt 2 (balance_sheet, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Noncontrolling interests \u2014 2026: 548 | 2025: 518\u0022",
-          "Expected 43,056": "excerpt 1 (balance_sheet, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Total stockholders\u2019 equity \u2014 2026: 43,056 | 2025: 20,969\u0022"
+          "Stated 518": "excerpt 2 (balance_sheet, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Noncontrolling interests \u2014 2026: 548 | 2025: 518\u0022"
         }
       }
     }
@@ -97,7 +96,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 1.9503848,
+        "latency": 0.0011641,
         "model": "claude-sonnet-5-5",
         "modelProvider": "anthropic",
         "usage": {
@@ -107,7 +106,7 @@
           "cachedInputTokenCount": 0
         },
         "cacheKey": "499FE5A1BEDD417048FD698C920DC8CBD55005DEB3C215AA89C2CFB7FE7D17DB26A0163C95C252454DD12C473B1A89D6",
-        "cacheHit": false
+        "cacheHit": true
       }
     ]
   },

@@ -27,6 +27,10 @@ internal sealed record StrictGrade(string Status, string Note)
 /// The period ("for the year ended ...") is not checked: the manual grading didn't enforce it either. "check" marks an
 /// answer only a reader can settle - the expected figure next to a lookalike, or a decline that still states figures.
 ///
+/// Two rules go beyond the Python grader, written once Claude's answers showed what it hadn't met (docs/Decision-Log.md,
+/// "the strict grader extended"): a lookalike the answer names only as the contrast to the expected figure doesn't make
+/// it a check (<see cref="NamesLookalikeAsContrast"/>), and a date's day ("December 31") isn't a stated figure.
+///
 /// This port is the specification: a rule changes here, and tools/grade_answers.py is
 /// kept unchanged as the record of what it was ported from. GraderParityTests holds it to the grade - status and note -
 /// the Python grader gave every graded answer in eval/, so a change that regrades history shows; a deliberate one is a
@@ -68,6 +72,22 @@ internal static partial class StrictGrader
 
     [GeneratedRegex(@"^(19|20)\d\d$", RegexOptions.CultureInvariant)]
     private static partial Regex YearRegex();
+
+    // A date's day is no figure: "December 31" in a decline that names the years covered made it "declines but states 31".
+    [GeneratedRegex(@"\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}\b",
+        RegexOptions.CultureInvariant)]
+    private static partial Regex DateDayRegex();
+
+    // Sentence ends: ". " (not the "." of "2.53"), or a line break.
+    [GeneratedRegex(@"(?<=[.!?])\s+|\n+", RegexOptions.CultureInvariant)]
+    private static partial Regex SentenceBreakRegex();
+
+    [GeneratedRegex(@"\bambiguous\b|\bgive both\b|\bboth (?:lines|figures)\b|\beither of (?:the )?two\b|\bcould (?:refer|mean)\b",
+        RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
+    private static partial Regex HedgeRegex();
+
+    [GeneratedRegex(@"\b(?:therefore|thus|hence|so the|in total|which means)\b", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
+    private static partial Regex ConclusionRegex();
 
     private sealed record Token(string Text, int Start, int End);
 
@@ -135,7 +155,8 @@ internal static partial class StrictGrader
         {
             List<string> units = expect.Select(e => UnitStatus(answer, e, unit)).ToList();
             List<string> conflict = (entry.Conflicts ?? []).Where(c => !expect.Contains(c) && HasNumber(answer, c)).ToList();
-            if (conflict.Count > 0)
+            bool contrast = conflict.Count > 0 && NamesLookalikeAsContrast(answer, expect, conflict);
+            if (conflict.Count > 0 && !contrast)
             {
                 return new("check", $"also states {string.Join(", ", conflict)}");
             }
@@ -150,7 +171,7 @@ internal static partial class StrictGrader
                 return new("no-unit", $"expected {unit}");
             }
 
-            return new("reliable", "");
+            return new("reliable", contrast ? $"names {string.Join(", ", conflict)} as the contrast" : "");
         }
 
         if (entry.Kind == "routing" && declined)
@@ -175,6 +196,26 @@ internal static partial class StrictGrader
         }
 
         return new("wrong", traps.Count > 0 ? $"trap {string.Join(", ", traps)}" : "expected figure absent");
+    }
+
+    /// <summary>
+    /// True when the answer gives the expected figure as its answer and a lookalike only as the line it isn't: the first
+    /// sentence states every expected figure and no lookalike, nothing hedges between them ("ambiguous ... so I give
+    /// both"), and no lookalike is stated as a conclusion - llama's A16, "$616 million ... Therefore, the total cash spent
+    /// ... is $620 million", answers the lookalike and stays a check.
+    /// </summary>
+    private static bool NamesLookalikeAsContrast(string answer, IReadOnlyList<string> expect, IReadOnlyList<string> lookalikes)
+    {
+        if (HedgeRegex().IsMatch(answer))
+        {
+            return false;
+        }
+
+        List<string> sentences = SentenceBreakRegex().Split(answer.Trim()).Where(s => s.Trim().Length > 0).ToList();
+        string first = sentences.Count > 0 ? sentences[0] : "";
+        return expect.All(e => HasNumber(first, e))
+            && !lookalikes.Any(c => HasNumber(first, c))
+            && !sentences.Any(s => lookalikes.Any(c => HasNumber(s, c)) && ConclusionRegex().IsMatch(s));
     }
 
     // tokens()
@@ -268,7 +309,7 @@ internal static partial class StrictGrader
     /// citation text. Also the figures <see cref="Evaluators.FigureSourceEvaluator"/> looks for in the excerpts.</summary>
     internal static List<string> StatedFigures(string answer, string question)
     {
-        string text = CitationTextRegex().Replace(answer, " ");
+        string text = DateDayRegex().Replace(CitationTextRegex().Replace(answer, " "), " ");
         HashSet<string> asked = Tokens(question).Select(t => t.Text).ToHashSet();
         return Tokens(text).Select(t => t.Text).Where(t => !YearRegex().IsMatch(t) && !asked.Contains(t)).ToList();
     }

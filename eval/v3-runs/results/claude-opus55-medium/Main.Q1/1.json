@@ -2,7 +2,7 @@
   "scenarioName": "Main.Q1",
   "iterationName": "1",
   "executionName": "claude-opus55-medium",
-  "creationTime": "2026-10-08T17:54:02.969901Z",
+  "creationTime": "2026-10-08T18:47:40.000641Z",
   "messages": [
     {
       "role": "system",
@@ -89,7 +89,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 0.0270639,
+        "latency": 0.0107228,
         "model": "claude-opus-5-5",
         "modelProvider": "anthropic",
         "usage": {

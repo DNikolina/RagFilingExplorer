@@ -2,7 +2,7 @@
   "scenarioName": "Main.Q23",
   "iterationName": "1",
   "executionName": "claude-opus55-medium",
-  "creationTime": "2026-10-08T17:55:25.7162642Z",
+  "creationTime": "2026-10-08T18:47:42.8880403Z",
   "messages": [
     {
       "role": "system",
@@ -49,16 +49,16 @@
     "metrics": {
       "Strict grade": {
         "$type": "string",
-        "value": "check",
+        "value": "reliable",
         "name": "Strict grade",
         "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
         "interpretation": {
-          "rating": "inconclusive",
+          "rating": "good",
           "failed": false,
-          "reason": "States the expected 12,227 million, but also 12,232 - a reader decides which it answers with."
+          "reason": "States the expected 12,227 million (names 12,232 as the contrast)."
         },
         "metadata": {
-          "Grader note": "also states 12,232"
+          "Grader note": "names 12,232 as the contrast"
         }
       },
       "Answer rank": {
@@ -80,14 +80,13 @@
         "interpretation": {
           "rating": "good",
           "failed": false,
-          "reason": "A misreading - every figure is in an excerpt: 12,227 from excerpt 1 (balance_sheet), 11,191 from excerpt 1 (balance_sheet), 12,232 from excerpts 1 (balance_sheet), 5 (equity_statement), 11,200 from excerpts 1 (balance_sheet), 5 (equity_statement); the expected 12,227 was in excerpt 1 (balance_sheet)."
+          "reason": "Every figure is in an excerpt: 12,227 from excerpt 1 (balance_sheet), 11,191 from excerpt 1 (balance_sheet), 12,232 from excerpts 1 (balance_sheet), 5 (equity_statement), 11,200 from excerpts 1 (balance_sheet), 5 (equity_statement)."
         },
         "metadata": {
           "Stated 12,227": "excerpt 1 (balance_sheet, PART IV \u003E Financial Statements): \u0022Nasdaq stockholders\u2019 equity \u003E Total Nasdaq stockholders\u2019 equity \u2014 2025: 12,227 | 2024: 11,191\u0022",
           "Stated 11,191": "excerpt 1 (balance_sheet, PART IV \u003E Financial Statements): \u0022Nasdaq stockholders\u2019 equity \u003E Total Nasdaq stockholders\u2019 equity \u2014 2025: 12,227 | 2024: 11,191\u0022",
           "Stated 12,232": "excerpt 1 (balance_sheet, PART IV \u003E Financial Statements): \u0022Total equity \u2014 2025: 12,232 | 2024: 11,200\u0022; excerpt 5 (equity_statement, PART IV \u003E Financial Statements): \u0022Noncontrolling interests \u003E Total Equity \u2014 2025 Shares: 570 | 2025 $: $12,232 | 2024 Shares: 575 | 2024 $: $11,200 | 2023 Shares: 575 | 2023 $: $10,827\u0022",
-          "Stated 11,200": "excerpt 1 (balance_sheet, PART IV \u003E Financial Statements): \u0022Total equity \u2014 2025: 12,232 | 2024: 11,200\u0022; excerpt 5 (equity_statement, PART IV \u003E Financial Statements): \u0022Noncontrolling interests \u003E Total Equity \u2014 2025 Shares: 570 | 2025 $: $12,232 | 2024 Shares: 575 | 2024 $: $11,200 | 2023 Shares: 575 | 2023 $: $10,827\u0022",
-          "Expected 12,227": "excerpt 1 (balance_sheet, PART IV \u003E Financial Statements): \u0022Nasdaq stockholders\u2019 equity \u003E Total Nasdaq stockholders\u2019 equity \u2014 2025: 12,227 | 2024: 11,191\u0022"
+          "Stated 11,200": "excerpt 1 (balance_sheet, PART IV \u003E Financial Statements): \u0022Total equity \u2014 2025: 12,232 | 2024: 11,200\u0022; excerpt 5 (equity_statement, PART IV \u003E Financial Statements): \u0022Noncontrolling interests \u003E Total Equity \u2014 2025 Shares: 570 | 2025 $: $12,232 | 2024 Shares: 575 | 2024 $: $11,200 | 2023 Shares: 575 | 2023 $: $10,827\u0022"
         }
       }
     }
@@ -95,7 +94,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 3.3163474,
+        "latency": 0.0004669,
         "model": "claude-opus-5-5",
         "modelProvider": "anthropic",
         "usage": {
@@ -105,7 +104,7 @@
           "cachedInputTokenCount": 0
         },
         "cacheKey": "B4E79EB80E795E100CA933F6B04A1D4DD4AB64726C31DF9CDE57AC46125F7C9C1196AF5F79880E6395E825DFB901D22B",
-        "cacheHit": false
+        "cacheHit": true
       }
     ]
   },

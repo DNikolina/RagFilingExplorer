@@ -2,7 +2,7 @@
   "scenarioName": "HeldOut.H30",
   "iterationName": "1",
   "executionName": "claude-sonnet55-medium",
-  "creationTime": "2026-10-08T18:08:06.2663889Z",
+  "creationTime": "2026-10-08T18:48:11.0323267Z",
   "messages": [
     {
       "role": "system",
@@ -49,16 +49,13 @@
     "metrics": {
       "Strict grade": {
         "$type": "string",
-        "value": "check",
+        "value": "decline-ok",
         "name": "Strict grade",
         "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
         "interpretation": {
-          "rating": "inconclusive",
+          "rating": "good",
           "failed": false,
-          "reason": "Declines, but still states 31 - a reader decides."
-        },
-        "metadata": {
-          "Grader note": "declines but states figures"
+          "reason": "Declines correctly: the filings don\u0027t contain this."
         }
       },
       "Answer rank": {
@@ -87,7 +84,7 @@
   "chatDetails": {
     "turnDetails": [
       {
-        "latency": 1.2456407,
+        "latency": 0.0005924,
         "model": "claude-sonnet-5-5",
         "modelProvider": "anthropic",
         "usage": {
@@ -97,7 +94,7 @@
           "cachedInputTokenCount": 0
         },
         "cacheKey": "BDBD90D128C8138684C3CDFFA17C430B598528F3690ED083A10E2BF382660DF8A72E405C2E2F699CB16339E18CFFD6DF",
-        "cacheHit": false
+        "cacheHit": true
       }
     ]
   },
