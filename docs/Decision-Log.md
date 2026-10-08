@@ -3732,3 +3732,10 @@ the judge's configuration when given and the scenario's otherwise; both judges w
 judge (`Graders=both`, Equivalence) - 204 of 204 calls from the cache (102 answers, 102 judge calls), the answers
 identical to `structured-hybrid-v3-baseline` 102/102, and its agreement report identical to
 `judge-structured-hybrid-v3-judge-equivalence.txt` apart from line endings. No call billed.
+Confirmed on Microsoft Learn afterwards (user): `IEvaluator.EvaluateAsync`'s `chatConfiguration` is the client an AI-based
+evaluator uses - so handing a judge evaluator another one is the documented contract; `ReportingConfiguration.ChatConfiguration`
+is "used by AI-based Evaluators" (why judge and answers' cache key are tied); `ReportingConfiguration.ResponseCacheProvider`,
+`IEvaluationResponseCacheProvider.GetCacheAsync(scenarioName, iterationName)` and `DistributedCachingChatClient` (with
+`CacheKeyAdditionalValues`) are public - step 2's route. Learn's `EquivalenceEvaluator` page: tuned for GPT-4o, "especially
+poor when a smaller / local model is used". Not on Learn: the judges' `Temperature = 0` (source only - step 2's smoke run
+shows it); Learn's reference is package 10.9.0, the project's 10.10.0 - read in the source.
