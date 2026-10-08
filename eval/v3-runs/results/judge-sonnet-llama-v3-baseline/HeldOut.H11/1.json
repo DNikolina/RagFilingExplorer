@@ -1,0 +1,140 @@
+{
+  "scenarioName": "HeldOut.H11",
+  "iterationName": "1",
+  "executionName": "judge-sonnet-llama-v3-baseline",
+  "creationTime": "2026-10-08T19:16:49.8968086Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART I \u003E Item 2. Properties ---\r\n\u0060\u0060\u0060\r\nWe conduct our business operations in leased facilities. We\n\ndo not own any real property. Our U.S. headquarters are\n\nlocated in New York, New York, and our European\n\nheadquarters are located in Stockholm, Sweden. We also\n\nlease space in multiple locations around the world, which are\n\nused for research and development, sales and support, and\n\nadministrative activities, as well as for data centers and\n\ndisaster preparedness facilities.\n\nGenerally, our properties are not allocated for use by a\n\nparticular business segment. Instead, most of our properties\n\nare used by two or more segments. We regularly monitor the\n\nfacilities we occupy to ensure that they suit our needs in a\n\nhybrid work environment. We believe the facilities that we\n\noccupy are adequate for the purposes for which they are\n\ncurrently used and are well-maintained. See Note 16,\n\n\u201CLeases,\u201D to the consolidated financial statements for further\n\ndiscussion.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\ntrading surveillance for the Finnish, Icelandic, Danish and\n\nSwedish markets has been centralized in Stockholm. In\n\naddition, there are designated personnel who carry out\n\nsurveillance activities at Nasdaq Oslo and the three Baltic\n\nexchanges. In Finland, Sweden and Estonia, decisions to list\n\nnew companies on the main market are made by listing\n\ncommittees that have external members in addition to\n\nmembers from each respective exchange and in the other\n\ncountries the decision is made either by the respective\n\npresident of the exchange or by the executive board.\n\nIf there is suspicion that a listed company or member has\n\nacted in breach of exchange regulations, the matter is handled\n\nby the respective surveillance department. Serious breaches\n\nare considered by the respective disciplinary committee in\n\nDenmark, Finland, Iceland, Sweden and Norway. Suspected\n\ninsider trading is reported to the appropriate authorities in the\n\nrespective country.\n\nIn the United Kingdom, The Nasdaq Stock Market, Nasdaq\n\nOslo ASA, Nasdaq Stockholm AB, Nasdaq Copenhagen A/S,\n\nand Nasdaq Helsinki Ltd are each subject to regulation by the\n\nFinancial Conduct Authority as \u201CRecognised Overseas\n\nInvestment Exchanges.\u201D Nasdaq Clearing is registered as a\n\nrecognized third country CCP with the Bank of England\n\nunder the temporary recognition regime. The registration\n\nbecame effective on December 31, 2020 and lasts until\n\nDecember 31, 2026 (which may be extended further), during\n\nwhich time Nasdaq Clearing may continue to act as a CCP\n\nvis-a-vis UK members. Nasdaq Clearing has submitted its\n\napplication for permanent recognition and is awaiting further\n\ninformation as to the process and timeline from the Bank of\n\nEngland.\n\nHUMAN CAPITAL MANAGEMENT\n\nNasdaq has continued to strengthen our commitment to, and\n\ninvestment in, attracting, retaining, developing and\n\nmotivating our employees during 2025.\n\nWe also continued our efforts to create an inclusive work\n\nenvironment of equal opportunity, where employees feel\n\nrespected and valued for their contributions, and where\n\nNasdaq and its employees have opportunities to make\n\npositive contributions to our local communities.\n\nAdditional information regarding our human capital\n\nmanagement matters can be found in our annual\n\nSustainability Report, which will be available on our website\n\nlater in 2026. Our Sustainability Report and other\n\ninformation on our website are not incorporated by reference\n\ninto this Annual Report on Form 10-K.\n\nAs of December 31, 2025, Nasdaq had 9,525 full and part-\n\ntime employees, including employees of non-wholly owned\n\nconsolidated subsidiaries.\n\nFlexible and Hybrid Workplace\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Organization and Nature of Operations ---\r\n\u0060\u0060\u0060\r\ndelivers data lineage, risk aggregation, analytics, workflow\n\nautomation, reconciliation, validation and audit functionality,\n\nas well as disclosures. AxiomSL\u2019s platform supports\n\ncompliance across a wide range of global and local\n\nregulations. Our surveillance solutions are designed for\n\nbanks, brokers and other market participants to assist them in\n\ncomplying with market abuse and integrity rules and\n\nregulations. In addition, we provide regulators and exchanges\n\nwith a platform for surveillance.\n\nCapital Markets Technology includes our market technology,\n\ntrade management services and Calypso solutions. Our\n\nmarket technology business is a leading global technology\n\nsolutions provider and partner to exchanges, clearing\n\norganizations, central securities depositories, regulators,\n\nbanks, brokers, buy-side firms and corporate businesses. Our\n\nmarket technology solutions are utilized by leading markets\n\nin North America, Europe and Asia as well as emerging\n\nmarkets in the Middle East, Latin America, and Africa. Our\n\ntrade management services provide market participants with\n\na wide variety of alternatives for connecting to and accessing\n\nour markets for a fee. Our marketplaces may be accessed\n\nthrough different protocols used for quoting, order entry,\n\ntrade reporting and connectivity to various data feeds. We\n\nalso provide colocation services to market participants,\n\nwhereby we offer firms cabinet space and power to house\n\ntheir own equipment and servers within our data centers.\n\nAdditionally, we offer a number of wireless connectivity\n\nofferings between select data centers using millimeter wave\n\nand microwave technology. Calypso is a leading platform\n\nproviding cross-asset, front-to-back trading, treasury, risk and\n\ncollateral management solutions. The Calypso solution\n\nprovides customers with a single platform designed from the\n\noutset to enable consolidation, innovation and growth.\n\nMarket Services\n\nOur Market Services segment includes revenues from equity\n\nderivatives trading, cash equity trading, Nordic fixed income\n\ntrading \u0026 clearing, Nordic commodities and U.S. Tape plans\n\ndata. We operate 19 exchanges across several asset classes,\n\nincluding derivatives, commodities, cash equity, debt,\n\nstructured products and ETPs. In addition, in certain\n\ncountries where we operate exchanges, we also provide\n\nclearing, settlement and central depository services. In\n\nJanuary 2025, we entered into an agreement to transfer\n\nexisting open positions in our Nordic power futures business\n\nto a European exchange, which was completed in June 2025.\n\nSee Note 4, \u201CAcquisition and Divestitures,\u201D for further\n\ndiscussion. Revenues from this business are reflected in other\n\nrevenues in the Consolidated Statements of Income for all\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nbroker-owned trade facilitation systems, as well as from other\n\ntypes of OTC trading. In Canada, our cash equities exchange\n\ncompetes principally with exchanges such as the Toronto\n\nStock Exchange, or TSX.\n\nOur U.S. Tape plans earn revenue from consolidated data\n\nproducts which are distributed by SEC-mandated\n\nconsolidators (one for Nasdaq-listed stocks and another for\n\nNYSE and other-listed stocks) that share the revenue among\n\nthe exchanges that contribute data. The consolidated data\n\nbusiness is under competitive pressure from other securities\n\nexchanges that trade Nasdaq-listed securities. In addition,\n\nThe Nasdaq Stock Market similarly competes for the tape\n\nfees from the sale of information on securities listed on other\n\nmarkets.\n\nIn Europe, our cash equities markets compete with exchanges\n\nsuch as Euronext N.V., Deutsche B\u00F6rse AG, London Stock\n\nExchange Group plc, or LSE, and many Multilateral Trading\n\nFacilities, or MTFs, such as Cboe, Turquoise and Aquis. Our\n\ncompetitors in the trading and clearing of options and futures\n\non European equities include Eurex, Cboe, ICE Futures\n\nEurope and London Clearing House, or LCH. In addition, in\n\nequities markets in Europe, we face competition from other\n\nbroker-owned systems, dark pools, Systematic Internalizers,\n\nor SIs, and other types of OTC trading. Competition among\n\nexchanges for trading European equity derivatives tends to\n\noccur where there is competition in the trading of the\n\nunderlying equities. In addition to exchange-based\n\ncompetition, we face competition from OTC derivative\n\nmarkets.\n\nMiFID II and MiFIR have resulted in further competitive\n\npressure on our European trading business. SIs are attracting\n\na significant share of electronically matched volume and\n\ncompete aggressively for the trading of equity securities\n\nlisted on our Nordic exchanges. Different bilateral trading\n\nsystems pursuing block business also remain active in\n\nEurope.\n\nOur European fixed income and commodities products and\n\nservices are subject to competitive pressure from European\n\nexchanges and clearinghouses.\n\nINTELLECTUAL PROPERTY\n\nWe believe that our IP assets are important for maintaining\n\nthe competitive differentiation of our products, systems,\n\nsoftware and services, enhancing our ability to access\n\ntechnology of third parties and maximizing our return on\n\nresearch and development investments.\n\nTo support our business objectives and benefit from our\n\ninvestments in research and development, we actively create\n\nand maintain a wide array of IP assets, including patents and\n\npatent applications related to our innovations, products and\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Organization and Nature of Operations ---\r\n\u0060\u0060\u0060\r\nNotes to Consolidated Financial Statements\n\n1. ORGANIZATION AND NATURE OF OPERATIONS\n\nNasdaq is a leading technology platform that powers the\n\nworld\u2019s economies. We architect the infrastructure of the\n\nworld\u2019s most modern markets, power the innovation\n\neconomy, and build trust in the financial system. We\n\nempower economic opportunity by designing and deploying\n\nthe technology, data, and advanced analytics that enable our\n\nclients to capture opportunities, navigate risk, and strengthen\n\nresilience.\n\nOur organizational structure aligns our businesses with the\n\nfoundational shifts that are driving the evolution of the global\n\nfinancial system. We manage, operate and provide our\n\nproducts and services in three business segments: Capital\n\nAccess Platforms, Financial Technology and Market\n\nServices.\n\nCapital Access Platforms\n\nOur Capital Access Platforms segment comprises Data \u0026\n\nListing Services, Index and Workflow \u0026 Insights.\n\nOur Data business distributes historical and real-time market\n\ndata to sell-side customers, the institutional investing\n\ncommunity, retail online brokers, proprietary trading firms\n\nand other venues, as well as various client portals and data\n\ndistributors. Our data products can enhance the transparency\n\nof market activity within our exchanges and provide critical\n\ninformation to professional and non-professional investors\n\nglobally.\n\nOur Listing Services business operates listing platforms in\n\nthe U.S. and Europe and provides multiple global capital\n\nraising solutions for public companies. Our main listing\n\nmarkets are The Nasdaq Stock Market and the Nasdaq\n\nNordic and Nasdaq Baltic exchanges. Through Nasdaq First\n\nNorth, our Nordic and Baltic operations also offer alternative\n\nmarketplaces for smaller companies and growth companies.\n\nAs of December 31, 2025, a total of 5,599 companies listed\n\nsecurities on our U.S., Nasdaq Nordic, Nasdaq Baltic and\n\nNasdaq First North exchanges. As of December 31, 2025,\n\nthere were 4,480 total listings on The Nasdaq Stock Market,\n\nincluding 1,112 ETPs. The Nasdaq combined market\n\ncapitalization in the U.S. was approximately $40.6 trillion. In\n\nEurope, the Nasdaq Nordic and Nasdaq Baltic exchanges,\n\ntogether with Nasdaq First North, were home to 1,119 listed\n\ncompanies with a combined market capitalization of\n\napproximately $2.4 trillion.\n\nOur Index business develops and licenses Nasdaq-branded\n\nindices and financial products. We also license cash-settled\n\nfutures, options and options on futures on our indices. As of\n\nDecember 31, 2025, 451 ETPs listed on 27 exchanges in over\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Where is Nasdaq\u0027s U.S. headquarters?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s U.S. headquarters are located in New York, New York. (Source: NDAQ-10K-2025.html, PART I \u003E Item 2. Properties)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected New York."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "New York, New York at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "no figure stated",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "No figure stated - a text answer or a decline."
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "New York"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "claude-sonnet-5-5",
+          "eval-input-tokens": "1455",
+          "eval-output-tokens": "3",
+          "eval-total-tokens": "1458",
+          "eval-duration-ms": "1045.73",
+          "Judge reply": "5",
+          "Score taken from the reply\u0027s words": "no"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0005235,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2770,
+          "outputTokenCount": 40,
+          "totalTokenCount": 2810
+        },
+        "cacheKey": "23EE77521AE4B92C2A852AD5D93E83FAA6806FE35112C96502E39D8367A5658D136EA98B60ABCD3F17670AC0982AEA28",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "judge:claude-sonnet-5-5",
+    "kind:fact",
+    "company:NDAQ",
+    "statement:none",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}

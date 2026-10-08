@@ -1,0 +1,145 @@
+{
+  "scenarioName": "Main.Q6",
+  "iterationName": "1",
+  "executionName": "judge-sonnet-opus55-medium",
+  "creationTime": "2026-10-08T19:18:11.6857459Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Cash Flows\n\n(in millions)\n\nYear Ended December 31,\nCash flows from operating activities:\nCash flows from operating activities \u003E Net income \u2014 2025: $1,787 | 2024: $1,115 | 2023: $1,057\nAdjustments to reconcile net income to net cash provided by operating activities:\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Depreciation and amortization \u2014 2025: 632 | 2024: 613 | 2023: 323\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Share-based compensation \u2014 2025: 165 | 2024: 141 | 2023: 122\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Deferred income tax expense (benefit) \u2014 2025: 48 | 2024: (67) | 2023: 68\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Extinguishment of debt and bridge fees \u2014 2025: 5 | 2024: 3 | 2023: 25\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Net gain on divestitures \u2014 2025: (86)\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Non-cash restructuring charges \u2014 2025: 1 | 2024: 37 | 2023: 12\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Net (income) loss from unconsolidated investees \u2014 2025: (83) | 2024: (16) | 2023: 7\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Operating lease asset impairments \u2014 2023: 13\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Adenza purchase accounting adjustment \u2014 2024: 32\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Other reconciling items included in net income \u2014 2025: 21 | 2024: 35 | 2023: 30\nNet change in operating assets and liabilities, excluding the effects of divestitures:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Cash Flows\n\n(in millions)\n\nYear Ended December 31,\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Receivables, net \u2014 2025: 91 | 2024: (193) | 2023: 3\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Other assets \u2014 2025: (96) | 2024: (50) | 2023: 9\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Accounts payable and accrued expenses \u2014 2025: (6) | 2024: (60) | 2023: 149\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Section 31 fees payable to SEC \u2014 2025: (319) | 2024: 235 | 2023: (160)\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Accrued personnel costs \u2014 2025: 25 | 2024: 34 | 2023: 13\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Deferred revenue \u2014 2025: 69 | 2024: 67 | 2023: 88\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Other liabilities \u2014 2025: 1 | 2024: 13 | 2023: (63)\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Net cash provided by operating activities \u2014 2025: 2,255 | 2024: 1,939 | 2023: 1,696\nCash flows from investing activities:\nCash flows from investing activities \u003E Purchases of securities \u2014 2025: (243) | 2024: (206) | 2023: (712)\nCash flows from investing activities \u003E Proceeds from sales and redemptions of securities \u2014 2025: 427 | 2024: 199 | 2023: 719\nCash flows from investing activities \u003E Proceeds from divestitures, net of cash divested \u2014 2025: 140\nCash flows from investing activities \u003E Acquisition of businesses, net of cash and cash equivalents acquired \u2014 2023: (5,766)\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Cash Flows\n\n(in millions)\n\nYear Ended December 31,\nCash flows from investing activities \u003E Purchases of property and equipment \u2014 2025: (266) | 2024: (207) | 2023: (158)\nCash flows from investing activities \u003E Investments related to default funds and margin deposits, net(1) \u2014 2025: (1,080) | 2024: (707) | 2023: (74)\nCash flows from investing activities \u003E Other investing activities \u2014 2025: (78) | 2024: (32) | 2023: (3)\nCash flows from investing activities \u003E Net cash used in investing activities \u2014 2025: (1,100) | 2024: (953) | 2023: (5,994)\nCash flows from financing activities:\nCash flows from financing activities \u003E Repayments of commercial paper, net \u2014 2024: (291) | 2023: (371)\nCash flows from financing activities \u003E Repayments of debt and credit commitment \u2014 2025: (826) | 2024: (521) | 2023: (260)\nCash flows from financing activities \u003E Proceeds from issuances of debt, net of issuance costs \u2014 2023: 5,608\nCash flows from financing activities \u003E Repurchases of common stock \u2014 2025: (616) | 2024: (145) | 2023: (269)\nCash flows from financing activities \u003E Dividends paid \u2014 2025: (601) | 2024: (541) | 2023: (441)\nCash flows from financing activities \u003E Payments related to employee shares withheld for taxes \u2014 2025: (69) | 2024: (60) | 2023: (72)\nCash flows from financing activities \u003E Default funds and margin deposits \u2014 2025: (884) | 2024: (1,030) | 2023: 22\nCash flows from financing activities \u003E Other financing activities \u2014 2025: 43 | 2024: 27 | 2023: 3\nCash flows from financing activities \u003E Net cash provided by (used in) financing activities \u2014 2025: (2,953) | 2024: (2,561) | 2023: 4,220\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Cash Flows\n\n(in millions)\n\nYear Ended December 31,\nCash flows from financing activities \u003E Effect of exchange rate changes on cash and cash equivalents and restricted cash and cash equivalents \u2014 2025: 726 | 2024: (537) | 2023: 202\nCash flows from financing activities \u003E Net decrease in cash and cash equivalents and restricted cash and cash equivalents \u2014 2025: (1,072) | 2024: (2,112) | 2023: 124\nCash flows from financing activities \u003E Cash and cash equivalents, restricted cash and cash equivalents at beginning of period \u2014 2025: 5,006 | 2024: 7,118 | 2023: 6,994\nCash flows from financing activities \u003E Cash and cash equivalents, restricted cash and cash equivalents at end of period \u2014 2025: $3,934 | 2024: $5,006 | 2023: $7,118\nReconciliation of Cash, Cash Equivalents and Restricted Cash and Cash Equivalents\nReconciliation of Cash, Cash Equivalents and Restricted Cash and Cash Equivalents \u003E Cash and cash equivalents \u2014 2025: $604 | 2024: $592 | 2023: $453\nReconciliation of Cash, Cash Equivalents and Restricted Cash and Cash Equivalents \u003E Restricted cash and cash equivalents \u2014 2025: 210 | 2024: 31 | 2023: 20\nReconciliation of Cash, Cash Equivalents and Restricted Cash and Cash Equivalents \u003E Restricted cash and cash equivalents (default funds and margin deposits) \u2014 2025: 3,120 | 2024: 4,383 | 2023: 6,645\nReconciliation of Cash, Cash Equivalents and Restricted Cash and Cash Equivalents \u003E Total \u2014 2025: $3,934 | 2024: $5,006 | 2023: $7,118\nSupplemental Disclosure Cash Flow Information\nCash paid for:\nCash paid for \u003E Interest paid \u2014 2025: $354 | 2024: $405 | 2023: $177\nCash paid for \u003E Income taxes paid, net of refunds \u2014 2025: $373 | 2024: $358 | 2023: $254\n\n(1)See \u0022Default Fund Contributions and Margin Deposits,\u0022 of Note 15, \u0022Clearing Operations,\u0022 for further details.\n\nSee accompanying notes to consolidated financial statements.\n\nNasdaq, Inc.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of ---\r\n\u0060\u0060\u0060\r\nThe following table summarizes the changes in cash flows:\n\n(in millions) Net cash provided by (used in): Year Ended December 31,\nOperating activities \u2014 2025: $2,255 | 2024: $1,939\nInvesting activities \u2014 2025: (1,100) | 2024: (953)\nFinancing activities \u2014 2025: (2,953) | 2024: (2,561)\n\nNet Cash Provided by Operating Activities\n\nNet cash provided by operating activities primarily consists\n\nof net income adjusted for certain non-cash items, including,\n\nbut not limited to, depreciation and amortization expense,\n\nexpense associated with share-based compensation, net\n\nincome from unconsolidated investees, net gain on\n\ndivestitures and the effects of changes in working capital.\n\nRefer to the above discussion regarding changes in working\n\ncapital.\n\nNet cash provided by operating activities increased $316\n\nmillion for the year ended December 31, 2025 compared with\n\nthe same period in 2024. The increase was primarily driven\n\nby an increase in net income, partially offset by changes in\n\nworking capital, as discussed above, and a decrease in\n\nadjustments to net income primarily driven by higher net\n\nincome from unconsolidated investees and net gain on\n\ndivestitures, partially offset by an increase in deferred income\n\ntax expense.\n\nNet Cash Used in Investing Activities\n\nNet cash used in investing activities increased for the year\n\nended December 31, 2025 as compared to 2024 primarily\n\ndriven by increases in net purchases of investments related to\n\ndefault funds and margin deposits of $373 million, purchases\n\nof property and equipment of $59 million and other investing\n\nactivities of $46 million primarily related to our corporate\n\nventure program, partially offset by proceeds from sales and\n\nredemption of securities, net of $191 million, primarily due\n\nto more regulatory capital being invested in shorter term\n\ninvestments, which are classified as cash equivalents, and\n\nproceeds from divestitures of $140 million. The movement in\n\nour default funds and margin deposits has no impact on\n\nNasdaq\u0027s cash, cash equivalents, restricted cash or restricted\n\ncash equivalents as it is held on behalf of our customers.\n\nNet Cash Used in Financing Activities\n\nNet cash used in financing activities increased for the year\n\nended December 31, 2025 as compared to 2024 primarily\n\ndriven by increases in repurchases of common stock of $471\n\nmillion, an increase in dividends paid of $60 million and an\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Nasdaq\u0027s net cash provided by operating activities in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s net cash provided by operating activities was $2,255 million for the year ended December 31, 2025 (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 2,255 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "2,255 at rank 2 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 2,255 from excerpts 2 (cash_flow_statement), 5 (narrative)."
+        },
+        "metadata": {
+          "Stated 2,255": "excerpt 2 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022...in operating assets and liabilities, excluding the effects of divestitures \u003E Net cash provided by operating activities \u2014 2025: 2,255 | 2024: 1,939 | 2023: 1,696\u0022; excerpt 5 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of): \u0022Operating activities \u2014 2025: $2,255 | 2024: $1,939\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$2,255 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "claude-sonnet-5-5",
+          "eval-input-tokens": "1476",
+          "eval-output-tokens": "3",
+          "eval-total-tokens": "1479",
+          "eval-duration-ms": "1093.88",
+          "Judge reply": "5",
+          "Score taken from the reply\u0027s words": "no"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0017856,
+        "model": "claude-opus-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 4266,
+          "outputTokenCount": 149,
+          "totalTokenCount": 4415,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "44A8B1FF0CCEAA3AFDC33FBE3D3639617327757918F25B504233F8699BBFCC3146C2BA6BEB5DEED8B35DDC20AE55A06A",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-opus-5-5",
+    "effort:Medium/Medium",
+    "judge:claude-sonnet-5-5",
+    "kind:figure",
+    "company:NDAQ",
+    "statement:cash_flow_statement",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}

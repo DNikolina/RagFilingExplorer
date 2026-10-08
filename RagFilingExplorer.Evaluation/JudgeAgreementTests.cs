@@ -21,6 +21,16 @@ public class JudgeAgreementTests
             new Dictionary<string, JudgeVerdict> { [Equivalence] = new(score, failed, error) }, 20, 1);
 
     [Test]
+    public void Report_NoJudgeCallsStored_SaysWhereTheyAre()
+    {
+        JudgedAnswer claudeJudged = Judged("AnswerSide.A10", "wrong", 2, true) with { JudgeCalls = 0, JudgeSeconds = 0 };
+
+        string report = JudgeAgreement.Report("x", [claudeJudged], new Dictionary<string, string>());
+
+        Assert.That(report, Does.Contain("Judge calls: not in the stored chat details"));
+    }
+
+    [Test]
     public void Report_ScoresAgainstTheStrictGrade_CountsAgreementAndListsDisagreements()
     {
         List<JudgedAnswer> answers =

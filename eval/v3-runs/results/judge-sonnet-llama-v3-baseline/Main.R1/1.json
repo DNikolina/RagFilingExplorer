@@ -1,0 +1,143 @@
+{
+  "scenarioName": "Main.R1",
+  "iterationName": "1",
+  "executionName": "judge-sonnet-llama-v3-baseline",
+  "creationTime": "2026-10-08T19:16:27.2900961Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Deferred Revenues ---\r\n\u0060\u0060\u0060\r\n8.\n\nDEFERRED REVENUES\n\nDeferred revenues consisted of the following:\n\n(in millions) May 31,\nCloud \u2014 2026: $3,228 | 2025: $2,959\nSoftware \u2014 2026: 5,662 | 2025: 5,350\nHardware \u2014 2026: 521 | 2025: 614\nServices \u2014 2026: 505 | 2025: 464\nDeferred revenues, current \u2014 2026: 9,916 | 2025: 9,387\nDeferred revenues, non-current (in other non-current liabilities) \u2014 2026: 5,479 | 2025: 1,346\nTotal deferred revenues \u2014 2026: $15,395 | 2025: $10,733\n\nDeferred cloud revenues, deferred software revenues and deferred hardware revenues substantially represent customer payments made in advance for cloud or support contracts that are billed in advance with corresponding revenues generally being recognized ratably or based upon customer usage over the respective contractual periods. Deferred services revenues include prepayments for our services business and revenues for these services are generally recognized as the services are performed.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Income Taxes ---\r\n\u0060\u0060\u0060\r\n(in millions) May 31,\nDeferred tax assets:\nDeferred tax assets \u003E Accruals and allowances \u2014 2026: $1,195 | 2025: $790\nDeferred tax assets \u003E Employee compensation and benefits \u2014 2026: 1,006 | 2025: 1,068\nDeferred tax assets \u003E Differences in timing of revenue recognition \u2014 2026: 970 | 2025: 894\nDeferred tax assets \u003E Lease liabilities \u2014 2026: 9,333 | 2025: 3,279\nDeferred tax assets \u003E Basis of property, plant and equipment and intangible assets \u2014 2026: 6,882 | 2025: 7,800\nDeferred tax assets \u003E Capitalized research and development \u2014 2026: 5,784 | 2025: 4,153\nDeferred tax assets \u003E Tax credit and net operating loss carryforwards \u2014 2026: 6,602 | 2025: 5,857\nDeferred tax assets \u003E Total deferred tax assets \u2014 2026: 31,772 | 2025: 23,841\nValuation allowance \u2014 2026: (2,483) | 2025: (1,962)\nTotal deferred tax assets, net \u2014 2026: 29,289 | 2025: 21,879\nDeferred tax liabilities:\nDeferred tax liabilities \u003E Acquired intangible assets \u2014 2026: (544) | 2025: (920)\nDeferred tax liabilities \u003E GILTI deferred \u2014 2026: (6,852) | 2025: (6,949)\nDeferred tax liabilities \u003E ROU assets \u2014 2026: (9,181) | 2025: (3,207)\nDeferred tax liabilities \u003E Withholding taxes on foreign earnings \u2014 2026: (424) | 2025: (364)\nDeferred tax liabilities \u003E Other \u2014 2026: (1,069) | 2025: (191)\nDeferred tax liabilities \u003E Total deferred tax liabilities \u2014 2026: (18,070) | 2025: (11,631)\nNet deferred tax assets \u2014 2026: $11,219 | 2025: $10,248\nRecorded as:\nRecorded as \u003E Non-current deferred tax assets \u2014 2026: $11,541 | 2025: $11,877\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF OPERATIONS\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions, except per share data) Year Ended May 31,\nRevenues:\nRevenues \u003E Cloud \u2014 2026: $33,989 | 2025: $24,506 | 2024: $19,774\nRevenues \u003E Software \u2014 2026: 24,541 | 2025: 24,724 | 2024: 24,690\nRevenues \u003E Hardware \u2014 2026: 3,084 | 2025: 2,936 | 2024: 3,066\nRevenues \u003E Services \u2014 2026: 5,743 | 2025: 5,233 | 2024: 5,431\nRevenues \u003E Total revenues \u2014 2026: 67,357 | 2025: 57,399 | 2024: 52,961\nOperating expenses:\nOperating expenses \u003E Cloud and software(1) \u2014 2026: 17,597 | 2025: 11,569 | 2024: 9,427\nOperating expenses \u003E Hardware(1) \u2014 2026: 868 | 2025: 782 | 2024: 891\nOperating expenses \u003E Services(1) \u2014 2026: 4,556 | 2025: 4,576 | 2024: 4,825\nOperating expenses \u003E Sales and marketing(1) \u2014 2026: 8,331 | 2025: 8,651 | 2024: 8,274\nOperating expenses \u003E Research and development \u2014 2026: 10,272 | 2025: 9,860 | 2024: 8,915\nOperating expenses \u003E General and administrative \u2014 2026: 1,618 | 2025: 1,602 | 2024: 1,548\nOperating expenses \u003E Amortization of intangible assets \u2014 2026: 1,671 | 2025: 2,307 | 2024: 3,010\nOperating expenses \u003E Restructuring and other \u2014 2026: 1,838 | 2025: 374 | 2024: 718\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Income Taxes ---\r\n\u0060\u0060\u0060\r\n(in millions) May 31,\nRecorded as \u003E Non-current deferred tax liabilities \u2014 2026: (322) | 2025: (1,629)\nRecorded as \u003E Net deferred tax assets \u2014 2026: $11,219 | 2025: $10,248\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED BALANCE SHEETS\n\nAs of May 31, 2026 and 2025\n\n(in millions, except per share data) May 31,\nASSETS\nCurrent assets:\nCurrent assets \u003E Cash and cash equivalents \u2014 2026: $31,289 | 2025: $10,786\nCurrent assets \u003E Marketable securities \u2014 2026: 605 | 2025: 417\nCurrent assets \u003E Trade receivables, net of allowances for credit losses of $542 and $557 as of May 31, 2026 and May 31, 2025, respectively \u2014 2026: 10,385 | 2025: 8,558\nCurrent assets \u003E Prepaid expenses and other current assets \u2014 2026: 4,288 | 2025: 4,818\nCurrent assets \u003E Total current assets \u2014 2026: 46,567 | 2025: 24,579\nNon-current assets:\nNon-current assets \u003E Property, plant and equipment, net \u2014 2026: 99,957 | 2025: 43,522\nNon-current assets \u003E Operating lease right-of-use assets \u2014 2026: 29,690 | 2025: 13,145\nNon-current assets \u003E Goodwill \u2014 2026: 62,261 | 2025: 62,207\nNon-current assets \u003E Deferred tax assets \u2014 2026: 11,541 | 2025: 11,877\nNon-current assets \u003E Other non-current assets \u2014 2026: 11,743 | 2025: 13,031\nNon-current assets \u003E Total non-current assets \u2014 2026: 215,192 | 2025: 143,782\nTotal assets \u2014 2026: $261,759 | 2025: $168,361\nLIABILITIES AND STOCKHOLDERS\u2019 EQUITY\nCurrent liabilities:\nCurrent liabilities \u003E Notes payable and other borrowings, current \u2014 2026: $7,199 | 2025: $7,271\nCurrent liabilities \u003E Accounts payable \u2014 2026: 10,977 | 2025: 5,113\nCurrent liabilities \u003E Accrued compensation and related benefits \u2014 2026: 2,225 | 2025: 2,243\nCurrent liabilities \u003E Deferred revenues \u2014 2026: 9,916 | 2025: 9,387\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Oracle\u0027s current deferred revenues as of May 31, 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s current deferred revenues as of May 31, 2026 were $9,916 million. (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Deferred Revenues)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 9,916 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "9,916 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 9,916 from excerpts 1 (narrative), 5 (balance_sheet)."
+        },
+        "metadata": {
+          "Stated 9,916": "excerpt 1 (narrative, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Deferred Revenues): \u0022Deferred revenues, current \u2014 2026: 9,916 | 2025: 9,387\u0022; excerpt 5 (balance_sheet, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Current liabilities \u003E Deferred revenues \u2014 2026: 9,916 | 2025: 9,387\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$9,916 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "claude-sonnet-5-5",
+          "eval-input-tokens": "1492",
+          "eval-output-tokens": "3",
+          "eval-total-tokens": "1495",
+          "eval-duration-ms": "875.93",
+          "Judge reply": "5",
+          "Score taken from the reply\u0027s words": "no"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0005235,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2281,
+          "outputTokenCount": 54,
+          "totalTokenCount": 2335
+        },
+        "cacheKey": "A3F74BA345F48F78599BABDDBB2E86B585ED3FBE494088ACA045AF2D9A1E05FE93716147130869AB629EE2BEFDDAEDDE",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "judge:claude-sonnet-5-5",
+    "kind:routing",
+    "company:ORCL",
+    "statement:income_statement",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}

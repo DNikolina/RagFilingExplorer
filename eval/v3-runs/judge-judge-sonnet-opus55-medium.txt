@@ -1,0 +1,21 @@
+Judge agreement for judge-sonnet-opus55-medium: 102 answers
+Judge calls: not in the stored chat details - a Claude judge's calls go through its own client; the run's summary gives the tokens it billed
+
+== Equivalence (102 answers)
+Score read as the prompt asks for it: 102; score taken from the reply's words: 0 (the library's own verdict for that score)
+Reply not read as a score: 0
+Score by strict grade (rows: strict passed / failed; columns: score 1-5):
+  strict passed: 1:   1  2:   0  3:   0  4:   2  5:  94
+  strict failed: 1:   2  2:   1  3:   0  4:   1  5:   1
+Agreement on library-read scores only: 99/102
+Agreement with the strict grade at the library's verdict: 99/102 (judge passes a strict failure: 2, judge fails a strict pass: 1)
+Disagreements:
+  HeldOut.H11: strict check, Equivalence 5 (passed)
+    expected: New York
+    answer:   Nasdaq's U.S. headquarters are in New York, New York, and its European headquarters are in Stockholm, Sweden (Source: NDAQ-10K-2025.html, PART I > Item 2. Properties). The company operates from leased facilities and does not own any real property (Source: NDAQ-10K-2025.html, PART I > Item 2. Properties).
+  HeldOut.H34: strict check, Equivalence 4 (passed)
+    expected: $9,127,167 thousand
+    answer:   Netflix repurchased 86,536,215 shares of common stock for an aggregate amount of $9.1 billion in the fiscal year ended December 31, 2025, excluding the 1% excise tax on stock repurchases under the Inflation Reduction Act of 2022 (Source: NFLX-10K-2025.html, PART II > Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations). The line "Repurchases of common stock" in the stockholders' equity statement reduced Treasury Stock and Total Stockholders' Equity by $9,154,855 thousand for the year ended December 31, 2025 (Source: NFLX-10K-2025.html, PART IV > Financial Statements). As of December 31, 2025, there were no unsettled share repurchases, so all of these repurchases had been settled (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Stockholders' Equity).  The excerpts don't include the cash flow statement line for repurchases, so they don't confirm the exact cash paid.
+  Main.R3: strict decline-ok, Equivalence 1 (failed) [routing test: strict also passes a decline]
+    expected: $137,791 million
+    answer:   The excerpts don't contain Microsoft's Intelligent Cloud segment revenue amount.

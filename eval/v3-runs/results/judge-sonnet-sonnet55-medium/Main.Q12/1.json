@@ -1,0 +1,145 @@
+{
+  "scenarioName": "Main.Q12",
+  "iterationName": "1",
+  "executionName": "judge-sonnet-sonnet55-medium",
+  "creationTime": "2026-10-08T19:20:45.9608027Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART I \u003E Item 2. Properties ---\r\n\u0060\u0060\u0060\r\nOur properties consist of owned and leased facilities for cloud operations, sales, support, research and development, services, manufacturing and administrative and other functions. Our headquarters facility consists of approximately 0.9 million square feet in Austin, Texas, all of which we own. We also own or lease office facilities for current use consisting of approximately 25.4 million square feet in various other locations in the U.S. and abroad. Approximately 11.9 million square feet, or 45%, of our total owned and leased office facilities are sublet or are being actively marketed for sublease or disposition. We lease our principal internal manufacturing facility for our hardware products in Hillsboro, Oregon. Additionally, we have approximately 181 data center locations globally, substantially all of which are leased and used to deliver our Oracle Cloud offerings. We believe that our facilities are in good condition and suitable for the conduct of our business.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nWe directly market and sell our cloud, software, hardware, support and services offerings globally to businesses of many sizes and in many industries, government agencies and educational institutions. We also market and sell our offerings globally through indirect channels.\n\nIn the United States (U.S.), our sales and services employees are based throughout the country. Outside the U.S., our international subsidiaries sell, support and service our offerings in their local countries as well as within other foreign countries where we do not operate through a direct sales subsidiary. Our geographic coverage allows us to draw on business and technical expertise from a global workforce, provides stability to our operations and revenue streams to offset geography-specific economic trends and offers us an opportunity to take advantage of new markets for our offerings. Our international operations subject us to certain risks, which are more fully described in Risk Factors included in Item 1A of this Annual Report. A summary of our domestic and international revenues and long-lived assets is set forth in Note 13 of Notes to Consolidated Financial Statements included elsewhere in this Annual Report.\n\nWe also market our product offerings worldwide through indirect channels. The companies that comprise our indirect channel network are members of the Oracle Partner Network. The Oracle Partner Network is a global program that manages our business relationships with a large, broad-based network of companies, including cloud and software, hardware and services suppliers, system integrators and resellers that deliver innovative solutions and services based upon and in conjunction with our product offerings. By offering our partners access to our product offerings, educational information, technical services, marketing and sales support, the Oracle Partner Network program extends our market reach by providing our partners with the resources they need to be successful in delivering solutions to customers globally.\n\nResearch and Development\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nThe average tenure of our employees is approximately eight years and 31% of our employees have been employed with Oracle for ten or more years.\n\nNone of our employees in the U.S. are represented by labor unions; however, in certain foreign subsidiaries, labor unions or workers\u2019 councils represent some of our employees.\n\nEmployee Experience\n\nIn order to attract and retain high quality talent, Oracle strives to deliver a great employee experience, anchored by an inclusive culture where employees can thrive, engage in meaningful work, leverage growth opportunities and focus on their well-being. We support employee well-being from multiple dimensions, including flexible benefits, economic, health, development, lifestyle and compensation.\n\nWe believe that one of the primary reasons candidates join Oracle is for the opportunity to develop their career and participate in our global inclusive culture. We have programs and resources to help our employees explore, build and achieve their career goals. By promoting an inclusive culture that leverages a broad range of perspectives and fosters a sense of belonging, we inspire and engage our workforce to solve complex problems to help our customers across the globe.\n\nWe promote regular career conversations between leaders and employees, focused on helping employees identify and take steps to grow their careers. Our Talent Review process, which runs on Oracle Fusion Cloud HCM, provides the mechanism for leaders to review and discuss opportunities and action plans to develop employees. 20% of our open non-entry level positions were filled internally in fiscal 2026, providing growth opportunities and retaining critical knowledge and talent.\n\nWe believe that helping our employees learn and apply new skills is key to retaining and engaging them. It is also critical to our ability to innovate and rapidly evolve. We believe that our easily accessible learning resources enable us to improve our employees\u2019 learning experience and better measure learning consumption. Oracle employees received more than 4.2 million hours of training in fiscal 2026 and accessed online learning content at an average rate of approximately 2.6 million views per month. Our employees take advantage of instructor-led classes, virtual library content and online learning resources on AI, sales, business, product, market/industry, leadership, technical and compliance skills, well-being and personal development related topics.\n\nLeaders Who Listen\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nResearch and Development\n\nWe develop the substantial majority of our products and services offerings internally utilizing the skills and diversity of a global workforce. In addition, we have extended our products and services offerings and intellectual property through acquisitions of businesses and technologies. We also purchase or license intellectual property rights in certain circumstances. Internal development allows us to maintain technical control over the design and development of our products. We have a number of U.S. and foreign patents and pending applications that relate to various aspects of our products and technology. However, although we believe that our patents have value, neither our business as a whole nor any of our principal businesses are materially dependent on a single patent. Rapid technological advances in cloud, software and hardware development, evolving standards in computer hardware and software technology, changing customer needs and frequent new product introductions, offerings and enhancements characterize the markets in which we compete. We plan to continue to dedicate a significant amount of resources to research and development efforts to develop new products and services offerings, as well as maintain and improve our current offerings. We may not receive significant revenues from our current research and development efforts for several years, if at all, and this risk is further described in Risk Factors included in Item 1A of this Annual Report.\n\nHuman Capital Resources\n\nAt Oracle, our success is driven by the quality of our people, who we believe are among the best and brightest in the industry. We strive to attract and retain talented employees, to support our employees\u2019 success and well-being and to foster a culture of inclusion where everyone is empowered to have a voice in driving innovation. The\n\n[Table of Contents](#toc_page)\n\nCompensation Committee of our Board of Directors (the Compensation Committee) is responsible for reviewing and monitoring matters related to human capital management, including talent acquisition and retention.\n\nWorkforce\n\nAs of May 31, 2026, we employed approximately 141,000 full-time employees, of which approximately 49,000 were employed in the U.S. and approximately 92,000 were employed internationally. Our approximate employee counts by lines of business are:\n\n26,000 | Cloud and software | 34,000 | Services\n25,000 | Sales and marketing | 43,000 | Research and development\n2,000 | Hardware | 11,000 | General and administrative\n\nThe average tenure of our employees is approximately eight years and 31% of our employees have been employed with Oracle for ten or more years.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section (no heading) ---\r\n\u0060\u0060\u0060\r\nIndicate by check mark whether the registrant is a shell company (as defined in Rule 12b-2 of the Exchange Act). Yes \u2610 No \u2612\n\nThe aggregate market value of the voting stock held by non-affiliates of the registrant was $346,760,150,000 based on the number of shares held by non-affiliates of the registrant as of May 31, 2026, and based on the closing sale price of common stock as reported by the New York Stock Exchange on November 28, 2025, which is the last business day of the registrant\u2019s most recently completed second fiscal quarter. This calculation does not reflect a determination that persons are affiliates for any other purposes.\n\nNumber of shares of common stock outstanding as of June 12, 2026: 2,880,471,000.\n\nDocuments Incorporated by Reference:\n\nPortions of the registrant\u0027s definitive proxy statement relating to its 2026 annual meeting of stockholders are incorporated by reference into Part III of this Annual Report on Form 10-K where indicated. Such proxy statement will be filed with the U.S. Securities and Exchange Commission within 120 days of the registrant\u2019s fiscal year ended May 31, 2026.\n\n[Table of Contents](#toc_page)\n\nORACLE CORPORATION\n\nFISCAL YEAR 2026\n\nFORM 10-K\n\nANNUAL REPORT\n\nTABLE OF CONTENTS\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Where is Oracle headquartered?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s headquarters facility is in Austin, Texas. It covers approximately 0.9 million square feet, all of which Oracle owns. (Source: ORCL-10K-2026.html, PART I \u003E Item 2. Properties)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected Austin."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "Austin at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 0.9 from excerpt 1 (narrative)."
+        },
+        "metadata": {
+          "Stated 0.9": "excerpt 1 (narrative, PART I \u003E Item 2. Properties): \u0022...rative and other functions. Our headquarters facility consists of approximately 0.9 million square feet in Austin, Texas, all of which we own. We also own or le...\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "Austin"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "claude-sonnet-5-5",
+          "eval-input-tokens": "1471",
+          "eval-output-tokens": "3",
+          "eval-total-tokens": "1474",
+          "eval-duration-ms": "1063.90",
+          "Judge reply": "5",
+          "Score taken from the reply\u0027s words": "no"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0012051,
+        "model": "claude-sonnet-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 3383,
+          "outputTokenCount": 79,
+          "totalTokenCount": 3462,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "6786B2D2C292672F61DEE42BDD55ED352A110A5A5AE3E000BDFB05A90F434884BE6C456F9CB1404B4D80B6FD7FD89266",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-sonnet-5-5",
+    "effort:Medium/Medium",
+    "judge:claude-sonnet-5-5",
+    "kind:fact",
+    "company:ORCL",
+    "statement:none",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}

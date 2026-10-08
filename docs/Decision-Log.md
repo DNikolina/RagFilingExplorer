@@ -3755,3 +3755,38 @@ llama's cached Q1 and A10 - **Q1 5 (pass), A10 2 (fail)**, where the llama judge
 difference"); bare-integer replies, no recovery from words; 2,981 input + 6 output tokens - at Low effort Sonnet didn't
 think. Run again: the judge billed 0 (cached). One Q1 call with Opus 5.5 as the judge was billed afresh (1,480 + 3) -
 the judge model is in the key.
+
+**Step 3 - Equivalence by Sonnet 5.5 (Low effort), done (2026-10-08).** Three cached runs judged - every answer from the
+cache (306/306), only the judge billed: 465,471 input + 1,003 output tokens, **~$0.94** (~$0.31 a run; estimated ~$0.05-0.15
+when asking, wrongly - each call carries the whole prompt the model answered from, system prompt and five excerpts,
+~1,500 tokens). Agreement reports `eval/v3-runs/judge-judge-sonnet-*.txt`:
+
+| Answers judged | Agreement with the strict grade | Strict failures passed | Strict passes failed |
+|---|---|---|---|
+| llama, `structured-hybrid-v3-baseline` - Sonnet judge | 98/101 | 3 of 17 | 0 |
+| llama, same answers - **llama judge (v3)** | 87/101 | **14 of 18** | 0 |
+| Opus 5.5 medium | 99/102 | 2 | 1 |
+| Sonnet 5.5 medium | 99/102 | 3 | 0 |
+
+Every disagreement read:
+- **The Sonnet judge never passed a wrong figure.** Every misreading llama's judge passed - A10's $27,034M for $26,445M
+  (llama judge 4, Sonnet 2), A27's ratio, T1, T9, the lookalike lines - it fails; and Sonnet's own H34, which took the
+  equity statement's trap figure, it fails too.
+- **It is lenient on precision, as the strict grade is not:** MD&A's rounded "$55.7 billion" for $55,663 million (llama's
+  A14 - an `exact` question: the rounding is the trap) and "$9.1 billion" for $9,127,167 thousand (H34 in the llama and
+  Opus runs) pass at 4-5; llama's Q21, the right digits with no unit, passes at 4. Equivalence rates similarity, so a
+  near figure or a missing unit scores close - the strict grade exists for exactly these.
+- **On the `check`s left to a reader it agrees with the hand-reading where that was clear:** Opus's H11 (both cities
+  named) passes, Sonnet's H8 (a decline naming other years' figures) passes. Sonnet's two hedges (V1, Q23) pass at 4-5 -
+  the right figure is there, labelled; whether a hedge is an answer is the reader's call the strict grade leaves open.
+- **By design:** R3 is a routing test whose decline the strict grade passes; the ground truth is the figure, so the judge
+  fails the decline (Opus run).
+- **One reply unread** (llama's V3): Sonnet reasoned in prose, then gave the score alone on its last line - a form
+  `ScoreOnlyEquivalenceEvaluator`'s recovery doesn't read (written for llama's phrasings). 1 of 306.
+
+So a capable judge does what the local one couldn't - it tells a wrong figure from the right one - but it is a similarity
+judge: it doesn't hold a unit or the exact figure. The strict grade stays the grade; the paid judge is a usable second
+view, and a cheap reader of the leftover `check`s. Opus as the judge is not run (the plan's "if Sonnet leaves a question
+open"): the open points are the prompt's similarity criterion, which a stronger judge model wouldn't change.
+The agreement report now says where a Claude judge's calls are recorded (its own client, not the scenario's chat details),
+instead of "Judge calls: 0". 409 + 191 tests.

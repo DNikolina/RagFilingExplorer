@@ -1,0 +1,141 @@
+{
+  "scenarioName": "AnswerSide.A12",
+  "iterationName": "1",
+  "executionName": "judge-sonnet-opus55-medium",
+  "creationTime": "2026-10-08T19:19:51.4483299Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements \u003E Earnings Per Share ---\r\n\u0060\u0060\u0060\r\n(in thousands, except per share data) Year Ended December 31,\nBasic earnings per share:\nBasic earnings per share \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\nShares used in computation:\nShares used in computation \u003E Weighted-average shares of common stock outstanding \u2014 2025: 4,249,512 | 2024: 4,295,191 | 2023: 4,415,712\nShares used in computation \u003E Basic earnings per share \u2014 2025: $2.58 | 2024: $2.03 | 2023: $1.22\nDiluted earnings per share:\nDiluted earnings per share \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\nShares used in computation:\nShares used in computation \u003E Weighted-average shares of common stock outstanding \u2014 2025: 4,249,512 | 2024: 4,295,191 | 2023: 4,415,712\nShares used in computation \u003E Effect of dilutive stock-based awards \u2014 2025: 94,351 | 2024: 97,417 | 2023: 79,254\nShares used in computation \u003E Weighted-average number of shares \u2014 2025: 4,343,863 | 2024: 4,392,608 | 2023: 4,494,966\nShares used in computation \u003E Diluted earnings per share \u2014 2025: $2.53 | 2024: $1.98 | 2023: $1.20\n\nThe following table summarizes the potential shares of common stock excluded from the diluted calculation, as adjusted for the Stock Split, as their inclusion would have been anti-dilutive:\n\n(in thousands) Year Ended December 31,\nStock-based awards \u2014 2025: 818 | 2024: 2,432 | 2023: 41,091\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements \u003E Earnings Per Share ---\r\n\u0060\u0060\u0060\r\n[Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)\n\n3.Earnings per Share\n\nOn November 14, 2025, the Company completed the Stock Split to all shareholders of record as of November 10, 2025.\n\nOutstanding share and per-share amounts disclosed for all periods provided have been retroactively adjusted to reflect the effects of the Stock Split.\n\nBasic earnings per share is computed using the weighted-average number of outstanding shares of common stock during the period. Diluted earnings per share is computed using the weighted-average number of outstanding shares of common stock and, when dilutive, potential outstanding shares of common stock during the period. Potential outstanding shares of common stock are calculated using the treasury-stock method and consist of incremental shares issuable upon the assumed exercise of stock options and vesting of time-based and performance-based restricted stock units. The computation of earnings per share, as adjusted for the Stock Split, is as follows:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF OPERATIONS\n\n(in thousands, except per share data)\n\nYear ended December 31,\nEarnings per share \u003E Diluted \u2014 2025: $2.53 | 2024: $1.98 | 2023: $1.20\nWeighted-average shares of common stock outstanding:\nWeighted-average shares of common stock outstanding \u003E Basic \u2014 2025: 4,249,512 | 2024: 4,295,191 | 2023: 4,415,712\nWeighted-average shares of common stock outstanding \u003E Diluted \u2014 2025: 4,343,863 | 2024: 4,392,608 | 2023: 4,494,966\n\nSee accompanying notes to consolidated financial statements.\n\n[Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)\n\nNETFLIX, INC.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF CASH FLOWS\n\n(in thousands)\n\nYear Ended December 31,\nCash flows from financing activities \u003E Repayments of debt \u2014 2025: (1,833,450) | 2024: (400,000)\nCash flows from financing activities \u003E Proceeds from issuance of common stock \u2014 2025: 666,965 | 2024: 832,887 | 2023: 169,990\nCash flows from financing activities \u003E Repurchases of common stock \u2014 2025: (9,127,167) | 2024: (6,263,746) | 2023: (6,045,347)\nCash flows from financing activities \u003E Taxes paid related to net share settlement of equity awards \u2014 2025: (46,165) | 2024: (8,285)\nCash flows from financing activities \u003E Other financing activities \u2014 2025: (5,806) | 2024: (29,743) | 2023: (75,446)\nCash flows from financing activities \u003E Net cash used in financing activities \u2014 2025: (10,345,623) | 2024: (4,074,427) | 2023: (5,950,803)\nCash flows from financing activities \u003E Effect of exchange rate changes on cash, cash equivalents and restricted cash \u2014 2025: 386,519 | 2024: (416,331) | 2023: 82,684\nCash flows from financing activities \u003E Net increase in cash, cash equivalents and restricted cash \u2014 2025: 1,231,857 | 2024: 688,822 | 2023: 1,947,933\nCash flows from financing activities \u003E Cash, cash equivalents and restricted cash, beginning of year \u2014 2025: 7,807,337 | 2024: 7,118,515 | 2023: 5,170,582\nCash flows from financing activities \u003E Cash, cash equivalents and restricted cash, end of year \u2014 2025: $9,039,194 | 2024: $7,807,337 | 2023: $7,118,515\nSupplemental disclosure:\nSupplemental disclosure \u003E Interest paid \u2014 2025: 718,611 | 2024: 674,502 | 2023: 684,504\n\nSee accompanying notes to consolidated financial statements.\n\n[Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)\n\nNETFLIX, INC.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED BALANCE SHEETS\n\n(in thousands, except share and per share data)\n\nAs of December 31,\nAssets\nCurrent assets:\nCurrent assets \u003E Cash and cash equivalents \u2014 2025: $9,033,681 | 2024: $7,804,733\nCurrent assets \u003E Short-term investments \u2014 2025: 28,678 | 2024: 1,779,006\nCurrent assets \u003E Other current assets \u2014 2025: 3,957,832 | 2024: 3,516,640\nCurrent assets \u003E Total current assets \u2014 2025: 13,020,191 | 2024: 13,100,379\nContent assets, net \u2014 2025: 32,778,392 | 2024: 32,452,462\nProperty and equipment, net \u2014 2025: 2,004,350 | 2024: 1,593,756\nOther non-current assets \u2014 2025: 7,794,060 | 2024: 6,483,777\nTotal assets \u2014 2025: $55,596,993 | 2024: $53,630,374\nLiabilities and Stockholders\u2019 Equity\nCurrent liabilities:\nCurrent liabilities \u003E Current content liabilities \u2014 2025: $4,084,854 | 2024: $4,393,681\nCurrent liabilities \u003E Accounts payable \u2014 2025: 900,612 | 2024: 899,909\nCurrent liabilities \u003E Accrued expenses and other liabilities \u2014 2025: 3,220,869 | 2024: 2,156,544\nCurrent liabilities \u003E Deferred revenue \u2014 2025: 1,775,730 | 2024: 1,520,813\nCurrent liabilities \u003E Short-term debt \u2014 2025: 998,865 | 2024: 1,784,453\nCurrent liabilities \u003E Total current liabilities \u2014 2025: 10,980,930 | 2024: 10,755,400\nNon-current content liabilities \u2014 2025: 1,579,476 | 2024: 1,780,806\nLong-term debt \u2014 2025: 13,463,971 | 2024: 13,798,351\nOther non-current liabilities \u2014 2025: 2,957,128 | 2024: 2,552,250\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What cash dividends per share did Netflix declare in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The excerpts don\u0027t contain the cash dividends per share Netflix declared in 2025."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "decline-ok",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Declines correctly: the filings don\u0027t contain this."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "Not scored: a negative has no answer to find."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "no figure stated",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "No figure stated - a text answer or a decline."
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "The filings don\u0027t contain this information, so the answer should say so instead of giving a figure."
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "claude-sonnet-5-5",
+          "eval-input-tokens": "1453",
+          "eval-output-tokens": "3",
+          "eval-total-tokens": "1456",
+          "eval-duration-ms": "1852.06",
+          "Judge reply": "5",
+          "Score taken from the reply\u0027s words": "no"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0006971,
+        "model": "claude-opus-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 3355,
+          "outputTokenCount": 71,
+          "totalTokenCount": 3426,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "B4019CE797C5643F7844DC71C303FFA76CF3DE62D2D9D92E9607B2351BD0ADBE78E2482FA44EF7629C4E4D2C527B0DB1",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-opus-5-5",
+    "effort:Medium/Medium",
+    "judge:claude-sonnet-5-5",
+    "kind:negative",
+    "company:NFLX",
+    "statement:none",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}

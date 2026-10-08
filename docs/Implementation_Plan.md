@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 409 offline unit tests (176 at v1.0) + 190 offline evaluation tests |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 409 offline unit tests (176 at v1.0) + 191 offline evaluation tests |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -79,7 +79,9 @@ read (llama 84/102); every remaining miss a retrieval miss. Sonnet 5.5 medium: 8
 hedges, ~$0.95. Opus 5.5 low: 90/102 strictly, 98/102 read - as medium, ~4% cheaper. Variance pass (Opus medium, no cache): wording varies, answers don't - 1 grade changed,
 98/102 read again. ~$7.30 spent. Strict grader extended (a lookalike named as the contrast passes; a date's day
 isn't a figure): Opus medium 97, Opus low 98, Sonnet 95 strictly. **Batch 1 complete.** Batch 2 planned: a paid judge
-(Claude scoring Equivalence on cached answers, against the strict grade) - Decision-Log.md, "Batch 2 - a paid judge". Decision-Log.md, "paid services (v4)".
+(Claude scoring Equivalence on cached answers, against the strict grade) - Decision-Log.md, "Batch 2 - a paid judge". Steps 1-3 done:
+Sonnet as judge agrees with the strict grade on 98-99 of ~102 per run and passes no wrong figure (llama's judge passed
+14 of 18), but is lenient on rounding and units. Decision-Log.md, "paid services (v4)".
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the

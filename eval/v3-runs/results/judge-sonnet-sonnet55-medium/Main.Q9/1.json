@@ -1,0 +1,147 @@
+{
+  "scenarioName": "Main.Q9",
+  "iterationName": "1",
+  "executionName": "judge-sonnet-sonnet55-medium",
+  "creationTime": "2026-10-08T19:20:31.9677238Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions) Year Ended May 31,\nNet income \u2014 2026: $17,087 | 2025: $12,443 | 2024: $10,467\nOther comprehensive (loss) income, net of tax:\nOther comprehensive (loss) income, net of tax \u003E Net foreign currency translation (losses) gains \u2014 2026: (232) | 2025: 369 | 2024: (17)\nOther comprehensive (loss) income, net of tax \u003E Net unrealized gains on defined benefit plans \u2014 2026: 45 | 2025: 13 | 2024: 31\nOther comprehensive (loss) income, net of tax \u003E Net unrealized (losses) gains on cash flow hedges \u2014 2026: (18) | 2025: (125) | 2024: 77\nOther comprehensive (loss) income, net of tax \u003E Other, net \u2014 2024: (1)\nOther comprehensive (loss) income, net of tax \u003E Total other comprehensive (loss) income, net \u2014 2026: (205) | 2025: 257 | 2024: 90\nComprehensive income \u2014 2026: $16,882 | 2025: $12,700 | 2024: $10,557\n\nSee notes to consolidated financial statements.\n\n[Table of Contents](#toc_page)\n\nORACLE CORPORATION\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nNon-Operating Income, net: Non-operating income, net consists primarily of interest income, net foreign currency exchange losses, the noncontrolling interests in the net profits of our majority-owned subsidiaries (primarily Oracle Financial Services Software Limited and Oracle Corporation Japan), net gains and losses related to marketable and non-marketable investments, including net gains and losses attributable to equity method investments and net other income and expenses, including net gains and losses from our investment portfolio related to our deferred compensation plan, for which an equal and offsetting amount was recorded to our operating expenses during the same period, and non-service net periodic pension income and losses.\n\n(Dollars in millions) Year Ended May 31,\nInterest income \u2014 2026: $780 | Percent Change Actual: 35% | Percent Change Constant: 35% | 2025: $578\nForeign currency losses, net \u2014 2026: (131) | Percent Change Actual: -11% | Percent Change Constant: -17% | 2025: (147)\nNoncontrolling interests in income \u2014 2026: (222) | Percent Change Actual: 21% | Percent Change Constant: 21% | 2025: (184)\nGains (losses) from marketable and non-marketable investments, net \u2014 2026: 2,811 | Percent Change Actual: * | Percent Change Constant: * | 2025: (278)\nOther income, net \u2014 2026: 309 | Percent Change Actual: 241% | Percent Change Constant: 242% | 2025: 91\nTotal non-operating income, net \u2014 2026: $3,547 | Percent Change Actual: * | Percent Change Constant: * | 2025: $60\n\n* | Not meaningful\n\n[Table of Contents](#toc_page)\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Organization and Significant Accounting Policies ---\r\n\u0060\u0060\u0060\r\nNOTES TO CONSOLIDATED FINANCIAL STATEMENTS\n\nMay 31, 2026\n\n1.\n\nORGANIZATION AND SIGNIFICANT ACCOUNTING POLICIES\n\nOracle Corporation provides products and services that build, run and support enterprise information technology (IT) frameworks. Our products and services include enterprise applications and infrastructure offerings that incorporate and are enhanced by artificial intelligence (AI) technologies. We deliver our products and services to customers worldwide through a variety of flexible and interoperable IT deployment models. These models include cloud-based, on-premise and hybrid deployments. Oracle cloud offerings include Oracle Cloud Applications and Oracle Cloud Infrastructure (collectively Oracle Cloud), which provide comprehensive and integrated applications and infrastructure services, enabling our customers to choose the best option that meets their specific business needs. Customers may also elect to purchase Oracle software licenses and hardware products and related services to manage their own cloud-based or on-premise IT environments. Customers that purchase our software licenses may elect to purchase software support contracts, which provide our customers with rights to unspecified license upgrades and enhancements during the term of the support period as well as technical support assistance. Customers that purchase our hardware products may elect to purchase hardware support contracts, which provide customers with software updates and can include product repairs, maintenance services and technical support services. We also offer customers a broad set of services offerings that are designed to maximize the performance of their investments in Oracle technologies.\n\nOracle Corporation conducts business globally and was incorporated in the state of Delaware.\n\nBasis of Financial Statements\n\nThe consolidated financial statements include our accounts and the accounts of our wholly- and majority-owned subsidiaries. Noncontrolling interest positions of certain of our consolidated entities are reported as a separate component of consolidated equity from the equity attributable to Oracle\u2019s stockholders for all periods presented. The noncontrolling interests in our net income were not significant to our consolidated results for the periods presented and therefore have not been presented separately and instead are included as a component of non-operating income (expenses), net in our consolidated statements of operations. Intercompany transactions and balances have been eliminated. We reclassed certain prior year amounts and balances and their related disclosures to conform to the current period\u2019s presentation for all periods presented in our consolidated financial statements. Such reclassifications did not affect total revenue, income from operations or net income.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Organization and Significant Accounting Policies ---\r\n\u0060\u0060\u0060\r\nNon-Operating Income (Expenses), net\n\nNon-operating income (expenses), net consists primarily of interest income, net foreign currency exchange losses, the noncontrolling interests in the net profits of our majority-owned subsidiaries (primarily Oracle Financial Services Software Limited and Oracle Corporation Japan), net gains and losses related to marketable and non-marketable investments, including net gains and losses attributable to equity method investments and net other income and expenses, including net gains and losses from our investment portfolio related to our deferred compensation plan, for which an equal and offsetting amount was recorded to our operating expenses during the same period, and non-service net periodic pension income and losses.\n\n[Table of Contents](#toc_page)\n\n(in millions) Year Ended May 31,\nInterest income \u2014 2026: $780 | 2025: $578 | 2024: $451\nForeign currency losses, net \u2014 2026: (131) | 2025: (147) | 2024: (228)\nNoncontrolling interests in income \u2014 2026: (222) | 2025: (184) | 2024: (186)\nGains (losses) from marketable and non-marketable investments, net \u2014 2026: 2,811 | 2025: (278) | 2024: (303)\nOther income, net \u2014 2026: 309 | 2025: 91 | 2024: 168\nTotal non-operating income (expenses), net \u2014 2026: $3,547 | 2025: $60 | 2024: $(98)\n\nIncome Taxes\n\nWe account for income taxes in accordance with ASC 740, Income Taxes (ASC 740). Deferred income taxes are recorded for the expected tax consequences of temporary differences between the tax bases of assets and liabilities for financial reporting purposes and amounts recognized for income tax purposes. We record a valuation allowance to reduce our deferred tax assets to the amount of future tax benefit that is more likely than not to be realized.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\n[Table of Contents](#toc_page)\n\nOur non-operating income, net increased by $3.5 billion in reported currency in fiscal 2026 relative to fiscal 2025 primarily due to a $2.7 billion gain from the sale of our investment in Ampere Computing Holdings LLC (Ampere), a $380 million gain from other investments, net, a $205 million increase in gains from our investment portfolio related to our deferred compensation plan included in other income, net and a $202 million increase in interest income. Refer to Note 1 of Notes to Consolidated Financial Statements included elsewhere in this Annual Report for additional information on the Ampere transaction.\n\nProvision for Income Taxes: Our effective income tax rates for each of the periods presented were the result of the mix of income earned and losses incurred in various tax jurisdictions that apply a broad range of income tax rates. Refer to Note 12 of Notes to Consolidated Financial Statements included elsewhere in this Annual Report for a discussion regarding the differences between the effective income tax rates as presented for the periods below and the U.S. federal statutory income tax rates that were in effect during these periods. Future effective tax rates could be adversely affected by an unfavorable shift of earnings weighted to jurisdictions with higher tax rates, by unfavorable changes in tax laws and regulations, by adverse rulings in tax-related litigation, or by shortfalls in stock-based compensation realized by employees relative to stock-based compensation that was recorded for book purposes, among others.\n\n(Dollars in millions) Year Ended May 31,\nProvision for income taxes \u2014 2026: $2,467 | Percent Change Actual: 44% | Percent Change Constant: 39% | 2025: $1,717\nEffective tax rate \u2014 2026: 12.6% | 2025: 12.1%\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Oracle\u0027s comprehensive income?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s comprehensive income was $16,882 million for the year ended May 31, 2026 (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules).\n\nIt was $12,700 million for the year ended May 31, 2025 (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules).\n\nIt was $10,557 million for the year ended May 31, 2024 (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 16,882 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "16,882 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 16,882 from excerpt 1 (comprehensive_income), 12,700 from excerpt 1 (comprehensive_income), 10,557 from excerpt 1 (comprehensive_income)."
+        },
+        "metadata": {
+          "Stated 16,882": "excerpt 1 (comprehensive_income, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Comprehensive income \u2014 2026: $16,882 | 2025: $12,700 | 2024: $10,557\u0022",
+          "Stated 12,700": "excerpt 1 (comprehensive_income, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Comprehensive income \u2014 2026: $16,882 | 2025: $12,700 | 2024: $10,557\u0022",
+          "Stated 10,557": "excerpt 1 (comprehensive_income, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Comprehensive income \u2014 2026: $16,882 | 2025: $12,700 | 2024: $10,557\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 4,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "good",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$16,882 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "claude-sonnet-5-5",
+          "eval-input-tokens": "1606",
+          "eval-output-tokens": "3",
+          "eval-total-tokens": "1609",
+          "eval-duration-ms": "1050.75",
+          "Judge reply": "4",
+          "Score taken from the reply\u0027s words": "no"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008998,
+        "model": "claude-sonnet-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 3819,
+          "outputTokenCount": 209,
+          "totalTokenCount": 4028,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "7208984E2B0234018DBD4D2357D0980AC09DCD3FEAD39BB289278EEE34D6F49F5D2862337F116F0E5C6EEB7F4CE59EE1",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-sonnet-5-5",
+    "effort:Medium/Medium",
+    "judge:claude-sonnet-5-5",
+    "kind:figure",
+    "company:ORCL",
+    "statement:comprehensive_income",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}

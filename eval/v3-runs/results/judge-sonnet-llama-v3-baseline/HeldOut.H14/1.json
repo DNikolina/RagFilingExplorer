@@ -1,0 +1,143 @@
+{
+  "scenarioName": "HeldOut.H14",
+  "iterationName": "1",
+  "executionName": "judge-sonnet-llama-v3-baseline",
+  "creationTime": "2026-10-08T19:16:53.6296623Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF OPERATIONS\n\n(in thousands, except per share data)\n\nYear ended December 31,\nRevenues \u2014 2025: $45,183,036 | 2024: $39,000,966 | 2023: $33,723,297\nCost of revenues \u2014 2025: 23,275,329 | 2024: 21,038,464 | 2023: 19,715,368\nSales and marketing \u2014 2025: 3,301,306 | 2024: 2,917,554 | 2023: 2,657,883\nTechnology and development \u2014 2025: 3,391,390 | 2024: 2,925,295 | 2023: 2,675,758\nGeneral and administrative \u2014 2025: 1,888,408 | 2024: 1,702,039 | 2023: 1,720,285\nOperating income \u2014 2025: 13,326,603 | 2024: 10,417,614 | 2023: 6,954,003\nOther income (expense):\nOther income (expense) \u003E Interest expense \u2014 2025: (776,510) | 2024: (718,733) | 2023: (699,826)\nOther income (expense) \u003E Interest and other income (expense) \u2014 2025: 172,459 | 2024: 266,776 | 2023: (48,772)\nOther income (expense) \u003E Income before income taxes \u2014 2025: 12,722,552 | 2024: 9,965,657 | 2023: 6,205,405\nOther income (expense) \u003E Provision for income taxes \u2014 2025: (1,741,351) | 2024: (1,254,026) | 2023: (797,415)\nOther income (expense) \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\nEarnings per share:\nEarnings per share \u003E Basic \u2014 2025: $2.58 | 2024: $2.03 | 2023: $1.22\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements \u003E Revenue Recognition ---\r\n\u0060\u0060\u0060\r\n2.Revenue Recognition\n\nThe following table summarizes streaming revenues by region for the years ended December\u00A031, 2025, 2024 and 2023. Total streaming revenues are inclusive of hedging gains (losses) of $(91)\u00A0million and $124\u00A0million for the years ended December\u00A031, 2025 and 2024, respectively. No hedging gains and losses were recognized in total streaming revenues for the year ended December\u00A031, 2023. See Note 8 Derivative Financial Instruments and Hedging Activities for further information.\n\n(in thousands) Year Ended December 31,\nUnited States and Canada (UCAN) \u2014 2025: $19,957,152 | 2024: $17,359,369 | 2023: $14,873,783\nEurope, Middle East, and Africa (EMEA) \u2014 2025: 14,514,646 | 2024: 12,387,035 | 2023: 10,556,487\nLatin America (LATAM) \u2014 2025: 5,357,521 | 2024: 4,839,816 | 2023: 4,446,461\nAsia-Pacific (APAC) \u2014 2025: 5,353,717 | 2024: 4,414,746 | 2023: 3,763,727\nTotal Streaming Revenues \u2014 2025: $45,183,036 | 2024: $39,000,966 | 2023: $33,640,458\n\nDeferred revenue consists of membership fees billed that have not been recognized, as well as gift and other prepaid memberships that have not been fully redeemed. As of December 31, 2025, total deferred revenue was $1,776\u00A0million, the vast majority of which was related to membership fees billed that are expected to be recognized as revenue within the next month. The remaining deferred revenue balance, which is related to gift cards and other prepaid memberships, will be recognized as revenue over the period of service after redemption, which is expected to occur over the next 12 months. Deferred revenue increased $255 million from $1,521 million as of December\u00A031, 2024 to $1,776 million as of December\u00A031, 2025. Deferred revenue balances may fluctuate due to the number of paid memberships and the price of our memberships.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements \u003E Income Taxes ---\r\n\u0060\u0060\u0060\r\nThe following table shows the deferred tax assets and liabilities within our Consolidated Balance Sheets:\n\n[Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)\n\n(in thousands) As of December 31,\nTotal deferred tax assets:\nTotal deferred tax assets \u003E Other non-current assets \u2014 2025: $2,062,078 | 2024: $1,290,160\nTotal deferred tax liabilities:\nTotal deferred tax liabilities \u003E Other non-current liabilities \u2014 2025: (107,275) | 2024: (112,602)\nTotal deferred tax liabilities \u003E Net deferred tax assets \u2014 2025: $1,954,803 | 2024: $1,177,558\n\nAs of December\u00A031, 2025, for tax return purposes, the Company had $823\u00A0million of California R\u0026D tax credit carryforwards which can be carried forward indefinitely, $1,018\u00A0million of state net operating loss carryforwards, which will begin to expire in 2029, $48\u00A0million of U.S. foreign tax credit carryforwards which will begin to expire in 2033, $190\u00A0million of foreign net operating loss carryforwards which will begin to expire in 2026 and $51\u00A0million of foreign local tax credit carryforwards, which can be carried forward indefinitely.\n\nIn evaluating its ability to realize the net deferred tax assets, the Company considered all available positive and negative evidence, including its past operating results and the forecast of future market growth, forecasted earnings, future taxable income, and prudent and feasible tax planning strategies. As of December\u00A031, 2025, the valuation allowance of $618\u00A0million was primarily related to California R\u0026D tax credits, state net operating loss carryforwards, and U.S. foreign tax credits that the Company does not expect to realize.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\n(in thousands, except percentages)\nTotal Streaming Revenues \u2014 Year Ended December 31, 2025 As Reported: $45,183,036 | Year Ended December 31, 2025 Constant Currency Adjustment: $179,557 | Year Ended December 31, 2025 Hedging (Gains) Losses Included in Revenues: $91,143 | Year Ended December 31, 2025 Constant Currency Revenues: $45,453,736 | Year Ended December 31, 2024 As Reported: $39,000,966 | Year Ended December 31, 2024 Hedging (Gains) Losses Included in Revenues: $(124,011) | Year Ended December 31, 2024 Revenues Less Hedging Impact: $38,876,955 | Change 2025 vs. 2024 Reported Change: 16% | Change 2025 vs. 2024 Constant Currency Change: 17%\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\n[Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)\n\n(in thousands, except percentages)\nRevenues \u2014 Year Ended December 31, 2025: $45,183,036 | Year Ended December 31, 2024: $39,000,966 | Year Ended December 31, 2023: $33,723,297 | Change 2025 vs. 2024: $6,182,070 / 16%\n\nRevenues for the year ended December\u00A031, 2025 increased 16% as compared to the year ended December\u00A031, 2024, primarily due to the growth in memberships, price increases, and increased advertising revenue, partially offset by unfavorable changes in foreign exchange rates, net of hedging.\n\nThe following table summarizes streaming revenues by region for the years ended December\u00A031, 2025, 2024 and 2023. Total streaming revenues are inclusive of hedging gains (losses) of $(91) million and $124\u00A0million for the years ended December\u00A031, 2025 and 2024, respectively. No hedging gains and losses were recognized in total streaming revenues for the year ended December\u00A031, 2023. See Note 8 Derivative Financial Instruments and Hedging Activities to the consolidated financial statements for further information regarding the Company\u2019s derivative and non-derivative financial instruments.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Netflix\u0027s total deferred revenue as of December 31, 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s total deferred revenue as of December 31, 2025 was $1,776 million. (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements \u003E Revenue Recognition)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 1,776 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "1,776 at rank 2 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 1,776 from excerpt 2 (narrative)."
+        },
+        "metadata": {
+          "Stated 1,776": "excerpt 2 (narrative, PART IV \u003E Financial Statements \u003E Revenue Recognition): \u0022...e not been fully redeemed. As of December 31, 2025, total deferred revenue was $1,776\u00A0million, the vast majority of which was related to membership fees billed ...\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$1,776 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "claude-sonnet-5-5",
+          "eval-input-tokens": "1477",
+          "eval-output-tokens": "3",
+          "eval-total-tokens": "1480",
+          "eval-duration-ms": "1063.36",
+          "Judge reply": "5",
+          "Score taken from the reply\u0027s words": "no"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007704,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2403,
+          "outputTokenCount": 44,
+          "totalTokenCount": 2447
+        },
+        "cacheKey": "D1BBFF9B17264FA12E49C1E266ABA79CD88A3B300F59272426A7A704EBB19F93410828CC6C994468B422468C03F6A5CA",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "judge:claude-sonnet-5-5",
+    "kind:figure",
+    "company:NFLX",
+    "statement:income_statement",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}

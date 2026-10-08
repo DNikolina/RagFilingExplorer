@@ -1,0 +1,146 @@
+{
+  "scenarioName": "HeldOut.H19",
+  "iterationName": "1",
+  "executionName": "judge-sonnet-opus55-medium",
+  "creationTime": "2026-10-08T19:19:16.8395728Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Goodwill ---\r\n\u0060\u0060\u0060\r\nNOTE 8 \u2014 GOODWILL\n\nChanges in the carrying amount of goodwill were as follows:\n\n(In millions)\nProductivity and Business Processes \u2014 June 30, 2024: $31,361 | Acquisitions: $0 | Other: $96 | June 30, 2025: $31,457 | Acquisitions: $67 | Other: $46 | June 30, 2026: $31,570\nIntelligent Cloud \u2014 June 30, 2024: 25,648 | Acquisitions: 0 | Other: 41 | June 30, 2025: 25,689 | Acquisitions: 36 | Other: 16 | June 30, 2026: 25,741\nMore Personal Computing \u2014 June 30, 2024: 62,211 | Acquisitions: 0 | Other: 152 | June 30, 2025: 62,363 | Acquisitions: 5 | Other: (28) | June 30, 2026: 62,340\nTotal \u2014 June 30, 2024: $119,220 | Acquisitions: $0 | Other: $289 | June 30, 2025: $119,509 | Acquisitions: $108 | Other: $34 | June 30, 2026: $119,651\n\nThe measurement periods for the valuation of assets acquired and liabilities assumed end as soon as information on the facts and circumstances that existed as of the acquisition dates becomes available, but do not exceed 12 months. Adjustments in purchase price allocations may require a change in the amounts allocated to goodwill during the periods in which the adjustments are determined.\n\nAny change in the goodwill amounts resulting from foreign currency translations and purchase accounting adjustments are presented as \u201COther\u201D in the table above. Also included in \u201COther\u201D are business dispositions and transfers between segments due to reorganizations, as applicable.\n\nGoodwill Impairment\n\nWe test goodwill for impairment annually on May 1 at the reporting unit level, primarily using a discounted cash flow methodology with a peer-based, risk-adjusted weighted average cost of capital. We believe use of a discounted cash flow approach is the most reliable indicator of the fair values of the businesses.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Goodwill ---\r\n\u0060\u0060\u0060\r\nNo instances of impairment were identified in our May 1, 2026, May 1, 2025, or May 1, 2024 tests. As of June 30, 2026 and 2025, accumulated goodwill impairment was $11.3 billion.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\r\n\u0060\u0060\u0060\r\nBALANCE SHEETS\n\n(In millions) June 30,\nAssets\nCurrent assets:\nCurrent assets \u003E Cash and cash equivalents \u2014 2026: $20,935 | 2025: $30,242\nCurrent assets \u003E Short-term investments \u2014 2026: 55,908 | 2025: 64,323\nCurrent assets \u003E Total cash, cash equivalents, and short-term investments \u2014 2026: 76,843 | 2025: 94,565\nAccounts receivable, net of allowance for doubtful accounts of $1,040 and $944 \u2014 2026: 80,876 | 2025: 69,905\nInventories \u2014 2026: 1,397 | 2025: 938\nOther current assets \u2014 2026: 48,594 | 2025: 25,723\nTotal current assets \u2014 2026: 207,710 | 2025: 191,131\nProperty and equipment, net of accumulated depreciation of $118,691 and $93,653 \u2014 2026: 313,076 | 2025: 204,966\nOperating lease right-of-use assets \u2014 2026: 24,177 | 2025: 24,823\nEquity and other investments \u2014 2026: 36,348 | 2025: 15,405\nGoodwill \u2014 2026: 119,651 | 2025: 119,509\nIntangible assets, net \u2014 2026: 18,609 | 2025: 22,604\nOther long-term assets \u2014 2026: 38,805 | 2025: 40,565\nTotal assets \u2014 2026: $758,376 | 2025: $619,003\nLiabilities and stockholders\u2019 equity\nCurrent liabilities:\nCurrent liabilities \u003E Accounts payable \u2014 2026: $42,416 | 2025: $27,724\nCurrent liabilities \u003E Current portion of long-term debt \u2014 2026: 9,227 | 2025: 2,999\nCurrent liabilities \u003E Accrued compensation \u2014 2026: 14,945 | 2025: 13,709\nCurrent liabilities \u003E Short-term income taxes \u2014 2026: 2,534 | 2025: 7,211\nCurrent liabilities \u003E Short-term unearned revenue \u2014 2026: 72,965 | 2025: 64,555\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Unearned Revenue ---\r\n\u0060\u0060\u0060\r\nNOTE 12 \u2014 UNEARNED REVENUE\n\nUnearned revenue by segment was as follows:\n\n(In millions) June 30,\nProductivity and Business Processes \u2014 2026: $57,936 | 2025: $50,567\nIntelligent Cloud \u2014 2026: 14,942 | 2025: 14,022\nMore Personal Computing \u2014 2026: 2,834 | 2025: 2,676\nTotal \u2014 2026: $75,712 | 2025: $67,265\n\nChanges in unearned revenue were as follows:\n\n(In millions)\nYear Ended June 30, 2026\nYear Ended June 30, 2026 \u003E Balance, beginning of period (as of June 30, 2025) \u2014 $67,265\nYear Ended June 30, 2026 \u003E Deferral of revenue \u2014 194,184\nYear Ended June 30, 2026 \u003E Recognition of unearned revenue \u2014 (185,737)\nYear Ended June 30, 2026 \u003E Balance, end of period \u2014 $75,712\n\nRevenue allocated to remaining performance obligations, which includes unearned revenue and amounts expected to be invoiced and recognized as revenue in future periods, was $684 billion as of June 30, 2026. Revenue allocated to remaining performance obligations related to the commercial portion of revenue was $678 billion as of June 30, 2026, with a weighted average duration of approximately 2.3 years. We expect to recognize approximately 30% of both our total company remaining performance obligation revenue and commercial remaining performance obligation revenue over the next 12 months and the remainder thereafter.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Employee Stock and Savings Plans ---\r\n\u0060\u0060\u0060\r\nDuring fiscal year 2026, the following activity occurred under our stock plans:\n\n(In millions)\nStock Awards\nStock Awards \u003E Nonvested balance, beginning of year (as of June 30, 2025) \u2014 Shares Weighted Average Grant-Date Fair Value: 82 / $347.44\nStock Awards \u003E Granted (a) (fiscal 2026, year ended June 30, 2026) \u2014 Shares Weighted Average Grant-Date Fair Value: 41 / 471.00\nStock Awards \u003E Vested (fiscal 2026, year ended June 30, 2026) \u2014 Shares Weighted Average Grant-Date Fair Value: (35) / 342.98\nStock Awards \u003E Forfeited (fiscal 2026, year ended June 30, 2026) \u2014 Shares Weighted Average Grant-Date Fair Value: (10) / 384.57\nStock Awards \u003E Nonvested balance, end of year (as of June 30, 2026) \u2014 Shares Weighted Average Grant-Date Fair Value: 78 / 409.94\n\n(a)\n\nIncludes 1 million of PSUs granted at target and performance adjustments above target levels for each of the fiscal years 2026, 2025, and 2024.\n\nAs of June 30, 2026, total unrecognized compensation costs related to stock awards were $24.8 billion. These costs are expected to be recognized over a weighted average period of three years. The weighted average grant-date fair value of stock awards granted was $471.00, $413.90, and $339.46 for fiscal years 2026, 2025, and 2024, respectively. The fair value of stock awards vested was $16.3 billion, $16.2 billion, and $16.0 billion, for fiscal years 2026, 2025, and 2024, respectively. As of June 30, 2026, an aggregate of 292 million shares were authorized for future grant under our stock plans.\n\nEmployee Stock Purchase Plan\n\nWe have an ESPP for all eligible employees. Shares of our common stock may be purchased by employees at three-month intervals at 90% of the fair market value on the last trading day of each three-month period. Employees may purchase shares having a value not exceeding 15% of their gross compensation during an offering period.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Microsoft\u0027s goodwill balance as of June 30, 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s goodwill balance was **$119,651 million as of June 30, 2026** (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data). The goodwill note reports the same total of $119,651 million as of June 30, 2026 (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data \u003E Goodwill)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 119,651 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "119,651 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 119,651 from excerpts 1 (narrative), 3 (balance_sheet)."
+        },
+        "metadata": {
+          "Stated 119,651": "excerpt 1 (narrative, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Goodwill): \u0022Total \u2014 June 30, 2024: $119,220 | Acquisitions: $0 | Other: $289 | June 30, 2025: $119,509 | Acquisitions: $108 | Other: $34 | June 30, 2026: $119,651\u0022; excerpt 3 (balance_sheet, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Goodwill \u2014 2026: 119,651 | 2025: 119,509\u0022"
+        }
+      },
+      "Equivalence": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Equivalence",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false
+        },
+        "context": {
+          "Ground Truth (Equivalence)": {
+            "name": "Ground Truth (Equivalence)",
+            "contents": [
+              {
+                "$type": "text",
+                "text": "$119,651 million"
+              }
+            ]
+          }
+        },
+        "metadata": {
+          "built-in-eval": "True",
+          "eval-model": "claude-sonnet-5-5",
+          "eval-input-tokens": "1555",
+          "eval-output-tokens": "3",
+          "eval-total-tokens": "1558",
+          "eval-duration-ms": "1035.18",
+          "Judge reply": "5",
+          "Score taken from the reply\u0027s words": "no"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0007604,
+        "model": "claude-opus-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 3466,
+          "outputTokenCount": 214,
+          "totalTokenCount": 3680,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "ED410008815B807148B0CA155B5D8DF4076C58D00E7E7FC3BD37323FCE131AF0F43C828FC5DD6004AF5E4DA3A196CECD",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-opus-5-5",
+    "effort:Medium/Medium",
+    "judge:claude-sonnet-5-5",
+    "kind:figure",
+    "has traps",
+    "company:MSFT",
+    "statement:none",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}
