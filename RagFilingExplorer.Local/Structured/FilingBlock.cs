@@ -37,8 +37,8 @@ internal sealed record TableBlock(RowBlock Rows, LinearizedTable Table, IHtmlTab
 }
 
 /// <summary>A run of blocks under one heading path ("PART II &gt; Item 8. Financial Statements ... &gt; Income Taxes"),
-/// the last part the note's <see cref="Topic"/> when the blocks sit in one.</summary>
-internal sealed record StructuredSection(string Heading, IReadOnlyList<FilingBlock> Blocks, string? Topic = null);
+/// the last part the note's topic when the blocks sit in one.</summary>
+internal sealed record StructuredSection(string Heading, IReadOnlyList<FilingBlock> Blocks);
 
 /// <summary>A chunk and the blocks it was built from (in order; a paragraph carried as overlap is in two chunks).</summary>
 internal sealed record StructuredChunk(string Heading, string Content, int Tokens, IReadOnlyList<FilingBlock> Blocks)

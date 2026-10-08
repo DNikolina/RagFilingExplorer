@@ -121,7 +121,7 @@ internal sealed class RagAnswerService(
         foreach (VectorSearchResult<FilingChunkRecord> result in topForGeneration)
         {
             FilingChunkRecord record = result.Record;
-            contextBuilder.AppendLine($"--- Excerpt from {record.SourceFiling}, section {record.Heading} ---");
+            contextBuilder.AppendLine(ExcerptHeader(record.SourceFiling, record.Heading));
             contextBuilder.AppendLine(record.Content);
             contextBuilder.AppendLine();
         }
@@ -184,6 +184,9 @@ internal sealed class RagAnswerService(
         // OrderByDescending is stable: equal scores keep their hybrid order.
         return candidates.OrderByDescending(c => reranked![c.Record.Key].Score).Take(top).ToList();
     }
+
+    /// <summary>The line above each excerpt in the prompt, naming its filing and section.</summary>
+    internal static string ExcerptHeader(string filing, string heading) => $"--- Excerpt from {filing}, section {heading} ---";
 
     // What the reranker reads for a chunk: its company line (as in its embedding text - without it the reranker ranks
     // worse than no reranking at all), then the excerpt header the chat model sees, then the chunk.

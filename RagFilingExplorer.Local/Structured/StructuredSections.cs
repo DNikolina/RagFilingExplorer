@@ -36,7 +36,7 @@ internal static class StructuredSections
             if (current.Count > 0)
             {
                 string heading = currentTopic is null ? headings.Heading : $"{headings.Heading} > {currentTopic}";
-                sections.Add(new StructuredSection(heading, current.ToList(), currentTopic));
+                sections.Add(new StructuredSection(heading, current.ToList()));
                 current.Clear();
             }
         }

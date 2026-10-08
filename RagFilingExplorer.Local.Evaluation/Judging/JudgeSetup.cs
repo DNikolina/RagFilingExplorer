@@ -7,6 +7,7 @@ using OllamaSharp;
 using OllamaSharp.Models;
 using RagFilingExplorer.Local.Evaluation.Evaluators;
 using RagFilingExplorer.Local.Evaluation.Grading;
+using RagFilingExplorer.Local.Retrieval;
 
 namespace RagFilingExplorer.Local.Evaluation.Judging;
 
@@ -217,5 +218,5 @@ internal static partial class JudgeSetup
 
     /// <summary>The excerpts as the app's prompt lays them out: a header naming the filing and section, then the chunk.</summary>
     public static string GroundingText(IEnumerable<RetrievedExcerpt> excerpts) =>
-        string.Join("\n\n", excerpts.Select(e => $"--- Excerpt from {e.SourceFiling}, section {e.Heading} ---\n{e.Content}"));
+        string.Join("\n\n", excerpts.Select(e => $"{RagAnswerService.ExcerptHeader(e.SourceFiling, e.Heading)}\n{e.Content}"));
 }

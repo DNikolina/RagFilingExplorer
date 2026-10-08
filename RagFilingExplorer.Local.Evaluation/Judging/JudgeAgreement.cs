@@ -3,6 +3,7 @@ using Microsoft.Extensions.AI.Evaluation;
 using Microsoft.Extensions.AI.Evaluation.Quality;
 using Microsoft.Extensions.AI.Evaluation.Reporting;
 using RagFilingExplorer.Local.Evaluation.Evaluators;
+using RagFilingExplorer.Local.Evaluation.Grading;
 using RagFilingExplorer.Local.Evaluation.Running;
 
 namespace RagFilingExplorer.Local.Evaluation.Judging;
@@ -75,7 +76,7 @@ internal static class JudgeAgreement
                 result.ScenarioName,
                 result.ModelResponse.Text.Trim(),
                 grade.Value ?? "",
-                grade.Value is "reliable" or "decline-ok",
+                StrictGrade.IsPassing(grade.Value),
                 evaluation.Metrics.TryGetValue(FigureSourceEvaluator.MetricName, out EvaluationMetric? source) ? ((StringMetric)source).Value ?? "" : "",
                 verdicts,
                 judgeTurns.Sum(t => t.Latency.TotalSeconds),

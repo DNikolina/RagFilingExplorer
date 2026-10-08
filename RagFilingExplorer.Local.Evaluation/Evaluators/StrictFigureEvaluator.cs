@@ -70,7 +70,7 @@ internal sealed class StrictFigureEvaluator : IEvaluator
         {
             Interpretation = grade.Status switch
             {
-                "reliable" or "decline-ok" => new EvaluationMetricInterpretation(EvaluationRating.Good, reason: explanation),
+                _ when grade.Passed => new EvaluationMetricInterpretation(EvaluationRating.Good, reason: explanation),
                 "check" => new EvaluationMetricInterpretation(EvaluationRating.Inconclusive, reason: explanation),
                 _ => new EvaluationMetricInterpretation(EvaluationRating.Unacceptable, failed: true, reason: explanation),
             },

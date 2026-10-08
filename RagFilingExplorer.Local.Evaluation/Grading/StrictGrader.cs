@@ -9,7 +9,10 @@ namespace RagFilingExplorer.Local.Evaluation.Grading;
 internal sealed record StrictGrade(string Status, string Note)
 {
     /// <summary>Reliable answers and correct declines - what the project's scores count.</summary>
-    public bool Passed => Status is "reliable" or "decline-ok";
+    public bool Passed => IsPassing(Status);
+
+    /// <summary>The pass rule for a status read back from a stored result.</summary>
+    public static bool IsPassing(string status) => status is "reliable" or "decline-ok";
 }
 
 /// <summary>
