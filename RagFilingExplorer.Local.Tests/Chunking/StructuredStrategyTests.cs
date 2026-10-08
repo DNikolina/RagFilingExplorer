@@ -1,3 +1,4 @@
+using Microsoft.ML.Tokenizers;
 using RagFilingExplorer.Local.Chunking;
 using RagFilingExplorer.Local.Structured;
 
@@ -30,7 +31,7 @@ public class StructuredStrategyTests
     public void Read_RealFiling_EveryChunkKnowsItsBlocksAndEveryTableIsChunked(string filing)
     {
         FileInfo file = new(Path.Combine(RepoPaths.FindRoot(TestContext.CurrentContext.TestDirectory).FullName, "data", filing));
-        StructuredChunkingStrategy strategy = new(Microsoft.ML.Tokenizers.TiktokenTokenizer.CreateForModel("gpt-4"), 500, 50);
+        StructuredChunkingStrategy strategy = new(TiktokenTokenizer.CreateForModel("gpt-4"), 500, 50);
 
         StructuredFiling read = strategy.Read(file);
 

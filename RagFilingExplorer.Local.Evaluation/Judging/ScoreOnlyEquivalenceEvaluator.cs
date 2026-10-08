@@ -57,9 +57,9 @@ internal sealed class ScoreOnlyEquivalenceEvaluator : IEvaluator
     public const string JudgeReplyKey = "Judge reply";
     public const string TakenFromWordsKey = "Score taken from the reply's words";
 
-    private readonly EquivalenceEvaluator _inner = new();
+    private readonly EquivalenceEvaluator inner = new();
 
-    public IReadOnlyCollection<string> EvaluationMetricNames => _inner.EvaluationMetricNames;
+    public IReadOnlyCollection<string> EvaluationMetricNames => inner.EvaluationMetricNames;
 
     public async ValueTask<EvaluationResult> EvaluateAsync(
         IEnumerable<ChatMessage> messages,
@@ -70,7 +70,7 @@ internal sealed class ScoreOnlyEquivalenceEvaluator : IEvaluator
     {
         ArgumentNullException.ThrowIfNull(chatConfiguration);
         ScoreOnlyChatClient client = new(chatConfiguration.ChatClient);
-        EvaluationResult result = await _inner.EvaluateAsync(messages, modelResponse, new ChatConfiguration(client), additionalContext, cancellationToken);
+        EvaluationResult result = await inner.EvaluateAsync(messages, modelResponse, new ChatConfiguration(client), additionalContext, cancellationToken);
 
         NumericMetric metric = result.Get<NumericMetric>(EquivalenceEvaluator.EquivalenceMetricName);
         if (client.LastReply is { } reply)

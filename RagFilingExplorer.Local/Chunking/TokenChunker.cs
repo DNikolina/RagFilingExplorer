@@ -34,16 +34,10 @@ internal static class TokenChunker
     private static readonly Regex BareYearCellRegex = new(@"^(fiscal\s+)?(19|20)\d{2}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
     public static List<(string Content, int Tokens)> Chunk(string body, Tokenizer tokenizer, int maxTokens, int overlapTokens) =>
-        Pack(SplitIntoBlocks(body).Select(b => RowBlock.TryParse(b) is { } rows ? new ChunkerBlock(rows.Text, rows) : new ChunkerBlock(b, null)).ToList(),
+        Pack(SplitText(body).Select(b => RowBlock.TryParse(b) is { } rows ? new ChunkerBlock(rows.Text, rows) : new ChunkerBlock(b, null)).ToList(),
                 tokenizer, maxTokens, overlapTokens)
             .Select(c => (c.Content, c.Tokens))
             .ToList();
-
-    /// <summary>
-    /// A section's text split into the blocks <see cref="Pack"/> takes: paragraphs (a run of lines between blank
-    /// lines) and Markdown tables; content-free tables dropped. For the Structured strategy's text blocks.
-    /// </summary>
-    public static List<string> SplitText(string text) => SplitIntoBlocks(text);
 
     /// <summary>
     /// The packing rules on blocks the caller has already typed - <see cref="Chunk"/> parses them out of text;
@@ -53,16 +47,15 @@ internal static class TokenChunker
     public static List<PackedChunk> Pack(IReadOnlyList<ChunkerBlock> blocks, Tokenizer tokenizer, int maxTokens, int overlapTokens)
     {
         List<PackedChunk> chunks = [];
+
+        // TableLike: a Markdown table or a linearized one (RowBlock) - never carried as overlap, never counted as a
+        // lead-in.
         List<(string Text, bool TableLike, int Index)> current = [];
         int currentTokens = 0;
 
         // True while the most recent chunk is the last piece of an oversized table, with nothing flushed
         // since - the only case where a trailing remainder is merged back (see the end of this method).
         bool lastChunkIsOversizedTablePiece = false;
-
-        // Linearized tables (RowBlock) are table-like everywhere a Markdown table is: never carried as overlap,
-        // never counted as a lead-in. The Markdown strategy has none, so for it this is exactly IsTableBlock.
-        bool IsTableLike((string Text, bool TableLike, int Index) b) => b.TableLike;
 
         void FlushCurrent()
         {
@@ -82,7 +75,7 @@ internal static class TokenChunker
             string block = blocks[index].Text;
             bool isTable = rowBlock is not null || IsTableBlock(block);
             int blockTokens = tokenizer.CountTokens(block);
-            bool shortLeadIn = current.Count > 0 && currentTokens <= MaxAttachedTextTokens && !current.Any(IsTableLike);
+            bool shortLeadIn = current.Count > 0 && currentTokens <= MaxAttachedTextTokens && !current.Any(b => b.TableLike);
 
             // A row block that doesn't fit after its short lead-in (a statement title, "(In millions)") goes
             // the oversized route too, so the lead-in travels with it as a caption instead of being flushed
@@ -109,11 +102,13 @@ internal static class TokenChunker
                 current.Clear();
                 currentTokens = 0;
 
-                List<string> pieces = (rowBlock is not null
-                    ? SplitRowBlock(rowBlock, tokenizer, maxTokens, caption)
-                    : isTable
-                        ? SplitOversizedTable(block.Split('\n').ToList(), tokenizer, maxTokens, caption)
-                        : SplitOversizedText(block, tokenizer, maxTokens)).ToList();
+                IEnumerable<string> split = (rowBlock, isTable) switch
+                {
+                    ({ } rows, _) => SplitRowBlock(rows, tokenizer, maxTokens, caption),
+                    (null, true) => SplitOversizedTable(block.Split('\n').ToList(), tokenizer, maxTokens, caption),
+                    _ => SplitOversizedText(block, tokenizer, maxTokens),
+                };
+                List<string> pieces = split.ToList();
 
                 for (int p = 0; p < pieces.Count; p++)
                 {
@@ -136,7 +131,7 @@ internal static class TokenChunker
                 current.Clear();
                 currentTokens = 0;
 
-                if (!IsTableLike(lastBlock))
+                if (!lastBlock.TableLike)
                 {
                     int lastTokens = tokenizer.CountTokens(lastBlock.Text);
                     if (lastTokens <= overlapTokens)
@@ -157,7 +152,7 @@ internal static class TokenChunker
         // slot on no data. Deliberately limited to this case: the short final paragraph of an ordinary
         // narrative section is left alone.
         string remainderText = string.Join("\n\n", current.Select(b => b.Text));
-        if (lastChunkIsOversizedTablePiece && current.Count > 0 && !current.Any(IsTableLike)
+        if (lastChunkIsOversizedTablePiece && current.Count > 0 && !current.Any(b => b.TableLike)
             && tokenizer.CountTokens(remainderText) <= MaxAttachedTextTokens)
         {
             string merged = chunks[^1].Content + "\n\n" + remainderText;
@@ -205,7 +200,11 @@ internal static class TokenChunker
         }
     }
 
-    private static List<string> SplitIntoBlocks(string body)
+    /// <summary>
+    /// A section's text split into the blocks <see cref="Pack"/> takes: paragraphs (a run of lines between blank
+    /// lines) and Markdown tables; content-free tables dropped. For the Structured strategy's text blocks.
+    /// </summary>
+    public static List<string> SplitText(string body)
     {
         string[] lines = body.Split('\n');
         List<string> blocks = [];

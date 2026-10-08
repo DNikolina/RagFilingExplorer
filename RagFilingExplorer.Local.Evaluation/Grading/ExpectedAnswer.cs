@@ -29,13 +29,13 @@ internal sealed record ExpectedAnswer(
     [property: JsonPropertyName("chunk_expect")] IReadOnlyList<string>? ChunkExpect = null,
     [property: JsonPropertyName("trap_why")] IReadOnlyDictionary<string, string>? TrapWhy = null)
 {
-    private sealed record File([property: JsonPropertyName("questions")] IReadOnlyList<ExpectedAnswer> Questions);
+    private sealed record QuestionsFile([property: JsonPropertyName("questions")] IReadOnlyList<ExpectedAnswer> Questions);
 
     /// <summary>Every expected answer in tools/expected-answers.json, by id.</summary>
     public static IReadOnlyDictionary<string, ExpectedAnswer> LoadAll(DirectoryInfo repoRoot)
     {
         string path = Path.Combine(repoRoot.FullName, "tools", "expected-answers.json");
-        File file = JsonSerializer.Deserialize<File>(System.IO.File.ReadAllText(path))
+        QuestionsFile file = JsonSerializer.Deserialize<QuestionsFile>(File.ReadAllText(path))
             ?? throw new InvalidOperationException($"{path} is empty.");
         return file.Questions.ToDictionary(q => q.Id);
     }

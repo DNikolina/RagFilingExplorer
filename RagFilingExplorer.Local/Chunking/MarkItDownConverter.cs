@@ -77,7 +77,7 @@ internal static partial class MarkItDownConverter
     public static async Task<string> ConvertHtmlAsync(string cleanedHtml, string sourceName, CancellationToken cancellationToken = default)
     {
         string tempFilePath = Path.Combine(Path.GetTempPath(), $"{Path.GetFileNameWithoutExtension(sourceName)}-{Guid.NewGuid():N}.html");
-        await File.WriteAllTextAsync(tempFilePath, cleanedHtml, cancellationToken).ConfigureAwait(false);
+        await File.WriteAllTextAsync(tempFilePath, cleanedHtml, cancellationToken);
 
         try
         {
@@ -118,9 +118,9 @@ internal static partial class MarkItDownConverter
             // while we're still draining stdout (or vice versa) would otherwise deadlock.
             Task<string> outputTask = process.StandardOutput.ReadToEndAsync(cancellationToken);
             Task<string> errorTask = process.StandardError.ReadToEndAsync(cancellationToken);
-            string output = await outputTask.ConfigureAwait(false);
-            string error = await errorTask.ConfigureAwait(false);
-            await process.WaitForExitAsync(cancellationToken).ConfigureAwait(false);
+            string output = await outputTask;
+            string error = await errorTask;
+            await process.WaitForExitAsync(cancellationToken);
 
             if (process.ExitCode != 0)
             {

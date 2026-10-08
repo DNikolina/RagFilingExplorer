@@ -167,7 +167,7 @@ internal static class InteractiveSession
         for (int i = 0; i < retrievedChunks.Count; i++)
         {
             FilingChunkRecord record = retrievedChunks[i].Record;
-            string snippet = record.Content.Length > 90 ? record.Content[..90].ReplaceLineEndings(" ") : record.Content.ReplaceLineEndings(" ");
+            string snippet = record.Content[..Math.Min(90, record.Content.Length)].ReplaceLineEndings(" ");
             Console.WriteLine($"[{i + 1}] {FormatScore(retrievedChunks[i], answer.Reranked)} | {record.SourceFiling} | {record.StatementType} | {record.Heading} | {snippet}");
         }
     }

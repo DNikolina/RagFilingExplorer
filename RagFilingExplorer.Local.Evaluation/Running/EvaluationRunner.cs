@@ -147,7 +147,7 @@ internal sealed class EvaluationRunner(
         }
 
         // The model's own client; the reporting configuration wraps it per scenario with a response cache.
-        (_, OllamaSharp.OllamaApiClient chat) = AppComposition.CreateOllamaClients(settings.Ollama);
+        (_, OllamaApiClient chat) = AppComposition.CreateOllamaClients(settings.Ollama);
         IReadOnlyCollection<string> judgeNames = judges ?? [];
         JudgeContextChatClient judgeChat = new(chat);
         ReportingConfiguration reporting = DiskBasedReportingConfiguration.Create(

@@ -50,31 +50,29 @@ internal static class FilingProfile
         }
 
         string[] address = new[] { "dei:EntityAddressAddressLine1", "dei:EntityAddressAddressLine2", "dei:EntityAddressCityOrTown" }
-            .Select(c => Clean(xbrl.First(c)?.Text)).Where(v => v is not null).Cast<string>().ToArray();
-        string? state = Clean(xbrl.First("dei:EntityAddressStateOrProvince")?.Text);
-        string? zip = Clean(xbrl.First("dei:EntityAddressPostalZipCode")?.Text);
+            .Select(c => CoverFacts.Clean(xbrl.First(c)?.Text)).OfType<string>().ToArray();
+        string? state = CoverFacts.Clean(xbrl.First("dei:EntityAddressStateOrProvince")?.Text);
+        string? zip = CoverFacts.Clean(xbrl.First("dei:EntityAddressPostalZipCode")?.Text);
         if (address.Length > 0)
         {
             text.Append($" Address of principal executive offices: {string.Join(", ", address)}{(state is null ? "" : ", " + state)}{(zip is null ? "" : " " + zip)}.");
         }
 
-        if (Clean(xbrl.First("dei:EntityIncorporationStateCountryCode")?.Text) is { } incorporation)
+        if (CoverFacts.Clean(xbrl.First("dei:EntityIncorporationStateCountryCode")?.Text) is { } incorporation)
         {
             text.Append($" State of incorporation: {incorporation}.");
         }
 
-        if (Clean(xbrl.First("dei:AuditorName")?.Text) is { } auditor)
+        if (CoverFacts.Clean(xbrl.First("dei:AuditorName")?.Text) is { } auditor)
         {
-            string? location = Clean(xbrl.First("dei:AuditorLocation")?.Text);
-            string? firmId = Clean(xbrl.First("dei:AuditorFirmId")?.Text);
+            string? location = CoverFacts.Clean(xbrl.First("dei:AuditorLocation")?.Text);
+            string? firmId = CoverFacts.Clean(xbrl.First("dei:AuditorFirmId")?.Text);
             text.Append($" Independent registered public accounting firm (auditor): {auditor}{(location is null ? "" : ", " + location)}"
                 + $"{(firmId is null ? "" : $" (PCAOB ID {firmId})")}.");
         }
 
         return text.ToString();
     }
-
-    private static string? Clean(string? value) => CoverFacts.Clean(value);
 
     private static string OnExchange(string? exchange) => exchange is null ? "" : $", on the {exchange.Replace("The ", "")}";
 }

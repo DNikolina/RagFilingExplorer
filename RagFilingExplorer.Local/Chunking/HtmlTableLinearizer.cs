@@ -620,15 +620,14 @@ internal static partial class HtmlTableLinearizer
         return null;
     }
 
-    // Overlap wins; otherwise the nearest header by column distance. A tie is ambiguous (null) - except
-    // when the tie is between a header on the left and one on the right, where the left one is taken:
-    // filers without colspan put the year over the "$" cell, left of the number (MSFT).
+    // Overlap wins, but a value overlapping two headers is ambiguous (null). Otherwise the nearest header by column
+    // distance, the leftmost on a tie: filers without colspan put the year over the "$" cell, left of the number (MSFT).
     private static Leaf? NearestLeaf(List<Leaf> leaves, ValueGroup group)
     {
         List<(Leaf Leaf, int Distance)> ranked = leaves
-            .Select(l => (l, Overlaps(l.Start, l.End, group.Start, group.End) ? 0 : Math.Min(Math.Abs(l.Start - group.End), Math.Abs(group.Start - l.End))))
-            .OrderBy(x => x.Item2)
-            .ThenBy(x => x.l.Start)
+            .Select(l => (Leaf: l, Distance: Overlaps(l.Start, l.End, group.Start, group.End) ? 0 : Math.Min(Math.Abs(l.Start - group.End), Math.Abs(group.Start - l.End))))
+            .OrderBy(x => x.Distance)
+            .ThenBy(x => x.Leaf.Start)
             .ToList();
 
         if (ranked.Count > 1 && ranked[0].Distance == ranked[1].Distance && ranked[0].Distance == 0)

@@ -18,9 +18,8 @@ internal static class RankFusion
         {
             for (int i = 0; i < ranking.Count; i++)
             {
-                if (!scores.ContainsKey(ranking[i]))
+                if (scores.TryAdd(ranking[i], 0))
                 {
-                    scores[ranking[i]] = 0;
                     firstSeen.Add(ranking[i]);
                 }
 

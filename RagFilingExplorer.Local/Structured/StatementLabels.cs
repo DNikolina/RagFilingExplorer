@@ -35,6 +35,7 @@ internal static class StatementLabels
     {
         Dictionary<string, string> types = [];
         bool combinedIncome = false;
+        (string Type, string[] TitleWords, string[] Concepts) income = Types.Single(t => t.Type == "income_statement");
         foreach (XbrlRole role in taxonomy.PrimaryStatements)
         {
             string title = role.Title.ToUpperInvariant();
@@ -49,7 +50,6 @@ internal static class StatementLabels
             // A combined "Statement of Operations and Comprehensive Income" is one table: its title reads as comprehensive
             // income, but it also presents the income statement's check concept. It's labelled the income statement, and
             // the filing then has no separate comprehensive income statement to find.
-            (string Type, string[] TitleWords, string[] Concepts) income = Types.Single(t => t.Type == "income_statement");
             if (match.Type == "comprehensive_income" && income.Concepts.All(presented.Contains))
             {
                 match = income;
