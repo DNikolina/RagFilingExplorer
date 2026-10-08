@@ -3539,3 +3539,9 @@ model with Ollama's context option; on Claude a second billed call per answer) a
 172 tests; a full cached replay on Local - 102 answers from the cache, 0 min, identical to `structured-hybrid-v3-baseline`
 102/102 (so Local's cache keys are unchanged), tagged `chat:llama3.1:8b`; a Claude run with no key stops on the key check
 before asking anything.
+
+**Projects renamed (user, 2026-10-08).** `RagFilingExplorer.Local.Tests` -> `RagFilingExplorer.Tests` and
+`RagFilingExplorer.Local.Evaluation` -> `RagFilingExplorer.Evaluation`, namespaces with them: both now cover the Claude app
+too. Earlier entries keep the old names, as do the Python tools' headers (kept unchanged as the record). The old namespaces
+sat under `RagFilingExplorer.Local` and saw its root types implicitly; each project now has it as a global using. Checked:
+401 + 172 tests; a full cached replay - 102/102 from the cache, identical to `structured-hybrid-v3-baseline`.

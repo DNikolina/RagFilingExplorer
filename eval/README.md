@@ -132,7 +132,7 @@ both`, `Judges: groundedness`), agreement `judge-groundedness-screen.txt`. 0 of 
 0/12 controls lost, no full run. `results.txt` has every answer, current and hinted. Decision-Log, "Screen: tell the model
 what the excerpts' order means".
 
-**`v3-runs/`** - v3's evaluation runs (`RagFilingExplorer.Local.Evaluation`, `EvaluationRunTests`): `results/<execution>/`
+**`v3-runs/`** - v3's evaluation runs (`RagFilingExplorer.Evaluation`, `EvaluationRunTests`): `results/<execution>/`
 one stored result per question, `report-<execution>.html` (open it in a browser), `summary-<execution>.txt`; `cache/`, the
 model's cached responses, is gitignored. `structured-hybrid-v3-baseline` (2026-10-02): the shipped defaults - main 33/40,
 held-out 31/35, answer-side 20/27, every grade the v2 baselines' but A16 (model variation - an unrequested $620M sum).

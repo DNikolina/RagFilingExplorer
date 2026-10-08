@@ -1,6 +1,6 @@
 ---
 name: run-evaluation
-description: Run, read and extend this repo's .NET evaluation (RagFilingExplorer.Local.Evaluation, Microsoft.Extensions.AI.Evaluation) - asking the question sets through the real app and Ollama, grading answers strictly, ranking retrieval, tracing figures, and writing the HTML report under eval/v3-runs/. Use it whenever the user wants to evaluate, test or measure answer quality, run the questions or a subset of them (a smoke run), check whether a code, prompt, setting, model or Ollama change made answers better or worse, compare two runs, measure variance, try the local judge, regenerate the report, read a summary or report, or add a new evaluation question - even if they don't say "evaluation" (e.g. "did my change break anything?", "how does llama do on the held-out set?", "re-run A10").
+description: Run, read and extend this repo's .NET evaluation (RagFilingExplorer.Evaluation, Microsoft.Extensions.AI.Evaluation) - asking the question sets through the real app and Ollama, grading answers strictly, ranking retrieval, tracing figures, and writing the HTML report under eval/v3-runs/. Use it whenever the user wants to evaluate, test or measure answer quality, run the questions or a subset of them (a smoke run), check whether a code, prompt, setting, model or Ollama change made answers better or worse, compare two runs, measure variance, try the local judge, regenerate the report, read a summary or report, or add a new evaluation question - even if they don't say "evaluation" (e.g. "did my change break anything?", "how does llama do on the held-out set?", "re-run A10").
 ---
 
 # Running the evaluation
@@ -49,7 +49,7 @@ Check these first - each one otherwise costs a long run or a confusing failure:
 
 ## Running
 
-Options live in `RagFilingExplorer.Local.Evaluation/evalsettings.json`; override one key for one run with an
+Options live in `RagFilingExplorer.Evaluation/evalsettings.json`; override one key for one run with an
 environment variable of the same name, `Evaluation__<Key>`. Don't edit the file for a one-off run - the overrides keep
 the defaults clean.
 
@@ -67,13 +67,13 @@ the defaults clean.
 
 ```bash
 # bash
-Evaluation__Only=Q1,A16 Evaluation__Execution=smoke dotnet test RagFilingExplorer.Local.Evaluation --filter "FullyQualifiedName~EvaluationRunTests"
+Evaluation__Only=Q1,A16 Evaluation__Execution=smoke dotnet test RagFilingExplorer.Evaluation --filter "FullyQualifiedName~EvaluationRunTests"
 ```
 
 ```powershell
 # PowerShell - set, run, then clear, so the override doesn't leak into later runs in the same shell
 $env:Evaluation__Only='Q1,A16'; $env:Evaluation__Execution='smoke'
-dotnet test RagFilingExplorer.Local.Evaluation --filter "FullyQualifiedName~EvaluationRunTests"
+dotnet test RagFilingExplorer.Evaluation --filter "FullyQualifiedName~EvaluationRunTests"
 Remove-Item Env:Evaluation__Only, Env:Evaluation__Execution
 ```
 
@@ -85,7 +85,7 @@ sleeping machine pauses the run - so start it detached and check its progress in
 
 ```powershell
 New-Item -ItemType Directory -Force eval/v3-runs/logs | Out-Null
-Start-Process cmd -WindowStyle Minimized -ArgumentList '/c dotnet test RagFilingExplorer.Local.Evaluation --filter FullyQualifiedName~EvaluationRunTests --logger "console;verbosity=detailed" > eval/v3-runs/logs/run.log 2>&1'
+Start-Process cmd -WindowStyle Minimized -ArgumentList '/c dotnet test RagFilingExplorer.Evaluation --filter FullyQualifiedName~EvaluationRunTests --logger "console;verbosity=detailed" > eval/v3-runs/logs/run.log 2>&1'
 ```
 
 The redirect goes through `cmd`: Windows PowerShell 5.1's `*>` writes the log as UTF-16 and turns stderr lines into
@@ -129,7 +129,7 @@ Groundedness is far slower (~100 s a call on CPU); screen it on a few questions 
 ## Regenerating reports
 
 After changing how results are written, or after deleting a run, rewrite the HTML from the stored results without
-asking the model: `dotnet test RagFilingExplorer.Local.Evaluation --filter "FullyQualifiedName~ReportWriteTests"`.
+asking the model: `dotnet test RagFilingExplorer.Evaluation --filter "FullyQualifiedName~ReportWriteTests"`.
 
 A run replayed from the cache is re-tagged with the Ollama build that's running now, though the answers came from the
 build that first produced them. If you refresh a stored run from the cache, put its original `ollama:<version>`

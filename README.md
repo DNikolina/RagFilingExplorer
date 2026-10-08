@@ -320,16 +320,16 @@ dotnet test
 ```
 
 Runs both test projects, fully offline - no live Ollama instance or populated vector store required.
-`RagFilingExplorer.Local.Tests` (NUnit + Moq) covers chunking, section and statement detection, query routing,
+`RagFilingExplorer.Tests` (NUnit + Moq) covers chunking, section and statement detection, query routing,
 company registration, settings and index-manifest checks, the retrieve+generate orchestration (mocked; hybrid
 search against a real FTS5 file), the reranker's tokenization, and v2's page and inline XBRL readers - checked
 against the filings in `data/`, including fact for fact against EDGAR's own extraction.
-`RagFilingExplorer.Local.Evaluation` checks the evaluators themselves.
+`RagFilingExplorer.Evaluation` checks the evaluators themselves.
 
 ### The evaluation
 
 The unit tests don't judge answers. The evaluation does, on the real app with the real model, in
-`RagFilingExplorer.Local.Evaluation` with `Microsoft.Extensions.AI.Evaluation`: every question asked in-process
+`RagFilingExplorer.Evaluation` with `Microsoft.Extensions.AI.Evaluation`: every question asked in-process
 through the app's own composition, each a stored scenario, the model's responses cached, an HTML report at the end.
 The questions and their sources are in [docs/Manual-Test-Questions.md](docs/Manual-Test-Questions.md); what grading
 checks is in `tools/expected-answers.json`. Three deterministic evaluators - no model judges an answer:
@@ -349,13 +349,13 @@ statement), not paid (cash flow statement)) instead of the expected 26,445 milli
 was. Each case shows the prompt the model was given, and is tagged by kind, company, statement and Ollama build.
 
 ```
-dotnet test RagFilingExplorer.Local.Evaluation --filter "FullyQualifiedName~EvaluationRunTests"
+dotnet test RagFilingExplorer.Evaluation --filter "FullyQualifiedName~EvaluationRunTests"
 ```
 
 asks all 102 questions (about two hours on the hardware above; minutes from the cache) and writes
 `eval/v3-runs/report-<execution>.html` and a summary; `eval/v3-runs/report.html` holds every run, v1's included,
 newest first. A run is set up in
-[`evalsettings.json`](RagFilingExplorer.Local.Evaluation/evalsettings.json) - graders (`strict`, `judge` or `both`),
+[`evalsettings.json`](RagFilingExplorer.Evaluation/evalsettings.json) - graders (`strict`, `judge` or `both`),
 which questions, cached or fresh - and an environment variable overrides one key for one run
 (`Evaluation__Only=Q1,A16`).
 
@@ -379,8 +379,8 @@ Every measured run, v1's on, is kept in `eval/`.
 
 ```
 RagFilingExplorer.Local/                the app - chunking, retrieval, vector store, interactive loop
-RagFilingExplorer.Local.Tests/          NUnit + Moq test suite
-RagFilingExplorer.Local.Evaluation/     the evaluation (v3): evaluators, runner, report, variance and judge measurements
+RagFilingExplorer.Tests/                NUnit + Moq test suite
+RagFilingExplorer.Evaluation/           the evaluation (v3): evaluators, runner, report, variance and judge measurements
 data/                                   source 10-K filings (HTML, from sec.gov/edgar), plus each filing's XBRL
                                         taxonomy (.xsd, and _pre/_lab/_cal/_def.xml where not embedded); EDGAR's
                                         extracted facts (_htm.xml) are gitignored - download them to run the XBRL

@@ -4,7 +4,7 @@
 #>
 
 $script:Repo = Split-Path $PSScriptRoot -Parent
-$script:EvalProject = Join-Path $script:Repo 'RagFilingExplorer.Local.Evaluation'
+$script:EvalProject = Join-Path $script:Repo 'RagFilingExplorer.Evaluation'
 $script:Logs = Join-Path $script:Repo 'eval\v3-runs\logs'
 New-Item -ItemType Directory -Force $script:Logs | Out-Null
 

@@ -1,0 +1,301 @@
+using System.Diagnostics;
+using System.Text;
+using Microsoft.Extensions.AI;
+using Microsoft.Extensions.AI.Evaluation;
+using Microsoft.Extensions.AI.Evaluation.Reporting;
+using Microsoft.Extensions.AI.Evaluation.Reporting.Formats.Html;
+using Microsoft.Extensions.AI.Evaluation.Reporting.Storage;
+using OllamaSharp;
+using RagFilingExplorer.Claude;
+using RagFilingExplorer.Evaluation.Evaluators;
+using RagFilingExplorer.Evaluation.Grading;
+using RagFilingExplorer.Evaluation.Judging;
+using RagFilingExplorer.Local.Retrieval;
+
+namespace RagFilingExplorer.Evaluation.Running;
+
+/// <summary>One question set: its file in tools/ and the name its scenarios are grouped under in the report.</summary>
+internal sealed record QuestionSet(string Name, string File);
+
+/// <summary>A question a run asks: its set, its text as the set's file has it, and its expected answer.</summary>
+internal sealed record SelectedQuestion(QuestionSet Set, string Question, ExpectedAnswer Entry);
+
+/// <summary>One question's outcome in a run. <see cref="FigureSource"/> is the figure-source status, <see cref="FigureTrace"/>
+/// where each stated figure was found.</summary>
+internal sealed record QuestionOutcome(
+    string Set, string Id, StrictGrade? Grade, int? Rank, string Answer, TimeSpan Elapsed, string FigureSource = "", string FigureTrace = "",
+    IReadOnlyDictionary<string, bool>? JudgePassed = null, UsageDetails? Usage = null);
+
+/// <summary>
+/// A chat client whose inner client is switched per scenario: the app's answer service is built once, and each question
+/// is answered through its own scenario's caching client (ScenarioRun.ChatConfiguration), so every response is cached
+/// under its scenario.
+/// </summary>
+internal sealed class ScenarioChatClient : IChatClient
+{
+    public IChatClient? Inner { get; set; }
+
+    private IChatClient Current => Inner ?? throw new InvalidOperationException("No scenario's chat client is set.");
+
+    public Task<ChatResponse> GetResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options = null, CancellationToken cancellationToken = default) =>
+        Current.GetResponseAsync(messages, options, cancellationToken);
+
+    public IAsyncEnumerable<ChatResponseUpdate> GetStreamingResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options = null, CancellationToken cancellationToken = default) =>
+        Current.GetStreamingResponseAsync(messages, options, cancellationToken);
+
+    public object? GetService(Type serviceType, object? serviceKey = null) => Current.GetService(serviceType, serviceKey);
+
+    public void Dispose()
+    {
+    }
+}
+
+/// <summary>
+/// An evaluation run - the app as configured (AppComposition), every question of the given sets asked
+/// in-process, each answer graded (<see cref="StrictFigureEvaluator"/>), its retrieval ranked
+/// (<see cref="RetrievalRankEvaluator"/>) and its figures traced to the excerpts (<see cref="FigureSourceEvaluator"/>),
+/// stored on disk as one scenario per question under one execution name, with
+/// the model's responses cached, and an HTML report written from the stored results at the end. A null
+/// <paramref name="cacheTimeToLive"/> asks the model afresh and caches nothing - a variance pass, which must neither replay
+/// the cache (keyed by scenario, so shared by every execution) nor overwrite it. <paramref name="unloadBeforeEachQuestion"/>
+/// unloads the chat model before every question, so none starts from a prompt prefix Ollama still holds - a check on
+/// whether that reuse changes answers. <paramref name="judges"/> adds Microsoft's Quality
+/// evaluators, judged by the same chat model (<see cref="JudgeSetup"/>); <paramref name="strictGrade"/> false
+/// leaves the strict grade out (Graders: judge). <paramref name="chatModel"/> Claude answers through the Claude API
+/// (RagFilingExplorer.Claude's settings and client) instead of Ollama - EvaluationSettings refuses the judges and
+/// unloading with it.
+/// </summary>
+internal sealed class EvaluationRunner(
+    DirectoryInfo repoRoot, string storageRoot, string executionName, TimeSpan? cacheTimeToLive, bool unloadBeforeEachQuestion = false,
+    IReadOnlyCollection<string>? judges = null, bool strictGrade = true, ChatModel chatModel = ChatModel.Local)
+{
+    public static readonly IReadOnlyList<QuestionSet> AllSets =
+    [
+        new("Main", "manual-questions.txt"),
+        new("HeldOut", "heldout-questions.txt"),
+        new("AnswerSide", "answer-questions.txt"),
+    ];
+
+    /// <summary>
+    /// The questions a run asks, in the sets' order: every question of the sets, or only the ids in
+    /// <paramref name="onlyIds"/>. An id that names no question of the sets is an error - a mistyped id would otherwise
+    /// make a smoke run that asks nothing and still passes.
+    /// </summary>
+    internal static List<SelectedQuestion> SelectQuestions(DirectoryInfo repoRoot, IReadOnlyList<QuestionSet> sets, IReadOnlySet<string> onlyIds)
+    {
+        Dictionary<string, ExpectedAnswer> byQuestion = ExpectedAnswer.LoadAll(repoRoot).Values.ToDictionary(e => e.Question);
+        List<SelectedQuestion> all = sets
+            .SelectMany(set => File.ReadAllLines(Path.Combine(repoRoot.FullName, "tools", set.File))
+                .Where(q => q.Trim().Length > 0)
+                .Select(q => new SelectedQuestion(set, q, byQuestion[q.Trim()])))
+            .ToList();
+        if (onlyIds.Count == 0)
+        {
+            return all;
+        }
+
+        List<string> unknown = onlyIds.Where(id => all.All(q => q.Entry.Id != id)).Order(StringComparer.Ordinal).ToList();
+        if (unknown.Count > 0)
+        {
+            throw new InvalidOperationException(
+                $"Only names {string.Join(", ", unknown)}, which isn't a question of the sets run ({string.Join(", ", sets.Select(s => s.Name))}).");
+        }
+
+        return all.Where(q => onlyIds.Contains(q.Entry.Id)).ToList();
+    }
+
+    /// <summary>
+    /// Scenarios already stored under this run's name that it won't ask again. A run only overwrites the questions it
+    /// asks; the rest stay under the name, and every reader of the store - the report, the variance comparison, the
+    /// judge agreement - takes them as part of this run. Not deleted: a smoke run under a stored run's name would
+    /// otherwise wipe that run.
+    /// </summary>
+    public IReadOnlyList<string> KeptFromEarlierRun { get; private set; } = [];
+
+    /// <summary>
+    /// The latest iteration of each scenario stored under <paramref name="execution"/>, in the order the store first lists
+    /// them; fails if there are none. A question asked again in the same run is stored as a new iteration.
+    /// </summary>
+    internal static async Task<List<ScenarioRunResult>> LatestResultsAsync(string storageRoot, string execution, CancellationToken cancellationToken = default)
+    {
+        List<ScenarioRunResult> latest = (await new DiskBasedResultStore(storageRoot).ReadResultsAsync(execution, cancellationToken: cancellationToken).ToListAsync(cancellationToken))
+            .GroupBy(result => result.ScenarioName)
+            .Select(iterations => iterations.MaxBy(result => result.CreationTime)!)
+            .ToList();
+        return latest.Count > 0 ? latest : throw new InvalidOperationException($"No stored results for execution {execution} under {storageRoot}.");
+    }
+
+    /// <summary>The scenarios stored under <paramref name="executionName"/> that aren't in <paramref name="asked"/>.</summary>
+    internal static async Task<List<string>> EarlierScenariosAsync(
+        string storageRoot, string executionName, IReadOnlySet<string> asked, CancellationToken cancellationToken = default)
+    {
+        HashSet<string> stored = await new DiskBasedResultStore(storageRoot).ReadResultsAsync(executionName, cancellationToken: cancellationToken)
+            .Select(result => result.ScenarioName)
+            .ToHashSetAsync(StringComparer.Ordinal, cancellationToken);
+
+        return stored.Where(s => !asked.Contains(s)).Order(StringComparer.Ordinal).ToList();
+    }
+
+    /// <summary>Runs the sets (only the listed ids, when <paramref name="onlyIds"/> isn't empty) and writes report.html.</summary>
+    public async Task<List<QuestionOutcome>> RunAsync(
+        IReadOnlyList<QuestionSet> sets, IReadOnlySet<string> onlyIds, Action<string> progress, CancellationToken cancellationToken = default)
+    {
+        AppSettings settings = AppSettings.Load(Path.Combine(repoRoot.FullName, "RagFilingExplorer.Local"));
+        List<SelectedQuestion> questions = SelectQuestions(repoRoot, sets, onlyIds);
+        KeptFromEarlierRun = await EarlierScenariosAsync(
+            storageRoot, executionName, questions.Select(q => $"{q.Set.Name}.{q.Entry.Id}").ToHashSet(), cancellationToken);
+        if (KeptFromEarlierRun.Count > 0)
+        {
+            progress($"Warning: {KeptFromEarlierRun.Count} stored result(s) under '{executionName}' aren't asked again and stay part of it.");
+        }
+
+        // The model's own client; the reporting configuration wraps it per scenario with a response cache.
+        (_, OllamaApiClient chat) = AppComposition.CreateOllamaClients(settings.Ollama);
+        IReadOnlyCollection<string> judgeNames = judges ?? [];
+        JudgeContextChatClient judgeChat = new(chat);
+        // The answering client is the reporting configuration's, so the library's cache key carries its provider and
+        // model id, and each run is tagged with the model that answered.
+        IChatClient answerChat = judgeChat;
+        ChatModelOptions? answerOptions = null;
+        List<string> runTags = [$"chat:{settings.Ollama.ChatModel}"];
+        if (chatModel == ChatModel.Claude)
+        {
+            ClaudeSettings claude = ClaudeSettings.Load(Path.Combine(repoRoot.FullName, "RagFilingExplorer.Claude"));
+            (answerChat, answerOptions) = await ClaudeChat.CreateAsync(claude);
+            runTags = [$"chat:{claude.Model}", $"effort:{claude.LookupEffort}/{claude.SynthesisEffort}"];
+        }
+
+        ReportingConfiguration reporting = DiskBasedReportingConfiguration.Create(
+            storageRootPath: storageRoot,
+            evaluators:
+            [
+                .. (strictGrade ? new IEvaluator[] { new StrictFigureEvaluator() } : []),
+                new RetrievalRankEvaluator(settings.Retrieval.GenerationTopK),
+                new FigureSourceEvaluator(settings.Retrieval.GenerationTopK),
+                .. JudgeSetup.Evaluators(judgeNames),
+            ],
+            chatConfiguration: new ChatConfiguration(answerChat),
+            enableResponseCaching: cacheTimeToLive is not null,
+            timeToLiveForCacheEntries: cacheTimeToLive,
+            executionName: executionName,
+            tags: runTags);
+
+        ScenarioChatClient scenarioChat = new();
+        using RagRuntime runtime = await AppComposition.OpenExistingIndexAsync(settings, repoRoot, scenarioChat, answerOptions);
+        // The Ollama build serving this run, tagged on every case (QuestionTags) - an update can change answers. Asked
+        // after OpenExistingIndexAsync, whose readiness check turns "Ollama isn't running" into a message naming the fix.
+        string ollamaVersion = (await chat.GetVersionAsync(cancellationToken)).ToString();
+
+        List<QuestionOutcome> outcomes = [];
+        foreach (QuestionSet set in sets)
+        {
+            foreach ((_, string question, ExpectedAnswer entry) in questions.Where(q => q.Set == set))
+            {
+                outcomes.Add(await AskAndEvaluateAsync(set.Name, question, entry));
+            }
+        }
+
+        scenarioChat.Inner = null;
+        await WriteReportAsync(cancellationToken);
+        return outcomes;
+
+        // One question: asked through the app, evaluated, and reported to progress.
+        async Task<QuestionOutcome> AskAndEvaluateAsync(string setName, string question, ExpectedAnswer entry)
+        {
+            Stopwatch clock = Stopwatch.StartNew();
+            // Tags by name: the parameter before them is additionalCachingKeys - tags there would change every
+            // cache key and re-ask the model for every answer.
+            List<string> tags = QuestionTags.For(entry, runtime.Companies.ResolveFilings(question), QueryIntentResolver.ResolveStatementType(question), ollamaVersion);
+            await using ScenarioRun scenario = await reporting.CreateScenarioRunAsync(
+                $"{setName}.{entry.Id}", additionalTags: tags, cancellationToken: cancellationToken);
+            scenarioChat.Inner = scenario.ChatConfiguration!.ChatClient;
+            if (unloadBeforeEachQuestion)
+            {
+                await chat.RequestModelUnloadAsync(settings.Ollama.ChatModel, cancellationToken);
+            }
+
+            RagAnswer answer = await runtime.AnswerService.AskAsync(question, settings.Retrieval.VerboseSearchTopK, cancellationToken);
+            StringBuilder text = new();
+            // The tokens the answer took - a cached answer's as first asked; the stored result's chat details hold them per
+            // call with the latency.
+            UsageDetails usage = new();
+            await foreach (ChatResponseUpdate update in answer.AnswerStream.WithCancellation(cancellationToken))
+            {
+                text.Append(update.Text);
+                update.Contents.OfType<UsageContent>().ToList().ForEach(u => usage.Add(u.Details));
+            }
+
+            string answerText = text.ToString().Trim();
+            List<RetrievedExcerpt> chunks = answer.RetrievedChunks
+                .Select(r => new RetrievedExcerpt(r.Record.SourceFiling, r.Record.Heading, r.Record.StatementType, r.Record.Content))
+                .ToList();
+            List<EvaluationContext> contexts = [new ExpectedAnswerContext(entry), new RetrievedChunksContext(chunks)];
+            if (judgeNames.Count > 0)
+            {
+                contexts.AddRange(JudgeSetup.Contexts(entry, chunks, settings.Retrieval.GenerationTopK));
+            }
+
+            // The judges' larger context window only while they run - the answer above was asked with the app's own.
+            judgeChat.JudgeContext = judgeNames.Count > 0;
+            EvaluationResult result;
+            try
+            {
+                result = await scenario.EvaluateAsync(
+                    // The system prompt and the excerpts the model was given, then the question (last: what judges read).
+                    PromptTranscript.Messages(answer.Prompt, chunks.Take(settings.Retrieval.GenerationTopK).ToList(), question),
+                    new ChatResponse(new ChatMessage(ChatRole.Assistant, answerText)),
+                    additionalContext: contexts,
+                    cancellationToken);
+            }
+            finally
+            {
+                judgeChat.JudgeContext = false;
+            }
+
+            StrictGrade? grade = result.Metrics.TryGetValue(StrictFigureEvaluator.MetricName, out EvaluationMetric? strict)
+                ? new StrictGrade(((StringMetric)strict).Value!, StrictFigureEvaluator.GraderNote(strict))
+                : null;
+            // Each judge's verdict: passed unless the library interprets its score as failed (an unread reply fails).
+            Dictionary<string, bool> judgePassed = result.Metrics.Values
+                .Where(m => JudgeAgreement.MetricNames.Contains(m.Name))
+                .ToDictionary(m => m.Name, m => m.Interpretation?.Failed != true);
+            double? rank = result.Get<NumericMetric>(RetrievalRankEvaluator.MetricName).Value;
+            StringMetric source = result.Get<StringMetric>(FigureSourceEvaluator.MetricName);
+            QuestionOutcome outcome = new(setName, entry.Id, grade, rank is null ? null : (int)rank, answerText, clock.Elapsed, source.Value!, FigureSourceEvaluator.TraceText(source), judgePassed, usage);
+            string graded = grade is null ? "not strictly graded" : grade.Status + (grade.Note.Length > 0 ? $" ({grade.Note})" : "");
+            progress($"{setName}.{entry.Id}: {graded}, rank {outcome.Rank?.ToString() ?? "-"}, "
+                + $"figures {outcome.FigureSource}, "
+                + string.Concat(result.Metrics.Values.OfType<NumericMetric>().Where(m => m.Name != RetrievalRankEvaluator.MetricName)
+                    .Select(m => $"{m.Name} {m.Value?.ToString() ?? "error"}, "))
+                + $"tokens {usage.InputTokenCount ?? 0}+{usage.OutputTokenCount ?? 0}, {clock.Elapsed.TotalSeconds:F0}s");
+            return outcome;
+        }
+    }
+
+    /// <summary>report-&lt;execution&gt;.html in the storage root, from this execution's stored results, and report.html from
+    /// every execution in the store - the history.</summary>
+    public async Task WriteReportAsync(CancellationToken cancellationToken = default)
+    {
+        await WriteReportAsync(storageRoot, Path.Combine(storageRoot, $"report-{executionName}.html"), executionName, cancellationToken);
+        await WriteReportAsync(storageRoot, Path.Combine(storageRoot, "report.html"), executionName: null, cancellationToken);
+    }
+
+    /// <summary>An HTML report of the stored results - one execution's, or every execution's when <paramref name="executionName"/> is null.</summary>
+    public static async Task WriteReportAsync(string storageRoot, string reportPath, string? executionName, CancellationToken cancellationToken = default)
+    {
+        DiskBasedResultStore store = new(storageRoot);
+        List<ScenarioRunResult> results = await store.ReadResultsAsync(executionName, cancellationToken: cancellationToken).ToListAsync(cancellationToken);
+
+        // The report lists executions in the order they first appear in its data, and opens on the first one - the picker's
+        // order and the run it opens on can't be set apart, and the run picked is remembered only in that browser tab.
+        // Newest first, so a new tab opens on the latest run; each execution kept together. The history and comparison
+        // views sort runs by date themselves.
+        Dictionary<string, DateTime> ranAt = results.GroupBy(r => r.ExecutionName).ToDictionary(g => g.Key, g => g.Min(r => r.CreationTime));
+        List<ScenarioRunResult> ordered = results
+            .OrderByDescending(r => ranAt[r.ExecutionName]).ThenBy(r => r.ExecutionName, StringComparer.Ordinal)
+            .ThenBy(r => r.ScenarioName, StringComparer.Ordinal)
+            .ToList();
+
+        await new HtmlReportWriter(reportPath).WriteReportAsync(ordered, cancellationToken);
+    }
+}

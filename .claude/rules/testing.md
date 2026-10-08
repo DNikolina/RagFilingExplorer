@@ -1,6 +1,6 @@
 ---
 paths:
-  - "RagFilingExplorer.Local.Tests/**"
+  - "RagFilingExplorer.Tests/**"
 ---
 
 # Test conventions (already surveyed - follow these, don't re-derive them)
@@ -8,16 +8,16 @@ paths:
 These conventions replace surveying existing tests - open a test file only for a helper you'll call or
 extend (e.g. `RagAnswerServiceTests.MakeMocks`, `CreateService`).
 
-<!-- Path-scoped: loads only when a file under RagFilingExplorer.Local.Tests/ is read, so sessions that
+<!-- Path-scoped: loads only when a file under RagFilingExplorer.Tests/ is read, so sessions that
      never touch tests don't pay for it. CLAUDE.md points here for the case of writing a brand-new test
      file without opening an existing one first, which would not trigger the load. -->
 
-- **Stack:** NUnit 4 + Moq, in `RagFilingExplorer.Local.Tests`. `NUnit.Framework` is a global using (in the
+- **Stack:** NUnit 4 + Moq, in `RagFilingExplorer.Tests`. `NUnit.Framework` is a global using (in the
   .csproj) - don't add it per file. Constraint model only: `Assert.That(x, Is/Has/Does...)`, plus
   `Assert.Throws` / `Assert.ThrowsAsync` for exceptions.
 - **Layout:** mirror the app's folders - `Chunking/`, `Retrieval/`, `Structured/`, `VectorStore/`, `Xbrl/`, root
   for root types; `Claude/` for `RagFilingExplorer.Claude`'s types (the test project references it).
-  File `<Class>Tests.cs`, namespace `RagFilingExplorer.Local.Tests.<Folder>`, `[TestFixture] public class`.
+  File `<Class>Tests.cs`, namespace `RagFilingExplorer.Tests.<Folder>`, `[TestFixture] public class`.
   App types are `internal` and visible to tests via `InternalsVisibleTo` (`AssemblyInfo.cs`) - test them
   directly; never make a type public for a test.
 - **Naming:** `Subject_Condition_ExpectedResult`, e.g. `Split_ItemHeadingWithNoSpaceAfterPeriod_IsStillTreatedAsABoundary`.

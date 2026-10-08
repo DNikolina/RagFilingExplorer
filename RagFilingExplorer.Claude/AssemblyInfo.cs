@@ -1,4 +1,4 @@
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("RagFilingExplorer.Local.Tests")]
-[assembly: InternalsVisibleTo("RagFilingExplorer.Local.Evaluation")]
+[assembly: InternalsVisibleTo("RagFilingExplorer.Tests")]
+[assembly: InternalsVisibleTo("RagFilingExplorer.Evaluation")]
