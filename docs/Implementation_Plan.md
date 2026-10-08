@@ -73,8 +73,8 @@ the .NET evaluators made the source of truth, the Python tools kept as the recor
 comparing paid services with the local stack) starts only when the user asks.
 **v4 planned (user, 2026-10-08):** paid services against the local stack, starting with the Claude API as the chat
 model only (same embeddings, index and retrieval), in a separate `RagFilingExplorer.Claude` project - Local stays
-zero-cost. Steps 1-3 done (branch `v4`): the chat model's options passed in, the Claude app, and the evaluation's
-`ChatModel` (Local or Claude; the cache keyed by model). No paid call yet. Decision-Log.md, "paid services (v4)".
+zero-cost. Steps 1-4 done (branch `v4`): the chat model's options passed in, the Claude app, and the evaluation's
+`ChatModel` (Local or Claude; the cache keyed by model), the docs. No paid call yet. Decision-Log.md, "paid services (v4)".
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the
@@ -229,12 +229,20 @@ Shared by all three:
                           on a model that reports the "thinking" capability)
 ```
 
+v4 (branch `v4`), optional: `RagFilingExplorer.Claude` runs the same flow over the same index - Local's
+`appsettings.json` read unchanged, embeddings still Ollama's - with Claude (`Anthropic` SDK, `AsIChatClient`) in place
+of llama3.1:8b. `ChatModelOptions` carries what differs: no temperature (Claude rejects a non-default one), reasoning
+effort for lookups as well as synthesis (never None - the SDK sends it as thinking disabled, a 400), output ceiling
+16,000 (thinking counts toward it). Settings in `RagFilingExplorer.Claude/claudesettings.json`; the key only from
+`ANTHROPIC_API_KEY`. The evaluation picks the model with `evalsettings.json`'s `ChatModel`.
+
 Packages: `AngleSharp` (the DOM - v2's reader and the linearizer), `Microsoft.Extensions.AI`, `Microsoft.Extensions.VectorData.Abstractions`,
 `CommunityToolkit.VectorData.SqliteVec` (1.0.1-preview), `OllamaSharp`,
 `Microsoft.ML.Tokenizers.Data.Cl100kBase`, `Microsoft.Extensions.Configuration.Json` and `.Binder` (the base package comes with `.Json`),
 `Microsoft.Bcl.Memory` (pinned — see below), `Microsoft.Data.Sqlite` (hybrid search's FTS5 queries; already
 transitive via SqliteVec, referenced at the same version), `Microsoft.ML.OnnxRuntime` 1.30.0 and
-`Microsoft.ML.Tokenizers` 2.0.0 (the reranker; its model is fetched separately). Tests: NUnit + Moq. Tunables live in
+`Microsoft.ML.Tokenizers` 2.0.0 (the reranker; its model is fetched separately). The Claude app (v4) only: `Anthropic`
+12.54.1 and `Microsoft.Extensions.Configuration.EnvironmentVariables`. Tests: NUnit + Moq. Tunables live in
 `RagFilingExplorer.Local/appsettings.json`; domain logic (keyword lists, regexes) stays in code.
 
 ---
@@ -281,6 +289,10 @@ transitive via SqliteVec, referenced at the same version), `Microsoft.ML.OnnxRun
   tokenization drops line breaks, `|`, `$` and unknown symbols, and all 73,125 (question, chunk) pairs differed from
   what the spike measured. Another reranker model, or a `Microsoft.ML.Tokenizers` upgrade, needs the token-for-token
   parity check re-run against Python's `tokenizers` (Decision-Log.md, "Step 2b - build").
+- **The evaluation's answering client must be its reporting configuration's chat client** (v4). The response cache
+  key holds the model only through it - the library adds that client's provider and model id - and the prompts are
+  byte-identical across models, so a Claude answer asked through any other client would silently replay llama's cached
+  answer (or Opus's for Sonnet). `ResponseCacheKeyTests` holds the key; Decision-Log.md, "Step 3 - done".
 - **Config values live only in `appsettings.json`** — no duplicate defaults in code (this has drifted
   twice). Presence of every key is validated at load, since `required` doesn't apply to the binder.
   The evaluation follows the same rule in its own `evalsettings.json` (graders, judges, run options; v3) - environment

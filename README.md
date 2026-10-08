@@ -4,7 +4,8 @@ A local, retrieval-augmented Q&A tool for SEC 10-K filings, built in C#/.NET.
 
 **Zero cost, no API keys, no accounts.** Embedding, vector search, and answer generation all run
 locally via [Ollama](https://ollama.com/) — nothing is sent to a hosted LLM API, and there's nothing
-to sign up for.
+to sign up for. (A separate, optional app answers with Claude through Anthropic's paid API instead - [Answering with
+Claude](#answering-with-claude-v4-optional-paid). The local app doesn't depend on it.)
 
 Ask a natural-language question about one of the included filings and get an answer grounded in, and
 cited to, the actual filing text — not the model's general knowledge.
@@ -21,7 +22,25 @@ Item 8. Financial Statements and Supplementary Data).
 **Why it's built this way** - why not answer from XBRL directly, PDF, `Microsoft.Extensions.DataIngestion`,
 reranking, a calculator tool, or a bigger model - is answered briefly in [docs/Design-FAQ.md](docs/Design-FAQ.md).
 
-## Three versions
+**Contents**
+
+- [Versions](#versions)
+- [How it works](#how-it-works)
+- [Stack](#stack)
+- [Prerequisites](#prerequisites--zero-cost-not-zero-setup)
+- [Hardware expectations](#hardware-expectations)
+- [Running it](#running-it) - [startup checks](#startup-checks)
+- [Answering with Claude (v4, optional, paid)](#answering-with-claude-v4-optional-paid)
+- [Configuration](#configuration-appsettingsjson) - [chunking strategies](#chunking-strategies), [search](#search),
+  [reasoning models](#reasoning-models), [adding a new filing](#adding-a-new-filing)
+- [Known limitations](#known-limitations)
+- [What I'd do differently](#what-id-do-differently)
+- [Testing](#testing) - [the evaluation](#the-evaluation)
+- [Project structure](#project-structure)
+- [Further reading](#further-reading)
+- [License](#license)
+
+## Versions
 
 - **v1** (tag `v1.0`) - `markitdown` converts each filing to text, which is split into sections and
   token-bounded chunks; a question's company and financial statement are hard filters on a vector search.
@@ -33,6 +52,9 @@ reranking, a calculator tool, or a bigger model - is answered briefly in [docs/D
   `Microsoft.Extensions.AI.Evaluation`: the strict grader and the retrieval rank as custom evaluators held exact to the
   Python originals, plus a new one that traces each figure in an answer to the excerpt and line it came from - every run
   stored, cached and reported ([The evaluation](#the-evaluation)).
+- **v4** (in progress, branch `v4`) - paid services measured against the local stack, starting with Claude as the chat
+  model in a separate, optional app; same embeddings, index and retrieval, so only the reading of the excerpts changes
+  ([Answering with Claude](#answering-with-claude-v4-optional-paid)). Built and tested; not measured yet.
 
 v1's strategies still ship and are one setting away. Graded strictly (the expected figure, its unit and the exact
 line), with `llama3.1:8b` at temperature 0:
@@ -130,6 +152,8 @@ flowchart TB
 - **Microsoft.ML.OnnxRuntime** — an optional local cross-encoder reranker, off by default
 - **Microsoft.Extensions.AI.Evaluation** (+ `.Reporting`, `.Quality`) — the evaluation (v3): custom evaluators, stored
   results, response caching and the HTML report; `.Quality`'s Equivalence as an optional local judge
+- **[Anthropic](https://github.com/anthropics/anthropic-sdk-csharp)** (the official C# SDK, through its `IChatClient`
+  adapter) — the optional Claude app only (v4)
 - **Local models**: `nomic-embed-text` (274MB, embeddings) and `llama3.1:8b` (4.9GB, answer generation)
 - **Source data**: public [SEC EDGAR](https://www.sec.gov/edgar) 10-K filings (raw HTML)
 
@@ -199,6 +223,35 @@ exits with a one-line fix instead of a stack trace:
   stored vectors from the old one retrieve noise with no error at all.)
 - Each filing registers its company for the company filter from its own tagged cover facts (name and
   ticker); a filing that tags no registrant name stops startup with a message saying so.
+
+## Answering with Claude (v4, optional, paid)
+
+`RagFilingExplorer.Claude` is the same question loop over the same index, with Claude writing the answer instead of
+`llama3.1:8b`. Only the chat model changes: chunking, embeddings, the index and retrieval are the local app's, read from
+its `appsettings.json` unchanged, so every question gets the same excerpts and the same prompt. It's a separate project
+so the local app stays zero-cost - no Anthropic package, no key ([docs/Design-FAQ.md](docs/Design-FAQ.md)).
+
+Besides the local app's prerequisites, it needs:
+
+- **The index, built by the local app** (run it once) - this app never builds one. Ollama still runs: a question's
+  embedding is still `nomic-embed-text`'s.
+- **An Anthropic API key in `ANTHROPIC_API_KEY`** - an environment variable, never a file (the repository is public).
+  Every answer is billed, so set a spending limit in the Anthropic Console first.
+
+```
+dotnet run --project RagFilingExplorer.Claude
+```
+
+Its settings are in [`claudesettings.json`](RagFilingExplorer.Claude/claudesettings.json), documented on
+[`ClaudeSettings`](RagFilingExplorer.Claude/ClaudeSettings.cs): the model (`claude-opus-5-5` by default), the reasoning
+effort for a lookup and for a synthesis question (`Low` to `ExtraHigh`; `None` is refused, since current models reject
+thinking turned off), and the output ceiling, thinking included. An environment variable overrides one for a run
+(`Claude__Model=claude-sonnet-5-5`). Startup checks that the key is set and the model exists, which bills no tokens.
+
+Two differences from the local model: no temperature is sent - current Claude models reject anything but their
+default, so a fresh answer can be worded differently from one run to the next - and a refusal fails the answer with a
+message instead of showing it empty. The evaluation runs it with `Evaluation__ChatModel=Claude`
+([The evaluation](#the-evaluation)).
 
 ## Configuration (`appsettings.json`)
 
@@ -323,8 +376,8 @@ Runs both test projects, fully offline - no live Ollama instance or populated ve
 `RagFilingExplorer.Tests` (NUnit + Moq) covers chunking, section and statement detection, query routing,
 company registration, settings and index-manifest checks, the retrieve+generate orchestration (mocked; hybrid
 search against a real FTS5 file), the reranker's tokenization, and v2's page and inline XBRL readers - checked
-against the filings in `data/`, including fact for fact against EDGAR's own extraction.
-`RagFilingExplorer.Evaluation` checks the evaluators themselves.
+against the filings in `data/`, including fact for fact against EDGAR's own extraction - and the Claude app's
+settings checks (no API call). `RagFilingExplorer.Evaluation` checks the evaluators themselves.
 
 ### The evaluation
 
@@ -355,9 +408,11 @@ dotnet test RagFilingExplorer.Evaluation --filter "FullyQualifiedName~Evaluation
 asks all 102 questions (about two hours on the hardware above; minutes from the cache) and writes
 `eval/v3-runs/report-<execution>.html` and a summary; `eval/v3-runs/report.html` holds every run, v1's included,
 newest first. A run is set up in
-[`evalsettings.json`](RagFilingExplorer.Evaluation/evalsettings.json) - graders (`strict`, `judge` or `both`),
-which questions, cached or fresh - and an environment variable overrides one key for one run
-(`Evaluation__Only=Q1,A16`).
+[`evalsettings.json`](RagFilingExplorer.Evaluation/evalsettings.json) - the chat model (`Local` or `Claude`), graders
+(`strict`, `judge` or `both`), which questions, cached or fresh - and an environment variable overrides one key for one
+run (`Evaluation__Only=Q1,A16`). The response cache is keyed by the answering model, so one model's cached answers never
+replay as another's; a Claude run is graded strictly (the judge is the local model), tagged with its model and effort,
+and its summary totals the tokens it was billed for.
 
 **Adding a question:** its text goes in its set's file in `tools/`, its source in `docs/Manual-Test-Questions.md`, and
 its entry - matched by the exact text - in `tools/expected-answers.json` (`kind`, `expect`, `unit`, `chunk_expect`,
@@ -379,6 +434,7 @@ Every measured run, v1's on, is kept in `eval/`.
 
 ```
 RagFilingExplorer.Local/                the app - chunking, retrieval, vector store, interactive loop
+RagFilingExplorer.Claude/               the optional Claude app (v4): the local app's question loop, Claude answering
 RagFilingExplorer.Tests/                NUnit + Moq test suite
 RagFilingExplorer.Evaluation/           the evaluation (v3): evaluators, runner, report, variance and judge measurements
 data/                                   source 10-K filings (HTML, from sec.gov/edgar), plus each filing's XBRL
@@ -414,4 +470,5 @@ three real bugs found onboarding a fourth filing, and more).
 The code is [MIT](LICENSE). The filings and XBRL taxonomies in `data/` are public SEC filings, downloaded from
 [EDGAR](https://www.sec.gov/edgar) and included for convenience - they belong to their filers and aren't covered by
 this license. The models aren't part of the repo and come with their own licenses: `nomic-embed-text` and the optional
-reranker are Apache-2.0; `llama3.1:8b` is under Meta's Llama 3.1 Community License (free to use, but not open source).
+reranker are Apache-2.0; `llama3.1:8b` is under Meta's Llama 3.1 Community License (free to use, but not open source). Claude, used by the optional app, is
+Anthropic's hosted service, under Anthropic's terms.

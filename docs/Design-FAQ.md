@@ -118,6 +118,17 @@ slower; the 3B was lower almost everywhere. `qwen3.5:2b` was pulled as a referen
 reasoning support, not as a replacement. Implementation_Plan.md, "Prerequisites"; Decision-Log.md,
 "reasoning-model support" and "Second-model run".
 
+### Why is the Claude app a separate project, not a setting in the local app?
+
+So the local app stays what it promises: zero cost, no API key, no account, nothing sent to a hosted service.
+`RagFilingExplorer.Claude` references `RagFilingExplorer.Local`, as the evaluation does, and adds only the Anthropic
+package, its own settings and the client; the local app has no Anthropic dependency, and no setting in it can send a
+question to a paid service. Little had to change in Local: the answer service already took any `IChatClient`, and now
+also takes the chat model's options (temperature, reasoning effort, output ceiling) from its caller instead of asking
+Ollama for them. A shared library for the code both use was considered and deferred - Claude replaces only the chat
+model, and the natural point is paid embeddings, when that code would no longer depend on Ollama. Decision-Log.md,
+"paid services (v4)".
+
 ### Why doesn't the model use a calculator tool for arithmetic?
 
 Because with this model it made answers worse. The model predicts digits rather than calculating, so a
@@ -149,7 +160,9 @@ switchable, as v1's reference.
 
 So a changed answer can be attributed to a code change rather than sampling. At 0.2, questions whose
 figure was already in the context flipped between right and wrong from run to run. Decision-Log.md,
-"trailing remainders, per-company search, table-piece headers".
+"trailing remainders, per-company search, table-piece headers". Claude's current models reject any temperature but
+their default, so the Claude app sends none: an evaluation run is fixed by its response cache instead, and passes asked
+afresh measure how much the answers vary. Decision-Log.md, "paid services (v4)".
 
 ### Why is `VectorStore.UpsertBatchSize` 1?
 

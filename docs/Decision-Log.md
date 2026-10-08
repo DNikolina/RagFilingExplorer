@@ -3545,3 +3545,11 @@ before asking anything.
 too. Earlier entries keep the old names, as do the Python tools' headers (kept unchanged as the record). The old namespaces
 sat under `RagFilingExplorer.Local` and saw its root types implicitly; each project now has it as a global using. Checked:
 401 + 172 tests; a full cached replay - 102/102 from the cache, identical to `structured-hybrid-v3-baseline`.
+
+**Step 4 - done (2026-10-08).** The offline tests were written with the code in steps 2 and 3 (`ClaudeSettingsTests`, the
+refusal test, `ResponseCacheKeyTests`, the evaluation settings checks); none calls the API. Docs: the README gains a table
+of contents (user), a v4 entry under "Versions" (was "Three versions"), an "Answering with Claude (v4, optional, paid)"
+section (prerequisites, the key, settings, what differs from llama), and the Claude app in the stack, testing, evaluation,
+project structure and license; the Design-FAQ answers "why a separate project?" and its temperature answer now says
+what Claude does instead; the plan's pipeline section, packages and live constraints (the answering client must be the
+reporting configuration's, or the cache key loses the model) cover the Claude path.
