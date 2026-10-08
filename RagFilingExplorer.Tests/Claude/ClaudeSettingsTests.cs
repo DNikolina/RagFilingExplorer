@@ -49,6 +49,71 @@ public class ClaudeSettingsTests
     }
 
     [Test]
+    public void From_ShippedSettings_HoldNoKey()
+    {
+        Assert.That(FromShipped().ApiKey, Is.Null);
+    }
+
+    [Test]
+    public void From_UserSecretsKey_IsTheKey()
+    {
+        Assert.That(FromShipped(new() { ["Claude:ApiKey"] = "from-secrets" }).ApiKey, Is.EqualTo("from-secrets"));
+    }
+
+    [Test]
+    public void From_EnvironmentKeyAndUserSecretsKey_EnvironmentWins()
+    {
+        ClaudeSettings settings = FromShipped(new() { ["Claude:ApiKey"] = "from-secrets", ["ANTHROPIC_API_KEY"] = "from-environment" });
+
+        Assert.That(settings.ApiKey, Is.EqualTo("from-environment"));
+    }
+
+    // User secrets are loaded as a JSON file too (secrets.json); the settings-file guard must not refuse the key there.
+    [Test]
+    public void From_KeyInAnotherJsonFile_IsTheKey()
+    {
+        string directory = Path.Combine(Path.GetTempPath(), $"ClaudeSettingsTests-{Guid.NewGuid():N}");
+        Directory.CreateDirectory(directory);
+        try
+        {
+            File.WriteAllText(Path.Combine(directory, "secrets.json"), "{\"Claude:ApiKey\": \"from-secrets\"}");
+            IConfiguration configuration = new ConfigurationBuilder()
+                .SetBasePath(ShippedSettingsDirectory)
+                .AddJsonFile(ClaudeSettings.FileName)
+                .AddJsonFile(Path.Combine(directory, "secrets.json"))
+                .Build();
+
+            Assert.That(ClaudeSettings.From(configuration).ApiKey, Is.EqualTo("from-secrets"));
+        }
+        finally
+        {
+            Directory.Delete(directory, recursive: true);
+        }
+    }
+
+    // The repository is public: a key written into the settings file would be committed with it.
+    [Test]
+    public void From_KeyInTheSettingsFile_Throws()
+    {
+        string directory = Path.Combine(Path.GetTempPath(), $"ClaudeSettingsTests-{Guid.NewGuid():N}");
+        Directory.CreateDirectory(directory);
+        try
+        {
+            string shipped = File.ReadAllText(Path.Combine(ShippedSettingsDirectory, ClaudeSettings.FileName));
+            File.WriteAllText(Path.Combine(directory, ClaudeSettings.FileName), shipped.Replace("\"Model\":", "\"ApiKey\": \"sk-ant-x\", \"Model\":"));
+            IConfiguration configuration = new ConfigurationBuilder().SetBasePath(directory).AddJsonFile(ClaudeSettings.FileName).Build();
+
+            InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => ClaudeSettings.From(configuration));
+
+            Assert.That(ex.Message, Does.Contain("the repository is public"));
+        }
+        finally
+        {
+            Directory.Delete(directory, recursive: true);
+        }
+    }
+
+    [Test]
     public void From_EnvironmentStyleOverride_ReplacesTheShippedValue()
     {
         ClaudeSettings settings = FromShipped(new() { ["Claude:Model"] = "claude-sonnet-5-5" });

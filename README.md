@@ -235,8 +235,17 @@ Besides the local app's prerequisites, it needs:
 
 - **The index, built by the local app** (run it once) - this app never builds one. Ollama still runs: a question's
   embedding is still `nomic-embed-text`'s.
-- **An Anthropic API key in `ANTHROPIC_API_KEY`** - an environment variable, never a file (the repository is public).
-  Every answer is billed, so set a spending limit in the Anthropic Console first.
+- **An Anthropic API key, outside the repository** - it's public. In .NET user secrets (a file in your user profile),
+  typed at a hidden prompt so it stays out of your shell history:
+  ```powershell
+  $s = Read-Host "Anthropic API key" -AsSecureString
+  $k = [System.Net.NetworkCredential]::new("", $s).Password
+  dotnet user-secrets set "Claude:ApiKey" $k --project RagFilingExplorer.Claude
+  Remove-Variable k, s
+  ```
+  or in the `ANTHROPIC_API_KEY` environment variable, which wins when both are set. (Claude Code reads that variable
+  too, for its own sign-in - user secrets keep the two apart.) A key in `claudesettings.json` stops startup. Every
+  answer is billed, so set a spending limit in the Anthropic Console first.
 
 ```
 dotnet run --project RagFilingExplorer.Claude

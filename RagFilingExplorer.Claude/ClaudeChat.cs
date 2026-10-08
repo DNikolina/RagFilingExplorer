@@ -20,21 +20,21 @@ internal static class ClaudeChat
     /// </summary>
     public static async Task<(IChatClient Client, ChatModelOptions Options)> CreateAsync(ClaudeSettings claude)
     {
-        if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ANTHROPIC_API_KEY"))
-            && string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ANTHROPIC_AUTH_TOKEN")))
+        if (claude.ApiKey is null)
         {
             throw new StartupException(
-                "No Claude API key: set the ANTHROPIC_API_KEY environment variable (never in a settings file - the repository is public).");
+                "No Claude API key: dotnet user-secrets set Claude:ApiKey <key> --project RagFilingExplorer.Claude, or the "
+                + "ANTHROPIC_API_KEY environment variable - never in a settings file, the repository is public.");
         }
 
-        AnthropicClient client = new();
+        AnthropicClient client = new() { ApiKey = claude.ApiKey };
         try
         {
             await client.Models.Retrieve(claude.Model);
         }
         catch (AnthropicUnauthorizedException ex)
         {
-            throw new StartupException($"The Claude API rejected the key in ANTHROPIC_API_KEY ({ex.Message}).", ex);
+            throw new StartupException($"The Claude API rejected the key (user secrets' Claude:ApiKey, or ANTHROPIC_API_KEY when set) ({ex.Message}).", ex);
         }
         catch (AnthropicNotFoundException ex)
         {

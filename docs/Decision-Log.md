@@ -3553,3 +3553,16 @@ section (prerequisites, the key, settings, what differs from llama), and the Cla
 project structure and license; the Design-FAQ answers "why a separate project?" and its temperature answer now says
 what Claude does instead; the plan's pipeline section, packages and live constraints (the answering client must be the
 reporting configuration's, or the cache key loses the model) cover the Claude path.
+
+**The key in user secrets (user, 2026-10-08).** Where the key lives was the user's choice of four (a persistent
+environment variable, one set only in the user's own shell - runs started by the user -, user secrets, or the plain
+`ANTHROPIC_API_KEY`). Plain `ANTHROPIC_API_KEY` is also what Claude Code reads for its own sign-in, so a user-wide one
+could move the session itself onto the API account. Chosen: .NET user secrets - `dotnet user-secrets set Claude:ApiKey`,
+a file in the user's profile outside the repository, read by `ClaudeSettings.Load` from the Claude assembly's
+`UserSecretsId`, so the evaluation finds the same key; `ANTHROPIC_API_KEY` still works and wins when set. The key is a
+read-only `ClaudeSettings.ApiKey`, not a bound key (every bound key is required), passed to the client explicitly; one
+found in `claudesettings.json` stops startup. A first version of that guard refused the secret too - user secrets load as
+a JSON file (`secrets.json`) - caught by an end-to-end check with a dummy key; the guard now reads only
+`claudesettings.json`'s provider, with a test for it. Checked: 406 + 172 tests; with a dummy secret both the app and the
+evaluation sent it and got the API's 401 ("invalid x-api-key"; no tokens billed), then the secret was cleared; no
+vulnerable packages (`Microsoft.Extensions.Configuration.UserSecrets` 10.0.12).

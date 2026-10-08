@@ -19,7 +19,7 @@ internal sealed class EvaluationSettings
 
     /// <summary>
     /// Which chat model answers: Local (the app's Ollama model, appsettings.json) or Claude (RagFilingExplorer.Claude's
-    /// claudesettings.json; the key from ANTHROPIC_API_KEY, every answer billed). Embeddings, the index and retrieval are
+    /// claudesettings.json; the key from user secrets or ANTHROPIC_API_KEY, every answer billed). Embeddings, the index and retrieval are
     /// Local's either way. The response cache is keyed by the model (the library adds the chat client's provider and
     /// model id), so one model's cached answers never replay for another.
     /// </summary>

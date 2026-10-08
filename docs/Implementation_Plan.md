@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 401 offline unit tests (176 at v1.0) + 172 offline evaluation tests |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 406 offline unit tests (176 at v1.0) + 172 offline evaluation tests |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -233,8 +233,8 @@ v4 (branch `v4`), optional: `RagFilingExplorer.Claude` runs the same flow over t
 `appsettings.json` read unchanged, embeddings still Ollama's - with Claude (`Anthropic` SDK, `AsIChatClient`) in place
 of llama3.1:8b. `ChatModelOptions` carries what differs: no temperature (Claude rejects a non-default one), reasoning
 effort for lookups as well as synthesis (never None - the SDK sends it as thinking disabled, a 400), output ceiling
-16,000 (thinking counts toward it). Settings in `RagFilingExplorer.Claude/claudesettings.json`; the key only from
-`ANTHROPIC_API_KEY`. The evaluation picks the model with `evalsettings.json`'s `ChatModel`.
+16,000 (thinking counts toward it). Settings in `RagFilingExplorer.Claude/claudesettings.json`; the key from .NET user
+secrets (`Claude:ApiKey`) or `ANTHROPIC_API_KEY`, never that file (refused at load). The evaluation picks the model with `evalsettings.json`'s `ChatModel`.
 
 Packages: `AngleSharp` (the DOM - v2's reader and the linearizer), `Microsoft.Extensions.AI`, `Microsoft.Extensions.VectorData.Abstractions`,
 `CommunityToolkit.VectorData.SqliteVec` (1.0.1-preview), `OllamaSharp`,

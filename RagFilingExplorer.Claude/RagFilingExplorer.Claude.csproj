@@ -7,6 +7,8 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <!-- Where the API key can live outside the repository: dotnet user-secrets set Claude:ApiKey ... (ClaudeSettings). -->
+    <UserSecretsId>81881dfa-130d-4974-9078-2b1ca1becebe</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,6 +22,7 @@
   <ItemGroup>
     <PackageReference Include="Anthropic" Version="12.54.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="10.0.12" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.12" />
   </ItemGroup>
 
 </Project>

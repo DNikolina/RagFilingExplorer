@@ -1,6 +1,6 @@
 {
   "Claude": {
-    // See ClaudeSettings in ClaudeSettings.cs, which documents every setting here. The API key is never in a file:
+    // See ClaudeSettings in ClaudeSettings.cs, which documents every setting here. Never the API key - user secrets or
     // ANTHROPIC_API_KEY.
     "Model": "claude-opus-5-5",
     "LookupEffort": "Medium",
