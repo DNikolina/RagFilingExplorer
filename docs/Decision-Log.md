@@ -3628,3 +3628,15 @@ readings: 9 correct answers explaining a lookalike line, retrieval misses H25 an
 $9.1 billion, A11 an equity-statement sum. Read, **98/102, the same as medium.** Low effort saved 15% of output tokens
 but only ~4% of the cost: every answer reads a ~3,800-token prompt and writes a few hundred tokens, so input dominates
 the bill and thinking is small at either level. For lookups over five excerpts, effort buys nothing measurable here.
+
+**Variance pass - Opus 5.5 medium, every answer asked afresh (`claude-opus55-medium-fresh`): 7 min, 384,306 + 30,968
+tokens, ~$2.16.** Compared question by question with `claude-opus55-medium` (`eval/v3-runs/variance-claude-opus55-medium.txt`):
+14 answers identical, 48 reworded, 39 with a different set of figures, 1 grade changed. With no temperature 0, the text
+varies on almost every answer - but every answer gives the same figure as its answer: the 39 differ in the context they
+add (a prior year, a component, the lookalike line), and the one grade change is A7 dropping the lookalike it had named
+(`check` -> `reliable`). The 12 shared non-passes, re-read, are the same readings - the 9 correct answers explaining a
+lookalike and the 4 retrieval misses (H34 again MD&A's rounded $9.1 billion). Read, **98/102 again.** So a Claude run's
+strict-grade count moves by a `check` or two between passes while what it answers doesn't; compare Claude runs on the
+read verdicts, or on the strict grade only alongside a variance pass.
+
+Batch 1 spent ~$7.30 (smoke ~$0.04, Opus medium ~$2.10, Sonnet ~$0.95, Opus low ~$2.04, variance ~$2.16).

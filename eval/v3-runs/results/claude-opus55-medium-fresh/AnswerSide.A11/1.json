@@ -1,0 +1,122 @@
+{
+  "scenarioName": "AnswerSide.A11",
+  "iterationName": "1",
+  "executionName": "claude-opus55-medium-fresh",
+  "creationTime": "2026-10-08T18:38:48.2567742Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Stockholders\u0027 Equity ---\r\n\u0060\u0060\u0060\r\nOur stock repurchase authorization does not have an expiration date and the pace of any future repurchase activity will depend on factors such as our working capital needs, our cash requirements for capital expenditures, acquisitions and dividend payments, our debt repayment obligations or repurchases of our debt, our stock price and economic and market conditions. Our stock repurchases may be effected from time to time through open market purchases or pursuant to a Rule 10b5-1 trading plan. Our stock repurchase program may be accelerated, suspended, delayed or discontinued at any time.\n\n[Table of Contents](#toc_page)\n\nDividends on Preferred and Common Stock\n\nDuring fiscal 2026, the Board declared cash dividends of $1,263.89 per share of our outstanding Mandatory Convertible Preferred Stock which we paid during the same period. During fiscal 2026, 2025 and 2024, the Board declared cash dividends of $2.00, $1.70 and $1.60 per share of our outstanding common stock, respectively, which we paid during the same period.\n\nIn June 2026, the Board declared a quarterly cash dividend of $1,625 per share of our outstanding Mandatory Convertible Preferred Stock and $0.50 per share of our outstanding common stock. The Mandatory Convertible Preferred Stock dividend is payable on July 15, 2026 to stockholders of record as of the close of business on July 1, 2026 and the common stock dividend is payable on July 24, 2026 to stockholders of record as of the close of business on July 10, 2026. Future declarations of dividends on Oracle securities and the establishment of future record and payment dates for our common stock are subject to the final determination of the Board.\n\nAccumulated Other Comprehensive Loss\n\nThe following table summarizes, as of each balance sheet date, the components of our AOCL, net of income taxes:\n\n(in millions) May 31,\nForeign currency translation losses \u2014 2026: $(1,566) | 2025: $(1,334)\nUnrealized gains on defined benefit plans, net \u2014 2026: 150 | 2025: 105\nUnrealized gains on cash flow hedges, net \u2014 2026: 36 | 2025: 54\nTotal accumulated other comprehensive loss \u2014 2026: $(1,380) | 2025: $(1,175)\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nCash Dividends: In fiscal 2026, we declared and paid aggregate cash dividends of $1,263.89 per share of outstanding Mandatory Convertible Preferred Stock that totaled $63 million and $2.00 per share of outstanding common stock that totaled $5.7 billion. In June 2026, our Board of Directors (the Board) declared a quarterly cash dividend of $1,625 per share of our outstanding Mandatory Convertible Preferred Stock and $0.50 per share of our outstanding common stock. The Mandatory Convertible Preferred Stock dividend is payable on July 15, 2026 to stockholders of record as of the close of business on July 1, 2026 and the common stock dividend is payable on July 24, 2026 to stockholders of record as of the close of business on July 10, 2026. Future declarations of dividends on Oracle securities and the establishment of future record and payment dates for our common stock are subject to the final determination of the Board.\n\nMandatory Convertible Preferred Stock: On February 5, 2026, we issued 100,000,000 depositary shares, representing 50,000 shares of our 6.50% Series D Mandatory Convertible Preferred Stock (Mandatory Convertible Preferred Stock). We received cash proceeds of $5.0 billion, net of issuance costs. The other terms and conditions of the Mandatory Convertible Preferred Stock are set forth in the Certificate of Designations, which is incorporated by reference herein as Exhibit 3.03.\n\nCommon Stock: On February 2, 2026, we entered into an equity distribution agreement with \u200Ecertain sales agents party thereto, pursuant to which we may sell shares of our common stock having aggregate sales proceeds of up to $20 billion from time to time through an \u201Cat-the-market\u201D offering program (the ATM Program). As of May 31, 2026, we have not sold any shares of our common stock under the ATM Program.\n\n[Table of Contents](#toc_page)\n\nSenior Notes: During fiscal 2026, we issued a total of $43.0 billion par value of senior notes comprising the following:\n\n\u2022\n\n$500 million of floating rate notes due February 2029;\n\n\u2022\n\n$3.0 billion of 4.55% senior notes due February 2029;\n\n\u2022\n\n$3.0 billion of 4.45% senior notes due September 2030;\n\n\u2022\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF STOCKHOLDERS\u2019 EQUITY\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions, except per share data)\nMandatory convertible preferred stock issued (fiscal 2026, year ended May 31, 2026) \u2014 Preferred and Common Stock and Additional Paid in Capital Preferred Stock Shares: \u2014 (1) | Preferred and Common Stock and Additional Paid in Capital Amount: 4,954 | Total Stockholders\u2019 Equity: 4,954\nCommon stock issued under stock-based compensation plans (fiscal 2026, year ended May 31, 2026) \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 72 | Preferred and Common Stock and Additional Paid in Capital Amount: 1,241 | Total Stockholders\u2019 Equity: 1,241\nCommon stock issued under stock purchase plans (fiscal 2026, year ended May 31, 2026) \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 1 | Preferred and Common Stock and Additional Paid in Capital Amount: 208 | Total Stockholders\u2019 Equity: 208\nStock-based compensation (fiscal 2026, year ended May 31, 2026) \u2014 Preferred and Common Stock and Additional Paid in Capital Amount: 4,811 | Total Stockholders\u2019 Equity: 4,811\nRepurchases of common stock (fiscal 2026, year ended May 31, 2026) \u2014 Preferred and Common Stock and Additional Paid in Capital Amount: (6) | Accumulated Deficit: (87) | Total Stockholders\u2019 Equity: (93)\nShares repurchased for tax withholdings upon vesting of restricted stock-based awards (fiscal 2026, year ended May 31, 2026) \u2014 Preferred and Common Stock and Additional Paid in Capital Amount: (111) | Total Stockholders\u2019 Equity: (111)\nPreferred stock dividends ($1,263.89 per share) (fiscal 2026, year ended May 31, 2026) \u2014 Accumulated Deficit: (103) | Total Stockholders\u2019 Equity: (103)\nCommon stock dividends ($2.00 per share) (fiscal 2026, year ended May 31, 2026) \u2014 Accumulated Deficit: (5,725) | Total Stockholders\u2019 Equity: (5,725)\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF STOCKHOLDERS\u2019 EQUITY\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions, except per share data)\nCash dividends declared ($1.60 per share) (fiscal 2024, year ended May 31, 2024) \u2014 Accumulated Deficit: (4,391) | Total Stockholders\u2019 Equity: (4,391)\nOther, net (fiscal 2024, year ended May 31, 2024) \u2014 Preferred and Common Stock and Additional Paid in Capital Amount: (10) | Accumulated Deficit: (1) | Accumulated Other Comprehensive Loss: 90 | Noncontrolling Interests: (134) | Total Stockholders\u2019 Equity: (55)\nNet income (fiscal 2024, year ended May 31, 2024) \u2014 Accumulated Deficit: 10,467 | Noncontrolling Interests: 186 | Total Stockholders\u2019 Equity: 10,653\nBalances as of May 31, 2024 \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 2,755 | Preferred and Common Stock and Additional Paid in Capital Amount: 32,764 | Accumulated Deficit: (22,628) | Accumulated Other Comprehensive Loss: (1,432) | Noncontrolling Interests: 535 | Total Stockholders\u2019 Equity: 9,239\nCommon stock issued under stock-based compensation plans (fiscal 2025, year ended May 31, 2025) \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 62 | Preferred and Common Stock and Additional Paid in Capital Amount: 447 | Total Stockholders\u2019 Equity: 447\nCommon stock issued under stock purchase plans (fiscal 2025, year ended May 31, 2025) \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 1 | Preferred and Common Stock and Additional Paid in Capital Amount: 206 | Total Stockholders\u2019 Equity: 206\nStock-based compensation (fiscal 2025, year ended May 31, 2025) \u2014 Preferred and Common Stock and Additional Paid in Capital Amount: 4,674 | Total Stockholders\u2019 Equity: 4,674\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF STOCKHOLDERS\u2019 EQUITY\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions, except per share data)\nRepurchases of common stock (fiscal 2025, year ended May 31, 2025) \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: (4) | Preferred and Common Stock and Additional Paid in Capital Amount: (47) | Accumulated Deficit: (553) | Total Stockholders\u2019 Equity: (600)\nShares repurchased for tax withholdings upon vesting of restricted stock-based awards (fiscal 2025, year ended May 31, 2025) \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: (7) | Preferred and Common Stock and Additional Paid in Capital Amount: (900) | Total Stockholders\u2019 Equity: (900)\nCash dividends declared ($1.70 per share) (fiscal 2025, year ended May 31, 2025) \u2014 Accumulated Deficit: (4,743) | Total Stockholders\u2019 Equity: (4,743)\nOther, net (fiscal 2025, year ended May 31, 2025) \u2014 Preferred and Common Stock and Additional Paid in Capital Amount: (37) | Accumulated Other Comprehensive Loss: 257 | Noncontrolling Interests: (201) | Total Stockholders\u2019 Equity: 19\nNet income (fiscal 2025, year ended May 31, 2025) \u2014 Accumulated Deficit: 12,443 | Noncontrolling Interests: 184 | Total Stockholders\u2019 Equity: 12,627\nBalances as of May 31, 2025 \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 2,807 | Preferred and Common Stock and Additional Paid in Capital Amount: 37,107 | Accumulated Deficit: (15,481) | Accumulated Other Comprehensive Loss: (1,175) | Noncontrolling Interests: 518 | Total Stockholders\u2019 Equity: 20,969\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much did Oracle pay in dividends to its stockholders in fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "**Oracle paid dividends on two classes of stock in fiscal 2026 (the year ended May 31, 2026), and the excerpts give two different figures for the preferred stock dividends.**\n\n**Management\u0027s Discussion and Analysis figures**\n- Oracle declared and paid cash dividends of $1,263.89 per share on its Mandatory Convertible Preferred Stock, totaling $63 million for fiscal 2026 (Source: ORCL-10K-2026.html, PART II \u003E Item 7. Management\u0027s Discussion and Analysis of Financial Condition and Results of Operations).\n- It also declared and paid $2.00 per share on its common stock, totaling $5.7 billion for fiscal 2026 (Source: ORCL-10K-2026.html, PART II \u003E Item 7. Management\u0027s Discussion and Analysis of Financial Condition and Results of Operations).\n\n**Consolidated Statements of Stockholders\u0027 Equity figures (in millions)**\n- The line \u0022Common stock dividends ($2.00 per share)\u0022 shows $5,725 million for the year ended May 31, 2026 (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules).\n- The line \u0022Preferred stock dividends ($1,263.89 per share)\u0022 shows $103 million for the year ended May 31, 2026 (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules).\n\n**The preferred stock discrepancy**\n- The $103 million preferred figure in the equity statement differs from the $63 million that the MD\u0026A describes as declared and paid.\n- The excerpts don\u0027t explain why the two amounts differ."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "States 1,263.89, 63, 5.7, 103 instead of the expected 5,787 million; also states 5,725 (common, declared), 2.00 (per share)."
+        },
+        "metadata": {
+          "Grader note": "trap 5,725, 2.00"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 12,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "(5,787) at rank 12 of 25 - outside the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 1,263.89 from excerpts 1 (narrative), 2 (narrative), 3 (equity_statement), 63 from excerpt 2 (narrative), 2.00 from excerpts 1 (narrative), 2 (narrative), 3 (equity_statement), 5.7 from excerpt 2 (narrative), 5,725 from excerpt 3 (equity_statement), 103 from excerpt 3 (equity_statement); the expected 5,787 was in none of the excerpts - retrieval missed it."
+        },
+        "metadata": {
+          "Stated 1,263.89": "excerpt 1 (narrative, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Stockholders\u0027 Equity): \u0022During fiscal 2026, the Board declared cash dividends of $1,263.89 per share of our outstanding Mandatory Convertible Preferred Stock which we paid during the s...\u0022; excerpt 2 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...sh Dividends: In fiscal 2026, we declared and paid aggregate cash dividends of $1,263.89 per share of outstanding Mandatory Convertible Preferred Stock that tot...\u0022; excerpt 3 (equity_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Preferred stock dividends ($1,263.89 per share) (fiscal 2026, year ended May 31, 2026) \u2014 Accumulated Deficit: (103) | Total Stockholders\u2019 Equity: (103)\u0022",
+          "Stated 63": "excerpt 2 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...89 per share of outstanding Mandatory Convertible Preferred Stock that totaled $63 million and $2.00 per share of outstanding common stock that totaled $5.7 bil...\u0022",
+          "Stated 2.00": "excerpt 1 (narrative, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Stockholders\u0027 Equity): \u0022...eriod. During fiscal 2026, 2025 and 2024, the Board declared cash dividends of $2.00, $1.70 and $1.60 per share of our outstanding common stock, respectively, w...\u0022; excerpt 2 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...outstanding Mandatory Convertible Preferred Stock that totaled $63 million and $2.00 per share of outstanding common stock that totaled $5.7 billion. In June 20...\u0022; excerpt 3 (equity_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Common stock dividends ($2.00 per share) (fiscal 2026, year ended May 31, 2026) \u2014 Accumulated Deficit: (5,725) | Total Stockholders\u2019 Equity: (5,725)\u0022",
+          "Stated 5.7": "excerpt 2 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...taled $63 million and $2.00 per share of outstanding common stock that totaled $5.7 billion. In June 2026, our Board of Directors (the Board) declared a quarter...\u0022",
+          "Stated 5,725": "excerpt 3 (equity_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Common stock dividends ($2.00 per share) (fiscal 2026, year ended May 31, 2026) \u2014 Accumulated Deficit: (5,725) | Total Stockholders\u2019 Equity: (5,725)\u0022",
+          "Stated 103": "excerpt 3 (equity_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Preferred stock dividends ($1,263.89 per share) (fiscal 2026, year ended May 31, 2026) \u2014 Accumulated Deficit: (103) | Total Stockholders\u2019 Equity: (103)\u0022",
+          "Expected 5,787": "in none of the excerpts - retrieval missed it"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 9.4529803,
+        "model": "claude-opus-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 4608,
+          "outputTokenCount": 1009,
+          "totalTokenCount": 5617,
+          "cachedInputTokenCount": 0
+        }
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-opus-5-5",
+    "effort:Medium/Medium",
+    "kind:figure",
+    "has traps",
+    "company:ORCL",
+    "statement:none",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}

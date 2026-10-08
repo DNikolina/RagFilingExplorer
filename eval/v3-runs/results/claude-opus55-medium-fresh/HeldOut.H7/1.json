@@ -1,0 +1,113 @@
+{
+  "scenarioName": "HeldOut.H7",
+  "iterationName": "1",
+  "executionName": "claude-opus55-medium-fresh",
+  "creationTime": "2026-10-08T18:36:24.3849581Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF OPERATIONS\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions, except per share data) Year Ended May 31,\nOperating expenses \u003E Total operating expenses \u2014 2026: 46,751 | 2025: 39,721 | 2024: 37,608\nOperating income \u2014 2026: 20,606 | 2025: 17,678 | 2024: 15,353\nInterest expense \u2014 2026: (4,599) | 2025: (3,578) | 2024: (3,514)\nNon-operating income (expenses), net \u2014 2026: 3,547 | 2025: 60 | 2024: (98)\nIncome before income taxes \u2014 2026: 19,554 | 2025: 14,160 | 2024: 11,741\nProvision for income taxes \u2014 2026: 2,467 | 2025: 1,717 | 2024: 1,274\nNet income \u2014 2026: $17,087 | 2025: $12,443 | 2024: $10,467\nPreferred stock dividends \u2014 2026: 103\nNet income available to common shareholders \u2014 2026: $16,984 | 2025: $12,443 | 2024: $10,467\nEarnings per share attributable to common shareholders:\nEarnings per share attributable to common shareholders \u003E Basic \u2014 2026: $5.94 | 2025: $4.46 | 2024: $3.82\nEarnings per share attributable to common shareholders \u003E Diluted \u2014 2026: $5.83 | 2025: $4.34 | 2024: $3.71\nWeighted average common shares outstanding:\nWeighted average common shares outstanding \u003E Basic \u2014 2026: 2,860 | 2025: 2,789 | 2024: 2,744\nWeighted average common shares outstanding \u003E Diluted \u2014 2026: 2,914 | 2025: 2,866 | 2024: 2,823\n\n(1)\n\nExclusive of amortization of intangible assets, which is shown separately.\n\nSee notes to consolidated financial statements.\n\n[Table of Contents](#toc_page)\n\nORACLE CORPORATION\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Earnings Per Share ---\r\n\u0060\u0060\u0060\r\n14.\n\nEARNINGS PER SHARE\n\nBasic earnings per share is computed by dividing net income available to common shareholders for the period by the weighted-average number of common shares outstanding during the period. Diluted earnings per share is computed by dividing net income available to common shareholders for the period by the weighted-average number of common shares outstanding during the period, plus the dilutive effect of outstanding restricted stock-based awards, stock options and shares issuable under the Purchase Plan as applicable pursuant to the treasury stock method and the dilutive effect of Mandatory Convertible Preferred Stock pursuant to the if-converted method. The following table sets forth the computation of basic and diluted earnings per share attributable to common shareholders:\n\n(in millions, except per share data) Year Ended May 31,\nNet income \u2014 2026: $17,087 | 2025: $12,443 | 2024: $10,467\nPreferred stock dividends \u2014 2026: 103\nNet income available to common shareholders \u2014 2026: $16,984 | 2025: $12,443 | 2024: $10,467\nWeighted-average common shares outstanding \u2014 2026: 2,860 | 2025: 2,789 | 2024: 2,744\nDilutive effect of employee stock plans \u2014 2026: 54 | 2025: 77 | 2024: 79\nDilutive weighted-average common shares outstanding \u2014 2026: 2,914 | 2025: 2,866 | 2024: 2,823\nBasic earnings per share attributable to common shareholders \u2014 2026: $5.94 | 2025: $4.46 | 2024: $3.82\nDiluted earnings per share attributable to common shareholders \u2014 2026: $5.83 | 2025: $4.34 | 2024: $3.71\nStock awards and shares excluded from calculation(1) \u2014 2026: 31 | 2025: 23 | 2024: 27\n\n(1)\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF OPERATIONS\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions, except per share data) Year Ended May 31,\nRevenues:\nRevenues \u003E Cloud \u2014 2026: $33,989 | 2025: $24,506 | 2024: $19,774\nRevenues \u003E Software \u2014 2026: 24,541 | 2025: 24,724 | 2024: 24,690\nRevenues \u003E Hardware \u2014 2026: 3,084 | 2025: 2,936 | 2024: 3,066\nRevenues \u003E Services \u2014 2026: 5,743 | 2025: 5,233 | 2024: 5,431\nRevenues \u003E Total revenues \u2014 2026: 67,357 | 2025: 57,399 | 2024: 52,961\nOperating expenses:\nOperating expenses \u003E Cloud and software(1) \u2014 2026: 17,597 | 2025: 11,569 | 2024: 9,427\nOperating expenses \u003E Hardware(1) \u2014 2026: 868 | 2025: 782 | 2024: 891\nOperating expenses \u003E Services(1) \u2014 2026: 4,556 | 2025: 4,576 | 2024: 4,825\nOperating expenses \u003E Sales and marketing(1) \u2014 2026: 8,331 | 2025: 8,651 | 2024: 8,274\nOperating expenses \u003E Research and development \u2014 2026: 10,272 | 2025: 9,860 | 2024: 8,915\nOperating expenses \u003E General and administrative \u2014 2026: 1,618 | 2025: 1,602 | 2024: 1,548\nOperating expenses \u003E Amortization of intangible assets \u2014 2026: 1,671 | 2025: 2,307 | 2024: 3,010\nOperating expenses \u003E Restructuring and other \u2014 2026: 1,838 | 2025: 374 | 2024: 718\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nCash Dividends: In fiscal 2026, we declared and paid aggregate cash dividends of $1,263.89 per share of outstanding Mandatory Convertible Preferred Stock that totaled $63 million and $2.00 per share of outstanding common stock that totaled $5.7 billion. In June 2026, our Board of Directors (the Board) declared a quarterly cash dividend of $1,625 per share of our outstanding Mandatory Convertible Preferred Stock and $0.50 per share of our outstanding common stock. The Mandatory Convertible Preferred Stock dividend is payable on July 15, 2026 to stockholders of record as of the close of business on July 1, 2026 and the common stock dividend is payable on July 24, 2026 to stockholders of record as of the close of business on July 10, 2026. Future declarations of dividends on Oracle securities and the establishment of future record and payment dates for our common stock are subject to the final determination of the Board.\n\nMandatory Convertible Preferred Stock: On February 5, 2026, we issued 100,000,000 depositary shares, representing 50,000 shares of our 6.50% Series D Mandatory Convertible Preferred Stock (Mandatory Convertible Preferred Stock). We received cash proceeds of $5.0 billion, net of issuance costs. The other terms and conditions of the Mandatory Convertible Preferred Stock are set forth in the Certificate of Designations, which is incorporated by reference herein as Exhibit 3.03.\n\nCommon Stock: On February 2, 2026, we entered into an equity distribution agreement with \u200Ecertain sales agents party thereto, pursuant to which we may sell shares of our common stock having aggregate sales proceeds of up to $20 billion from time to time through an \u201Cat-the-market\u201D offering program (the ATM Program). As of May 31, 2026, we have not sold any shares of our common stock under the ATM Program.\n\n[Table of Contents](#toc_page)\n\nSenior Notes: During fiscal 2026, we issued a total of $43.0 billion par value of senior notes comprising the following:\n\n\u2022\n\n$500 million of floating rate notes due February 2029;\n\n\u2022\n\n$3.0 billion of 4.55% senior notes due February 2029;\n\n\u2022\n\n$3.0 billion of 4.45% senior notes due September 2030;\n\n\u2022\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\n[Table of Contents](#toc_page)\n\nOur non-operating income, net increased by $3.5 billion in reported currency in fiscal 2026 relative to fiscal 2025 primarily due to a $2.7 billion gain from the sale of our investment in Ampere Computing Holdings LLC (Ampere), a $380 million gain from other investments, net, a $205 million increase in gains from our investment portfolio related to our deferred compensation plan included in other income, net and a $202 million increase in interest income. Refer to Note 1 of Notes to Consolidated Financial Statements included elsewhere in this Annual Report for additional information on the Ampere transaction.\n\nProvision for Income Taxes: Our effective income tax rates for each of the periods presented were the result of the mix of income earned and losses incurred in various tax jurisdictions that apply a broad range of income tax rates. Refer to Note 12 of Notes to Consolidated Financial Statements included elsewhere in this Annual Report for a discussion regarding the differences between the effective income tax rates as presented for the periods below and the U.S. federal statutory income tax rates that were in effect during these periods. Future effective tax rates could be adversely affected by an unfavorable shift of earnings weighted to jurisdictions with higher tax rates, by unfavorable changes in tax laws and regulations, by adverse rulings in tax-related litigation, or by shortfalls in stock-based compensation realized by employees relative to stock-based compensation that was recorded for book purposes, among others.\n\n(Dollars in millions) Year Ended May 31,\nProvision for income taxes \u2014 2026: $2,467 | Percent Change Actual: 44% | Percent Change Constant: 39% | 2025: $1,717\nEffective tax rate \u2014 2026: 12.6% | 2025: 12.1%\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Oracle\u0027s diluted earnings per share for fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s diluted earnings per share attributable to common shareholders were $5.83 per share for the year ended May 31, 2026; the table states amounts \u0022in millions, except per share data,\u0022 so this figure is in dollars per share (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules). The same $5.83 figure appears on the \u0022Diluted earnings per share attributable to common shareholders\u0022 line in the Earnings Per Share note (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Earnings Per Share)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected $5.83."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "5.83 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 5.83 from excerpts 1 (income_statement), 2 (narrative)."
+        },
+        "metadata": {
+          "Stated 5.83": "excerpt 1 (income_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Earnings per share attributable to common shareholders \u003E Diluted \u2014 2026: $5.83 | 2025: $4.34 | 2024: $3.71\u0022; excerpt 2 (narrative, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Earnings Per Share): \u0022Diluted earnings per share attributable to common shareholders \u2014 2026: $5.83 | 2025: $4.34 | 2024: $3.71\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 3.9341734,
+        "model": "claude-opus-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 4016,
+          "outputTokenCount": 368,
+          "totalTokenCount": 4384,
+          "cachedInputTokenCount": 0
+        }
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-opus-5-5",
+    "effort:Medium/Medium",
+    "kind:figure",
+    "has traps",
+    "company:ORCL",
+    "statement:income_statement",
+    "ollama:0.40.0"
+  ],
+  "formatVersion": 1
+}
