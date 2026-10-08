@@ -25,6 +25,7 @@ public class EvaluationSettingsTests
         // The defaults are what a plain run does - Load reads the same file, with this process's environment over it.
         EvaluationSettings settings = With();
 
+        Assert.That(settings.ChatModel, Is.EqualTo(ChatModel.Local));
         Assert.That(settings.Graders, Is.EqualTo(Graders.Strict));
         Assert.That(settings.UsesStrictGrade, Is.True);
         Assert.That(settings.JudgeNames, Is.Empty, "judges are listed, but only asked when Graders includes them");
@@ -82,6 +83,26 @@ public class EvaluationSettingsTests
     public void Validate_JudgeWithNoCache_Fails(string graders)
     {
         Assert.That(() => With(("Graders", graders), ("NoCache", "true")), Throws.InvalidOperationException.With.Message.Contains("judge cached answers"));
+    }
+
+    [TestCase("judge")]
+    [TestCase("both")]
+    public void Validate_ClaudeWithTheJudge_Fails(string graders)
+    {
+        Assert.That(() => With(("ChatModel", "Claude"), ("Graders", graders)), Throws.InvalidOperationException.With.Message.Contains("grade Claude's answers strictly"));
+    }
+
+    [Test]
+    public void Validate_ClaudeWithUnload_Fails()
+    {
+        Assert.That(() => With(("ChatModel", "Claude"), ("NoCache", "true"), ("UnloadEachQuestion", "true")),
+            Throws.InvalidOperationException.With.Message.Contains("only an Ollama model is unloaded"));
+    }
+
+    [Test]
+    public void Validate_ClaudeStrictFresh_Allowed()
+    {
+        Assert.That(With(("ChatModel", "claude"), ("NoCache", "true")).ChatModel, Is.EqualTo(ChatModel.Claude));
     }
 
     [Test]

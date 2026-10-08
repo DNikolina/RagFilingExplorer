@@ -6,6 +6,7 @@ using Microsoft.Extensions.AI.Evaluation.Reporting;
 using Microsoft.Extensions.AI.Evaluation.Reporting.Formats.Html;
 using Microsoft.Extensions.AI.Evaluation.Reporting.Storage;
 using OllamaSharp;
+using RagFilingExplorer.Claude;
 using RagFilingExplorer.Local.Evaluation.Evaluators;
 using RagFilingExplorer.Local.Evaluation.Grading;
 using RagFilingExplorer.Local.Evaluation.Judging;
@@ -23,7 +24,7 @@ internal sealed record SelectedQuestion(QuestionSet Set, string Question, Expect
 /// where each stated figure was found.</summary>
 internal sealed record QuestionOutcome(
     string Set, string Id, StrictGrade? Grade, int? Rank, string Answer, TimeSpan Elapsed, string FigureSource = "", string FigureTrace = "",
-    IReadOnlyDictionary<string, bool>? JudgePassed = null);
+    IReadOnlyDictionary<string, bool>? JudgePassed = null, UsageDetails? Usage = null);
 
 /// <summary>
 /// A chat client whose inner client is switched per scenario: the app's answer service is built once, and each question
@@ -60,11 +61,13 @@ internal sealed class ScenarioChatClient : IChatClient
 /// unloads the chat model before every question, so none starts from a prompt prefix Ollama still holds - a check on
 /// whether that reuse changes answers. <paramref name="judges"/> adds Microsoft's Quality
 /// evaluators, judged by the same chat model (<see cref="JudgeSetup"/>); <paramref name="strictGrade"/> false
-/// leaves the strict grade out (Graders: judge).
+/// leaves the strict grade out (Graders: judge). <paramref name="chatModel"/> Claude answers through the Claude API
+/// (RagFilingExplorer.Claude's settings and client) instead of Ollama - EvaluationSettings refuses the judges and
+/// unloading with it.
 /// </summary>
 internal sealed class EvaluationRunner(
     DirectoryInfo repoRoot, string storageRoot, string executionName, TimeSpan? cacheTimeToLive, bool unloadBeforeEachQuestion = false,
-    IReadOnlyCollection<string>? judges = null, bool strictGrade = true)
+    IReadOnlyCollection<string>? judges = null, bool strictGrade = true, ChatModel chatModel = ChatModel.Local)
 {
     public static readonly IReadOnlyList<QuestionSet> AllSets =
     [
@@ -150,6 +153,18 @@ internal sealed class EvaluationRunner(
         (_, OllamaApiClient chat) = AppComposition.CreateOllamaClients(settings.Ollama);
         IReadOnlyCollection<string> judgeNames = judges ?? [];
         JudgeContextChatClient judgeChat = new(chat);
+        // The answering client is the reporting configuration's, so the library's cache key carries its provider and
+        // model id, and each run is tagged with the model that answered.
+        IChatClient answerChat = judgeChat;
+        ChatModelOptions? answerOptions = null;
+        List<string> runTags = [$"chat:{settings.Ollama.ChatModel}"];
+        if (chatModel == ChatModel.Claude)
+        {
+            ClaudeSettings claude = ClaudeSettings.Load(Path.Combine(repoRoot.FullName, "RagFilingExplorer.Claude"));
+            (answerChat, answerOptions) = await ClaudeChat.CreateAsync(claude);
+            runTags = [$"chat:{claude.Model}", $"effort:{claude.LookupEffort}/{claude.SynthesisEffort}"];
+        }
+
         ReportingConfiguration reporting = DiskBasedReportingConfiguration.Create(
             storageRootPath: storageRoot,
             evaluators:
@@ -159,13 +174,14 @@ internal sealed class EvaluationRunner(
                 new FigureSourceEvaluator(settings.Retrieval.GenerationTopK),
                 .. JudgeSetup.Evaluators(judgeNames),
             ],
-            chatConfiguration: new ChatConfiguration(judgeChat),
+            chatConfiguration: new ChatConfiguration(answerChat),
             enableResponseCaching: cacheTimeToLive is not null,
             timeToLiveForCacheEntries: cacheTimeToLive,
-            executionName: executionName);
+            executionName: executionName,
+            tags: runTags);
 
         ScenarioChatClient scenarioChat = new();
-        using RagRuntime runtime = await AppComposition.OpenExistingIndexAsync(settings, repoRoot, scenarioChat);
+        using RagRuntime runtime = await AppComposition.OpenExistingIndexAsync(settings, repoRoot, scenarioChat, answerOptions);
         // The Ollama build serving this run, tagged on every case (QuestionTags) - an update can change answers. Asked
         // after OpenExistingIndexAsync, whose readiness check turns "Ollama isn't running" into a message naming the fix.
         string ollamaVersion = (await chat.GetVersionAsync(cancellationToken)).ToString();
@@ -200,9 +216,13 @@ internal sealed class EvaluationRunner(
 
             RagAnswer answer = await runtime.AnswerService.AskAsync(question, settings.Retrieval.VerboseSearchTopK, cancellationToken);
             StringBuilder text = new();
+            // The tokens the answer took - a cached answer's as first asked; the stored result's chat details hold them per
+            // call with the latency.
+            UsageDetails usage = new();
             await foreach (ChatResponseUpdate update in answer.AnswerStream.WithCancellation(cancellationToken))
             {
                 text.Append(update.Text);
+                update.Contents.OfType<UsageContent>().ToList().ForEach(u => usage.Add(u.Details));
             }
 
             string answerText = text.ToString().Trim();
@@ -241,13 +261,13 @@ internal sealed class EvaluationRunner(
                 .ToDictionary(m => m.Name, m => m.Interpretation?.Failed != true);
             double? rank = result.Get<NumericMetric>(RetrievalRankEvaluator.MetricName).Value;
             StringMetric source = result.Get<StringMetric>(FigureSourceEvaluator.MetricName);
-            QuestionOutcome outcome = new(setName, entry.Id, grade, rank is null ? null : (int)rank, answerText, clock.Elapsed, source.Value!, FigureSourceEvaluator.TraceText(source), judgePassed);
+            QuestionOutcome outcome = new(setName, entry.Id, grade, rank is null ? null : (int)rank, answerText, clock.Elapsed, source.Value!, FigureSourceEvaluator.TraceText(source), judgePassed, usage);
             string graded = grade is null ? "not strictly graded" : grade.Status + (grade.Note.Length > 0 ? $" ({grade.Note})" : "");
             progress($"{setName}.{entry.Id}: {graded}, rank {outcome.Rank?.ToString() ?? "-"}, "
                 + $"figures {outcome.FigureSource}, "
                 + string.Concat(result.Metrics.Values.OfType<NumericMetric>().Where(m => m.Name != RetrievalRankEvaluator.MetricName)
                     .Select(m => $"{m.Name} {m.Value?.ToString() ?? "error"}, "))
-                + $"{clock.Elapsed.TotalSeconds:F0}s");
+                + $"tokens {usage.InputTokenCount ?? 0}+{usage.OutputTokenCount ?? 0}, {clock.Elapsed.TotalSeconds:F0}s");
             return outcome;
         }
     }

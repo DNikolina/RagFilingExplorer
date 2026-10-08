@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 401 offline unit tests (176 at v1.0) + 166 offline evaluation tests (v3) |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 401 offline unit tests (176 at v1.0) + 172 offline evaluation tests |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -73,7 +73,8 @@ the .NET evaluators made the source of truth, the Python tools kept as the recor
 comparing paid services with the local stack) starts only when the user asks.
 **v4 planned (user, 2026-10-08):** paid services against the local stack, starting with the Claude API as the chat
 model only (same embeddings, index and retrieval), in a separate `RagFilingExplorer.Claude` project - Local stays
-zero-cost. Nothing built yet. Decision-Log.md, "paid services (v4)".
+zero-cost. Steps 1-3 done (branch `v4`): the chat model's options passed in, the Claude app, and the evaluation's
+`ChatModel` (Local or Claude; the cache keyed by model). No paid call yet. Decision-Log.md, "paid services (v4)".
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the

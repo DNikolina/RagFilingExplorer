@@ -62,14 +62,14 @@ public class EvaluationRunTests
 
         EvaluationRunner runner = new(Repo, storage, execution,
             settings.NoCache ? null : TimeSpan.FromDays(settings.CacheTimeToLiveDays),
-            settings.UnloadEachQuestion, settings.JudgeNames, settings.UsesStrictGrade);
+            settings.UnloadEachQuestion, settings.JudgeNames, settings.UsesStrictGrade, settings.ChatModel);
         List<QuestionOutcome> outcomes = await runner.RunAsync(sets, settings.OnlyIds.ToHashSet(), line => TestContext.Progress.WriteLine(line));
 
         // What the model reads - Retrieval:GenerationTopK, from the app's appsettings.json.
         int generationTopK = AppSettings.Load(Path.Combine(Repo.FullName, "RagFilingExplorer.Local")).Retrieval.GenerationTopK;
         StringBuilder summary = new();
         List<string> differences = [];
-        summary.AppendLine($"Execution {execution}: {outcomes.Count} questions, {outcomes.Sum(o => o.Elapsed.TotalMinutes):F0} min, graders {settings.Graders}"
+        summary.AppendLine($"Execution {execution}: {outcomes.Count} questions, {outcomes.Sum(o => o.Elapsed.TotalMinutes):F0} min, chat model {settings.ChatModel}, graders {settings.Graders}"
             + (settings.JudgeNames.Count > 0 ? $" ({string.Join(", ", settings.JudgeNames)})" : "")
             + (settings.NoCache ? ", every answer asked afresh (no cache)" : "") + (settings.UnloadEachQuestion ? ", the model unloaded before each" : ""));
         foreach (IGrouping<string, QuestionOutcome> set in outcomes.GroupBy(o => o.Set))
@@ -103,6 +103,9 @@ public class EvaluationRunTests
                 }
             }
         }
+
+        // A Claude run's cost: thinking counts as output. A cached answer's tokens are those it took when first asked.
+        summary.AppendLine($"Tokens: {outcomes.Sum(o => o.Usage?.InputTokenCount ?? 0):N0} input, {outcomes.Sum(o => o.Usage?.OutputTokenCount ?? 0):N0} output.");
 
         // Every figure that's in none of the model's excerpts on a question that doesn't ask for a calculation.
         List<QuestionOutcome> untraced = outcomes.Where(o => o.FigureSource == "untraced").ToList();

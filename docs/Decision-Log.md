@@ -3523,3 +3523,19 @@ the UTF-8 console setup is `Utf8Console`, used by both apps; `InternalsVisibleTo
 401 + 166 tests (a refusal test; `ClaudeSettingsTests` - the shipped file binds, None refused for either effort, a
 missing key named, an override applied); without a key the Claude app stops with one line naming `ANTHROPIC_API_KEY`;
 the local app answers as before. No call to the API yet - that needs the user's key (step 5).
+
+**Step 3 - done (2026-10-08).** `evalsettings.json`'s `ChatModel` - `Local` or `Claude` (`Evaluation__ChatModel=Claude`
+for a run); the evaluation references the Claude project and builds Claude's client from `claudesettings.json`. **The
+cache key needed no code:** read from the library's source (`ReportingConfiguration.GetCachingKeysForChatClient`), every
+cache key already holds the reporting configuration's chat client's provider and model id - `ollama` + `llama3.1:8b`
+today, `anthropic` + the Claude model id from the SDK adapter's `ChatClientMetadata` - so the Claude client is made that
+client (the Ollama judge wrapper stays only on Local) and a Claude run can't replay llama's answers, nor Sonnet Opus's;
+effort is in the key too, through `ChatOptions.Reasoning`. `ResponseCacheKeyTests` holds both. **Tokens and latency were
+already recorded:** each stored result's `chatDetails` holds every call's tokens, latency, model and cache hit; the run now
+also totals input and output tokens in the summary and prints each answer's on its progress line (a cached answer's
+tokens are those it first took). Each case is tagged `chat:<model>` (and `effort:<lookup>/<synthesis>` for Claude),
+alongside `ollama:<version>`, which still names the embeddings' build. Refused at load with Claude: the judge (the local
+model with Ollama's context option; on Claude a second billed call per answer) and `UnloadEachQuestion`. Checked: 401 +
+172 tests; a full cached replay on Local - 102 answers from the cache, 0 min, identical to `structured-hybrid-v3-baseline`
+102/102 (so Local's cache keys are unchanged), tagged `chat:llama3.1:8b`; a Claude run with no key stops on the key check
+before asking anything.

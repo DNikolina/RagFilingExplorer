@@ -1,5 +1,6 @@
 {
   "Evaluation": {
+    "ChatModel": "Local",
     "Graders": "strict",
     "Judges": "equivalence",
     "Execution": "",

@@ -55,6 +55,7 @@ the defaults clean.
 
 | Key | Meaning |
 |---|---|
+| `ChatModel` | `Local` (default, the app's Ollama model) or `Claude` (`RagFilingExplorer.Claude/claudesettings.json`; needs `ANTHROPIC_API_KEY`, every uncached answer billed; strict grade only) |
 | `Graders` | `strict` (default), `judge`, or `both` - the judge is a model; answer rank and figure source always run |
 | `Judges` | `equivalence`, `groundedness` (used when `Graders` includes the judge) |
 | `Execution` | the run's name; empty = `structured-hybrid-<yyyyMMddTHHmm>`. Reusing a name overwrites the questions asked again and keeps the rest (the summary lists them) - use a new name to keep runs apart |

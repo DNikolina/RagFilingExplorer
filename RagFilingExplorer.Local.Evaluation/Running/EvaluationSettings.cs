@@ -17,6 +17,14 @@ internal sealed class EvaluationSettings
     public const string FileName = "evalsettings.json";
     public const string Section = "Evaluation";
 
+    /// <summary>
+    /// Which chat model answers: Local (the app's Ollama model, appsettings.json) or Claude (RagFilingExplorer.Claude's
+    /// claudesettings.json; the key from ANTHROPIC_API_KEY, every answer billed). Embeddings, the index and retrieval are
+    /// Local's either way. The response cache is keyed by the model (the library adds the chat client's provider and
+    /// model id), so one model's cached answers never replay for another.
+    /// </summary>
+    public required ChatModel ChatModel { get; set; }
+
     /// <summary>Which grader(s) a run uses: strict (the strict grade), judge (the model judges in <see cref="Judges"/>),
     /// or both. Answer rank and figure source always run - they need no model. Bound as an enum, ignoring case, so a
     /// typo fails at load.</summary>
@@ -116,6 +124,18 @@ internal sealed class EvaluationSettings
             errors.Add($"Graders \"{Graders}\" with NoCache would reload the model around every answer - judge cached answers instead");
         }
 
+        // The judge is the local model with Ollama's context option, and unloading is Ollama's - neither applies to
+        // Claude, and a judge there would bill a second model call per answer.
+        if (ChatModel == ChatModel.Claude && UsesJudges)
+        {
+            errors.Add($"Graders \"{Graders}\" with ChatModel Claude - the judge is the local model's; grade Claude's answers strictly");
+        }
+
+        if (ChatModel == ChatModel.Claude && UnloadEachQuestion)
+        {
+            errors.Add("UnloadEachQuestion with ChatModel Claude - only an Ollama model is unloaded");
+        }
+
         if (CacheTimeToLiveDays <= 0)
         {
             errors.Add("CacheTimeToLiveDays must be positive");
@@ -139,4 +159,11 @@ internal enum Graders
     Strict,
     Judge,
     Both,
+}
+
+/// <summary>The values <see cref="EvaluationSettings.ChatModel"/> accepts.</summary>
+internal enum ChatModel
+{
+    Local,
+    Claude,
 }
