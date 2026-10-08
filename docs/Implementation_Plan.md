@@ -78,7 +78,8 @@ zero-cost. Steps 1-4 done (branch `v4`): the chat model's options passed in, the
 read (llama 84/102); every remaining miss a retrieval miss. Sonnet 5.5 medium: 85/102 strictly, 96/102 read plus 3
 hedges, ~$0.95. Opus 5.5 low: 90/102 strictly, 98/102 read - as medium, ~4% cheaper. Variance pass (Opus medium, no cache): wording varies, answers don't - 1 grade changed,
 98/102 read again. ~$7.30 spent. Strict grader extended (a lookalike named as the contrast passes; a date's day
-isn't a figure): Opus medium 97, Opus low 98, Sonnet 95 strictly. Decision-Log.md, "paid services (v4)".
+isn't a figure): Opus medium 97, Opus low 98, Sonnet 95 strictly. **Batch 1 complete.** Batch 2 planned: a paid judge
+(Claude scoring Equivalence on cached answers, against the strict grade) - Decision-Log.md, "Batch 2 - a paid judge". Decision-Log.md, "paid services (v4)".
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the

@@ -3659,3 +3659,64 @@ from the cache, $0: **Opus medium 97/102, Opus low 98/102, Sonnet 95/102** stric
 98, 96 + 3 hedges). The variance pass was asked with no cache and can't be replayed without asking again; its stored
 grades predate the rules (90/102) - regraded offline, 6 `check`s become `reliable` (96/102). 409 + 180 tests
 (`StrictGraderTests`, 8).
+
+**Batch 1 complete (2026-10-08):** README "Results: Claude against llama3.1:8b". `v4` not pushed (user).
+
+### Batch 2 - a paid judge: PLANNED (user, 2026-10-08)
+
+**Why.** v3's local judge - Microsoft's Equivalence evaluator scored by `llama3.1:8b` - passed 14 of the 18 answers the
+strict grade fails, rating $27,034M against $26,445M "a slight difference" ("Step 6 - the local judge"); Microsoft's docs
+say its prompts are tuned for GPT-4o and poor with small local models. Batch 2 asks whether a capable judge does what
+llama couldn't: tell a wrong figure from the right one, and settle the `check`s that are still left to a reader
+(Sonnet's hedges V1 and Q23, declines stating other periods' figures H8 and R3, H11's second city, H34's rounded
+figure). The strict grade stays the grade; the judge is measured against it and against the hand-read verdicts of
+batch 1, which are recorded above.
+
+**What the code does today, read 2026-10-08.**
+- **The judge is the answering model.** The evaluators get the scenario's chat configuration - the reporting
+  configuration's client, wrapped in its response cache - which is the client that answered: llama judges llama.
+  `EvaluationSettings` refuses a judge with `ChatModel: Claude`.
+- **That client is also the answers' cache key** (batch 1, step 3): making the judge the reporting configuration's client
+  would change every cached answer's key, and the cached answers - llama's two hours, Claude's paid runs - would be asked
+  again. The judge needs its own client, beside the answering one.
+- **The library's judges send a temperature** (dotnet/extensions 10.10.0 source): Equivalence `Temperature = 0`,
+  `TopP = 1`, no output limit; Groundedness `Temperature = 0`, `MaxOutputTokens = 800`. Current Claude models reject a
+  non-default temperature with a 400, so a Claude judge's client must drop it - as `JudgeContextChatClient` adds Ollama's
+  `num_ctx` for the local judge today. An output limit of 800 must leave room for thinking, or be raised for Claude.
+- **The ground truth is the figure alone** ("$26,445 million", `JudgeSetup.GroundTruth`); a negative's is "The filings
+  don't contain this information...". `ScoreOnlyEquivalenceEvaluator` reads a score written in words (llama's habit) -
+  likely unneeded for Claude, kept.
+
+**Decisions proposed (to confirm):**
+- **The judge model is its own setting** in `evalsettings.json` - `JudgeModel`: `Local` (today's: the answering Ollama
+  model) or a Claude model id - independent of `ChatModel`, so Claude can judge llama's cached answers and llama's runs
+  stay judgeable as before.
+- **Sonnet 5.5 judges first, Opus 5.5 second** - batch 1 found Sonnet nearly as good a reader at under half the price.
+  One effort level, Low: batch 1 found effort made no difference to reading.
+- **Self-judging is checked, not assumed away:** each Claude run is judged by both models, and every verdict is set
+  against the strict grade, which no model wrote.
+- **Judge only cached answers** - no new answers are asked in batch 2; only the judge's calls are billed.
+
+**Steps, each measured before the next:**
+1. **A separate judge client - no behaviour change.** How evaluators can be given their own chat client, and its calls
+   cached, is read from the library's source before building (expected route: the score-only wrapper pattern already
+   used for Equivalence, with the judge's calls cached through the library's disk cache provider). **Bar:** 409 + 180
+   tests; a cached replay of `structured-hybrid-v3-baseline` 102/102 from the cache and identical, and of the local
+   judge run with every judge call from the cache and its agreement report unchanged.
+2. **The Claude judge client:** drops temperature and top-p, no `num_ctx`, an output limit with room for thinking;
+   `JudgeModel` validated at load (the NoCache rule, written for Ollama's reloads, applies to the local judge only).
+   Offline tests for the settings and the options it sends. **Bar:** the tests; a smoke run judging two cached answers
+   (A10 wrong by llama, Q1 right) - cents.
+3. **Equivalence by Sonnet 5.5** over llama's `structured-hybrid-v3-baseline` (the 18 strict failures the local judge
+   passed 14 of) and over `claude-opus55-medium` and `claude-sonnet55-medium`; the agreement report
+   (`JudgeAgreementTests`) for each, every disagreement read. Then Opus 5.5 as the judge, if Sonnet's verdicts leave a
+   question open.
+4. **Groundedness, screened first** - never run in full locally (~100 s a call on CPU). On the 18 wrong answers and the
+   remaining `check`s, against the figure source; a full run only if the screen shows it adds something the figure
+   source doesn't.
+5. **Tests and docs:** README (the judge's results next to the strict grade), Design-FAQ ("why isn't a judge the
+   grade?" - updated with the paid judge's result), the plan.
+
+**Cost (estimated, per judged run of 102 answers):** Equivalence ~1,000 input tokens a call - Sonnet 5.5 ~$0.40, Opus 5.5
+~$0.80; Groundedness ~4,500 (the five excerpts) - Sonnet ~$1, Opus ~$2. Steps 2-4 as planned: ~$3-6. A judged run
+replayed from the cache is free. Each paid step is asked for before it runs.
