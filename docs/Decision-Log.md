@@ -3566,3 +3566,11 @@ a JSON file (`secrets.json`) - caught by an end-to-end check with a dummy key; t
 `claudesettings.json`'s provider, with a test for it. Checked: 406 + 172 tests; with a dummy secret both the app and the
 evaluation sent it and got the API's 401 ("invalid x-api-key"; no tokens billed), then the secret was cleared; no
 vulnerable packages (`Microsoft.Extensions.Configuration.UserSecrets` 10.0.12).
+
+Setting the key exposed two gaps. Ctrl+V at PowerShell's hidden `Read-Host` prompt stores the control character itself, so
+the saved key was one character, and the model check got a 400 with an empty body - which no `catch` handled, so the app
+crashed with a stack trace. Now a key holding a space or non-printable character stops startup naming a failed paste,
+before any call, and any other API error at the model check is a one-line startup message; the README's commands say to
+paste with a right-click and print the key's length. (Before that, the dummy-key check above cleared the store after the
+user had already saved the real key in it - a test of the secrets path must not use the project's own store.) 409 + 172
+tests (`ClaudeChatTests`).

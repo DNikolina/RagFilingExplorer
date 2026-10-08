@@ -236,10 +236,12 @@ Besides the local app's prerequisites, it needs:
 - **The index, built by the local app** (run it once) - this app never builds one. Ollama still runs: a question's
   embedding is still `nomic-embed-text`'s.
 - **An Anthropic API key, outside the repository** - it's public. In .NET user secrets (a file in your user profile),
-  typed at a hidden prompt so it stays out of your shell history:
+  typed at a hidden prompt so it stays out of your shell history - paste it there with a right-click (Ctrl+V types a
+  control character instead):
   ```powershell
   $s = Read-Host "Anthropic API key" -AsSecureString
   $k = [System.Net.NetworkCredential]::new("", $s).Password
+  "Key length: $($k.Length)"   # about 100+; 1 means the paste failed
   dotnet user-secrets set "Claude:ApiKey" $k --project RagFilingExplorer.Claude
   Remove-Variable k, s
   ```

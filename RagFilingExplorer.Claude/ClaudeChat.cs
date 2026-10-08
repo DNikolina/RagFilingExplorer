@@ -27,6 +27,14 @@ internal static class ClaudeChat
                 + "ANTHROPIC_API_KEY environment variable - never in a settings file, the repository is public.");
         }
 
+        // A key is printable ASCII with no spaces. Ctrl+V at a hidden PowerShell prompt stores the control character
+        // itself, which the API answers with a bare 400 - named here instead.
+        if (claude.ApiKey.Any(c => c is <= ' ' or > '~'))
+        {
+            throw new StartupException(
+                $"The Claude API key holds a space or non-printable character ({claude.ApiKey.Length} characters) - a failed paste? Set it again.");
+        }
+
         AnthropicClient client = new() { ApiKey = claude.ApiKey };
         try
         {
@@ -39,6 +47,10 @@ internal static class ClaudeChat
         catch (AnthropicNotFoundException ex)
         {
             throw new StartupException($"No Claude model '{claude.Model}' - check {ClaudeSettings.Section}:Model in {ClaudeSettings.FileName}.", ex);
+        }
+        catch (AnthropicApiException ex)
+        {
+            throw new StartupException($"The Claude API refused the model check ({ex.Message.ReplaceLineEndings(" ")}).", ex);
         }
 
         ChatModelOptions options = new(Temperature: null, claude.LookupEffort, claude.SynthesisEffort, claude.MaxOutputTokens);
