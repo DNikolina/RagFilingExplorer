@@ -21,6 +21,12 @@ internal static partial class IxTransformations
     [GeneratedRegex(@"^\d{1,3}(?:[,  ]?\d{3})*(?:\.\d+)?$|^\d+(?:\.\d+)?$")]
     private static partial Regex NumDotDecimalRegex();
 
+    [GeneratedRegex(@"\s+")]
+    private static partial Regex WhitespaceRunRegex();
+
+    [GeneratedRegex(@"(?:\b([a-z]+)\s+)?\b([a-z]+|\d+(?:\.\d+)?)\s+(year|month|day)s?\b")]
+    private static partial Regex DurationWordsRegex();
+
     /// <summary>The displayed text of a number fact to its unscaled, unsigned value.</summary>
     public static decimal ToNumber(string? format, string text)
     {
@@ -73,7 +79,7 @@ internal static partial class IxTransformations
     private static string? Local(string? format) => format is null ? null : format[(format.IndexOf(':') + 1)..].ToLowerInvariant();
 
     private static DateOnly ParseDate(string text, string pattern) =>
-        DateOnly.ParseExact(Regex.Replace(text.Replace(" ", " "), @"\s+", " ").Trim(), pattern, CultureInfo.InvariantCulture);
+        DateOnly.ParseExact(WhitespaceRunRegex().Replace(text.Replace(" ", " "), " ").Trim(), pattern, CultureInfo.InvariantCulture);
 
     // "three" -> 3, "15" -> 15; "no"/"none" -> 0 (ixt-sec numwordsen reads "No" as zero).
     private static decimal WordsToNumber(string text)
@@ -116,7 +122,7 @@ internal static partial class IxTransformations
     internal static string DurationFromWords(string text)
     {
         string years = "", months = "", days = "";
-        foreach (Match m in Regex.Matches(text.ToLowerInvariant().Replace('-', ' '), @"(?:\b([a-z]+)\s+)?\b([a-z]+|\d+(?:\.\d+)?)\s+(year|month|day)s?\b"))
+        foreach (Match m in DurationWordsRegex().Matches(text.ToLowerInvariant().Replace('-', ' ')))
         {
             string before = m.Groups[1].Value, number = m.Groups[2].Value;
             if (number.Contains('.'))

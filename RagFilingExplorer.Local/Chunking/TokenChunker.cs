@@ -18,7 +18,7 @@ internal sealed record PackedChunk(string Content, int Tokens, IReadOnlyList<int
 /// repeating its header rows on every piece, a row block between rows with its caption and context line repeated -
 /// so a chunk with a number always keeps the column/fiscal-year labels next to it.
 /// </summary>
-internal static class TokenChunker
+internal static partial class TokenChunker
 {
     // Short text at most this long is attached to a neighbouring chunk instead of becoming a near-empty
     // chunk of its own: a lead-in before an oversized table (a statement title, "(in millions)", a
@@ -29,9 +29,14 @@ internal static class TokenChunker
     // whole top-5 retrieval slot.
     private const int MaxAttachedTextTokens = 100;
 
-    private static readonly Regex CommaGroupedNumberRegex = new(@"\d{1,3}(,\d{3})+", RegexOptions.Compiled);
-    private static readonly Regex PeriodEndedRegex = new(@"\b(years?|months|weeks|quarters?)\s+ended\b", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private static readonly Regex BareYearCellRegex = new(@"^(fiscal\s+)?(19|20)\d{2}$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    [GeneratedRegex(@"\d{1,3}(,\d{3})+")]
+    private static partial Regex CommaGroupedNumberRegex();
+
+    [GeneratedRegex(@"\b(years?|months|weeks|quarters?)\s+ended\b", RegexOptions.IgnoreCase)]
+    private static partial Regex PeriodEndedRegex();
+
+    [GeneratedRegex(@"^(fiscal\s+)?(19|20)\d{2}$", RegexOptions.IgnoreCase)]
+    private static partial Regex BareYearCellRegex();
 
     public static List<(string Content, int Tokens)> Chunk(string body, Tokenizer tokenizer, int maxTokens, int overlapTokens) =>
         Pack(SplitText(body).Select(b => RowBlock.TryParse(b) is { } rows ? new ChunkerBlock(rows.Text, rows) : new ChunkerBlock(b, null)).ToList(),
@@ -374,11 +379,11 @@ internal static class TokenChunker
     // "Year Ended June 30," / "Three Months Ended", or a row carrying two or more bare years
     // ("2026 | 2025 | 2024", "Fiscal 2026 | Fiscal 2025").
     private static bool IsPeriodHeaderRow(string row)
-        => PeriodEndedRegex.IsMatch(row)
-           || row.Split('|').Count(cell => BareYearCellRegex.IsMatch(cell.Trim())) >= 2;
+        => PeriodEndedRegex().IsMatch(row)
+           || row.Split('|').Count(cell => BareYearCellRegex().IsMatch(cell.Trim())) >= 2;
 
     private static bool LooksLikeDataRow(string row)
-        => row.Contains('$') || row.Contains("](") || CommaGroupedNumberRegex.IsMatch(row);
+        => row.Contains('$') || row.Contains("](") || CommaGroupedNumberRegex().IsMatch(row);
 
     // Some filing agents draw a purely decorative divider (e.g. a bordered horizontal rule at the top
     // of the cover page) using an HTML <table> with empty cells, instead of an <hr> or empty <p> (which

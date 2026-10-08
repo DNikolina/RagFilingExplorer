@@ -10,8 +10,14 @@ namespace RagFilingExplorer.Local.Retrieval;
 /// would only favour chunks that repeat it. Single words, not two-word phrases: phrases ranked answers worse
 /// (docs/Decision-Log.md, "Step 2 - hybrid search").
 /// </summary>
-internal static class KeywordQuery
+internal static partial class KeywordQuery
 {
+    [GeneratedRegex(@"^(19|20)\d\d$")]
+    private static partial Regex YearRegex();
+
+    [GeneratedRegex("[a-z0-9]+")]
+    private static partial Regex WordRegex();
+
     private static readonly HashSet<string> StopWords =
     [
         "a", "an", "the", "of", "in", "on", "at", "to", "for", "from", "by", "with", "and", "or", "as", "is", "was", "were",
@@ -25,7 +31,7 @@ internal static class KeywordQuery
     {
         HashSet<string> names = companyNames.SelectMany(Words).ToHashSet();
         string[] terms = Words(question)
-            .Where(w => !StopWords.Contains(w) && !names.Contains(w) && !Regex.IsMatch(w, @"^(19|20)\d\d$"))
+            .Where(w => !StopWords.Contains(w) && !names.Contains(w) && !YearRegex().IsMatch(w))
             .Distinct()
             .ToArray();
 
@@ -34,5 +40,5 @@ internal static class KeywordQuery
     }
 
     private static IEnumerable<string> Words(string text) =>
-        Regex.Matches(text.ToLowerInvariant(), "[a-z0-9]+").Select(m => m.Value);
+        WordRegex().Matches(text.ToLowerInvariant()).Select(m => m.Value);
 }
