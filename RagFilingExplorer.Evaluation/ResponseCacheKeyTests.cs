@@ -44,10 +44,10 @@ public class ResponseCacheKeyTests
     // The judge's effort is set below its cache, so it reaches the key only by name: without it a Low verdict would
     // replay for a Medium run.
     [Test]
-    public void JudgeCacheKeys_DifferentEffort_DifferentKeys()
+    public void GetJudgeCacheKeys_DifferentEffort_DifferentKeys()
     {
-        string[] low = EvaluationRunner.JudgeCacheKeys("AnswerSide.A10", "1", "claude-sonnet-5-5", ReasoningEffort.Low);
-        string[] medium = EvaluationRunner.JudgeCacheKeys("AnswerSide.A10", "1", "claude-sonnet-5-5", ReasoningEffort.Medium);
+        string[] low = EvaluationRunner.GetJudgeCacheKeys("AnswerSide.A10", "1", "claude-sonnet-5-5", ReasoningEffort.Low);
+        string[] medium = EvaluationRunner.GetJudgeCacheKeys("AnswerSide.A10", "1", "claude-sonnet-5-5", ReasoningEffort.Medium);
 
         Assert.That(low, Does.Contain("claude-sonnet-5-5").And.Contain("Low"));
         Assert.That(medium, Is.Not.EqualTo(low));

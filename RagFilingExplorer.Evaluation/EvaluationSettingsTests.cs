@@ -26,8 +26,8 @@ public class EvaluationSettingsTests
         EvaluationSettings settings = With();
 
         Assert.That(settings.ChatModel, Is.EqualTo(ChatModel.Local));
-        Assert.That(settings.LocalJudge, Is.True, "the judge is the answering model unless a Claude model is named");
-        Assert.That(settings.Graders, Is.EqualTo(Graders.Strict));
+        Assert.That(settings.UsesLocalJudge, Is.True, "the judge is the answering model unless a Claude model is named");
+        Assert.That(settings.Graders, Is.EqualTo(Grader.Strict));
         Assert.That(settings.UsesStrictGrade, Is.True);
         Assert.That(settings.JudgeNames, Is.Empty, "judges are listed, but only asked when Graders includes them");
         Assert.That(settings.Judges, Is.EqualTo("equivalence"));
@@ -101,7 +101,7 @@ public class EvaluationSettingsTests
     {
         EvaluationSettings settings = With(("ChatModel", chatModel), ("Graders", "both"), ("JudgeModel", "claude-sonnet-5-5"), ("NoCache", noCache));
 
-        Assert.That(settings.LocalJudge, Is.False);
+        Assert.That(settings.UsesLocalJudge, Is.False);
         Assert.That(settings.JudgeNames, Is.EqualTo(new[] { "equivalence" }));
     }
 

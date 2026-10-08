@@ -68,7 +68,7 @@ internal static class AppComposition
     }
 
     /// <summary>The configured Ollama chat model's options - its thinking capability asked of Ollama itself.</summary>
-    public static async Task<ChatModelOptions> OllamaChatModelAsync(AppSettings settings, OllamaApiClient chatApiClient) =>
+    public static async Task<ChatModelOptions> ReadOllamaChatModelAsync(AppSettings settings, OllamaApiClient chatApiClient) =>
         ChatModelOptions.ForOllama(settings.Retrieval, await OllamaSetup.ChatModelSupportsThinkingAsync(chatApiClient, settings.Ollama.ChatModel));
 
     /// <summary>The answer service over a built index, answering with <paramref name="chatClient"/> as <paramref name="chatModel"/> describes.</summary>
@@ -119,7 +119,7 @@ internal static class AppComposition
 
         index.EnsureCurrent(IndexManifest.Create(settings, filings));
         VectorStoreCollection<int, FilingChunkRecord> collection = await OpenCollectionAsync(index, embedding);
-        return CreateRuntime(settings, index, collection, companies, chatClient ?? chat, chatModel ?? await OllamaChatModelAsync(settings, chat));
+        return CreateRuntime(settings, index, collection, companies, chatClient ?? chat, chatModel ?? await ReadOllamaChatModelAsync(settings, chat));
     }
 
     private static CrossEncoderReranker LoadReranker(RetrievalSettings retrieval)

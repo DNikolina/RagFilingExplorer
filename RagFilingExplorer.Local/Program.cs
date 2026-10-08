@@ -97,7 +97,7 @@ static async Task RunAsync(string[] args)
     }
 
     using RagRuntime runtime = AppComposition.CreateRuntime(
-        settings, index, collection, companies, chatApiClient, await AppComposition.OllamaChatModelAsync(settings, chatApiClient));
+        settings, index, collection, companies, chatApiClient, await AppComposition.ReadOllamaChatModelAsync(settings, chatApiClient));
 
     Console.WriteLine(runtime.Reranker is null
         ? $"Search: {settings.Retrieval.Search}"

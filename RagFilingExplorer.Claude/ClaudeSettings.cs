@@ -51,7 +51,7 @@ internal sealed class ClaudeSettings
     private string? apiKey;
 
     /// <summary>The project's own settings in a repository checkout - how the evaluation reads them.</summary>
-    public static ClaudeSettings Load(DirectoryInfo repoRoot) => Load(Path.Combine(repoRoot.FullName, "RagFilingExplorer.Claude"));
+    public static ClaudeSettings LoadFromRepository(DirectoryInfo repoRoot) => Load(Path.Combine(repoRoot.FullName, "RagFilingExplorer.Claude"));
 
     /// <summary>The settings file, the user secrets of this assembly (so the evaluation, loading it, finds the same key),
     /// then environment variables.</summary>

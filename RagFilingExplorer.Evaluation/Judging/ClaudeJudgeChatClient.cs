@@ -19,7 +19,7 @@ internal sealed class ClaudeJudgeChatClient(IChatClient inner, ReasoningEffort e
     /// claudesettings.json's output ceiling.</summary>
     public static async Task<ClaudeJudgeChatClient> CreateAsync(DirectoryInfo repoRoot, string model, ReasoningEffort effort)
     {
-        ClaudeSettings claude = ClaudeSettings.Load(repoRoot);
+        ClaudeSettings claude = ClaudeSettings.LoadFromRepository(repoRoot);
         claude.Model = model;
         (IChatClient client, _) = await ClaudeChat.CreateAsync(claude);
         return new ClaudeJudgeChatClient(client, effort, claude.MaxOutputTokens);
@@ -27,7 +27,7 @@ internal sealed class ClaudeJudgeChatClient(IChatClient inner, ReasoningEffort e
 
     /// <summary>The judge's options as sent to Claude: no temperature or top-p, the judge's effort and output ceiling;
     /// everything else (the response format) as the judge set it.</summary>
-    internal ChatOptions ForClaude(ChatOptions? options)
+    internal ChatOptions ToClaudeOptions(ChatOptions? options)
     {
         ChatOptions sent = options?.Clone() ?? new ChatOptions();
         sent.Temperature = null;
@@ -39,7 +39,7 @@ internal sealed class ClaudeJudgeChatClient(IChatClient inner, ReasoningEffort e
 
     public override async Task<ChatResponse> GetResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options = null, CancellationToken cancellationToken = default)
     {
-        ChatResponse response = await base.GetResponseAsync(messages, ForClaude(options), cancellationToken);
+        ChatResponse response = await base.GetResponseAsync(messages, ToClaudeOptions(options), cancellationToken);
         if (response.Usage is { } usage)
         {
             Usage.Add(usage);
@@ -51,11 +51,11 @@ internal sealed class ClaudeJudgeChatClient(IChatClient inner, ReasoningEffort e
     public override async IAsyncEnumerable<ChatResponseUpdate> GetStreamingResponseAsync(
         IEnumerable<ChatMessage> messages, ChatOptions? options = null, [System.Runtime.CompilerServices.EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        await foreach (ChatResponseUpdate update in base.GetStreamingResponseAsync(messages, ForClaude(options), cancellationToken))
+        await foreach (ChatResponseUpdate update in base.GetStreamingResponseAsync(messages, ToClaudeOptions(options), cancellationToken))
         {
-            foreach (UsageContent u in update.Contents.OfType<UsageContent>())
+            foreach (UsageContent usageContent in update.Contents.OfType<UsageContent>())
             {
-                Usage.Add(u.Details);
+                Usage.Add(usageContent.Details);
             }
 
             yield return update;

@@ -3837,3 +3837,17 @@ temporary directory of the test conventions (done with step A); a test for the j
 rewritten, every update passed through, usage counted); a test name that covers the space it tests. A sweep of v4's added
 code for versions, dates and steps found only section pointers and a regression test's record, both allowed.
 410 + 195 tests. Review complete.
+
+**Checked against Microsoft's Framework Design Guidelines (user, 2026-10-08)** - learn.microsoft.com/dotnet/standard/
+design-guidelines, read on Learn: naming, type members, parameters, member overloading, properties, enums, exceptions.
+They're written for public library APIs and every type here is internal; applied as a consistency bar. Fixed, with no
+change in behaviour: `ClaudeSettings.Load(DirectoryInfo)` - an overload whose same-position parameter meant something
+else (the repository root, not the settings folder) - is `LoadFromRepository`; `EvaluationRunner` takes the `Grader`
+choice instead of a second Boolean (`strictGrade`), the rule of what each choice runs in one place (`GraderChoices`);
+methods named as verbs - `ClaudeJudgeChatClient.ToClaudeOptions`, `EvaluationRunner.GetJudgeCacheKeys`,
+`AppComposition.ReadOllamaChatModelAsync` (`ChatModelOptions.ForOllama` kept: a factory, the codebase's `For` style);
+`EvaluationSettings.UsesLocalJudge`, as its siblings `UsesStrictGrade` and `UsesJudges`; a loop variable spelled out; and
+v3's `Graders` enum, plural though not flags, is `Grader` (the setting keeps its name and values). Kept (user): default
+arguments on internal methods - the guideline's reason is CLS compliance, a public-API concern. Entries above keep the
+names as they were. Checked: 410 + 195 tests; a cached replay with the local judge 204/204 from the cache, answers and
+agreement identical; a cached Claude answer from the cache.

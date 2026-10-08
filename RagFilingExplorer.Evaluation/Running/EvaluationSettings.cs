@@ -29,7 +29,7 @@ internal sealed class EvaluationSettings
     /// <summary>Which grader(s) a run uses: strict (the strict grade), judge (the model judges in <see cref="Judges"/>),
     /// or both. Answer rank and figure source always run - they need no model. Bound as an enum, ignoring case, so a
     /// typo fails at load.</summary>
-    public required Graders Graders { get; set; }
+    public required Grader Graders { get; set; }
 
     /// <summary>The model judges, comma-separated - equivalence, groundedness - used when <see cref="Graders"/> includes them.</summary>
     public required string Judges { get; set; }
@@ -74,12 +74,12 @@ internal sealed class EvaluationSettings
     /// <summary>The run the judge agreement report reads (JudgeAgreementTests).</summary>
     public required string JudgeExecution { get; set; }
 
-    public bool UsesStrictGrade => Graders is Graders.Strict or Graders.Both;
+    public bool UsesStrictGrade => Graders.IncludesStrictGrade();
 
-    public bool UsesJudges => Graders is Graders.Judge or Graders.Both;
+    public bool UsesJudges => Graders.IncludesJudges();
 
     /// <summary>The judge is the answering Ollama model, not Claude.</summary>
-    public bool LocalJudge => JudgeModel.Equals("Local", StringComparison.OrdinalIgnoreCase);
+    public bool UsesLocalJudge => JudgeModel.Equals("Local", StringComparison.OrdinalIgnoreCase);
 
     /// <summary>The judges a run asks - none unless <see cref="Graders"/> includes them.</summary>
     public IReadOnlyList<string> JudgeNames => UsesJudges ? Lower(Judges) : [];
@@ -135,19 +135,19 @@ internal sealed class EvaluationSettings
 
         // The judge runs with a larger context window than the app, and Ollama reloads the model when it changes - with
         // fresh answers that's two reloads per question, so the pass no longer measures the app as it runs.
-        if (UsesJudges && NoCache && LocalJudge)
+        if (UsesJudges && NoCache && UsesLocalJudge)
         {
             errors.Add($"Graders \"{Graders}\" with NoCache would reload the model around every answer - judge cached answers instead");
         }
 
         // The local judge is the answering model with Ollama's context option, and unloading is Ollama's - neither applies
         // to Claude answering.
-        if (ChatModel == ChatModel.Claude && UsesJudges && LocalJudge)
+        if (ChatModel == ChatModel.Claude && UsesJudges && UsesLocalJudge)
         {
             errors.Add($"Graders \"{Graders}\" with ChatModel Claude and JudgeModel Local - the local judge is the answering Ollama model; set JudgeModel to a Claude model");
         }
 
-        if (!LocalJudge && JudgeEffort == ReasoningEffort.None)
+        if (!UsesLocalJudge && JudgeEffort == ReasoningEffort.None)
         {
             errors.Add("JudgeEffort can't be None for a Claude judge - current Claude models reject thinking disabled; use Low");
         }
@@ -175,11 +175,19 @@ internal sealed class EvaluationSettings
 }
 
 /// <summary>The values <see cref="EvaluationSettings.Graders"/> accepts.</summary>
-internal enum Graders
+internal enum Grader
 {
     Strict,
     Judge,
     Both,
+}
+
+/// <summary>What each <see cref="Grader"/> choice runs - asked by the settings and the runner alike.</summary>
+internal static class GraderChoices
+{
+    public static bool IncludesStrictGrade(this Grader graders) => graders is Grader.Strict or Grader.Both;
+
+    public static bool IncludesJudges(this Grader graders) => graders is Grader.Judge or Grader.Both;
 }
 
 /// <summary>The values <see cref="EvaluationSettings.ChatModel"/> accepts.</summary>
