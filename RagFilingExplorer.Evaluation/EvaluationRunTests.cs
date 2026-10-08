@@ -62,7 +62,7 @@ public class EvaluationRunTests
 
         EvaluationRunner runner = new(Repo, storage, execution,
             settings.NoCache ? null : TimeSpan.FromDays(settings.CacheTimeToLiveDays),
-            settings.UnloadEachQuestion, settings.JudgeNames, settings.UsesStrictGrade, settings.ChatModel);
+            settings.UnloadEachQuestion, settings.JudgeNames, settings.UsesStrictGrade, settings.ChatModel, settings.JudgeModel, settings.JudgeEffort);
         List<QuestionOutcome> outcomes = await runner.RunAsync(sets, settings.OnlyIds.ToHashSet(), line => TestContext.Progress.WriteLine(line));
 
         // What the model reads - Retrieval:GenerationTopK, from the app's appsettings.json.
@@ -106,6 +106,10 @@ public class EvaluationRunTests
 
         // A Claude run's cost: thinking counts as output. A cached answer's tokens are those it took when first asked.
         summary.AppendLine($"Tokens: {outcomes.Sum(o => o.Usage?.InputTokenCount ?? 0):N0} input, {outcomes.Sum(o => o.Usage?.OutputTokenCount ?? 0):N0} output.");
+        if (runner.JudgeUsage is { } judgeUsage)
+        {
+            summary.AppendLine($"Judge ({settings.JudgeModel}, effort {settings.JudgeEffort}) billed: {judgeUsage.InputTokenCount ?? 0:N0} input, {judgeUsage.OutputTokenCount ?? 0:N0} output tokens.");
+        }
 
         // Every figure that's in none of the model's excerpts on a question that doesn't ask for a calculation.
         List<QuestionOutcome> untraced = outcomes.Where(o => o.FigureSource == "untraced").ToList();

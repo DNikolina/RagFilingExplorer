@@ -26,6 +26,7 @@ public class EvaluationSettingsTests
         EvaluationSettings settings = With();
 
         Assert.That(settings.ChatModel, Is.EqualTo(ChatModel.Local));
+        Assert.That(settings.LocalJudge, Is.True, "the judge is the answering model unless a Claude model is named");
         Assert.That(settings.Graders, Is.EqualTo(Graders.Strict));
         Assert.That(settings.UsesStrictGrade, Is.True);
         Assert.That(settings.JudgeNames, Is.Empty, "judges are listed, but only asked when Graders includes them");
@@ -87,9 +88,28 @@ public class EvaluationSettingsTests
 
     [TestCase("judge")]
     [TestCase("both")]
-    public void Validate_ClaudeWithTheJudge_Fails(string graders)
+    public void Validate_ClaudeAnsweringWithTheLocalJudge_Fails(string graders)
     {
-        Assert.That(() => With(("ChatModel", "Claude"), ("Graders", graders)), Throws.InvalidOperationException.With.Message.Contains("grade Claude's answers strictly"));
+        Assert.That(() => With(("ChatModel", "Claude"), ("Graders", graders)), Throws.InvalidOperationException.With.Message.Contains("set JudgeModel to a Claude model"));
+    }
+
+    // A Claude judge has its own client: any answers can be judged, fresh ones too - no Ollama reload to avoid.
+    [TestCase("Local", "false")]
+    [TestCase("Claude", "false")]
+    [TestCase("Local", "true")]
+    public void Validate_ClaudeJudge_AllowedWithEitherAnsweringModel(string chatModel, string noCache)
+    {
+        EvaluationSettings settings = With(("ChatModel", chatModel), ("Graders", "both"), ("JudgeModel", "claude-sonnet-5-5"), ("NoCache", noCache));
+
+        Assert.That(settings.LocalJudge, Is.False);
+        Assert.That(settings.JudgeNames, Is.EqualTo(new[] { "equivalence" }));
+    }
+
+    [Test]
+    public void Validate_ClaudeJudgeWithEffortNone_Fails()
+    {
+        Assert.That(() => With(("Graders", "judge"), ("JudgeModel", "claude-sonnet-5-5"), ("JudgeEffort", "None")),
+            Throws.InvalidOperationException.With.Message.Contains("JudgeEffort can't be None"));
     }
 
     [Test]

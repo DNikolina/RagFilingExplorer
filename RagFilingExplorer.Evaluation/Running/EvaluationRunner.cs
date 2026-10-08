@@ -62,13 +62,18 @@ internal sealed class ScenarioChatClient : IChatClient
 /// whether that reuse changes answers. <paramref name="judges"/> adds Microsoft's Quality
 /// evaluators, judged by the same chat model (<see cref="JudgeSetup"/>); <paramref name="strictGrade"/> false
 /// leaves the strict grade out (Graders: judge). <paramref name="chatModel"/> Claude answers through the Claude API
-/// (RagFilingExplorer.Claude's settings and client) instead of Ollama - EvaluationSettings refuses the judges and
-/// unloading with it.
+/// (RagFilingExplorer.Claude's settings and client) instead of Ollama - EvaluationSettings refuses unloading with it.
+/// <paramref name="judgeModel"/> a Claude model id judges with Claude (<see cref="ClaudeJudgeChatClient"/>) instead of the
+/// answering model, at <paramref name="judgeEffort"/>.
 /// </summary>
 internal sealed class EvaluationRunner(
     DirectoryInfo repoRoot, string storageRoot, string executionName, TimeSpan? cacheTimeToLive, bool unloadBeforeEachQuestion = false,
-    IReadOnlyCollection<string>? judges = null, bool strictGrade = true, ChatModel chatModel = ChatModel.Local)
+    IReadOnlyCollection<string>? judges = null, bool strictGrade = true, ChatModel chatModel = ChatModel.Local,
+    string judgeModel = "Local", ReasoningEffort judgeEffort = ReasoningEffort.Low)
 {
+    /// <summary>The tokens a Claude judge was billed for in the last run - none for the local judge or a cached one.</summary>
+    public UsageDetails? JudgeUsage { get; private set; }
+
     public static readonly IReadOnlyList<QuestionSet> AllSets =
     [
         new("Main", "manual-questions.txt"),
@@ -165,6 +170,19 @@ internal sealed class EvaluationRunner(
             runTags = [$"chat:{claude.Model}", $"effort:{claude.LookupEffort}/{claude.SynthesisEffort}"];
         }
 
+        // A Claude judge has its own client, beside the answering one - the answering client is the answers' cache key.
+        // Each question's judge calls are cached in its scenario's cache, keyed by the judge model as well.
+        ClaudeJudgeChatClient? claudeJudge = null;
+        ChatConfiguration? judgeConfiguration = null;
+        if (judgeNames.Count > 0)
+        {
+            bool local = judgeModel.Equals("Local", StringComparison.OrdinalIgnoreCase);
+            claudeJudge = local ? null : await ClaudeJudgeChatClient.CreateAsync(repoRoot, judgeModel, judgeEffort);
+            runTags.Add(local ? $"judge:{settings.Ollama.ChatModel}" : $"judge:{judgeModel}");
+        }
+
+        JudgeUsage = claudeJudge?.Usage;
+
         ReportingConfiguration reporting = DiskBasedReportingConfiguration.Create(
             storageRootPath: storageRoot,
             evaluators:
@@ -172,7 +190,7 @@ internal sealed class EvaluationRunner(
                 .. (strictGrade ? new IEvaluator[] { new StrictFigureEvaluator() } : []),
                 new RetrievalRankEvaluator(settings.Retrieval.GenerationTopK),
                 new FigureSourceEvaluator(settings.Retrieval.GenerationTopK),
-                .. JudgeSetup.Evaluators(judgeNames),
+                .. JudgeSetup.Evaluators(judgeNames, claudeJudge is null ? null : () => judgeConfiguration),
             ],
             chatConfiguration: new ChatConfiguration(answerChat),
             enableResponseCaching: cacheTimeToLive is not null,
@@ -209,6 +227,16 @@ internal sealed class EvaluationRunner(
             await using ScenarioRun scenario = await reporting.CreateScenarioRunAsync(
                 $"{setName}.{entry.Id}", additionalTags: tags, cancellationToken: cancellationToken);
             scenarioChat.Inner = scenario.ChatConfiguration!.ChatClient;
+            if (claudeJudge is not null)
+            {
+                judgeConfiguration = new ChatConfiguration(reporting.ResponseCacheProvider is { } caches
+                    ? new DistributedCachingChatClient(claudeJudge, await caches.GetCacheAsync(scenario.ScenarioName, scenario.IterationName, cancellationToken))
+                    {
+                        CacheKeyAdditionalValues = [scenario.ScenarioName, scenario.IterationName, "anthropic", judgeModel],
+                    }
+                    : claudeJudge);
+            }
+
             if (unloadBeforeEachQuestion)
             {
                 await chat.RequestModelUnloadAsync(settings.Ollama.ChatModel, cancellationToken);
@@ -236,7 +264,7 @@ internal sealed class EvaluationRunner(
             }
 
             // The judges' larger context window only while they run - the answer above was asked with the app's own.
-            judgeChat.JudgeContext = judgeNames.Count > 0;
+            judgeChat.JudgeContext = judgeNames.Count > 0 && claudeJudge is null;
             EvaluationResult result;
             try
             {

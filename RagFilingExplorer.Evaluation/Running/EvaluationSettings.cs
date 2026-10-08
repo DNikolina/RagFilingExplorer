@@ -1,3 +1,4 @@
+using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using RagFilingExplorer.Evaluation.Judging;
 
@@ -33,6 +34,18 @@ internal sealed class EvaluationSettings
     /// <summary>The model judges, comma-separated - equivalence, groundedness - used when <see cref="Graders"/> includes them.</summary>
     public required string Judges { get; set; }
 
+    /// <summary>
+    /// Who judges: Local - the answering Ollama model, with the judges' larger context window (the local judge) - or a
+    /// Claude model id (claude-sonnet-5-5), whatever answered: a Claude judge gets its own client, so the answers' cache
+    /// keys stay the answering model's and cached answers of any model can be judged. Checked against the Models API at
+    /// startup; every judge call billed unless cached.
+    /// </summary>
+    public required string JudgeModel { get; set; }
+
+    /// <summary>A Claude judge's reasoning effort - Low to ExtraHigh (None is refused, as for the Claude app). Unused by
+    /// the local judge.</summary>
+    public required ReasoningEffort JudgeEffort { get; set; }
+
     /// <summary>The execution name; empty: structured-hybrid-&lt;yyyyMMddTHHmm&gt;. Reusing a name overwrites the questions
     /// asked again and keeps the rest of that run (the summary lists them) - use a new name to keep runs apart.</summary>
     public required string Execution { get; set; }
@@ -64,6 +77,9 @@ internal sealed class EvaluationSettings
     public bool UsesStrictGrade => Graders is Graders.Strict or Graders.Both;
 
     public bool UsesJudges => Graders is Graders.Judge or Graders.Both;
+
+    /// <summary>The judge is the answering Ollama model, not Claude.</summary>
+    public bool LocalJudge => JudgeModel.Equals("Local", StringComparison.OrdinalIgnoreCase);
 
     /// <summary>The judges a run asks - none unless <see cref="Graders"/> includes them.</summary>
     public IReadOnlyList<string> JudgeNames => UsesJudges ? Lower(Judges) : [];
@@ -119,16 +135,21 @@ internal sealed class EvaluationSettings
 
         // The judge runs with a larger context window than the app, and Ollama reloads the model when it changes - with
         // fresh answers that's two reloads per question, so the pass no longer measures the app as it runs.
-        if (UsesJudges && NoCache)
+        if (UsesJudges && NoCache && LocalJudge)
         {
             errors.Add($"Graders \"{Graders}\" with NoCache would reload the model around every answer - judge cached answers instead");
         }
 
-        // The judge is the local model with Ollama's context option, and unloading is Ollama's - neither applies to
-        // Claude, and a judge there would bill a second model call per answer.
-        if (ChatModel == ChatModel.Claude && UsesJudges)
+        // The local judge is the answering model with Ollama's context option, and unloading is Ollama's - neither applies
+        // to Claude answering.
+        if (ChatModel == ChatModel.Claude && UsesJudges && LocalJudge)
         {
-            errors.Add($"Graders \"{Graders}\" with ChatModel Claude - the judge is the local model's; grade Claude's answers strictly");
+            errors.Add($"Graders \"{Graders}\" with ChatModel Claude and JudgeModel Local - the local judge is the answering Ollama model; set JudgeModel to a Claude model");
+        }
+
+        if (!LocalJudge && JudgeEffort == ReasoningEffort.None)
+        {
+            errors.Add("JudgeEffort can't be None for a Claude judge - current Claude models reject thinking disabled; use Low");
         }
 
         if (ChatModel == ChatModel.Claude && UnloadEachQuestion)

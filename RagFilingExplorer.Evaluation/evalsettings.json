@@ -3,6 +3,8 @@
     "ChatModel": "Local",
     "Graders": "strict",
     "Judges": "equivalence",
+    "JudgeModel": "Local",
+    "JudgeEffort": "Low",
     "Execution": "",
     "Sets": "",
     "Only": "",

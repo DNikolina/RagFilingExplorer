@@ -3739,3 +3739,19 @@ is "used by AI-based Evaluators" (why judge and answers' cache key are tied); `R
 `CacheKeyAdditionalValues`) are public - step 2's route. Learn's `EquivalenceEvaluator` page: tuned for GPT-4o, "especially
 poor when a smaller / local model is used". Not on Learn: the judges' `Temperature = 0` (source only - step 2's smoke run
 shows it); Learn's reference is package 10.9.0, the project's 10.10.0 - read in the source.
+
+**Step 2 - done (2026-10-08).** `evalsettings.json`: `JudgeModel` (`Local`, or a Claude model id) and `JudgeEffort` (`Low`;
+None refused for a Claude judge). `ClaudeJudgeChatClient` sends the judges' requests to Claude with the temperature and
+top-p dropped, the judge's effort, and the output limit raised to claudesettings.json's ceiling (Groundedness asks for
+800, and thinking counts toward it); it counts the tokens of calls that reach the API. In the runner, a Claude judge's
+configuration is set per question: `DistributedCachingChatClient` over the scenario's cache
+(`ResponseCacheProvider.GetCacheAsync`), keyed by scenario, iteration, `anthropic` and the judge model; the answering
+client and its cache keys are untouched. Settings: a Claude judge works with either answering model and with `NoCache`
+(no Ollama reload to avoid); the local judge keeps its rules. Runs are tagged `judge:<model>`; the summary gives the
+judge's billed tokens. Checked: 409 + 190 tests (the options sent - Equivalence's real Temperature 0 / TopP 1 dropped,
+response format kept, the judge's own options unchanged; Groundedness's 800 raised; usage counted; the settings rules);
+the local judge replay again 204/204 from the cache, its agreement identical. **Smoke (~$0.01):** Sonnet 5.5 judged
+llama's cached Q1 and A10 - **Q1 5 (pass), A10 2 (fail)**, where the llama judge gave A10 4, a pass ("a slight
+difference"); bare-integer replies, no recovery from words; 2,981 input + 6 output tokens - at Low effort Sonnet didn't
+think. Run again: the judge billed 0 (cached). One Q1 call with Opus 5.5 as the judge was billed afresh (1,480 + 3) -
+the judge model is in the key.

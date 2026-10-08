@@ -58,6 +58,8 @@ the defaults clean.
 | `ChatModel` | `Local` (default, the app's Ollama model) or `Claude` (`RagFilingExplorer.Claude/claudesettings.json`; needs the key in user secrets (`Claude:ApiKey`) or `ANTHROPIC_API_KEY`, every uncached answer billed - ask the user before a run; strict grade only) |
 | `Graders` | `strict` (default), `judge`, or `both` - the judge is a model; answer rank and figure source always run |
 | `Judges` | `equivalence`, `groundedness` (used when `Graders` includes the judge) |
+| `JudgeModel` | `Local` (default: the answering Ollama model judges) or a Claude model id (`claude-sonnet-5-5`) - its own client, so it can judge any model's cached answers; billed per uncached judge call - ask the user first |
+| `JudgeEffort` | a Claude judge's reasoning effort, `Low` by default (not `None`) |
 | `Execution` | the run's name; empty = `structured-hybrid-<yyyyMMddTHHmm>`. Reusing a name overwrites the questions asked again and keeps the rest (the summary lists them) - use a new name to keep runs apart |
 | `Sets` / `Only` | which questions: sets `Main`, `HeldOut`, `AnswerSide`; or ids like `Q1,A16` |
 | `NoCache` | `true` = ask the model afresh and cache nothing (a variance pass) |
