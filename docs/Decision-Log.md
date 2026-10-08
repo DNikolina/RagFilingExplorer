@@ -3418,3 +3418,75 @@ after it - identical to the committed files both times. 394 + 166 tests.
 every step - chunking output, every prompt, answer, grade, rank and figure source, and every stored report. The
 audit's four largest findings were the project's deliberate records and options, which bears on using the plugin as a
 standing mode rather than on demand - the user's call.
+
+## Follow-up: paid services (v4) — PLANNED
+
+**Why (user, 2026-10-02 and 2026-10-06).** v1-v3 are local and free on purpose. v4 measures what money buys over that:
+the same questions answered by paid services, and - the third path - by a bigger local model on better hardware. The
+hypothesis to test: for finance work, either a paid service or investing in hardware for a bigger local model (accuracy on
+exact figures, against data staying local, privacy and cost). The Mac for the third path (Apple M5 Pro, 64 GB unified
+memory, GPU inference through Metal) is expected around 2026-10-15; the paid runs go first, on the current machine.
+
+**Decisions (user, 2026-10-08):**
+- **The paid service is the Claude API.**
+- **In batches, each measured before the next:** 1. the chat model only - same embeddings, index and retrieval; 2. a
+  paid judge (the local `llama3.1:8b` judge passed 14 of 18 wrong answers - "Step 6 - the local judge"); 3. paid
+  embeddings; 4. a bigger local model on the Mac, compared with an 8B re-baseline run on the Mac itself, never with this
+  machine's runs (v3's finding: compare only on the same Ollama build and hardware).
+- **Its own project, `RagFilingExplorer.Claude`,** a console app referencing `RagFilingExplorer.Local` as the
+  evaluation does. Local stays zero-cost: no API key, no Anthropic package. A shared library for the code both use is
+  deferred (user: "see later") - batch 3 is its natural point, when embeddings stop being Ollama's and the library could
+  be free of it.
+- **Effort:** batch 1 runs at one level (medium), then once at low - whether the extra thinking buys correct answers,
+  and at what price, is measured rather than assumed.
+- **Same evaluation, unchanged:** the 102 questions, strict grade, answer rank and figure source; H16-H35 stay never-tuned.
+
+**Why batch 1 changes only the chat model.** Same retrieval means the same excerpts and a byte-identical prompt for
+every question, so the answer rank can't move and any change in the strict grade is the model's reading. It also gives
+the batch's ceiling in advance: a better reader can fix the misreadings (expected figure in the top 5, the wrong line or
+sum stated - A10, A15, A24, A27 among them) but not the retrieval misses, whose figure was never in the prompt. The
+figure source already splits every failure into those two.
+
+**What the API changes, checked 2026-10-08** (Anthropic's API reference; prices per million tokens, input / output):
+- **Models:** Claude Opus 5.5 (`claude-opus-5-5`, $4 / $20), Claude Sonnet 5.5 (`claude-sonnet-5-5`, $2 / $10), Claude
+  Haiku 5.5 (`claude-haiku-5-5`, $0.10 / $0.50).
+- **No temperature 0:** all three reject a non-default temperature (400), so the app's `ChatTemperature` 0 can't be sent.
+  A fresh run can word answers differently; the response cache fixes a run, and no-cache passes (as in "Variance
+  measurement - done") measure the spread.
+- **Thinking:** can't be turned off on Opus 5.5 - effort (low ... max, default medium) is the only control; Sonnet 5.5
+  turns it off with `thinking: {type: "between_tools"}`. Thinking tokens are billed as output and count toward the output
+  limit, so `MaxOutputTokens` 768 would starve answers (the starved-response guard would fail loudly, not silently). The
+  context window is 1M, so the 4,096 `num_ctx` constraint doesn't apply.
+- **Refusals** come back as `stop_reason: "refusal"`, not an error; the server-side fallback is opt-in. How both surface
+  through `IChatClient` is to be checked in the SDK.
+- **C# SDK:** the official `Anthropic` NuGet package supports `Microsoft.Extensions.AI`'s `IChatClient`. How the client
+  is created, and how effort and refusals map, is read from the SDK's repository when building - not assumed.
+- **Cost per full run** (102 questions, ~3,100 prompt + ~300 answer tokens each, 0-2,000 thinking): Opus 5.5 ~$3-5,
+  Sonnet 5.5 ~$1.50-2.50, Haiku 5.5 ~$0.10. Batch 1 with a low-effort run and a variance pass: ~$10-15. Cached repeats
+  are free.
+
+**Batch 1 steps:**
+1. **Local's chat side made independent of Ollama - no behaviour change.** `AppComposition.CreateRuntimeAsync` takes an
+   `OllamaApiClient` only to ask `/api/show` whether the model thinks; a description of the chat model (can it think,
+   temperature, effort, output limit) replaces it, and `RagAnswerService` builds its `ChatOptions` from that. The Ollama
+   path fills it as today. **Bar:** 394 + 166 tests, every chunk-review dump identical on all three strategies, and a
+   cached evaluation replay word for word with `structured-hybrid-v3-baseline` (102/102).
+2. **`RagFilingExplorer.Claude`:** the `Anthropic` package (`dotnet list package --vulnerable --include-transitive`
+   after); reads Local's `appsettings.json` unchanged - same chunking, retrieval and index, or the manifest check calls
+   it stale - plus its own settings (model, effort, output limit), documented on their class like Local's; the key only
+   from `ANTHROPIC_API_KEY`, never a file. Its `Program` reuses Local's startup and `InteractiveSession`. Embeddings stay
+   Ollama's, so Ollama must still run.
+3. **The evaluation:** a key in `evalsettings.json` choosing the chat model (Local or Claude). **The model goes into the
+   response-cache key** - the prompts are byte-identical across models, so without it a Claude run could replay
+   llama's cached answers. The Ollama-only parts are skipped for Claude (unload before each question - refused by the
+   settings check; the judge's `num_ctx`); results are tagged with the chat model as well as the Ollama build (the
+   question's embedding is still Ollama's); each answer's tokens and seconds are recorded, so the report shows cost per
+   question next to llama's time.
+4. **Tests and docs:** offline tests for the Claude options and settings checks (no API call); README, Design-FAQ ("why
+   a separate project?"), the plan's pipeline section.
+5. **Runs:** a smoke run on two or three questions, then Opus 5.5 and Sonnet 5.5 on all 102 at medium, Opus 5.5 once at
+   low, and a no-cache variance pass. Each compared with llama's latest run and with each other, question by question,
+   split into misreadings and retrieval misses.
+
+**Needed from the user before any paid call:** an Anthropic account and key, and a spending limit for the batch (also
+settable in the Console). Step 1 needs neither.

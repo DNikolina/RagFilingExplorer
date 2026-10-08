@@ -71,6 +71,9 @@ chooses strict, judge or both. Groundedness screened (18 answers): fails 0 of 11
 the .NET evaluators made the source of truth, the Python tools kept as the record; README trimmed; MIT license added.
 **v3 complete: merged to `main`, tag `v3.0` (2026-10-06).** Nothing further is assumed or owed - a later version (e.g.
 comparing paid services with the local stack) starts only when the user asks.
+**v4 planned (user, 2026-10-08):** paid services against the local stack, starting with the Claude API as the chat
+model only (same embeddings, index and retrieval), in a separate `RagFilingExplorer.Claude` project - Local stays
+zero-cost. Nothing built yet. Decision-Log.md, "paid services (v4)".
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the
