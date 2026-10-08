@@ -3720,3 +3720,15 @@ batch 1, which are recorded above.
 **Cost (estimated, per judged run of 102 answers):** Equivalence ~1,000 input tokens a call - Sonnet 5.5 ~$0.40, Opus 5.5
 ~$0.80; Groundedness ~4,500 (the five excerpts) - Sonnet ~$1, Opus ~$2. Steps 2-4 as planned: ~$3-6. A judged run
 replayed from the cache is free. Each paid step is asked for before it runs.
+
+**Step 1 - done (2026-10-08).** Read from the library's source first: a scenario hands every evaluator its own chat
+configuration (`ScenarioRun.EvaluateAsync` -> `CompositeEvaluator`), and the caching client is internal
+(`ResponseCachingChatClient`) - but `ReportingConfiguration.ResponseCacheProvider` is public and gives each scenario's
+`IDistributedCache`, and `Microsoft.Extensions.AI`'s `DistributedCachingChatClient` is public: the route for a Claude judge's
+own cached client (step 2). Built: `JudgeChatEvaluator`, which runs a judge evaluator with a judge configuration of its
+own, or the scenario's when there is none; `JudgeSetup.Evaluators` takes the judge configuration as an optional function,
+asked per question. The runner passes none, so the local judge runs as before. Checked: 409 + 183 tests (the wrapper uses
+the judge's configuration when given and the scenario's otherwise; both judges wrapped); a cached replay with the local
+judge (`Graders=both`, Equivalence) - 204 of 204 calls from the cache (102 answers, 102 judge calls), the answers
+identical to `structured-hybrid-v3-baseline` 102/102, and its agreement report identical to
+`judge-structured-hybrid-v3-judge-equivalence.txt` apart from line endings. No call billed.

@@ -45,6 +45,20 @@ internal sealed class JudgeContextChatClient(IChatClient inner) : DelegatingChat
         base.GetStreamingResponseAsync(messages, WithContext(options), cancellationToken);
 }
 
+/// <summary>An evaluator run with the judge's chat configuration instead of the scenario's, when there is one.</summary>
+internal sealed class JudgeChatEvaluator(IEvaluator inner, Func<ChatConfiguration?> judgeConfiguration) : IEvaluator
+{
+    public IReadOnlyCollection<string> EvaluationMetricNames => inner.EvaluationMetricNames;
+
+    public ValueTask<EvaluationResult> EvaluateAsync(
+        IEnumerable<ChatMessage> messages,
+        ChatResponse modelResponse,
+        ChatConfiguration? chatConfiguration = null,
+        IEnumerable<EvaluationContext>? additionalContext = null,
+        CancellationToken cancellationToken = default) =>
+        inner.EvaluateAsync(messages, modelResponse, judgeConfiguration() ?? chatConfiguration, additionalContext, cancellationToken);
+}
+
 /// <summary>
 /// The local judge - kept alongside the strict grade, never the grade (Graders: judge or both): Microsoft's
 /// Quality evaluators, judged by the app's own chat model, set against the project's deterministic metrics - Equivalence
@@ -57,8 +71,13 @@ internal static partial class JudgeSetup
 
     public static readonly IReadOnlyList<string> Known = [Equivalence, Groundedness];
 
-    /// <summary>The evaluators for the judge names given (evalsettings.json's Judges, when Graders includes them).</summary>
-    public static List<IEvaluator> Evaluators(IReadOnlyCollection<string> judges)
+    /// <summary>
+    /// The evaluators for the judge names given (evalsettings.json's Judges, when Graders includes them). A scenario hands
+    /// every evaluator its own chat configuration - the answering model's, whose client is also the answers' cache key -
+    /// so a judge that isn't the answering model gets its configuration from <paramref name="judgeConfiguration"/>,
+    /// asked per question; null, or a null result, keeps the scenario's.
+    /// </summary>
+    public static List<IEvaluator> Evaluators(IReadOnlyCollection<string> judges, Func<ChatConfiguration?>? judgeConfiguration = null)
     {
         List<string> unknown = judges.Where(j => !Known.Contains(j)).ToList();
         if (unknown.Count > 0)
@@ -77,7 +96,7 @@ internal static partial class JudgeSetup
             evaluators.Add(new GroundednessEvaluator());
         }
 
-        return evaluators;
+        return judgeConfiguration is null ? evaluators : evaluators.Select(e => (IEvaluator)new JudgeChatEvaluator(e, judgeConfiguration)).ToList();
     }
 
     /// <summary>The contexts the judges read: the ground truth, and the excerpts the model was given, as the prompt shows them.</summary>

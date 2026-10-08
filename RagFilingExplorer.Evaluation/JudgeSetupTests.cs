@@ -1,4 +1,5 @@
 using Microsoft.Extensions.AI;
+using Microsoft.Extensions.AI.Evaluation;
 using Microsoft.Extensions.AI.Evaluation.Quality;
 using OllamaSharp.Models;
 using RagFilingExplorer.Evaluation.Evaluators;
@@ -64,6 +65,59 @@ public class JudgeSetupTests
         Assert.That(JudgeSetup.Evaluators([JudgeSetup.Equivalence]).Single(), Is.InstanceOf<ScoreOnlyEquivalenceEvaluator>());
         Assert.That(JudgeSetup.Evaluators([]), Is.Empty);
         Assert.Throws<ArgumentException>(() => JudgeSetup.Evaluators(["relevance"]));
+    }
+
+    // A scenario hands each evaluator the answering model's configuration; a judge of its own replaces it, and none keeps it.
+    [TestCase(true)]
+    [TestCase(false)]
+    public async Task JudgeChatEvaluator_JudgeConfiguration_UsedWhenGiven(bool judgeGiven)
+    {
+        ChatConfiguration answering = new(new NoChatClient()), judge = new(new NoChatClient());
+        ConfigurationRecorder recorder = new();
+
+        await new JudgeChatEvaluator(recorder, () => judgeGiven ? judge : null).EvaluateAsync(
+            [new ChatMessage(ChatRole.User, "q")], new ChatResponse(new ChatMessage(ChatRole.Assistant, "a")), answering);
+
+        Assert.That(recorder.Received, Is.SameAs(judgeGiven ? judge : answering));
+    }
+
+    [Test]
+    public void Evaluators_WithAJudgeConfiguration_EachRunsThroughIt()
+    {
+        List<IEvaluator> evaluators = JudgeSetup.Evaluators([JudgeSetup.Equivalence, JudgeSetup.Groundedness], () => null);
+
+        Assert.That(evaluators, Has.Count.EqualTo(2).And.All.InstanceOf<JudgeChatEvaluator>());
+        Assert.That(evaluators.SelectMany(e => e.EvaluationMetricNames),
+            Is.EquivalentTo(new[] { EquivalenceEvaluator.EquivalenceMetricName, GroundednessEvaluator.GroundednessMetricName }));
+    }
+
+    private sealed class ConfigurationRecorder : IEvaluator
+    {
+        public ChatConfiguration? Received { get; private set; }
+
+        public IReadOnlyCollection<string> EvaluationMetricNames => ["recorded"];
+
+        public ValueTask<EvaluationResult> EvaluateAsync(IEnumerable<ChatMessage> messages, ChatResponse modelResponse,
+            ChatConfiguration? chatConfiguration = null, IEnumerable<EvaluationContext>? additionalContext = null, CancellationToken cancellationToken = default)
+        {
+            Received = chatConfiguration;
+            return ValueTask.FromResult(new EvaluationResult());
+        }
+    }
+
+    private sealed class NoChatClient : IChatClient
+    {
+        public Task<ChatResponse> GetResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options = null, CancellationToken cancellationToken = default) =>
+            throw new NotSupportedException();
+
+        public IAsyncEnumerable<ChatResponseUpdate> GetStreamingResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options = null, CancellationToken cancellationToken = default) =>
+            throw new NotSupportedException();
+
+        public object? GetService(Type serviceType, object? serviceKey = null) => null;
+
+        public void Dispose()
+        {
+        }
     }
 
     private const string Unread = "Failed to parse numeric score for 'Equivalence' from the following text:\r\n";
