@@ -19,7 +19,7 @@ internal sealed class ClaudeJudgeChatClient(IChatClient inner, ReasoningEffort e
     /// claudesettings.json's output ceiling.</summary>
     public static async Task<ClaudeJudgeChatClient> CreateAsync(DirectoryInfo repoRoot, string model, ReasoningEffort effort)
     {
-        ClaudeSettings claude = ClaudeSettings.Load(Path.Combine(repoRoot.FullName, "RagFilingExplorer.Claude"));
+        ClaudeSettings claude = ClaudeSettings.Load(repoRoot);
         claude.Model = model;
         (IChatClient client, _) = await ClaudeChat.CreateAsync(claude);
         return new ClaudeJudgeChatClient(client, effort, claude.MaxOutputTokens);
@@ -53,7 +53,11 @@ internal sealed class ClaudeJudgeChatClient(IChatClient inner, ReasoningEffort e
     {
         await foreach (ChatResponseUpdate update in base.GetStreamingResponseAsync(messages, ForClaude(options), cancellationToken))
         {
-            update.Contents.OfType<UsageContent>().ToList().ForEach(u => Usage.Add(u.Details));
+            foreach (UsageContent u in update.Contents.OfType<UsageContent>())
+            {
+                Usage.Add(u.Details);
+            }
+
             yield return update;
         }
     }

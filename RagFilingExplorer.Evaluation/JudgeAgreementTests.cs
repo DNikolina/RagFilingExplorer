@@ -27,7 +27,7 @@ public class JudgeAgreementTests
 
         string report = JudgeAgreement.Report("x", [claudeJudged], new Dictionary<string, string>());
 
-        Assert.That(report, Does.Contain("Judge calls: not in the stored chat details"));
+        Assert.That(report, Does.Contain("Judge calls: none in the stored chat details"));
     }
 
     [Test]

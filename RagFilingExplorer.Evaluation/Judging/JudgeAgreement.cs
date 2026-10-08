@@ -95,7 +95,7 @@ internal static class JudgeAgreement
         double seconds = answers.Sum(a => a.JudgeSeconds);
         // The scenario's chat details hold the local judge's calls; a Claude judge's go through its own client.
         text.AppendLine(calls == 0
-            ? "Judge calls: not in the stored chat details - a Claude judge's calls go through its own client; the run's summary gives the tokens it billed"
+            ? "Judge calls: none in the stored chat details - a Claude judge's calls go through its own client (the run's summary gives the tokens it billed)"
             : $"Judge calls: {calls}, {seconds / 60:F0} min in all, {seconds / calls:F0} s per call (0 s: from the cache)");
 
         foreach (string name in MetricNames.Where(n => answers.Any(a => a.Verdicts.ContainsKey(n))))

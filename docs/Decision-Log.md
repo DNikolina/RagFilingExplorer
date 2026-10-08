@@ -3826,3 +3826,8 @@ key (`EvaluationRunner.JudgeCacheKeys`) and a `judge-effort:` tag; the judge ver
 replay - re-judging those runs would be billed again. (2) **a root `ANTHROPIC_API_KEY` in claudesettings.json was read
 silently** - the guard refused only `Claude:ApiKey`; both names are refused now. Tests for both (410 + 194); a cached
 replay of the local defaults 102/102 from the cache, identical to `structured-hybrid-v3-baseline`.
+Step B, tidy-ups: `EvaluationRunner` takes every option without a default (they duplicated evalsettings.json; one caller)
+and a nullable `claudeJudgeModel` computed from `EvaluationSettings.LocalJudge`, so "is the judge local" is decided in one
+place; `ClaudeSettings.Load(DirectoryInfo repoRoot)` holds the project path both callers built; usage summed in plain
+loops; the agreement report's no-calls line no longer assumes a Claude judge. Checked: 410 + 194; a cached replay with the
+local judge, 204/204 calls from the cache, answers and agreement identical; a cached Claude answer (Q1) from the cache.

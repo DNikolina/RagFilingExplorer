@@ -62,7 +62,8 @@ public class EvaluationRunTests
 
         EvaluationRunner runner = new(Repo, storage, execution,
             settings.NoCache ? null : TimeSpan.FromDays(settings.CacheTimeToLiveDays),
-            settings.UnloadEachQuestion, settings.JudgeNames, settings.UsesStrictGrade, settings.ChatModel, settings.JudgeModel, settings.JudgeEffort);
+            settings.UnloadEachQuestion, settings.JudgeNames, settings.UsesStrictGrade, settings.ChatModel,
+            settings.LocalJudge ? null : settings.JudgeModel, settings.JudgeEffort);
         List<QuestionOutcome> outcomes = await runner.RunAsync(sets, settings.OnlyIds.ToHashSet(), line => TestContext.Progress.WriteLine(line));
 
         // What the model reads - Retrieval:GenerationTopK, from the app's appsettings.json.
