@@ -54,7 +54,8 @@ reranking, a calculator tool, or a bigger model - is answered briefly in [docs/D
   stored, cached and reported ([The evaluation](#the-evaluation)).
 - **v4** (in progress, branch `v4`) - paid services measured against the local stack, starting with Claude as the chat
   model in a separate, optional app; same embeddings, index and retrieval, so only the reading of the excerpts changes
-  ([Answering with Claude](#answering-with-claude-v4-optional-paid)). Built and tested; not measured yet.
+  ([Answering with Claude](#answering-with-claude-v4-optional-paid)). Measured on all 102 questions: Claude Opus 5.5
+  97/102 strictly graded against llama's 84, every remaining miss a retrieval miss.
 
 v1's strategies still ship and are one setting away. Graded strictly (the expected figure, its unit and the exact
 line), with `llama3.1:8b` at temperature 0:
@@ -263,6 +264,34 @@ Two differences from the local model: no temperature is sent - current Claude mo
 default, so a fresh answer can be worded differently from one run to the next - and a refusal fails the answer with a
 message instead of showing it empty. The evaluation runs it with `Evaluation__ChatModel=Claude`
 ([The evaluation](#the-evaluation)).
+
+### Results: Claude against llama3.1:8b
+
+All 102 evaluation questions, the same index, retrieval and prompts - only the model reading the five excerpts differs.
+Strictly graded (the expected figure, its unit and the exact line):
+
+| Chat model | Main (40) | Held-out (35) | Answer-side (27) | Total | Cost per run | Time per run |
+|---|---|---|---|---|---|---|
+| `llama3.1:8b` (local) | 33 | 31 | 20 | 84 | $0 | ~2 hours (CPU) |
+| Claude Sonnet 5.5, medium effort | 37 | 32 | 26 | 95 | ~$0.95 | 3 min |
+| Claude Opus 5.5, medium effort | **40** | 31 | 26 | 97 | ~$2.10 | 7 min |
+| Claude Opus 5.5, low effort | **40** | 32 | 26 | **98** | ~$2.04 | 8 min |
+
+- **Claude fixes the misreadings, not the retrieval misses.** Every question llama misread - a lookalike line, dividends
+  declared for dividends paid, a per-share figure for a total, a ratio - Opus answers right. Its four misses are
+  questions whose answer ranked 7th-12th, outside the five excerpts it was given: two it declines, one it answers with
+  MD&A's rounded figure while saying the exact line isn't in its excerpts, and one it answers from a different
+  statement's lines. Batch 1 changes only the model, so this was its ceiling - the next gain is in retrieval.
+- **Opus picks; Sonnet sometimes hedges.** Asked for a figure with a lookalike line next to it, Opus answers the line
+  asked about and names the other to rule it out. Sonnet twice gave both without choosing, and once stated the lookalike
+  as the answer - for under half Opus's cost.
+- **Reasoning effort made no difference.** Low and medium answered the same questions right; low saved 15% of the
+  output tokens but only ~4% of the cost, since every answer reads a ~3,800-token prompt and writes a few hundred.
+- **Answers vary in wording, not in substance.** Claude takes no temperature 0, so Opus was asked all 102 again with no
+  cache: 88 answers reworded, every one giving the same figure.
+
+Every run is in `eval/v3-runs/` (`claude-*`), and each non-passing answer is read in
+[docs/Decision-Log.md](docs/Decision-Log.md), "paid services (v4)".
 
 ## Configuration (`appsettings.json`)
 
