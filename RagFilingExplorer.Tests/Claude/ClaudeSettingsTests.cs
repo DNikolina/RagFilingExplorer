@@ -7,6 +7,24 @@ namespace RagFilingExplorer.Tests.Claude;
 [TestFixture]
 public class ClaudeSettingsTests
 {
+    private string directory = "";
+
+    [SetUp]
+    public void SetUp()
+    {
+        directory = Path.Combine(Path.GetTempPath(), $"ClaudeSettingsTests-{Guid.NewGuid():N}");
+        Directory.CreateDirectory(directory);
+    }
+
+    [TearDown]
+    public void TearDown()
+    {
+        if (Directory.Exists(directory))
+        {
+            Directory.Delete(directory, recursive: true);
+        }
+    }
+
     private static string ShippedSettingsDirectory =>
         Path.Combine(RepoPaths.FindRoot(AppContext.BaseDirectory).FullName, "RagFilingExplorer.Claude");
 
@@ -72,45 +90,29 @@ public class ClaudeSettingsTests
     [Test]
     public void From_KeyInAnotherJsonFile_IsTheKey()
     {
-        string directory = Path.Combine(Path.GetTempPath(), $"ClaudeSettingsTests-{Guid.NewGuid():N}");
-        Directory.CreateDirectory(directory);
-        try
-        {
-            File.WriteAllText(Path.Combine(directory, "secrets.json"), "{\"Claude:ApiKey\": \"from-secrets\"}");
-            IConfiguration configuration = new ConfigurationBuilder()
-                .SetBasePath(ShippedSettingsDirectory)
-                .AddJsonFile(ClaudeSettings.FileName)
-                .AddJsonFile(Path.Combine(directory, "secrets.json"))
-                .Build();
+        File.WriteAllText(Path.Combine(directory, "secrets.json"), "{\"Claude:ApiKey\": \"from-secrets\"}");
+        IConfiguration configuration = new ConfigurationBuilder()
+            .SetBasePath(ShippedSettingsDirectory)
+            .AddJsonFile(ClaudeSettings.FileName)
+            .AddJsonFile(Path.Combine(directory, "secrets.json"))
+            .Build();
 
-            Assert.That(ClaudeSettings.From(configuration).ApiKey, Is.EqualTo("from-secrets"));
-        }
-        finally
-        {
-            Directory.Delete(directory, recursive: true);
-        }
+        Assert.That(ClaudeSettings.From(configuration).ApiKey, Is.EqualTo("from-secrets"));
     }
 
-    // The repository is public: a key written into the settings file would be committed with it.
-    [Test]
-    public void From_KeyInTheSettingsFile_Throws()
+    // The repository is public: a key written into the settings file would be committed with it - under either name the
+    // key is read by.
+    [TestCase("\"Model\":", "\"ApiKey\": \"sk-ant-x\", \"Model\":", "Claude:ApiKey")]
+    [TestCase("\"Claude\": {", "\"ANTHROPIC_API_KEY\": \"sk-ant-x\", \"Claude\": {", "ANTHROPIC_API_KEY")]
+    public void From_KeyInTheSettingsFile_Throws(string at, string withKey, string keyName)
     {
-        string directory = Path.Combine(Path.GetTempPath(), $"ClaudeSettingsTests-{Guid.NewGuid():N}");
-        Directory.CreateDirectory(directory);
-        try
-        {
-            string shipped = File.ReadAllText(Path.Combine(ShippedSettingsDirectory, ClaudeSettings.FileName));
-            File.WriteAllText(Path.Combine(directory, ClaudeSettings.FileName), shipped.Replace("\"Model\":", "\"ApiKey\": \"sk-ant-x\", \"Model\":"));
-            IConfiguration configuration = new ConfigurationBuilder().SetBasePath(directory).AddJsonFile(ClaudeSettings.FileName).Build();
+        string shipped = File.ReadAllText(Path.Combine(ShippedSettingsDirectory, ClaudeSettings.FileName));
+        File.WriteAllText(Path.Combine(directory, ClaudeSettings.FileName), shipped.Replace(at, withKey));
+        IConfiguration configuration = new ConfigurationBuilder().SetBasePath(directory).AddJsonFile(ClaudeSettings.FileName).Build();
 
-            InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => ClaudeSettings.From(configuration));
+        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => ClaudeSettings.From(configuration));
 
-            Assert.That(ex.Message, Does.Contain("the repository is public"));
-        }
-        finally
-        {
-            Directory.Delete(directory, recursive: true);
-        }
+        Assert.That(ex.Message, Does.Contain($"holds {keyName}").And.Contain("the repository is public"));
     }
 
     [Test]

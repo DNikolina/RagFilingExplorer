@@ -16,6 +16,9 @@ internal sealed class ClaudeSettings
     public const string FileName = "claudesettings.json";
     public const string Section = "Claude";
 
+    /// <summary>The environment variable the key can come from, ahead of user secrets.</summary>
+    public const string EnvironmentKeyName = "ANTHROPIC_API_KEY";
+
     /// <summary>An exact model id from Anthropic's model list (claude-opus-5-5, claude-sonnet-5-5, claude-haiku-5-5),
     /// checked against the Models API at startup.</summary>
     public required string Model { get; set; }
@@ -64,16 +67,19 @@ internal sealed class ClaudeSettings
         ClaudeSettings settings = configuration.GetSection(Section).Get<ClaudeSettings>()
             ?? throw new InvalidOperationException($"{FileName} failed to bind its {Section} section.");
 
-        string apiKeyKey = $"{Section}:{nameof(ApiKey)}";
+        // Both names the key is read under - a root "ANTHROPIC_API_KEY" in the file would be read too, and committed with it.
+        string[] keyNames = [EnvironmentKeyName, $"{Section}:{nameof(ApiKey)}"];
         // This file's provider only: user secrets are a JSON file too (secrets.json), and that one is where the key belongs.
-        if (configuration is IConfigurationRoot root
-            && root.Providers.OfType<JsonConfigurationProvider>().Any(p => p.Source.Path == FileName && p.TryGet(apiKeyKey, out _)))
+        string? inFile = configuration is IConfigurationRoot root
+            ? keyNames.FirstOrDefault(k => root.Providers.OfType<JsonConfigurationProvider>().Any(p => p.Source.Path == FileName && p.TryGet(k, out _)))
+            : null;
+        if (inFile is not null)
         {
             throw new InvalidOperationException(
-                $"{FileName} holds {apiKeyKey} - remove it, the repository is public; keep the key in user secrets or ANTHROPIC_API_KEY.");
+                $"{FileName} holds {inFile} - remove it, the repository is public; keep the key in user secrets or ANTHROPIC_API_KEY.");
         }
 
-        settings.apiKey = new[] { configuration["ANTHROPIC_API_KEY"], configuration[apiKeyKey] }.FirstOrDefault(k => !string.IsNullOrEmpty(k));
+        settings.apiKey = keyNames.Select(k => configuration[k]).FirstOrDefault(k => !string.IsNullOrEmpty(k));
 
         if (settings.LookupEffort == ReasoningEffort.None || settings.SynthesisEffort == ReasoningEffort.None)
         {

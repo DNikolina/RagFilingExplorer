@@ -4,6 +4,7 @@ using Microsoft.Extensions.AI.Evaluation;
 using Microsoft.Extensions.AI.Evaluation.Reporting;
 using Microsoft.Extensions.AI.Evaluation.Reporting.Storage;
 using OllamaSharp;
+using RagFilingExplorer.Evaluation.Running;
 
 namespace RagFilingExplorer.Evaluation;
 
@@ -38,6 +39,18 @@ public class ResponseCacheKeyTests
         using AnthropicClient client = new() { ApiKey = "offline" };
 
         Assert.That(CachingKeys(client.AsIChatClient("claude-sonnet-5-5", 16000)), Is.EqualTo(new[] { "anthropic", "claude-sonnet-5-5" }));
+    }
+
+    // The judge's effort is set below its cache, so it reaches the key only by name: without it a Low verdict would
+    // replay for a Medium run.
+    [Test]
+    public void JudgeCacheKeys_DifferentEffort_DifferentKeys()
+    {
+        string[] low = EvaluationRunner.JudgeCacheKeys("AnswerSide.A10", "1", "claude-sonnet-5-5", ReasoningEffort.Low);
+        string[] medium = EvaluationRunner.JudgeCacheKeys("AnswerSide.A10", "1", "claude-sonnet-5-5", ReasoningEffort.Medium);
+
+        Assert.That(low, Does.Contain("claude-sonnet-5-5").And.Contain("Low"));
+        Assert.That(medium, Is.Not.EqualTo(low));
     }
 
     [Test]

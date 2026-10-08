@@ -3817,3 +3817,12 @@ so Sonnet as judge on llama's answers is 98/102, 4 of 18 strict failures passed 
 differ on one verdict of 306 (A11). Docs: the README's evaluation section (the judge model setting, a paid judge's results
 next to the local one's), the Design-FAQ ("Why is the strict grade the grade, not a model judge?"), the plan. 409 + 193
 tests. **Batch 2 complete.**
+
+**Review of v4's code (code-simplifier, user, 2026-10-08)** - report only, nine findings, applied in three steps.
+Step A, two bugs: (1) **a Claude judge's effort wasn't in its cache key** - the effort is set below the cache
+(`ClaudeJudgeChatClient`) and the key named only scenario, iteration, provider and judge model, so a verdict given at one
+`JudgeEffort` would have replayed for another; every judged run so far used Low, so no stored result is wrong. Now in the
+key (`EvaluationRunner.JudgeCacheKeys`) and a `judge-effort:` tag; the judge verdicts cached before the change no longer
+replay - re-judging those runs would be billed again. (2) **a root `ANTHROPIC_API_KEY` in claudesettings.json was read
+silently** - the guard refused only `Claude:ApiKey`; both names are refused now. Tests for both (410 + 194); a cached
+replay of the local defaults 102/102 from the cache, identical to `structured-hybrid-v3-baseline`.

@@ -74,6 +74,14 @@ internal sealed class EvaluationRunner(
     /// <summary>The tokens a Claude judge was billed for in the last run - none for the local judge or a cached one.</summary>
     public UsageDetails? JudgeUsage { get; private set; }
 
+    /// <summary>
+    /// What a Claude judge's cached verdict is keyed by besides the request. The request is the judge evaluator's own -
+    /// <see cref="ClaudeJudgeChatClient"/> sets the effort below the cache - so the effort is named here, or a verdict
+    /// given at one effort would replay for another.
+    /// </summary>
+    internal static string[] JudgeCacheKeys(string scenario, string iteration, string judgeModel, ReasoningEffort judgeEffort) =>
+        [scenario, iteration, "anthropic", judgeModel, judgeEffort.ToString()];
+
     public static readonly IReadOnlyList<QuestionSet> AllSets =
     [
         new("Main", "manual-questions.txt"),
@@ -178,7 +186,7 @@ internal sealed class EvaluationRunner(
         {
             bool local = judgeModel.Equals("Local", StringComparison.OrdinalIgnoreCase);
             claudeJudge = local ? null : await ClaudeJudgeChatClient.CreateAsync(repoRoot, judgeModel, judgeEffort);
-            runTags.Add(local ? $"judge:{settings.Ollama.ChatModel}" : $"judge:{judgeModel}");
+            runTags.AddRange(local ? [$"judge:{settings.Ollama.ChatModel}"] : [$"judge:{judgeModel}", $"judge-effort:{judgeEffort}"]);
         }
 
         JudgeUsage = claudeJudge?.Usage;
@@ -232,7 +240,7 @@ internal sealed class EvaluationRunner(
                 judgeConfiguration = new ChatConfiguration(reporting.ResponseCacheProvider is { } caches
                     ? new DistributedCachingChatClient(claudeJudge, await caches.GetCacheAsync(scenario.ScenarioName, scenario.IterationName, cancellationToken))
                     {
-                        CacheKeyAdditionalValues = [scenario.ScenarioName, scenario.IterationName, "anthropic", judgeModel],
+                        CacheKeyAdditionalValues = JudgeCacheKeys(scenario.ScenarioName, scenario.IterationName, judgeModel, judgeEffort),
                     }
                     : claudeJudge);
             }
