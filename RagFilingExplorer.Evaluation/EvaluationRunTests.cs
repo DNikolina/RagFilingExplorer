@@ -66,8 +66,8 @@ public class EvaluationRunTests
             settings.UsesLocalJudge ? null : settings.JudgeModel, settings.JudgeEffort);
         List<QuestionOutcome> outcomes = await runner.RunAsync(sets, settings.OnlyIds.ToHashSet(), line => TestContext.Progress.WriteLine(line));
 
-        // What the model reads - Retrieval:GenerationTopK, from the app's appsettings.json.
-        int generationTopK = AppSettings.Load(Path.Combine(Repo.FullName, "RagFilingExplorer.Local")).Retrieval.GenerationTopK;
+        // What the model read - Local's Retrieval:GenerationTopK, or Claude's own.
+        int generationTopK = runner.GenerationTopK;
         StringBuilder summary = new();
         List<string> differences = [];
         summary.AppendLine($"Execution {execution}: {outcomes.Count} questions, {outcomes.Sum(o => o.Elapsed.TotalMinutes):F0} min, chat model {settings.ChatModel}, graders {settings.Graders}"

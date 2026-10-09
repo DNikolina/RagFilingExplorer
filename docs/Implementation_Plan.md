@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 410 offline unit tests (176 at v1.0) + 195 offline evaluation tests |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 414 offline unit tests (176 at v1.0) + 195 offline evaluation tests |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -87,7 +87,9 @@ agrees with it on 305 of 306 verdicts, slightly more lenient (A11) - no self-pre
 **Batch 3 planned (user, 2026-10-09): paid embeddings** - Voyage `voyage-4-large` and `voyage-finance-2` against
 nomic-embed-text, same chunking, search and prompt; first, Claude given more excerpts (top-12 - batch 1's four misses
 ranked 7-12), then a shared `RagFilingExplorer.Core` (no behaviour change), the Voyage client written here, one index per embedding model, answer rank measured before answers.
-Decision-Log.md, "Batch 3 - paid embeddings".
+Decision-Log.md, "Batch 3 - embeddings, free then paid". **Step 0a done (2026-10-09):** `Claude:GenerationTopK` (shipped 5);
+Sonnet 5.5 at 12 excerpts **102/102 strictly** (95 at 5) - every grade change a pass, the four retrieval misses fixed, ~$1.90. Claude stays at 5 (user). **Next: the free `embeddinggemma-2` before Voyage** - the embedder
+made swappable, a retrieval-only evaluation mode, its ranks against nomic's, llama's answers if they improve.
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the

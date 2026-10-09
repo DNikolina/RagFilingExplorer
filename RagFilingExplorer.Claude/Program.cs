@@ -23,11 +23,16 @@ catch (StartupException ex)
 static async Task RunAsync(string[] args)
 {
     AppSettings settings = Load(() => AppSettings.Load(AppContext.BaseDirectory));
-    ClaudeSettings claude = Load(() => ClaudeSettings.Load(AppContext.BaseDirectory));
+    ClaudeSettings claude = Load(() =>
+    {
+        ClaudeSettings loaded = ClaudeSettings.Load(AppContext.BaseDirectory);
+        loaded.ApplyTo(settings.Retrieval);
+        return loaded;
+    });
     DirectoryInfo repoRoot = RepoPaths.FindRoot(AppContext.BaseDirectory);
 
     (IChatClient chat, ChatModelOptions options) = await ClaudeChat.CreateAsync(claude);
-    Console.WriteLine($"Chat model: {claude.Model} (Claude API; effort {claude.LookupEffort} for lookups, {claude.SynthesisEffort} for synthesis)");
+    Console.WriteLine($"Chat model: {claude.Model} (Claude API; effort {claude.LookupEffort} for lookups, {claude.SynthesisEffort} for synthesis; reads {claude.GenerationTopK} excerpts)");
 
     using RagRuntime runtime = await AppComposition.OpenExistingIndexAsync(settings, repoRoot, chat, options);
     await InteractiveSession.RunAsync(runtime.AnswerService, args.Contains("--verbose"), settings.Retrieval);

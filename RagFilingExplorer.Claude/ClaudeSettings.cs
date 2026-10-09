@@ -41,6 +41,13 @@ internal sealed class ClaudeSettings
     public required int MaxOutputTokens { get; set; }
 
     /// <summary>
+    /// How many retrieved excerpts Claude reads - replaces appsettings.json's Retrieval:GenerationTopK, which is sized for
+    /// Ollama's 4,096-token num_ctx; Claude's window is 1M. Applied by <see cref="ApplyTo"/>. At most
+    /// Retrieval:VerboseSearchTopK, the depth the evaluation retrieves and ranks within.
+    /// </summary>
+    public required int GenerationTopK { get; set; }
+
+    /// <summary>
     /// The API key: the ANTHROPIC_API_KEY environment variable, else Claude:ApiKey from .NET user secrets
     /// (<c>dotnet user-secrets set Claude:ApiKey ... --project RagFilingExplorer.Claude</c> - a file in the user's profile,
     /// outside the repository); null when neither is set. Read-only, so it isn't a required key, and refused in
@@ -95,6 +102,29 @@ internal sealed class ClaudeSettings
             throw new InvalidOperationException($"{FileName}: {Section}:MaxOutputTokens must be positive.");
         }
 
+        if (settings.GenerationTopK <= 0)
+        {
+            throw new InvalidOperationException($"{FileName}: {Section}:GenerationTopK must be positive.");
+        }
+
         return settings;
+    }
+
+    /// <summary>
+    /// Sets Local's retrieval settings to read <see cref="GenerationTopK"/> excerpts. The interactive search depth
+    /// (DefaultSearchTopK) is raised to it too: RagAnswerService takes the excerpts from the search's results, so a
+    /// shallower search would silently give fewer.
+    /// </summary>
+    public void ApplyTo(RetrievalSettings retrieval)
+    {
+        if (GenerationTopK > retrieval.VerboseSearchTopK)
+        {
+            throw new InvalidOperationException(
+                $"{FileName}: {Section}:GenerationTopK ({GenerationTopK}) is more than appsettings.json's Retrieval:VerboseSearchTopK "
+                + $"({retrieval.VerboseSearchTopK}), the deepest search.");
+        }
+
+        retrieval.GenerationTopK = GenerationTopK;
+        retrieval.DefaultSearchTopK = Math.Max(retrieval.DefaultSearchTopK, GenerationTopK);
     }
 }

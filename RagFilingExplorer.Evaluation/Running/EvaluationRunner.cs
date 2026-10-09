@@ -74,6 +74,10 @@ internal sealed class EvaluationRunner(
     /// <summary>The tokens a Claude judge was billed for in the last run - none for the local judge or a cached one.</summary>
     public UsageDetails? JudgeUsage { get; private set; }
 
+    /// <summary>How many excerpts the model read in the last run - appsettings.json's Retrieval:GenerationTopK, or
+    /// claudesettings.json's for Claude. What "in the model's context" means for the run's ranks.</summary>
+    public int GenerationTopK { get; private set; }
+
     /// <summary>
     /// What a Claude judge's cached verdict is keyed by besides the request. The request is the judge evaluator's own -
     /// <see cref="ClaudeJudgeChatClient"/> sets the effort below the cache - so the effort is named here, or a verdict
@@ -174,9 +178,13 @@ internal sealed class EvaluationRunner(
         if (chatModel == ChatModel.Claude)
         {
             ClaudeSettings claude = ClaudeSettings.LoadFromRepository(repoRoot);
+            claude.ApplyTo(settings.Retrieval);
             (answerChat, answerOptions) = await ClaudeChat.CreateAsync(claude);
             runTags = [$"chat:{claude.Model}", $"effort:{claude.LookupEffort}/{claude.SynthesisEffort}"];
         }
+
+        GenerationTopK = settings.Retrieval.GenerationTopK;
+        runTags.Add($"excerpts:{GenerationTopK}");
 
         // A Claude judge has its own client, beside the answering one - the answering client is the answers' cache key.
         // Each question's judge calls are cached in its scenario's cache, keyed by the judge model as well.

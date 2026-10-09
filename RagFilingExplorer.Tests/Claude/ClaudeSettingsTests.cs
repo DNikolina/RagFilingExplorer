@@ -1,6 +1,7 @@
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using RagFilingExplorer.Claude;
+using RagFilingExplorer.Local;
 
 namespace RagFilingExplorer.Tests.Claude;
 
@@ -45,6 +46,52 @@ public class ClaudeSettingsTests
         Assert.That(settings.LookupEffort, Is.EqualTo(ReasoningEffort.Medium), "enum binds from its name");
         Assert.That(settings.SynthesisEffort, Is.EqualTo(ReasoningEffort.Medium));
         Assert.That(settings.MaxOutputTokens, Is.Positive);
+        Assert.That(settings.GenerationTopK, Is.EqualTo(AppSettingsTests.LoadShippedSettings().Retrieval.GenerationTopK),
+            "Claude reads as many excerpts as llama until a run overrides it");
+    }
+
+    [Test]
+    public void From_GenerationTopKZero_Throws()
+    {
+        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => FromShipped(new() { ["Claude:GenerationTopK"] = "0" }));
+
+        Assert.That(ex.Message, Does.Contain("Claude:GenerationTopK must be positive"));
+    }
+
+    // RagAnswerService takes the excerpts from the search's results: an interactive search of 5 would give 5 of 12.
+    [Test]
+    public void ApplyTo_MoreExcerptsThanTheInteractiveSearch_RaisesTheSearchDepth()
+    {
+        RetrievalSettings retrieval = AppSettingsTests.LoadShippedSettings().Retrieval;
+        retrieval.DefaultSearchTopK = 5;
+
+        FromShipped(new() { ["Claude:GenerationTopK"] = "12" }).ApplyTo(retrieval);
+
+        Assert.That(retrieval.GenerationTopK, Is.EqualTo(12));
+        Assert.That(retrieval.DefaultSearchTopK, Is.EqualTo(12));
+    }
+
+    [Test]
+    public void ApplyTo_FewerExcerptsThanTheInteractiveSearch_KeepsTheSearchDepth()
+    {
+        RetrievalSettings retrieval = AppSettingsTests.LoadShippedSettings().Retrieval;
+        retrieval.DefaultSearchTopK = 10;
+
+        FromShipped(new() { ["Claude:GenerationTopK"] = "3" }).ApplyTo(retrieval);
+
+        Assert.That(retrieval.GenerationTopK, Is.EqualTo(3));
+        Assert.That(retrieval.DefaultSearchTopK, Is.EqualTo(10));
+    }
+
+    [Test]
+    public void ApplyTo_MoreExcerptsThanTheDeepestSearch_Throws()
+    {
+        RetrievalSettings retrieval = AppSettingsTests.LoadShippedSettings().Retrieval;
+        ClaudeSettings settings = FromShipped(new() { ["Claude:GenerationTopK"] = (retrieval.VerboseSearchTopK + 1).ToString() });
+
+        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => settings.ApplyTo(retrieval));
+
+        Assert.That(ex.Message, Does.Contain("Retrieval:VerboseSearchTopK"));
     }
 
     // The SDK sends ReasoningEffort.None as thinking disabled, which current Opus and Sonnet models reject with a 400 -

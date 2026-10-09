@@ -3852,7 +3852,7 @@ arguments on internal methods - the guideline's reason is CLS compliance, a publ
 names as they were. Checked: 410 + 195 tests; a cached replay with the local judge 204/204 from the cache, answers and
 agreement identical; a cached Claude answer from the cache.
 
-### Batch 3 - paid embeddings: PLANNED (user, 2026-10-09)
+### Batch 3 - embeddings, free then paid: IN PROGRESS (user, 2026-10-09)
 
 **Why.** Batch 1 left every Claude miss a retrieval miss: the answer's chunk ranked 7-12, never in the five excerpts the
 model reads. A better reader can't fix those; a better embedder might. Batch 3 changes the embeddings only - same
@@ -3920,28 +3920,84 @@ model's free tokens, so ~$0 for the embeddings. The answers are the paid part: a
      ~8,200 tokens), compared question by question with `claude-sonnet55-medium` - the 98 questions right today
      re-read too, since more excerpts mean more lookalike lines and MD&A roundings to choose from. Opus (~$4) only if
      Sonnet's result leaves the question open.
-0b. **`RagFilingExplorer.Core` extracted - no behaviour change.** Files moved, namespaces and `InternalsVisibleTo`
-   updated, packages split (Core without OllamaSharp; `dotnet list package --vulnerable --include-transitive` after).
-   **Bar:** 410 + 195 tests; every chunk-review dump identical on all three strategies; no index rebuilt (manifests
-   match); a cached replay 102/102 identical to `structured-hybrid-v3-baseline`; Local and the Claude app answer
-   Microsoft's revenue as before.
+   - **Built (2026-10-09):** `Claude:GenerationTopK` in `claudesettings.json`, shipped at 5 (a run overrides it,
+     `Claude__GenerationTopK=12`); `ClaudeSettings.ApplyTo` sets Local's `Retrieval:GenerationTopK` from it and raises
+     `DefaultSearchTopK` to match (`RagAnswerService` takes the excerpts from the search's results - the console's
+     search of 5 would silently give 5), refused above `VerboseSearchTopK` (25) or at 0; one caller in the Claude app,
+     one in the evaluation's Claude path. Runs are tagged `excerpts:<n>`; the summary's "answer in the top N" reads the
+     value the run used (it read Local's before). The index manifest records no retrieval setting, so nothing is
+     rebuilt. Checked: 414 + 195 tests; a replay at 5 of H25, H29, H34, A11 and R3 - all five from the cache, prompts and
+     answers byte-identical to `claude-opus55-medium`, on Ollama 0.40.2 (so its retrieval matched 0.40.1's on these).
+   - **Smoke - Opus 5.5 medium at 12, the five questions (`step0a-smoke-opus-top12`): 5 of 5 reliable**, ~$0.23
+     (45,609 input + 2,256 output tokens; prompts 7,651-10,468 tokens). H29 $827 million from the Index line (was a
+     decline); H34 the cash flow statement's $9,127,167 thousand, the equity statement's $9,154,855 named as the
+     non-cash contrast (was MD&A's rounded $9.1 billion); H25 $46,751 million (was a decline); A11 "Payments of
+     dividends" $5,787 million, the equity statement's $5,725 named as the contrast (was an equity-statement sum); R3
+     the segment note's $137,791 million (was a decline - the routing test's pass). Every figure traced, no trap taken.
+     R3 now answers, so its decline-ok rule (written when v1's hard filter made the answer unreachable) is to be
+     revisited after the full run.
+   - **Full run - Sonnet 5.5 medium at 12, all 102 (`claude-sonnet55-medium-top12`): 102/102 strictly** (Main 40/40,
+     HeldOut 35/35, AnswerSide 27/27), 4 min, 865,075 input + 16,634 output tokens, **~$1.90** (top-5: 384,306 input,
+     ~$0.95). Compared question by question with `claude-sonnet55-medium` (`eval/v3-runs/sonnet-top5-vs-top12.txt`):
+     95 grades the same, **7 changed, every one to a pass; no pass lost.**
+     - By the excerpts - the answer was outside the top 5: A11 (rank 12) "Payments of dividends" $5,787 million (was
+       MD&A's $63 million + $5.7 billion, wrong); H29 (7) $827 million (was a decline); H34 (9) the cash flow line's
+       $9,127,167 thousand (was the equity statement's $9,154,855 thousand, the trap); R3 (12) $137,791 million (was a
+       decline adding MD&A's growth figure). H25 (11) was already right at 5 - Sonnet summed the expense lines - and now
+       reads the total line.
+     - Likely partly sampling (no temperature 0; Opus's no-cache pass changed one grade on its own): H8 a clean decline
+       (was a decline listing other years' figures); Q23 and V1 choose the asked-for line and name the other (were
+       hedges giving both) - Sonnet's known weak spot, moved the right way.
+     - 33 answers state a different set of figures, none a trap (the grader marks a stated trap `check`). The three
+       untraced figures are restatements and an asked-for sum: Q17 "about $45.2 billion", Q18 "about $10.98 billion",
+       V3's three-year total.
+     So more excerpts fixed every retrieval miss and confused nothing: on this set, Claude's remaining failures were
+     the 5-excerpt cut-off, not retrieval's ranking. Step 0a so far: ~$2.13 (smoke ~$0.23, Sonnet ~$1.90).
+     **For batch 3** this moves the bar: nomic at top-12 already puts every answerable question's figure in Claude's
+     prompt (ranks <= 12, but A16 at 18 and A25 at 25 - the rank looks for the table's "(601)", while the figure is
+     in a top-5 MD&A excerpt as "601"), so a paid embedder can't raise Claude's score on these 102 - only llama's,
+     which stays at 5 (num_ctx), or the same score with fewer excerpts (a cheaper prompt). To decide with the user.
+   - **Decided (user, 2026-10-09): Claude stays at 5** - 12 is proven and its run kept; the setting stays at 5 in
+     `claudesettings.json`. **Next, a free local embedder before the paid one:** does `embeddinggemma-2` change the
+     ranking, and llama's answers (held at 5 excerpts by num_ctx - where ranking is the only lever left)? The steps
+     below are reordered for it; the Core library moves to just before Voyage, which is what needs it (EmbeddingGemma
+     runs in Ollama, so it lives in Local).
+
+**EmbeddingGemma 2, checked 2026-10-09** (Ollama's library page; Google's card, `google/embeddinggemma-2` on Hugging
+Face): Apache 2.0, ungated; `:270m` text-only (130M backbone + 140M embedder, 378 MB), the default tag adds vision; 768
+dimensions (Matryoshka 512/256/128) - nomic's size; query `task: search result | query: {q}`, document
+`title: {title} | text: {content}` (`title: none` with none). Context: Google's card 8,192 tokens, Ollama's tags 256K -
+unreconciled, so what Ollama declares and whether it truncates silently is checked before indexing (nomic: card 8,192,
+Ollama 2,048, cut silently). No finance or English-retrieval benchmark published (MTEB English v2 mean 68.46, all
+tasks) - only our rank says whether it helps.
+
 1. **The embedder made swappable - no behaviour change.** The query/document text templates and the vector dimension
    (today `"search_query: "` in `RagAnswerService`, `"search_document: "` in `FilingChunkRecords`,
    `[VectorStoreVector(dimensions: 768)]` on `FilingChunkRecord`) come from the embedder's description instead; how a
    collection's dimension is set at runtime (a record definition) is read on Microsoft Learn first. The index file name
-   and manifest take the model. **Bar:** 410 + 195 tests; every chunk-review dump identical; nomic's index not rebuilt
+   and manifest take the model. **Bar:** 414 + 195 tests; every chunk-review dump identical; nomic's index not rebuilt
    (its manifest still matches); a cached replay 102/102 identical to `structured-hybrid-v3-baseline`.
 2. **A retrieval-only evaluation mode** - each question's search run and ranked, no chat call, no grade. **Bar:** on
-   nomic, every rank identical to `structured-hybrid-v3-baseline`'s.
-3. **The Voyage embedder** in `RagFilingExplorer.Claude` (over Core), its settings documented on their class, offline tests (the
-   request sent: model, input type, `truncation: false`; a 429 retried; the key never from a settings file). The
-   evaluation's settings choose the embedder (`Local`, or a Voyage model id). **Bar:** the tests; a smoke embedding of
-   two chunks and one question - free tokens.
-4. **Build both Voyage indexes and rank** (retrieval-only, all 102): recall@5, MRR and every rank that moved, read
-   question by question against nomic's - which retrieval misses (batch 1's ranks 7-12) it fixes, which it breaks.
-5. **Answers for the best embedder:** Opus 5.5 medium (~$3-5) and llama (free), each compared with its nomic run,
-   split into misreadings and retrieval misses. Each paid run asked for before it runs.
-6. **Tests and docs:** README, Design-FAQ ("why Voyage? why not the open voyage-4-nano?"), the plan.
+   nomic, every rank identical to `structured-hybrid-v3-baseline`'s - also nomic's rank baseline on Ollama 0.40.2.
+3. **EmbeddingGemma 2 (`:270m`), free:** pulled; its declared context length read (`/api/show`) and the largest
+   chunk embedded with `truncate: false`; Google's templates. Its index built twice - the company line as the
+   document's `title`, and as today (first line of the text) - and both ranked on all 102: recall@5, MRR and every
+   rank that moved, read question by question against nomic's; embed time recorded (CPU-only).
+4. **llama's answers, only if the ranks improve:** a full run with EmbeddingGemma (~2 h) against a nomic run on the
+   same Ollama build (another ~2 h, unless step 2 shows 0.40.2 retrieves exactly as before), split into misreadings
+   and retrieval misses.
+5. **`RagFilingExplorer.Core` extracted - no behaviour change** (before Voyage). Files moved, namespaces and
+   `InternalsVisibleTo` updated, packages split (Core without OllamaSharp; `dotnet list package --vulnerable
+   --include-transitive` after). **Bar:** the tests; every chunk-review dump identical on all three strategies; no
+   index rebuilt; a cached replay 102/102 identical; Local and the Claude app answer Microsoft's revenue as before.
+6. **The Voyage embedder** in `RagFilingExplorer.Claude` (over Core), its settings documented on their class, offline
+   tests (the request sent: model, input type, `truncation: false`; a 429 retried; the key never from a settings file).
+   The evaluation's settings choose the embedder. **Bar:** the tests; a smoke embedding of two chunks and one question -
+   free tokens.
+7. **Build both Voyage indexes and rank** (retrieval-only, all 102), against nomic's and EmbeddingGemma's.
+8. **Answers for the best embedder** - llama (free), and Claude only where a question remains open (at 5, Claude's
+   only gain from ranking is a cheaper prompt). Each paid run asked for before it runs.
+9. **Tests and docs:** README, Design-FAQ ("why Voyage? why not the open voyage-4-nano?"), the plan.
 
 **Ollama build for batch 3: 0.40.2** (installed 2026-10-09 from the auto-updater's staged, Ollama-signed installer;
 0.40.0 -> 0.40.1 had auto-installed that morning). `nomic-embed-text` (0a109f422b47) and `llama3.1:8b` (46e0c10c039e)
@@ -3949,7 +4005,7 @@ unchanged - not upgraded by 0.40's background model conversion. 0.40.0 reproduce
 re-baselined by step 2's nomic ranks, and auto-update stays off until batch 3 is measured.
 
 **Needed from the user before any paid call:** a Voyage account and key, and whether to add a payment method (Tier 1
-rate limits; the free tokens still apply). Steps 0b-2 need neither; 0a needs only the Claude key already set.
+rate limits; the free tokens still apply). Steps 1-5 need neither.
 
 **Not in this batch:** `voyage-4-nano` (open weights, Apache 2.0, not in Ollama - an ONNX port with tokenizer and
 embedding parity checks, as the reranker had) and Voyage's rerankers - each a later step, if the paid embedder shows

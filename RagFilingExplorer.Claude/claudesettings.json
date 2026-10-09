@@ -5,6 +5,7 @@
     "Model": "claude-opus-5-5",
     "LookupEffort": "Medium",
     "SynthesisEffort": "Medium",
-    "MaxOutputTokens": 16000
+    "MaxOutputTokens": 16000,
+    "GenerationTopK": 5
   }
 }
