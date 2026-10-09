@@ -132,34 +132,22 @@ This Annual Report on Form 10-K contains forward-looking statements within the m
 
 These forward-looking statements are based on current expectations and assumptions and are subject to risks and uncertainties that could cause actual results to differ materially from those expressed or implied in the forward-looking statements. Important factors that could cause or contribute to such differences are discussed in Part I, Item 1A, “Risk Factors,” Part II, Item 7, “Management’s Discussion and Analysis of Financial Condition and Results of Operations,” and elsewhere in this Annual Report and in our other filings with the U.S. Securities and Exchange Commission. Readers are cautioned not to place undue reliance on these forward-looking statements, which speak only as of the date of this Annual Report. Except as required by law, we undertake no obligation to update or revise publicly any forward-looking statements.
 
---- Chunk 7/276 | heading: PART I > Item 1. Business | tokens: 501 ---
+--- Chunk 7/276 | heading: PART I > Item 1. Business | tokens: 497 ---
 Oracle provides products and services that build, run and support enterprise information technology (IT) frameworks. Our products and services include enterprise applications and infrastructure offerings that incorporate and are enhanced by artificial intelligence (AI) technologies, including embedded AI-driven automation and analytics and generative AI capabilities. These offerings are delivered worldwide through a variety of flexible and interoperable IT deployment models. These models include cloud-based, on-premise and hybrid deployments, such as Oracle Exadata Cloud@Customer and multicloud options that enable customers to use Oracle cloud offerings in conjunction with other public clouds. We provide choice and flexibility to our customers as to when and how they deploy Oracle applications and infrastructure technologies. We believe that offering customers broad, comprehensive, flexible and interoperable deployment models for Oracle applications and infrastructure technologies is important to our growth strategy, an important element of our corporate strategy and better addresses customer needs relative to our competitors.
 
 Oracle cloud offerings include Oracle Cloud Applications (OCA) and Oracle Cloud Infrastructure (OCI, and collectively with OCA, Oracle Cloud), which provide comprehensive and integrated applications and infrastructure services, enabling our customers to choose the best option that meets their specific business needs. Oracle Cloud integrates IT components in a cloud-based IT environment that Oracle deploys and manages for customers and is accessible by utilizing common web browsers via a broad spectrum of devices. AI technologies embedded in Oracle Cloud offerings are designed to support the improvement of our customers’ existing and new workflows and business processes, including automation and data analyses. Oracle Cloud is designed to be:
 
-•
+• rapidly deployable to enable customers shorter time to innovation;
 
-rapidly deployable to enable customers shorter time to innovation;
+• intuitive for both casual and experienced users;
 
-•
+• easily maintainable to reduce upgrade, integration and testing work;
 
-intuitive for both casual and experienced users;
+• connectable among differing deployment models to enable interoperability and extensibility to easily move workloads among the Oracle Cloud, multicloud and other IT environments;
 
-•
+• cost-effective by lowering upfront customer investments and implementing usage-based resource consumption costs; and
 
-easily maintainable to reduce upgrade, integration and testing work;
-
-•
-
-connectable among differing deployment models to enable interoperability and extensibility to easily move workloads among the Oracle Cloud, multicloud and other IT environments;
-
-•
-
-cost-effective by lowering upfront customer investments and implementing usage-based resource consumption costs; and
-
-•
-
-highly performant and secure, standards-based and reliable.
+• highly performant and secure, standards-based and reliable.
 
 Oracle software offerings include Oracle Applications, Oracle AI Database and Oracle Middleware software license offerings, among others, which customers deploy using IT infrastructure from the Oracle Cloud or their own IT environments. Substantially all customers opt to purchase software support contracts when they purchase an Oracle software license.
 
@@ -209,27 +197,17 @@ Oracle Cloud Applications (OCA)
 
 The broad spectrum of OCA offerings provides customers with a choice of software applications delivered via a cloud-based IT environment that we deploy and manage and that customers purchase by entering into a subscription agreement with us for a stated period. Our OCA offerings represent an industry-leading business innovation platform leveraging OCI and include a broad suite of modular, next-generation cloud software applications spanning all core business functions. Our OCA offerings include:
 
-•
+• Oracle Fusion Cloud Enterprise Resource Planning (ERP), which includes Oracle Fusion Cloud Enterprise Performance Management (EPM) and Oracle Fusion Cloud Supply Chain and Manufacturing Management (SCM), is designed to provide complete financial, project and risk management solutions to help organizations manage finance and accounting functions, to optimize back-office operations by utilizing a single data and security model with a common user interface and to optimize and digitize their supply chains and manufacturing operations;
 
-Oracle Fusion Cloud Enterprise Resource Planning (ERP), which includes Oracle Fusion Cloud Enterprise Performance Management (EPM) and Oracle Fusion Cloud Supply Chain and Manufacturing Management (SCM), is designed to provide complete financial, project and risk management solutions to help organizations manage finance and accounting functions, to optimize back-office operations by utilizing a single data and security model with a common user interface and to optimize and digitize their supply chains and manufacturing operations;
+• Oracle Fusion Cloud Human Capital Management (HCM), which is designed to help organizations find, develop and retain their talent, enable collaboration, provide workforce insights, improve business process efficiency and enable users to connect to an integrated suite of HCM applications from a broad range of devices;
 
-•
-
-Oracle Fusion Cloud Human Capital Management (HCM), which is designed to help organizations find, develop and retain their talent, enable collaboration, provide workforce insights, improve business process efficiency and enable users to connect to an integrated suite of HCM applications from a broad range of devices;
-
-•
-
-Oracle Fusion Cloud Customer Experience (CX), which is designed to allow organizations to deliver consistent and personalized customer experiences across their customer channels, touch points and interactions through sales, service and marketing modules;
+• Oracle Fusion Cloud Customer Experience (CX), which is designed to allow organizations to deliver consistent and personalized customer experiences across their customer channels, touch points and interactions through sales, service and marketing modules;
 
 [Table of Contents](#toc_page)
 
-•
+• NetSuite Applications Suite, which is generally marketed to small to medium-sized organizations and is designed to be a unified, cloud-based applications suite to run a company’s entire business, includes modules for managing financials, supply chains, customer relationships, workforces, professional services and commerce, among others; and
 
-NetSuite Applications Suite, which is generally marketed to small to medium-sized organizations and is designed to be a unified, cloud-based applications suite to run a company’s entire business, includes modules for managing financials, supply chains, customer relationships, workforces, professional services and commerce, among others; and
-
-•
-
-Oracle Health applications, which are designed to enable medical professionals to deliver better healthcare to individual patients and communities.
+• Oracle Health applications, which are designed to enable medical professionals to deliver better healthcare to individual patients and communities.
 
 In addition, we offer several cloud-based industry solutions to address specific customer needs within certain industries including communications, construction and engineering, education, financial services, government, healthcare, hospitality, utilities and retail, among others.
 
@@ -264,7 +242,7 @@ Oracle Cloud Infrastructure (OCI)
 
 OCI offerings are designed to deliver our infrastructure technologies, including compute, storage, networking, and cloud-native services, along with new and innovative solutions such as AI Infrastructure, generative AI and agentic AI. OCI offerings include our Oracle Autonomous AI Database offerings, among others, that Oracle runs, manages, upgrades and supports on behalf of the customer. We also offer a portfolio of specialized databases to address specific customer requirements, including MySQL, the world’s most popular open source database, as a cloud service with Oracle MySQL HeatWave. By utilizing OCI, customers can leverage the Oracle Cloud for enterprise-grade, high-performance, scalable, cost-effective and secure infrastructure technologies that are designed to be rapidly deployable and provide real-time elasticity while reducing the amount of time and resources normally consumed by IT processes within on-premise environments. OCI is designed to be differentiated from other cloud vendors to provide better security by separating cloud control code computers from customer compute nodes. Customers use OCI to build and operate new applications ranging from low-code to AI-powered cloud-native applications, to run new workloads and to move their existing Oracle or non-Oracle workloads to the Oracle Cloud from their on-premise data centers or other cloud-based IT environments, among other uses. We continue to invest in OCI to improve features and performance; to expand the catalog of cloud-based infrastructure tools and services that we provide; to increase the capacity and geographic footprint to deliver these services; to simplify the processes for migrating workloads to the Oracle Cloud; and to provide customers with the ability to run workloads across different IT environments, the Oracle Cloud as well as other third-party clouds in both multicloud and hybrid deployment models.
 
---- Chunk 15/276 | heading: PART I > Item 1. Business | tokens: 455 ---
+--- Chunk 15/276 | heading: PART I > Item 1. Business | tokens: 454 ---
 Oracle customers and partners utilize OCI offerings for platform-related services that are based upon the Oracle AI Database, Java and Oracle Middleware, including open source and other tools for a variety of use cases across data management (including the use of Oracle Autonomous AI Database and Oracle MySQL HeatWave), applications development, integration, content management, analytics, IT management and governance, security and rapidly emerging technologies such as AI and machine learning. OCI AI services are designed to be embedded into customer applications for a variety of predictive use cases, including, among others, the servicing of machine parts that are at risk of failing, using generative AI for fault detection on an assembly line, improving customer experiences in the purchasing of consumer products, managing the supply chain to keep retailer store shelves refreshed, credit fraud detection and financial modeling to stay within a business’ forecasts.
 
 OCI compute services range from virtual machines and graphics processing unit (GPU)-based offerings to bare metal servers, with options for high I/O workloads and high-performance computing to run traditional compute-intensive workloads and AI model training and inference. OCI storage offerings include block, file, object and archive storage services. In addition, our OCI offerings include networking, connectivity and edge services that help connect
@@ -275,32 +253,20 @@ customers’ data centers and third-party clouds with our OCI services for the c
 
 To complement the full suite of OCI offerings delivered by Oracle public cloud regions across the globe, we provide our customers with additional flexibility by offering certain OCI services in a number of deployment options, such as:
 
-•
+• Oracle’s Multicloud Database offerings, which are designed to enable organizations to deploy and run Oracle AI Database services, Oracle Autonomous AI Database and Oracle Zero Data Loss Autonomous Recovery Service within other hyperscale cloud IT environments. This allows customers to leverage AI and analytics services from their cloud providers with their enterprise data;
 
-Oracle’s Multicloud Database offerings, which are designed to enable organizations to deploy and run Oracle AI Database services, Oracle Autonomous AI Database and Oracle Zero Data Loss Autonomous Recovery Service within other hyperscale cloud IT environments. This allows customers to leverage AI and analytics services from their cloud providers with their enterprise data;
+• Oracle Exadata Cloud@Customer, which is designed to enable customers to run Oracle Autonomous AI Database and Oracle Exadata Database Service securely in their own data centers behind their firewalls while having the services managed by Oracle;
 
-•
+• OCI Dedicated Region, which is designed to enable customers to bring a self-contained OCI instance into their data centers while accessing the full portfolio of OCI and OCA offerings;
 
-Oracle Exadata Cloud@Customer, which is designed to enable customers to run Oracle Autonomous AI Database and Oracle Exadata Database Service securely in their own data centers behind their firewalls while having the services managed by Oracle;
+--- Chunk 16/276 | heading: PART I > Item 1. Business | tokens: 456 ---
+• OCI Dedicated Region, which is designed to enable customers to bring a self-contained OCI instance into their data centers while accessing the full portfolio of OCI and OCA offerings;
 
-•
+• OCI Sovereign Cloud, which is designed to enable customers to utilize OCI services while addressing regulatory restrictions imposed upon customers that operate in certain industries, entities or jurisdictions. This capability now also allows us to offer sovereign AI to customers who want the latest in AI innovations while operating within their regulatory environments;
 
-OCI Dedicated Region, which is designed to enable customers to bring a self-contained OCI instance into their data centers while accessing the full portfolio of OCI and OCA offerings;
+• Oracle Alloy, which is engineered to enable partners to offer OCI and other cloud services to their customers while controlling the commercial and customer experience to address their specific market needs; and
 
-•
-
---- Chunk 16/276 | heading: PART I > Item 1. Business | tokens: 422 ---
-•
-
-OCI Sovereign Cloud, which is designed to enable customers to utilize OCI services while addressing regulatory restrictions imposed upon customers that operate in certain industries, entities or jurisdictions. This capability now also allows us to offer sovereign AI to customers who want the latest in AI innovations while operating within their regulatory environments;
-
-•
-
-Oracle Alloy, which is engineered to enable partners to offer OCI and other cloud services to their customers while controlling the commercial and customer experience to address their specific market needs; and
-
-•
-
-Oracle Compute Cloud@Customer and Oracle Roving Edge Infrastructure, which are designed to enable customers to access cloud computing and storage services at the edge of networks and in generally disconnected locations in order to accelerate deployment of cloud workloads outside of the data center.
+• Oracle Compute Cloud@Customer and Oracle Roving Edge Infrastructure, which are designed to enable customers to access cloud computing and storage services at the edge of networks and in generally disconnected locations in order to accelerate deployment of cloud workloads outside of the data center.
 
 Oracle Autonomous AI Database
 
@@ -334,7 +300,7 @@ Oracle Engineered Systems are core to our cloud-based and on-premise data center
 
 [Table of Contents](#toc_page)
 
---- Chunk 19/276 | heading: PART I > Item 1. Business | tokens: 469 ---
+--- Chunk 19/276 | heading: PART I > Item 1. Business | tokens: 468 ---
 [Table of Contents](#toc_page)
 
 cost by combining operating system and management software with Oracle server, storage and networking hardware. We offer our Oracle Engineered Systems through flexible deployment options, including on-premise, as a cloud offering in OCI, as a platform for Oracle AI Database services in Oracle multicloud partner data centers and as a hybrid cloud offering in customer data centers.
@@ -349,13 +315,9 @@ Oracle Services
 
 We offer services to help customers and partners maximize the performance of their investments in Oracle applications and infrastructure technologies. We believe that our services are differentiated based on our expertise in Oracle technologies, extensive experience and broad sets of intellectual property and best practices. Our services offerings substantially include, among others:
 
-•
+• consulting services, which are designed to help our customers and global system integrator partners more successfully architect and deploy our cloud and software offerings, including IT strategy alignment, enterprise architecture planning and design, implementation, integration, application development, security assessments and ongoing software enhancements and upgrades. We utilize a global, blended delivery model to optimize value for our customers and partners, which involves the use of consultants from local geographies, industry specialists and consultants from our global delivery and solution centers; and
 
-consulting services, which are designed to help our customers and global system integrator partners more successfully architect and deploy our cloud and software offerings, including IT strategy alignment, enterprise architecture planning and design, implementation, integration, application development, security assessments and ongoing software enhancements and upgrades. We utilize a global, blended delivery model to optimize value for our customers and partners, which involves the use of consultants from local geographies, industry specialists and consultants from our global delivery and solution centers; and
-
-•
-
-customer success services, which are support services provided by Oracle to a customer to enable increased performance and higher availability of a customer’s Oracle products and services.
+• customer success services, which are support services provided by Oracle to a customer to enable increased performance and higher availability of a customer’s Oracle products and services.
 
 Oracle Cloud Operations
 
@@ -444,7 +406,7 @@ Our quarterly revenues have historically been affected by a variety of seasonal 
 
 Competition
 
---- Chunk 25/276 | heading: PART I > Item 1. Business | tokens: 489 ---
+--- Chunk 25/276 | heading: PART I > Item 1. Business | tokens: 488 ---
 Competition
 
 We face intense competition in all aspects of our business. The nature of the IT industry creates a competitive landscape that is constantly evolving as firms emerge, expand or are acquired, as technology evolves and as customer demands and competitive pressures otherwise change.
@@ -455,40 +417,24 @@ Our customers are demanding less complexity, more cost-effective and higher perf
 
 Key competitive factors in each of the segments in which we currently compete and may compete in the future include: total cost of ownership, performance, scalability, reliability, security, functionality, efficiency, ease of use, speed to production and quality of technical support. Our products and services sales and the relative strength of our products and services versus those of our competitors are also directly and indirectly affected by the following, among other factors:
 
-•
+• market adoption of cloud-based IT offerings, including Oracle Cloud offerings;
 
-market adoption of cloud-based IT offerings, including Oracle Cloud offerings;
+• our ability to develop AI technologies and features and to have access to AI technologies of competitors;
 
-•
+--- Chunk 26/276 | heading: PART I > Item 1. Business | tokens: 465 ---
+• our ability to develop AI technologies and features and to have access to AI technologies of competitors;
 
-our ability to develop AI technologies and features and to have access to AI technologies of competitors;
+• the ease of deployment, use, transacting for and maintenance of our products and services offerings;
 
-•
+• compatibility between Oracle products and services deployed within local IT environments and public cloud IT environments, including our Oracle Cloud environments;
 
---- Chunk 26/276 | heading: PART I > Item 1. Business | tokens: 447 ---
-•
+• the adoption of open source alternatives to commercial software by enterprise software customers;
 
-the ease of deployment, use, transacting for and maintenance of our products and services offerings;
+• products, features and functionality developed internally by customers and their IT staff;
 
-•
+• products, features and functionality customized and implemented for customers by consultants, systems integrators or other third parties; and
 
-compatibility between Oracle products and services deployed within local IT environments and public cloud IT environments, including our Oracle Cloud environments;
-
-•
-
-the adoption of open source alternatives to commercial software by enterprise software customers;
-
-•
-
-products, features and functionality developed internally by customers and their IT staff;
-
-•
-
-products, features and functionality customized and implemented for customers by consultants, systems integrators or other third parties; and
-
-•
-
-the attractiveness of offerings from business processing outsourcers.
+• the attractiveness of offerings from business processing outsourcers.
 
 For more information about the competitive risks we face, refer to Item 1A Risk Factors included elsewhere in this Annual Report.
 
@@ -555,163 +501,93 @@ Risk Factor Summary
 
 Business and Operational Risks
 
-•
+• We may be unsuccessful in developing and selling new products and services, integrating acquired products and services and enhancing our existing products and services.
 
-We may be unsuccessful in developing and selling new products and services, integrating acquired products and services and enhancing our existing products and services.
+• Our AI products may not operate as anticipated, which could adversely affect our reputation, revenues and profitability.
 
-•
+• If we do not successfully execute our Oracle Cloud strategy, including our offerings of Oracle Cloud, our revenues and profitability may decline.
 
-Our AI products may not operate as anticipated, which could adversely affect our reputation, revenues and profitability.
+• If we are unable to secure data center capacity at affordable rates or do not accurately plan for and manage our infrastructure capacity requirements, our profitability may decline.
 
-•
+• Our cloud offerings and hardware offerings are complex, and if we cannot successfully manage this complexity, including the sourcing of technologies and components, the results of these businesses will suffer.
 
-If we do not successfully execute our Oracle Cloud strategy, including our offerings of Oracle Cloud, our revenues and profitability may decline.
+• We may not receive significant revenues from our current research and development efforts for several years, if at all.
 
-•
+• Our products and services may not function properly if we experience significant coding, manufacturing or configuration errors in our cloud, software and hardware offerings.
 
-If we are unable to secure data center capacity at affordable rates or do not accurately plan for and manage our infrastructure capacity requirements, our profitability may decline.
+• If we are unable to compete effectively, the results of operations and prospects for our business could be harmed.
 
-•
+• Any failure to offer high-quality technical support services may adversely affect our relationships with our customers and our financial results.
 
-Our cloud offerings and hardware offerings are complex, and if we cannot successfully manage this complexity, including the sourcing of technologies and components, the results of these businesses will suffer.
+• Our periodic workforce restructurings and reorganizations can be disruptive.
 
-•
+• We may lose key employees or may be unable to hire enough qualified employees.
 
-We may not receive significant revenues from our current research and development efforts for several years, if at all.
+• There are risks associated with our cloud and software and hardware indirect sales channels which could affect our future operating results.
 
-•
+• Acquisitions, joint ventures and strategic alliances present many risks and we may not achieve the financial and strategic goals that were contemplated at the time of a transaction.
 
-Our products and services may not function properly if we experience significant coding, manufacturing or configuration errors in our cloud, software and hardware offerings.
-
-•
-
-If we are unable to compete effectively, the results of operations and prospects for our business could be harmed.
-
-•
-
-Any failure to offer high-quality technical support services may adversely affect our relationships with our customers and our financial results.
-
-•
-
-Our periodic workforce restructurings and reorganizations can be disruptive.
-
-•
-
-We may lose key employees or may be unable to hire enough qualified employees.
-
-•
-
-There are risks associated with our cloud and software and hardware indirect sales channels which could affect our future operating results.
-
-•
-
-Acquisitions, joint ventures and strategic alliances present many risks and we may not achieve the financial and strategic goals that were contemplated at the time of a transaction.
-
-•
-
-We are subject to risks with respect to environmental, social and governance (ESG) matters.
+• We are subject to risks with respect to environmental, social and governance (ESG) matters.
 
 --- Chunk 31/276 | heading: PART I > Item 1A. Risk Factors | tokens: 463 ---
-We are subject to risks with respect to environmental, social and governance (ESG) matters.
+• We are subject to risks with respect to environmental, social and governance (ESG) matters.
 
 Data Privacy, Cybersecurity and Intellectual Property Risks
 
-•
+• We are subject to business, financial and reputational risks related to cybersecurity incidents and data breaches.
 
-We are subject to business, financial and reputational risks related to cybersecurity incidents and data breaches.
+• Our business practices with respect to data could give rise to operational interruption, liabilities or reputational harm as a result of governmental regulation, legal requirements or industry standards relating to privacy and data protection.
 
-•
+• Third parties have claimed, and in the future may claim, infringement or misuse of intellectual property rights and/or breach of license agreement provisions.
 
-Our business practices with respect to data could give rise to operational interruption, liabilities or reputational harm as a result of governmental regulation, legal requirements or industry standards relating to privacy and data protection.
-
-•
-
-Third parties have claimed, and in the future may claim, infringement or misuse of intellectual property rights and/or breach of license agreement provisions.
-
-•
-
-We may not be able to protect our intellectual property rights.
+• We may not be able to protect our intellectual property rights.
 
 [Table of Contents](#toc_page)
 
 Legal and Regulatory Risks
 
-•
+• Adverse litigation results could affect our business.
 
-Adverse litigation results could affect our business.
+• We may be subjected to increased taxes due to changes in U.S. or international tax laws, the inability to obtain or retain tax incentives, or from adverse resolutions of tax audits and controversies.
 
-•
+• Our international sales and operations and global customer base subject us to additional risks, including trade restrictions, export controls and sanctions, that can adversely affect our operating results.
 
-We may be subjected to increased taxes due to changes in U.S. or international tax laws, the inability to obtain or retain tax incentives, or from adverse resolutions of tax audits and controversies.
+• The healthcare industry is highly regulated, and thus, we are subject to several laws, regulations and industry initiatives, non-compliance with certain of which could adversely affect our healthcare business.
 
-•
+• Our sales to local, state, federal and foreign government customers expose us to business volatility and risks, including government budgeting cycles and appropriations, government shutdowns, procurement regulations, governmental policy shifts, early termination of contracts, audits, investigations, sanctions and penalties.
 
-Our international sales and operations and global customer base subject us to additional risks, including trade restrictions, export controls and sanctions, that can adversely affect our operating results.
-
-•
-
-The healthcare industry is highly regulated, and thus, we are subject to several laws, regulations and industry initiatives, non-compliance with certain of which could adversely affect our healthcare business.
-
-•
-
-Our sales to local, state, federal and foreign government customers expose us to business volatility and risks, including government budgeting cycles and appropriations, government shutdowns, procurement regulations, governmental policy shifts, early termination of contracts, audits, investigations, sanctions and penalties.
-
-•
-
-Environmental and other related laws and regulations subject us to a number of risks and could result in significant liabilities and costs.
+• Environmental and other related laws and regulations subject us to a number of risks and could result in significant liabilities and costs.
 
 Financial Risks
 
-•
+• Our operations can be difficult for us to predict because our quarterly results of operations may fluctuate significantly based on a number of factors.
 
-Our operations can be difficult for us to predict because our quarterly results of operations may fluctuate significantly based on a number of factors.
+• Changes in currency exchange rates can adversely affect customer demand and our revenues and profitability.
 
-•
+• There are risks associated with our outstanding and future indebtedness.
 
-Changes in currency exchange rates can adversely affect customer demand and our revenues and profitability.
-
-•
-
-There are risks associated with our outstanding and future indebtedness.
-
-•
-
-If our accounting estimates and judgments turn out to be inaccurate, our future financial results could fall short of expectations, which could have a material adverse effect on our stock price.
+• If our accounting estimates and judgments turn out to be inaccurate, our future financial results could fall short of expectations, which could have a material adverse effect on our stock price.
 
 Risks Related to our Common and Preferred Stock
 
-•
+• Our stock price could become more volatile and your investment could lose value.
 
-Our stock price could become more volatile and your investment could lose value.
+--- Chunk 32/276 | heading: PART I > Item 1A. Risk Factors | tokens: 489 ---
+• Our stock price could become more volatile and your investment could lose value.
 
-•
+• Conversion of our 6.50% Series D Mandatory Convertible Preferred Stock (Mandatory Convertible Preferred Stock) and our depositary shares, or the payment of dividends on Mandatory Convertible Preferred Stock in shares of common stock, or the issuance of shares of our common stock under the At the Market (ATM) Program will dilute the ownership interest of the holders of our common stock.
 
---- Chunk 32/276 | heading: PART I > Item 1A. Risk Factors | tokens: 502 ---
-•
+• The ATM Program, the Mandatory Convertible Preferred Stock or our depositary shares may adversely affect the market price of our common stock, and we cannot guarantee that our ATM Program will be fully implemented.
 
-Conversion of our 6.50% Series D Mandatory Convertible Preferred Stock (Mandatory Convertible Preferred Stock) and our depositary shares, or the payment of dividends on Mandatory Convertible Preferred Stock in shares of common stock, or the issuance of shares of our common stock under the At the Market (ATM) Program will dilute the ownership interest of the holders of our common stock.
+• Our common stock ranks junior to our Mandatory Convertible Preferred Stock with respect to the payment of dividends and amounts payable in the event of our liquidation, winding-up or dissolution.
 
-•
-
-The ATM Program, the Mandatory Convertible Preferred Stock or our depositary shares may adversely affect the market price of our common stock, and we cannot guarantee that our ATM Program will be fully implemented.
-
-•
-
-Our common stock ranks junior to our Mandatory Convertible Preferred Stock with respect to the payment of dividends and amounts payable in the event of our liquidation, winding-up or dissolution.
-
-•
-
-We cannot guarantee that our stock repurchase program will be fully implemented or that it will enhance long-term stockholder value.
+• We cannot guarantee that our stock repurchase program will be fully implemented or that it will enhance long-term stockholder value.
 
 General Risks
 
-•
+• Economic, political and market conditions can adversely affect our business, results of operations and financial condition, including our revenue growth and profitability, which in turn could adversely affect our stock price.
 
-Economic, political and market conditions can adversely affect our business, results of operations and financial condition, including our revenue growth and profitability, which in turn could adversely affect our stock price.
-
-•
-
-Significant events in certain geographic locations could adversely affect our operating results and disrupt our business.
+• Significant events in certain geographic locations could adversely affect our operating results and disrupt our business.
 
 [Table of Contents](#toc_page)
 
@@ -721,52 +597,30 @@ We may be unsuccessful in developing and selling new products and services, inte
 
 In addition, our business may be adversely affected if:
 
-•
+• we do not continue to develop and release new or enhanced products and services within the anticipated time frames;
 
-we do not continue to develop and release new or enhanced products and services within the anticipated time frames;
+--- Chunk 33/276 | heading: PART I > Item 1A. Risk Factors | tokens: 392 ---
+• we do not continue to develop and release new or enhanced products and services within the anticipated time frames;
 
-•
+• it takes more time or costs more than anticipated to build out the infrastructure required to deliver new or enhanced products and services;
 
-it takes more time or costs more than anticipated to build out the infrastructure required to deliver new or enhanced products and services;
+• supply chain costs, energy costs or other costs to develop, produce or distribute our products and services result in greater costs than anticipated;
 
-•
+• we are unable to accurately anticipate, pay for, plan for and manage future data center capacity needs in a timely manner to meet current or expected customer demand;
 
---- Chunk 33/276 | heading: PART I > Item 1A. Risk Factors | tokens: 348 ---
-•
+• we fail to meet our contractual service level commitments;
 
-supply chain costs, energy costs or other costs to develop, produce or distribute our products and services result in greater costs than anticipated;
+• there is a delay in market acceptance of and difficulty in transitioning new and existing customers to new, enhanced or acquired product lines or services;
 
-•
+• sanctions, tariffs, export controls, geopolitical instability, strained economic relationships between countries and related market disruptions or other regulatory, legislative or trade and non-tariff barriers, including retaliatory measures, impede or prevent us from serving certain customers based on their location, jurisdiction of incorporation, ownership, control or other ties to restricted jurisdictions, or restrict us or our customers from operating in specific jurisdictions;
 
-we are unable to accurately anticipate, pay for, plan for and manage future data center capacity needs in a timely manner to meet current or expected customer demand;
+• inflation, trade policy, geopolitical conditions and other macroeconomic factors reduce customer demand or their ability to pay for our products and services or cause us to be unable to meet current or expected customer demand;
 
-•
+• there are changes in IT trends that we do not adequately anticipate or timely address with our product development efforts;
 
-we fail to meet our contractual service level commitments;
+• we do not optimize complementary product lines and services in a timely manner; or
 
-•
-
-there is a delay in market acceptance of and difficulty in transitioning new and existing customers to new, enhanced or acquired product lines or services;
-
-•
-
-sanctions, tariffs, export controls, geopolitical instability, strained economic relationships between countries and related market disruptions or other regulatory, legislative or trade and non-tariff barriers, including retaliatory measures, impede or prevent us from serving certain customers based on their location, jurisdiction of incorporation, ownership, control or other ties to restricted jurisdictions, or restrict us or our customers from operating in specific jurisdictions;
-
-•
-
-inflation, trade policy, geopolitical conditions and other macroeconomic factors reduce customer demand or their ability to pay for our products and services or cause us to be unable to meet current or expected customer demand;
-
-•
-
-there are changes in IT trends that we do not adequately anticipate or timely address with our product development efforts;
-
-•
-
-we do not optimize complementary product lines and services in a timely manner; or
-
-•
-
-we fail to adequately integrate, support or enhance acquired product lines or services.
+• we fail to adequately integrate, support or enhance acquired product lines or services.
 
 In addition, our profitability and revenues could be adversely impacted if we lose one or more of our key customers for any reason, including as a result of any of the factors discussed above, or if one or more of our key customers experiences insolvency, bankruptcy or other issues impacting their creditworthiness. Any such loss could also limit or reduce our growth in future periods.
 
@@ -860,87 +714,51 @@ Our general compensation program includes restricted stock units (RSUs), stock o
 
 There are risks associated with our cloud and software and hardware indirect sales channels which could affect our future operating results. Our cloud and software and hardware indirect channel networks consist primarily of resellers, system integrators/implementers, consultants, education providers, internet service providers, network integrators and ISVs. Our relationships with these channel participants are important elements of our cloud, software and hardware marketing and sales efforts. Our financial results could be adversely affected if:
 
-•
+• our contracts with channel participants were terminated or our relationships with channel participants were to deteriorate;
 
-our contracts with channel participants were terminated or our relationships with channel participants were to deteriorate;
+• any of our competitors enter into strategic relationships with or acquire a significant channel participant;
 
-•
+• the financial condition or operations of our channel participants were to weaken; or
 
-any of our competitors enter into strategic relationships with or acquire a significant channel participant;
-
-•
-
-the financial condition or operations of our channel participants were to weaken; or
-
-•
-
-the level of demand for our channel participants’ products and services were to decrease.
+• the level of demand for our channel participants’ products and services were to decrease.
 
 We may not successfully maintain, expand or develop our relationships with channel participants. If we are not successful, we may lose sales opportunities, customers and revenues. In addition, we do not control channel participants, some of whom operate in jurisdictions with elevated corruption risks. Our compliance policies and procedures may fail to prevent or detect violations of anti-corruption or other laws, and channel participants may violate such laws, all of which could subject us to litigation or regulatory risk and result in liability.
 
---- Chunk 48/276 | heading: PART I > Item 1A. Risk Factors | tokens: 488 ---
+--- Chunk 48/276 | heading: PART I > Item 1A. Risk Factors | tokens: 484 ---
 Acquisitions, joint ventures and strategic alliances present many risks and we may not achieve the financial and strategic goals that were contemplated at the time of a transaction. We regularly review and consider strategic acquisitions, joint ventures and strategic alliances. These transactions present material risks and challenges, including but not limited to:
 
-•
+• business disruption and management distraction;
 
-business disruption and management distraction;
+• introduction of additional compliance obligations or new risks, including with respect to increased privacy and data collection concerns, content moderation and censorship, and system outages;
 
-•
+• challenges in managing acquired technologies or lines of business, entering new markets where we have no, or limited, direct prior experience or market positions, or retaining key personnel from the acquired companies;
 
-introduction of additional compliance obligations or new risks, including with respect to increased privacy and data collection concerns, content moderation and censorship, and system outages;
+• transactions that do not meet strategic expectations, including due to difficulties integrating acquired companies, negative impacts from imposed business practices or different go-to-market strategies, and the risk of overpaying or failing to realize expected returns on our investments, each or all of which could adversely affect our business or operating results and potentially cause impairment to assets that we recorded as a part of an acquisition, including intangible assets and goodwill;
 
-•
+• negative financial impacts from (1) assumed claims or liabilities; (2) assumed costly or disruptive pre-existing contractual relationships; and (3) unfavorable revenue recognition or other accounting treatment as a result of an acquired company’s business practices;
 
-challenges in managing acquired technologies or lines of business, entering new markets where we have no, or limited, direct prior experience or market positions, or retaining key personnel from the acquired companies;
+• failure to identify or accurately assess significant liabilities or shortcomings prior to finalization of an acquisition;
 
-•
+• failure to realize expected revenue growth from a strategic transaction for a number of reasons, including (1) more customers than expected declining to renew or terminating their contracts; (2) difficulty selling acquired products or service offerings to our customer base; (3) acquired customers declining to purchase our technologies due to differing business practices; or (4) contract models utilized by an acquired company conflicting with our revenue recognition methods;
 
-transactions that do not meet strategic expectations, including due to difficulties integrating acquired companies, negative impacts from imposed business practices or different go-to-market strategies, and the risk of overpaying or failing to realize expected returns on our investments, each or all of which could adversely affect our business or operating results and potentially cause impairment to assets that we recorded as a part of an acquisition, including intangible assets and goodwill;
+• integration difficulties, including aligning acquired compliance programs, technologies, products, services, supply chain operations, environmental practices or infrastructure with our existing lines of business;
 
-•
+• product and service inconsistencies across multiple product lines or services offerings, leading to customer confusion and delays;
 
-negative financial impacts from (1) assumed claims or liabilities; (2) assumed costly or disruptive pre-existing contractual relationships; and (3) unfavorable revenue recognition or other accounting treatment as a result of an acquired company’s business practices;
+• higher than anticipated costs related to supporting, developing and delivering acquired products or services, expanding general and administrative functions for new business models or complying with complex regulations applicable to an acquired business;
 
-•
-
-failure to identify or accurately assess significant liabilities or shortcomings prior to finalization of an acquisition;
-
-•
-
-failure to realize expected revenue growth from a strategic transaction for a number of reasons, including (1) more customers than expected declining to renew or terminating their contracts; (2) difficulty selling acquired products or service offerings to our customer base; (3) acquired customers declining to purchase our technologies due to differing business practices; or (4) contract models utilized by an acquired company conflicting with our revenue recognition methods;
-
-•
-
-integration difficulties, including aligning acquired compliance programs, technologies, products, services, supply chain operations, environmental practices or infrastructure with our existing lines of business;
-
-•
-
-product and service inconsistencies across multiple product lines or services offerings, leading to customer confusion and delays;
-
-•
-
-higher than anticipated costs related to supporting, developing and delivering acquired products or services, expanding general and administrative functions for new business models or complying with complex regulations applicable to an acquired business;
-
-•
-
-labor challenges, including difficulties obtaining timely approvals from works councils or similar bodies under applicable employment laws;
+• labor challenges, including difficulties obtaining timely approvals from works councils or similar bodies under applicable employment laws;
 
 [Table of Contents](#toc_page)
 
-•
+--- Chunk 49/276 | heading: PART I > Item 1A. Risk Factors | tokens: 497 ---
+[Table of Contents](#toc_page)
 
---- Chunk 49/276 | heading: PART I > Item 1A. Risk Factors | tokens: 489 ---
-•
+• regulatory and judicial challenges, including delays or restrictions from governmental authorities under foreign direct investment, foreign subsidy, competition and antitrust laws, potentially requiring asset divestitures, other concessions or a termination of the acquisition process;
 
-regulatory and judicial challenges, including delays or restrictions from governmental authorities under foreign direct investment, foreign subsidy, competition and antitrust laws, potentially requiring asset divestitures, other concessions or a termination of the acquisition process;
+• limitations on our potential other uses for our cash; and
 
-•
-
-limitations on our potential other uses for our cash; and
-
-•
-
-financial constraints that may require us to incur additional debt to pay for acquisitions or delay or not proceed with an acquisition if we cannot obtain the necessary funding to complete the acquisition in a timely manner or on favorable terms.
+• financial constraints that may require us to incur additional debt to pay for acquisitions or delay or not proceed with an acquisition if we cannot obtain the necessary funding to complete the acquisition in a timely manner or on favorable terms.
 
 The occurrence of any of these risks could have a material adverse effect on our business, results of operations, financial condition or cash flows, particularly in the case of a larger acquisition or several concurrent acquisitions.
 
@@ -978,67 +796,41 @@ Following the European Union (EU)’s General Data Protection Regulation (GDPR),
 
 operate. Although we have implemented contracts, diligence programs, policies and procedures designed to address compliance with applicable laws and regulations, there can be no assurance that our employees, contractors, partners, suppliers, data providers or agents will not violate such laws and regulations or our contracts, policies and procedures. Additionally, public perception and standards related to the privacy of personal information can shift rapidly, in ways that may affect our reputation or influence regulators to enact regulations and laws that may limit our ability to provide certain products and services. For example, numerous jurisdictions, including the EU, have passed or are considering laws and regulations that would impose additional data privacy and other compliance requirements on the use of AI and could require us to adjust or limit our product offerings in such jurisdictions.
 
---- Chunk 54/276 | heading: PART I > Item 1A. Risk Factors | tokens: 440 ---
+--- Chunk 54/276 | heading: PART I > Item 1A. Risk Factors | tokens: 439 ---
 We make statements about our use and disclosure of personal information through our privacy policy, information provided on our website and press statements. Any failure, or perceived failure, by us to comply with these public statements or with U.S. federal, state, or foreign laws and regulations, including laws and regulations regulating privacy, data security, or consumer protection, public perception, standards, self-regulatory requirements or legal obligations, could result in lost or restricted business, proceedings, actions or fines brought against us or levied by governmental entities or others, or could adversely affect our business and harm our reputation.
 
 Third parties have claimed, and in the future may claim, infringement or misuse of intellectual property rights and/or breach of license agreement provisions. We periodically receive notices from, or have lawsuits filed against us by, third parties claiming infringement or other misuse of their intellectual property rights and/or breach of our agreements with them. These third parties include entities that do not design, manufacture, or distribute products or services or that acquire intellectual property for the sole purpose of monetization through infringement assertions. We expect to continue to receive such claims as:
 
-•
+• we continue to expand into new businesses and acquire companies;
 
-we continue to expand into new businesses and acquire companies;
+• the number of products and competitors in our industry segments grows;
 
-•
+• the use and support of third-party code (including open source code) becomes more prevalent in the industry;
 
-the number of products and competitors in our industry segments grows;
+• the use of AI and support of LLMs becomes more prevalent in the industry;
 
-•
+• the volume of issued patents continues to increase; and
 
-the use and support of third-party code (including open source code) becomes more prevalent in the industry;
-
-•
-
-the use of AI and support of LLMs becomes more prevalent in the industry;
-
-•
-
-the volume of issued patents continues to increase; and
-
-•
-
-non-practicing entities continue to assert intellectual property infringement in our industry segments.
+• non-practicing entities continue to assert intellectual property infringement in our industry segments.
 
 Responding to any such claim, regardless of its validity, could:
 
-•
+• be time consuming, costly and result in litigation;
 
-be time consuming, costly and result in litigation;
+• divert management’s time and attention from developing our business;
 
-•
+• require us to pay monetary damages or enter into royalty and licensing agreements that we would not normally find acceptable;
 
-divert management’s time and attention from developing our business;
+• require us to stop selling or to redesign certain of our products;
 
-•
+• require us to release source code to third parties, possibly under open source license terms;
 
-require us to pay monetary damages or enter into royalty and licensing agreements that we would not normally find acceptable;
+• require us to satisfy indemnification obligations to our customers; or
 
-•
+• otherwise adversely affect our business, results of operations, financial condition or cash flows.
 
-require us to stop selling or to redesign certain of our products;
-
-•
-
-require us to release source code to third parties, possibly under open source license terms;
-
-•
-
-require us to satisfy indemnification obligations to our customers; or
-
-•
-
-otherwise adversely affect our business, results of operations, financial condition or cash flows.
-
---- Chunk 55/276 | heading: PART I > Item 1A. Risk Factors | tokens: 328 ---
-otherwise adversely affect our business, results of operations, financial condition or cash flows.
+--- Chunk 55/276 | heading: PART I > Item 1A. Risk Factors | tokens: 329 ---
+• otherwise adversely affect our business, results of operations, financial condition or cash flows.
 
 We may not be able to protect our intellectual property rights. We rely on copyright, trademark, patent and trade secret laws, confidentiality procedures, controls and contractual commitments to protect our intellectual property. Despite our efforts, these protections may be limited. Unauthorized third parties may try to copy or reverse engineer our products or otherwise use our intellectual property. Our patents may be invalidated or circumvented. Any of our pending or future patent applications may not be issued with the claim scope we seek, if at all. In addition, the laws of some countries do not provide the same level of intellectual property protection as U.S. laws and courts. If we cannot protect our intellectual property against unauthorized copying or use, or other misappropriation, we may not remain competitive.
 
@@ -1063,91 +855,57 @@ Our international sales and operations and global customer base subject us to ad
 
 actions against us, our officers or our employees, and prohibitions on the conduct of our business, including disgorgement, the loss of trade privileges, and other remedial measures. Any such violations could result in prohibitions on our ability to offer our products and services in one or more countries or territories or to certain entities, and any such violations (or even an allegation of violations) could result in us exiting a market or segment, could delay or prevent potential acquisitions and could also materially damage our reputation, our brand, our international expansion efforts, our ability to attract and retain employees, our business and our operating results.
 
---- Chunk 59/276 | heading: PART I > Item 1A. Risk Factors | tokens: 484 ---
+--- Chunk 59/276 | heading: PART I > Item 1A. Risk Factors | tokens: 483 ---
 Changes to sanctions or export control regulations or their enforcement in the U.S. and the other jurisdictions where we currently operate or have dealings, or in the future may operate or have dealings, can require suspension or termination of business (including financial transactions) in or with certain countries and territories or with certain customers. In addition, we continue to closely monitor international relations and it is difficult to anticipate the effect geopolitical developments may have on us. Evolving restrictions and rules governing access to cloud-based infrastructure or GPU-enabled services by customers in certain jurisdictions, could require additional compliance controls or limit our ability to provide, lease, host or otherwise make available such resources to affected customers. Compliance with any further sanctions, export controls or other regulatory restrictions (and any countermeasures thereto) taken by the U.S. or other countries could prevent us from serving certain customers or restrict us or our customers from operating in specific jurisdictions, which could have an adverse effect on our operations and results of operations.
 
 Our success depends, in part, on our ability to anticipate and manage these risks. We monitor our operations and investigate allegations of improprieties relating to transactions and the way in which such transactions are recorded. Where warranted, we provide information and report our findings to government authorities who may conduct their own investigations, and we respond to their requests or demands for information. No assurance can be given that such authorities will not take action or that our compliance program will prove effective. There is no guarantee that our compliance policies and procedures will be followed at all times or will effectively detect and prevent all violations of laws, including economic and financial sanction laws and embargoes. In addition, we are currently navigating a period of geopolitical and regulatory volatility.
 
 We face a variety of other risks and challenges in managing an organization operating globally, including those related to:
 
-•
+• general economic conditions in each country or region;
 
-general economic conditions in each country or region;
+• political unrest, terrorism and war, including but not limited to the current Middle East conflicts and the Russia-Ukraine war and its potential economic and geopolitical impacts on Europe, where a material portion of our business is carried out;
 
-•
+• the potential for other hostilities, including but not limited to further destabilization in the Middle East and Venezuela and tensions between China and Taiwan;
 
-political unrest, terrorism and war, including but not limited to the current Middle East conflicts and the Russia-Ukraine war and its potential economic and geopolitical impacts on Europe, where a material portion of our business is carried out;
+• the potential for worsening trade and economic relations between the U.S. and China, including the imposition of additional tariffs, export controls, sanctions, retaliatory measures or other trade restrictions;
 
-•
+--- Chunk 60/276 | heading: PART I > Item 1A. Risk Factors | tokens: 359 ---
+• the potential for worsening trade and economic relations between the U.S. and China, including the imposition of additional tariffs, export controls, sanctions, retaliatory measures or other trade restrictions;
 
-the potential for other hostilities, including but not limited to further destabilization in the Middle East and Venezuela and tensions between China and Taiwan;
+• public health, social and supporting infrastructure stability risks, particularly in areas in which we have significant operations;
 
-•
+• fluctuations in currency exchange rates and related impacts on customer demand and our operating results;
 
-the potential for worsening trade and economic relations between the U.S. and China, including the imposition of additional tariffs, export controls, sanctions, retaliatory measures or other trade restrictions;
+• difficulties in accessing or transferring funds from or converting currencies in certain countries that could lead to a devaluation of our net assets, in particular our cash assets, in that country’s currency, including as a result of exchange controls, seizure, nationalization or other restrictions;
 
-•
+• losses arising from bank failures, uninsured or underinsured deposit balances, fraud, theft, employee misconduct, or errors in initiating or processing payments or fund transfers;
 
---- Chunk 60/276 | heading: PART I > Item 1A. Risk Factors | tokens: 331 ---
-•
+• regulatory changes, including unexpected government austerity measures in certain countries that may impair bank deposits or other cash assets that we hold in these countries or that impose additional taxes that we may be required to pay in these countries;
 
-public health, social and supporting infrastructure stability risks, particularly in areas in which we have significant operations;
+• common local business behaviors or regulatory requirements that conflict with our business ethics, practices and conduct policies;
 
-•
+• longer payment cycles and difficulties in collecting accounts receivable;
 
-fluctuations in currency exchange rates and related impacts on customer demand and our operating results;
-
-•
-
-difficulties in accessing or transferring funds from or converting currencies in certain countries that could lead to a devaluation of our net assets, in particular our cash assets, in that country’s currency, including as a result of exchange controls, seizure, nationalization or other restrictions;
-
-•
-
-losses arising from bank failures, uninsured or underinsured deposit balances, fraud, theft, employee misconduct, or errors in initiating or processing payments or fund transfers;
-
-•
-
-regulatory changes, including unexpected government austerity measures in certain countries that may impair bank deposits or other cash assets that we hold in these countries or that impose additional taxes that we may be required to pay in these countries;
-
-•
-
-common local business behaviors or regulatory requirements that conflict with our business ethics, practices and conduct policies;
-
-•
-
-longer payment cycles and difficulties in collecting accounts receivable;
-
-•
-
-overlapping tax regimes; and
+• overlapping tax regimes; and
 
 [Table of Contents](#toc_page)
 
-•
-
-weaker protection for intellectual property rights in some countries.
+• weaker protection for intellectual property rights in some countries.
 
 The variety of risks and challenges listed above could also disrupt or otherwise negatively impact our supply chain operations and sales of our products and services in affected countries or regions.
 
 As the majority shareholder of Oracle Financial Services Software Limited, a publicly traded company in India, and Oracle Corporation Japan, a publicly traded company in Japan, we face several additional risks, including being subject to local securities regulations and being unable to exert full control that we would otherwise have if these entities were wholly-owned subsidiaries.
 
---- Chunk 61/276 | heading: PART I > Item 1A. Risk Factors | tokens: 440 ---
+--- Chunk 61/276 | heading: PART I > Item 1A. Risk Factors | tokens: 438 ---
 The healthcare industry is highly regulated, and thus, we are subject to several laws, regulations and industry initiatives, non-compliance with certain of which could adversely affect our healthcare business. As a participant in the healthcare industry, certain of our products, operations and relationships, and those of our customers, are regulated by several U.S. federal, state, local and foreign governmental entities. These regulations impact us both directly and indirectly, including government program requirements applicable to our customers for the use of health IT. There are significant, wide-ranging and rapidly evolving regulations worldwide, covering healthcare fraud, information sharing, e-prescribing, medical claims processing and transmission, healthcare devices, the use of AI in healthcare, the security and privacy of patient data and interoperability standards, that may be directly or indirectly applicable to our products, operations and relationships or the business practices of our customers. Specific risks include, but are not limited to, the following:
 
-•
+• We have medical devices registered with the U.S. Food and Drug Administration and other foreign medical device regulators, and certain other products and solutions may now or in the future be regulated under the Federal Food, Drug and Cosmetics Act, as amended, and other foreign medical device laws. In instances where our healthcare products and services qualify as medical devices in countries where we do business, we could be subject to extensive requirements governing pre- and post-marketing activities, including labeling, manufacturing, adverse event reporting and pre-market regulatory approval, clearance or notification.
 
-We have medical devices registered with the U.S. Food and Drug Administration and other foreign medical device regulators, and certain other products and solutions may now or in the future be regulated under the Federal Food, Drug and Cosmetics Act, as amended, and other foreign medical device laws. In instances where our healthcare products and services qualify as medical devices in countries where we do business, we could be subject to extensive requirements governing pre- and post-marketing activities, including labeling, manufacturing, adverse event reporting and pre-market regulatory approval, clearance or notification.
-
-•
-
-Certified electronic health record technology (CEHRT) requirements continue to evolve and remain necessary to participate in federal healthcare programs to receive reimbursement for health items and services provided by certain of our customers to Medicare and Medicaid beneficiaries. Certification involves complex and specific requirements related to various types of requests for the access, exchange or use of Electronic Health Information. The 21st Century Cures Act, as amended, allows for penalties for stakeholders, including but not limited to, health IT developers and providers who do not comply with the act. We expect the regulations establishing the certification and interoperability standards for CEHRT will continue to be updated to emphasize interoperability, consumer engagement, patient safety and health information privacy and security.
-
-•
+• Certified electronic health record technology (CEHRT) requirements continue to evolve and remain necessary to participate in federal healthcare programs to receive reimbursement for health items and services provided by certain of our customers to Medicare and Medicaid beneficiaries. Certification involves complex and specific requirements related to various types of requests for the access, exchange or use of Electronic Health Information. The 21st Century Cures Act, as amended, allows for penalties for stakeholders, including but not limited to, health IT developers and providers who do not comply with the act. We expect the regulations establishing the certification and interoperability standards for CEHRT will continue to be updated to emphasize interoperability, consumer engagement, patient safety and health information privacy and security.
 
 --- Chunk 62/276 | heading: PART I > Item 1A. Risk Factors | tokens: 456 ---
-•
-
-The federal Anti-Kickback Statute (AKS) prohibits us from knowingly and willfully soliciting, receiving, offering or providing remuneration (including any kickback or price concession) in exchange for referrals or the purchase, order, or recommendation of any products or services which are paid for by federal healthcare programs such as Medicare and Medicaid. The Centers for Medicare & Medicaid Services has stated that kickbacks have led to overutilization and increased costs of healthcare services, corruption of medical decision making, steering patients away from valid services or therapies and unfair, non-competitive service delivery. Certain of our products and services may now, or in the future, be subject to the AKS, the federal False Claims Act (FCA) and other fraud and abuse laws. In addition, a claim including products or services resulting from a violation of AKS constitutes a violation of the FCA. Companies can be held liable under the FCA even when they do not submit claims directly to government payors if they are deemed to “cause” the submission of false or fraudulent claims. The FCA also permits a private individual acting as a “whistleblower” to bring actions on behalf of the federal government alleging violations of the FCA and to share in any monetary recovery. The federal government has used the FCA to prosecute a wide variety of alleged false claims and fraud allegedly perpetrated against federal and state healthcare programs, including a variety of coverage, reimbursement, billing and coding errors, fraud and conduct.
+• The federal Anti-Kickback Statute (AKS) prohibits us from knowingly and willfully soliciting, receiving, offering or providing remuneration (including any kickback or price concession) in exchange for referrals or the purchase, order, or recommendation of any products or services which are paid for by federal healthcare programs such as Medicare and Medicaid. The Centers for Medicare & Medicaid Services has stated that kickbacks have led to overutilization and increased costs of healthcare services, corruption of medical decision making, steering patients away from valid services or therapies and unfair, non-competitive service delivery. Certain of our products and services may now, or in the future, be subject to the AKS, the federal False Claims Act (FCA) and other fraud and abuse laws. In addition, a claim including products or services resulting from a violation of AKS constitutes a violation of the FCA. Companies can be held liable under the FCA even when they do not submit claims directly to government payors if they are deemed to “cause” the submission of false or fraudulent claims. The FCA also permits a private individual acting as a “whistleblower” to bring actions on behalf of the federal government alleging violations of the FCA and to share in any monetary recovery. The federal government has used the FCA to prosecute a wide variety of alleged false claims and fraud allegedly perpetrated against federal and state healthcare programs, including a variety of coverage, reimbursement, billing and coding errors, fraud and conduct.
 
 The healthcare industry is regularly subject to negative publicity, including as a result of governmental investigations, adverse media coverage and political debate concerning industry regulation. We have been, and in the future may become involved in routine, regular and special governmental inquiries, audits, reviews and assessments. Negative publicity may damage our reputation and expose us to regulatory scrutiny.
 
@@ -1228,7 +986,7 @@ We cannot guarantee that our stock repurchase program will be fully implemented 
 
 General Risks
 
---- Chunk 72/276 | heading: PART I > Item 1A. Risk Factors | tokens: 487 ---
+--- Chunk 72/276 | heading: PART I > Item 1A. Risk Factors | tokens: 486 ---
 General Risks
 
 Economic, political and market conditions can adversely affect our business, results of operations and financial condition, including our revenue growth and profitability, which in turn could adversely affect our stock price.
@@ -1237,21 +995,13 @@ Economic, political and market conditions can adversely affect our business, res
 
 Our business is influenced by a range of factors that are beyond our control and that we have no comparative advantage in forecasting. These include:
 
-•
+• general economic and business conditions;
 
-general economic and business conditions;
+• overall demand for enterprise cloud, software and hardware products and services;
 
-•
+• governmental budgetary constraints or shifts in government spending priorities; and
 
-overall demand for enterprise cloud, software and hardware products and services;
-
-•
-
-governmental budgetary constraints or shifts in government spending priorities; and
-
-•
-
-general legal, regulatory and political developments.
+• general legal, regulatory and political developments.
 
 Macroeconomic developments such as the global or regional economic effects resulting from elevated inflation and interest rates, limited liquidity, adverse developments affecting financial institutions, the current wars and conflicts, evolving trade policies between the U.S. and international trade partners, including the imposition of tariffs and other trade measures or restrictions, or the occurrence of similar events in other countries that lead to uncertainty or instability in economic, political or market conditions could negatively affect our business, operating results, financial condition and outlook, which, in turn, could adversely affect our stock price. Any general weakening of, and related declining corporate confidence in, the global economy or the curtailment of government or corporate spending could cause current or potential customers to reduce or eliminate their IT budgets and spending, which could cause customers to delay, decrease or cancel purchases of our products and services or cause customers not to pay us or to delay paying us for previously purchased products and services. If any parties with whom we conduct business or invest our cash or cash equivalents are unable to meet their obligations to us, our business could be adversely affected. Bank failures or issues in the broader U.S. or global financial systems may have an impact on the broader capital markets and, in turn, our ability to access those markets.
 
@@ -1354,50 +1104,36 @@ We have three businesses: cloud and software (formerly referred to as cloud and 
 
 Cloud and Software Business
 
---- Chunk 86/276 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 378 ---
+--- Chunk 86/276 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 375 ---
 Cloud and Software Business
 
 Our cloud and software business, which represented 87% and 86% of our total revenues in fiscal 2026 and 2025, respectively, markets, sells and delivers a broad spectrum of enterprise applications and infrastructure technologies through our cloud and software offerings. Revenue streams included in our cloud and software business are:
 
-•
+• Cloud revenues, which are earned by providing customers access to Oracle Cloud applications and infrastructure technologies via cloud-based deployment models that Oracle develops, provides unspecified updates and enhancements for, deploys, hosts, manages and supports and that customers access by entering into a subscription agreement with us for a stated period. Oracle Cloud Applications and Oracle Cloud Infrastructure (collectively Oracle Cloud) arrangements generally: have durations of one to five years; are renewed at the customer’s option; and are recognized as revenues ratably over the contractual period of the cloud contract or, in the case of usage model contracts, as the cloud services are consumed over time; and
 
-Cloud revenues, which are earned by providing customers access to Oracle Cloud applications and infrastructure technologies via cloud-based deployment models that Oracle develops, provides unspecified updates and enhancements for, deploys, hosts, manages and supports and that customers access by entering into a subscription agreement with us for a stated period. Oracle Cloud Applications and Oracle Cloud Infrastructure (collectively Oracle Cloud) arrangements generally: have durations of one to five years; are renewed at the customer’s option; and are recognized as revenues ratably over the contractual period of the cloud contract or, in the case of usage model contracts, as the cloud services are consumed over time; and
+• Software revenues, which include:
 
-•
-
-Software revenues, which include:
-
-o
-
-software license revenues, which are generated from licensing our software products, including Oracle Applications, Oracle Database, Oracle Middleware and Java, among others, for deployment by our customers in cloud-based, on-premise or other IT environments. Our software license transactions are generally perpetual in nature and are generally recognized as revenues up front at the point in time when the software is made available to the customer to download and use. Revenues from usage-based royalty arrangements for distinct software licenses are recognized at the point in time when the software end user usage occurs. The timing of a few large software license transactions can
+o software license revenues, which are generated from licensing our software products, including Oracle Applications, Oracle Database, Oracle Middleware and Java, among others, for deployment by our customers in cloud-based, on-premise or other IT environments. Our software license transactions are generally perpetual in nature and are generally recognized as revenues up front at the point in time when the software is made available to the customer to download and use. Revenues from usage-based royalty arrangements for distinct software licenses are recognized at the point in time when the software end user usage occurs. The timing of a few large software license transactions can
 
 [Table of Contents](#toc_page)
 
 substantially affect our quarterly software license revenues due to the point-in-time nature of revenue recognition for software license transactions. Software license customers have the option to purchase and renew software support contracts, as further described below; and
 
-o
+--- Chunk 87/276 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 487 ---
+substantially affect our quarterly software license revenues due to the point-in-time nature of revenue recognition for software license transactions. Software license customers have the option to purchase and renew software support contracts, as further described below; and
 
---- Chunk 87/276 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 484 ---
-o
-
-software support revenues, which are generated by providing Oracle software support services to customers that have elected to purchase support services in connection with the purchase of Oracle applications and infrastructure software licenses. Substantially all software support customers renew their support contracts with us upon expiration in order to continue to benefit from technical support services and the periodic issuance of unspecified updates and enhancements, which current software support customers are entitled to receive. Software support contracts are generally: priced as a percentage of the net fees paid by the customer to purchase a software license; billed in advance of the support services being performed; renewed at the customer’s option; and recognized as revenues ratably over the contractual period that the support services are provided, which is generally one year.
+o software support revenues, which are generated by providing Oracle software support services to customers that have elected to purchase support services in connection with the purchase of Oracle applications and infrastructure software licenses. Substantially all software support customers renew their support contracts with us upon expiration in order to continue to benefit from technical support services and the periodic issuance of unspecified updates and enhancements, which current software support customers are entitled to receive. Software support contracts are generally: priced as a percentage of the net fees paid by the customer to purchase a software license; billed in advance of the support services being performed; renewed at the customer’s option; and recognized as revenues ratably over the contractual period that the support services are provided, which is generally one year.
 
 Providing choice and flexibility to our customers as to when and how they deploy Oracle applications and infrastructure technologies are important elements of our corporate strategy. In recent periods, customer demand for our applications and infrastructure technologies delivered through our Oracle Cloud has increased. To address customer demand and enable customer choice, we have certain programs for customers to pivot their applications and infrastructure software licenses and the related software support to the Oracle Cloud for new deployments and to migrate to and expand with the Oracle Cloud for their existing workloads. The proportion of our cloud revenues relative to our total revenues has increased and we expect this trend to continue. Cloud revenues represented 51% and 43% of our total revenues during fiscal 2026 and 2025, respectively.
 
 Our cloud and software business’ revenue growth is affected by many factors, including the strength of general economic and business conditions, including the effects of inflation, tariffs and trade policy, geopolitical conditions and other macroeconomic factors on customer demand; governmental budgetary constraints; the strategy for and competitive position of our offerings; customer satisfaction with our offerings; the continued renewal of our cloud and software support customer contracts by the customer contract base; substantially all customers continuing to purchase software support contracts in connection with their license purchases; the pricing of software support contracts sold in connection with the sales of licenses; the pricing, amounts and volumes of cloud services and licenses sold; our ability to manage Oracle Cloud capacity requirements to meet existing and prospective customer demand; and foreign currency rate fluctuations.
 
+--- Chunk 88/276 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 461 ---
 On a constant currency basis, we expect that our total cloud and software revenues generally will continue to increase due to:
 
-•
+• expected growth in our cloud offerings; and
 
-expected growth in our cloud offerings; and
-
-•
-
-continued demand for our software offerings.
-
---- Chunk 88/276 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 427 ---
-continued demand for our software offerings.
+• continued demand for our software offerings.
 
 We believe these factors should contribute to future growth in our cloud and software business’ total revenues, which should enable us to continue to make investments in research and development and our cloud operations to develop, improve, increase the capacity of and expand the geographic footprint of our cloud and software products and services. We continue to place significant emphasis, both domestically and internationally, on direct sales through our own sales force. We also continue to market certain of our cloud and software offerings through indirect channels.
 
@@ -1508,9 +1244,7 @@ Total Revenues by Business > Total revenues — 2026: $67,357 | Percent Change A
 % Revenues by Business > Services — 2026: 8% | 2025: 9%
 
 --- Chunk 98/276 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 501 ---
-(1)
-
-Comprises Europe, the Middle East and Africa
+(1) Comprises Europe, the Middle East and Africa
 
 Total revenues increased by $10.0 billion in reported currency in fiscal 2026 relative to fiscal 2025 due to a $9.3 billion increase in cloud and software revenues, a $510 million increase in services revenues and a $148 million increase in hardware revenues, in each case during fiscal 2026 relative to fiscal 2025. The increase in our cloud and software business revenues was primarily due to growth in our cloud revenues as customers purchased our applications and infrastructure technologies and also renewed their related cloud contracts. In constant currency, cloud applications and cloud infrastructure contributed 16% and 84%, respectively, to the growth in cloud revenues in fiscal 2026. In our hardware business, the increase in revenues was primarily due to the growth in revenues from our Oracle Exadata and certain other strategic hardware product offerings. In our services business, the increase in
 
@@ -1522,7 +1256,7 @@ Total GAAP operating expenses increased by $7.0 billion in reported currency in 
 
 Our total operating margin increased in fiscal 2026 relative to fiscal 2025 due to higher revenues as discussed above. Total margin as a percentage of revenues remained flat in fiscal 2026 relative to fiscal 2025.
 
---- Chunk 99/276 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 385 ---
+--- Chunk 99/276 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 380 ---
 Our total operating margin increased in fiscal 2026 relative to fiscal 2025 due to higher revenues as discussed above. Total margin as a percentage of revenues remained flat in fiscal 2026 relative to fiscal 2025.
 
 Supplemental Disclosure Related to Certain Charges
@@ -1539,9 +1273,7 @@ Stock-based compensation, R&D and G&A(3) — 2026: 3,193 | 2025: 3,077
 Income tax effects(4) — 2026: (3,070) | 2025: (2,514)
 2026: $5,250 | 2025: $4,841
 
-(1)
-
-Represents the amortization of intangible assets, all of which were acquired in connection with our acquisitions. As of May 31, 2026, estimated future amortization related to intangible assets was as follows (in millions):
+(1) Represents the amortization of intangible assets, all of which were acquired in connection with our acquisitions. As of May 31, 2026, estimated future amortization related to intangible assets was as follows (in millions):
 
 Fiscal 2027 — $731
 Fiscal 2028 — 694
@@ -1551,18 +1283,12 @@ Fiscal 2031 — 377
 Thereafter — 225
 Total intangible assets, net — $3,229
 
-(2)
-
---- Chunk 100/276 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 336 ---
-(2)
-
-Restructuring and other expenses in fiscal 2026 consist of employee severance costs in connection with the Fiscal 2026 Oracle Restructuring Plan (2026 Restructuring Plan) and certain other operating expenses, net. Restructuring and other expenses in fiscal 2025 consist of employee severance in connection with the Fiscal 2024 Oracle Restructuring Plan (2024 Restructuring Plan) and certain other operating expenses, net. Additional information regarding certain of our restructuring plans is provided in management’s discussion below under “Restructuring and Other Expenses,” and in Note 7 of Notes to Consolidated Financial Statements included elsewhere in this Annual Report.
+--- Chunk 100/276 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 332 ---
+(2) Restructuring and other expenses in fiscal 2026 consist of employee severance costs in connection with the Fiscal 2026 Oracle Restructuring Plan (2026 Restructuring Plan) and certain other operating expenses, net. Restructuring and other expenses in fiscal 2025 consist of employee severance in connection with the Fiscal 2024 Oracle Restructuring Plan (2024 Restructuring Plan) and certain other operating expenses, net. Additional information regarding certain of our restructuring plans is provided in management’s discussion below under “Restructuring and Other Expenses,” and in Note 7 of Notes to Consolidated Financial Statements included elsewhere in this Annual Report.
 
 [Table of Contents](#toc_page)
 
-(3)
-
-Stock-based compensation was included in the following operating expense line items of our consolidated statements of operations (in millions):
+(3) Stock-based compensation was included in the following operating expense line items of our consolidated statements of operations (in millions):
 
 Year Ended May 31,
 Cloud and software — 2026: $622 | 2025: $609
@@ -1574,12 +1300,8 @@ Research and development — 2026: 2,805 | 2025: 2,638
 General and administrative — 2026: 388 | 2025: 439
 Total stock-based compensation — 2026: $4,811 | 2025: $4,674
 
-(4)
-
 --- Chunk 101/276 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 188 ---
-(4)
-
-For fiscal 2026 and 2025, the applicable jurisdictional tax rates were applied to our income before income taxes after excluding the tax effects of items within the table above such as for stock-based compensation, amortization of intangible assets, restructuring and other expenses, and after excluding the net deferred tax effects associated with a previously recorded income tax benefit that resulted from a partial realignment of our legal entity structure; and for fiscal 2026, after excluding the impact of the U.S. One, Big, Beautiful Bill Act related to the remeasurement of a deferred tax liability. These adjustments resulted in an effective tax rate of 19.9%, instead of 12.6%, for fiscal 2026 and 19.7%, instead of 12.1%, for fiscal 2025, which in each case represented our effective tax rates as derived per our consolidated statements of operations.
+(4) For fiscal 2026 and 2025, the applicable jurisdictional tax rates were applied to our income before income taxes after excluding the tax effects of items within the table above such as for stock-based compensation, amortization of intangible assets, restructuring and other expenses, and after excluding the net deferred tax effects associated with a previously recorded income tax benefit that resulted from a partial realignment of our legal entity structure; and for fiscal 2026, after excluding the impact of the U.S. One, Big, Beautiful Bill Act related to the remeasurement of a deferred tax liability. These adjustments resulted in an effective tax rate of 19.9%, instead of 12.6%, for fiscal 2026 and 19.7%, instead of 12.1%, for fiscal 2025, which in each case represented our effective tax rates as derived per our consolidated statements of operations.
 
 Cloud and Software Business
 
@@ -1611,9 +1333,7 @@ Revenues by Offerings > Software support — 2026: 19,804 | Percent Change Actua
 Revenues by Offerings > Total revenues — 2026: $58,530 | Percent Change Actual: 19% | Percent Change Constant: 17% | 2025: $49,230
 
 --- Chunk 104/276 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 440 ---
-(1)
-
-Excludes stock-based compensation and certain expense allocations. Also excludes amortization of intangible assets and certain other GAAP-based expenses, which were not allocated to our operating segment results for purposes of reporting to and review by our CODMs, as further described under “Presentation of Operating Segment Results and Other Financial Information” above.
+(1) Excludes stock-based compensation and certain expense allocations. Also excludes amortization of intangible assets and certain other GAAP-based expenses, which were not allocated to our operating segment results for purposes of reporting to and review by our CODMs, as further described under “Presentation of Operating Segment Results and Other Financial Information” above.
 
 Our cloud and software business’ total revenues increased by $9.3 billion in reported currency in fiscal 2026 relative to fiscal 2025 primarily due to an increase in cloud revenues as customers purchased our applications and infrastructure technologies and renewed their related cloud contracts. Excluding the favorable impact of currency rate fluctuations of 2% in fiscal 2026, cloud applications and cloud infrastructure contributed 16% and 84%, respectively, to the constant currency growth in cloud revenues in fiscal 2026. The Americas, the EMEA and the Asia Pacific regions contributed 87%, 6% and 7%, respectively, to the constant currency revenue growth for this business during fiscal 2026.
 
@@ -1647,9 +1367,7 @@ Total Margin % — 2026: 65% | 2025: 65%
 % Revenues by Geography > EMEA — 2026: 30% | 2025: 30%
 % Revenues by Geography > Asia Pacific — 2026: 21% | 2025: 21%
 
-(1)
-
-Excludes stock-based compensation and certain expense allocations. Also excludes amortization of intangible assets and certain other GAAP-based expenses, which were not allocated to our operating segment results for purposes of reporting to and review by our CODMs, as further described under “Presentation of Operating Segment Results and Other Financial Information” above.
+(1) Excludes stock-based compensation and certain expense allocations. Also excludes amortization of intangible assets and certain other GAAP-based expenses, which were not allocated to our operating segment results for purposes of reporting to and review by our CODMs, as further described under “Presentation of Operating Segment Results and Other Financial Information” above.
 
 --- Chunk 106/276 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 251 ---
 Total hardware revenues increased by $148 million in reported currency in fiscal 2026 relative to fiscal 2025. Excluding the favorable impact of currency rate fluctuations of 2% in fiscal 2026, the increase in hardware revenues was primarily due to the growth in revenues from our Oracle Exadata and certain other strategic hardware product offerings. Geographically, we experienced a constant currency increase in hardware revenues in the Americas and the Asia Pacific regions, partially offset by a constant currency decrease in hardware revenues in the EMEA region in fiscal 2026.
@@ -1679,9 +1397,7 @@ Total Margin % — 2026: 27% | 2025: 19%
 % Revenues by Geography > EMEA — 2026: 25% | 2025: 26%
 % Revenues by Geography > Asia Pacific — 2026: 11% | 2025: 13%
 
-(1)
-
-Excludes stock-based compensation and certain allocations. Also excludes amortization of intangible assets and certain other GAAP-based expenses, which were not allocated to our operating segment results for purposes of reporting to and review by our CODMs, as further described under “Presentation of Operating Segment Results and Other Financial Information” above.
+(1) Excludes stock-based compensation and certain allocations. Also excludes amortization of intangible assets and certain other GAAP-based expenses, which were not allocated to our operating segment results for purposes of reporting to and review by our CODMs, as further described under “Presentation of Operating Segment Results and Other Financial Information” above.
 
 --- Chunk 108/276 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 454 ---
 Total services revenues increased by $510 million in reported currency in fiscal 2026 relative to fiscal 2025. Excluding the favorable impact of currency rate fluctuations of 2% in fiscal 2026, the increase in services revenues was primarily due to increases in our consulting services revenues in fiscal 2026 relative to fiscal 2025. The constant currency increase in services revenues in the Americas region was partially offset by a constant currency decrease in services revenues in the EMEA and the Asia Pacific regions in fiscal 2026.
@@ -1698,12 +1414,10 @@ Stock-based compensation — 2026: 2,805 | Percent Change Actual: 6% | Percent C
 Total expenses — 2026: $10,272 | Percent Change Actual: 4% | Percent Change Constant: 4% | 2025: $9,860
 % of Total Revenues — 2026: 15% | 2025: 17%
 
-(1)
+(1) Excluding stock-based compensation
 
-Excluding stock-based compensation
-
---- Chunk 109/276 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 454 ---
-Excluding stock-based compensation
+--- Chunk 109/276 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 457 ---
+(1) Excluding stock-based compensation
 
 Total research and development expenses increased by $412 million in reported currency in fiscal 2026 relative to fiscal 2025. Excluding the favorable effects of currency rate fluctuations of less than 1% in fiscal 2026, the constant currency increase in research and development expenses was primarily due to a $234 million increase in employee-related expenses, including stock-based compensation, and a $132 million increase in computer equipment expenses in fiscal 2026 relative to fiscal 2025.
 
@@ -1717,9 +1431,7 @@ Stock-based compensation — 2026: 388 | Percent Change Actual: -12% | Percent C
 Total expenses — 2026: $1,618 | Percent Change Actual: 1% | Percent Change Constant: 0% | 2025: $1,602
 % of Total Revenues — 2026: 2% | 2025: 3%
 
-(1)
-
-Excluding stock-based compensation
+(1) Excluding stock-based compensation
 
 Total general and administrative expenses increased by $16 million in reported currency in fiscal 2026 relative to fiscal 2025. Excluding the unfavorable effects of currency rate fluctuations of 1% in fiscal 2026, general and administrative expenses in constant currency remained flat in fiscal 2026 relative to fiscal 2025.
 
@@ -1847,7 +1559,7 @@ Revolving Credit Agreement: In March 2026, we terminated our existing $6.0 billi
 
 Commercial Paper Program: In March 2026, our commercial paper program was increased to $10.0 billion. Our commercial paper program allows us to issue and sell unsecured short-term promissory notes (Commercial Paper Notes) pursuant to a private placement exemption from the registration requirements under federal and state securities laws pursuant to dealer agreements with various banks and an Issuing and Paying Agency Agreement with Deutsche Bank Trust Company Americas. There were $1.5 billion of outstanding Commercial Paper Notes as of May 31, 2026. We used the net proceeds from the issuance of commercial paper for general corporate purposes.
 
---- Chunk 119/276 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 498 ---
+--- Chunk 119/276 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 497 ---
 Cash Dividends: In fiscal 2026, we declared and paid aggregate cash dividends of $1,263.89 per share of outstanding Mandatory Convertible Preferred Stock that totaled $63 million and $2.00 per share of outstanding common stock that totaled $5.7 billion. In June 2026, our Board of Directors (the Board) declared a quarterly cash dividend of $1,625 per share of our outstanding Mandatory Convertible Preferred Stock and $0.50 per share of our outstanding common stock. The Mandatory Convertible Preferred Stock dividend is payable on July 15, 2026 to stockholders of record as of the close of business on July 1, 2026 and the common stock dividend is payable on July 24, 2026 to stockholders of record as of the close of business on July 10, 2026. Future declarations of dividends on Oracle securities and the establishment of future record and payment dates for our common stock are subject to the final determination of the Board.
 
 Mandatory Convertible Preferred Stock: On February 5, 2026, we issued 100,000,000 depositary shares, representing 50,000 shares of our 6.50% Series D Mandatory Convertible Preferred Stock (Mandatory Convertible Preferred Stock). We received cash proceeds of $5.0 billion, net of issuance costs. The other terms and conditions of the Mandatory Convertible Preferred Stock are set forth in the Certificate of Designations, which is incorporated by reference herein as Exhibit 3.03.
@@ -1858,64 +1570,36 @@ Common Stock: On February 2, 2026, we entered into an equity distribution agreem
 
 Senior Notes: During fiscal 2026, we issued a total of $43.0 billion par value of senior notes comprising the following:
 
-•
+• $500 million of floating rate notes due February 2029;
 
-$500 million of floating rate notes due February 2029;
+• $3.0 billion of 4.55% senior notes due February 2029;
 
-•
+• $3.0 billion of 4.45% senior notes due September 2030;
 
-$3.0 billion of 4.55% senior notes due February 2029;
+--- Chunk 120/276 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 366 ---
+• $3.0 billion of 4.45% senior notes due September 2030;
 
-•
+• $3.5 billion of 4.95% senior notes due February 2031;
 
-$3.0 billion of 4.45% senior notes due September 2030;
+• $3.0 billion of 4.80% senior notes due September 2032;
 
-•
+• $3.0 billion of 5.35% senior notes due May 2033;
 
---- Chunk 120/276 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 346 ---
-•
+• $4.0 billion of 5.20% senior notes due September 2035;
 
-$3.5 billion of 4.95% senior notes due February 2031;
+• $5.0 billion of 5.70% senior notes due February 2036;
 
-•
+• $2.5 billion of 5.875% senior notes due September 2045;
 
-$3.0 billion of 4.80% senior notes due September 2032;
+• $2.25 billion of 6.55% senior notes due February 2046;
 
-•
+• $3.5 billion of 5.95% senior notes due September 2055;
 
-$3.0 billion of 5.35% senior notes due May 2033;
+• $5.0 billion of 6.70% senior notes due February 2056;
 
-•
+• $2.0 billion of 6.10% senior notes due September 2065; and
 
-$4.0 billion of 5.20% senior notes due September 2035;
-
-•
-
-$5.0 billion of 5.70% senior notes due February 2036;
-
-•
-
-$2.5 billion of 5.875% senior notes due September 2045;
-
-•
-
-$2.25 billion of 6.55% senior notes due February 2046;
-
-•
-
-$3.5 billion of 5.95% senior notes due September 2055;
-
-•
-
-$5.0 billion of 6.70% senior notes due February 2056;
-
-•
-
-$2.0 billion of 6.10% senior notes due September 2065; and
-
-•
-
-$2.75 billion of 6.85% senior notes due February 2066.
+• $2.75 billion of 6.85% senior notes due February 2066.
 
 We issued the Mandatory Convertible Preferred Stock and the senior notes for general corporate purposes, which may include capital expenditures, repayment of indebtedness, future investments or acquisitions and payment of cash dividends on or repurchases of our common stock. Refer to Notes 6 and 10 of Notes to Consolidated Financial Statements included elsewhere in this Annual Report for additional information. The other terms and conditions of the senior notes are set forth in, and the foregoing description of the senior notes is qualified in its entirety by reference to, the Officers’ Certificates incorporated by reference herein as Exhibits 4.17 and 4.21.
 
@@ -1924,21 +1608,13 @@ Common Stock Repurchase Program: The Board has approved a program for us to repu
 
 Contractual Obligations: Our largest contractual obligations as of May 31, 2026 consisted of:
 
-•
+• principal payments related to our senior notes and other borrowings that were included in our consolidated balance sheet and the related periodic interest payments;
 
-principal payments related to our senior notes and other borrowings that were included in our consolidated balance sheet and the related periodic interest payments;
+• lease liabilities that were included in our consolidated balance sheet;
 
-•
+• lease commitments that have not yet commenced and were not included in our consolidated balance sheet; and
 
-lease liabilities that were included in our consolidated balance sheet;
-
-•
-
-lease commitments that have not yet commenced and were not included in our consolidated balance sheet; and
-
-•
-
-other contractual commitments associated with agreements that are enforceable and legally binding.
+• other contractual commitments associated with agreements that are enforceable and legally binding.
 
 In addition, as of May 31, 2026, we had $13.2 billion of gross unrecognized income tax benefits, including related interest and penalties, recorded on our consolidated balance sheet, the nature of which is uncertain with respect to settlement or release with the relevant tax authorities. We are involved in claims and legal proceedings, which
 
@@ -2060,10 +1736,8 @@ The information required by this Item 14 is incorporated herein by reference fro
 
 [Table of Contents](#toc_page)
 
---- Chunk 137/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 353 ---
-(a)
-
-1. Financial Statements
+--- Chunk 137/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 354 ---
+(a) 1. Financial Statements
 
 The following financial statements are filed as a part of this report:
 
@@ -2286,9 +1960,7 @@ Weighted average common shares outstanding:
 Weighted average common shares outstanding > Basic — 2026: 2,860 | 2025: 2,789 | 2024: 2,744
 Weighted average common shares outstanding > Diluted — 2026: 2,914 | 2025: 2,866 | 2024: 2,823
 
-(1)
-
-Exclusive of amortization of intangible assets, which is shown separately.
+(1) Exclusive of amortization of intangible assets, which is shown separately.
 
 See notes to consolidated financial statements.
 
@@ -2382,9 +2054,7 @@ Other, net (fiscal 2026, year ended May 31, 2026) — Preferred and Common Stock
 Net income (fiscal 2026, year ended May 31, 2026) — Accumulated Deficit: 17,087 | Noncontrolling Interests: 222 | Total Stockholders’ Equity: 17,309
 Balances as of May 31, 2026 — Preferred and Common Stock and Additional Paid in Capital Preferred Stock Shares: — (1) | Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 2,880 | Preferred and Common Stock and Additional Paid in Capital Amount: $48,197 | Accumulated Deficit: $(4,309) | Accumulated Other Comprehensive Loss: $(1,380) | Noncontrolling Interests: $548 | Total Stockholders’ Equity: $43,056
 
-(1)
-
-We issued 50,000 shares of our 6.50% Series D Mandatory Convertible Preferred Stock on February 5, 2026. As of May 31, 2026, 50,000 shares were outstanding.
+(1) We issued 50,000 shares of our 6.50% Series D Mandatory Convertible Preferred Stock on February 5, 2026. As of May 31, 2026, 50,000 shares were outstanding.
 
 See notes to consolidated financial statements.
 
@@ -2500,21 +2170,15 @@ Revenue Recognition
 
 Our sources of revenues are:
 
-•
+• cloud and software revenues, comprising of: cloud revenues, which includes cloud applications and cloud infrastructure revenues; and software revenues, which includes software license and software support revenues;
 
-cloud and software revenues, comprising of: cloud revenues, which includes cloud applications and cloud infrastructure revenues; and software revenues, which includes software license and software support revenues;
+• hardware revenues, which include the sale of hardware products, including Oracle Engineered Systems, servers and storage products, and industry-specific hardware; and hardware support revenues; and
 
-•
-
-hardware revenues, which include the sale of hardware products, including Oracle Engineered Systems, servers and storage products, and industry-specific hardware; and hardware support revenues; and
-
-•
-
-services revenues, which are earned from providing cloud-, software- and hardware-related services including consulting and customer success services.
+• services revenues, which are earned from providing cloud-, software- and hardware-related services including consulting and customer success services.
 
 Cloud revenues include revenues from Oracle Cloud offerings, which deliver applications and infrastructure technologies via cloud-based deployment models that we develop functionality for, provide unspecified updates and enhancements for, deploy, host, manage, upgrade and support and that customers access by entering into a subscription agreement with us for a stated period.
 
---- Chunk 160/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Organization and Significant Accounting Policies | tokens: 493 ---
+--- Chunk 160/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Organization and Significant Accounting Policies | tokens: 501 ---
 Software revenues primarily represent revenues earned from granting customers perpetual licenses to use our applications or infrastructure offerings, such as our database, middleware, application and industry-specific software products, and the sale of support contracts related to these licenses, which are purchased by our customers at their option. Customers may deploy their software license in a cloud-based, on-premise or hybrid IT environment. Software support contracts provide customers with rights to unspecified software product upgrades, maintenance releases and patches released during the term of the support period and include access to technical content and support. Software support contracts are generally priced as a percentage of the net software license fees. Substantially all of our customers elect to purchase and renew their software support contracts annually.
 
 Hardware revenues include revenues from the sale of hardware products and the sale of our hardware support offerings. Hardware support contracts are generally priced as a percentage of the net hardware products fees.
@@ -2523,27 +2187,19 @@ Our services are offered to customers as standalone arrangements or as a part of
 
 We apply the provisions of ASC 606, Revenue from Contracts with Customers (ASC 606) as a single standard for revenue recognition that applies to all of our cloud, software, hardware and services arrangements and generally require revenues to be recognized upon the transfer of control of promised goods or services provided to our customers, reflecting the amount of consideration we expect to receive for those goods or services. Pursuant to ASC 606, revenues are recognized upon the application of the following steps:
 
-•
+• identification of the contract, or contracts, with a customer;
 
-identification of the contract, or contracts, with a customer;
+• identification of the performance obligations in the contract;
 
-•
+• determination of the transaction price;
 
-identification of the performance obligations in the contract;
+• allocation of the transaction price to each performance obligation in the contract; and
 
-•
-
-determination of the transaction price;
-
-•
-
-allocation of the transaction price to each performance obligation in the contract; and
-
-•
-
-recognition of revenues when, or as, the contractual performance obligations are satisfied.
+• recognition of revenues when, or as, the contractual performance obligations are satisfied.
 
 The timing of revenue recognition may differ from the timing of invoicing to our customers. We record an unbilled receivable, which is included within accounts receivable on our consolidated balance sheets, when revenue is recognized prior to invoicing. We record deferred revenues on our consolidated balance sheets when revenues are to be recognized subsequent to cash collection for an invoice. Our standard payment terms are generally net 30 days
+
+[Table of Contents](#toc_page)
 
 --- Chunk 161/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Organization and Significant Accounting Policies | tokens: 455 ---
 [Table of Contents](#toc_page)
@@ -2788,17 +2444,11 @@ We perform fair value measurements in accordance with ASC 820. ASC 820 defines f
 
 ASC 820 establishes a fair value hierarchy that requires an entity to maximize the use of observable inputs and minimize the use of unobservable inputs when measuring fair value. An asset’s or a liability’s categorization within the fair value hierarchy is based upon the lowest level of input that is significant to the fair value measurement. ASC 820 establishes three levels of inputs that may be used to measure fair value:
 
-•
+• Level 1: quoted prices in active markets for identical assets or liabilities;
 
-Level 1: quoted prices in active markets for identical assets or liabilities;
+• Level 2: inputs other than Level 1 that are observable, either directly or indirectly, such as quoted prices in active markets for similar assets or liabilities, quoted prices for identical or similar assets or liabilities in markets that are not active, or other inputs that are observable or can be corroborated by observable market data for substantially the full term of the assets or liabilities; or
 
-•
-
-Level 2: inputs other than Level 1 that are observable, either directly or indirectly, such as quoted prices in active markets for similar assets or liabilities, quoted prices for identical or similar assets or liabilities in markets that are not active, or other inputs that are observable or can be corroborated by observable market data for substantially the full term of the assets or liabilities; or
-
-•
-
-Level 3: unobservable inputs that are supported by little or no market activity and that are significant to the fair values of the assets or liabilities.
+• Level 3: unobservable inputs that are supported by little or no market activity and that are significant to the fair values of the assets or liabilities.
 
 [Table of Contents](#toc_page)
 
@@ -2840,13 +2490,9 @@ Total property, plant and equipment — Estimated Useful Life: 1-40 years | May 
 Accumulated depreciation — May 31, 2026: (22,694) | May 31, 2025: (16,032)
 Total property, plant and equipment, net — May 31, 2026: $99,957 | May 31, 2025: $43,522
 
-(1)
+(1) Comprised primarily of servers and networking equipment with estimated useful life of six years.
 
-Comprised primarily of servers and networking equipment with estimated useful life of six years.
-
-(2)
-
-Comprised primarily of servers, networking equipment and leasehold improvements to be deployed at our data centers.
+(2) Comprised primarily of servers, networking equipment and leasehold improvements to be deployed at our data centers.
 
 Depreciation expense on property, plant and equipment in fiscal 2026, 2025 and 2024 were $7.6 billion, $3.9 billion and $3.1 billion, respectively. Property, plant and equipment, net includes ROU assets recorded in connection with lease arrangements that are accounted for as finance leases, totaling $7.5 billion and $2.9 billion as of May 31, 2026 and 2025, respectively.
 
@@ -2896,9 +2542,7 @@ Balances as of May 31, 2025 — Cloud and Software: 57,049 | Hardware: 2,732 | S
 Goodwill adjustments, net(1) (fiscal 2026, year ended May 31, 2026) — Cloud and Software: 65 | Services: (11) | Total Goodwill: 54
 Balances as of May 31, 2026 — Cloud and Software: $57,114 | Hardware: $2,732 | Services: $2,415 | Total Goodwill: $62,261
 
-(1)
-
-Amounts include any changes in goodwill balances for the period presented that resulted from foreign currency translations.
+(1) Amounts include any changes in goodwill balances for the period presented that resulted from foreign currency translations.
 
 --- Chunk 187/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Notes Payable and Other Borrowings | tokens: 44 ---
 [Table of Contents](#toc_page)
@@ -3119,17 +2763,11 @@ Notes payable and other borrowings, current — May 31, 2026 Amount: $7,199 | Ma
 Notes payable and other borrowings, non-current — May 31, 2026 Amount: $122,342 | May 31, 2025 Amount: $85,297
 
 --- Chunk 202/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Notes Payable and Other Borrowings | tokens: 463 ---
-(1)
+(1) In fiscal 2018 we entered into certain cross-currency interest rate swap agreements that have the economic effect of converting our fixed-rate, Euro-denominated debt, including annual interest payments and the payment of principal at maturity, to a variable-rate, U.S. Dollar-denominated debt of $871 million based on LIBOR. The effective interest rates as of May 31, 2025 after consideration of the cross-currency interest rate swap agreements were 7.77% for the July 2025 Notes. Refer to Note 1 for a description of our accounting for fair value hedges. The July 2025 Notes were repaid in full upon maturity in July 2025.
 
-In fiscal 2018 we entered into certain cross-currency interest rate swap agreements that have the economic effect of converting our fixed-rate, Euro-denominated debt, including annual interest payments and the payment of principal at maturity, to a variable-rate, U.S. Dollar-denominated debt of $871 million based on LIBOR. The effective interest rates as of May 31, 2025 after consideration of the cross-currency interest rate swap agreements were 7.77% for the July 2025 Notes. Refer to Note 1 for a description of our accounting for fair value hedges. The July 2025 Notes were repaid in full upon maturity in July 2025.
+(2) In fiscal 2023, we entered into certain interest rate swap agreements that have the economic effect of converting our $4.7 billion of floating-rate borrowings pursuant to the Term Loan Credit Agreement (defined below) until its repayment and subsequently, borrowings under the Term Loan Credit Agreement 2 (defined below) for the same amount to fixed-rate borrowings with a fixed annual interest rate of 3.07%, plus a margin depending on the credit rating assigned to our long-term senior unsecured debt, as further discussed below. The effective interest rates after consideration of the interest rate swap agreements were 4.74% for each of fiscal 2026 and 2025, for borrowings under the Term Loan Credit Agreement 2 (defined below). Refer to Note 1 for a description of our accounting for cash flow hedges.
 
-(2)
-
-In fiscal 2023, we entered into certain interest rate swap agreements that have the economic effect of converting our $4.7 billion of floating-rate borrowings pursuant to the Term Loan Credit Agreement (defined below) until its repayment and subsequently, borrowings under the Term Loan Credit Agreement 2 (defined below) for the same amount to fixed-rate borrowings with a fixed annual interest rate of 3.07%, plus a margin depending on the credit rating assigned to our long-term senior unsecured debt, as further discussed below. The effective interest rates after consideration of the interest rate swap agreements were 4.74% for each of fiscal 2026 and 2025, for borrowings under the Term Loan Credit Agreement 2 (defined below). Refer to Note 1 for a description of our accounting for cash flow hedges.
-
-(3)
-
-In fiscal 2026, we issued $43.0 billion of senior notes for general corporate purposes, which may include capital expenditures, repayment of indebtedness, future investments or acquisitions and payment of cash dividends on or repurchases of our common stock.
+(3) In fiscal 2026, we issued $43.0 billion of senior notes for general corporate purposes, which may include capital expenditures, repayment of indebtedness, future investments or acquisitions and payment of cash dividends on or repurchases of our common stock.
 
 Future principal payments for all of our borrowings at May 31, 2026 were as follows (in millions):
 
@@ -3172,19 +2810,13 @@ During fiscal 2025, we terminated our Term Loan Credit Agreement and repaid the 
 
 The Term Loan Credit Agreement 2 provides for repayment of borrowing as follows:
 
-•
+• an amount equal to the amount borrowed reduced by any prepayments multiplied by 1.25% on September 30, 2024 and quarterly thereafter until June 30, 2026;
 
-an amount equal to the amount borrowed reduced by any prepayments multiplied by 1.25% on September 30, 2024 and quarterly thereafter until June 30, 2026;
-
-•
-
-an amount equal to the amount borrowed reduced by any prepayments multiplied by 2.50% on September 30, 2026 and quarterly thereafter until June 30, 2027; and
+• an amount equal to the amount borrowed reduced by any prepayments multiplied by 2.50% on September 30, 2026 and quarterly thereafter until June 30, 2027; and
 
 [Table of Contents](#toc_page)
 
-•
-
-any remaining unpaid principal balance under the Term Loan Credit Agreement 2 will become fully due and payable on August 16, 2027 (subject to any extension of the Term Loan Credit Agreement 2 termination date, as set out below), unless the outstanding loans are prepaid earlier at the request of Oracle or accelerated by the lenders if an event of default occurs.
+• any remaining unpaid principal balance under the Term Loan Credit Agreement 2 will become fully due and payable on August 16, 2027 (subject to any extension of the Term Loan Credit Agreement 2 termination date, as set out below), unless the outstanding loans are prepaid earlier at the request of Oracle or accelerated by the lenders if an event of default occurs.
 
 The termination date of the Term Loan Credit Agreement 2 may be extended at our sole option by up to 2 years. The termination date of the Term Loan Credit Agreement 2 may also be further extended at each lender’s option by up to 2 years.
 
@@ -3284,32 +2916,20 @@ Fiscal 2024 Activity
 Total other restructuring plans(6) — Accrued May 31, 2023: $199 | Year Ended May 31, 2024 Initial Costs(3): $— | Year Ended May 31, 2024 Adj. to Cost(4): $(28) | Year Ended May 31, 2024 Cash Payments: $(89) | Year Ended May 31, 2024 Others(5): $2 | Accrued May 31, 2024: $84
 Total restructuring plans — Accrued May 31, 2023: $199 | Year Ended May 31, 2024 Initial Costs(3): $447 | Year Ended May 31, 2024 Adj. to Cost(4): $(43) | Year Ended May 31, 2024 Cash Payments: $(369) | Year Ended May 31, 2024 Others(5): $2 | Accrued May 31, 2024: $236
 
---- Chunk 217/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Restructuring and Other Expenses | tokens: 242 ---
-(1)
-
-Restructuring costs recorded to each of the operating segments presented primarily related to employee severance costs. Other restructuring costs represented employee severance costs not related to our operating segments and certain other restructuring plan costs.
+--- Chunk 217/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Restructuring and Other Expenses | tokens: 240 ---
+(1) Restructuring costs recorded to each of the operating segments presented primarily related to employee severance costs. Other restructuring costs represented employee severance costs not related to our operating segments and certain other restructuring plan costs.
 
 [Table of Contents](#toc_page)
 
-(2)
+(2) As of May 31, 2026, $581 million and $72 million were recorded in other current liabilities and other non-current liabilities, respectively, within our consolidated balance sheets. As of May 31, 2025, substantially all restructuring liabilities have been recorded in other current liabilities within our consolidated balance sheets.
 
-As of May 31, 2026, $581 million and $72 million were recorded in other current liabilities and other non-current liabilities, respectively, within our consolidated balance sheets. As of May 31, 2025, substantially all restructuring liabilities have been recorded in other current liabilities within our consolidated balance sheets.
+(3) Costs recorded for the respective restructuring plans during the period presented.
 
-(3)
+(4) All plan adjustments were changes in estimates whereby increases and decreases in costs were generally recorded to operating expenses in the period of adjustments.
 
-Costs recorded for the respective restructuring plans during the period presented.
+(5) Represents foreign currency translation and certain other non-cash adjustments.
 
-(4)
-
-All plan adjustments were changes in estimates whereby increases and decreases in costs were generally recorded to operating expenses in the period of adjustments.
-
-(5)
-
-Represents foreign currency translation and certain other non-cash adjustments.
-
-(6)
-
-Other restructuring plans presented in the tables above included condensed information for other Oracle based plans and other plans associated with certain of our acquisitions whereby we continued to make cash outlays to settle obligations under these plans during the periods presented but for which the periodic impact to our consolidated statements of operations was not significant.
+(6) Other restructuring plans presented in the tables above included condensed information for other Oracle based plans and other plans associated with certain of our acquisitions whereby we continued to make cash outlays to settle obligations under these plans during the periods presented but for which the periodic impact to our consolidated statements of operations was not significant.
 
 --- Chunk 218/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Deferred Revenues | tokens: 243 ---
 8.
@@ -3554,13 +3174,9 @@ Vested — Outstanding Stock Options (in millions): 5 | Weighted-Average Exercis
 Expected to vest(2) — Outstanding Stock Options (in millions): 15 | Weighted-Average Exercise Price: $275.90 | Weighted-Average Remaining Contract Term (in years): 9.35 | Aggregate Intrinsic Value(1) (in millions): 95
 Total — Outstanding Stock Options (in millions): 20 | Weighted-Average Exercise Price: $223.97 | Weighted-Average Remaining Contract Term (in years): 7.58 | Aggregate Intrinsic Value(1) (in millions): $884
 
-(1)
+(1) The aggregate intrinsic value was calculated based on the gross difference between our closing stock price on the last trading day of fiscal 2026 of $225.78 and the exercise prices for all “in-the-money” options outstanding, excluding tax effects.
 
-The aggregate intrinsic value was calculated based on the gross difference between our closing stock price on the last trading day of fiscal 2026 of $225.78 and the exercise prices for all “in-the-money” options outstanding, excluding tax effects.
-
-(2)
-
-The unrecognized compensation expense calculated under the fair value method for shares expected to vest as of May 31, 2026 was $1.8 billion and is expected to be recognized over a weighted-average period of 3.30 years. Approximately 1 million shares outstanding as of May 31, 2026 were not expected to vest.
+(2) The unrecognized compensation expense calculated under the fair value method for shares expected to vest as of May 31, 2026 was $1.8 billion and is expected to be recognized over a weighted-average period of 3.30 years. Approximately 1 million shares outstanding as of May 31, 2026 were not expected to vest.
 
 Stock-Based Compensation Expense and Valuations of Stock-Based Awards
 
@@ -3656,7 +3272,7 @@ Effective income tax rate — 2026: 12.6% | 2025: 12.1% | 2024: 10.9%
 
 In fiscal year ended May 31, 2026, we adopted ASU 2023-09 prospectively. The following table reconciles the provision for income taxes to the amount computed by applying the statutory U.S. federal income tax rate to income before income taxes for the year ended May 31, 2026:
 
---- Chunk 239/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Income Taxes | tokens: 494 ---
+--- Chunk 239/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Income Taxes | tokens: 491 ---
 (Dollars in millions)
 U.S. federal statutory income tax rate — Amount: $4,106 | Percent: 21.0%
 Foreign tax effects — Amount: (77) | Percent: -0.4%
@@ -3683,16 +3299,10 @@ Bermuda > Changes in unrecognized tax benefits — Amount: 847 | Percent: 4.3%
 Bermuda > Other adjustments(2) — Amount: 215 | Percent: 1.1%
 Bermuda > Effective income tax rate — Amount: $2,467 | Percent: 12.6%
 
-(1)
-
 --- Chunk 240/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Income Taxes | tokens: 454 ---
-(1)
+(1) Primarily related to the tax effects of enactment of the U.S. One, Big, Beautiful Bill Act.
 
-Primarily related to the tax effects of enactment of the U.S. One, Big, Beautiful Bill Act.
-
-(2)
-
-Includes the tax effects of changes in valuation allowances, effect of cross-border tax laws and state taxes, net of federal benefit. California, Virginia and Missouri represent the majority of the state taxes net of federal benefit.
+(2) Includes the tax effects of changes in valuation allowances, effect of cross-border tax laws and state taxes, net of federal benefit. California, Virginia and Missouri represent the majority of the state taxes net of federal benefit.
 
 The following table reconciles the provision for income taxes to the amount computed by applying the statutory U.S. federal income tax rate to income before income taxes for the year ended May 31, 2025 and 2024:
 
@@ -3726,9 +3336,7 @@ Foreign > India — 193
 Foreign > Other — 861
 Foreign > Total cash paid for income taxes, net of refunds received — $3,704
 
-(1)
-
-No individual state accounted for more than 5%.
+(1) No individual state accounted for more than 5%.
 
 The components of our deferred tax assets and liabilities were as follows:
 
@@ -3808,7 +3416,7 @@ We believe that we have adequately provided under GAAP for outcomes related to o
 
 Pursuant to the U.S. One, Big, Beautiful Bill Act that was signed into law on July 4, 2025, we recorded a net tax expense of $933 million during fiscal 2026, primarily related to the remeasurement of a deferred tax liability previously recorded during fiscal 2021 as part of the partial realignment of our legal entity structure.
 
---- Chunk 249/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Segment Information | tokens: 477 ---
+--- Chunk 249/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Segment Information | tokens: 476 ---
 13.
 
 SEGMENT INFORMATION
@@ -3819,13 +3427,9 @@ We have three businesses—cloud and software (formerly referred to as cloud and
 
 Our cloud and software business engages in the sale, marketing and delivery of our enterprise applications and infrastructure technologies through cloud and on-premise deployment models, including our cloud offerings and our software offerings. Cloud revenues are generated from applications and infrastructure offerings that are typically contracted with customers directly, delivered to customers over time with our revenue recognition occurring over the contractual terms and renewed by customers upon completion of the contractual terms. Our cloud contracts provide customers with access to the latest technological updates as they become available and for which the customer contracted together with related technical support services over the contractual term. Software revenues represent:
 
-(1)
+(1) fees earned from granting customers software licenses, generally on a perpetual basis, to use our database and middleware and our applications software products within cloud and on-premise information technology (IT) environments. We generally recognize revenues at the point in time the software is made available to the customer to download and use, which typically is immediate upon signature of the license contract; and
 
-fees earned from granting customers software licenses, generally on a perpetual basis, to use our database and middleware and our applications software products within cloud and on-premise information technology (IT) environments. We generally recognize revenues at the point in time the software is made available to the customer to download and use, which typically is immediate upon signature of the license contract; and
-
-(2)
-
-software support revenues, which are typically contracted with customers directly, billed to customers in advance, delivered to customers over time with our revenue recognition occurring over the contractual terms and renewed by customers upon completion of the contractual terms.
+(2) software support revenues, which are typically contracted with customers directly, billed to customers in advance, delivered to customers over time with our revenue recognition occurring over the contractual terms and renewed by customers upon completion of the contractual terms.
 
 [Table of Contents](#toc_page)
 
@@ -3866,9 +3470,7 @@ Totals > Expenses — 2026: 29,339 | 2025: 23,558 | 2024: 21,616
 Totals > Margin(1) — 2026: $38,018 | 2025: $33,841 | 2024: $31,345
 
 --- Chunk 252/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Segment Information | tokens: 478 ---
-(1)
-
-The margins reported reflect only the direct controllable costs of each line of business and do not include allocations of research and development, general and administrative and certain other allocable expenses, net. Additionally, the margins reported above do not reflect amortization of intangible assets, restructuring and other expenses, stock-based compensation, interest expense or certain other non-operating income (expenses),
+(1) The margins reported reflect only the direct controllable costs of each line of business and do not include allocations of research and development, general and administrative and certain other allocable expenses, net. Additionally, the margins reported above do not reflect amortization of intangible assets, restructuring and other expenses, stock-based compensation, interest expense or certain other non-operating income (expenses),
 
 [Table of Contents](#toc_page)
 
@@ -3903,9 +3505,7 @@ EMEA(1) — 2026: 15,297 | 2025: 14,025 | 2024: 13,030
 Asia Pacific — 2026: 7,582 | 2025: 7,035 | 2024: 6,809
 Total revenues — 2026: $67,357 | 2025: $57,399 | 2024: $52,961
 
-(1)
-
-Comprises Europe, the Middle East and Africa
+(1) Comprises Europe, the Middle East and Africa
 
 The following table presents our software revenues by offerings:
 
@@ -3945,11 +3545,9 @@ Disclosed in the table below is geographic information for each country that com
 (in millions) As of and for the Year Ended May 31,
 Total — 2026 Revenues: $67,357 | 2026 Long-Lived Assets(1): $133,264 | 2025 Revenues: $57,399 | 2025 Long-Lived Assets(1): $60,143 | 2024 Revenues: $52,961 | 2024 Long-Lived Assets(1): $32,260
 
-(1)
+(1) Long-lived assets exclude goodwill, intangible assets, non-marketable investments and deferred taxes, which are not allocated to specific geographic locations as it is impracticable to do so.
 
-Long-lived assets exclude goodwill, intangible assets, non-marketable investments and deferred taxes, which are not allocated to specific geographic locations as it is impracticable to do so.
-
---- Chunk 256/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Earnings Per Share | tokens: 435 ---
+--- Chunk 256/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Earnings Per Share | tokens: 431 ---
 14.
 
 EARNINGS PER SHARE
@@ -3967,12 +3565,8 @@ Basic earnings per share attributable to common shareholders — 2026: $5.94 | 2
 Diluted earnings per share attributable to common shareholders — 2026: $5.83 | 2025: $4.34 | 2024: $3.71
 Stock awards and shares excluded from calculation(1) — 2026: 31 | 2025: 23 | 2024: 27
 
-(1)
-
 --- Chunk 257/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Earnings Per Share | tokens: 106 ---
-(1)
-
-Consists of: (1) anti-dilutive restricted stock-based awards and stock options, both of which were service-based, as calculated using the treasury stock method, (2) anti-dilutive Mandatory Convertible Preferred Stock as calculated using the if-converted method and (3) contingently issuable shares pursuant to PSO arrangements as the performance conditions were not met. These excluded stock awards and shares could be dilutive in the future. See Note 11 for information regarding our stock-based compensation plans.
+(1) Consists of: (1) anti-dilutive restricted stock-based awards and stock options, both of which were service-based, as calculated using the treasury stock method, (2) anti-dilutive Mandatory Convertible Preferred Stock as calculated using the if-converted method and (3) contingently issuable shares pursuant to PSO arrangements as the performance conditions were not met. These excluded stock awards and shares could be dilutive in the future. See Note 11 for information regarding our stock-based compensation plans.
 
 --- Chunk 258/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Legal Proceedings | tokens: 497 ---
 15.

@@ -4119,6 +4119,18 @@ build; the narrower variant (cut back only for a group's total row, aimed at A10
 answer side either way. `structured-hybrid-v3-ollama0402` is llama's baseline on this build from here. The Linearized
 index, if used, needs `--rebuild` (the rule is in the shared `SplitRowBlock`; a code change the manifest can't see).
 
+**List markers joined to their text (user spotted it in MSFT chunks 191-192, 2026-10-09).** MSFT and ORCL lay out a list
+item as a flex `<div>` holding the marker's `<span>` and the text's own `<div>`; `FilingBlockReader` starts a paragraph at
+every `<div>`, so each bullet and footnote mark was a paragraph alone, a blank line above its text - MSFT 147 (128 `•`,
+5 `o`, 14 `(a)`-`(d)`), ORCL 238 (168 `•`, 3 `o`, 37 `(1)`-`(6)` and `(a)`), NDAQ and NFLX none. A footnote's text was
+cut off from the mark its table refers to. Now a paragraph that is only a marker joins the next one (`• We tested...`,
+`(1) Comprises Europe...`); a marker with a table after it stays where it was, and a note's number before its title
+(ORCL's `6.` + `NOTES PAYABLE...`) is not a marker - the heading rules read the title. 0 lone markers left, still 990
+chunks. **Ranks** (`eval/v3-runs/ranks-nomic-markers.txt`), against the row-group index: recall@5 86/94 unchanged, MRR
+0.745 -> 0.738; three moved - Q11 1 -> 3 (Item 1's chunks re-packed around the shorter bullets; still in the 5, still
+answered), R3 12 -> 11, A11 11 -> 12 (both outside the 5 either way). *Decision (user): commit, measured by rank only;*
+llama's answers on this index not yet run - the next llama baseline before any comparison.
+
 **Ollama build for batch 3: 0.40.2** (installed 2026-10-09 from the auto-updater's staged, Ollama-signed installer;
 0.40.0 -> 0.40.1 had auto-installed that morning). `nomic-embed-text` (0a109f422b47) and `llama3.1:8b` (46e0c10c039e)
 unchanged - not upgraded by 0.40's background model conversion. 0.40.0 reproduced 0.35.1's answers (above); 0.40.2 is

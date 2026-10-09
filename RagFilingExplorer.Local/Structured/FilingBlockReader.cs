@@ -31,6 +31,12 @@ internal static partial class FilingBlockReader
     [GeneratedRegex(@"[^\S ]+")]
     private static partial Regex WhitespaceRunRegex();
 
+    // A list marker alone in its block: a bullet glyph, or a footnote mark like "(1)" or "(a)". MSFT and ORCL lay out a
+    // list item as a flex <div> holding the marker's <span> and the text's own <div>, so the marker reads as a paragraph
+    // of its own, a blank line from its text. Not "6." - a note's number before its title, which the heading rules read.
+    [GeneratedRegex(@"^(?:[•●◦▪·o]|\([a-z0-9]{1,2}\))$")]
+    private static partial Regex ListMarkerRegex();
+
     /// <param name="notes">Where the notes sit (<see cref="NoteTopics"/>): each block read inside one gets its topic.</param>
     /// <param name="xbrl">The filing's XBRL: a roll-forward row gets its period from its contexts, named by the filer's
     /// fiscal calendar (<see cref="PeriodLabels"/>).</param>
@@ -164,9 +170,13 @@ internal static partial class FilingBlockReader
         private string? paragraphTopic;
         private bool paragraphHasText;
 
+        // A list marker held for the paragraph after it (ListMarkerRegex), with the topic it was read in.
+        private (string Marker, string? Topic)? pendingMarker;
+
         public List<FilingBlock> Finish()
         {
             FlushParagraph();
+            FlushMarker();
             return blocks;
         }
 
@@ -228,10 +238,12 @@ internal static partial class FilingBlockReader
                     return;
                 case "hr":
                     FlushParagraph();
+                    FlushMarker();
                     blocks.Add(new TextBlock("---") { Topic = topic });
                     return;
                 case "table" when element is IHtmlTableElement table:
                     FlushParagraph();
+                    FlushMarker();
                     if (ReadTable(table, contexts, calendar) is { } block)
                     {
                         blocks.Add(block with { Topic = topic });
@@ -289,9 +301,33 @@ internal static partial class FilingBlockReader
             string lines = string.Join('\n', paragraph.ToString().Split('\n').Select(l => l.Trim(' ')).Where(l => l.Length > 0));
             paragraph.Clear();
             paragraphHasText = false;
-            if (lines.Length > 0)
+            if (lines.Length == 0)
             {
-                blocks.Add(new TextBlock(lines) { Topic = paragraphTopic });
+                return;
+            }
+
+            if (pendingMarker is null && ListMarkerRegex().IsMatch(lines))
+            {
+                pendingMarker = (lines, paragraphTopic);
+                return;
+            }
+
+            if (pendingMarker is { } held)
+            {
+                (lines, paragraphTopic) = ($"{held.Marker} {lines}", held.Topic);
+                pendingMarker = null;
+            }
+
+            blocks.Add(new TextBlock(lines) { Topic = paragraphTopic });
+        }
+
+        // A marker with no paragraph after it (a table or the end follows) stays a block of its own, where it was.
+        private void FlushMarker()
+        {
+            if (pendingMarker is { } held)
+            {
+                blocks.Add(new TextBlock(held.Marker) { Topic = held.Topic });
+                pendingMarker = null;
             }
         }
     }

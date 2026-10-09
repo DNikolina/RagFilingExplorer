@@ -62,6 +62,21 @@ public class FilingBlockReaderTests
         Assert.That(blocks.Select(b => b.Text), Is.EqualTo(new[] { "PART I", "Item 1. Business", "Body text." }));
     }
 
+    // MSFT and ORCL: a list item is a flex <div> holding the marker's <span> and the text's own <div>, so each bullet
+    // and footnote mark became a paragraph of its own, a blank line above its text. A note's number before its title
+    // stays apart (the heading rules read the title), and a marker with only a table after it stays where it was.
+    [Test]
+    public void Read_ListMarkerInItsOwnBlock_JoinsTheParagraphAfterIt()
+    {
+        static string Item(string marker, string text) => $"<div style=\"display:flex\"><span>{marker}</span><div><span>{text}</span></div></div>";
+
+        List<string> texts = Texts(Item("&#8226;", "We tested controls.") + Item("o", "Obtained contracts.") + Item("(1)", "Comprises EMEA.")
+            + "<p>6.</p><p>NOTES PAYABLE</p><p>(a)</p><table><tr><td>Debt</td><td>1</td></tr></table>");
+
+        Assert.That(texts.Take(5), Is.EqualTo(new[] { "• We tested controls.", "o Obtained contracts.", "(1) Comprises EMEA.", "6.", "NOTES PAYABLE" }));
+        Assert.That(texts[5], Is.EqualTo("(a)"));
+    }
+
     // Non-breaking spaces are written as escapes here and in the reader: the step-1a converter's regex held a
     // literal U+00A0, which looks like a space and was lost when the code moved into FilingBlockReader - runs of
     // ordinary spaces then survived (ORCL's cover page: "Securities Act.    Yes  ☒").
