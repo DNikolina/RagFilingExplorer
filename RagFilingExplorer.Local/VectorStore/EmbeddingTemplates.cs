@@ -36,14 +36,15 @@ internal sealed class EmbeddingTemplates
             q => $"search_query: {q}",
             (context, text) => $"search_document: {(context is null ? "" : context + "\n")}{text}"),
 
-        // Google's card (google/embeddinggemma-2): the document's title slot holds the company line, "none" without one.
-        "embeddinggemma-2" => new(model,
+        // Google's cards (google/embeddinggemma-300m, google/embeddinggemma-2 - the same templates): the document's title
+        // slot holds the company line, "none" without one.
+        "embeddinggemma" or "embeddinggemma-2" => new(model,
             q => $"task: search result | query: {q}",
             (context, text) => $"title: {context ?? "none"} | text: {text}"),
 
         _ => throw new StartupException(
             $"Ollama:EmbeddingModel '{model}' has no query/document templates - add its model card's to EmbeddingTemplates "
-            + $"(known: {NomicEmbedText}, embeddinggemma-2)."),
+            + $"(known: {NomicEmbedText}, embeddinggemma, embeddinggemma-2)."),
     };
 
     /// <summary>The text embedded for a question.</summary>

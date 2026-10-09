@@ -25,16 +25,17 @@ public class RetrievalParityTests
     // " A10 rank=   3  in-top-5=yes  filter=...  top1=0.0328", or "A12 (negative test, not scored)  filter=...  top1=..."
     private static readonly Regex ReplayLine = new(@"^\s*([A-Z]\d+) (?:rank=\s*(>?\d+)|\(negative test, not scored\)).*top1=(\S+)\s*$");
 
-    private sealed class NoChatClient : IChatClient
+    // Also the retrieval-only rank run's (RetrievalRankRunTests).
+    internal sealed class NoChatClient : IChatClient
     {
         public Task<ChatResponse> GetResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options = null, CancellationToken cancellationToken = default) =>
-            throw new InvalidOperationException("The retrieval parity check must not ask the chat model.");
+            throw new InvalidOperationException("A retrieval-only run must not ask the chat model.");
 
         public async IAsyncEnumerable<ChatResponseUpdate> GetStreamingResponseAsync(
             IEnumerable<ChatMessage> messages, ChatOptions? options = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
         {
             await Task.Yield();
-            throw new InvalidOperationException("The retrieval parity check must not ask the chat model.");
+            throw new InvalidOperationException("A retrieval-only run must not ask the chat model.");
 #pragma warning disable CS0162 // an async iterator needs a yield
             yield break;
 #pragma warning restore CS0162

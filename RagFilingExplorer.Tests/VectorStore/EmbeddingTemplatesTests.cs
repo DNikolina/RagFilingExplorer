@@ -20,11 +20,13 @@ public class EmbeddingTemplatesTests
         Assert.That(nomic.Document(null, "Some prose."), Is.EqualTo("search_document: Some prose."));
     }
 
-    // Google's card for google/embeddinggemma-2: "task: search result | query: ", and "title: none | text: " without a title.
-    [Test]
-    public void For_EmbeddingGemma2_UsesItsCardsTemplates()
+    // Google's cards for google/embeddinggemma-300m and google/embeddinggemma-2: "task: search result | query: ", and
+    // "title: none | text: " without a title.
+    [TestCase("embeddinggemma")]
+    [TestCase("embeddinggemma-2:270m-bf16-text")]
+    public void For_EmbeddingGemma_UsesItsCardsTemplates(string model)
     {
-        EmbeddingTemplates gemma = EmbeddingTemplates.For("embeddinggemma-2:270m");
+        EmbeddingTemplates gemma = EmbeddingTemplates.For(model);
 
         Assert.That(gemma.Query("What was revenue?"), Is.EqualTo("task: search result | query: What was revenue?"));
         Assert.That(gemma.Document(CompanyLine, "Some prose."), Is.EqualTo($"title: {CompanyLine} | text: Some prose."));
@@ -42,7 +44,8 @@ public class EmbeddingTemplatesTests
     // nomic-embed-text's index keeps its name, so it isn't rebuilt; any other model gets its own, tag included.
     [TestCase("nomic-embed-text", "rag.structured.db")]
     [TestCase("nomic-embed-text:latest", "rag.structured.db")]
-    [TestCase("embeddinggemma-2:270m", "rag.structured.embeddinggemma-2-270m.db")]
+    [TestCase("embeddinggemma", "rag.structured.embeddinggemma.db")]
+    [TestCase("embeddinggemma-2:270m-bf16-text", "rag.structured.embeddinggemma-2-270m-bf16-text.db")]
     public void IndexFilesFor_EachModel_HasItsOwnIndex(string model, string fileName)
     {
         IndexFiles index = IndexFiles.For(new DirectoryInfo(Path.GetTempPath()), "structured", EmbeddingTemplates.For(model));

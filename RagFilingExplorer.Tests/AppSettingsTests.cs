@@ -40,6 +40,22 @@ public class AppSettingsTests
         Assert.That(settings.Retrieval.Rerank, Is.False, "reranking is opt-in");
     }
 
+    [Test]
+    public void Load_EnvironmentVariable_OverridesTheKeyForOneRun()
+    {
+        Environment.SetEnvironmentVariable("Ollama__EmbeddingModel", "embeddinggemma");
+        try
+        {
+            Assert.That(LoadShippedSettings().Ollama.EmbeddingModel, Is.EqualTo("embeddinggemma"));
+        }
+        finally
+        {
+            Environment.SetEnvironmentVariable("Ollama__EmbeddingModel", null);
+        }
+
+        Assert.That(LoadShippedSettings().Ollama.EmbeddingModel, Is.EqualTo("nomic-embed-text"), "the file's value once unset");
+    }
+
     // MaxOutputTokens shipped as 4096 - Ollama's whole default context window, which the prompt shares, so
     // the ceiling could never be reached: runaway llama3.1:8b answers (1,400-1,700 tokens, in Ollama's
     // server log) filled the window first, and Ollama then dropped the oldest tokens - the system prompt

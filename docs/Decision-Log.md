@@ -4027,6 +4027,67 @@ the pull fails on Windows ("this model requires MLX support"). Every size has `n
 builds; **`embeddinggemma-2:270m-bf16-text`** is the one to try here (full precision, text only). Sizes are encoder
 loadouts of one model (Google's card): 270M text, 440M + vision, **570M + audio** (not a larger text model), 740M all.
 
+**Step 2 - done (2026-10-09).** `RetrievalRankRunTests` (Evaluation, [Explicit]): every answerable question asked through
+the app's own `AskAsync` with `RetrievalParityTests.NoChatClient` - the answer stream is lazy, so the chat model is never
+called - and ranked by `RetrievalRankEvaluator.RankOf` among 25; writes `eval/v3-runs/ranks-<embedding model>.txt`
+(recall@1, recall@5, MRR per set; every rank beside `structured-hybrid-v3-baseline`'s, each move listed). ~20 s for all
+94. `AppSettings.Load` now takes environment overrides (`Ollama__EmbeddingModel=embeddinggemma`), as the evaluation's
+and the Claude app's settings do - `Microsoft.Extensions.Configuration.EnvironmentVariables` added to Local (no
+vulnerable packages). **Bar met:** nomic on Ollama 0.40.2 - 0 ranks moved (recall@5 86/94, MRR 0.740).
+
+**Step 3 - EmbeddingGemma, done (2026-10-09): no better than nomic; not taken to llama.**
+*EmbeddingGemma 2 can't run here:* every Ollama tag fails ("this model requires MLX support"), bf16 included though not
+labelled MLX - Ollama runs this architecture through MLX, whose only Windows runtime is a CUDA package; this machine has
+no NVIDIA GPU. Measured instead: **`embeddinggemma` (the first, 300M)** - Ollama's bf16 GGUF on llama.cpp, 768
+dimensions (its native size, not cut), context 2,048 (`/api/show`); the longest chunks embed at ~600 tokens with
+`truncate: false`. On text it's within a point of v2 (MTEB multilingual 61.15 vs 61.36 - v2's gains are code and
+images); same templates. Index build 471-492 s (nomic ~10 min). Three document templates, each ranked on all 94:
+
+| | nomic | Gemma: company line as title (the card's) | line in the text | line + section heading as title (user) |
+|---|---|---|---|---|
+| All: recall@5 / MRR / recall@1 | 86 / 0.740 / 57 | 87 / 0.750 / 59 | 87 / 0.749 / 59 | 86 / 0.752 / 60 |
+| Main MRR | 0.809 | 0.806 | 0.794 | 0.820 |
+| **HeldOut MRR** | **0.810** | 0.742 | 0.752 | 0.742 |
+| AnswerSide MRR | 0.558 | 0.680 | 0.680 | 0.669 |
+
+The same in all three: cash-flow and dividend answers to rank 1 (A2, A3, A5, A10, A19); held-out answers off rank 1
+(H2, H6, H13 to 3-5) - the never-tuned set, so the signal that counts goes the wrong way; batch 1's misses closer but
+never in the top 5 (H34 6-8, H25 7-9, A11 8-11; H29 7 -> 11); only R3 (a routing test) enters it (12 -> 3). Where the
+company line goes barely matters. A llama run would measure reordering inside an unchanged top 5, so none was run;
+nomic stays. Files: `eval/v3-runs/ranks-embeddinggemma-{title,text,section}.txt`, `ranks-nomic-embed-text.txt`.
+`EmbeddingTemplates` keeps the card's form (the company line as the title).
+
+**Finding - split statements, read from the chunks (user asked why every embedder misses the same questions).** The
+answer rows are clean; where statements are cut is not. **All 16 primary statements of the four filings are split**
+(2-5 chunks; ORCL's equity statement 5, its cash flow statement 4), greedily at the 500-token budget
+(`TokenChunker.SplitRowBlock`), and an answer in a later piece ranks worse:
+
+| Where the answer can be found (best chunk) | Questions | In the top 5 | MRR |
+|---|---|---|---|
+| a statement that fits one chunk | 12 | 12/12 | 0.938 |
+| the first piece of a split statement | 25 | 25/25 | 0.887 |
+| narrative or a note | 40 | 37/40 | 0.723 |
+| only a later piece of a split statement | 14 (17 less A9, A16, A25 - the "(601)" rank quirk) | 12/14 | ~0.57 |
+
+- **The cut separates a total from its lines** - ORCL's income statement: key 848 holds revenues and every operating
+  expense line, key 849 opens with "Total operating expenses - 46,751" and goes on to net income and EPS. For H25 the
+  first ranks 1, the answer 11.
+- **A many-piece statement crowds the top 5** - A11 (dividends paid): 3 of llama's 5 excerpts are equity statement
+  pieces (dividends declared); the cash flow piece with "Payments of dividends to stockholders" ranks 12.
+- **The same row label in two statements** - "Repurchases of common stock" in the equity and cash flow statements; the
+  question's "cash" is weak against the label (H34).
+- Not this: H29 (the "revenue" boost puts the income statement first; Index is in the revenue note and MD&A) and R3
+  (a segment note) - routing.
+14 questions is a small group; the pattern is consistent across them, and both statement misses (H34, A11) are in it.
+v2's 1c-b (one table per chunk, declined) was about separating tables, not where a statement is cut.
+
+3b. **Statements split at their row groups - measured by rank first (user, 2026-10-09).** When a row block overflows
+   the budget, it is cut back to the last row-group change in the piece (a row's group is the label before " > ":
+   "Operating expenses > Total operating expenses"), so a group's total stays with its lines; a group larger than the
+   budget still splits between rows as today. The rule is in the shared `SplitRowBlock`, so it reaches the Linearized
+   strategy too - measured on Structured only. **Measured:** nomic's index rebuilt (the current one kept aside), ranks
+   on all 94 against the baseline, the held-out set deciding; llama's answers only if the ranks improve.
+
 **Ollama build for batch 3: 0.40.2** (installed 2026-10-09 from the auto-updater's staged, Ollama-signed installer;
 0.40.0 -> 0.40.1 had auto-installed that morning). `nomic-embed-text` (0a109f422b47) and `llama3.1:8b` (46e0c10c039e)
 unchanged - not upgraded by 0.40's background model conversion. 0.40.0 reproduced 0.35.1's answers (above); 0.40.2 is

@@ -29,9 +29,12 @@ internal sealed class AppSettings
 
     public static AppSettings Load(string basePath)
     {
+        // An environment variable of the same name overrides a key for one run (Ollama__EmbeddingModel=embeddinggemma),
+        // as in the evaluation's and the Claude app's settings - the file stays the one source of every value.
         IConfigurationRoot configuration = new ConfigurationBuilder()
             .SetBasePath(basePath)
             .AddJsonFile("appsettings.json", optional: false)
+            .AddEnvironmentVariables()
             .Build();
 
         AppSettings settings = configuration.Get<AppSettings>()
