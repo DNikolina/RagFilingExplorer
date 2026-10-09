@@ -178,31 +178,65 @@ internal static partial class TokenChunker
     // a row says which line item and which period, but not which statement - without it, a total on a
     // later piece reaches the model unlabelled, and it answers with the titled first piece's figure
     // instead. A single row over budget is emitted alone, never cut.
+    //
+    // A full piece is cut back to its last row-group change ("Operating expenses > ..." to "Operating income"), so a
+    // group's total stays with the lines it totals: cut wherever the budget ran out, ORCL's income statement put "Total
+    // operating expenses" at the top of a piece about net income and EPS, out of reach of the question it answers
+    // (docs/Decision-Log.md, "Finding - split statements"). A group larger than the budget still splits between rows.
     private static IEnumerable<string> SplitRowBlock(RowBlock block, Tokenizer tokenizer, int maxTokens, string? caption)
     {
         string header = (caption is null ? string.Empty : caption + "\n\n") + (block.Context is null ? string.Empty : block.Context + "\n");
         int headerTokens = tokenizer.CountTokens(header);
-        List<string> piece = [];
-        int pieceTokens = headerTokens;
+        List<(string Row, int Tokens)> piece = [];
 
         foreach (string row in block.Rows)
         {
             int rowTokens = tokenizer.CountTokens(row);
-            if (pieceTokens + rowTokens > maxTokens && piece.Count > 0)
+            if (headerTokens + piece.Sum(r => r.Tokens) + rowTokens > maxTokens && piece.Count > 0)
             {
-                yield return header + string.Join('\n', piece);
-                piece.Clear();
-                pieceTokens = headerTokens;
+                int cut = RowGroup(row) != RowGroup(piece[^1].Row) ? piece.Count : LastGroupStart(piece);
+                yield return header + string.Join('\n', piece[..cut].Select(r => r.Row));
+                piece.RemoveRange(0, cut);
+
+                // The group carried over doesn't fit with this row either: it splits after all.
+                if (piece.Count > 0 && headerTokens + piece.Sum(r => r.Tokens) + rowTokens > maxTokens)
+                {
+                    yield return header + string.Join('\n', piece.Select(r => r.Row));
+                    piece.Clear();
+                }
             }
 
-            piece.Add(row);
-            pieceTokens += rowTokens;
+            piece.Add((row, rowTokens));
         }
 
         if (piece.Count > 0)
         {
-            yield return header + string.Join('\n', piece);
+            yield return header + string.Join('\n', piece.Select(r => r.Row));
         }
+    }
+
+    // Where the piece's last row group starts - the whole piece when it holds one group only.
+    private static int LastGroupStart(List<(string Row, int Tokens)> piece)
+    {
+        for (int i = piece.Count - 1; i > 0; i--)
+        {
+            if (RowGroup(piece[i].Row) != RowGroup(piece[i - 1].Row))
+            {
+                return i;
+            }
+        }
+
+        return piece.Count;
+    }
+
+    // A row's group: its label's part before " > " ("Operating expenses > Total operating expenses — 2026: 46,751"); empty
+    // for an ungrouped row, so a run of them is one group.
+    private static string RowGroup(string row)
+    {
+        int valuesAt = row.IndexOf(" — ", StringComparison.Ordinal);
+        string path = valuesAt < 0 ? row : row[..valuesAt];
+        int groupEnd = path.IndexOf(" > ", StringComparison.Ordinal);
+        return groupEnd < 0 ? string.Empty : path[..groupEnd];
     }
 
     /// <summary>

@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 425 offline unit tests (176 at v1.0) + 195 offline evaluation tests |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 426 offline unit tests (176 at v1.0) + 195 offline evaluation tests |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -92,8 +92,10 @@ Sonnet 5.5 at 12 excerpts **102/102 strictly** (95 at 5) - every grade change a 
 made swappable, a retrieval-only evaluation mode, its ranks against nomic's, llama's answers if they improve. **Steps 1-3 done:** EmbeddingGemma 2 can't run on
 this machine (MLX); the first `embeddinggemma` ties nomic (recall@5 87 vs 86/94) and is worse on the held-out set - nomic
 stays. Ranks showed why every embedder misses the same questions: **all 16 primary statements are split** at the token
-budget, and answers in a later piece rank worse (12/14 in the top 5, MRR ~0.57, vs 37/37, ~0.9). Next: split statements
-at their row groups (3b), measured by rank.
+budget, and answers in a later piece rank worse (12/14 in the top 5, MRR ~0.57, vs 37/37, ~0.9). **3b done and kept:** a full piece is cut back
+to its last row-group change, so a group's total stays with its lines - held-out recall@5 28 -> 29/31, H25 11 -> 1;
+llama on the same Ollama build (0.40.2, original index re-answered fresh: 83/102) 84/102. `structured-hybrid-v3-ollama0402`
+is llama's baseline on this build. Next: the shared `RagFilingExplorer.Core`, then Voyage.
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the
@@ -227,7 +229,7 @@ data/*.html
                           fiscal-period row + in-force row-group label repeated across
                           splits; a short lead-in (title, "(in millions)") rides on an
                           oversized table's first piece, a short footer on its last; a row
-                          block splits between rows, every piece repeating title/units/context
+                          block splits between row groups (between rows when a group is over budget), every piece repeating title/units/context
   → [shared from here]
 ```
 

@@ -4088,6 +4088,37 @@ v2's 1c-b (one table per chunk, declined) was about separating tables, not where
    strategy too - measured on Structured only. **Measured:** nomic's index rebuilt (the current one kept aside), ranks
    on all 94 against the baseline, the held-out set deciding; llama's answers only if the ranks improve.
 
+**Step 3b - done and kept (user, 2026-10-09).** 990 chunks; ranks (`eval/v3-runs/ranks-nomic-rowgroups.txt`):
+
+| Set | recall@5 before -> after | MRR before -> after |
+|---|---|---|
+| HeldOut (deciding) | 28 -> 29/31 | 0.810 -> 0.838 |
+| Main | 36 -> 36/37 | 0.809 -> 0.782 |
+| AnswerSide | 22 -> 21/26 | 0.558 -> 0.582 |
+| All | 86 -> 86/94 | 0.740 -> 0.745 |
+
+H25 11 -> 1 (the total now with its expenses); A10 3 -> 6 (MSFT's cash flow statement now 4 pieces, the financing
+section on its own); Q4 2 -> 4, Q7 1 -> 2, R1 1 -> 2; A11 and H34 unchanged - their misses are crowding and the shared
+label, not the cut. The user asked for llama on all 102 (`structured-hybrid-rowgroups`): 84/102, the stored baseline's
+84 - but that was answered on Ollama 0.35, this on 0.40.2. **So the original index was answered afresh on 0.40.2 too**
+(`structured-hybrid-v3-ollama0402`, no cache; its ranks re-run first, identical to the baseline's): **83/102**. The build
+alone changed 2 grades (A21 now lists both years without adding them; T6's decline now a wrong 5,933 -
+`eval/v3-runs/build-0352-vs-0402.txt`). On the same build the split changed 5, net +1
+(`eval/v3-runs/rowgroups-vs-original-0402.txt`):
+
+| Question | Original -> row groups | Rank | Why |
+|---|---|---|---|
+| H25 | wrong -> reliable | 11 -> 1 | the split's retrieval fix |
+| Q2 | wrong (42,508) -> reliable | 1 -> 1 | the same chunk re-cut; llama now reads the right line |
+| T6 | wrong (5,933) -> clean decline | 1 -> 1 | a better failure, not a pass |
+| H29 | clean decline -> wrong (1,850) | 7 -> 8 | outside the 5 both times; now takes MD&A's figure |
+| A24 | reliable -> no-unit | 1 -> 1 | "thousand" dropped - wording |
+
+A10 and A27 stay wrong with other figures. *Decision (user): keep the rule* - a real retrieval fix and +1 on the same
+build; the narrower variant (cut back only for a group's total row, aimed at A10) not tried, since A10 fails on the
+answer side either way. `structured-hybrid-v3-ollama0402` is llama's baseline on this build from here. The Linearized
+index, if used, needs `--rebuild` (the rule is in the shared `SplitRowBlock`; a code change the manifest can't see).
+
 **Ollama build for batch 3: 0.40.2** (installed 2026-10-09 from the auto-updater's staged, Ollama-signed installer;
 0.40.0 -> 0.40.1 had auto-installed that morning). `nomic-embed-text` (0a109f422b47) and `llama3.1:8b` (46e0c10c039e)
 unchanged - not upgraded by 0.40's background model conversion. 0.40.0 reproduced 0.35.1's answers (above); 0.40.2 is

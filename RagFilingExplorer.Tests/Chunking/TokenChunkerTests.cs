@@ -358,6 +358,27 @@ public class TokenChunkerTests
         Assert.That(chunks[^1].Blocks, Is.EqualTo(new[] { 0, 1, 2 }), "the footer is merged into the last piece");
     }
 
+    // ORCL's income statement, cut wherever the budget ran out, put "Total operating expenses" at the top of a piece about
+    // net income and EPS, away from the expenses it totals, and the question it answers ranked it outside the excerpts.
+    [Test]
+    public void Pack_SplitRowBlock_KeepsARowGroupWithItsTotalInOnePiece()
+    {
+        List<string> lines =
+        [
+            .. Enumerable.Range(1, 6).Select(i => $"Revenues > Revenue line {i} — 2026: {i},000"),
+            .. Enumerable.Range(1, 6).Select(i => $"Operating expenses > Expense line {i} — 2026: {i},500"),
+            "Operating expenses > Total operating expenses — 2026: 46,751",
+            "Net income — 2026: 17,087",
+        ];
+        RowBlock rows = new("(In millions)", lines);
+
+        List<PackedChunk> chunks = TokenChunker.Pack([new(rows.Text, rows)], _tokenizer, maxTokens: 120, overlapTokens: 0);
+
+        Assert.That(chunks, Has.Count.GreaterThan(1), "precondition: the statement splits");
+        Assert.That(chunks.Count(c => c.Content.Contains("Operating expenses >", StringComparison.Ordinal)), Is.EqualTo(1),
+            "the whole group, total included, in one piece");
+    }
+
     [Test]
     public void Chunk_SameTextAsPack_ForParsedBlocks()
     {
