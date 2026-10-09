@@ -96,7 +96,7 @@ budget, and answers in a later piece rank worse (12/14 in the top 5, MRR ~0.57, 
 to its last row-group change, so a group's total stays with its lines - held-out recall@5 28 -> 29/31, H25 11 -> 1;
 llama on the same Ollama build (0.40.2, original index re-answered fresh: 83/102) 84/102. `structured-hybrid-v3-ollama0402`
 is llama's baseline on this build. List markers (`•`, `(1)`) joined to their text - they were paragraphs alone in MSFT
-and ORCL; ranks unchanged in the top 5. Next: llama on all 102 on this index (the new baseline), then the shared
+and ORCL; ranks unchanged in the top 5. Next: review NDAQ's chunks (the user saw odd ones), then llama on all 102 on this index (the new baseline), then the shared
 `RagFilingExplorer.Core`, then Voyage.
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
