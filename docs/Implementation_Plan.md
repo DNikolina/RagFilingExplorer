@@ -84,6 +84,10 @@ Sonnet as judge agrees with the strict grade on 98-99 of ~102 per run and passes
 14 of 18), but is lenient on rounding and units; Opus as judge
 agrees with it on 305 of 306 verdicts, slightly more lenient (A11) - no self-preference. Groundedness not run (user).
 **Batch 2 complete.** The strict grade stays the grade; a Claude judge (`JudgeModel`) is an optional second view. Decision-Log.md, "paid services (v4)".
+**Batch 3 planned (user, 2026-10-09): paid embeddings** - Voyage `voyage-4-large` and `voyage-finance-2` against
+nomic-embed-text, same chunking, search and prompt; first, Claude given more excerpts (top-12 - batch 1's four misses
+ranked 7-12), then a shared `RagFilingExplorer.Core` (no behaviour change), the Voyage client written here, one index per embedding model, answer rank measured before answers.
+Decision-Log.md, "Batch 3 - paid embeddings".
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the

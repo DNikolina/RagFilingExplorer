@@ -3851,3 +3851,106 @@ v3's `Graders` enum, plural though not flags, is `Grader` (the setting keeps its
 arguments on internal methods - the guideline's reason is CLS compliance, a public-API concern. Entries above keep the
 names as they were. Checked: 410 + 195 tests; a cached replay with the local judge 204/204 from the cache, answers and
 agreement identical; a cached Claude answer from the cache.
+
+### Batch 3 - paid embeddings: PLANNED (user, 2026-10-09)
+
+**Why.** Batch 1 left every Claude miss a retrieval miss: the answer's chunk ranked 7-12, never in the five excerpts the
+model reads. A better reader can't fix those; a better embedder might. Batch 3 changes the embeddings only - same
+chunking (`Structured`), same hybrid search (FTS5 bm25 + vector, RRF), same prompt and chat models - and measures the
+answer rank first, then the answers. The embedding-model comparison deferred in v1 ("Follow-up: embedding-model
+comparison") is this batch's local half; its step 2 (the embedder swappable) is needed here too.
+
+**Voyage AI, checked 2026-10-09 on Voyage's own docs** (docs.voyageai.com: Embeddings, Pricing, Rate limits):
+
+| Model | Price / M tokens | Free tokens | Context | Dimensions |
+|---|---|---|---|---|
+| `voyage-4-large` - "best general-purpose and multilingual retrieval quality" | $0.12 | 200M | 32,000 | 1024; 256, 512, 2048 |
+| `voyage-4` | $0.06 | 200M | 32,000 | 1024; 256, 512, 2048 |
+| `voyage-finance-2` - "optimized for finance retrieval and RAG" | $0.12 | 50M | 32,000 | 1024 only |
+
+- **`input_type`** replaces nomic's text prefixes: `query` prepends "Represent the query for retrieving supporting
+  documents: ", `document` "Represent the document for retrieval: "; none prepends nothing. A missing or swapped type
+  degrades silently, as a wrong nomic prefix does.
+- **Limits per request:** 1,000 texts; 120K tokens for `voyage-4-large` and `voyage-finance-2`, 320K for `voyage-4`.
+  `truncation` defaults to true - an over-long text is cut silently; sent as false, so it fails loudly instead.
+- **Rate limits:** Tier 1 (2,000 RPM, 3-8M TPM) needs a payment method on the account; free tokens still apply with one.
+- **The 4-series share one embedding space** (documents by one model, queries by another) - not used here: one model
+  embeds both.
+- **No official .NET SDK.** NuGet has two third-party packages (`VoyageAI`, generated from Voyage's OpenAPI spec, a
+  pre-release with `IEmbeddingGenerator`; `VoyageAI.Sdk`, its own interface); neither is Voyage's.
+- The earlier note that a newer general model beats `voyage-finance-2` on finance came from Vercel's page, and was
+  about `voyage-3-large`; `voyage-4-large` is now Voyage's best general model. Batch 3 measures it rather than assuming
+  either way. Voyage's finance benchmark numbers are Voyage's own.
+
+**Cost.** Embedding the `Structured` index is ~0.5M tokens per model, the 102 questions a few thousand: inside every
+model's free tokens, so ~$0 for the embeddings. The answers are the paid part: an Opus 5.5 run on the new prompts
+~$3-5 (batch 1), llama free (~2 h on CPU).
+
+**Decisions (user, 2026-10-09):**
+- **Candidates:** `voyage-4-large` and `voyage-finance-2` (same price), at 1024 dimensions - finance-2's only size, so
+  both compare at one size; `voyage-4` only if the two are close (half the price). nomic-embed-text is the baseline.
+- **The client is written here, not taken from NuGet:** one `IEmbeddingGenerator<string, Embedding<float>>` over
+  `HttpClient` - one POST to `/v1/embeddings` with `model`, `input_type`, `truncation: false` - no new package, and the
+  key handled by code in this repository. Rate-limit (429) retries with back-off.
+- **A shared library now, `RagFilingExplorer.Core`** - the step deferred in batch 1. Everything provider-free moves
+  there: chunking, XBRL, the index and its manifest, retrieval, `RagAnswerService`, `InteractiveSession`. Read
+  2026-10-09: only `Program.cs`, `OllamaSetup.cs` and `AppComposition`'s Ollama parts reference OllamaSharp. Local keeps
+  Ollama and stays zero-cost; `RagFilingExplorer.Claude` keeps the paid services - Anthropic, and now the Voyage
+  embedder - and references Core (and Local only for what's Ollama's: the evaluation and the Claude app still embed with
+  nomic by default). The key from user secrets (`Voyage:ApiKey`) or `VOYAGE_API_KEY`, as Claude's.
+- **One index per embedding model:** `rag.structured.db` stays nomic's; a Voyage index is `rag.structured.<model>.db`,
+  its manifest recording the model and dimensions - the existing manifest check refuses a mismatch.
+- **Rank before answers:** a retrieval-only evaluation run (no chat model asked) gives every question's answer rank for
+  each embedder, free and in minutes. Answers are asked only for the embedder that ranks best: Opus 5.5 medium (batch 1's
+  best) and llama, each against its own nomic run question by question.
+
+**Steps, each measured before the next:**
+0a. **Claude reads more excerpts - before any embedder changes (user, 2026-10-09).** Batch 1's four Claude misses were
+   all retrieved, only cut off by `GenerationTopK` 5 - read from the stored results (`eval/v3-runs/results/claude-*`,
+   Answer rank of 25 retrieved): H29 rank 7, H34 9, H25 11, A11 12 (and R3, a routing test, 12). Top-7 brings H29 into
+   the prompt, top-9 H34, top-11 H25, **top-12 all four**. (A9 at rank 10, A16 18 and A25 25 are answered right: the rank
+   looks for the table's "(601)", while the figure is in a top-5 MD&A excerpt as "601".) Claude's window is 1M, so
+   Ollama's `num_ctx` limit doesn't apply. It changes only what Claude reads, not retrieval, so it stays apart from the
+   embedder comparison - and sets the bar a paid embedder has to beat: nomic at top-12 for Claude, not nomic at top-5.
+   - **Build:** a `GenerationTopK` override in `claudesettings.json` (and the evaluation's Claude path); whether it
+     touches the index manifest is checked first - it shouldn't, it's a retrieval setting, not an index one. Offline
+     tests for the override. Local's 5 unchanged (llama's 4,096 `num_ctx`).
+   - **Smoke (cents):** Opus 5.5 medium at top-12 on H25, H29, H34, A11 and R3.
+   - **Full run, if the smoke run fixes misses:** Sonnet 5.5 medium, all 102 at top-12 (~$1.80; prompts ~3,800 ->
+     ~8,200 tokens), compared question by question with `claude-sonnet55-medium` - the 98 questions right today
+     re-read too, since more excerpts mean more lookalike lines and MD&A roundings to choose from. Opus (~$4) only if
+     Sonnet's result leaves the question open.
+0b. **`RagFilingExplorer.Core` extracted - no behaviour change.** Files moved, namespaces and `InternalsVisibleTo`
+   updated, packages split (Core without OllamaSharp; `dotnet list package --vulnerable --include-transitive` after).
+   **Bar:** 410 + 195 tests; every chunk-review dump identical on all three strategies; no index rebuilt (manifests
+   match); a cached replay 102/102 identical to `structured-hybrid-v3-baseline`; Local and the Claude app answer
+   Microsoft's revenue as before.
+1. **The embedder made swappable - no behaviour change.** The query/document text templates and the vector dimension
+   (today `"search_query: "` in `RagAnswerService`, `"search_document: "` in `FilingChunkRecords`,
+   `[VectorStoreVector(dimensions: 768)]` on `FilingChunkRecord`) come from the embedder's description instead; how a
+   collection's dimension is set at runtime (a record definition) is read on Microsoft Learn first. The index file name
+   and manifest take the model. **Bar:** 410 + 195 tests; every chunk-review dump identical; nomic's index not rebuilt
+   (its manifest still matches); a cached replay 102/102 identical to `structured-hybrid-v3-baseline`.
+2. **A retrieval-only evaluation mode** - each question's search run and ranked, no chat call, no grade. **Bar:** on
+   nomic, every rank identical to `structured-hybrid-v3-baseline`'s.
+3. **The Voyage embedder** in `RagFilingExplorer.Claude` (over Core), its settings documented on their class, offline tests (the
+   request sent: model, input type, `truncation: false`; a 429 retried; the key never from a settings file). The
+   evaluation's settings choose the embedder (`Local`, or a Voyage model id). **Bar:** the tests; a smoke embedding of
+   two chunks and one question - free tokens.
+4. **Build both Voyage indexes and rank** (retrieval-only, all 102): recall@5, MRR and every rank that moved, read
+   question by question against nomic's - which retrieval misses (batch 1's ranks 7-12) it fixes, which it breaks.
+5. **Answers for the best embedder:** Opus 5.5 medium (~$3-5) and llama (free), each compared with its nomic run,
+   split into misreadings and retrieval misses. Each paid run asked for before it runs.
+6. **Tests and docs:** README, Design-FAQ ("why Voyage? why not the open voyage-4-nano?"), the plan.
+
+**Ollama build for batch 3: 0.40.2** (installed 2026-10-09 from the auto-updater's staged, Ollama-signed installer;
+0.40.0 -> 0.40.1 had auto-installed that morning). `nomic-embed-text` (0a109f422b47) and `llama3.1:8b` (46e0c10c039e)
+unchanged - not upgraded by 0.40's background model conversion. 0.40.0 reproduced 0.35.1's answers (above); 0.40.2 is
+re-baselined by step 2's nomic ranks, and auto-update stays off until batch 3 is measured.
+
+**Needed from the user before any paid call:** a Voyage account and key, and whether to add a payment method (Tier 1
+rate limits; the free tokens still apply). Steps 0b-2 need neither; 0a needs only the Claude key already set.
+
+**Not in this batch:** `voyage-4-nano` (open weights, Apache 2.0, not in Ollama - an ONNX port with tokenizer and
+embedding parity checks, as the reranker had) and Voyage's rerankers - each a later step, if the paid embedder shows
+retrieval is where the gain is.
