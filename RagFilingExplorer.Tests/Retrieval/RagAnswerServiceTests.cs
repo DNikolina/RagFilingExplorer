@@ -51,10 +51,12 @@ public class RagAnswerServiceTests
         };
 
         return new RagAnswerService(
-            collection.Object, chatClient.Object, retrieval, ChatModelOptions.ForOllama(retrieval, chatModelSupportsThinking), Companies, keywordIndex, reranker);
+            collection.Object, chatClient.Object, retrieval, ChatModelOptions.ForOllama(retrieval, chatModelSupportsThinking), Companies, Nomic, keywordIndex, reranker);
     }
 
     // The two companies these tests name, as their filings register them (CompanyRegistryTests checks the real ones).
+    private static readonly EmbeddingTemplates Nomic = EmbeddingTemplates.For("nomic-embed-text");
+
     private static readonly CompanyRegistry Companies = new(
     [
         new CompanyRegistration("MSFT-10K-2026.html", ["Microsoft", "MSFT"], "Microsoft Corporation (MSFT), Form 10-K for fiscal year 2026."),
@@ -261,6 +263,22 @@ public class RagAnswerServiceTests
         Assert.That(answer.Prompt!.Select(m => m.Role), Is.EqualTo(new[] { ChatRole.System, ChatRole.User }));
     }
 
+    // RagAnswerService.cs saved with LF line endings changed the system prompt's line breaks: the evaluation's cached
+    // answers, all asked with CRLF, stopped matching and llama was asked every question again.
+    [Test]
+    public async Task AskAsync_SystemPrompt_HasCrlfLineBreaksWhateverTheSourceFileHas()
+    {
+        List<ChatMessage>? capturedMessages = null;
+        (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) =
+            MakeMocks(searchResults: [MakeResult("MSFT-10K-2026.html", "PART II", "Total revenues $331,839 million")], onChat: m => capturedMessages = m.ToList());
+
+        await CreateService(collection, chatClient).AskAsync("What was Microsoft's total revenue?", SearchTopK);
+
+        string systemPrompt = capturedMessages!.Single(m => m.Role == ChatRole.System).Text;
+        Assert.That(systemPrompt, Does.Contain("10-K filings.\r\nAnswer using ONLY"));
+        Assert.That(systemPrompt.Replace("\r\n", ""), Does.Not.Contain("\n"));
+    }
+
     // Baseline case: with ReasoningEffort configured as None and a non-synthesis question, ChatOptions.Reasoning
     // must still be explicitly set to Effort.None (not left null) - Microsoft.Extensions.AI's ChatOptions.
     // Reasoning maps through OllamaSharp to Ollama's think field, and leaving it unset lets a reasoning
@@ -354,7 +372,7 @@ public class RagAnswerServiceTests
         };
         ChatModelOptions alwaysThinks = new(Temperature: null, LookupEffort: ReasoningEffort.Low, SynthesisEffort: ReasoningEffort.High, MaxOutputTokens: 8000);
 
-        RagAnswer answer = await new RagAnswerService(collection.Object, chatClient.Object, retrieval, alwaysThinks, Companies)
+        RagAnswer answer = await new RagAnswerService(collection.Object, chatClient.Object, retrieval, alwaysThinks, Companies, Nomic)
             .AskAsync("What was total revenue?", SearchTopK);
 
         Assert.That(captured?.Reasoning?.Effort, Is.EqualTo(ReasoningEffort.Low));
@@ -614,7 +632,7 @@ public class RagAnswerServiceTests
         };
 
         Assert.Throws<ArgumentNullException>(() => new RagAnswerService(
-            collection.Object, chatClient.Object, retrieval, ChatModelOptions.ForOllama(retrieval, supportsThinking: false), Companies));
+            collection.Object, chatClient.Object, retrieval, ChatModelOptions.ForOllama(retrieval, supportsThinking: false), Companies, Nomic));
     }
 
     // Reranking. The scorer is the ONNX model's boundary, stood in for by a fake that scores a passage by the

@@ -44,6 +44,7 @@ internal sealed class RagAnswerService(
     RetrievalSettings retrieval,
     ChatModelOptions chatModel,
     CompanyRegistry companies,
+    EmbeddingTemplates embedding,
     KeywordIndex? keywordIndex = null,
     IRelevanceScorer? reranker = null)
 {
@@ -62,7 +63,9 @@ internal sealed class RagAnswerService(
     // form stops declines written as the units rule ("The unit is not stated."). Keep unit wording out of the decline
     // sentence: a decline-only clause about units leaks into figure answers, which then drop their unit. Every wording
     // tried, and what each fixed and broke: Decision-Log.md, "manual pass (v1)" and "Step 5a".
-    private const string SystemPrompt = """
+    // A raw string takes its line breaks from the source file, so a checkout or an editor saving LF would change the
+    // prompt - and miss every cached answer. Pinned to CRLF, the line breaks every recorded answer was asked with.
+    private static readonly string SystemPrompt = """
         You are a financial research assistant answering questions about SEC 10-K filings.
         Answer using ONLY the context excerpts provided below - do not use any outside knowledge about
         these companies, even if you recognize them. If the excerpts do not contain the answer, say so in
@@ -80,7 +83,7 @@ internal sealed class RagAnswerService(
         - Do not copy table rows or table formatting into the answer; state figures in sentences.
         - Do not calculate anything the question does not ask for. If it does, show the numbers and the
           operation.
-        """;
+        """.ReplaceLineEndings("\r\n");
 
     public async Task<RagAnswer> AskAsync(string question, int searchTopK, CancellationToken cancellationToken = default)
     {
@@ -238,7 +241,7 @@ internal sealed class RagAnswerService(
             searchOptions.Filter = r => r.StatementType == statementType;
         }
 
-        return await collection.SearchAsync($"search_query: {question}", top, searchOptions, cancellationToken).ToListAsync(cancellationToken);
+        return await collection.SearchAsync(embedding.Query(question), top, searchOptions, cancellationToken).ToListAsync(cancellationToken);
     }
 
     // A reasoning model can spend its entire MaxOutputTokens budget on "thinking" (see

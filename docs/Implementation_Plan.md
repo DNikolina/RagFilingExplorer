@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 414 offline unit tests (176 at v1.0) + 195 offline evaluation tests |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 422 offline unit tests (176 at v1.0) + 195 offline evaluation tests |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -286,6 +286,10 @@ transitive via SqliteVec, referenced at the same version), `Microsoft.ML.OnnxRun
   balance sheet has one clean total row; the equity statement is a wide roll-forward whose closing row
   gets lost among near-identical fragments (ORCL: rank 8-9 of 17). "Changes in ... equity" questions
   still go to the equity statement via `ResolveStatementType`'s longest-match rule.
+- **An embedding model's query/document templates come from its own model card** (`EmbeddingTemplates`, in code;
+  an unlisted model is refused at startup). A wrong template never errors - retrieval just gets worse - and the
+  manifest records the model, not its template, so changing a template needs `--rebuild`. Each model has its own index
+  (`rag.<strategy>.<model>.db`; nomic keeps `rag.<strategy>.db`).
 - **Chunking/embedding *code* changes need `--rebuild`.** Settings and filing changes are detected
   automatically via `rag.<strategy>.db.manifest.json` - under `Structured`, the filers' taxonomy files in `data/` too
   (not EDGAR's `_htm.xml` test files); code changes can't be.

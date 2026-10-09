@@ -17,7 +17,7 @@ internal static class IndexBuilder
         Console.WriteLine("=== Vector storage ===");
         Console.WriteLine($"Total chunks across all filings: {allChunks.Count}");
 
-        List<FilingChunkRecord> records = FilingChunkRecords.Build(allChunks);
+        List<FilingChunkRecord> records = FilingChunkRecords.Build(allChunks, EmbeddingTemplates.For(settings.Ollama.EmbeddingModel));
         await UpsertRecordsAsync(collection, records, settings.VectorStore.UpsertBatchSize);
     }
 

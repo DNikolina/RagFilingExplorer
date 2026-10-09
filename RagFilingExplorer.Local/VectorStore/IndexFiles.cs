@@ -1,9 +1,10 @@
 namespace RagFilingExplorer.Local.VectorStore;
 
 /// <summary>
-/// A chunking strategy's index on disk: rag.&lt;strategy&gt;.db, its SQLite side files, and the build
-/// manifest next to it. Each chunking strategy has its own, so switching Chunking:Strategy back and forth
-/// never forces a re-embed - see IChunkingStrategy.
+/// A chunking strategy's index on disk: rag.&lt;strategy&gt;.db (rag.&lt;strategy&gt;.&lt;model&gt;.db for an embedding
+/// model other than nomic-embed-text - EmbeddingTemplates.IndexSuffix), its SQLite side files, and the build manifest next
+/// to it. Each strategy and embedding model has its own, so switching either back and forth never forces a re-embed -
+/// see IChunkingStrategy.
 /// </summary>
 internal sealed record IndexFiles(string DbPath)
 {
@@ -13,8 +14,8 @@ internal sealed record IndexFiles(string DbPath)
 
     public bool Exists => File.Exists(DbPath);
 
-    public static IndexFiles For(DirectoryInfo repoRoot, string strategyName) =>
-        new(Path.Combine(repoRoot.FullName, $"rag.{strategyName}.db"));
+    public static IndexFiles For(DirectoryInfo repoRoot, string strategyName, EmbeddingTemplates embedding) =>
+        new(Path.Combine(repoRoot.FullName, embedding.IndexSuffix is { } suffix ? $"rag.{strategyName}.{suffix}.db" : $"rag.{strategyName}.db"));
 
     // An existing index is only trusted if it has a manifest (written only after a build finishes) that
     // matches the current settings and filings - see IndexManifest for the two failure modes this closes.

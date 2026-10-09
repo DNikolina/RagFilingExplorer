@@ -6,6 +6,8 @@ namespace RagFilingExplorer.Tests.VectorStore;
 [TestFixture]
 public class FilingChunkRecordsTests
 {
+    private static readonly EmbeddingTemplates Nomic = EmbeddingTemplates.For("nomic-embed-text");
+
     private static FilingChunk Chunk(string filing, string content) => new(filing, "PART II > Item 8. Financial Statements", content, 10);
 
     // Keys used to start at 0, the vector store's "generate a key" value for an int key: SqliteVec stored
@@ -16,7 +18,7 @@ public class FilingChunkRecordsTests
     {
         List<FilingChunk> chunks = [Chunk("A.html", "cover page"), Chunk("A.html", "business"), Chunk("B.html", "cover page")];
 
-        List<FilingChunkRecord> records = FilingChunkRecords.Build(chunks);
+        List<FilingChunkRecord> records = FilingChunkRecords.Build(chunks, Nomic);
 
         Assert.That(records.Select(r => r.Key), Is.EqualTo(new[] { 1, 2, 3 }));
     }
@@ -32,7 +34,7 @@ public class FilingChunkRecordsTests
             Chunk("A.html", "NOTES TO CONSOLIDATED FINANCIAL STATEMENTS\nNote 1 text."),
         ];
 
-        List<FilingChunkRecord> records = FilingChunkRecords.Build(chunks);
+        List<FilingChunkRecord> records = FilingChunkRecords.Build(chunks, Nomic);
 
         Assert.That(records.Select(r => r.StatementType), Is.EqualTo(new[] { "narrative", "balance_sheet", "balance_sheet", "narrative" }));
     }
@@ -42,7 +44,7 @@ public class FilingChunkRecordsTests
     {
         List<FilingChunk> chunks = [Chunk("A.html", "CONSOLIDATED BALANCE SHEETS\n| Total assets | 100 |"), Chunk("B.html", "Cover page.")];
 
-        List<FilingChunkRecord> records = FilingChunkRecords.Build(chunks);
+        List<FilingChunkRecord> records = FilingChunkRecords.Build(chunks, Nomic);
 
         Assert.That(records[1].StatementType, Is.EqualTo("narrative"));
     }
@@ -50,7 +52,7 @@ public class FilingChunkRecordsTests
     [Test]
     public void Build_Text_IsTheNomicDocumentPrefixedEmbeddingInput()
     {
-        List<FilingChunkRecord> records = FilingChunkRecords.Build([Chunk("A.html", "Some prose.")]);
+        List<FilingChunkRecord> records = FilingChunkRecords.Build([Chunk("A.html", "Some prose.")], Nomic);
 
         Assert.That(records[0].Text, Does.StartWith("search_document: PART II > Item 8. Financial Statements"));
         Assert.That(records[0].Content, Is.EqualTo("Some prose."));
@@ -62,7 +64,7 @@ public class FilingChunkRecordsTests
     {
         FilingChunk chunk = Chunk("A.html", "Some prose.") with { EmbeddingContext = "Oracle Corporation (ORCL), Form 10-K for fiscal year 2026." };
 
-        FilingChunkRecord record = FilingChunkRecords.Build([chunk])[0];
+        FilingChunkRecord record = FilingChunkRecords.Build([chunk], Nomic)[0];
 
         Assert.That(record.Text, Is.EqualTo(
             "search_document: Oracle Corporation (ORCL), Form 10-K for fiscal year 2026.\nPART II > Item 8. Financial Statements\n\nSome prose."));

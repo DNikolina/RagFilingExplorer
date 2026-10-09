@@ -93,7 +93,7 @@ internal static class AppComposition
         CrossEncoderReranker? reranker = settings.Retrieval.Rerank ? LoadReranker(settings.Retrieval) : null;
 
         RagAnswerService answerService = new(
-            collection, chatClient, settings.Retrieval, chatModel, companies, keywordIndex, reranker);
+            collection, chatClient, settings.Retrieval, chatModel, companies, EmbeddingTemplates.For(settings.Ollama.EmbeddingModel), keywordIndex, reranker);
         return new RagRuntime(answerService, companies, reranker);
     }
 
@@ -111,7 +111,7 @@ internal static class AppComposition
         (OllamaApiClient embedding, OllamaApiClient chat) = CreateOllamaClients(settings.Ollama);
         await OllamaSetup.EnsureReadyAsync(chat, settings.Ollama);
 
-        IndexFiles index = IndexFiles.For(repoRoot, ChunkingStrategies.FileName(settings.Chunking.Strategy));
+        IndexFiles index = IndexFiles.For(repoRoot, ChunkingStrategies.FileName(settings.Chunking.Strategy), EmbeddingTemplates.For(settings.Ollama.EmbeddingModel));
         if (!index.Exists)
         {
             throw new StartupException($"{index.DbPath} doesn't exist - build it by running the app once (dotnet run --project RagFilingExplorer.Local).");

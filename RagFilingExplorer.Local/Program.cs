@@ -27,9 +27,9 @@ static async Task RunAsync(string[] args)
 
     DirectoryInfo repoRoot = RepoPaths.FindRoot(AppContext.BaseDirectory);
 
-    // Each chunking strategy has its own index and chunk dumps - see IndexFiles.
+    // Each chunking strategy has its own index and chunk dumps, and each embedding model its own index - see IndexFiles.
     string strategyName = ChunkingStrategies.FileName(settings.Chunking.Strategy);
-    IndexFiles index = IndexFiles.For(repoRoot, strategyName);
+    IndexFiles index = IndexFiles.For(repoRoot, strategyName, EmbeddingTemplates.For(settings.Ollama.EmbeddingModel));
     string reviewDirectoryPath = Path.Combine(repoRoot.FullName, "chunk-review", strategyName);
     bool verbose = args.Contains("--verbose");
     Console.WriteLine($"Chunking strategy: {settings.Chunking.Strategy} (index: {index.DbFileName})");

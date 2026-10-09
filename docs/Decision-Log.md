@@ -3999,6 +3999,34 @@ tasks) - only our rank says whether it helps.
    only gain from ranking is a cheaper prompt). Each paid run asked for before it runs.
 9. **Tests and docs:** README, Design-FAQ ("why Voyage? why not the open voyage-4-nano?"), the plan.
 
+**Step 1 - done (2026-10-09).** `EmbeddingTemplates` (VectorStore/): each model's query and document text from its
+card, in code - nomic-embed-text's `search_query: ` / `search_document: ` (the company line, then the text), and
+embeddinggemma-2's `task: search result | query: ` / `title: <company line, or none> | text: `; matched on the model
+name without its tag; an unlisted model is refused at startup. `FilingChunkRecords.Build` and `RagAnswerService` take
+them instead of the hard-coded prefixes. `IndexFiles.For` names the index per model: nomic keeps `rag.<strategy>.db`
+(not rebuilt), any other `rag.<strategy>.<model, ':' as '-'>.db`. The vector dimension stays the record's 768 - both
+models' size; a runtime dimension waits for Voyage's 1024 (step 6).
+*A bug found on the way:* the first cached replay missed the cache on every question - **the system prompt had changed**.
+Python edits had saved `RagAnswerService.cs` with LF line endings, and the prompt is a raw string literal, which takes
+its line breaks from the source file: every `
+` became `
+`. Same text otherwise; llama gave the same answers to
+the questions asked before it was stopped (Q1-Q3), but under new cache keys. The prompt is now pinned to CRLF
+(`ReplaceLineEndings("
+")`), the line breaks every recorded answer was asked with, with a regression test - a
+checkout on macOS/Linux or an editor saving LF would have done the same. Not pinned: the excerpts are joined with
+`AppendLine` (`Environment.NewLine`), so on the Mac (batch 4) prompts differ from Windows' anyway - cached answers don't
+carry across machines, which batch 4 doesn't need (it re-baselines on the Mac).
+Checked: 422 + 195 tests (7 for the templates and index names, 1 for the prompt's line breaks); a cached replay of all 102
+on nomic's existing index - opened without a rebuild, **102/102 from the cache, every prompt, answer, grade and rank
+identical** to `structured-hybrid-v3-baseline`. Every prompt identical also means **Ollama 0.40.2 retrieves exactly as
+before** on all 102 - nomic's ranks there are the baseline's, so step 4 needs no second nomic run for the retrieval side.
+Chunking code untouched (chunks feed the same prompts), so the chunk-review dumps weren't regenerated.
+*The model tag:* `embeddinggemma-2:270m` is the MLX build (same digest as `270m-nvfp4-text`) - Apple Silicon only;
+the pull fails on Windows ("this model requires MLX support"). Every size has `nvfp4` and `mxfp8` (MLX) and `bf16`
+builds; **`embeddinggemma-2:270m-bf16-text`** is the one to try here (full precision, text only). Sizes are encoder
+loadouts of one model (Google's card): 270M text, 440M + vision, **570M + audio** (not a larger text model), 740M all.
+
 **Ollama build for batch 3: 0.40.2** (installed 2026-10-09 from the auto-updater's staged, Ollama-signed installer;
 0.40.0 -> 0.40.1 had auto-installed that morning). `nomic-embed-text` (0a109f422b47) and `llama3.1:8b` (46e0c10c039e)
 unchanged - not upgraded by 0.40's background model conversion. 0.40.0 reproduced 0.35.1's answers (above); 0.40.2 is

@@ -5,12 +5,11 @@ namespace RagFilingExplorer.Local.VectorStore;
 /// <summary>
 /// Turns chunks (every filing's, in document order) into the records stored in the index.
 ///
-/// nomic-embed-text expects task-specific prefixes for good retrieval matching: "search_document: "
-/// on stored text, "search_query: " on the query text at search time. EmbeddingTextBuilder enriches
-/// table chunks with their row labels as plain text before that prefix, since sparse tables otherwise
-/// embed poorly - see its doc comment. A chunk with an embedding context (Structured: "Oracle
-/// Corporation (ORCL), Form 10-K for fiscal year 2026.") has that line first. Content stays exactly as
-/// chunked - only Text (the embedding input) changes.
+/// Text (the embedding input) is the embedding model's document template (EmbeddingTemplates - nomic-embed-text's
+/// "search_document: " prefix, for one) around EmbeddingTextBuilder's text, which enriches table chunks with their row
+/// labels as plain text, since sparse tables otherwise embed poorly - see its doc comment. A chunk with an embedding
+/// context (Structured: "Oracle Corporation (ORCL), Form 10-K for fiscal year 2026.") passes that line to the template.
+/// Content stays exactly as chunked.
 ///
 /// StatementType is tracked in document order: once a statement-title line (e.g. "CONSOLIDATED
 /// STATEMENTS OF OPERATIONS") is seen, that type carries forward to subsequent chunks until a new title
@@ -22,7 +21,7 @@ namespace RagFilingExplorer.Local.VectorStore;
 /// </summary>
 internal static class FilingChunkRecords
 {
-    public static List<FilingChunkRecord> Build(IReadOnlyList<FilingChunk> allChunks)
+    public static List<FilingChunkRecord> Build(IReadOnlyList<FilingChunk> allChunks, EmbeddingTemplates embedding)
     {
         List<FilingChunkRecord> records = [];
         string? currentStatementType = null;
@@ -63,8 +62,7 @@ internal static class FilingChunkRecords
                 Heading = chunk.Heading,
                 StatementType = chunk.StatementType ?? currentStatementType ?? "narrative",
                 Content = chunk.Content,
-                Text = $"search_document: {(chunk.EmbeddingContext is null ? "" : chunk.EmbeddingContext + "\n")}"
-                    + EmbeddingTextBuilder.Build(chunk.Heading, chunk.Content),
+                Text = embedding.Document(chunk.EmbeddingContext, EmbeddingTextBuilder.Build(chunk.Heading, chunk.Content)),
             });
         }
 
