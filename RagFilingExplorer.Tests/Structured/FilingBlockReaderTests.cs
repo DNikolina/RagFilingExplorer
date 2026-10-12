@@ -63,8 +63,8 @@ public class FilingBlockReaderTests
     }
 
     // MSFT and ORCL: a list item is a flex <div> holding the marker's <span> and the text's own <div>, so each bullet
-    // and footnote mark became a paragraph of its own, a blank line above its text. A note's number before its title
-    // stays apart (the heading rules read the title), and a marker with only a table after it stays where it was.
+    // and footnote mark became a paragraph of its own, a blank line above its text - ORCL's note numbers too ("6." over
+    // "NOTES PAYABLE AND OTHER BORROWINGS"). A marker with only a table after it stays where it was.
     [Test]
     public void Read_ListMarkerInItsOwnBlock_JoinsTheParagraphAfterIt()
     {
@@ -73,8 +73,8 @@ public class FilingBlockReaderTests
         List<string> texts = Texts(Item("&#8226;", "We tested controls.") + Item("o", "Obtained contracts.") + Item("(1)", "Comprises EMEA.")
             + "<p>6.</p><p>NOTES PAYABLE</p><p>(a)</p><table><tr><td>Debt</td><td>1</td></tr></table>");
 
-        Assert.That(texts.Take(5), Is.EqualTo(new[] { "• We tested controls.", "o Obtained contracts.", "(1) Comprises EMEA.", "6.", "NOTES PAYABLE" }));
-        Assert.That(texts[5], Is.EqualTo("(a)"));
+        Assert.That(texts.Take(4), Is.EqualTo(new[] { "• We tested controls.", "o Obtained contracts.", "(1) Comprises EMEA.", "6. NOTES PAYABLE" }));
+        Assert.That(texts[4], Is.EqualTo("(a)"));
     }
 
     // Non-breaking spaces are written as escapes here and in the reader: the step-1a converter's regex held a
@@ -92,14 +92,21 @@ public class FilingBlockReaderTests
         Assert.That(Texts("<p>PART II<br/>Item 5. Market</p>"), Is.EqualTo(new[] { "PART II\nItem 5. Market" }));
     }
 
-    // ORCL/NFLX: every page carries a "Table of Contents" link whose text sits in a <span> inside the <a>.
-    // Taking only text outside links dropped all 131 of ORCL's, and with them the only content of
-    // "Item 6. [Reserved]" - a section that then disappeared from the outline.
+    // ORCL/NFLX: a link's text can sit in a <span> inside the <a> - taking only text outside links dropped it.
     [Test]
     public void Read_LinkWithTextInsideASpan_KeepsItsText()
     {
-        Assert.That(Texts("<p><a href=\"#toc_page\"><span style=\"color:#0000ff\">Table of Contents</span></a></p>"),
-            Is.EqualTo(new[] { "[Table of Contents](#toc_page)" }));
+        Assert.That(Texts("<p><a href=\"#note_6\"><span style=\"color:#0000ff\">Note 6</span></a></p>"),
+            Is.EqualTo(new[] { "[Note 6](#note_6)" }));
+    }
+
+    // ORCL and NFLX: every page's "Table of Contents" back-link (NFLX's the whole EDGAR address, ~40 tokens) was in the
+    // chunks - six chunks held nothing else. Page furniture, like a page number.
+    [Test]
+    public void Read_TableOfContentsLink_IsDropped()
+    {
+        Assert.That(Texts("<p><a href=\"#toc_page\"><span>Table of Contents</span></a></p><p>Body text.</p>"),
+            Is.EqualTo(new[] { "Body text." }));
     }
 
     [Test]
@@ -250,5 +257,21 @@ public class FilingBlockReaderTests
         {
             "Our platforms help clients manage their workflows.", "4", "Next paragraph ends", "New paragraph.",
         }));
+    }
+
+    // NDAQ positions a bullet's text past the bullet's end, NFLX pads it away - neither has a space in the text, so
+    // every bullet read "•our products and services;". A run starting where the last one ended (a font change inside a
+    // word) still joins without one.
+    [Test]
+    public void Read_RunSetApartByLayout_GetsASpace()
+    {
+        List<string> texts = Texts(
+            "<div><div style=\"line-height:10pt;position:var(--position);top:349.2pt;width:612pt\">"
+            + "<span style=\"font-weight:normal;left:49.5pt;position:var(--position);width:3.5pt\">•</span>"
+            + "<span style=\"font-weight:normal;left:58.5pt;position:var(--position);width:40pt\">our products</span>"
+            + "<span style=\"font-weight:normal;left:98.5pt;position:var(--position);width:6pt\">’s</span></div></div>"
+            + "<div style=\"padding-left:36pt;text-indent:-18pt\"><span>•</span><span style=\"padding-left:14.5pt\">our ability</span></div>");
+
+        Assert.That(texts, Is.EqualTo(new[] { "• our products’s", "• our ability" }));
     }
 }

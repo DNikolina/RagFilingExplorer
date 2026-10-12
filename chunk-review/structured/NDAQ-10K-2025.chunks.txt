@@ -120,35 +120,35 @@ About this Form 10-K
 
 Throughout this Form 10-K, unless otherwise specified:
 
-•“Nasdaq,” “we,” “us” and “our” refer to Nasdaq, Inc.
+• “Nasdaq,” “we,” “us” and “our” refer to Nasdaq, Inc.
 
-•“Nasdaq Baltic” refers to collectively, Nasdaq Tallinn AS, Nasdaq Riga, AS, and AB Nasdaq Vilnius.
+• “Nasdaq Baltic” refers to collectively, Nasdaq Tallinn AS, Nasdaq Riga, AS, and AB Nasdaq Vilnius.
 
-•“Nasdaq BX” refers to the cash equity exchange operated by Nasdaq BX, Inc.
+• “Nasdaq BX” refers to the cash equity exchange operated by Nasdaq BX, Inc.
 
-•“Nasdaq BX Options” refers to the options exchange operated by Nasdaq BX, Inc.
+• “Nasdaq BX Options” refers to the options exchange operated by Nasdaq BX, Inc.
 
-•“Nasdaq Clearing” refers to the clearing operations conducted by Nasdaq Clearing AB.
+• “Nasdaq Clearing” refers to the clearing operations conducted by Nasdaq Clearing AB.
 
-•“Nasdaq CXC” and “Nasdaq CX2” refer to the Canadian cash equity trading books operated by Nasdaq CXC Limited.
+• “Nasdaq CXC” and “Nasdaq CX2” refer to the Canadian cash equity trading books operated by Nasdaq CXC Limited.
 
-•“Nasdaq First North” refers to our alternative marketplaces for smaller companies and growth companies in the Nordic and Baltic regions.
+• “Nasdaq First North” refers to our alternative marketplaces for smaller companies and growth companies in the Nordic and Baltic regions.
 
-•“Nasdaq GEMX” refers to the options exchange operated by Nasdaq GEMX, LLC.
+• “Nasdaq GEMX” refers to the options exchange operated by Nasdaq GEMX, LLC.
 
-•“Nasdaq ISE” refers to the options exchange operated by Nasdaq ISE, LLC.
+• “Nasdaq ISE” refers to the options exchange operated by Nasdaq ISE, LLC.
 
-•“Nasdaq MRX” refers to the options exchange operated by Nasdaq MRX, LLC.
+• “Nasdaq MRX” refers to the options exchange operated by Nasdaq MRX, LLC.
 
-•“Nasdaq Nordic” refers to collectively, Nasdaq Clearing AB, Nasdaq Stockholm AB, Nasdaq Copenhagen A/S, Nasdaq Helsinki Ltd, and Nasdaq Iceland hf.
+• “Nasdaq Nordic” refers to collectively, Nasdaq Clearing AB, Nasdaq Stockholm AB, Nasdaq Copenhagen A/S, Nasdaq Helsinki Ltd, and Nasdaq Iceland hf.
 
-•“Nasdaq PHLX” refers to the options exchange operated by Nasdaq PHLX LLC.
+• “Nasdaq PHLX” refers to the options exchange operated by Nasdaq PHLX LLC.
 
-•“Nasdaq PSX” refers to the cash equity exchange operated by Nasdaq PHLX LLC.
+• “Nasdaq PSX” refers to the cash equity exchange operated by Nasdaq PHLX LLC.
 
-•“The Nasdaq Options Market” refers to the options exchange operated by The Nasdaq Stock Market LLC.
+• “The Nasdaq Options Market” refers to the options exchange operated by The Nasdaq Stock Market LLC.
 
-•“The Nasdaq Stock Market” refers to the cash equity exchange and listing venue operated by The Nasdaq Stock Market LLC.
+• “The Nasdaq Stock Market” refers to the cash equity exchange and listing venue operated by The Nasdaq Stock Market LLC.
 
 Nasdaq also provides as a tool for the reader the following list of abbreviations and acronyms that are used throughout this Annual Report on Form 10-K.
 
@@ -303,51 +303,51 @@ Forward-Looking Statements
 
 The SEC encourages companies to disclose forward-looking information so that investors can better understand a company’s future prospects and make informed investment decisions. This Annual Report on Form 10-K contains these types of statements. Words such as “can,” “may,” “will,” “could,” “should,” “anticipate,” “estimates,” “expects,” “projects,” “intends,” “plans,” “believes” and words or terms of similar substance used in connection with any discussion of future expectations as to industry and regulatory developments or business initiatives and strategies, future operating results or financial performance, and other future developments are intended to identify forward-looking statements. These include, among others, statements relating to:
 
-•our strategic direction;
+• our strategic direction;
 
-•the integration of acquired businesses, including accounting decisions relating thereto;
+• the integration of acquired businesses, including accounting decisions relating thereto;
 
---- Chunk 10/306 | heading: (no heading) | tokens: 431 ---
-•the integration of acquired businesses, including accounting decisions relating thereto;
+--- Chunk 10/306 | heading: (no heading) | tokens: 430 ---
+• the integration of acquired businesses, including accounting decisions relating thereto;
 
-•the scope, nature or impact of acquisitions, divestitures, investments or other transactional activities;
+• the scope, nature or impact of acquisitions, divestitures, investments or other transactional activities;
 
-•the effective dates for, and expected benefits of, ongoing initiatives, including transactional activities and other strategic, restructuring, technology, de-leveraging and capital return initiatives;
+• the effective dates for, and expected benefits of, ongoing initiatives, including transactional activities and other strategic, restructuring, technology, de-leveraging and capital return initiatives;
 
-•our products and services;
+• our products and services;
 
-•the impact of pricing changes;
+• the impact of pricing changes;
 
-•tax matters;
+• tax matters;
 
-•the cost and availability of liquidity and capital; and
+• the cost and availability of liquidity and capital; and
 
-•any litigation, or any regulatory or government investigation or action, to which we are or could become a party or which may affect us and any potential settlements of litigation, regulatory or governmental investigations or actions.
+• any litigation, or any regulatory or government investigation or action, to which we are or could become a party or which may affect us and any potential settlements of litigation, regulatory or governmental investigations or actions.
 
 Forward-looking statements involve risks and uncertainties. Factors that could cause actual results to differ materially from those contemplated by the forward-looking statements include, among others, the following:
 
-•our operating results may be lower than expected;
+• our operating results may be lower than expected;
 
-•our ability to successfully integrate acquired businesses or divest sold businesses or assets, including the fact that any integration or transition may be more difficult, time consuming or costly than expected, and we may be unable to realize synergies from business combinations, acquisitions, divestitures or other transactional activities;
+• our ability to successfully integrate acquired businesses or divest sold businesses or assets, including the fact that any integration or transition may be more difficult, time consuming or costly than expected, and we may be unable to realize synergies from business combinations, acquisitions, divestitures or other transactional activities;
 
-•loss of significant trading and clearing volumes or values, fees, market share, listed companies, market data customers or other customers;
+• loss of significant trading and clearing volumes or values, fees, market share, listed companies, market data customers or other customers;
 
-•our ability to develop and grow our non-trading businesses;
+• our ability to develop and grow our non-trading businesses;
 
-•our ability to keep up with rapid technological advances, including our ability to effectively manage the development and use of AI in certain of our products and offerings, and adequately address cybersecurity risks;
+• our ability to keep up with rapid technological advances, including our ability to effectively manage the development and use of AI in certain of our products and offerings, and adequately address cybersecurity risks;
 
-•economic, political, regulatory and market conditions and fluctuations, including inflation, tariffs, interest rate and foreign currency risk inherent in U.S. and international operations, and geopolitical instability;
+• economic, political, regulatory and market conditions and fluctuations, including inflation, tariffs, interest rate and foreign currency risk inherent in U.S. and international operations, and geopolitical instability;
 
-•the performance and reliability of our technology and technology of third parties on which we rely;
+• the performance and reliability of our technology and technology of third parties on which we rely;
 
-•any significant systems failures or errors in our operational processes;
+• any significant systems failures or errors in our operational processes;
 
-•our ability to continue to generate cash and manage our indebtedness; and
+• our ability to continue to generate cash and manage our indebtedness; and
 
-•adverse changes that may occur in the litigation or regulatory areas, or in the securities markets generally, or increased regulatory oversight domestically or internationally.
+• adverse changes that may occur in the litigation or regulatory areas, or in the securities markets generally, or increased regulatory oversight domestically or internationally.
 
---- Chunk 11/306 | heading: (no heading) | tokens: 243 ---
-•adverse changes that may occur in the litigation or regulatory areas, or in the securities markets generally, or increased regulatory oversight domestically or internationally.
+--- Chunk 11/306 | heading: (no heading) | tokens: 242 ---
+• adverse changes that may occur in the litigation or regulatory areas, or in the securities markets generally, or increased regulatory oversight domestically or internationally.
 
 Most of these factors are difficult to predict accurately and are generally beyond our control. You should consider the uncertainty and any risk related to forward-looking statements that we make. These risk factors are discussed under the caption “Part I. Item 1A. Risk Factors” in this Annual Report on Form 10-K. You are cautioned not to place undue reliance on these forward-looking statements, which speak only as of the date of this Annual Report on Form 10-K. You should carefully read this entire Annual Report on Form 10-K, including “Part II. Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations” and the consolidated financial statements and the related notes. Except as required by the federal securities laws, we undertake no obligation to update any forward-looking statement, release publicly any revisions to any forward-looking statements or report the occurrence of unanticipated events. For any forward-looking statements contained in any document, we claim the protection of the safe harbor for forward-looking statements contained in the Private Securities Litigation Reform Act of 1995.
 
@@ -381,11 +381,11 @@ Our Strategy: Our strategic direction is aimed at optimizing the deployment of r
 
 Through our platforms:
 
-•We architect the world’s most modern markets: Our platform delivers scalable, interoperable solutions that can minimize friction, strengthen resilience, and enable market operators to drive innovation into local market environments. As a result, we believe our platform delivers highly advanced market infrastructure, enabling deeper liquidity and more seamless flows of capital across markets globally.
+• We architect the world’s most modern markets: Our platform delivers scalable, interoperable solutions that can minimize friction, strengthen resilience, and enable market operators to drive innovation into local market environments. As a result, we believe our platform delivers highly advanced market infrastructure, enabling deeper liquidity and more seamless flows of capital across markets globally.
 
-•We power the innovation economy: The world’s most dynamic economies are not defined by geography or size. They are defined by their ability to transform ideas into growth and allowing that innovation to scale. Nasdaq sits at the center of the world’s most dynamic innovation economies. We provide innovators and investors with the infrastructure, investment products, and data and insights that enable innovation to scale and investors to allocate with confidence.
+• We power the innovation economy: The world’s most dynamic economies are not defined by geography or size. They are defined by their ability to transform ideas into growth and allowing that innovation to scale. Nasdaq sits at the center of the world’s most dynamic innovation economies. We provide innovators and investors with the infrastructure, investment products, and data and insights that enable innovation to scale and investors to allocate with confidence.
 
-•We build trust in the financial system: As risk becomes more pervasive, interconnected, and embedded across the financial system, the gap between the speed of risk and the speed of response has widened. Nasdaq’s platform can deliver intelligent, integrated solutions that help financial institutions identify and mitigate risk with agility and precision. From regulatory reporting to compliance and financial crime management, our platform helps institutions detect threats early, meet evolving obligations, and protect the integrity of their operations.
+• We build trust in the financial system: As risk becomes more pervasive, interconnected, and embedded across the financial system, the gap between the speed of risk and the speed of response has widened. Nasdaq’s platform can deliver intelligent, integrated solutions that help financial institutions identify and mitigate risk with agility and precision. From regulatory reporting to compliance and financial crime management, our platform helps institutions detect threats early, meet evolving obligations, and protect the integrity of their operations.
 
 PRODUCTS AND SERVICES
 
@@ -585,11 +585,11 @@ Our Value Proposition
 
 We operate leading platforms that can improve the liquidity, transparency, and integrity of the global financial ecosystem, allowing us to:
 
-•Develop efficient and reliable technologies to facilitate and protect the financial system across asset classes;
+• Develop efficient and reliable technologies to facilitate and protect the financial system across asset classes;
 
-•Empower our clients to effectively navigate the capital markets, achieve their sustainability goals, and maintain corporate governance excellence; and
+• Empower our clients to effectively navigate the capital markets, achieve their sustainability goals, and maintain corporate governance excellence; and
 
-•Provide data, tools and insights that drive sound decision making while complying with evolving regulatory requirements.
+• Provide data, tools and insights that drive sound decision making while complying with evolving regulatory requirements.
 
 Capital Access Platforms
 
@@ -669,18 +669,18 @@ The Nominating & Governance Committee has formal responsibility and oversight fo
 
 We continue to be committed to our decarbonization and climate strategy. We are working towards our short- and long-term net-zero science-based targets, which were originally set and validated by the Science Based Targets initiative in 2022, and updated and validated in 2025 to reflect Nasdaq's 2023 acquisition of Adenza and the integration of Adenza's operations into Nasdaq's environmental program and climate strategy. In 2025, we were named a CDP A List company for our environmental programs and transparency. In addition, Nasdaq maintained industry leading scores from ESG rating agencies, including a rating of “AA,” from MSCI placing Nasdaq in MSCI’s “Leaders” category.
 
---- Chunk 33/306 | heading: PART I > Item 1. Business | tokens: 433 ---
+--- Chunk 33/306 | heading: PART I > Item 1. Business | tokens: 432 ---
 Our environmental footprint is relatively small due to the nature of our business operations. We remain committed to reducing our environmental impact, focusing on several key areas, including our energy use, the management of our workspaces and how we conduct business travel, and engagement with our value chain. We seek to reduce our atmospheric carbon emissions and we manage our water use and the waste associated with our business operations.
 
 We help companies of all maturity levels through our robust combination of technology, tools, data, insights and capital market solutions.
 
 Our sustainability-focused solutions are centered around three strategic pillars to meet our client’s needs in a rapidly evolving market:
 
-•Regulatory and climate focused Workflows: A powerful, built-for-purpose sustainability data management platform with user-friendly workflows for regulation and climate strategy needs.
+• Regulatory and climate focused Workflows: A powerful, built-for-purpose sustainability data management platform with user-friendly workflows for regulation and climate strategy needs.
 
-•AI-powered Insights: Proprietary insights powered by trusted data sources and generative AI to provide our users with a better lens to make faster sustainability decisions.
+• AI-powered Insights: Proprietary insights powered by trusted data sources and generative AI to provide our users with a better lens to make faster sustainability decisions.
 
-•In-house Expertise: In-house sustainability expertise combined with technology to provide full-service support to organizations navigating global compliance requirements, while also monitoring the capital markets.
+• In-house Expertise: In-house sustainability expertise combined with technology to provide full-service support to organizations navigating global compliance requirements, while also monitoring the capital markets.
 
 During 2025, we maintained and enhanced our portfolio of sustainability services and solutions for our clients and stakeholders.
 
@@ -813,7 +813,7 @@ In 2025, our internal employee engagement score, based on our biannual employee 
 
 We expanded our leadership development offerings in 2025, launching the “Elevate: Empowering Leaders. Driving Impact” strategy and piloting new programs for aspiring and current managers across multiple regions. Our formal leadership curriculum was complemented by peer coaching circles, executive coaching, and the continued Manager Forum series, facilitated by our Chair and CEO and other senior leaders. In June 2025, we launched the “Accelerating Manager Potential” program to drive management excellence throughout our leadership ranks. More than half of all managers attended the program in 2025, with the remainder expected to complete the program in the first half of 2026.
 
---- Chunk 45/306 | heading: PART I > Item 1. Business | tokens: 466 ---
+--- Chunk 45/306 | heading: PART I > Item 1. Business | tokens: 486 ---
 Nasdaq accelerated its adoption of AI and digital tools in 2025. We facilitated workshops, piloted AI-powered agent solutions, and established our “AI Champions” community. These efforts further embedded digital skills into our culture and operations, with a significant portion of employees participating in AI training and enablement programs.
 
 We maintained our commitment to professional development by offering access to a wide range of learning opportunities, including access to multiple eLearning platforms, tuition assistance, external training sponsorship and mentoring programs. Our AI-driven Career Hub continued to match employees to internal training, mentors, projects, and roles, supporting career satisfaction and internal mobility.
@@ -836,15 +836,15 @@ Our global female employee base in 2025 was approximately 36%. Our minority repr
 
 Gender and Ethnicity Data as of December 31, 2025 are presented below:
 
-![4644](ndaq-20251231_g1.gif)
+[image]
 
-![4649](ndaq-20251231_g2.gif)
-
---- Chunk 46/306 | heading: PART I > Item 1. Business | tokens: 486 ---
-![4649](ndaq-20251231_g2.gif)
+[image]
 
 \* In the chart above, the Not disclosed percentage includes employees that have chosen not to disclose and race and ethnicities that are less than 1.0% of our total employee headcount.
 
+Compensation and Benefits
+
+--- Chunk 46/306 | heading: PART I > Item 1. Business | tokens: 432 ---
 Compensation and Benefits
 
 Our Total Rewards program is designed to attract, retain, and empower employees to successfully execute our growth strategy and our mission to better serve our clients. Our comprehensive Total Rewards program reflects our commitment to protecting our employees’ health, well-being and financial security.
@@ -975,7 +975,7 @@ Our clearinghouse operations expose us to counterparty and liquidity risks, incl
 
 Additionally, we face credit risk from customers, counterparties, clearing agents, and transaction and subscription-based revenues billed in arrears, as these parties may default due to bankruptcy, lack of liquidity, operational failure, or other reasons.
 
---- Chunk 59/306 | heading: PART I > Item 1A. Risk Factors | tokens: 485 ---
+--- Chunk 59/306 | heading: PART I > Item 1A. Risk Factors | tokens: 480 ---
 Additionally, we face credit risk from customers, counterparties, clearing agents, and transaction and subscription-based revenues billed in arrears, as these parties may default due to bankruptcy, lack of liquidity, operational failure, or other reasons.
 
 The financial distress or failure of counterparties could result in negative financial impact, reputational harm, regulatory consequences, litigation or regulatory enforcement actions. Credit losses such as those described above could adversely affect our consolidated financial position and results of operations.
@@ -990,40 +990,40 @@ We may not be able to successfully integrate acquired businesses, which may resu
 
 We must rationalize, coordinate and integrate the operations of our acquired businesses. This process involves complex technological, operational and personnel-related challenges, which are time-consuming and expensive and may disrupt our business. The difficulties, costs and delays that could be encountered may include:
 
-•difficulties, costs or complications in combining the companies’ operations, including technology platforms, security measures and infrastructure or regulatory or legal non-compliance that may need greater remediation than anticipated, which could lead to us not achieving the synergies or efficiencies we anticipate or customers not renewing their contracts with us as we migrate platforms;
+• difficulties, costs or complications in combining the companies’ operations, including technology platforms, security measures and infrastructure or regulatory or legal non-compliance that may need greater remediation than anticipated, which could lead to us not achieving the synergies or efficiencies we anticipate or customers not renewing their contracts with us as we migrate platforms;
 
-•incompatibility of systems and operating methods;
+• incompatibility of systems and operating methods;
 
-•reliance on, or provision of, transition services;
+• reliance on, or provision of, transition services;
 
-•inability to use capital assets efficiently to develop the business of the combined company and achieve revenue growth, including cross-sell activity;
+• inability to use capital assets efficiently to develop the business of the combined company and achieve revenue growth, including cross-sell activity;
 
---- Chunk 60/306 | heading: PART I > Item 1A. Risk Factors | tokens: 450 ---
-•inability to use capital assets efficiently to develop the business of the combined company and achieve revenue growth, including cross-sell activity;
+--- Chunk 60/306 | heading: PART I > Item 1A. Risk Factors | tokens: 442 ---
+• inability to use capital assets efficiently to develop the business of the combined company and achieve revenue growth, including cross-sell activity;
 
-•difficulties of complying with government-imposed regulations in the U.S. and abroad, which may be conflicting;
+• difficulties of complying with government-imposed regulations in the U.S. and abroad, which may be conflicting;
 
-•resolving possible inconsistencies in standards, controls, procedures and policies, business cultures and compensation structures;
+• resolving possible inconsistencies in standards, controls, procedures and policies, business cultures and compensation structures;
 
-•the diversion of management’s attention from ongoing business concerns and other strategic opportunities;
+• the diversion of management’s attention from ongoing business concerns and other strategic opportunities;
 
-•difficulties in operating businesses we have not operated before;
+• difficulties in operating businesses we have not operated before;
 
-•difficulties of integrating multiple acquired businesses simultaneously;
+• difficulties of integrating multiple acquired businesses simultaneously;
 
-•the retention of key employees and management;
+• the retention of key employees and management;
 
-•the implementation of disclosure controls, internal controls and financial reporting systems at non-U.S. subsidiaries to enable us to comply with U.S. GAAP and U.S. securities laws and regulations, including the Sarbanes-Oxley Act of 2002, required as a result of our status as a reporting company under the Exchange Act;
+• the implementation of disclosure controls, internal controls and financial reporting systems at non-U.S. subsidiaries to enable us to comply with U.S. GAAP and U.S. securities laws and regulations, including the Sarbanes-Oxley Act of 2002, required as a result of our status as a reporting company under the Exchange Act;
 
-•the coordination of geographically separate organizations;
+• the coordination of geographically separate organizations;
 
-•the coordination and consolidation of ongoing and future research and development efforts;
+• the coordination and consolidation of ongoing and future research and development efforts;
 
-•possible tax costs or inefficiencies associated with integrating the operations of a combined company;
+• possible tax costs or inefficiencies associated with integrating the operations of a combined company;
 
-•the retention of strategic partners and attracting new strategic partners; and
+• the retention of strategic partners and attracting new strategic partners; and
 
-•negative impacts on employee morale and performance as a result of job changes and reassignments.
+• negative impacts on employee morale and performance as a result of job changes and reassignments.
 
 Foreign acquisitions, or acquisitions involving companies with numerous foreign subsidiaries, involve risks in addition to those mentioned above, including those related to integration of operations across different cultures and languages, our ability to enforce contracts in various jurisdictions, currency risks and the particular economic, political and regulatory risks associated with specific countries. We may not be able to address these risks successfully, or at all, without incurring significant costs, delays or other operating problems that could disrupt our business and have a material adverse effect on our financial condition.
 
@@ -1051,7 +1051,7 @@ Our business acquisitions typically result in the recording of goodwill and inta
 
 We assess goodwill and intangible assets, as well as other long-lived assets, including equity method investments, equity securities, and property and equipment, for potential impairment on an annual basis or more frequently if indicators of impairment arise. We estimate the fair value of such assets by assessing many factors, including historical performance and projected cash flows. Considerable management judgment is necessary to project future cash flows and evaluate the impact of expected operating and macroeconomic changes on these cash flows. The estimates and assumptions we use are consistent with our internal planning process. However, there are inherent uncertainties in these estimates.
 
---- Chunk 63/306 | heading: PART I > Item 1A. Risk Factors | tokens: 499 ---
+--- Chunk 63/306 | heading: PART I > Item 1A. Risk Factors | tokens: 495 ---
 We may experience future events that may result in asset impairments. Future disruptions to our business, prolonged economic weakness, due to pandemics or otherwise, or significant declines in operating results at any of our reporting units or businesses, may result in impairment charges to goodwill, intangible assets or other long-lived assets. A significant impairment charge in the future could have a material adverse effect on our operating results.
 
 Acquisitions, divestments, investments, joint ventures and other transactional activities may require significant resources and/or result in significant unanticipated losses, costs or liabilities.
@@ -1064,30 +1064,30 @@ We may finance future transactions by issuing additional equity and/or debt. The
 
 Furthermore, any future transactions could entail a number of additional risks, including:
 
-•the inability to maintain key pre-transaction business relationships;
+• the inability to maintain key pre-transaction business relationships;
 
-•increased operating costs;
+• increased operating costs;
 
-•the inability to meet our target for return on invested capital;
+• the inability to meet our target for return on invested capital;
 
-•increased debt obligations, which may adversely affect our targeted debt ratios;
+• increased debt obligations, which may adversely affect our targeted debt ratios;
 
-•changes in our credit rating and financing costs;
+• changes in our credit rating and financing costs;
 
-•risks to the continued achievement of our strategic direction;
+• risks to the continued achievement of our strategic direction;
 
-•risks associated with divesting employees, customers or vendors when divesting businesses or assets;
+• risks associated with divesting employees, customers or vendors when divesting businesses or assets;
 
---- Chunk 64/306 | heading: PART I > Item 1A. Risk Factors | tokens: 475 ---
-•risks associated with divesting employees, customers or vendors when divesting businesses or assets;
+--- Chunk 64/306 | heading: PART I > Item 1A. Risk Factors | tokens: 468 ---
+• risks associated with divesting employees, customers or vendors when divesting businesses or assets;
 
-•declines in the value of investments;
+• declines in the value of investments;
 
-•exposure to unanticipated liabilities, including after a transaction is completed;
+• exposure to unanticipated liabilities, including after a transaction is completed;
 
-•incurred but unreported claims for an acquired company; and
+• incurred but unreported claims for an acquired company; and
 
-•difficulties in realizing projected efficiencies and synergies.
+• difficulties in realizing projected efficiencies and synergies.
 
 RISKS RELATED TO LIQUIDITY AND CAPITAL RESOURCES
 
@@ -1101,18 +1101,18 @@ Our indebtedness as of December 31, 2025 was $9.0 billion. We may borrow additio
 
 Our leverage and reliance on the capital markets could:
 
-•reduce funds available to us for operations and general corporate purposes or for capital expenditures as a result of the dedication of a substantial portion of our consolidated cash flow from operations to the payment of principal and interest on our indebtedness;
+• reduce funds available to us for operations and general corporate purposes or for capital expenditures as a result of the dedication of a substantial portion of our consolidated cash flow from operations to the payment of principal and interest on our indebtedness;
 
-•increase our exposure to a continued downturn in general economic conditions;
+• increase our exposure to a continued downturn in general economic conditions;
 
-•place us at a competitive disadvantage compared with our competitors with less debt;
+• place us at a competitive disadvantage compared with our competitors with less debt;
 
-•affect our ability to obtain additional financing in the future for refinancing indebtedness, acquisitions, working capital, capital expenditures or other purposes; and
+• affect our ability to obtain additional financing in the future for refinancing indebtedness, acquisitions, working capital, capital expenditures or other purposes; and
 
-•increase our cost of debt and reduce or eliminate our ability to issue commercial paper.
+• increase our cost of debt and reduce or eliminate our ability to issue commercial paper.
 
 --- Chunk 65/306 | heading: PART I > Item 1A. Risk Factors | tokens: 435 ---
-•increase our cost of debt and reduce or eliminate our ability to issue commercial paper.
+• increase our cost of debt and reduce or eliminate our ability to issue commercial paper.
 
 In addition, we must comply with the covenants in our credit facilities. Among other things, these covenants restrict our ability to effect certain fundamental transactions, dispose of certain assets, incur additional indebtedness and grant liens on assets. Failure to meet any of the covenant terms of our credit facilities could result in an event of default. If an event of default or cross-default occurs, and we are unable to receive a waiver of default, our lenders may increase our borrowing costs, restrict our ability to obtain additional borrowings and accelerate repayment of all amounts outstanding.
 
@@ -1202,40 +1202,40 @@ Changes in tax laws, regulations, trade policies or other policies could result 
 
 Some of our subsidiaries are subject to tax in the jurisdictions in which they are organized or operate, and in computing our tax obligation in these jurisdictions, we take various tax positions. We cannot ensure that upon review of these positions, the applicable authorities will agree with our positions. A successful challenge by a tax authority could result in additional taxes imposed on our clients or our subsidiaries.
 
---- Chunk 74/306 | heading: PART I > Item 1A. Risk Factors | tokens: 440 ---
+--- Chunk 74/306 | heading: PART I > Item 1A. Risk Factors | tokens: 439 ---
 RISKS RELATED TO INTELLECTUAL PROPERTY AND BRAND REPUTATION
 
 Damage to our reputation or brand name could have a material adverse effect on our businesses.
 
 One of our competitive strengths is our strong reputation and brand name. Various issues may give rise to reputational risk, including issues relating to:
 
-•our ability to maintain the security of our data and systems;
+• our ability to maintain the security of our data and systems;
 
-•the quality and reliability of our technology platforms and systems;
+• the quality and reliability of our technology platforms and systems;
 
-•the ability to fulfill our regulatory obligations;
+• the ability to fulfill our regulatory obligations;
 
-•the ability to execute our business plan, key initiatives or new business ventures and the ability to keep up with changing customer demand;
+• the ability to execute our business plan, key initiatives or new business ventures and the ability to keep up with changing customer demand;
 
-•the representation of our business in the media;
+• the representation of our business in the media;
 
-•the accuracy of our financial statements, other financial and statistical information or sustainability-related disclosures;
+• the accuracy of our financial statements, other financial and statistical information or sustainability-related disclosures;
 
-•the accuracy of our financial guidance or other information provided to our investors;
+• the accuracy of our financial guidance or other information provided to our investors;
 
-•the quality of our corporate governance structure;
+• the quality of our corporate governance structure;
 
-•the quality of our products the reliability of our solutions and the accuracy of our information and data offerings;
+• the quality of our products the reliability of our solutions and the accuracy of our information and data offerings;
 
-•the quality of our disclosure controls or internal controls over financial reporting, including any failures in supervision;
+• the quality of our disclosure controls or internal controls over financial reporting, including any failures in supervision;
 
-•extreme price volatility on our markets;
+• extreme price volatility on our markets;
 
-•any negative publicity surrounding our listed companies or our listing rules;
+• any negative publicity surrounding our listed companies or our listing rules;
 
-•any negative publicity surrounding the use of our products and/or services by our customers, including in connection with emerging asset classes such as crypto assets; and
+• any negative publicity surrounding the use of our products and/or services by our customers, including in connection with emerging asset classes such as crypto assets; and
 
-•any misconduct, fraudulent activity or theft by our employees or other persons formerly or currently associated with us.
+• any misconduct, fraudulent activity or theft by our employees or other persons formerly or currently associated with us.
 
 Negative publicity or misrepresentations by third parties, particularly on social media, may adversely impact our credibility as a leader in the global capital markets and as a source for data and analytics. This may have an adverse effect on our brands, business and operating results. Damage to our reputation could cause some issuers not to list their securities on our exchanges or switch to a different exchange. Reputational damage may also reduce trading volumes or values on our exchanges or cause us to lose customers. This may have a material adverse effect on our business, financial condition and operating results.
 
@@ -1263,7 +1263,7 @@ Third parties may assert IP rights claims against us, which may be costly to def
 
 GENERAL RISK FACTORS
 
---- Chunk 77/306 | heading: PART I > Item 1A. Risk Factors | tokens: 401 ---
+--- Chunk 77/306 | heading: PART I > Item 1A. Risk Factors | tokens: 396 ---
 GENERAL RISK FACTORS
 
 We are a holding company that depends on cash flow from our subsidiaries to meet our obligations, and any restrictions on our subsidiaries’ ability to pay dividends or make other payments to us may have a material adverse effect on our results of operations and financial condition.
@@ -1276,29 +1276,29 @@ We may experience fluctuations in our operating results, which may adversely aff
 
 Our industry is risky and unpredictable and is directly affected by many national and international factors beyond our control, including:
 
-•economic, political and geopolitical market conditions;
+• economic, political and geopolitical market conditions;
 
-•evolving market or customer preferences for solutions provided locally or outside of the U.S.;
+• evolving market or customer preferences for solutions provided locally or outside of the U.S.;
 
-•natural disasters, terrorism, pandemics, war or other catastrophes;
+• natural disasters, terrorism, pandemics, war or other catastrophes;
 
-•broad trends in finance and technology;
+• broad trends in finance and technology;
 
-•changes in price levels and volatility in the stock markets;
+• changes in price levels and volatility in the stock markets;
 
-•the level and volatility of interest rates;
+• the level and volatility of interest rates;
 
-•volatility in commodity markets, including the energy markets;
+• volatility in commodity markets, including the energy markets;
 
-•inflation;
+• inflation;
 
-•disruptions or delays in our supply chains;
+• disruptions or delays in our supply chains;
 
-•changes in government monetary or tax policy;
+• changes in government monetary or tax policy;
 
-•the imposition of governmental economic sanctions or tariffs, on countries in which we do business or where we plan to expand our business or sell our products and services; and
+• the imposition of governmental economic sanctions or tariffs, on countries in which we do business or where we plan to expand our business or sell our products and services; and
 
-•the perceived attractiveness of the U.S. or European capital markets.
+• the perceived attractiveness of the U.S. or European capital markets.
 
 Any one of these factors could have a material adverse effect on our business, financial condition and operating results by causing a substantial decline in the financial services markets and reducing trading volumes or values.
 
@@ -1363,11 +1363,11 @@ Our organizational documents contain provisions that may be deemed to have an an
 
 Our certificate of incorporation and by-laws:
 
-•do not permit stockholders to act by written consent;
+• do not permit stockholders to act by written consent;
 
-•require certain advance notice for director nominations and actions to be taken at annual meetings; and
+• require certain advance notice for director nominations and actions to be taken at annual meetings; and
 
-•authorize the issuance of undesignated preferred stock, or “blank check” preferred stock, which could be issued by our board of directors without stockholder approval.
+• authorize the issuance of undesignated preferred stock, or “blank check” preferred stock, which could be issued by our board of directors without stockholder approval.
 
 Finally, many of the European countries where we operate regulated entities require prior governmental approval before an investor acquires 10% or greater of our common stock.
 
@@ -1458,17 +1458,17 @@ Total Quarter Ended December 31, 2025 > Employee transactions — Total Number o
 --- Chunk 93/306 | heading: PART II > Item 5. Market for Registrant’s Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities | tokens: 430 ---
 In the table above:
 
-•N/A - Not applicable.
+• N/A - Not applicable.
 
-•Employee transactions represents shares surrendered to us to satisfy tax withholding obligations arising from the vesting of restricted stock and PSUs previously issued to employees.
+• Employee transactions represents shares surrendered to us to satisfy tax withholding obligations arising from the vesting of restricted stock and PSUs previously issued to employees.
 
-•Shares listed under share repurchase program in the table above primarily include repurchases under ASR agreements.
+• Shares listed under share repurchase program in the table above primarily include repurchases under ASR agreements.
 
-◦In October 2025, we entered into a variable notional ASR agreement, in which we delivered $250 million to a third-party financial institution and received and immediately retired 1,812,219 shares of our common stock. In December 2025, upon the final settlement of this transaction, we received (i) an additional 504,401 shares, which were immediately retired, and (ii) a $45 million cash payment, which reflects the difference between the prepayment amount (maximum notional amount) and the final notional amount.
+◦ In October 2025, we entered into a variable notional ASR agreement, in which we delivered $250 million to a third-party financial institution and received and immediately retired 1,812,219 shares of our common stock. In December 2025, upon the final settlement of this transaction, we received (i) an additional 504,401 shares, which were immediately retired, and (ii) a $45 million cash payment, which reflects the difference between the prepayment amount (maximum notional amount) and the final notional amount.
 
-◦In November 2025, we entered into an ASR with a third-party financial institution to repurchase $75 million of common stock and received and immediately retired 697,512 shares of our common stock. In December 2025, upon the final settlement of this transaction, we received an additional 117,855 shares, which were immediately retired.
+◦ In November 2025, we entered into an ASR with a third-party financial institution to repurchase $75 million of common stock and received and immediately retired 697,512 shares of our common stock. In December 2025, upon the final settlement of this transaction, we received an additional 117,855 shares, which were immediately retired.
 
-•See “Share Repurchase Program,” of Note 12, “Nasdaq Stockholders’ Equity,” to the consolidated financial statements for further discussion of our share repurchase program.
+• See “Share Repurchase Program,” of Note 12, “Nasdaq Stockholders’ Equity,” to the consolidated financial statements for further discussion of our share repurchase program.
 
 PERFORMANCE GRAPH
 
@@ -1476,7 +1476,7 @@ The following performance graph and related information shall not be deemed “f
 
 The following graph compares the total return of our common stock to the Nasdaq Composite Index, the S&P 500 and S&P 500 GICS 4020 Index, our peer group, for the past five years. The figures represented below assume an initial investment of $100 in the common stock or index at the closing price on December 31, 2020 and the reinvestment of all dividends.
 
---- Chunk 94/306 | heading: PART II > Item 5. Market for Registrant’s Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities | tokens: 260 ---
+--- Chunk 94/306 | heading: PART II > Item 5. Market for Registrant’s Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities | tokens: 249 ---
 Year Ended December 31,*
 Nasdaq, Inc. — 2020: $100 | 2021: $160 | 2022: $142 | 2023: $137 | 2024: $185 | 2025: $235
 Nasdaq Composite Index — 2020: 100 | 2021: 122 | 2022: 82 | 2023: 119 | 2024: 154 | 2025: 187
@@ -1487,9 +1487,9 @@ COMPARISON OF 5 YEAR CUMULATIVE TOTAL RETURN
 
 Among Nasdaq, Inc., the Nasdaq Composite Index, the S&P 500 and S&P 500 GICS 4020 Index
 
-![829](ndaq-20251231_g3.gif)
+[image]
 
---- Chunk 95/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 498 ---
+--- Chunk 95/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 497 ---
 The following discussion and analysis of the financial condition and results of operations of Nasdaq refers to the year over year comparison for the fiscal years ended December 31, 2025 and 2024 and should be read in conjunction with our consolidated financial statements and related notes included in this Form 10-K, as well as the discussion under “Part I, Item 1A. Risk Factors.” For further discussion of our growth strategy, products and services, and competitive strengths, see “Part I, Item 1. Business.” For a similar discussion comparing the fiscal years ended December 31, 2024 and 2023, refer to “Part II, Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations” of our Annual Report on Form 10-K for the fiscal year ended December 31, 2024, which was previously filed with the SEC on February 21, 2025.
 
 Certain percentages and per share amounts herein may not sum or recalculate due to rounding.
@@ -1502,18 +1502,18 @@ We manage, operate and provide our products and services in three business segme
 
 2025 Highlights
 
-•Nasdaq extended its listing leadership in 2025 and achieved its seventh consecutive year as the top U.S. exchange by proceeds raised.
+• Nasdaq extended its listing leadership in 2025 and achieved its seventh consecutive year as the top U.S. exchange by proceeds raised.
 
-•In 2025, U.S. operating company IPOs on Nasdaq raised over $24 billion in proceeds. In 2025, Nasdaq set a record for listing transfers, with $1.2 trillion in annual switches for the first time including the largest exchange transfer on record.
+• In 2025, U.S. operating company IPOs on Nasdaq raised over $24 billion in proceeds. In 2025, Nasdaq set a record for listing transfers, with $1.2 trillion in annual switches for the first time including the largest exchange transfer on record.
 
-•Index achieved record net inflows of $99 billion in 2025, and exited the year with ETP AUM of $882 billion, an all-time high. Nasdaq launched 122 new Index products in 2025, with nearly half of the launches being international products and 32 new products in the institutional insurance annuity space.
+• Index achieved record net inflows of $99 billion in 2025, and exited the year with ETP AUM of $882 billion, an all-time high. Nasdaq launched 122 new Index products in 2025, with nearly half of the launches being international products and 32 new products in the institutional insurance annuity space.
 
-•The Financial Technology segment delivered 14% growth in ARR and revenue, reflecting an increase in new clients, cross-sells and upsells.
+• The Financial Technology segment delivered 14% growth in ARR and revenue, reflecting an increase in new clients, cross-sells and upsells.
 
 --- Chunk 96/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 344 ---
-•The Financial Technology segment delivered 14% growth in ARR and revenue, reflecting an increase in new clients, cross-sells and upsells.
+• The Financial Technology segment delivered 14% growth in ARR and revenue, reflecting an increase in new clients, cross-sells and upsells.
 
-•Market Services delivered record revenue, reflecting strength across U.S. cash equities and U.S. equities options volumes in 2025.
+• Market Services delivered record revenue, reflecting strength across U.S. cash equities and U.S. equities options volumes in 2025.
 
 Macroeconomic environment
 
@@ -1535,14 +1535,14 @@ Diluted earnings per share — Year Ended December 31, 2025: $3.09 | Year Ended 
 (in millions, except per share amounts)
 Cash dividends declared per common share — Year Ended December 31, 2025: $1.05 | Year Ended December 31, 2024: $0.94 | Year Ended December 31, 2023: $0.86 | Percentage Change 2025 vs. 2024: 11.7% | Percentage Change 2024 vs. 2023: 9.3%
 
---- Chunk 99/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 437 ---
+--- Chunk 99/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 426 ---
 In countries with currencies other than the U.S. dollar, revenues and expenses are translated using monthly average exchange rates. Impacts on our revenues less transaction-based expenses and operating income associated with fluctuations in foreign currency are discussed in more detail under “Item 7A. Quantitative and Qualitative Disclosures About Market Risk.”
 
 As discussed above, in October 2025, we sold our Solovis business, previously included in our Capital Access Platforms segment. Revenues, ARR and quarterly annualized SaaS revenues related to our Solovis business has been reclassified to “Other” for all periods presented to facilitate comparability.
 
 The following chart summarizes our ARR (in millions):
 
-![59](ndaq-20251231_g4.gif)
+[image]
 
 \* In the chart above, Other for 4Q23 and 4Q24 includes $25 million and $28 million, respectively.
 
@@ -1550,7 +1550,7 @@ ARR for a given period is the current annualized value derived from subscription
 
 The ARR chart includes:
 
---- Chunk 100/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 183 ---
+--- Chunk 100/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 171 ---
 The ARR chart includes:
 
 ▪ Capital Access Platforms
@@ -1563,7 +1563,7 @@ The ARR chart includes:
 
 The following chart summarizes our quarterly annualized SaaS revenues for December 31, 2025, 2024 and 2023 (in millions):
 
-![1642](ndaq-20251231_g5.gif)
+[image]
 
 \* In the chart above, Other for 4Q23 and 4Q24 includes $25 million and $28 million, respectively.
 
@@ -1585,10 +1585,10 @@ Transaction rebates — Year Ended December 31, 2025: (2,572) | Year Ended Decem
 Brokerage, clearance and exchange fees — Year Ended December 31, 2025: (441) | Year Ended December 31, 2024: (725) | Year Ended December 31, 2023: (331) | Percentage Change 2025 vs. 2024: (39.1)% | Percentage Change 2024 vs. 2023: 119.1%
 Total revenues less transaction- based expenses — Year Ended December 31, 2025: $5,249 | Year Ended December 31, 2024: $4,649 | Year Ended December 31, 2023: $3,895 | Percentage Change 2025 vs. 2024: 12.9% | Percentage Change 2024 vs. 2023: 19.4%
 
---- Chunk 103/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 432 ---
+--- Chunk 103/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 421 ---
 The following charts present our Capital Access Platforms, Financial Technology and Market Services segments as a percentage of our total revenues, less transaction-based expenses.
 
-![270](ndaq-20251231_g6.gif)
+[image]
 
 Capital Access Platforms
 
@@ -1621,12 +1621,12 @@ Total new listings > The Nasdaq Stock Market — Number of listed companies As o
 Total new listings > Exchanges that comprise Nasdaq Nordic and Nasdaq Baltic — Number of listed companies As of December 31 2025: 1,119 | Number of listed companies As of December 31 2024: 1,174 | Number of listed companies As of December 31 2023: 1,218
 Total new listings > ARR (in millions) — Number of listed companies As of December 31 2025: $764 | Number of listed companies As of December 31 2024: $691 | Number of listed companies As of December 31 2023: $682
 
---- Chunk 106/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 185 ---
+--- Chunk 106/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 184 ---
 In the tables above:
 
-•The number of total listed companies on The Nasdaq Stock Market for the years ended December 31, 2025, 2024 and 2023 included 1,112, 768 and 600 ETPs, respectively.
+• The number of total listed companies on The Nasdaq Stock Market for the years ended December 31, 2025, 2024 and 2023 included 1,112, 768 and 600 ETPs, respectively.
 
-•IPOs, new listings (which includes IPOs) and total listed companies for exchanges that comprise Nasdaq Nordic and Nasdaq Baltic represent companies listed on the Nasdaq Nordic and Nasdaq Baltic exchanges and companies listed on the alternative markets of Nasdaq First North.
+• IPOs, new listings (which includes IPOs) and total listed companies for exchanges that comprise Nasdaq Nordic and Nasdaq Baltic represent companies listed on the Nasdaq Nordic and Nasdaq Baltic exchanges and companies listed on the alternative markets of Nasdaq First North.
 
 Data & Listing Services revenues increased for the year ended December 31, 2025 compared with the same period in 2024 due to new data sales, usage and pricing, increased annual listings revenues due to new listings and the favorable impact from changes in foreign currency rates, partially offset by delistings.
 
@@ -1987,39 +1987,39 @@ Non-GAAP diluted earnings per share — 2025: $3.48 | 2024: $2.82 | 2023: $2.82
 --- Chunk 132/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 485 ---
 We believe that excluding the above items, described further below, from the non-GAAP net income attributable to Nasdaq provides a more meaningful analysis of Nasdaq’s ongoing operating performance and comparisons in Nasdaq’s performance between periods:
 
-•Adenza purchase accounting adjustment: As discussed in Note 3, “Revenue from Contracts with Customers,” to the consolidated financial statements, during the third quarter of 2024, as part of finalizing the purchase accounting of the Adenza acquisition, a one-time net revenue reduction of $32 million was recorded in our Financial Technology segment, reflecting the net impact of the accounting change on AxiomSL subscription revenue from the date of the Adenza acquisition. For purposes of evaluating the performance of our segments, we have excluded the reduction of $34 million as this relates to the prior year impact of this change. We have not excluded the offsetting $2 million 2024 impact of this change.
+• Adenza purchase accounting adjustment: As discussed in Note 3, “Revenue from Contracts with Customers,” to the consolidated financial statements, during the third quarter of 2024, as part of finalizing the purchase accounting of the Adenza acquisition, a one-time net revenue reduction of $32 million was recorded in our Financial Technology segment, reflecting the net impact of the accounting change on AxiomSL subscription revenue from the date of the Adenza acquisition. For purposes of evaluating the performance of our segments, we have excluded the reduction of $34 million as this relates to the prior year impact of this change. We have not excluded the offsetting $2 million 2024 impact of this change.
 
-•Amortization expense of acquired intangible assets: We amortize intangible assets acquired in connection with various acquisitions. Intangible asset amortization expense can vary from period to period due to episodic acquisitions completed, rather than from our ongoing business operations. As such, if intangible asset amortization is included in performance measures, it is more difficult to assess the day-to-day operating performance of the businesses and the relative operating performance of the businesses between periods.
+• Amortization expense of acquired intangible assets: We amortize intangible assets acquired in connection with various acquisitions. Intangible asset amortization expense can vary from period to period due to episodic acquisitions completed, rather than from our ongoing business operations. As such, if intangible asset amortization is included in performance measures, it is more difficult to assess the day-to-day operating performance of the businesses and the relative operating performance of the businesses between periods.
 
-•Merger and strategic initiatives expense: We have pursued various strategic initiatives and completed acquisitions and divestitures in recent years that have resulted in expenses which would not have otherwise been incurred. The frequency and the amount of such expenses vary significantly based on the size, timing and complexity of the transactions. These expenses primarily include integration costs, as well as legal, due diligence and other third-party transaction costs.
+• Merger and strategic initiatives expense: We have pursued various strategic initiatives and completed acquisitions and divestitures in recent years that have resulted in expenses which would not have otherwise been incurred. The frequency and the amount of such expenses vary significantly based on the size, timing and complexity of the transactions. These expenses primarily include integration costs, as well as legal, due diligence and other third-party transaction costs.
 
-◦For the years ended December 31, 2025, and December 31, 2024, these costs included Adenza integration costs and other strategic initiative costs. For the year ended December 31, 2024, these costs were partially offset by the recognition of a termination fee received by Nasdaq in 2024, related to the termination of the proposed divestiture of our Nordic power futures business. For the year ended December 31, 2025, these costs included a repayment of this fee due to the sale of the Nordic power futures business to another buyer, as designated in the settlement agreement.
+◦ For the years ended December 31, 2025, and December 31, 2024, these costs included Adenza integration costs and other strategic initiative costs. For the year ended December 31, 2024, these costs were partially offset by the recognition of a termination fee received by Nasdaq in 2024, related to the termination of the proposed divestiture of our Nordic power futures business. For the year ended December 31, 2025, these costs included a repayment of this fee due to the sale of the Nordic power futures business to another buyer, as designated in the settlement agreement.
 
---- Chunk 133/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 461 ---
-•Restructuring charges: In the fourth quarter of 2023, following the closing of the Adenza acquisition, our management approved, committed to and initiated a restructuring program, to optimize our efficiencies as a combined organization. We further expanded this program in the fourth quarter of 2024 following the achievement of our initial targets. Actions taken as part of this program were completed as of December 31, 2025, while certain costs may be recognized in the first half of 2026. In addition, we completed our divisional realignment program in September 2024. See Note 20, “Restructuring Charges,” to the consolidated financial statements for further discussion of these programs.
+--- Chunk 133/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 460 ---
+• Restructuring charges: In the fourth quarter of 2023, following the closing of the Adenza acquisition, our management approved, committed to and initiated a restructuring program, to optimize our efficiencies as a combined organization. We further expanded this program in the fourth quarter of 2024 following the achievement of our initial targets. Actions taken as part of this program were completed as of December 31, 2025, while certain costs may be recognized in the first half of 2026. In addition, we completed our divisional realignment program in September 2024. See Note 20, “Restructuring Charges,” to the consolidated financial statements for further discussion of these programs.
 
-•Lease asset impairments: For the year ended December 31, 2023, this included impairment charges related to our operating lease assets and leasehold improvements associated with vacating certain leased office space, which are recorded in occupancy and depreciation and amortization expense in the Consolidated Statements of Income.
+• Lease asset impairments: For the year ended December 31, 2023, this included impairment charges related to our operating lease assets and leasehold improvements associated with vacating certain leased office space, which are recorded in occupancy and depreciation and amortization expense in the Consolidated Statements of Income.
 
-•Gain/loss on extinguishment of debt: For the year ended December 31, 2025 we recorded a gain on early extinguishment of debt and for the year ended December 31, 2024 we recorded a loss on early extinguishment of debt. These gains and losses were recorded under general, administrative and other expense in the Consolidated Statements of Income. See Note 9, “Debt Obligations,” to the consolidated financial statements for further discussion.
+• Gain/loss on extinguishment of debt: For the year ended December 31, 2025 we recorded a gain on early extinguishment of debt and for the year ended December 31, 2024 we recorded a loss on early extinguishment of debt. These gains and losses were recorded under general, administrative and other expense in the Consolidated Statements of Income. See Note 9, “Debt Obligations,” to the consolidated financial statements for further discussion.
 
-•Net gain on divestitures: For the year ended December 31, 2025, this includes net gains on divestitures of our Solovis business, Nordic power futures business and our Nasdaq Risk Modelling for Catastrophes business. These gains are net of costs to sell. See Note 4, “Acquisition and Divestitures,” to the consolidated financial statements for further discussion of these transactions.
+• Net gain on divestitures: For the year ended December 31, 2025, this includes net gains on divestitures of our Solovis business, Nordic power futures business and our Nasdaq Risk Modelling for Catastrophes business. These gains are net of costs to sell. See Note 4, “Acquisition and Divestitures,” to the consolidated financial statements for further discussion of these transactions.
 
-•Net (income) loss from unconsolidated investees: We exclude our share of the earnings and losses of our equity method investments. This provides a more meaningful analysis of Nasdaq’s ongoing operating performance or comparisons in Nasdaq’s performance between periods. See “Equity Method Investments,” of Note 6, “Investments,” to the consolidated financial statements for further discussion.
+• Net (income) loss from unconsolidated investees: We exclude our share of the earnings and losses of our equity method investments. This provides a more meaningful analysis of Nasdaq’s ongoing operating performance or comparisons in Nasdaq’s performance between periods. See “Equity Method Investments,” of Note 6, “Investments,” to the consolidated financial statements for further discussion.
 
---- Chunk 134/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 456 ---
-•Legal and regulatory matters: For the year ended December 31, 2025, this includes accruals relating to certain legal matters, which are recorded in professional and contract services in the Consolidated Statements of Income. For the year ended December 31, 2024, this primarily related to the settlement of an SFSA fine, and accruals related to certain legal matters, which are recorded in regulatory expense and professional and contract services in the Consolidated Statements of Income.
+--- Chunk 134/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 455 ---
+• Legal and regulatory matters: For the year ended December 31, 2025, this includes accruals relating to certain legal matters, which are recorded in professional and contract services in the Consolidated Statements of Income. For the year ended December 31, 2024, this primarily related to the settlement of an SFSA fine, and accruals related to certain legal matters, which are recorded in regulatory expense and professional and contract services in the Consolidated Statements of Income.
 
-•Pension settlement charge: For the years ended December 31, 2024 and 2023, we recorded a pre-tax charge as a result of settling our U.S. pension plan. The plan was terminated and partially settled in 2023, with final settlement occurring during the first quarter of 2024. The pre-tax charge is recorded in compensation and benefits expense in the Consolidated Statements of Income.
+• Pension settlement charge: For the years ended December 31, 2024 and 2023, we recorded a pre-tax charge as a result of settling our U.S. pension plan. The plan was terminated and partially settled in 2023, with final settlement occurring during the first quarter of 2024. The pre-tax charge is recorded in compensation and benefits expense in the Consolidated Statements of Income.
 
-•Other (gain) loss: For the years ended December 31, 2025 and 2024, other items primarily include net gains and losses from strategic investments entered into through our corporate venture program, which are included in other income (loss) in our Consolidated Statements of Income.
+• Other (gain) loss: For the years ended December 31, 2025 and 2024, other items primarily include net gains and losses from strategic investments entered into through our corporate venture program, which are included in other income (loss) in our Consolidated Statements of Income.
 
-•Total non-GAAP tax adjustments: The non-GAAP adjustment to the income tax provision for all periods primarily includes the tax impact of each non-GAAP adjustment.
+• Total non-GAAP tax adjustments: The non-GAAP adjustment to the income tax provision for all periods primarily includes the tax impact of each non-GAAP adjustment.
 
-•Other tax adjustments: For the years ended December 31, 2025 and 2024, other tax adjustments reflect a tax benefit related to payments made to certain former Adenza employees. For the year ended December 31, 2025, this also reflects tax benefits from the revaluation of deferred tax liabilities to a lower blended state and local tax rate, revised state positions related to prior years, the release of a prior year reserve following a favorable audit settlement and a divestiture in 2025. For the year ended December 31, 2024, other tax adjustments reflect a one-time net tax expense of $33 million related to the completion of an intra-group transfer of certain IP assets to our U.S. headquarters as well as a tax benefit related to return to provision adjustments and release of tax reserves due to lapse in statute of limitations.
+• Other tax adjustments: For the years ended December 31, 2025 and 2024, other tax adjustments reflect a tax benefit related to payments made to certain former Adenza employees. For the year ended December 31, 2025, this also reflects tax benefits from the revaluation of deferred tax liabilities to a lower blended state and local tax rate, revised state positions related to prior years, the release of a prior year reserve following a favorable audit settlement and a divestiture in 2025. For the year ended December 31, 2024, other tax adjustments reflect a one-time net tax expense of $33 million related to the completion of an intra-group transfer of certain IP assets to our U.S. headquarters as well as a tax benefit related to return to provision adjustments and release of tax reserves due to lapse in statute of limitations.
 
 LIQUIDITY AND CAPITAL RESOURCES
 
---- Chunk 135/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 503 ---
+--- Chunk 135/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 506 ---
 LIQUIDITY AND CAPITAL RESOURCES
 
 Historically, we have funded our operating activities and met our commitments through cash generated by operations, augmented by the periodic issuance of debt. Currently, our cost and availability of funding remain healthy. We continue to prudently assess our capital deployment strategy through balancing internal investments, debt repayments, and shareholder return activity, including dividends and share repurchases, and potential acquisitions.
@@ -2028,21 +2028,21 @@ We expect that our current cash and cash equivalents combined with cash flows pr
 
 Principal factors that could affect the availability of our internally-generated funds include:
 
-•deterioration of our revenues in any of our business segments;
+• deterioration of our revenues in any of our business segments;
 
-•changes in regulatory and working capital requirements; and
+• changes in regulatory and working capital requirements; and
 
-•an increase in our expenses.
+• an increase in our expenses.
 
 Principal factors that could affect our ability to obtain cash from external sources include:
 
-•operating covenants contained in our credit facilities that limit our total borrowing capacity;
+• operating covenants contained in our credit facilities that limit our total borrowing capacity;
 
-•credit rating downgrades, which could limit our access to additional debt;
+• credit rating downgrades, which could limit our access to additional debt;
 
-•a significant decrease in the market price of our common stock; and
+• a significant decrease in the market price of our common stock; and
 
-•volatility or disruption in the public debt and equity markets.
+• volatility or disruption in the public debt and equity markets.
 
 The following table summarizes selected measures of our liquidity and capital resources:
 
@@ -2057,30 +2057,30 @@ The increase in working capital from December 31, 2024 to December 31, 2025, exc
 
 Decreased current liabilities were primarily due to:
 
-•a decrease in Section 31 fees payable due to a decrease in the fee rate, partially offset by
+• a decrease in Section 31 fees payable due to a decrease in the fee rate, partially offset by
 
-•higher deferred revenue due to higher average billings,
+• higher deferred revenue due to higher average billings,
 
-•an increase in other current liabilities,
+• an increase in other current liabilities,
 
-•an increase in accrued personnel costs, and
+• an increase in accrued personnel costs, and
 
-•an increase in short-term debt due to the reclassification of 2026 Notes, partially offset by the repayment of the 2025 Notes.
-
---- Chunk 136/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 493 ---
-•an increase in short-term debt due to the reclassification of 2026 Notes, partially offset by the repayment of the 2025 Notes.
+• an increase in short-term debt due to the reclassification of 2026 Notes, partially offset by the repayment of the 2025 Notes.
 
 Increased current assets were primarily due to:
 
-•higher restricted cash primarily due to the movement of regulatory capital to shorter term investments qualifying as cash equivalents,
+--- Chunk 136/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 461 ---
+Increased current assets were primarily due to:
 
-•an increase in other current assets, and
+• higher restricted cash primarily due to the movement of regulatory capital to shorter term investments qualifying as cash equivalents,
 
-•an increase in cash and cash equivalents; partially offset by
+• an increase in other current assets, and
 
-•lower financial investments at fair value offset in restricted cash above, and
+• an increase in cash and cash equivalents; partially offset by
 
-•decreased receivables, net due to timing of billings.
+• lower financial investments at fair value offset in restricted cash above, and
+
+• decreased receivables, net due to timing of billings.
 
 Cash and Cash Equivalents
 
@@ -2164,7 +2164,7 @@ Cash Dividends on Common Stock
 
 The following table presents our quarterly cash dividends paid per common share on our outstanding common stock:
 
---- Chunk 140/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 502 ---
+--- Chunk 140/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 490 ---
 The following table presents our quarterly cash dividends paid per common share on our outstanding common stock:
 
 First quarter — 2025: $0.24 | 2024: $0.22
@@ -2181,7 +2181,7 @@ Our outstanding debt obligations, by contractual maturity, at December 31, 2025 
 
 n U.S. Notes  n Euro Notes
 
-![11002](ndaq-20251231_g7.gif)
+[image]
 
 During 2025, we paid $426 million, excluding accrued interest, to repurchase an aggregate book value of $444 million of our 2026 Notes, 2028 Notes, 2034 Notes and 2052 Notes. We also repaid in full, at maturity, the 2025 Notes for an aggregate of $400 million.
 
@@ -2189,7 +2189,7 @@ As of December 31, 2025, the weighted average interest rate on our debt obligati
 
 As of December 31, 2025, we were in compliance with the covenants of all of our debt obligations.
 
---- Chunk 141/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 459 ---
+--- Chunk 141/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 458 ---
 As of December 31, 2025, we were in compliance with the covenants of all of our debt obligations.
 
 See Note 9, “Debt Obligations,” to the consolidated financial statements for further discussion of our debt obligations.
@@ -2206,26 +2206,26 @@ Total — Total: $16,384 | <1 year: $994 | 1-3 years: $1,840 | 3-5 years: $2,378
 
 In the table above:
 
-•Debt obligations by contractual maturity include both principal and interest obligations. For our Euro Notes, interest is calculated on an actual basis while all other debt obligations were primarily calculated on a 365-day basis at the contractual fixed rate multiplied by the aggregate principal amount as of December 31, 2025. See Note 9, “Debt Obligations,” to the consolidated financial statements for further discussion.
+• Debt obligations by contractual maturity include both principal and interest obligations. For our Euro Notes, interest is calculated on an actual basis while all other debt obligations were primarily calculated on a 365-day basis at the contractual fixed rate multiplied by the aggregate principal amount as of December 31, 2025. See Note 9, “Debt Obligations,” to the consolidated financial statements for further discussion.
 
-•Operating lease obligations represent our undiscounted operating lease liabilities as of December 31, 2025, as well as legally binding minimum lease payments for leases signed but not yet commenced. See Note 16, “Leases,” to the consolidated financial statements for further discussion of our leases.
+• Operating lease obligations represent our undiscounted operating lease liabilities as of December 31, 2025, as well as legally binding minimum lease payments for leases signed but not yet commenced. See Note 16, “Leases,” to the consolidated financial statements for further discussion of our leases.
 
---- Chunk 142/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 459 ---
-•Purchase obligations primarily represent minimum outstanding obligations due under software license agreements. The balance as of December 31, 2025 is primarily comprised of our multi-year Amazon Web Services partnership contract, which we expanded and extended in the first quarter of 2025. This contract will benefit both our Financial Technology and Market Services segments, including their modernization. The expansion of this contract is not expected to increase our cloud expense compared to our expectation over the short term or the life of the contract, and preserves flexibility beyond our forecast.
+--- Chunk 142/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 458 ---
+• Purchase obligations primarily represent minimum outstanding obligations due under software license agreements. The balance as of December 31, 2025 is primarily comprised of our multi-year Amazon Web Services partnership contract, which we expanded and extended in the first quarter of 2025. This contract will benefit both our Financial Technology and Market Services segments, including their modernization. The expansion of this contract is not expected to increase our cloud expense compared to our expectation over the short term or the life of the contract, and preserves flexibility beyond our forecast.
 
 OFF-BALANCE SHEET ARRANGEMENTS
 
 For discussion of off-balance sheet arrangements see:
 
-•Note 15, “Clearing Operations,” to the consolidated financial statements for further discussion of our non-cash default fund contributions and margin deposits received for clearing operations; and
+• Note 15, “Clearing Operations,” to the consolidated financial statements for further discussion of our non-cash default fund contributions and margin deposits received for clearing operations; and
 
-•Note 18, “Commitments, Contingencies and Guarantees,” to the consolidated financial statements for further discussion of:
+• Note 18, “Commitments, Contingencies and Guarantees,” to the consolidated financial statements for further discussion of:
 
-◦Guarantees issued and credit facilities available;
+◦ Guarantees issued and credit facilities available;
 
-◦Other guarantees; and
+◦ Other guarantees; and
 
-◦Routing brokerage activities.
+◦ Routing brokerage activities.
 
 QUANTITATIVE AND QUALITATIVE DISCLOSURES ABOUT MARKET RISK
 
@@ -2263,7 +2263,7 @@ Year Ended December 31, 2025 > Percentage of operating income — Euro: 8.6% | S
 Year Ended December 31, 2025 > Impact of a 10% adverse currency fluctuation on revenues less transaction- based expenses — Euro: $(40) | Swedish Krona: $(17) | Canadian Dollar: $(3) | Other Foreign Currencies: $(18) | U.S. Dollar: $—
 Year Ended December 31, 2025 > Impact of a 10% adverse currency fluctuation on operating income — Euro: $(20) | Swedish Krona: $(7) | Canadian Dollar: $(15) | Other Foreign Currencies: $(23) | U.S. Dollar: $—
 
---- Chunk 145/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 379 ---
+--- Chunk 145/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 377 ---
 (in millions, except currency rate)
 Year Ended December 31, 2024
 Year Ended December 31, 2024 > Average FX rate to the U.S. dollar — Euro: 1.082 | Swedish Krona: 0.095 | Canadian Dollar: 0.730 | Other Foreign Currencies: # | U.S. Dollar: N/A
@@ -2272,7 +2272,7 @@ Year Ended December 31, 2024 > Percentage of operating income — Euro: 11.8% | 
 Year Ended December 31, 2024 > Impact of a 10% adverse currency fluctuation on revenues less transaction- based expenses — Euro: $(37) | Swedish Krona: $(16) | Canadian Dollar: $(3) | Other Foreign Currencies: $(17) | U.S. Dollar: $—
 Year Ended December 31, 2024 > Impact of a 10% adverse currency fluctuation on operating income — Euro: $(21) | Swedish Krona: $(11) | Canadian Dollar: $(14) | Other Foreign Currencies: $(19) | U.S. Dollar: $—
 
-#Represents multiple foreign currency rates. N/ANot applicable.
+# Represents multiple foreign currency rates. N/A Not applicable.
 
 The adverse impacts shown in the preceding tables should be viewed individually by currency and not in aggregate, due to the correlation between changes in exchange rates for certain currencies.
 
@@ -2306,19 +2306,19 @@ Our subsidiary, Nasdaq Execution Services, may be exposed to credit risk due to 
 
 Pursuant to the rules of the NSCC and Nasdaq Execution Services’ clearing agreement, Nasdaq Execution Services is liable for any losses incurred due to a counterparty or a clearing agent’s failure to satisfy its contractual obligations, either by making payment or delivering securities. Adverse movements in the prices of securities that are subject to these transactions can increase our credit risk. However, we believe that the risk of material loss is limited, as Nasdaq Execution Services’ customers are not permitted to trade on margin and NSCC rules limit counterparty risk on self-cleared transactions by establishing credit limits and capital deposit requirements for all brokers that clear with NSCC. Historically, Nasdaq Execution Services has never incurred a liability due to a customer’s failure to satisfy its contractual obligations as counterparty to a system trade. Credit difficulties or insolvency, or the perceived possibility of credit difficulties or insolvency, of one or more larger or visible market participants could also result in market-wide credit difficulties or other market disruptions.
 
---- Chunk 149/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 422 ---
+--- Chunk 149/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 421 ---
 We have credit risk related to transaction and subscription-based revenues that are billed to customers on a monthly or quarterly basis, in arrears. Our potential exposure to credit losses on these transactions is represented by the receivable balances in the Consolidated Balance Sheets. We review and evaluate changes in the status of our counterparties’ creditworthiness. Credit losses such as those described above could adversely affect our consolidated financial position and results of operations.
 
 We also are exposed to credit risk through our clearing operations with Nasdaq Clearing. See Note 15, “Clearing Operations,” to the consolidated financial statements for further discussion. Our clearinghouse holds material amounts of clearing member cash deposits, which are held or invested primarily to provide security of capital while minimizing credit, market and liquidity risks. While we seek to achieve a reasonable rate of return, we are primarily concerned with preservation of capital and managing the risks associated with these deposits. As the clearinghouse may remit to the members interest earned at prevailing market rates, less a spread, this could include negative or reduced yield due to market conditions. The following is a summary of the risks associated with these deposits and how these risks are mitigated.
 
-•Credit Risk: When the clearinghouse has the ability to hold cash collateral at a central bank, the clearinghouse utilizes its access to the central bank system to minimize credit risk exposures. When funds are not held at a central bank, we seek to substantially mitigate credit risk by ensuring that investments are primarily placed in large, highly rated financial institutions, highly rated government debt instruments and other creditworthy counterparties.
+• Credit Risk: When the clearinghouse has the ability to hold cash collateral at a central bank, the clearinghouse utilizes its access to the central bank system to minimize credit risk exposures. When funds are not held at a central bank, we seek to substantially mitigate credit risk by ensuring that investments are primarily placed in large, highly rated financial institutions, highly rated government debt instruments and other creditworthy counterparties.
 
-•Liquidity Risk: Liquidity risk is the risk a clearinghouse may not be able to meet its payment obligations in the right currency, in the right place and the right time. To mitigate this risk, the clearinghouse monitors liquidity requirements closely and maintains funds and assets in a manner which minimizes the risk of loss or delay in the access by the clearinghouse to such funds and assets. For example, holding funds with a central bank where possible or investing in highly liquid government debt instruments serves to reduce liquidity risks.
+• Liquidity Risk: Liquidity risk is the risk a clearinghouse may not be able to meet its payment obligations in the right currency, in the right place and the right time. To mitigate this risk, the clearinghouse monitors liquidity requirements closely and maintains funds and assets in a manner which minimizes the risk of loss or delay in the access by the clearinghouse to such funds and assets. For example, holding funds with a central bank where possible or investing in highly liquid government debt instruments serves to reduce liquidity risks.
 
 --- Chunk 150/306 | heading: PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations | tokens: 466 ---
-•Interest Rate Risk: Interest rate risk is the risk that interest rates rise causing the value of purchased securities to decline. If we were required to sell securities prior to maturity, and interest rates had risen, the sale of the securities might be made at a loss relative to the latest market price. Our clearinghouse seeks to manage this risk by making short-term investments of members’ cash deposits. In addition, the clearinghouse investment guidelines allow for direct purchases or repurchase agreements with short dated maturities of high quality sovereign debt (for example, European government and U.S. Treasury securities), central bank certificates and multilateral development bank debt instruments.
+• Interest Rate Risk: Interest rate risk is the risk that interest rates rise causing the value of purchased securities to decline. If we were required to sell securities prior to maturity, and interest rates had risen, the sale of the securities might be made at a loss relative to the latest market price. Our clearinghouse seeks to manage this risk by making short-term investments of members’ cash deposits. In addition, the clearinghouse investment guidelines allow for direct purchases or repurchase agreements with short dated maturities of high quality sovereign debt (for example, European government and U.S. Treasury securities), central bank certificates and multilateral development bank debt instruments.
 
-•Security Issuer Risk: Security issuer risk is the risk that an issuer of a security defaults on its payment when the security matures. This risk is mitigated by limiting allowable investments and collateral under reverse repurchase agreements to high quality sovereign, government agency or multilateral development bank debt instruments.
+• Security Issuer Risk: Security issuer risk is the risk that an issuer of a security defaults on its payment when the security matures. This risk is mitigated by limiting allowable investments and collateral under reverse repurchase agreements to high quality sovereign, government agency or multilateral development bank debt instruments.
 
 CRITICAL ACCOUNTING POLICIES AND ESTIMATES
 
@@ -2488,12 +2488,12 @@ Total — Number of shares to be issued upon exercise of outstanding options, wa
 
 In the table above:
 
-•As of December 31, 2025, we also had 6,298,594 shares to be issued upon vesting of outstanding restricted stock and PSUs.
+• As of December 31, 2025, we also had 6,298,594 shares to be issued upon vesting of outstanding restricted stock and PSUs.
 
 --- Chunk 168/306 | heading: PART III > Item 12. Security Ownership of Certain Beneficial Owners and Management and Related Stockholder Matters | tokens: 108 ---
-•As of December 31, 2025, we also had 6,298,594 shares to be issued upon vesting of outstanding restricted stock and PSUs.
+• As of December 31, 2025, we also had 6,298,594 shares to be issued upon vesting of outstanding restricted stock and PSUs.
 
-•The number of shares remaining available for future issuance under equity compensation plans (excluding shares reflected in column (a) includes 21,559,043 shares of common stock that may be awarded pursuant to the Equity Plan and (b) 10,077,218 shares of common stock that may be issued pursuant to the ESPP.
+• The number of shares remaining available for future issuance under equity compensation plans (excluding shares reflected in column (a) includes 21,559,043 shares of common stock that may be awarded pursuant to the Equity Plan and (b) 10,077,218 shares of common stock that may be issued pursuant to the ESPP.
 
 --- Chunk 169/306 | heading: PART III > Item 13. Certain Relationships and Related Transactions, and Director Independence | tokens: 88 ---
 Information about certain relationships and related transactions, as required by Item 404 of Regulation S-K, is incorporated herein by reference from the discussion under the heading “Other Items - Certain Relationships and Related Transactions” in the Proxy Statement. Information about director independence, as required by Item 407(a) of Regulation S-K, is incorporated herein by reference from the discussion under the heading “Our Board - Director Nominees” in the Proxy Statement.
@@ -2620,7 +2620,7 @@ Exhibit Number
 101 | The following materials from the Nasdaq, Inc. Annual Report on Form 10-K for the year ended December 31, 2025, formatted in iXBRL (Inline eXtensible Business Reporting Language): (i) Consolidated Balance Sheets as of December 31, 2025 and December 31, 2024; (ii) Consolidated Statements of Income for the years ended December 31, 2025, 2024 and 2023 (iii) Consolidated Statements of Comprehensive Income for the years ended December 31, 2025, 2024 and 2023; (iv) Consolidated Statements of Changes in Stockholders’ Equity for the years ended December 31, 2025, 2024 and 2023; (v) Consolidated Statements of Cash Flows for the years ended December 31, 2025, 2024 and 2023; and (vi) notes to consolidated financial statements.
 104 | Cover Page Interactive Data File, formatted in iXBRL and contained in Exhibit 101.
 
-\*Management contract or compensatory plan or arrangement.
+\* Management contract or compensatory plan or arrangement.
 
 † Schedules have been omitted pursuant to Items 601(b)(2)(ii) or 601(b)(10)(iv) of Regulation S-K.
 
@@ -2885,7 +2885,7 @@ Comprehensive income — 2025: 2,113 | 2024: 940 | 2023: 1,124
 Comprehensive loss attributable to noncontrolling interests — 2025: 1 | 2024: 2 | 2023: 2
 Comprehensive income attributable to Nasdaq — 2025: $2,114 | 2024: $942 | 2023: $1,126
 
-(1)Primarily relates to the tax effect of unrealized gains and losses on our Euro Notes.
+(1) Primarily relates to the tax effect of unrealized gains and losses on our Euro Notes.
 
 See accompanying notes to consolidated financial statements.
 
@@ -3035,7 +3035,7 @@ Cash paid for:
 Cash paid for > Interest paid — 2025: $354 | 2024: $405 | 2023: $177
 Cash paid for > Income taxes paid, net of refunds — 2025: $373 | 2024: $358 | 2023: $254
 
-(1)See "Default Fund Contributions and Margin Deposits," of Note 15, "Clearing Operations," for further details.
+(1) See "Default Fund Contributions and Margin Deposits," of Note 15, "Clearing Operations," for further details.
 
 See accompanying notes to consolidated financial statements.
 
@@ -3393,11 +3393,11 @@ U.S. Tape Plans
 
 For U.S. Tape plans, revenues are collected monthly based on published fee schedules and distributed quarterly to the U.S. exchanges based on a formula required by Regulation NMS that takes into account both trading and quoting activity. These revenues are presented on a net basis as all indicators of principal-versus-agent reporting under U.S. GAAP have been considered in analyzing the appropriate presentation of the revenue sharing. The following are primary indicators of net reporting:
 
-•As administrator of the UTP plan, we facilitate, but do not direct, the collection and distribution of fees on behalf of plan participants. As a participant, we share in the net distribution of revenues according to the plan on the same terms as all other plan participants.
+• As administrator of the UTP plan, we facilitate, but do not direct, the collection and distribution of fees on behalf of plan participants. As a participant, we share in the net distribution of revenues according to the plan on the same terms as all other plan participants.
 
-•Key decisions, including fee levels and other plan actions, are made by the plan’s operating committee. The committee, which includes all participants (including us solely in our role as a participant), sets distributor and subscriber fees and oversees plan activities, subject to SEC approval.
+• Key decisions, including fee levels and other plan actions, are made by the plan’s operating committee. The committee, which includes all participants (including us solely in our role as a participant), sets distributor and subscriber fees and oversees plan activities, subject to SEC approval.
 
-•The participants collectively share the risks and rewards of the plan. Credit risk and variability in distributions are shared proportionally under the plan, consistent with an agent relationship for the administrator.
+• The participants collectively share the risks and rewards of the plan. Credit risk and variability in distributions are shared proportionally under the plan, consistent with an agent relationship for the administrator.
 
 Other Revenues
 
@@ -3444,11 +3444,11 @@ Fair value is defined as the price that would be received from selling an asset 
 
 These two types of inputs create the following fair value hierarchy:
 
-•Level 1: Quoted prices for identical instruments in active markets.
+• Level 1: Quoted prices for identical instruments in active markets.
 
-•Level 2: Quoted prices for similar instruments in active markets; quoted prices for identical or similar instruments in markets that are not active; and model-derived valuations whose inputs are observable or whose significant value drivers are observable.
+• Level 2: Quoted prices for similar instruments in active markets; quoted prices for identical or similar instruments in markets that are not active; and model-derived valuations whose inputs are observable or whose significant value drivers are observable.
 
-•Level 3: Instruments whose significant value drivers are unobservable.
+• Level 3: Instruments whose significant value drivers are unobservable.
 
 This hierarchy requires the use of observable market data when available.
 
@@ -3467,14 +3467,14 @@ We have evaluated subsequent events through the issuance date of this Annual Rep
 
 Recently Adopted Accounting Pronouncements
 
-•In December 2023, the FASB issued ASU 2023-09, “Income Taxes (Topic 740): Improvements to Income Tax Disclosures.” The guidance enhances income tax disclosure requirements by requiring public entities to provide additional information in its tax rate reconciliation and additional disclosures about income taxes paid. We adopted this update on a prospective basis during the current period. See Note 17, “Income Taxes,” for the expanded disclosures.
+• In December 2023, the FASB issued ASU 2023-09, “Income Taxes (Topic 740): Improvements to Income Tax Disclosures.” The guidance enhances income tax disclosure requirements by requiring public entities to provide additional information in its tax rate reconciliation and additional disclosures about income taxes paid. We adopted this update on a prospective basis during the current period. See Note 17, “Income Taxes,” for the expanded disclosures.
 
 Accounting Pronouncements Not Yet Adopted
 
-•In November 2024, the FASB issued ASU 2024-03, “Income Statement—Reporting Comprehensive Income—Expense Disaggregation Disclosures (Subtopic 220-40): Disaggregation of Income Statement Expenses.” This guidance will require disclosures about specific types of expenses included in the expense captions presented on the face of the income statement. The update is effective for annual periods beginning after December 15, 2026, and interim periods beginning after December 15, 2027, with early adoption permitted. Prospective application is required and retrospective application is permitted. We are currently evaluating the impact of adopting this ASU on our income statement disaggregation disclosures. We do not believe this update will have a material impact on our consolidated financial statement disclosures.
+• In November 2024, the FASB issued ASU 2024-03, “Income Statement—Reporting Comprehensive Income—Expense Disaggregation Disclosures (Subtopic 220-40): Disaggregation of Income Statement Expenses.” This guidance will require disclosures about specific types of expenses included in the expense captions presented on the face of the income statement. The update is effective for annual periods beginning after December 15, 2026, and interim periods beginning after December 15, 2027, with early adoption permitted. Prospective application is required and retrospective application is permitted. We are currently evaluating the impact of adopting this ASU on our income statement disaggregation disclosures. We do not believe this update will have a material impact on our consolidated financial statement disclosures.
 
 --- Chunk 234/306 | heading: PART IV > Financial Statements > Summary of Significant Accounting Policies | tokens: 197 ---
-•In September 2025, the FASB issued ASU 2025-06, “Intangibles – Goodwill and Other – Internal-Use Software (Subtopic 350-40): Targeted Improvements to the Accounting for Internal-Use Software.” The new guidance removes references to various stages of a software development project to align better with current software development methods, such as agile programming. Under the new standard, entities will start capitalizing eligible costs when (1) management has authorized and committed to funding the software project, and (2) it is probable that the project will be completed and the software will be used to perform the function intended. The update is effective for interim and annual periods beginning after December 15, 2027, with early adoption permitted. The guidance can be applied on a prospective basis, a modified basis for in-process projects, or a retrospective basis. We are evaluating the impact this amended guidance may have on our consolidated financial statements.
+• In September 2025, the FASB issued ASU 2025-06, “Intangibles – Goodwill and Other – Internal-Use Software (Subtopic 350-40): Targeted Improvements to the Accounting for Internal-Use Software.” The new guidance removes references to various stages of a software development project to align better with current software development methods, such as agile programming. Under the new standard, entities will start capitalizing eligible costs when (1) management has authorized and committed to funding the software project, and (2) it is probable that the project will be completed and the software will be used to perform the function intended. The update is effective for interim and annual periods beginning after December 15, 2027, with early adoption permitted. The guidance can be applied on a prospective basis, a modified basis for in-process projects, or a retrospective basis. We are evaluating the impact this amended guidance may have on our consolidated financial statements.
 
 --- Chunk 235/306 | heading: PART IV > Financial Statements > Revenue from Contracts with Customers | tokens: 474 ---
 3. REVENUE FROM CONTRACTS WITH
@@ -3756,16 +3756,16 @@ Total — Balance at December 31, 2024: $788 | Additions: $754 | Revenue Recogni
 
 In the above table:
 
-•Additions include deferred revenue billed in the current period, net of recognition.
+• Additions include deferred revenue billed in the current period, net of recognition.
 
-•Revenue recognized includes revenue recognized during the current period that was included in the beginning balance.
+• Revenue recognized includes revenue recognized during the current period that was included in the beginning balance.
 
 --- Chunk 251/306 | heading: PART IV > Financial Statements > Deferred Revenue | tokens: 405 ---
-•Revenue recognized includes revenue recognized during the current period that was included in the beginning balance.
+• Revenue recognized includes revenue recognized during the current period that was included in the beginning balance.
 
-•Adjustments include the impact from foreign currency translation adjustments and the impact of any acquisitions or divestitures completed during the period.
+• Adjustments include the impact from foreign currency translation adjustments and the impact of any acquisitions or divestitures completed during the period.
 
-•Other, within our Capital Access Platforms segment, primarily includes deferred revenue from our non-U.S.
+• Other, within our Capital Access Platforms segment, primarily includes deferred revenue from our non-U.S.
 
 listing of additional shares fees and our Index business.
 
@@ -4199,7 +4199,7 @@ Nasdaq Clearing marks to market all outstanding contracts and requires payment f
 
 Regulatory Capital and Risk Management Calculations
 
---- Chunk 280/306 | heading: PART IV > Financial Statements > Clearing Operations | tokens: 503 ---
+--- Chunk 280/306 | heading: PART IV > Financial Statements > Clearing Operations | tokens: 502 ---
 Regulatory Capital and Risk Management Calculations
 
 Nasdaq Clearing manages risk through a comprehensive counterparty risk management framework, which comprises policies, procedures, standards and financial resources. The level of regulatory capital is determined in accordance with Nasdaq Clearing’s regulatory capital and default fund policy, as approved by the SFSA. Regulatory capital calculations are continuously updated through a proprietary capital-at-risk calculation model that establishes the appropriate level of capital.
@@ -4214,16 +4214,16 @@ Liability Waterfall
 
 The liability waterfall is the priority order in which the capital resources would be utilized in the event of a default where the defaulting clearing member’s collateral and default fund contribution would not be sufficient to cover the cost to settle its portfolio. If a default occurs and the defaulting clearing member’s collateral, including cash deposits and pledged assets, is depleted, then capital is utilized in the following amount and order:
 
-•junior capital contributed by Nasdaq Clearing, which totaled $46 million as of December 31, 2025;
+• junior capital contributed by Nasdaq Clearing, which totaled $46 million as of December 31, 2025;
 
-•a loss-sharing pool related only to the financial market that is contributed to by clearing members and only applies if the defaulting member’s portfolio includes interest rate swap products;
+• a loss-sharing pool related only to the financial market that is contributed to by clearing members and only applies if the defaulting member’s portfolio includes interest rate swap products;
 
-•specific market default fund where the loss occurred (i.e., the financial or commodities market), which includes capital contributions of the clearing members on a pro-rata basis; and
+• specific market default fund where the loss occurred (i.e., the financial or commodities market), which includes capital contributions of the clearing members on a pro-rata basis; and
 
 --- Chunk 281/306 | heading: PART IV > Financial Statements > Clearing Operations | tokens: 417 ---
-•specific market default fund where the loss occurred (i.e., the financial or commodities market), which includes capital contributions of the clearing members on a pro-rata basis; and
+• specific market default fund where the loss occurred (i.e., the financial or commodities market), which includes capital contributions of the clearing members on a pro-rata basis; and
 
-•fully segregated senior capital for each specific market contributed by Nasdaq Clearing, calculated in accordance with clearinghouse rules, which totaled $24 million as of December 31, 2025.
+• fully segregated senior capital for each specific market contributed by Nasdaq Clearing, calculated in accordance with clearinghouse rules, which totaled $24 million as of December 31, 2025.
 
 If additional funds are needed after utilization of the liability waterfall, or if part of the waterfall has been utilized and needs to be replenished, then Nasdaq Clearing will utilize its power of assessment and additional capital contributions will be required by non-defaulting members up to the limits established under the terms of the clearinghouse rules.
 
@@ -4242,9 +4242,9 @@ Total — December 31, 2025: $1,084
 
 In the table above:
 
-•We determined the fair value of our option contracts using standard valuation models that were based on market-based observable inputs including implied volatility, interest rates and the spot price of the underlying instrument.
+• We determined the fair value of our option contracts using standard valuation models that were based on market-based observable inputs including implied volatility, interest rates and the spot price of the underlying instrument.
 
-•We determined the fair value of our forward contracts using standard valuation models that were based on market-based observable inputs including benchmark rates and the spot price of the underlying instrument.
+• We determined the fair value of our forward contracts using standard valuation models that were based on market-based observable inputs including benchmark rates and the spot price of the underlying instrument.
 
 Derivative Contracts Cleared
 
@@ -4608,29 +4608,29 @@ For further discussion of our segments’ results, see “Segment Operating Resu
 The items in the preceding tables are not included in the measurement of segment profitability reviewed by our CODM, as we believe they do not contribute to a meaningful evaluation of a particular segment’s ongoing operating performance. Management does not consider these items for the purpose of evaluating the performance of our segments or their managers or when making decisions to allocate resources. Therefore, we believe performance measures excluding the below items provide management with a useful representation of our segments’ ongoing activity in each period. These items, which are presented in the tables above, include the following:
 
 --- Chunk 302/306 | heading: PART IV > Financial Statements > Business Segments | tokens: 490 ---
-•Revenues and expenses - divestiture: In January 2025, we entered into an agreement to transfer existing open positions in our Nordic power futures business to a European exchange. In June 2025, this transaction was completed and consideration was received. Migration of open positions are planned to take place by the end of the first quarter of 2026. We expect to wind down commodities clearing and trading services in the second half of 2026, and the business to be wound down in the months following. In connection with the successful migration of open positions, Nasdaq may receive additional consideration in 2026 and 2027, and is expected to release regulatory capital in the medium term. Also, in October 2025, Nasdaq completed the sale of our Solovis business. Revenues and expenses related to these transactions are included as revenues and expenses -divestiture.
+• Revenues and expenses - divestiture: In January 2025, we entered into an agreement to transfer existing open positions in our Nordic power futures business to a European exchange. In June 2025, this transaction was completed and consideration was received. Migration of open positions are planned to take place by the end of the first quarter of 2026. We expect to wind down commodities clearing and trading services in the second half of 2026, and the business to be wound down in the months following. In connection with the successful migration of open positions, Nasdaq may receive additional consideration in 2026 and 2027, and is expected to release regulatory capital in the medium term. Also, in October 2025, Nasdaq completed the sale of our Solovis business. Revenues and expenses related to these transactions are included as revenues and expenses -divestiture.
 
-•Adenza purchase accounting adjustment: As discussed in Note 3, “Revenue from Contracts with Customers,” during the third quarter of 2024, as part of finalizing the purchase accounting of the Adenza acquisition, a one-time net revenue reduction of $32 million was recorded in our Financial Technology segment, reflecting the net impact of the accounting change on AxiomSL subscription revenue from the date of the Adenza acquisition. For purposes of evaluating the performance of our segments, we have excluded the reduction of $34 million as this relates to the prior year impact of this change. We have not excluded the offsetting $2 million 2024 impact of this change.
+• Adenza purchase accounting adjustment: As discussed in Note 3, “Revenue from Contracts with Customers,” during the third quarter of 2024, as part of finalizing the purchase accounting of the Adenza acquisition, a one-time net revenue reduction of $32 million was recorded in our Financial Technology segment, reflecting the net impact of the accounting change on AxiomSL subscription revenue from the date of the Adenza acquisition. For purposes of evaluating the performance of our segments, we have excluded the reduction of $34 million as this relates to the prior year impact of this change. We have not excluded the offsetting $2 million 2024 impact of this change.
 
-•Amortization expense of acquired intangible assets: We amortize intangible assets acquired in connection with various acquisitions. Intangible asset amortization expense can vary from period to period due to episodic acquisitions completed, rather than from our ongoing business operations. As such, if intangible asset amortization is included in performance measures, it is more difficult to assess the day-to-day operating performance of the segments, and the relative operating performance of the segments between periods.
+• Amortization expense of acquired intangible assets: We amortize intangible assets acquired in connection with various acquisitions. Intangible asset amortization expense can vary from period to period due to episodic acquisitions completed, rather than from our ongoing business operations. As such, if intangible asset amortization is included in performance measures, it is more difficult to assess the day-to-day operating performance of the segments, and the relative operating performance of the segments between periods.
 
-•Merger and strategic initiatives expense: We have pursued various strategic initiatives and completed acquisitions and divestitures in recent years that have resulted in expenses which would not have otherwise been incurred. These expenses generally include integration costs, as well as legal, due diligence and other third-party transaction costs. The frequency and the amount of such expenses vary significantly based on the size, timing and complexity of the transactions.
+• Merger and strategic initiatives expense: We have pursued various strategic initiatives and completed acquisitions and divestitures in recent years that have resulted in expenses which would not have otherwise been incurred. These expenses generally include integration costs, as well as legal, due diligence and other third-party transaction costs. The frequency and the amount of such expenses vary significantly based on the size, timing and complexity of the transactions.
 
---- Chunk 303/306 | heading: PART IV > Financial Statements > Business Segments | tokens: 489 ---
-◦For the years ended December 31, 2025, and December 31, 2024, these costs included Adenza integration costs and other strategic initiative costs. For the year ended December 31, 2024, these costs were partially offset by the recognition of a termination fee received by Nasdaq in 2024, related to the termination of the proposed divestiture of our Nordic power futures business. For the year ended December 31, 2025, these costs included a repayment of this fee due to the sale of the Nordic power futures business to another buyer, as designated in the settlement agreement.
+--- Chunk 303/306 | heading: PART IV > Financial Statements > Business Segments | tokens: 487 ---
+◦ For the years ended December 31, 2025, and December 31, 2024, these costs included Adenza integration costs and other strategic initiative costs. For the year ended December 31, 2024, these costs were partially offset by the recognition of a termination fee received by Nasdaq in 2024, related to the termination of the proposed divestiture of our Nordic power futures business. For the year ended December 31, 2025, these costs included a repayment of this fee due to the sale of the Nordic power futures business to another buyer, as designated in the settlement agreement.
 
-•Restructuring charges: See Note 20, “Restructuring Charges,” for further discussion of these plans.
+• Restructuring charges: See Note 20, “Restructuring Charges,” for further discussion of these plans.
 
-•Lease asset impairments: For year ended December 31, 2023, this included impairment charges related to our operating lease assets and leasehold improvements associated with vacating certain leased office space, which are recorded in occupancy and depreciation and amortization expense in the Consolidated Statements of Income.
+• Lease asset impairments: For year ended December 31, 2023, this included impairment charges related to our operating lease assets and leasehold improvements associated with vacating certain leased office space, which are recorded in occupancy and depreciation and amortization expense in the Consolidated Statements of Income.
 
-•Legal and regulatory matters: For the year ended December 31, 2025, this includes accruals relating to certain legal matters, which are recorded in professional and contract services in the Consolidated Statements of Income. For the year ended December 31, 2024, this primarily related to the settlement of an SFSA fine, and accruals related to certain legal matters, which are recorded in regulatory expense and professional and contract services in the Consolidated Statements of Income.
+• Legal and regulatory matters: For the year ended December 31, 2025, this includes accruals relating to certain legal matters, which are recorded in professional and contract services in the Consolidated Statements of Income. For the year ended December 31, 2024, this primarily related to the settlement of an SFSA fine, and accruals related to certain legal matters, which are recorded in regulatory expense and professional and contract services in the Consolidated Statements of Income.
 
-•Gain/loss on extinguishment of debt: For the year ended December 31, 2025 we recorded a gain on early extinguishment of debt and for the year ended December 31, 2024 we recorded a loss on early extinguishment of debt. These gains and losses were recorded under general, administrative and other expense in the Consolidated Statements of Income. See Note 9, “Debt Obligations,” to the consolidated financial statements for further discussion.
+• Gain/loss on extinguishment of debt: For the year ended December 31, 2025 we recorded a gain on early extinguishment of debt and for the year ended December 31, 2024 we recorded a loss on early extinguishment of debt. These gains and losses were recorded under general, administrative and other expense in the Consolidated Statements of Income. See Note 9, “Debt Obligations,” to the consolidated financial statements for further discussion.
 
-•Pension settlement charge: For the years ended December 31, 2024 and 2023, we recorded a pre-tax charge as a result of settling our U.S. pension plan. The plan was terminated and partially settled in 2023, with final settlement occurring during the first quarter of 2024. The pre-tax charge is recorded in compensation and benefits expense in the Consolidated Statements of Income.
+• Pension settlement charge: For the years ended December 31, 2024 and 2023, we recorded a pre-tax charge as a result of settling our U.S. pension plan. The plan was terminated and partially settled in 2023, with final settlement occurring during the first quarter of 2024. The pre-tax charge is recorded in compensation and benefits expense in the Consolidated Statements of Income.
 
 --- Chunk 304/306 | heading: PART IV > Financial Statements > Business Segments | tokens: 334 ---
-•Other items: We have included certain other charges or gains in corporate items, to the extent we believe they should be excluded when evaluating the ongoing operating performance of each individual segment.
+• Other items: We have included certain other charges or gains in corporate items, to the extent we believe they should be excluded when evaluating the ongoing operating performance of each individual segment.
 
 Geographic Data
 

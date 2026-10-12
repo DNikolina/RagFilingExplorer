@@ -117,13 +117,10 @@ internal static partial class HtmlTableLinearizer
         {
             Count++;
             shallowestRow = Math.Min(shallowestRow ?? indent, indent);
-            foreach (LinearizedValue value in values)
+            foreach ((string key, decimal value, _) in Amounts(values))
             {
-                if (Amount(value.Text) is { } amount)
-                {
-                    (decimal sum, int count) = sums.GetValueOrDefault(value.ColumnKey);
-                    sums[value.ColumnKey] = (sum + amount.Value, count + 1);
-                }
+                (decimal sum, int count) = sums.GetValueOrDefault(key);
+                sums[key] = (sum + value, count + 1);
             }
         }
 
@@ -135,11 +132,7 @@ internal static partial class HtmlTableLinearizer
         // A total whose every figure is the sum of these rows.
         public bool AddsUpTo(IReadOnlyList<LinearizedValue> values, int minAmounts = 1)
         {
-            List<(decimal Value, decimal Unit, string Key)> amounts = values
-                .Select(v => (Amount: Amount(v.Text), v.ColumnKey))
-                .Where(a => a.Amount is not null)
-                .Select(a => (a.Amount!.Value.Value, a.Amount!.Value.Unit, a.ColumnKey))
-                .ToList();
+            List<(string Key, decimal Value, decimal Unit)> amounts = Amounts(values);
             return amounts.Count >= minAmounts && amounts.All(a => sums.TryGetValue(a.Key, out var addends) && AddsUp(addends, (a.Value, a.Unit)));
         }
 
@@ -153,16 +146,11 @@ internal static partial class HtmlTableLinearizer
 
             int compared = 0;
             bool ofGroup = true, ofAll = true;
-            foreach (LinearizedValue value in values)
+            foreach ((string key, decimal value, decimal unit) in Amounts(values))
             {
-                if (Amount(value.Text) is not { } total)
-                {
-                    continue;
-                }
-
                 compared++;
-                ofGroup &= sums.TryGetValue(value.ColumnKey, out var mine) && AddsUp(mine, total);
-                ofAll &= running.sums.TryGetValue(value.ColumnKey, out var all) && AddsUp(all, total);
+                ofGroup &= sums.TryGetValue(key, out var mine) && AddsUp(mine, (value, unit));
+                ofAll &= running.sums.TryGetValue(key, out var all) && AddsUp(all, (value, unit));
             }
 
             return compared >= minAmounts && ofAll && !ofGroup;
@@ -172,7 +160,30 @@ internal static partial class HtmlTableLinearizer
         private static bool AddsUp((decimal Sum, int Count) addends, (decimal Value, decimal Unit) total) =>
             Math.Abs(addends.Sum - total.Value) <= total.Unit / 2 * addends.Count;
 
-        // "$(1,610,019)" -> -1610019 in units of 1; "3.32" in units of 0.01. Percentages and dashes aren't amounts.
+        // A row's figures that add up. Percentages count only in a row of nothing else - a rate reconciliation adds up
+        // in them (MSFT's "Effective rate"), while a percentage-change column beside amounts never does. They must add up
+        // exactly (unit 0): filers foot a reconciliation's printed rates, and its small figures would otherwise match by
+        // chance within the rounding tolerance (MSFT's "Research and development credit" -1.1 over -1.5, -1.0 and 1.5).
+        private static List<(string Key, decimal Value, decimal Unit)> Amounts(IReadOnlyList<LinearizedValue> values)
+        {
+            bool percentages = values.All(v => v.Text.EndsWith('%') || Amount(v.Text) is null);
+            List<(string Key, decimal Value, decimal Unit)> amounts = [];
+            foreach (LinearizedValue v in values)
+            {
+                if (percentages && v.Text.EndsWith('%') && Amount(v.Text[..^1]) is { } rate)
+                {
+                    amounts.Add((v.ColumnKey, rate.Value, 0));
+                }
+                else if (Amount(v.Text) is { } amount)
+                {
+                    amounts.Add((v.ColumnKey, amount.Value, amount.Unit));
+                }
+            }
+
+            return amounts;
+        }
+
+        // "$(1,610,019)" -> -1610019 in units of 1; "3.32" in units of 0.01. Percentages (Amounts) and dashes aren't amounts.
         private static (decimal Value, decimal Unit)? Amount(string text)
         {
             string digits = text.Replace("$", string.Empty).Replace(",", string.Empty).Replace(" ", string.Empty);

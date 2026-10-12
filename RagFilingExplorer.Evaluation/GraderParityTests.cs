@@ -19,11 +19,15 @@ public class GraderParityTests
 
     // Answers the .NET grader regrades on purpose, each with its new grade - every other answer still matches the Python
     // grader exactly (docs/Decision-Log.md, "the strict grader extended"). granite's clean declines were checks only
-    // because "December 31" counted 31 as a stated figure.
+    // because "December 31" counted 31 as a stated figure. H2's 19.4% is the tax note's own effective rate, accepted
+    // beside MD&A's rounded 19% (tools/expected-answers.json).
     private static readonly Dictionary<(string Run, string Id), (string Status, string Note)> DeliberateRegrades = new()
     {
         [("eval/granite41-8b/heldout.json", "H30")] = ("decline-ok", ""),
         [("eval/granite41-8b/main.json", "Q15")] = ("decline-ok", ""),
+        [("eval/granite41-3b/heldout.json", "H2")] = ("reliable", ""),
+        [("eval/granite41-8b/heldout.json", "H2")] = ("reliable", ""),
+        [("eval/structured-2b/heldout.json", "H2")] = ("reliable", ""),
     };
 
     private static IReadOnlyList<Graded>? ReadGrading(string path)

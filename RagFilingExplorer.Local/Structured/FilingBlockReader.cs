@@ -33,10 +33,11 @@ internal static partial class FilingBlockReader
     [GeneratedRegex(@"[^\S ]+")]
     private static partial Regex WhitespaceRunRegex();
 
-    // A list marker alone in its block: a bullet glyph, or a footnote mark like "(1)" or "(a)". MSFT and ORCL lay out a
-    // list item as a flex <div> holding the marker's <span> and the text's own <div>, so the marker reads as a paragraph
-    // of its own, a blank line from its text. Not "6." - a note's number before its title, which the heading rules read.
-    [GeneratedRegex(@"^(?:[•●◦▪·o]|\([a-z0-9]{1,2}\))$")]
+    // A list marker alone in its block: a bullet glyph, a footnote mark like "(1)" or "(a)", or a number like ORCL's
+    // note numbers ("6." before "NOTES PAYABLE AND OTHER BORROWINGS"). MSFT and ORCL lay out a list item as a flex <div>
+    // holding the marker's <span> and the text's own <div>, so the marker reads as a paragraph of its own, a blank line
+    // from its text. No heading rule reads a numbered title: notes are found from the XBRL (NoteTopics).
+    [GeneratedRegex(@"^(?:[•●◦▪·o]|\([a-z0-9]{1,2}\)|\d{1,2}\.)$")]
     private static partial Regex ListMarkerRegex();
 
     // A positioned line's inline style: "margin-top" and "line-height" must not read as "top" and "height".
@@ -48,6 +49,12 @@ internal static partial class FilingBlockReader
 
     [GeneratedRegex(@"(?<![-\w])left:\s*(-?[\d.]+)pt")]
     private static partial Regex LeftRegex();
+
+    [GeneratedRegex(@"(?<![-\w])width:\s*([\d.]+)pt")]
+    private static partial Regex WidthRegex();
+
+    [GeneratedRegex(@"(?:padding|margin)-left:\s*([\d.]+)(?:pt|px|em)")]
+    private static partial Regex InlineGapRegex();
 
     [GeneratedRegex(@"font-weight:\s*(?:bold|[6-9]00)")]
     private static partial Regex BoldRegex();
@@ -195,6 +202,10 @@ internal static partial class FilingBlockReader
         // The positioned line the open paragraph ends with, while the next line may still continue it.
         private PositionedLine? lastLine;
 
+        // Where the positioned line's last run ended, in points (StartsAfterAGap); a gap under a point is rounding.
+        private double? runEnd;
+        private const double MinRunGap = 1;
+
         // The paragraphs read from positioned lines - only these join across a column or page break.
         private readonly HashSet<FilingBlock> printedParagraphs = new(ReferenceEqualityComparer.Instance);
 
@@ -310,12 +321,16 @@ internal static partial class FilingBlockReader
                     }
 
                     return;
+                // Every page's "Table of Contents" back-link (ORCL, NFLX - with the whole EDGAR address) is page furniture,
+                // like a page number: dropped.
                 case "a" when element.GetAttribute("href") is { Length: > 0 } href:
                     string label = InlineText(element);
-                    AppendInline(label.Length == 0 ? string.Empty : $"[{label}]({href})");
+                    AppendInline(label.Length == 0 || label.Equals("Table of Contents", StringComparison.OrdinalIgnoreCase) ? string.Empty : $"[{label}]({href})");
                     return;
+                // A picture's content is in no text, and its alt text is a number or a file name ("4644", "img52265273_0.jpg"):
+                // only the sign that one was there ("The following chart summarizes our ARR:" and then nothing) is kept.
                 case "img":
-                    AppendInline($"![{element.GetAttribute("alt") ?? string.Empty}]({element.GetAttribute("src") ?? string.Empty})");
+                    AppendInline("[image]");
                     return;
                 case "li":
                     FlushParagraph();
@@ -339,6 +354,7 @@ internal static partial class FilingBlockReader
                     FlushParagraph();
                 }
 
+                runEnd = null;
                 ReadChildren(element);
                 lastLine = line;
                 return;
@@ -359,7 +375,30 @@ internal static partial class FilingBlockReader
                 return;
             }
 
+            if (StartsAfterAGap(element) && paragraph.Length > 0)
+            {
+                AppendInline(" ");
+            }
+
             ReadChildren(element);
+        }
+
+        // A run set apart by layout, not by a space in the text: NFLX pads a bullet's text away from it, NDAQ positions
+        // it past the bullet's end - read as one word ("•our products") without a space put in. A run that starts where
+        // the last one ended (a font change inside a word) is no gap.
+        private bool StartsAfterAGap(IElement element)
+        {
+            string style = element.GetAttribute("style") ?? string.Empty;
+            bool padded = InlineGapRegex().Match(style) is { Success: true } padding && PositionedLine.Points(padding) > 0;
+            if (LeftRegex().Match(style) is { Success: true } left && WidthRegex().Match(style) is { Success: true } width)
+            {
+                double start = PositionedLine.Points(left);
+                bool gap = runEnd is { } previous && start - previous > MinRunGap;
+                runEnd = start + PositionedLine.Points(width);
+                return padded || gap;
+            }
+
+            return padded;
         }
 
         private void AppendInline(string text)
@@ -415,9 +454,11 @@ internal static partial class FilingBlockReader
                 return;
             }
 
+            // The joined paragraph takes its text's topic: a note number left outside the note's tag (NDAQ, NFLX) belongs
+            // to the note its title opens.
             if (pendingMarker is { } held)
             {
-                (lines, paragraphTopic) = ($"{held.Marker} {lines}", held.Topic);
+                lines = $"{held.Marker} {lines}";
                 pendingMarker = null;
             }
 
@@ -521,7 +562,7 @@ internal static partial class FilingBlockReader
             && Left - previous.Left is > -EdgeRounding and < MaxHangingIndent
             && Top > previous.Top && Top - previous.Top <= MaxLinePitch * previous.LineHeight;
 
-        private static double Points(Match m) => double.Parse(m.Groups[1].Value, System.Globalization.CultureInfo.InvariantCulture);
+        public static double Points(Match m) => double.Parse(m.Groups[1].Value, System.Globalization.CultureInfo.InvariantCulture);
 
         private static bool IsBold(IElement run) => BoldRegex().IsMatch(run.GetAttribute("style")!);
     }

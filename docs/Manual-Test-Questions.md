@@ -282,7 +282,7 @@ v1's routing). Expected answers and traps come from `chunk-review/markdown/*.chu
 | # | Question | Expected | Traps | Source |
 |---|---|---|---|---|
 | H1 | What were Microsoft's research and development expenses in fiscal year 2026? | **$35,562 million** | 32,488 (FY2025) | MSFT `:1925` |
-| H2 | What was Microsoft's effective tax rate for fiscal year 2026? | **19%** | 21% (federal statutory), 18% (FY2025) | MSFT `:1566` |
+| H2 | What was Microsoft's effective tax rate for fiscal year 2026? | **19%** (MD&A); 19.4% from the tax note's "Effective rate" line also accepted | 21% (federal statutory), 18% (FY2025) | MSFT `:1566` |
 | H3 | How much stock-based compensation expense did Microsoft record in fiscal year 2026? | **$12,405 million** | 945 (a same-named deferred tax asset line) | MSFT `:5218` |
 | H4 | How much did Microsoft's research and development expenses increase in fiscal 2026 compared to fiscal 2025, in dollars? | **$3,074 million** (35,562 - 32,488) | 9% (the stated change) | MSFT `:1925` |
 | H5 | How many full-time employees did Oracle have? | **~141,000** as of May 31, 2026 (~49,000 U.S., ~92,000 international) | - | ORCL `:459` |

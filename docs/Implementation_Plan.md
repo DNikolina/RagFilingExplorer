@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 439 offline unit tests (176 at v1.0) + 195 offline evaluation tests |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 442 offline unit tests (176 at v1.0) + 195 offline evaluation tests |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -100,8 +100,9 @@ and ORCL; ranks unchanged in the top 5. NDAQ's chunks reviewed (2026-10-12): its
 joined back into paragraphs (within and across columns), and a bullet list laid out as a table no longer reads "▪ | ...";
 1,000 chunks, recall@5 86/94 unchanged, MRR 0.738 -> 0.751, five NDAQ ranks better, none worse. Then all four filings
 reviewed side by side: table rows no longer take the name of a group they're outside (indents, figures adding up, the
-group's own total - `HtmlTableLinearizer`), checked against the filers' XBRL presentation trees (`RowGroupsXbrlTests`, seven
-reviewed disagreements); 98 rows relabelled, 998 chunks, recall@5 86/94, MRR 0.746. Next: llama on all 102 on this index (the new baseline), then the shared
+group's own total - `HtmlTableLinearizer`), checked against the filers' XBRL presentation trees (`RowGroupsXbrlTests`, eight
+reviewed disagreements); 98 rows relabelled, 998 chunks, recall@5 86/94, MRR 0.746. **llama on all 102 on this index: 86/102** (84 on 3b's, same build) -
+`structured-hybrid-chunk-review`, answered before the fixes below - llama on the current index still to run; H2 accepts the tax note's 19.4% (user). MSFT's prior-year "Effective rate" ungrouped too (percentages add up); NDAQ's and NFLX's bullets no longer glued to their text; ORCL's note numbers joined to their titles; images as `[image]`; "Table of Contents" links dropped (981 chunks, MRR 0.756). Next: the shared
 `RagFilingExplorer.Core`, then Voyage.
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as

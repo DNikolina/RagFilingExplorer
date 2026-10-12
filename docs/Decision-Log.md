@@ -4213,6 +4213,75 @@ the caption, the columns reading "Assets ..." / "Liabilities ...".
   way); A9 11 -> 10, A16 21 -> 16, A25 25 -> 14 (all outside the 5). The row groups also decide where the row-group
   split (step 3b) cuts a statement, so H13's and A10's statements were re-cut. Read as no retrieval change in the top
   5; what the labels do is for llama's answers to show.
+- **llama on all 102, on this index** (`structured-hybrid-chunk-review`, Ollama 0.40.2 - the new llama baseline):
+  **86/102** strictly, vs 84 for step 3b's index (`structured-hybrid-rowgroups`) and 83 for the original index
+  (`structured-hybrid-v3-ollama0402`), same build. Main 34/40, held-out 33/35, answer-side 19/27; no untraced figure.
+  Against step 3b two changed, both to a pass: H13 (NFLX's cash, $9,033,681 thousand - wrong on both earlier runs) and
+  A16 (the $616 million repurchases, no longer "also states 620" - but it adds a muddled "$471 million" financing line,
+  a pass by the strict grade only). H2 changed answer, not grade: with "Tax credits > Effective rate" now plain
+  "Effective rate", llama reads the tax note's 19.4% instead of MD&A's rounded 19% - the filing's own, more precise
+  figure; every Claude run had given both. *Decision (user): accept 19.4* (`accept` in `tools/expected-answers.json`;
+  `expect` lists figures an answer needs all of, so it couldn't hold an alternative). Three earlier runs had answered
+  19.4% and been graded wrong - the reranker step (`structured-2b`) and both granite models; `GraderParityTests` lists them
+  as deliberate regrades. The 16 still missed: 5 retrieval
+  (R3, H29, H34, A10, A11 - ranks 7-12), 9 misreadings of an answer in the 5 (T1, T6, T9, V3, A8, A14, A15, A21, A27),
+  2 without the unit (Q21, A24).
+- **MSFT's prior-year "Effective rate" (user: fix it).** Seen on the way: the 2025/2024 rate reconciliation still read
+  "Effect of > Effective rate" - printed deeper than the effects, as MSFT prints totals, so only its figures could
+  tell, and those are percentages, which weren't read as amounts (the 2026 table's dollar column had placed its own).
+  Percentages now count where a row has nothing else; beside amounts (NDAQ's percentage-change columns) they still
+  don't, or "Total Market Services, net" no longer adds up and keeps its group. And they must add up exactly: within
+  the half-unit-per-row tolerance, the research credit (-1.1) passed for the total of the three effects above it
+  (-1.0), ending the group there. One row changed in all four filings; `RowGroupsXbrlTests` lists it as an eighth
+  reviewed disagreement (the tree hangs the effective rate beside the effects, like the other net lines).
+- **Bullets glued to their text (user: NDAQ's chunk 10, "and other places").** NDAQ positions a bullet's text past the
+  bullet's end (`left:58.5pt` after a 3.5pt-wide bullet at 49.5pt), NFLX pads it away (`padding-left:14.5pt`) - the gap
+  is layout, never a space in the text, so every bullet read "•our products and services;" (NDAQ 180 lines, NFLX 51;
+  MSFT and ORCL none). `FilingBlockReader` now puts a space before an inline run set apart by left padding or margin, or
+  positioned more than a point past the last run's end - a run starting where the last ended (a font change inside a
+  word) still joins. Every changed line only gained spaces: 234 bullets, plus footnote marks ("(1) See"), "N/A Not
+  applicable" and NFLX's note titles ("1. Organization"); no section heading changed. For llama's tokenizer the space
+  matters (" our" is one common token, "our" after a glyph a rarer one); nomic splits the glyph off either way.
+  Index rebuilt: recall@5 86/94, MRR 0.741 (A7 1 -> 2, still first page) - `ranks-nomic-bullet-spaces.txt`.
+- **Hybrid search re-checked on the reviewed chunks (user asked; nothing changed).** Each list ranked alone, the fusion
+  rebuilt outside the app (its fused ranks matched the app's on all 94): vector 80/94 in the top 5, keyword 77, the
+  statement boost 78, all three fused 86 - each list still earns its place (without keyword 82, without the boost 81).
+  The keyword list is outvoted where a statement is routed - the boost is a second vector vote - so R3's answer, 1st by
+  bm25, fuses 11th; A10, A16, A25 and H34 likewise (keyword 1-8, fused 7-16). Rebalanced (boost at half weight, or
+  keyword doubled when there's a boost): 85 - A27, found only by the boost, drops out, and nothing comes in. RRF k = 20
+  or 10: 87 (A10 7 -> 2 or 4) with as many small moves the other way (Q14, H21, H29, A14, A22) - one question on the set
+  hybrid was tuned on, not kept. Searching the keyword index's Content alone, not the heading too: 86, the same. The
+  remaining misses are answers the keyword list finds but fusion buries (R3, A10, A16, A25, H34) and two nothing ranks
+  well (A9, A11) - for a better ranker (the deferred reranker, Voyage), not the fusion.
+- **Score fusion measured, not kept (user asked).** RRF uses ranks only, so bm25's confident first (R3) counts no more
+  than any first; score fusion sums the lists' own scores instead (each min-max normalized over its 50; vector distance
+  and bm25 oriented best-high), weighted vector / keyword / boost on a 0.05 grid - after "An Analysis of Fusion Functions
+  for Hybrid Retrieval" (Bruch et al.), which found it often beats RRF. Weights tuned on Main + AnswerSide (63), judged on
+  HeldOut (31) alone; the app's ranks as the baseline (tune 57/63 in the top 5, MRR 0.681; held-out 29/31, 0.863). Chosen
+  by tuning MRR (0.10 / 0.50 / 0.40): tune MRR 0.714 but top 5 54/63, held-out 28/31 and MRR 0.846 - it lifts the answers
+  bm25 is sure of (R3 11 -> 4, A10 7 -> 2, A16 16 -> 9) and drops as many others (H21 1 -> 7, A22 1 -> 12, A14 3 -> 8, Q4
+  4 -> 9). No weighting beats RRF's 57/63 in the top 5; those tying it give held-out 28-29/31 at a lower MRR (0.820-0.855).
+  A trade, not a gain - RRF stays.
+- **ORCL's note numbers joined to their titles (user: chunks 158 and 179).** "1." stood a blank line above "ORGANIZATION AND
+  SIGNIFICANT ACCOUNTING POLICIES" - the same flex layout as the list markers, which left note numbers out on purpose, "the
+  heading rules read the title". None does: notes come from the XBRL (`NoteTopics`), and no heading rule matches a
+  numbered title. A bare "N." is now a marker: 27 joined (15 notes, "6." twelve times on the pieces of its long table),
+  ORCL only, no heading changed, 998 chunks. A joined paragraph now takes its text's topic, not the marker's - a note
+  number outside the note's tag belongs to the note; no topic moved in the four filings (dumps identical).
+  Index rebuilt: every rank as with the bullet spaces (recall@5 86/94, MRR 0.741) - `ranks-nomic-note-numbers.txt`.
+- **Image references replaced by `[image]` (user: "we haven't measured").** 10 in all (NDAQ 8, NFLX and ORCL 1 each):
+  `![4644](ndaq-20251231_g1.gif)` - the alt text a number or a file name, the charts' content (ARR, stock performance,
+  board demographics) in no text. Six prompts held one (A9, A16, H10, H27, R2 answered right; H29 a retrieval miss), none
+  asks about a chart. I first called it no measurable gain without measuring - the user pushed back, rightly. `[image]`
+  keeps the sign that a picture was there ("The following chart summarizes our ARR:" and then nothing) and drops the
+  file-name tokens. Measured (`ranks-nomic-images.txt`): every rank as before but H34 10 -> 11, outside the 5 either way.
+- **"Table of Contents" links dropped (user: NFLX's URLs).** Every page's back-link was in the chunks: NFLX 78, each the whole
+  EDGAR address (~40 tokens), ORCL 147 (`#toc_page`); six chunks held nothing else (NFLX 6, 50, 57, 190; ORCL 84, 261). Now
+  dropped like a page number. (Step 1a once lost them by accident - link text inside a `<span>` - and with them "Item 6.
+  [Reserved]"; this time on purpose.) NFLX's and ORCL's "Item 6. [Reserved]", whose only content was the link, leave the
+  outline - as MSFT's and NDAQ's never had it. 998 -> 981 chunks. **Ranks** (`ranks-nomic-toc-links.txt`): recall@5 86/94
+  unchanged, recall@1 56 -> 59, MRR 0.741 -> 0.756 - T10 4 -> 1, A17 2 -> 1, H13 2 -> 1, H33 2 -> 1, A8 5 -> 4, H34 11 -> 8;
+  T3 1 -> 3, A14 3 -> 4, A19 3 -> 4, A23 4 -> 5 (all still in the 5).
 
 **Ollama build for batch 3: 0.40.2** (installed 2026-10-09 from the auto-updater's staged, Ollama-signed installer;
 0.40.0 -> 0.40.1 had auto-installed that morning). `nomic-embed-text` (0a109f422b47) and `llama3.1:8b` (46e0c10c039e)

@@ -81,8 +81,8 @@ public class NoteTopicsTests
 
         Dictionary<string, string?> topicOf = blocks.ToDictionary(b => b.Text, b => b.Topic);
         Assert.That(topicOf["NOTES TO FINANCIAL STATEMENTS"], Is.EqualTo("Income Taxes"));
-        Assert.That(topicOf["1."], Is.EqualTo("Income Taxes"));
-        Assert.That(topicOf["2."], Is.EqualTo("Debt"));
+        Assert.That(topicOf["1. INCOME TAXES"], Is.EqualTo("Income Taxes"));
+        Assert.That(topicOf["2. DEBT"], Is.EqualTo("Debt"));
     }
 
     [Test]

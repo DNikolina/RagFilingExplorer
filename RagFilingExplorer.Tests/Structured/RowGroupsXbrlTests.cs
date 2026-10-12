@@ -30,6 +30,8 @@ public class RowGroupsXbrlTests
         [
             // A sibling of Ireland, at its indent; the tree lists the countries' lines flat.
             "outside \"Ireland:\" but presented with its rows under us-gaap:IncomeTaxExpenseBenefitContinuingOperationsIncomeTaxReconciliationAbstract: Other foreign jurisdictions (b)",
+            // The statutory rate and every effect added up, not an effect; the tree lists it beside them.
+            "outside \"Effect of:\" but presented with its rows under us-gaap:EffectiveIncomeTaxRateContinuingOperationsTaxRateReconciliationAbstract: Effective rate",
             // Printed after "Total deferred income tax assets" - the allowance and the net beside, not among, the assets.
             "outside \"Deferred Income Tax Assets\" but presented with its rows under us-gaap:DeferredTaxAssetsNetAbstract: Less valuation allowance",
             "outside \"Deferred Income Tax Assets\" but presented with its rows under us-gaap:DeferredTaxAssetsNetAbstract: Deferred income tax assets, net of valuation allowance",

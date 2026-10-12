@@ -2331,7 +2331,7 @@ Changes in unrecognized tax benefits (d) — Year Ended June 30, 2026: 1,094 / 0
 Other reconciling items, net — Year Ended June 30, 2026: (730) / (0.6)%
 Effective rate — Year Ended June 30, 2026: $32,185 / 19.4%
 
---- Chunk 159/217 | heading: PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Income Taxes | tokens: 488 ---
+--- Chunk 159/217 | heading: PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Income Taxes | tokens: 485 ---
 (a) In fiscal year 2026, state and local income taxes in California, Illinois, Minnesota, New Jersey, New York, and New York City made up the majority (greater than 50%) of the tax effect in this category.
 
 (b) Under ASU 2023-09, Foreign tax effects include foreign withholding taxes while the related foreign tax credits are included in the Tax credits category. Prior to adoption of ASU 2023-09, foreign withholding taxes were presented net of foreign tax credits.
@@ -2352,7 +2352,7 @@ Effect of > Research and development credit — 2025: (1.1)% | 2024: (1.1)%
 Effect of > Excess tax benefits relating to stock-based compensation — 2025: (0.9)% | 2024: (1.1)%
 Effect of > Interest, net — 2025: 1.0% | 2024: 1.1%
 Effect of > Other reconciling items, net — 2025: (1.4)% | 2024: (0.7)%
-Effect of > Effective rate — 2025: 17.6% | 2024: 18.2%
+Effective rate — 2025: 17.6% | 2024: 18.2%
 
 --- Chunk 160/217 | heading: PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Income Taxes | tokens: 355 ---
 The decrease from the federal statutory rate in fiscal years 2026, 2025, and 2024 is primarily due to earnings taxed at lower rates in foreign jurisdictions resulting from producing and distributing our products and services through our foreign regional operations center in Ireland. In fiscal years 2026, 2025, and 2024, our foreign regional operating center in Ireland, which is taxed at a rate lower than the U.S. rate, generated 81%, 81%, and 83%, respectively, of our foreign income before tax. For fiscal year 2026, other reconciling items, net consists primarily of excess tax benefits related to stock-based compensation, impacts of tax law changes, and changes in valuation allowances. For fiscal year 2025 and 2024, other reconciling items, net consists primarily of individually immaterial reconciling items such as GILTI net of related foreign tax credit, and in fiscal year 2024, includes tax benefits from tax law changes. In fiscal year 2024, tax benefits from tax law changes primarily relate to the delay of the effective date of final foreign tax credit regulations. In fiscal years 2026, 2025, and 2024, there were no individually significant other reconciling items.

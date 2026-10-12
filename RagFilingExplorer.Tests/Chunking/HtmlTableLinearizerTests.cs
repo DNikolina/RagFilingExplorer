@@ -243,6 +243,27 @@ public class HtmlTableLinearizerTests
         Assert.That(Row(table, "Total").GroupLabel, Is.Null);
     }
 
+    // MSFT: the 2025/2024 rate reconciliation's "Effective rate" read "Effect of > Effective rate" - it adds up the
+    // statutory rate and every effect, but only in percentages, which weren't read as amounts. Its research credit
+    // (-1.1) is within rounding of the three effects above it (-1.0), so percentages must add up exactly.
+    [Test]
+    public void RateReconciliationsEffectiveRate_AddingUpInPercentages_IsOutsideTheGroup()
+    {
+        LinearizedTable table = HtmlTableLinearizer.Linearize(Table("<table>"
+            + Tr("", "2025", "2024")
+            + Tr(Label("Federal statutory rate", 0), "21.0%", "21.0%")
+            + Tr(Label("Effect of:", 0), "", "")
+            + Tr(Label("Foreign earnings taxed at lower rates", 12), "(1.5)%", "(1.4)%")
+            + Tr(Label("Foreign-derived intangible income deduction", 12), "(1.0)%", "(1.1)%")
+            + Tr(Label("State income taxes, net of federal benefit", 12), "1.5%", "1.5%")
+            + Tr(Label("Research and development credit", 12), "(1.1)%", "(1.1)%")
+            + Tr(Label("Effective rate", 24), "18.9%", "18.9%")
+            + "</table>"));
+
+        Assert.That(Row(table, "Research and development credit").GroupLabel, Is.EqualTo("Effect of:"));
+        Assert.That(Row(table, "Effective rate").GroupLabel, Is.Null);
+    }
+
     // NFLX: two deferred tax liabilities are printed at the group label's indent, a filer's slip - "Total deferred tax
     // liabilities" adds them in, so they stay in the group. A bare "Total" adding up everything never pulls rows back.
     [Test]
