@@ -1,8 +1,8 @@
 using Anthropic;
 using Anthropic.Exceptions;
 using Microsoft.Extensions.AI;
-using RagFilingExplorer.Local;
-using RagFilingExplorer.Local.Retrieval;
+using RagFilingExplorer.Core;
+using RagFilingExplorer.Core.Retrieval;
 
 namespace RagFilingExplorer.Claude;
 

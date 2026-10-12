@@ -103,8 +103,11 @@ reviewed side by side: table rows no longer take the name of a group they're out
 group's own total - `HtmlTableLinearizer`), checked against the filers' XBRL presentation trees (`RowGroupsXbrlTests`, eight
 reviewed disagreements); 98 rows relabelled, 998 chunks, recall@5 86/94, MRR 0.746. **llama on all 102 on this index: 86/102** (84 on 3b's, same build) -
 `structured-hybrid-chunk-review`, answered before the fixes below; H2 accepts the tax note's 19.4% (user). MSFT's prior-year "Effective rate" ungrouped too (percentages add up); NDAQ's and NFLX's bullets no longer glued to their text; ORCL's note numbers joined to their titles; images as `[image]`; "Table of Contents" links dropped (981 chunks, MRR 0.756). **llama on this index: 85/102** (`structured-hybrid-chunk-fixes`,
-the baseline from here) - H13, T10, H27 misread with the answer in the top 5, A8, A24 gained. Next: the shared
-`RagFilingExplorer.Core`, then Voyage.
+the baseline from here) - H13, T10, H27 misread with the answer in the top 5, A8, A24 gained. Core planned by provider (user, 2026-10-12): Core, Ollama and Voyage libraries, Local and Claude apps
+that never reference each other, Local able to embed with Voyage optionally - Decision-Log.md, "Core and providers". **Step 5 done:** `RagFilingExplorer.Core`
+(the pipeline, no provider); Ollama and Claude as provider libraries; one app, `RagFilingExplorer.Cli` (was Local; the
+Claude app folded in), choosing them from `Providers` in `appsettings.json`, which also took `claudesettings.json`'s
+section (user). Nothing else changed: tests, dumps, index, a cached replay 102/102 identical. Next: Voyage (step 6).
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the
@@ -200,7 +203,10 @@ joining them. Well inside nomic-embed-text's context, so harmless in practice; t
 
 ## Pipeline as it ships
 
-Default (v2): `Structured` chunking, `Hybrid` search, no reranking.
+Default (v2): `Structured` chunking, `Hybrid` search, no reranking. Projects (v4): `RagFilingExplorer.Core` holds all of
+the pipeline below and no model provider; each provider is a library over it (`RagFilingExplorer.Ollama`,
+`RagFilingExplorer.Claude`); one app, `RagFilingExplorer.Cli`, chooses them from `appsettings.json`'s `Providers`
+(Ollama for both by default) and passes Core the embedder and chat client.
 
 ```
 data/*.html + taxonomy (.xsd, linkbases)
@@ -259,12 +265,12 @@ Shared by all three:
                           on a model that reports the "thinking" capability)
 ```
 
-v4 (branch `v4`), optional: `RagFilingExplorer.Claude` runs the same flow over the same index - Local's
-`appsettings.json` read unchanged, embeddings still Ollama's - with Claude (`Anthropic` SDK, `AsIChatClient`) in place
+v4 (branch `v4`), optional: `Providers:Chat = Claude` runs the same flow over the same index - embeddings still
+Ollama's - with Claude (`Anthropic` SDK, `AsIChatClient`) in place
 of llama3.1:8b. `ChatModelOptions` carries what differs: no temperature (Claude rejects a non-default one), reasoning
 effort for lookups as well as synthesis (never None - the SDK sends it as thinking disabled, a 400), output ceiling
-16,000 (thinking counts toward it). Settings in `RagFilingExplorer.Claude/claudesettings.json`; the key from .NET user
-secrets (`Claude:ApiKey`) or `ANTHROPIC_API_KEY`, never that file (refused at load). The evaluation picks the model with `evalsettings.json`'s `ChatModel`.
+16,000 (thinking counts toward it). Settings in `appsettings.json`'s `Claude` section; the key from .NET user secrets
+(`Claude:ApiKey`, the Claude library's) or `ANTHROPIC_API_KEY`, never that file (refused at load). The evaluation picks the model with `evalsettings.json`'s `ChatModel`.
 
 Packages: `AngleSharp` (the DOM - v2's reader and the linearizer), `Microsoft.Extensions.AI`, `Microsoft.Extensions.VectorData.Abstractions`,
 `CommunityToolkit.VectorData.SqliteVec` (1.0.1-preview), `OllamaSharp`,
@@ -273,7 +279,7 @@ Packages: `AngleSharp` (the DOM - v2's reader and the linearizer), `Microsoft.Ex
 transitive via SqliteVec, referenced at the same version), `Microsoft.ML.OnnxRuntime` 1.30.0 and
 `Microsoft.ML.Tokenizers` 2.0.0 (the reranker; its model is fetched separately). The Claude app (v4) only: `Anthropic`
 12.54.1 and `Microsoft.Extensions.Configuration.EnvironmentVariables`. Tests: NUnit + Moq. Tunables live in
-`RagFilingExplorer.Local/appsettings.json`; domain logic (keyword lists, regexes) stays in code.
+`RagFilingExplorer.Cli/appsettings.json`; domain logic (keyword lists, regexes) stays in code.
 
 ---
 

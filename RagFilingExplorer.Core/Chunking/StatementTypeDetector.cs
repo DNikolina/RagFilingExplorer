@@ -1,0 +1,130 @@
+using System.Text.RegularExpressions;
+
+namespace RagFilingExplorer.Core.Chunking;
+
+/// <summary>
+/// Detects which financial statement a chunk belongs to (income statement, balance sheet, cash flow
+/// statement, equity statement, comprehensive income) from standalone title lines in the converted
+/// text, via <see cref="Detect"/>, so chunks can be tagged and filtered by statement type - not just
+/// by filing. <see cref="IsNotesToFinancialStatementsBoundary"/> is the other half of that: it flags
+/// the line where the primary statements end and the Notes section begins, so the caller can reset a
+/// carried-forward statement type there instead of letting it leak into every subsequent chunk.
+///
+/// The four filings in this project use three different naming conventions for the exact same
+/// statements - a detector tuned to only one would silently miss the others:
+/// - ORCL (and NFLX): "CONSOLIDATED STATEMENTS OF OPERATIONS", "CONSOLIDATED BALANCE SHEETS",
+///   "CONSOLIDATED STATEMENTS OF CASH FLOWS", "CONSOLIDATED STATEMENTS OF STOCKHOLDERS' EQUITY"
+/// - MSFT: "INCOME STATEMENTS", "BALANCE SHEETS", "CASH FLOWS STATEMENTS",
+///   "STOCKHOLDERS' EQUITY STATEMENTS" - no "CONSOLIDATED" prefix at all, different word order.
+/// - NDAQ: "Consolidated Statements of Income" - title case, and "Income" instead of "Operations";
+///   "Consolidated Statements of Changes in Stockholders' Equity" for the equity statement.
+///
+/// v1's strategies tag statement types this way. The Structured strategy takes them from the filer's own taxonomy
+/// instead (Structured.StatementLabels) and uses this class only for boundaries: a statement title or the Notes
+/// title still starts a new section (SectionSplitter's shared heading rules).
+/// </summary>
+internal static partial class StatementTypeDetector
+{
+    // Detect() checks ComprehensiveIncomeRegex before IncomeStatementRegex, though the order isn't
+    // load-bearing: both require "STATEMENTS" (see their own comments below), which makes them mutually
+    // exclusive on every convention seen - IncomeStatementRegex matches neither "STATEMENTS OF COMPREHENSIVE
+    // INCOME" nor "COMPREHENSIVE INCOME STATEMENTS". The order is kept as a cheap precaution.
+    //
+    // "BALANCE SHEETS" is intentionally NOT required to contain "STATEMENTS" - unlike every other
+    // statement type, the real title never includes that word in any of the conventions seen
+    // ("CONSOLIDATED BALANCE SHEETS" / "BALANCE SHEETS"), so there's nothing stricter to require here.
+    [GeneratedRegex(@"^(CONSOLIDATED\s+)?(STATEMENTS?\s+OF\s+)?BALANCE\s+SHEETS?$", RegexOptions.IgnoreCase)]
+    private static partial Regex BalanceSheetRegex();
+
+    // "STATEMENTS" required (prefix or suffix) - "Cash Flows" alone is also a bare MD&A subsection
+    // heading (before a narrative discussion of the trends), and matching it would tag Item 7's MD&A
+    // chunks as the cash flow statement until the real title in Item 8.
+    [GeneratedRegex(@"^(CONSOLIDATED\s+)?(STATEMENTS?\s+OF\s+CASH\s+FLOWS?|CASH\s+FLOWS?\s+STATEMENTS?)$", RegexOptions.IgnoreCase)]
+    private static partial Regex CashFlowRegex();
+
+    // Same "STATEMENTS" requirement, applied precautionarily - the real titles observed always
+    // include it ("...STATEMENTS OF STOCKHOLDERS' EQUITY" / "STOCKHOLDERS' EQUITY STATEMENTS"), so
+    // there's no evidence-based reason to leave it optional here either.
+    //
+    // "CHANGES IN" is optional after "OF": NDAQ titles its statement "Consolidated Statements of
+    // Changes in Stockholders' Equity". Undetected, its chunks would inherit the preceding
+    // comprehensive_income tag, and an NDAQ equity question filtered to equity_statement would find nothing.
+    [GeneratedRegex(@"^(CONSOLIDATED\s+)?(STATEMENTS?\s+OF\s+(CHANGES\s+IN\s+)?(STOCKHOLDERS|SHAREHOLDERS).{0,3}\s+EQUITY|(STOCKHOLDERS|SHAREHOLDERS).{0,3}\s+EQUITY\s+STATEMENTS?)$", RegexOptions.IgnoreCase)]
+    private static partial Regex EquityRegex();
+
+    // "STATEMENTS" must appear somewhere (prefix "STATEMENTS OF X" or suffix "X STATEMENTS", MSFT's
+    // convention) - otherwise a bare, unrelated line reading just "COMPREHENSIVE INCOME" matches too.
+    [GeneratedRegex(@"^(CONSOLIDATED\s+)?(STATEMENTS?\s+OF\s+COMPREHENSIVE\s+INCOME|COMPREHENSIVE\s+INCOME\s+STATEMENTS?)$", RegexOptions.IgnoreCase)]
+    private static partial Regex ComprehensiveIncomeRegex();
+
+    // The same requirement, more critical here: without "STATEMENTS" this matches a bare line reading
+    // just "OPERATIONS" - a normal business-section subheading ("Devices face competition... OPERATIONS
+    // We have a global operations service center...") - and every chunk from there to the real title in
+    // Item 8 (all of Items 1-7) would be tagged income_statement.
+    [GeneratedRegex(@"^(CONSOLIDATED\s+)?(STATEMENTS?\s+OF\s+(OPERATIONS|INCOME)|(OPERATIONS|INCOME)\s+STATEMENTS?)$", RegexOptions.IgnoreCase)]
+    private static partial Regex IncomeStatementRegex();
+
+    // All four filings title the section right after the five primary statements "NOTES TO
+    // (CONSOLIDATED) FINANCIAL STATEMENTS" - a consistent, filer-agnostic reset point. Without this,
+    // the "carry the last detected type forward" logic in FilingChunkRecords.Build has nothing to
+    // reset on: whichever statement type was detected last (typically the equity statement, since it's
+    // conventionally the final one of the five) silently "leaks" across every Note chunk for the rest
+    // of the filing - notes on stock plans and leases, even later Items, tagged equity_statement,
+    // burying the real equity-statement numbers among hundreds of unrelated chunks.
+    [GeneratedRegex(@"^NOTES\s+TO\s+(CONSOLIDATED\s+)?FINANCIAL\s+STATEMENTS$", RegexOptions.IgnoreCase)]
+    private static partial Regex NotesToFinancialStatementsRegex();
+
+    /// <summary>
+    /// True if this line is either a statement title or the Notes boundary - i.e. a line where the
+    /// carried-forward statement type changes. SectionSplitter starts a new section at each one, so the
+    /// chunk it opens is tagged correctly from its first line.
+    /// </summary>
+    public static bool IsStatementTypeBoundary(string line) => Detect(line) is not null || IsNotesToFinancialStatementsBoundary(line);
+
+    /// <summary>
+    /// True if this line is the "Notes to (Consolidated) Financial Statements" boundary - the caller
+    /// should reset any carried-forward statement type to null (narrative) here, rather than treat it
+    /// as a new statement type of its own.
+    /// </summary>
+    public static bool IsNotesToFinancialStatementsBoundary(string line)
+    {
+        string trimmed = line.Trim();
+        return trimmed.Length > 0 && trimmed.Length <= 60 && NotesToFinancialStatementsRegex().IsMatch(trimmed);
+    }
+
+    public static string? Detect(string line)
+    {
+        string trimmed = line.Trim();
+        if (trimmed.Length == 0 || trimmed.Length > 60)
+        {
+            return null;
+        }
+
+        if (BalanceSheetRegex().IsMatch(trimmed))
+        {
+            return "balance_sheet";
+        }
+
+        if (CashFlowRegex().IsMatch(trimmed))
+        {
+            return "cash_flow_statement";
+        }
+
+        if (EquityRegex().IsMatch(trimmed))
+        {
+            return "equity_statement";
+        }
+
+        if (ComprehensiveIncomeRegex().IsMatch(trimmed))
+        {
+            return "comprehensive_income";
+        }
+
+        if (IncomeStatementRegex().IsMatch(trimmed))
+        {
+            return "income_statement";
+        }
+
+        return null;
+    }
+}

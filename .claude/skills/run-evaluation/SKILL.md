@@ -37,11 +37,11 @@ Copy this checklist and work through it:
 Check these first - each one otherwise costs a long run or a confusing failure:
 
 1. **The .NET SDK** pinned in `global.json` is installed (`dotnet --version`).
-2. **Ollama is running with the configured models** (`RagFilingExplorer.Local/appsettings.json`: `nomic-embed-text`,
+2. **Ollama is running with the configured models** (`RagFilingExplorer.Cli/appsettings.json`: `nomic-embed-text`,
    `llama3.1:8b` by default). Note the Ollama version (`ollama --version`): every result is tagged `ollama:<version>`,
    and an Ollama update can change answers at temperature 0 even with identical code.
 3. **The index is built and current.** The evaluation never builds one. If it's missing or stale the run stops with the
-   fix; build it by running the app once: `dotnet run --project RagFilingExplorer.Local` (then `exit`).
+   fix; build it by running the app once: `dotnet run --project RagFilingExplorer.Cli` (then `exit`).
 4. **Nothing else is building or running the app** - a locked DLL fails the build.
 5. **Know whether answers will come from the cache.** A fresh clone has no cache, so the first full run asks the model
    all 102 questions - about two hours on a CPU-only machine. Later runs replay cached answers in minutes; only new or
@@ -55,7 +55,7 @@ the defaults clean.
 
 | Key | Meaning |
 |---|---|
-| `ChatModel` | `Local` (default, the app's Ollama model) or `Claude` (`RagFilingExplorer.Claude/claudesettings.json`; needs the key in user secrets (`Claude:ApiKey`) or `ANTHROPIC_API_KEY`, every uncached answer billed - ask the user before a run; strict grade only) |
+| `ChatModel` | `Local` (default, the app's Ollama model) or `Claude` (`appsettings.json`'s `Claude` section; needs the key in user secrets (`Claude:ApiKey`) or `ANTHROPIC_API_KEY`, every uncached answer billed - ask the user before a run; strict grade only) |
 | `Graders` | `strict` (default), `judge`, or `both` - the judge is a model; answer rank and figure source always run |
 | `Judges` | `equivalence`, `groundedness` (used when `Graders` includes the judge) |
 | `JudgeModel` | `Local` (default: the answering Ollama model judges) or a Claude model id (`claude-sonnet-5-5`) - its own client, so it can judge any model's cached answers; billed per uncached judge call - ask the user first |

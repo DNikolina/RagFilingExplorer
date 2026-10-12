@@ -66,7 +66,7 @@ public class EvaluationRunTests
             settings.UsesLocalJudge ? null : settings.JudgeModel, settings.JudgeEffort);
         List<QuestionOutcome> outcomes = await runner.RunAsync(sets, settings.OnlyIds.ToHashSet(), line => TestContext.Progress.WriteLine(line));
 
-        // What the model read - Local's Retrieval:GenerationTopK, or Claude's own.
+        // What the model read - appsettings.json's Retrieval:GenerationTopK, or Claude's own.
         int generationTopK = runner.GenerationTopK;
         StringBuilder summary = new();
         List<string> differences = [];

@@ -4,7 +4,7 @@ using Microsoft.Extensions.AI;
 using OllamaSharp;
 using RagFilingExplorer.Evaluation.Evaluators;
 using RagFilingExplorer.Evaluation.Grading;
-using RagFilingExplorer.Local.Retrieval;
+using RagFilingExplorer.Core.Retrieval;
 
 namespace RagFilingExplorer.Evaluation;
 
@@ -98,11 +98,11 @@ public class RelevanceHintScreenTests
     [Test]
     public async Task Screen_RelevanceHint_TargetsAndControls()
     {
-        AppSettings settings = AppSettings.Load(Path.Combine(Repo.FullName, "RagFilingExplorer.Local"));
+        AppSettings settings = AppSettings.Load(Path.Combine(Repo.FullName, "RagFilingExplorer.Cli"));
         IReadOnlyDictionary<string, ExpectedAnswer> expected = ExpectedAnswer.LoadAll(Repo);
-        (_, OllamaApiClient chat) = AppComposition.CreateOllamaClients(settings.Ollama);
+        (_, OllamaApiClient chat) = OllamaSetup.CreateClients(settings.Ollama);
         RecordingChatClient recorder = new();
-        using RagRuntime runtime = await AppComposition.OpenExistingIndexAsync(settings, Repo, recorder);
+        using RagRuntime runtime = await OllamaSetup.OpenExistingIndexAsync(settings, Repo, recorder);
         string ollama = (await chat.GetVersionAsync()).ToString();
 
         StringBuilder report = new();

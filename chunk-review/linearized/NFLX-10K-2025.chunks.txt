@@ -1167,7 +1167,7 @@ January 23, 2026
 
 NETFLIX, INC.
 
---- Chunk 107/231 | heading: PART IV > Financial Statements | tokens: 495 ---
+--- Chunk 107/231 | heading: PART IV > Financial Statements | tokens: 445 ---
 CONSOLIDATED STATEMENTS OF OPERATIONS
 
 (in thousands, except per share data)
@@ -1182,18 +1182,18 @@ Operating income — 2025: 13,326,603 | 2024: 10,417,614 | 2023: 6,954,003
 Other income (expense):
 Other income (expense) > Interest expense — 2025: (776,510) | 2024: (718,733) | 2023: (699,826)
 Other income (expense) > Interest and other income (expense) — 2025: 172,459 | 2024: 266,776 | 2023: (48,772)
-Other income (expense) > Income before income taxes — 2025: 12,722,552 | 2024: 9,965,657 | 2023: 6,205,405
-Other income (expense) > Provision for income taxes — 2025: (1,741,351) | 2024: (1,254,026) | 2023: (797,415)
-Other income (expense) > Net income — 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990
+Income before income taxes — 2025: 12,722,552 | 2024: 9,965,657 | 2023: 6,205,405
+Provision for income taxes — 2025: (1,741,351) | 2024: (1,254,026) | 2023: (797,415)
+Net income — 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990
 Earnings per share:
-Earnings per share > Basic — 2025: $2.58 | 2024: $2.03 | 2023: $1.22
 
---- Chunk 108/231 | heading: PART IV > Financial Statements | tokens: 229 ---
+--- Chunk 108/231 | heading: PART IV > Financial Statements | tokens: 263 ---
 CONSOLIDATED STATEMENTS OF OPERATIONS
 
 (in thousands, except per share data)
 
 Year ended December 31,
+Earnings per share > Basic — 2025: $2.58 | 2024: $2.03 | 2023: $1.22
 Earnings per share > Diluted — 2025: $2.53 | 2024: $1.98 | 2023: $1.20
 Weighted-average shares of common stock outstanding:
 Weighted-average shares of common stock outstanding > Basic — 2025: 4,249,512 | 2024: 4,295,191 | 2023: 4,415,712
@@ -1252,7 +1252,7 @@ Adjustments to reconcile net income to net cash provided by operating activities
 Adjustments to reconcile net income to net cash provided by operating activities > Deferred income taxes — 2025: (442,056) | 2024: (590,698) | 2023: (459,359)
 Changes in operating assets and liabilities:
 
---- Chunk 112/231 | heading: PART IV > Financial Statements | tokens: 492 ---
+--- Chunk 112/231 | heading: PART IV > Financial Statements | tokens: 462 ---
 CONSOLIDATED STATEMENTS OF CASH FLOWS
 
 (in thousands)
@@ -1263,7 +1263,7 @@ Changes in operating assets and liabilities > Accounts payable — 2025: (8,039)
 Changes in operating assets and liabilities > Accrued expenses and other liabilities — 2025: 881,218 | 2024: 191,899 | 2023: 103,565
 Changes in operating assets and liabilities > Deferred revenue — 2025: 254,917 | 2024: 77,844 | 2023: 178,708
 Changes in operating assets and liabilities > Other non-current assets and liabilities — 2025: (793,655) | 2024: (446,351) | 2023: (310,920)
-Changes in operating assets and liabilities > Net cash provided by operating activities — 2025: 10,149,273 | 2024: 7,361,364 | 2023: 7,274,301
+Net cash provided by operating activities — 2025: 10,149,273 | 2024: 7,361,364 | 2023: 7,274,301
 Cash flows from investing activities:
 Cash flows from investing activities > Purchases of property and equipment — 2025: (688,220) | 2024: (439,538) | 2023: (348,552)
 Cash flows from investing activities > Acquisitions — 2025: (17,194)
@@ -1271,7 +1271,6 @@ Cash flows from investing activities > Purchases of investments — 2025: (169,9
 Cash flows from investing activities > Proceeds from maturities and sales of investments — 2025: 1,917,067 | 2023: 1,395,165
 Cash flows from investing activities > Net cash provided by (used in) investing activities — 2025: 1,041,688 | 2024: (2,181,784) | 2023: 541,751
 Cash flows from financing activities:
-Cash flows from financing activities > Proceeds from issuance of debt — 2024: 1,794,460
 
 --- Chunk 113/231 | heading: PART IV > Financial Statements | tokens: 576 ---
 CONSOLIDATED STATEMENTS OF CASH FLOWS
@@ -1279,16 +1278,17 @@ CONSOLIDATED STATEMENTS OF CASH FLOWS
 (in thousands)
 
 Year Ended December 31,
+Cash flows from financing activities > Proceeds from issuance of debt — 2024: 1,794,460
 Cash flows from financing activities > Repayments of debt — 2025: (1,833,450) | 2024: (400,000)
 Cash flows from financing activities > Proceeds from issuance of common stock — 2025: 666,965 | 2024: 832,887 | 2023: 169,990
 Cash flows from financing activities > Repurchases of common stock — 2025: (9,127,167) | 2024: (6,263,746) | 2023: (6,045,347)
 Cash flows from financing activities > Taxes paid related to net share settlement of equity awards — 2025: (46,165) | 2024: (8,285)
 Cash flows from financing activities > Other financing activities — 2025: (5,806) | 2024: (29,743) | 2023: (75,446)
 Cash flows from financing activities > Net cash used in financing activities — 2025: (10,345,623) | 2024: (4,074,427) | 2023: (5,950,803)
-Cash flows from financing activities > Effect of exchange rate changes on cash, cash equivalents and restricted cash — 2025: 386,519 | 2024: (416,331) | 2023: 82,684
-Cash flows from financing activities > Net increase in cash, cash equivalents and restricted cash — 2025: 1,231,857 | 2024: 688,822 | 2023: 1,947,933
-Cash flows from financing activities > Cash, cash equivalents and restricted cash, beginning of year — 2025: 7,807,337 | 2024: 7,118,515 | 2023: 5,170,582
-Cash flows from financing activities > Cash, cash equivalents and restricted cash, end of year — 2025: $9,039,194 | 2024: $7,807,337 | 2023: $7,118,515
+Effect of exchange rate changes on cash, cash equivalents and restricted cash — 2025: 386,519 | 2024: (416,331) | 2023: 82,684
+Net increase in cash, cash equivalents and restricted cash — 2025: 1,231,857 | 2024: 688,822 | 2023: 1,947,933
+Cash, cash equivalents and restricted cash, beginning of year — 2025: 7,807,337 | 2024: 7,118,515 | 2023: 5,170,582
+Cash, cash equivalents and restricted cash, end of year — 2025: $9,039,194 | 2024: $7,807,337 | 2023: $7,118,515
 Supplemental disclosure:
 Supplemental disclosure > Interest paid — 2025: 718,611 | 2024: 674,502 | 2023: 684,504
 
@@ -1298,7 +1298,7 @@ See accompanying notes to consolidated financial statements.
 
 NETFLIX, INC.
 
---- Chunk 114/231 | heading: PART IV > Financial Statements | tokens: 511 ---
+--- Chunk 114/231 | heading: PART IV > Financial Statements | tokens: 431 ---
 CONSOLIDATED BALANCE SHEETS
 
 (in thousands, except share and per share data)
@@ -1322,16 +1322,16 @@ Current liabilities > Accrued expenses and other liabilities — 2025: 3,220,869
 Current liabilities > Deferred revenue — 2025: 1,775,730 | 2024: 1,520,813
 Current liabilities > Short-term debt — 2025: 998,865 | 2024: 1,784,453
 Current liabilities > Total current liabilities — 2025: 10,980,930 | 2024: 10,755,400
-Non-current content liabilities — 2025: 1,579,476 | 2024: 1,780,806
-Long-term debt — 2025: 13,463,971 | 2024: 13,798,351
-Other non-current liabilities — 2025: 2,957,128 | 2024: 2,552,250
 
---- Chunk 115/231 | heading: PART IV > Financial Statements | tokens: 493 ---
+--- Chunk 115/231 | heading: PART IV > Financial Statements | tokens: 573 ---
 CONSOLIDATED BALANCE SHEETS
 
 (in thousands, except share and per share data)
 
 As of December 31,
+Non-current content liabilities — 2025: 1,579,476 | 2024: 1,780,806
+Long-term debt — 2025: 13,463,971 | 2024: 13,798,351
+Other non-current liabilities — 2025: 2,957,128 | 2024: 2,552,250
 Total liabilities — 2025: 28,981,505 | 2024: 28,886,807
 Commitments and contingencies (Note 9)
 Stockholders’ equity:
@@ -1576,29 +1576,29 @@ Outstanding share and per-share amounts disclosed for all periods provided have 
 
 Basic earnings per share is computed using the weighted-average number of outstanding shares of common stock during the period. Diluted earnings per share is computed using the weighted-average number of outstanding shares of common stock and, when dilutive, potential outstanding shares of common stock during the period. Potential outstanding shares of common stock are calculated using the treasury-stock method and consist of incremental shares issuable upon the assumed exercise of stock options and vesting of time-based and performance-based restricted stock units. The computation of earnings per share, as adjusted for the Stock Split, is as follows:
 
---- Chunk 132/231 | heading: PART IV > Financial Statements | tokens: 445 ---
+--- Chunk 132/231 | heading: PART IV > Financial Statements | tokens: 496 ---
 (in thousands, except per share data) Year Ended December 31,
 Basic earnings per share:
 Basic earnings per share > Net income — 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990
 Shares used in computation:
 Shares used in computation > Weighted-average shares of common stock outstanding — 2025: 4,249,512 | 2024: 4,295,191 | 2023: 4,415,712
-Shares used in computation > Basic earnings per share — 2025: $2.58 | 2024: $2.03 | 2023: $1.22
+Basic earnings per share — 2025: $2.58 | 2024: $2.03 | 2023: $1.22
 Diluted earnings per share:
 Diluted earnings per share > Net income — 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990
 Shares used in computation:
 Shares used in computation > Weighted-average shares of common stock outstanding — 2025: 4,249,512 | 2024: 4,295,191 | 2023: 4,415,712
 Shares used in computation > Effect of dilutive stock-based awards — 2025: 94,351 | 2024: 97,417 | 2023: 79,254
 Shares used in computation > Weighted-average number of shares — 2025: 4,343,863 | 2024: 4,392,608 | 2023: 4,494,966
-Shares used in computation > Diluted earnings per share — 2025: $2.53 | 2024: $1.98 | 2023: $1.20
+Diluted earnings per share — 2025: $2.53 | 2024: $1.98 | 2023: $1.20
 
 The following table summarizes the potential shares of common stock excluded from the diluted calculation, as adjusted for the Stock Split, as their inclusion would have been anti-dilutive:
 
 (in thousands) Year Ended December 31,
 Stock-based awards — 2025: 818 | 2024: 2,432 | 2023: 41,091
 
---- Chunk 133/231 | heading: PART IV > Financial Statements | tokens: 490 ---
 [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)
 
+--- Chunk 133/231 | heading: PART IV > Financial Statements | tokens: 424 ---
 4.Cash, Cash Equivalents, Restricted Cash, and Short-term Investments
 
 The Company classifies short-term investments, which consist of marketable securities with original maturities in excess of 90 days as available-for-sale (“AFS”). The Company does not buy and hold securities principally for the purpose of selling them in the near future. The Company’s policy is focused on the preservation of capital, liquidity and return. From time to time, the Company may sell certain securities but the objectives are generally not to generate profits on short-term differences in price.
@@ -1611,9 +1611,9 @@ Level 1 securities:
 Level 1 securities > Money market funds — Amortized Cost: 3,259,240 | Estimated Fair Value: 3,259,240 | Cash and cash equivalents: 3,259,180 | Non-current Assets: 60
 Level 2 securities:
 Level 2 securities > Time Deposits(1) — Amortized Cost: 594,469 | Estimated Fair Value: 594,469 | Cash and cash equivalents: 565,791 | Short-term investments: 28,678
-Level 2 securities >  — Amortized Cost: $9,067,872 | Gross Unrealized Gains: $— | Gross Unrealized Losses: $— | Estimated Fair Value: $9,067,872 | Cash and cash equivalents: $9,033,681 | Short-term investments: $28,678 | Other Current Assets: $5,369 | Non-current Assets: $144
+Amortized Cost: $9,067,872 | Gross Unrealized Gains: $— | Gross Unrealized Losses: $— | Estimated Fair Value: $9,067,872 | Cash and cash equivalents: $9,033,681 | Short-term investments: $28,678 | Other Current Assets: $5,369 | Non-current Assets: $144
 
---- Chunk 134/231 | heading: PART IV > Financial Statements | tokens: 485 ---
+--- Chunk 134/231 | heading: PART IV > Financial Statements | tokens: 478 ---
 (in thousands) As of December 31, 2024
 Cash — Amortized Cost: $4,866,753 | Gross Unrealized Gains: $— | Gross Unrealized Losses: $— | Estimated Fair Value: $4,866,753 | Cash and cash equivalents: $4,864,207 | Short-term investments: $— | Other Current Assets: $2,472 | Non-current Assets: $74
 Level 1 securities:
@@ -1621,7 +1621,7 @@ Level 1 securities > Money market funds — Amortized Cost: 2,676,314 | Estimate
 Level 2 securities:
 Level 2 securities > Time Deposits(1) — Amortized Cost: 301,374 | Estimated Fair Value: 301,374 | Cash and cash equivalents: 264,270 | Short-term investments: 37,104
 Level 2 securities > Government securities — Amortized Cost: 1,738,642 | Gross Unrealized Gains: 3,260 | Estimated Fair Value: 1,741,902 | Short-term investments: 1,741,902
-Level 2 securities >  — Amortized Cost: $9,583,083 | Gross Unrealized Gains: $3,260 | Gross Unrealized Losses: $— | Estimated Fair Value: $9,586,343 | Cash and cash equivalents: $7,804,733 | Short-term investments: $1,779,006 | Other Current Assets: $2,472 | Non-current Assets: $132
+Amortized Cost: $9,583,083 | Gross Unrealized Gains: $3,260 | Gross Unrealized Losses: $— | Estimated Fair Value: $9,586,343 | Cash and cash equivalents: $7,804,733 | Short-term investments: $1,779,006 | Other Current Assets: $2,472 | Non-current Assets: $132
 
 (1) The majority of the Company's time deposits are international deposits, which mature within one year.
 
@@ -1629,7 +1629,7 @@ Other current assets and non-current assets primarily consist of restricted cash
 
 See Note 7 Debt and Note 8 Derivative Financial Instruments and Hedging Activities to the consolidated financial statements for further information regarding the fair value of the Company’s senior notes and derivative financial instruments.
 
---- Chunk 135/231 | heading: PART IV > Financial Statements | tokens: 458 ---
+--- Chunk 135/231 | heading: PART IV > Financial Statements | tokens: 452 ---
 See Note 7 Debt and Note 8 Derivative Financial Instruments and Hedging Activities to the consolidated financial statements for further information regarding the fair value of the Company’s senior notes and derivative financial instruments.
 
 [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)
@@ -1647,7 +1647,7 @@ Produced content, net > Released, less amortization — 2025: 10,687,444 | 2024:
 Produced content, net > In production — 2025: 9,210,735 | 2024: 9,317,367
 Produced content, net > In development and pre-production — 2025: 741,635 | 2024: 561,243
 Produced content, net >  — 2025: 20,639,814 | 2024: 20,030,153
-Produced content, net > Content assets, net — 2025: $32,778,392 | 2024: $32,452,462
+Content assets, net — 2025: $32,778,392 | 2024: $32,452,462
 
 As of December 31, 2025, approximately $6,381 million, $2,280 million, and $1,469 million of the $12,139 million unamortized cost of the licensed content is expected to be amortized in each of the next three years. As of December 31, 2025, approximately $4,309 million, $2,784 million, and $1,840 million of the $10,687 million unamortized cost of the produced content that has been released is expected to be amortized in each of the next three years.
 
@@ -1821,7 +1821,7 @@ On December 19, 2025, the Company entered into a senior unsecured delayed draw c
 
 See Note 9 Commitments and Contingencies and Note 14 Subsequent Event for further information on the financing arrangements the Company has entered into in connection with the WBD transaction.
 
---- Chunk 150/231 | heading: PART IV > Financial Statements | tokens: 499 ---
+--- Chunk 150/231 | heading: PART IV > Financial Statements | tokens: 495 ---
 See Note 9 Commitments and Contingencies and Note 14 Subsequent Event for further information on the financing arrangements the Company has entered into in connection with the WBD transaction.
 
 [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)
@@ -1841,7 +1841,7 @@ Foreign exchange contracts > Cash flow hedges — 2025: $21,066,760 | 2024: $18,
 Foreign exchange contracts > Fair value hedges — 2025: 2,884,792 | 2024: 3,819,817
 Derivatives not designated as hedging instruments:
 Derivatives not designated as hedging instruments > Foreign exchange contracts — 2025: 1,555,502 | 2024: 1,432,136
-Derivatives not designated as hedging instruments > Total — 2025: $25,507,054 | 2024: $23,760,343
+Total — 2025: $25,507,054 | 2024: $23,760,343
 
 As of December 31, 2025 and December 31, 2024, approximately $1.9 billion and $1.0 billion, respectively, of the Company’s Euro–denominated Senior Notes were designated as hedges of the foreign exchange risk of the Company’s net investment in certain foreign subsidiaries.
 
@@ -1849,26 +1849,26 @@ As of December 31, 2025 and December 31, 2024, the carrying amount of the Comp
 
 See Note 7 Debt for further information on the Company’s debt obligations.
 
---- Chunk 151/231 | heading: PART IV > Financial Statements | tokens: 479 ---
-See Note 7 Debt for further information on the Company’s debt obligations.
+Fair Value of Derivative Contracts
 
+--- Chunk 151/231 | heading: PART IV > Financial Statements | tokens: 480 ---
 Fair Value of Derivative Contracts
 
 The fair value of the Company’s outstanding derivative instruments was as follows:
 
-(in thousands) As of December 31, 2025 Derivative
+(in thousands) As of December 31, 2025
 Derivatives designated as hedging instruments:
-Derivatives designated as hedging instruments > Foreign exchange contracts — Assets Other current assets: $192,828 | Assets Other non-current assets: $88,985 | Liabilities Accrued expenses and other liabilities: $426,341 | Liabilities Other non-current liabilities: $214,574
+Derivatives designated as hedging instruments > Foreign exchange contracts — Derivative Assets Other current assets: $192,828 | Derivative Assets Other non-current assets: $88,985 | Derivative Liabilities Accrued expenses and other liabilities: $426,341 | Derivative Liabilities Other non-current liabilities: $214,574
 Derivatives not designated as hedging instruments:
-Derivatives not designated as hedging instruments > Foreign exchange contracts — Assets Other current assets: 3,463 | Liabilities Accrued expenses and other liabilities: 11,704
-Derivatives not designated as hedging instruments > Total — Assets Other current assets: $196,291 | Assets Other non-current assets: $88,985 | Liabilities Accrued expenses and other liabilities: $438,045 | Liabilities Other non-current liabilities: $214,574
+Derivatives not designated as hedging instruments > Foreign exchange contracts — Derivative Assets Other current assets: 3,463 | Derivative Liabilities Accrued expenses and other liabilities: 11,704
+Total — Derivative Assets Other current assets: $196,291 | Derivative Assets Other non-current assets: $88,985 | Derivative Liabilities Accrued expenses and other liabilities: $438,045 | Derivative Liabilities Other non-current liabilities: $214,574
 
-(in thousands) As of December 31, 2024 Derivative
+(in thousands) As of December 31, 2024
 Derivatives designated as hedging instruments:
-Derivatives designated as hedging instruments > Foreign exchange contracts — Assets Other current assets: $580,065 | Assets Other non-current assets: $406,677 | Liabilities Accrued expenses and other liabilities: $303,425 | Liabilities Other non-current liabilities: $83
+Derivatives designated as hedging instruments > Foreign exchange contracts — Derivative Assets Other current assets: $580,065 | Derivative Assets Other non-current assets: $406,677 | Derivative Liabilities Accrued expenses and other liabilities: $303,425 | Derivative Liabilities Other non-current liabilities: $83
 Derivatives not designated as hedging instruments:
-Derivatives not designated as hedging instruments > Foreign exchange contracts — Assets Other current assets: 16,211 | Liabilities Accrued expenses and other liabilities: 14,492
-Derivatives not designated as hedging instruments > Total — Assets Other current assets: $596,276 | Assets Other non-current assets: $406,677 | Liabilities Accrued expenses and other liabilities: $317,917 | Liabilities Other non-current liabilities: $83
+Derivatives not designated as hedging instruments > Foreign exchange contracts — Derivative Assets Other current assets: 16,211 | Derivative Liabilities Accrued expenses and other liabilities: 14,492
+Total — Derivative Assets Other current assets: $596,276 | Derivative Assets Other non-current assets: $406,677 | Derivative Liabilities Accrued expenses and other liabilities: $317,917 | Derivative Liabilities Other non-current liabilities: $83
 
 [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)
 
@@ -1889,7 +1889,7 @@ The potential offsetting effect to the Company’s derivative assets and liabili
 Derivative assets — Gross Amount Recognized in the Consolidated Balance Sheets: $285,276 | Gross Amount Offset in the Consolidated Balance Sheets: $— | Net Amount Presented in the Consolidated Balance Sheets: $285,276 | Gross Amount Not Offset in the Consolidated Balance Sheets Financial Instruments: $(282,469) | Gross Amount Not Offset in the Consolidated Balance Sheets Collateral Received and Posted: $— | Net Amount: $2,807
 Derivative liabilities — Gross Amount Recognized in the Consolidated Balance Sheets: 652,619 | Net Amount Presented in the Consolidated Balance Sheets: 652,619 | Gross Amount Not Offset in the Consolidated Balance Sheets Financial Instruments: (282,469) | Net Amount: 370,150
 
---- Chunk 153/231 | heading: PART IV > Financial Statements | tokens: 497 ---
+--- Chunk 153/231 | heading: PART IV > Financial Statements | tokens: 491 ---
 (in thousands) As of December 31, 2024
 Derivative assets — Gross Amount Recognized in the Consolidated Balance Sheets: $1,002,953 | Gross Amount Offset in the Consolidated Balance Sheets: $— | Net Amount Presented in the Consolidated Balance Sheets: $1,002,953 | Gross Amount Not Offset in the Consolidated Balance Sheets Financial Instruments: $(316,320) | Gross Amount Not Offset in the Consolidated Balance Sheets Collateral Received and Posted: $(1,800) | Net Amount: $684,833
 Derivative liabilities — Gross Amount Recognized in the Consolidated Balance Sheets: 318,000 | Net Amount Presented in the Consolidated Balance Sheets: 318,000 | Gross Amount Not Offset in the Consolidated Balance Sheets Financial Instruments: (316,320) | Net Amount: 1,680
@@ -1910,7 +1910,7 @@ Foreign exchange contracts > Amount excluded from the assessment of effectivenes
 Net investment hedges:
 Foreign currency-denominated debt
 Foreign currency-denominated debt > Amount included in the assessment of effectiveness — 2025: (144,656) | 2024: 32,400
-Foreign currency-denominated debt > Total — 2025: $(1,610,019) | 2024: $1,213,804 | 2023: $(155,730)
+Total — 2025: $(1,610,019) | 2024: $1,213,804 | 2023: $(155,730)
 
 The gains (losses) on hedged items and derivative instruments recognized in the Consolidated Statement of Operations were as follows:
 
@@ -2139,7 +2139,7 @@ Amounts reclassified from accumulated other comprehensive income (loss) — Chan
 Net change in accumulated other comprehensive income (loss) — Foreign Currency Translation Adjustments: 183,218 | Net Investment Hedge Gains (Losses): (144,656) | Change in Unrealized Gains (Losses) on Cash Flow Hedges: (1,303,658) | Change in Unrealized Gains (Losses) on Excluded Component of Fair Value Hedges: (12,798) | Change in Unrealized Gains (Losses) on AFS Securities: (3,260) | Tax (Expense) Benefit: 338,610 | Total: (942,544)
 Balances as of December 31, 2025 — Foreign Currency Translation Adjustments: $(193,615) | Net Investment Hedge Gains (Losses): $(112,256) | Change in Unrealized Gains (Losses) on Cash Flow Hedges: $(389,289) | Change in Unrealized Gains (Losses) on Excluded Component of Fair Value Hedges: $(3,565) | Change in Unrealized Gains (Losses) on AFS Securities: $— | Tax (Expense) Benefit: $118,343 | Total: $(580,382)
 
---- Chunk 170/231 | heading: PART IV > Financial Statements | tokens: 374 ---
+--- Chunk 170/231 | heading: PART IV > Financial Statements | tokens: 370 ---
 The following tables summarize the amounts reclassified from AOCI to the Consolidated Statement of Operations:
 
 [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)
@@ -2153,9 +2153,9 @@ Foreign exchange contracts > Amount of gains (losses) reclassified from AOCI —
 Gains (losses) on derivatives in fair value hedging relationship
 Foreign exchange contracts
 Foreign exchange contracts > Amount excluded from assessment of effectiveness and recognized in earnings based on amortization approach — Interest and other income (expense): (59,201) | Provision for Income Taxes: 13,776 | Total Reclassifications: (45,425)
-Foreign exchange contracts > Total — Revenues: $(91,143) | Cost of Revenues: $1,437 | Interest and other income (expense): $(59,080) | Provision for Income Taxes: $34,497 | Total Reclassifications: $(114,289)
+Total — Revenues: $(91,143) | Cost of Revenues: $1,437 | Interest and other income (expense): $(59,080) | Provision for Income Taxes: $34,497 | Total Reclassifications: $(114,289)
 
---- Chunk 171/231 | heading: PART IV > Financial Statements | tokens: 458 ---
+--- Chunk 171/231 | heading: PART IV > Financial Statements | tokens: 454 ---
 (in thousands) Year Ended December 31, 2024
 Gains (losses) on derivatives in cash flow hedging relationship
 Foreign exchange contracts
@@ -2163,7 +2163,7 @@ Foreign exchange contracts > Amount of gains (losses) reclassified from AOCI —
 Gains (losses) on derivatives in fair value hedging relationship
 Foreign exchange contracts
 Foreign exchange contracts > Amount excluded from assessment of effectiveness and recognized in earnings based on amortization approach — Interest and other income (expense): (23,567) | Provision for Income Taxes: 5,410 | Total Reclassifications: (18,157)
-Foreign exchange contracts > Total — Revenues: $124,010 | Cost of Revenues: $1,629 | Interest and other income (expense): $(23,567) | Provision for Income Taxes: $(23,434) | Total Reclassifications: $78,638
+Total — Revenues: $124,010 | Cost of Revenues: $1,629 | Interest and other income (expense): $(23,567) | Provision for Income Taxes: $(23,434) | Total Reclassifications: $78,638
 
 No amounts were reclassified from AOCI into the Consolidated Statements of Operations in the year ended December 31, 2023.
 
@@ -2198,7 +2198,7 @@ Provision for income taxes — 2025: $1,741,351 | 2024: $1,254,026 | 2023: $797,
 
 A reconciliation of the provision for income taxes to the amount computed by applying the 21% statutory U.S. federal income tax rate to income before income taxes after the adoption of ASU 2023-09 is as follows:
 
---- Chunk 173/231 | heading: PART IV > Financial Statements | tokens: 487 ---
+--- Chunk 173/231 | heading: PART IV > Financial Statements | tokens: 443 ---
 (in thousands)
 Tax at U.S. Statutory Rate — Year Ended December 31, 2025 Percent: $2,671,734 / 21.0%
 State and Local Income Taxes(1) — Year Ended December 31, 2025 Percent: 191,271 / 1.5%
@@ -2206,7 +2206,7 @@ Foreign Tax Effects
 Brazil
 Brazil > Withholding tax on services — Year Ended December 31, 2025 Percent: 238,233 / 1.9%
 Brazil > Others — Year Ended December 31, 2025 Percent: (77,189) / (0.6)%
-Brazil > Other foreign jurisdictions — Year Ended December 31, 2025 Percent: 23,290 / 0.2%
+Other foreign jurisdictions — Year Ended December 31, 2025 Percent: 23,290 / 0.2%
 Effect of Cross-Border Tax Laws
 Effect of Cross-Border Tax Laws > Foreign-derived intangible income — Year Ended December 31, 2025 Percent: (656,828) / (5.2)%
 Effect of Cross-Border Tax Laws > Foreign tax credit for withholding taxes — Year Ended December 31, 2025 Percent: (292,148) / (2.3)%
@@ -2214,16 +2214,16 @@ Effect of Cross-Border Tax Laws > Other — Year Ended December 31, 2025 Percent
 Tax Credits
 Tax Credits > Research and development tax credits — Year Ended December 31, 2025 Percent: (184,709) / (1.5)%
 Tax Credits > Other — Year Ended December 31, 2025 Percent: (9,748) / (0.1)%
-Tax Credits > Changes in Valuation Allowances — Year Ended December 31, 2025 Percent: (8,615) / (0.1)%
+Changes in Valuation Allowances — Year Ended December 31, 2025 Percent: (8,615) / (0.1)%
 Nontaxable and Nondeductible items
 Nontaxable and Nondeductible items > Share-based payment awards — Year Ended December 31, 2025 Percent: (393,156) / (3.1)%
 Nontaxable and Nondeductible items > Others — Year Ended December 31, 2025 Percent: 80,904 / 0.6%
-Nontaxable and Nondeductible items > Changes in Unrecognized Tax Benefits — Year Ended December 31, 2025 Percent: 130,400 / 1.0%
 
---- Chunk 174/231 | heading: PART IV > Financial Statements | tokens: 78 ---
+--- Chunk 174/231 | heading: PART IV > Financial Statements | tokens: 84 ---
 (in thousands)
-Nontaxable and Nondeductible items > Other Adjustments — Year Ended December 31, 2025 Percent: (4,903) / 0.1%
-Nontaxable and Nondeductible items > Effective Tax Rate — Year Ended December 31, 2025 Percent: $1,741,351 / 13.7%
+Changes in Unrecognized Tax Benefits — Year Ended December 31, 2025 Percent: 130,400 / 1.0%
+Other Adjustments — Year Ended December 31, 2025 Percent: (4,903) / 0.1%
+Effective Tax Rate — Year Ended December 31, 2025 Percent: $1,741,351 / 13.7%
 
 --- Chunk 175/231 | heading: PART IV > Financial Statements | tokens: 436 ---
 (1) The states and local jurisdictions that contribute to the majority (greater than 50%) of the tax effect in this category include New York state and city, California, Illinois, New Jersey, and New Mexico.
@@ -2271,7 +2271,7 @@ Deferred tax liabilities > Other — 2025: (7,136) | 2024: (15,354)
 Deferred tax liabilities > Total deferred tax liabilities — 2025: (749,722) | 2024: (1,337,920)
 Net deferred tax assets — 2025: $1,954,803 | 2024: $1,177,558
 
---- Chunk 177/231 | heading: PART IV > Financial Statements | tokens: 420 ---
+--- Chunk 177/231 | heading: PART IV > Financial Statements | tokens: 415 ---
 The following table shows the deferred tax assets and liabilities within our Consolidated Balance Sheets:
 
 [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)
@@ -2281,7 +2281,7 @@ Total deferred tax assets:
 Total deferred tax assets > Other non-current assets — 2025: $2,062,078 | 2024: $1,290,160
 Total deferred tax liabilities:
 Total deferred tax liabilities > Other non-current liabilities — 2025: (107,275) | 2024: (112,602)
-Total deferred tax liabilities > Net deferred tax assets — 2025: $1,954,803 | 2024: $1,177,558
+Net deferred tax assets — 2025: $1,954,803 | 2024: $1,177,558
 
 As of December 31, 2025, for tax return purposes, the Company had $823 million of California R&D tax credit carryforwards which can be carried forward indefinitely, $1,018 million of state net operating loss carryforwards, which will begin to expire in 2029, $48 million of U.S. foreign tax credit carryforwards which will begin to expire in 2033, $190 million of foreign net operating loss carryforwards which will begin to expire in 2026 and $51 million of foreign local tax credit carryforwards, which can be carried forward indefinitely.
 
@@ -2301,7 +2301,7 @@ Balance at the end of the year — 2025: $566,363 | 2024: $432,280 | 2023: $327,
 
 The Company includes interest and penalties related to unrecognized tax benefits within the provision for income taxes and in “Other non-current liabilities” in the Consolidated Balance Sheets. During the years ended December 31, 2025, 2024 and 2023, the Company recorded $38 million, $16 million, and $25 million, respectively, of net interest and penalties in the provision for income taxes. The amount of interest and penalties accrued at December 31, 2025 and 2024 was $82 million and $44 million, respectively.
 
---- Chunk 179/231 | heading: PART IV > Financial Statements | tokens: 490 ---
+--- Chunk 179/231 | heading: PART IV > Financial Statements | tokens: 488 ---
 The Company files U.S. federal, state and foreign tax returns. The Company is currently under examination by the IRS for years 2016 through 2022 and is subject to examination for 2023 and 2024. The Company is also generally subject to examination by various state and foreign jurisdictions for years 2018 through 2024. While the Company is in various stages of inquiry and examination with certain taxing authorities and believes that its tax positions will more likely than not be sustained, it is nonetheless possible that future obligations related to these matters could arise. The Company believes that adequate amounts have been reserved for any adjustments that may ultimately result from an examination.
 
 The amounts of cash income taxes paid by the Company were as follows:
@@ -2315,7 +2315,7 @@ Foreign
 Foreign > Brazil — Year Ended December 31, 2025: 275,106
 Foreign > Korea — Year Ended December 31, 2025: 195,302
 Foreign > All other foreign — Year Ended December 31, 2025: 355,828
-Foreign > Income taxes, net of amounts refunded — Year Ended December 31, 2025: $2,220,384
+Income taxes, net of amounts refunded — Year Ended December 31, 2025: $2,220,384
 
 The amount of cash income taxes paid by the Company during the years ended December 31, 2024 and 2023 was $1,642 million and $1,155 million, respectively.
 
@@ -2343,7 +2343,7 @@ The Company operates as one operating segment. The Company's chief operating dec
 
 The following table presents selected financial information with respect to the Company’s single operating segment for the years ended December 31, 2025, 2024 and 2023:
 
---- Chunk 181/231 | heading: PART IV > Financial Statements | tokens: 496 ---
+--- Chunk 181/231 | heading: PART IV > Financial Statements | tokens: 492 ---
 The following table presents selected financial information with respect to the Company’s single operating segment for the years ended December 31, 2025, 2024 and 2023:
 
 [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)
@@ -2356,21 +2356,21 @@ Less > Other cost of revenues — 2025: 6,853,163 | 2024: 5,736,947 | 2023: 5,51
 Less > Sales and marketing — 2025: 3,301,306 | 2024: 2,917,554 | 2023: 2,657,883
 Less > Technology and development — 2025: 3,391,390 | 2024: 2,925,295 | 2023: 2,675,758
 Less > General and administrative — 2025: 1,888,408 | 2024: 1,702,039 | 2023: 1,720,285
-Less > Operating income — 2025: 13,326,603 | 2024: 10,417,614 | 2023: 6,954,003
-Less > Operating margin — 2025: 29.5% | 2024: 26.7% | 2023: 20.6%
+Operating income — 2025: 13,326,603 | 2024: 10,417,614 | 2023: 6,954,003
+Operating margin — 2025: 29.5% | 2024: 26.7% | 2023: 20.6%
 Other income (expense)
 Other income (expense) > Interest expense — 2025: (776,510) | 2024: (718,733) | 2023: (699,826)
 Other income (expense) > Interest and other income (expense)(1) — 2025: 172,459 | 2024: 266,776 | 2023: (48,772)
 
---- Chunk 182/231 | heading: PART IV > Financial Statements | tokens: 233 ---
+--- Chunk 182/231 | heading: PART IV > Financial Statements | tokens: 216 ---
 The following table presents selected financial information with respect to the Company’s single operating segment for the years ended December 31, 2025, 2024 and 2023:
 
 [Table of Contents](https://www.sec.gov/Archives/edgar/data/1065280/000106528026000034/nflx-20251231.htm#ie1400fdbdd2e4bd282737fca9a66fd5a_7)
 
 (in thousands) Year Ended December 31,
-Other income (expense) > Income before income taxes — 2025: 12,722,552 | 2024: 9,965,657 | 2023: 6,205,405
-Other income (expense) > Provision for income taxes — 2025: (1,741,351) | 2024: (1,254,026) | 2023: (797,415)
-Other income (expense) > Net income — 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990
+Income before income taxes — 2025: 12,722,552 | 2024: 9,965,657 | 2023: 6,205,405
+Provision for income taxes — 2025: (1,741,351) | 2024: (1,254,026) | 2023: (797,415)
+Net income — 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990
 
 --- Chunk 183/231 | heading: PART IV > Financial Statements | tokens: 494 ---
 (1) Includes interest income of $295 million, $294 million and $281 million for the years ended December 31, 2025, 2024 and 2023, respectively.

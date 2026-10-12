@@ -1,8 +1,8 @@
 using AngleSharp.Dom;
 using AngleSharp.Html.Parser;
-using RagFilingExplorer.Local.Chunking;
-using RagFilingExplorer.Local.Structured;
-using RagFilingExplorer.Local.Xbrl;
+using RagFilingExplorer.Core.Chunking;
+using RagFilingExplorer.Core.Structured;
+using RagFilingExplorer.Core.Xbrl;
 
 namespace RagFilingExplorer.Tests.Structured;
 

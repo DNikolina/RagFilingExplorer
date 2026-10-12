@@ -2,8 +2,8 @@ using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.VectorData;
 using Moq;
-using RagFilingExplorer.Local.Retrieval;
-using RagFilingExplorer.Local.VectorStore;
+using RagFilingExplorer.Core.Retrieval;
+using RagFilingExplorer.Core.VectorStore;
 using System.Text.RegularExpressions;
 
 namespace RagFilingExplorer.Tests.Retrieval;

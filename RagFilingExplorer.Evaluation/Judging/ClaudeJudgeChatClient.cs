@@ -15,8 +15,8 @@ internal sealed class ClaudeJudgeChatClient(IChatClient inner, ReasoningEffort e
     /// <summary>The tokens of every judge call billed in this run.</summary>
     public UsageDetails Usage { get; } = new();
 
-    /// <summary>The Claude judge for <paramref name="model"/>: the key and model checked as the Claude app checks them,
-    /// claudesettings.json's output ceiling.</summary>
+    /// <summary>The Claude judge for <paramref name="model"/>: the key and model checked as the app checks them,
+    /// the Claude section's output ceiling (appsettings.json).</summary>
     public static async Task<ClaudeJudgeChatClient> CreateAsync(DirectoryInfo repoRoot, string model, ReasoningEffort effort)
     {
         ClaudeSettings claude = ClaudeSettings.LoadFromRepository(repoRoot);

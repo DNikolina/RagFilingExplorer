@@ -1,6 +1,6 @@
 using Microsoft.Extensions.AI;
-using RagFilingExplorer.Local.Chunking;
-using RagFilingExplorer.Local.Retrieval;
+using RagFilingExplorer.Core.Chunking;
+using RagFilingExplorer.Core.Retrieval;
 
 namespace RagFilingExplorer.Tests;
 
@@ -10,7 +10,7 @@ public class AppSettingsTests
     private string _tempDirectory = null!;
 
     internal static string ShippedSettingsDirectory =>
-        Path.Combine(RepoPaths.FindRoot(AppContext.BaseDirectory).FullName, "RagFilingExplorer.Local");
+        Path.Combine(RepoPaths.FindRoot(AppContext.BaseDirectory).FullName, "RagFilingExplorer.Cli");
 
     internal static AppSettings LoadShippedSettings() => AppSettings.Load(ShippedSettingsDirectory);
 
@@ -76,7 +76,8 @@ public class AppSettingsTests
     {
         string[] keys = AppSettings.RequiredConfigurationKeys().ToArray();
 
-        Assert.That(keys, Has.Length.EqualTo(21));
+        Assert.That(keys, Has.Length.EqualTo(23));
+        Assert.That(keys, Does.Contain("Providers:Chat"));
         Assert.That(keys, Does.Contain("Ollama:ChatModel"));
         Assert.That(keys, Does.Contain("Retrieval:ReasoningEffort"));
         Assert.That(keys, Does.Contain("Retrieval:Search"));

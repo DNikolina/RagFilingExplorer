@@ -1,5 +1,5 @@
-using RagFilingExplorer.Local.Retrieval;
-using RagFilingExplorer.Local.Xbrl;
+using RagFilingExplorer.Core.Retrieval;
+using RagFilingExplorer.Core.Xbrl;
 
 namespace RagFilingExplorer.Tests.Xbrl;
 
@@ -81,7 +81,7 @@ public class CoverFactsTests
     {
         string path = Path.Combine(RepoPaths.FindRoot(TestContext.CurrentContext.TestDirectory).FullName, "data", filing);
         XbrlDocument xbrl = InlineXbrlReader.Read(new AngleSharp.Html.Parser.HtmlParser().ParseDocument(
-            RagFilingExplorer.Local.Chunking.MarkItDownConverter.ReadFiling(new FileInfo(path))));
+            RagFilingExplorer.Core.Chunking.MarkItDownConverter.ReadFiling(new FileInfo(path))));
 
         Assert.That(CoverFacts.EmbeddingContext(xbrl), Is.EqualTo(expected));
     }

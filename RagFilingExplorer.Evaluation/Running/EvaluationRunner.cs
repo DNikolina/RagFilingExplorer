@@ -10,7 +10,7 @@ using RagFilingExplorer.Claude;
 using RagFilingExplorer.Evaluation.Evaluators;
 using RagFilingExplorer.Evaluation.Grading;
 using RagFilingExplorer.Evaluation.Judging;
-using RagFilingExplorer.Local.Retrieval;
+using RagFilingExplorer.Core.Retrieval;
 
 namespace RagFilingExplorer.Evaluation.Running;
 
@@ -75,7 +75,7 @@ internal sealed class EvaluationRunner(
     public UsageDetails? JudgeUsage { get; private set; }
 
     /// <summary>How many excerpts the model read in the last run - appsettings.json's Retrieval:GenerationTopK, or
-    /// claudesettings.json's for Claude. What "in the model's context" means for the run's ranks.</summary>
+    /// appsettings.json's Claude section for Claude. What "in the model's context" means for the run's ranks.</summary>
     public int GenerationTopK { get; private set; }
 
     /// <summary>
@@ -157,7 +157,7 @@ internal sealed class EvaluationRunner(
     public async Task<List<QuestionOutcome>> RunAsync(
         IReadOnlyList<QuestionSet> sets, IReadOnlySet<string> onlyIds, Action<string> progress, CancellationToken cancellationToken = default)
     {
-        AppSettings settings = AppSettings.Load(Path.Combine(repoRoot.FullName, "RagFilingExplorer.Local"));
+        AppSettings settings = AppSettings.Load(Path.Combine(repoRoot.FullName, "RagFilingExplorer.Cli"));
         List<SelectedQuestion> questions = SelectQuestions(repoRoot, sets, onlyIds);
         KeptFromEarlierRun = await EarlierScenariosAsync(
             storageRoot, executionName, questions.Select(q => $"{q.Set.Name}.{q.Entry.Id}").ToHashSet(), cancellationToken);
@@ -167,7 +167,7 @@ internal sealed class EvaluationRunner(
         }
 
         // The model's own client; the reporting configuration wraps it per scenario with a response cache.
-        (_, OllamaApiClient chat) = AppComposition.CreateOllamaClients(settings.Ollama);
+        (_, OllamaApiClient chat) = OllamaSetup.CreateClients(settings.Ollama);
         IReadOnlyCollection<string> judgeNames = judges;
         JudgeContextChatClient judgeChat = new(chat);
         // The answering client is the reporting configuration's, so the library's cache key carries its provider and
@@ -214,7 +214,7 @@ internal sealed class EvaluationRunner(
             tags: runTags);
 
         ScenarioChatClient scenarioChat = new();
-        using RagRuntime runtime = await AppComposition.OpenExistingIndexAsync(settings, repoRoot, scenarioChat, answerOptions);
+        using RagRuntime runtime = await OllamaSetup.OpenExistingIndexAsync(settings, repoRoot, scenarioChat, answerOptions);
         // The Ollama build serving this run, tagged on every case (QuestionTags) - an update can change answers. Asked
         // after OpenExistingIndexAsync, whose readiness check turns "Ollama isn't running" into a message naming the fix.
         string ollamaVersion = (await chat.GetVersionAsync(cancellationToken)).ToString();

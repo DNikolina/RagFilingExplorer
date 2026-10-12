@@ -1,5 +1,5 @@
-using RagFilingExplorer.Local.Chunking;
-using RagFilingExplorer.Local.VectorStore;
+using RagFilingExplorer.Core.Chunking;
+using RagFilingExplorer.Core.VectorStore;
 
 namespace RagFilingExplorer.Tests.VectorStore;
 

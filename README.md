@@ -189,10 +189,11 @@ models were chosen specifically because they run acceptably on CPU alone.
 ## Running it
 
 ```
-dotnet run --project RagFilingExplorer.Local
+dotnet run --project RagFilingExplorer.Cli
 ```
 
-Works from any directory - `data/`, `chunk-review/` and the index are located relative to the repo
+One app for every configuration: `appsettings.json`'s `Providers` section chooses who embeds and who answers - Ollama
+for both by default, free and with no key. Works from any directory - `data/`, `chunk-review/` and the index are located relative to the repo
 root. The first line of output names the chunking strategy and index in use.
 
 - `--rebuild` — deletes the current strategy's index and rebuilds from scratch. Needed after changing chunking/embedding
@@ -209,8 +210,8 @@ Type a question at the `>` prompt; a blank line or `exit` quits.
 Before doing any work, the app checks for the problems most likely to trip up a fresh clone, and
 exits with a one-line fix instead of a stack trace:
 
-- Ollama isn't reachable at the configured URL, or either configured model isn't pulled (the error
-  prints the exact `ollama pull` command).
+- Ollama isn't reachable at the configured URL, or a configured model it serves in this run isn't pulled (the error
+  prints the exact `ollama pull` command). Only the providers chosen are checked.
 - The `markitdown` CLI isn't on `PATH` (v1's strategies only, and only when an index build is actually needed).
 - A filing's XBRL taxonomy (`.xsd`, plus its linkbases when they're separate files) isn't in `data/` next to it
   (`Structured`), or one of its Statement roles can't be mapped to a statement type - both stop the build with
@@ -228,15 +229,15 @@ exits with a one-line fix instead of a stack trace:
 
 ## Answering with Claude (v4, optional, paid)
 
-`RagFilingExplorer.Claude` is the same question loop over the same index, with Claude writing the answer instead of
-`llama3.1:8b`. Only the chat model changes: chunking, embeddings, the index and retrieval are the local app's, read from
-its `appsettings.json` unchanged, so every question gets the same excerpts and the same prompt. It's a separate project
-so the local app stays zero-cost - no Anthropic package, no key ([docs/Design-FAQ.md](docs/Design-FAQ.md)).
+Set `Providers:Chat` to `Claude` and the same app, over the same index, has Claude write the answer instead of
+`llama3.1:8b`. Only the chat model changes: chunking, embeddings, the index and retrieval are the same, so every
+question gets the same excerpts and the same prompt. The default stays free: nothing is sent to Anthropic unless this
+setting chooses it ([docs/Design-FAQ.md](docs/Design-FAQ.md)).
 
-Besides the local app's prerequisites, it needs:
+Besides the usual prerequisites, it needs:
 
-- **The index, built by the local app** (run it once) - this app never builds one. Ollama still runs: a question's
-  embedding is still `nomic-embed-text`'s.
+- **Ollama, for embeddings** - a question's embedding is still `nomic-embed-text`'s (llama isn't needed). Switching the
+  chat model never rebuilds the index.
 - **An Anthropic API key, outside the repository** - it's public. In .NET user secrets (a file in your user profile),
   typed at a hidden prompt so it stays out of your shell history - paste it there with a right-click (Ctrl+V types a
   control character instead):
@@ -248,14 +249,14 @@ Besides the local app's prerequisites, it needs:
   Remove-Variable k, s
   ```
   or in the `ANTHROPIC_API_KEY` environment variable, which wins when both are set. (Claude Code reads that variable
-  too, for its own sign-in - user secrets keep the two apart.) A key in `claudesettings.json` stops startup. Every
+  too, for its own sign-in - user secrets keep the two apart.) A key in `appsettings.json` stops startup. Every
   answer is billed, so set a spending limit in the Anthropic Console first.
 
-```
-dotnet run --project RagFilingExplorer.Claude
+```powershell
+$env:Providers__Chat = 'Claude'; dotnet run --project RagFilingExplorer.Cli; Remove-Item Env:Providers__Chat
 ```
 
-Its settings are in [`claudesettings.json`](RagFilingExplorer.Claude/claudesettings.json), documented on
+Its settings are `appsettings.json`'s `Claude` section, documented on
 [`ClaudeSettings`](RagFilingExplorer.Claude/ClaudeSettings.cs): the model (`claude-opus-5-5` by default), the reasoning
 effort for a lookup and for a synthesis question (`Low` to `ExtraHigh`; `None` is refused, since current models reject
 thinking turned off), and the output ceiling, thinking included. An environment variable overrides one for a run
@@ -298,8 +299,8 @@ Every run is in `eval/v3-runs/` (`claude-*`), and each non-passing answer is rea
 
 The tunable knobs — model names, Ollama's base URL/timeout, chunking strategy and chunk size/overlap,
 tokenizer model, vector-store upsert batch size, search mode, reranking, and retrieval top-K/temperature — live in
-[`RagFilingExplorer.Local/appsettings.json`](RagFilingExplorer.Local/appsettings.json), and each one is documented
-on the class it binds to, in [`AppSettings.cs`](RagFilingExplorer.Local/AppSettings.cs). Every key is required: the
+[`RagFilingExplorer.Cli/appsettings.json`](RagFilingExplorer.Cli/appsettings.json), and each one is documented
+on the class it binds to, in [`AppSettings.cs`](RagFilingExplorer.Core/AppSettings.cs). Every key is required: the
 app validates on startup that each one is present and fails with an error naming the missing key, rather than
 falling back to a default hiding in code.
 
@@ -417,7 +418,7 @@ Runs both test projects, fully offline - no live Ollama instance or populated ve
 `RagFilingExplorer.Tests` (NUnit + Moq) covers chunking, section and statement detection, query routing,
 company registration, settings and index-manifest checks, the retrieve+generate orchestration (mocked; hybrid
 search against a real FTS5 file), the reranker's tokenization, and v2's page and inline XBRL readers - checked
-against the filings in `data/`, including fact for fact against EDGAR's own extraction - and the Claude app's
+against the filings in `data/`, including fact for fact against EDGAR's own extraction - and Claude's
 settings checks (no API call). `RagFilingExplorer.Evaluation` checks the evaluators themselves.
 
 ### The evaluation
@@ -483,8 +484,10 @@ Every measured run, v1's on, is kept in `eval/`.
 ## Project structure
 
 ```
-RagFilingExplorer.Local/                the app - chunking, retrieval, vector store, interactive loop
-RagFilingExplorer.Claude/               the optional Claude app (v4): the local app's question loop, Claude answering
+RagFilingExplorer.Core/                 the pipeline, no model provider - chunking, XBRL, vector store, retrieval, question loop
+RagFilingExplorer.Ollama/               Ollama as a provider - its clients, readiness and capability checks
+RagFilingExplorer.Claude/               Claude as a provider (v4): the chat client and its settings - billed, used only when chosen
+RagFilingExplorer.Cli/                  the app - appsettings.json, providers chosen there, builds the index, the question loop
 RagFilingExplorer.Tests/                NUnit + Moq test suite
 RagFilingExplorer.Evaluation/           the evaluation (v3): evaluators, runner, report, variance and judge measurements
 data/                                   source 10-K filings (HTML, from sec.gov/edgar), plus each filing's XBRL

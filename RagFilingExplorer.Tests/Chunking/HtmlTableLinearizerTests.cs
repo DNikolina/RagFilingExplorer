@@ -1,6 +1,6 @@
 using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
-using RagFilingExplorer.Local.Chunking;
+using RagFilingExplorer.Core.Chunking;
 
 namespace RagFilingExplorer.Tests.Chunking;
 

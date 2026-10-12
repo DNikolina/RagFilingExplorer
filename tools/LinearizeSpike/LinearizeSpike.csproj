@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\RagFilingExplorer.Local\RagFilingExplorer.Local.csproj" />
+    <ProjectReference Include="..\..\RagFilingExplorer.Core\RagFilingExplorer.Core.csproj" />
   </ItemGroup>
 
 </Project>

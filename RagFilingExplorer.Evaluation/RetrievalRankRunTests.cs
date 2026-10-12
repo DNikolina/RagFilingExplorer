@@ -5,9 +5,9 @@ using Microsoft.Extensions.AI.Evaluation.Reporting;
 using OllamaSharp;
 using RagFilingExplorer.Evaluation.Evaluators;
 using RagFilingExplorer.Evaluation.Running;
-using RagFilingExplorer.Local.Chunking;
-using RagFilingExplorer.Local.Retrieval;
-using RagFilingExplorer.Local.VectorStore;
+using RagFilingExplorer.Core.Chunking;
+using RagFilingExplorer.Core.Retrieval;
+using RagFilingExplorer.Core.VectorStore;
 
 namespace RagFilingExplorer.Evaluation;
 
@@ -34,13 +34,13 @@ public class RetrievalRankRunTests
     [Test]
     public async Task Rank_EveryQuestion_WritesRanksBesideTheBaseline()
     {
-        AppSettings settings = AppSettings.Load(Path.Combine(Repo.FullName, "RagFilingExplorer.Local"));
+        AppSettings settings = AppSettings.Load(Path.Combine(Repo.FullName, "RagFilingExplorer.Cli"));
         string storage = Path.Combine(Repo.FullName, "eval", "v3-runs");
         Dictionary<string, int?> baseline = (await EvaluationRunner.LatestResultsAsync(storage, Baseline))
             .ToDictionary(r => r.ScenarioName, r => Rank(r.EvaluationResult));
 
-        using RagRuntime runtime = await AppComposition.OpenExistingIndexAsync(settings, Repo, new RetrievalParityTests.NoChatClient());
-        (OllamaApiClient embedding, _) = AppComposition.CreateOllamaClients(settings.Ollama);
+        using RagRuntime runtime = await OllamaSetup.OpenExistingIndexAsync(settings, Repo, new RetrievalParityTests.NoChatClient());
+        (OllamaApiClient embedding, _) = OllamaSetup.CreateClients(settings.Ollama);
         string ollamaVersion = (await embedding.GetVersionAsync()).ToString();
 
         List<(string Set, string Scenario, int? Rank, int? Before)> ranks = [];

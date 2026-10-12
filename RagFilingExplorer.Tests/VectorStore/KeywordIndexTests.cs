@@ -1,5 +1,5 @@
 using Microsoft.Data.Sqlite;
-using RagFilingExplorer.Local.VectorStore;
+using RagFilingExplorer.Core.VectorStore;
 
 namespace RagFilingExplorer.Tests.VectorStore;
 

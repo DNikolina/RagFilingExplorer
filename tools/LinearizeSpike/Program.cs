@@ -4,8 +4,8 @@ using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
 using Microsoft.ML.Tokenizers;
-using RagFilingExplorer.Local;
-using RagFilingExplorer.Local.Chunking;
+using RagFilingExplorer.Core;
+using RagFilingExplorer.Core.Chunking;
 
 // Linearization spike: runs HtmlTableLinearizer over every filing and reports coverage, token impact and
 // the linearized text of every table, plus a JSON file (values with their XBRL contextRef) for

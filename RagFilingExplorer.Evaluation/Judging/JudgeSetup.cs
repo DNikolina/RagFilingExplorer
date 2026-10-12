@@ -7,7 +7,7 @@ using OllamaSharp;
 using OllamaSharp.Models;
 using RagFilingExplorer.Evaluation.Evaluators;
 using RagFilingExplorer.Evaluation.Grading;
-using RagFilingExplorer.Local.Retrieval;
+using RagFilingExplorer.Core.Retrieval;
 
 namespace RagFilingExplorer.Evaluation.Judging;
 

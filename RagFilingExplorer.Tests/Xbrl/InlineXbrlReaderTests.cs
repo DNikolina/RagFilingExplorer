@@ -1,5 +1,5 @@
 using AngleSharp.Html.Parser;
-using RagFilingExplorer.Local.Xbrl;
+using RagFilingExplorer.Core.Xbrl;
 
 namespace RagFilingExplorer.Tests.Xbrl;
 

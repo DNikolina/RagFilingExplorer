@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using Microsoft.Extensions.AI;
 using RagFilingExplorer.Evaluation.Evaluators;
 using RagFilingExplorer.Evaluation.Grading;
-using RagFilingExplorer.Local.Retrieval;
+using RagFilingExplorer.Core.Retrieval;
 
 namespace RagFilingExplorer.Evaluation;
 
@@ -53,7 +53,7 @@ public class RetrievalParityTests
     [TestCase("answer-questions.txt", "replay-answer.txt")]
     public async Task AskAsync_EveryQuestion_RanksTheAnswerWhereTheReplayDid(string questionsFile, string replayFile)
     {
-        AppSettings settings = AppSettings.Load(Path.Combine(Repo.FullName, "RagFilingExplorer.Local"));
+        AppSettings settings = AppSettings.Load(Path.Combine(Repo.FullName, "RagFilingExplorer.Cli"));
         IReadOnlyDictionary<string, ExpectedAnswer> expected = ExpectedAnswer.LoadAll(Repo);
         Dictionary<string, ExpectedAnswer> byQuestion = expected.Values.ToDictionary(e => e.Question);
         string[] questions = File.ReadAllLines(Path.Combine(Repo.FullName, "tools", questionsFile)).Where(q => q.Trim().Length > 0).ToArray();
@@ -61,7 +61,7 @@ public class RetrievalParityTests
             .Select(l => ReplayLine.Match(l)).Where(m => m.Success).ToList();
         Assert.That(replay, Has.Count.EqualTo(questions.Length), "one replay line per question");
 
-        using RagRuntime runtime = await AppComposition.OpenExistingIndexAsync(settings, Repo, new NoChatClient());
+        using RagRuntime runtime = await OllamaSetup.OpenExistingIndexAsync(settings, Repo, new NoChatClient());
         List<string> differences = [];
         for (int i = 0; i < questions.Length; i++)
         {

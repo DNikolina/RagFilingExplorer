@@ -1,4 +1,4 @@
-using RagFilingExplorer.Local.Retrieval;
+using RagFilingExplorer.Core.Retrieval;
 
 namespace RagFilingExplorer.Tests.Retrieval;
 

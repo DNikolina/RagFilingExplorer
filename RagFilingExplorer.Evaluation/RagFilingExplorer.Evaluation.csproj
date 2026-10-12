@@ -24,11 +24,13 @@
 
   <ItemGroup>
     <Using Include="NUnit.Framework" />
-    <Using Include="RagFilingExplorer.Local" />
+    <Using Include="RagFilingExplorer.Core" />
+    <Using Include="RagFilingExplorer.Ollama" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RagFilingExplorer.Local\RagFilingExplorer.Local.csproj" />
+    <ProjectReference Include="..\RagFilingExplorer.Core\RagFilingExplorer.Core.csproj" />
+    <ProjectReference Include="..\RagFilingExplorer.Ollama\RagFilingExplorer.Ollama.csproj" />
     <ProjectReference Include="..\RagFilingExplorer.Claude\RagFilingExplorer.Claude.csproj" />
   </ItemGroup>
 

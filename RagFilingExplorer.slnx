@@ -1,6 +1,8 @@
 <Solution>
+  <Project Path="RagFilingExplorer.Cli/RagFilingExplorer.Cli.csproj" />
   <Project Path="RagFilingExplorer.Claude/RagFilingExplorer.Claude.csproj" />
+  <Project Path="RagFilingExplorer.Core/RagFilingExplorer.Core.csproj" />
   <Project Path="RagFilingExplorer.Evaluation/RagFilingExplorer.Evaluation.csproj" />
+  <Project Path="RagFilingExplorer.Ollama/RagFilingExplorer.Ollama.csproj" />
   <Project Path="RagFilingExplorer.Tests/RagFilingExplorer.Tests.csproj" />
-  <Project Path="RagFilingExplorer.Local/RagFilingExplorer.Local.csproj" />
 </Solution>

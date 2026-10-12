@@ -1,7 +1,7 @@
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using RagFilingExplorer.Claude;
-using RagFilingExplorer.Local;
+using RagFilingExplorer.Core;
 
 namespace RagFilingExplorer.Tests.Claude;
 
@@ -27,7 +27,7 @@ public class ClaudeSettingsTests
     }
 
     private static string ShippedSettingsDirectory =>
-        Path.Combine(RepoPaths.FindRoot(AppContext.BaseDirectory).FullName, "RagFilingExplorer.Claude");
+        Path.Combine(RepoPaths.FindRoot(AppContext.BaseDirectory).FullName, "RagFilingExplorer.Cli");
 
     // The shipped file, with any keys overridden as an environment variable would (a null value removes the key).
     private static ClaudeSettings FromShipped(Dictionary<string, string?>? overrides = null) => ClaudeSettings.From(

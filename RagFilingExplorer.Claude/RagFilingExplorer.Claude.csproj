@@ -1,22 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <!-- The app with Claude as its chat model (docs/Decision-Log.md, "paid services (v4)"): Local's chunking, index,
-       retrieval and prompt, unchanged; only the model answering differs. Local itself references no paid service. -->
+  <!-- Claude as a chat provider (docs/Decision-Log.md, "paid services (v4)", "Core and providers"): the client and its
+       settings, used when appsettings.json's Providers:Chat is Claude. A library - the app is RagFilingExplorer.Cli. -->
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <!-- Where the API key can live outside the repository: dotnet user-secrets set Claude:ApiKey ... (ClaudeSettings). -->
+    <!-- Where the API key can live outside the repository: dotnet user-secrets set Claude:ApiKey ... (ClaudeSettings).
+         Kept on this library, not the app, so the app and the evaluation read the same key. -->
     <UserSecretsId>81881dfa-130d-4974-9078-2b1ca1becebe</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="claudesettings.json" CopyToOutputDirectory="PreserveNewest" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\RagFilingExplorer.Local\RagFilingExplorer.Local.csproj" />
+    <ProjectReference Include="..\RagFilingExplorer.Core\RagFilingExplorer.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

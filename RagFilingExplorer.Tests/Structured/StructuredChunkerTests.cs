@@ -1,6 +1,6 @@
 using AngleSharp.Html.Parser;
 using Microsoft.ML.Tokenizers;
-using RagFilingExplorer.Local.Structured;
+using RagFilingExplorer.Core.Structured;
 
 namespace RagFilingExplorer.Tests.Structured;
 

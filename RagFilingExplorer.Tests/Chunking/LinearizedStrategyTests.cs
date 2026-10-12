@@ -1,5 +1,5 @@
 using Microsoft.ML.Tokenizers;
-using RagFilingExplorer.Local.Chunking;
+using RagFilingExplorer.Core.Chunking;
 
 namespace RagFilingExplorer.Tests.Chunking;
 

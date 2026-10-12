@@ -35,7 +35,7 @@ against the app's startup "Company filter:" lines and check every filing that is
 - **Before any `dotnet` build or run**, make sure the app isn't running
   (`tasklist | grep -i RagFilingExplorer`) - a running instance locks the DLL and the build fails.
 - Write scratch output (spike reports) to a temp directory, never inside the repo.
-- `dotnet run --project RagFilingExplorer.Local -- --chunks-only` rewrites `chunk-review/structured/`
+- `dotnet run --project RagFilingExplorer.Cli -- --chunks-only` rewrites `chunk-review/structured/`
   (tracked in git). That's expected; at the end, report `git status --short chunk-review` - for an
   unchanged pipeline only the new filing's dump should be new, and any *changed* existing dump is itself
   a finding.
@@ -45,7 +45,7 @@ against the app's startup "Company filter:" lines and check every filing that is
 Run them in order; later checks depend on the dump from check 2.
 
 1. **Registration** - each filing registers itself from its tagged cover facts
-   (`RagFilingExplorer.Local/Retrieval/CompanyRegistry.cs`: `dei:EntityRegistrantName` without its legal
+   (`RagFilingExplorer.Core/Retrieval/CompanyRegistry.cs`: `dei:EntityRegistrantName` without its legal
    form, plus the common stock's `dei:TradingSymbol`); the app prints "Company filter: <names> -> <file>" at
    startup (also in a `--chunks-only` run). Missing registration or no ticker = FAIL: every question naming
    the company runs unfiltered across all filings (this caused a hallucinated NFLX figure). A registered name
@@ -71,14 +71,14 @@ Run them in order; later checks depend on the dump from check 2.
    "(no heading)" section is worth a WARN.
 5. **Statement types** - the five primary statements (balance sheet, income statement, comprehensive
    income, cash flow, stockholders' equity) must each be found. `Structured` takes them from the filer's
-   Statement roles (`RagFilingExplorer.Local/Structured/StatementLabels.cs`): a role it can't map, or a
+   Statement roles (`RagFilingExplorer.Core/Structured/StatementLabels.cs`): a role it can't map, or a
    statement no table covers, stops the `--chunks-only` run with the reason - FAIL. A chunk's type is the type
    of the table it holds, so if the index (`rag.structured.db`) already contains the filing, confirm directly:
    `SELECT Key, StatementType FROM chunks WHERE SourceFiling = '<file>' ORDER BY Key` - expect each of the five
    types as one short contiguous run (the existing filings: 1-5 chunks each, all in Item 8 or Part IV), and
    every other chunk `narrative`, notes included. A type on a chunk outside its statement = FAIL.
    (v1's strategies use title lines instead: test the dump's title lines against
-   `RagFilingExplorer.Local/Chunking/StatementTypeDetector.cs`'s regexes - NDAQ's "Statements of *Changes
+   `RagFilingExplorer.Core/Chunking/StatementTypeDetector.cs`'s regexes - NDAQ's "Statements of *Changes
    in* Stockholders' Equity" once went undetected, and a title mis-detected in MD&A tagged 96 chunks.)
 6. **Table linearization** (`HtmlTableLinearizer`, used by `Structured` for every table and by `Linearized`) -
    run `dotnet run --project tools/LinearizeSpike -- <temp dir>` and read the new filing's lines: all five

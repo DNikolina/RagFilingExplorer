@@ -1,5 +1,5 @@
-using RagFilingExplorer.Local;
-using RagFilingExplorer.Local.VectorStore;
+using RagFilingExplorer.Core;
+using RagFilingExplorer.Core.VectorStore;
 
 namespace RagFilingExplorer.Tests.VectorStore;
 

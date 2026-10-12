@@ -1,5 +1,5 @@
 using AngleSharp.Html.Parser;
-using RagFilingExplorer.Local.Structured;
+using RagFilingExplorer.Core.Structured;
 
 namespace RagFilingExplorer.Tests.Structured;
 

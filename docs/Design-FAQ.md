@@ -118,16 +118,16 @@ slower; the 3B was lower almost everywhere. `qwen3.5:2b` was pulled as a referen
 reasoning support, not as a replacement. Implementation_Plan.md, "Prerequisites"; Decision-Log.md,
 "reasoning-model support" and "Second-model run".
 
-### Why is the Claude app a separate project, not a setting in the local app?
+### Why is Claude a setting in one app, not a separate app?
 
-So the local app stays what it promises: zero cost, no API key, no account, nothing sent to a hosted service.
-`RagFilingExplorer.Claude` references `RagFilingExplorer.Local`, as the evaluation does, and adds only the Anthropic
-package, its own settings and the client; the local app has no Anthropic dependency, and no setting in it can send a
-question to a paid service. Little had to change in Local: the answer service already took any `IChatClient`, and now
-also takes the chat model's options (temperature, reasoning effort, output ceiling) from its caller instead of asking
-Ollama for them. A shared library for the code both use was considered and deferred - Claude replaces only the chat
-model, and the natural point is paid embeddings, when that code would no longer depend on Ollama. Decision-Log.md,
-"paid services (v4)".
+Because the embedder and the chat model are independent choices - Voyage embeddings with llama answering is as valid
+as nomic with Claude - and an app per paid service would tie them together. Each provider is a library over
+`RagFilingExplorer.Core`, which holds the pipeline and knows no provider; the one app, `RagFilingExplorer.Cli`, reads
+`appsettings.json`'s `Providers` and passes Core the embedder and chat client chosen. The default is Ollama for both:
+free, no key, nothing sent to a hosted service unless the setting says so, and only the chosen providers are checked
+at startup. The cost of one app is that it carries the Anthropic package even when it never calls it. v4 began with a
+separate Claude app over the local one; it was folded in when paid embeddings made the two choices independent.
+Decision-Log.md, "paid services (v4)" and "Core and providers".
 
 ### Why is the strict grade the grade, not a model judge?
 

@@ -7,7 +7,7 @@ namespace RagFilingExplorer.Tests.Claude;
 public class ClaudeChatTests
 {
     private static ClaudeSettings WithKey(string? key) => ClaudeSettings.From(new ConfigurationBuilder()
-        .SetBasePath(Path.Combine(RepoPaths.FindRoot(AppContext.BaseDirectory).FullName, "RagFilingExplorer.Claude"))
+        .SetBasePath(Path.Combine(RepoPaths.FindRoot(AppContext.BaseDirectory).FullName, "RagFilingExplorer.Cli"))
         .AddJsonFile(ClaudeSettings.FileName)
         .AddInMemoryCollection([new KeyValuePair<string, string?>("Claude:ApiKey", key)])
         .Build());

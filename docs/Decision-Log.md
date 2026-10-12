@@ -3986,7 +3986,8 @@ tasks) - only our rank says whether it helps.
 4. **llama's answers, only if the ranks improve:** a full run with EmbeddingGemma (~2 h) against a nomic run on the
    same Ollama build (another ~2 h, unless step 2 shows 0.40.2 retrieves exactly as before), split into misreadings
    and retrieval misses.
-5. **`RagFilingExplorer.Core` extracted - no behaviour change** (before Voyage). Files moved, namespaces and
+5. **`RagFilingExplorer.Core` extracted - no behaviour change** (before Voyage; the project layout is now "Core and
+   providers" below - Local and Claude don't reference each other, Voyage is its own library). Files moved, namespaces and
    `InternalsVisibleTo` updated, packages split (Core without OllamaSharp; `dotnet list package --vulnerable
    --include-transitive` after). **Bar:** the tests; every chunk-review dump identical on all three strategies; no
    index rebuilt; a cached replay 102/102 identical; Local and the Claude app answer Microsoft's revenue as before.
@@ -4298,6 +4299,81 @@ the caption, the columns reading "Assets ..." / "Liabilities ...".
   Net -1 within llama's sensitivity to prompt changes (H27 moved on one unrelated line). Kept: the fixes are faithful to
   the filings, ranks improved (MRR 0.741 -> 0.756), and Claude, the paid comparison, reads the same chunks. This run is
   llama's baseline on the current index.
+
+**Core and providers - planned (user, 2026-10-12); replaces steps 5-6's layout above.** The embedder and the chat model
+are independent choices: Voyage with llama must work without the Claude app. So projects split by provider, not by app.
+Two rules from the user: **Local and Claude never reference each other**, and **Local may use Voyage, optionally** - free
+by default, Voyage only when configured, and then only with its key. Read 2026-10-12: OllamaSharp is used only by
+`Program.cs`, `OllamaSetup.cs` and `AppComposition` (`CreateOllamaClients`, `OpenCollectionAsync`,
+`ReadOllamaChatModelAsync`, `OpenExistingIndexAsync`); the Claude app uses Local for its settings file, composition,
+`InteractiveSession`, `Utf8Console`, `RepoPaths` and `StartupException`.
+
+**Revised the same day (user): one app, providers chosen by configuration.** Planned first as two apps (Local, Claude)
+that never reference each other, with Claude's still referencing Ollama for its embeddings. Instead every provider is a
+library and one app, `RagFilingExplorer.Cli` (Local renamed; "Cli" over "Runner" or "App", and not "Console", which
+would shadow `System.Console`), chooses them from `appsettings.json`'s `Providers` (`Embedding`, `Chat`; Ollama for
+both by default). The app now carries the Anthropic package, but sends nothing to a paid service unless configured -
+as already accepted for Voyage. Done within step 5 (user). The table as built:
+
+| Project | Kind | Holds | References |
+|---|---|---|---|
+| `RagFilingExplorer.Core` | library | the pipeline: Chunking/, Structured/, Xbrl/, VectorStore/, Retrieval/ (the reranker too - ONNX, local), `AppSettings`, `AppComposition`'s provider-free part and `RagRuntime`, `InteractiveSession`, `RepoPaths`, `StartupException`, `Utf8Console` | no provider package |
+| `RagFilingExplorer.Ollama` | library | `OllamaSetup`, the Ollama clients and the Ollama chat model's options (from `AppComposition`) | Core, OllamaSharp |
+| `RagFilingExplorer.Voyage` | library (step 6) | the Voyage embedder (`HttpClient`), its settings and key | Core |
+| `RagFilingExplorer.Claude` | library | `ClaudeChat`, `ClaudeSettings`; keeps its `UserSecretsId`, so the stored key and the evaluation's reading of it are unchanged | Core, Anthropic |
+| `RagFilingExplorer.Cli` | app | `Program.cs` (choose providers, build or open the index, the question loop) and `appsettings.json`, now with `Providers` and `Claude` sections (`claudesettings.json` folded in) | every provider |
+| Evaluation, Tests | tests | unchanged | Core, Ollama, Claude (Voyage from step 6) |
+
+**Seams that change (step 5, no behaviour change):**
+- `AppComposition.OpenCollectionAsync` and `OpenExistingIndexAsync` take an `IEmbeddingGenerator<string, Embedding<float>>`
+  instead of creating Ollama's - the caller (Local, the Claude app, the evaluation) passes it. `OpenExistingIndexAsync`
+  also takes the chat client and its options always (today they default to Ollama's).
+- `CreateOllamaClients`, `ReadOllamaChatModelAsync` and the readiness check move to Ollama, called by each app and the
+  evaluation before opening the index - so "Ollama isn't running" still fails first, naming the fix.
+- `appsettings.json` moves to Core as a content file, copied to each app's output as it reaches the Claude app today
+  (through the reference). The evaluation's `AppSettings.Load(... "RagFilingExplorer.Local")` paths point at Core.
+- `OllamaSettings` stays a section of `AppSettings` in Core for now - a plain class, no OllamaSharp; settings keys and
+  their environment-variable names unchanged. `ChatModelOptions.ForOllama` stays in Core (it takes a bool, not a client).
+- Namespaces follow the files (`RagFilingExplorer.Local.*` -> `.Core.*`, Ollama's -> `RagFilingExplorer.Ollama`);
+  files moved with `git mv` so history follows. Types stay `internal`; Core's `InternalsVisibleTo` lists Ollama, Voyage,
+  both apps, Tests, Evaluation, `LinearizeSpike` and Moq's proxy assembly. `LinearizeSpike` references Core.
+
+**Step 5 bar:** builds with no `ProjectReference` between Local and Claude, and none from Core to OllamaSharp; every unit
+and offline evaluation test passes; every chunk-review dump identical on all three strategies (`--chunks-only`); no
+index rebuilt (the manifests still match); a cached replay of all 102 identical (`structured-hybrid-chunk-fixes`); both
+apps answer Microsoft's revenue as before; `dotnet list package --vulnerable --include-transitive` clean. Docs: README's
+project list, the plan's pipeline and live constraints (the settings file's path), the run-evaluation skill.
+
+**Step 6 additions, found reading the code:**
+- **The embedder becomes a setting of its own**, apart from Ollama: an `Embedding` section (provider `Ollama` or
+  `Voyage`, and the model) replacing `Ollama:EmbeddingModel`. `EmbeddingTemplates`, the index name and the manifest key
+  follow it; nomic keeps `rag.<strategy>.db`. Each app chooses the embedder from it; the evaluation too.
+- **The vector's size is fixed at 768** (`[VectorStoreVector(dimensions: 768)]` on `FilingChunkRecord`) - nomic's and
+  EmbeddingGemma's. Voyage's is 1024: the collection gets its size from the embedding model at runtime (a collection
+  definition instead of the attribute) and the manifest records it.
+- **No Ollama at all with Voyage and Claude:** the app checks Ollama only for the models it serves (done in step 5 -
+  Claude answering no longer needs llama pulled); with Voyage embedding, Ollama isn't asked for anything.
+- **The Voyage key:** `Voyage:ApiKey` in user secrets under the Voyage library's own `UserSecretsId`, or
+  `VOYAGE_API_KEY`; never a settings file (refused at load, as Claude's). The app starts without it unless Voyage is chosen.
+
+**Step 5 - done (2026-10-12).** Files moved with `git mv`. Core's `AppComposition.OpenExistingIndexAsync` takes the
+embedder, chat client and options; the Ollama-defaulting version moved to `OllamaSetup.OpenExistingIndexAsync` (with
+`CreateClients` and `ReadChatModelAsync`), so the evaluation's call sites changed only the class name. The Claude app's
+`Program.cs` folded into the Cli's: Claude's settings read only when `Providers:Chat` is Claude, and every chosen
+provider checked before any build (`OllamaSetup.EnsureReadyAsync` takes the models to check). Building the index stays
+in the app's `Program.cs` - with one app, every configuration can already build. The evaluation still chooses its chat
+model with `evalsettings.json`'s `ChatModel` and ignores `Providers`. The Voyage project waits for step 6. **Bar met:**
+- builds with no warning; Core and Claude without OllamaSharp, even transitively; no vulnerable package;
+- 442 unit + 195 offline evaluation tests pass;
+- chunk dumps: Structured identical (981). Markdown and Linearized came out the same from `HEAD` (built in a separate
+  worktree) as from the moved code. The committed Linearized dumps had been stale since the v4 linearizer changes, last
+  regenerated 2026-10-06 - regenerated with this step;
+- the index not rebuilt (the manifest matched: it records the embedding and chunking settings only, so switching the chat
+  provider never makes it stale); the Cli answers Microsoft's FY2026 revenue, $331,839 million, with llama;
+- a cached replay of all 102: every answer from the cache (byte-identical prompts), 102/102 identical to
+  `structured-hybrid-chunk-fixes` in wording, figures and grade;
+- `Providers__Chat=Claude`: the app finds the stored key, checks the model against the free Models endpoint and opens
+  the same index, and answers Microsoft's FY2026 revenue, $331,839 million (one billed question, user's go-ahead).
 
 **Ollama build for batch 3: 0.40.2** (installed 2026-10-09 from the auto-updater's staged, Ollama-signed installer;
 0.40.0 -> 0.40.1 had auto-installed that morning). `nomic-embed-text` (0a109f422b47) and `llama3.1:8b` (46e0c10c039e)

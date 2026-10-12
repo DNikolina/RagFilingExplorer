@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- The app: one entry point for every combination of providers, chosen by appsettings.json's Providers section
+       (docs/Decision-Log.md, "Core and providers"). Free by default - Ollama embedding and answering. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RagFilingExplorer.Core\RagFilingExplorer.Core.csproj" />
+    <ProjectReference Include="..\RagFilingExplorer.Ollama\RagFilingExplorer.Ollama.csproj" />
+    <ProjectReference Include="..\RagFilingExplorer.Claude\RagFilingExplorer.Claude.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,19 +1,19 @@
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
-using RagFilingExplorer.Local;
+using RagFilingExplorer.Core;
 
 namespace RagFilingExplorer.Claude;
 
 /// <summary>
-/// claudesettings.json's "Claude" section: which Claude model answers and how. Chunking, retrieval and the index stay
-/// Local's (appsettings.json, read unchanged), so only the model differs from the local app. Every key is required, as
-/// in appsettings.json; an environment variable of the same name overrides one for a single run
-/// (<c>Claude__Model=claude-sonnet-5-5</c>). The API key is never one of them (<see cref="ApiKey"/>).
+/// appsettings.json's "Claude" section, read when Providers:Chat is Claude: which Claude model answers and how. Chunking,
+/// retrieval and the index are the same as for any chat model, so only the model differs. Every key is required; an
+/// environment variable of the same name overrides one for a single run (<c>Claude__Model=claude-sonnet-5-5</c>). The
+/// API key is never one of them (<see cref="ApiKey"/>).
 /// </summary>
 internal sealed class ClaudeSettings
 {
-    public const string FileName = "claudesettings.json";
+    public const string FileName = "appsettings.json";
     public const string Section = "Claude";
 
     /// <summary>The environment variable the key can come from, ahead of user secrets.</summary>
@@ -50,15 +50,15 @@ internal sealed class ClaudeSettings
     /// <summary>
     /// The API key: the ANTHROPIC_API_KEY environment variable, else Claude:ApiKey from .NET user secrets
     /// (<c>dotnet user-secrets set Claude:ApiKey ... --project RagFilingExplorer.Claude</c> - a file in the user's profile,
-    /// outside the repository); null when neither is set. Read-only, so it isn't a required key, and refused in
-    /// claudesettings.json - the repository is public.
+    /// outside the repository; this library's own, so the evaluation finds it too); null when neither is set. Read-only,
+    /// so it isn't a required key, and refused in appsettings.json - the repository is public.
     /// </summary>
     public string? ApiKey => apiKey;
 
     private string? apiKey;
 
-    /// <summary>The project's own settings in a repository checkout - how the evaluation reads them.</summary>
-    public static ClaudeSettings LoadFromRepository(DirectoryInfo repoRoot) => Load(Path.Combine(repoRoot.FullName, "RagFilingExplorer.Claude"));
+    /// <summary>The app's settings in a repository checkout - how the evaluation reads them.</summary>
+    public static ClaudeSettings LoadFromRepository(DirectoryInfo repoRoot) => Load(Path.Combine(repoRoot.FullName, "RagFilingExplorer.Cli"));
 
     /// <summary>The settings file, the user secrets of this assembly (so the evaluation, loading it, finds the same key),
     /// then environment variables.</summary>
@@ -111,7 +111,7 @@ internal sealed class ClaudeSettings
     }
 
     /// <summary>
-    /// Sets Local's retrieval settings to read <see cref="GenerationTopK"/> excerpts. The interactive search depth
+    /// Sets the retrieval settings (appsettings.json) to read <see cref="GenerationTopK"/> excerpts. The interactive search depth
     /// (DefaultSearchTopK) is raised to it too: RagAnswerService takes the excerpts from the search's results, so a
     /// shallower search would silently give fewer.
     /// </summary>

@@ -1,6 +1,6 @@
 using Microsoft.ML.Tokenizers;
-using RagFilingExplorer.Local.Chunking;
-using RagFilingExplorer.Local.Structured;
+using RagFilingExplorer.Core.Chunking;
+using RagFilingExplorer.Core.Structured;
 
 namespace RagFilingExplorer.Tests.Chunking;
 

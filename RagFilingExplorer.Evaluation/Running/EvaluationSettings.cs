@@ -19,9 +19,9 @@ internal sealed class EvaluationSettings
     public const string Section = "Evaluation";
 
     /// <summary>
-    /// Which chat model answers: Local (the app's Ollama model, appsettings.json) or Claude (RagFilingExplorer.Claude's
-    /// claudesettings.json; the key from user secrets or ANTHROPIC_API_KEY, every answer billed). Embeddings, the index and retrieval are
-    /// Local's either way. The response cache is keyed by the model (the library adds the chat client's provider and
+    /// Which chat model answers: Local (the app's Ollama model, appsettings.json) or Claude (appsettings.json's Claude section;
+    /// the key from user secrets or ANTHROPIC_API_KEY, every answer billed). Embeddings, the index and retrieval are
+    /// the same either way. The response cache is keyed by the model (the library adds the chat client's provider and
     /// model id), so one model's cached answers never replay for another.
     /// </summary>
     public required ChatModel ChatModel { get; set; }
@@ -42,7 +42,7 @@ internal sealed class EvaluationSettings
     /// </summary>
     public required string JudgeModel { get; set; }
 
-    /// <summary>A Claude judge's reasoning effort - Low to ExtraHigh (None is refused, as for the Claude app). Unused by
+    /// <summary>A Claude judge's reasoning effort - Low to ExtraHigh (None is refused, as for Claude answering). Unused by
     /// the local judge.</summary>
     public required ReasoningEffort JudgeEffort { get; set; }
 

@@ -1,8 +1,8 @@
 using System.Text.RegularExpressions;
 using AngleSharp.Html.Parser;
-using RagFilingExplorer.Local.Chunking;
-using RagFilingExplorer.Local.Retrieval;
-using RagFilingExplorer.Local.Xbrl;
+using RagFilingExplorer.Core.Chunking;
+using RagFilingExplorer.Core.Retrieval;
+using RagFilingExplorer.Core.Xbrl;
 
 namespace RagFilingExplorer.Tests.Retrieval;
 
