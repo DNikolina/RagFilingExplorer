@@ -13,6 +13,8 @@ namespace RagFilingExplorer.Local.Structured;
 /// <see cref="TextBlock"/> per block element (SEC filing agents put each visual line in its own
 /// &lt;div&gt;/&lt;p&gt;, and the heading rules find "PART I" / "Item 1. Business" as whole lines), whitespace
 /// collapsed but non-breaking spaces kept, links as [text](url); one <see cref="TableBlock"/> per top-level table.
+/// The exception is a fixed page layout, where every printed line is a positioned &lt;div&gt; and a paragraph is only
+/// visible as line spacing: those lines are joined back into paragraphs (<see cref="PositionedLine"/>).
 /// The text keeps markitdown's shape, which the heading and packing rules were
 /// written against. No headings or bold are produced: these filers style &lt;span&gt;s instead of using
 /// &lt;b&gt; or &lt;h1&gt;-&lt;h6&gt;. The hidden inline-XBRL header is skipped - read it first
@@ -36,6 +38,23 @@ internal static partial class FilingBlockReader
     // of its own, a blank line from its text. Not "6." - a note's number before its title, which the heading rules read.
     [GeneratedRegex(@"^(?:[•●◦▪·o]|\([a-z0-9]{1,2}\))$")]
     private static partial Regex ListMarkerRegex();
+
+    // A positioned line's inline style: "margin-top" and "line-height" must not read as "top" and "height".
+    [GeneratedRegex(@"(?<![-\w])top:\s*(-?[\d.]+)pt")]
+    private static partial Regex TopRegex();
+
+    [GeneratedRegex(@"(?<![-\w])line-height:\s*([\d.]+)pt")]
+    private static partial Regex LineHeightRegex();
+
+    [GeneratedRegex(@"(?<![-\w])left:\s*(-?[\d.]+)pt")]
+    private static partial Regex LeftRegex();
+
+    [GeneratedRegex(@"font-weight:\s*(?:bold|[6-9]00)")]
+    private static partial Regex BoldRegex();
+
+    // A page's printed number: "39", "F-26", "iv".
+    [GeneratedRegex(@"^(?:(?:F-)?\d{1,4}|[ivx]{1,5})$")]
+    private static partial Regex PageNumberRegex();
 
     /// <param name="notes">Where the notes sit (<see cref="NoteTopics"/>): each block read inside one gets its topic.</param>
     /// <param name="xbrl">The filing's XBRL: a roll-forward row gets its period from its contexts, named by the filer's
@@ -173,12 +192,53 @@ internal static partial class FilingBlockReader
         // A list marker held for the paragraph after it (ListMarkerRegex), with the topic it was read in.
         private (string Marker, string? Topic)? pendingMarker;
 
+        // The positioned line the open paragraph ends with, while the next line may still continue it.
+        private PositionedLine? lastLine;
+
+        // The paragraphs read from positioned lines - only these join across a column or page break.
+        private readonly HashSet<FilingBlock> printedParagraphs = new(ReferenceEqualityComparer.Instance);
+
         public List<FilingBlock> Finish()
         {
             FlushParagraph();
             FlushMarker();
+            JoinColumnBreaks();
             return blocks;
         }
+
+        // A paragraph that runs off the bottom of a column or page goes on at the top of the next, in another
+        // container, so it was read as two. Joined when the first part ends mid-sentence and the second starts
+        // lowercase; a page number between them (page furniture, which the heading rules drop) stays after the join.
+        private void JoinColumnBreaks()
+        {
+            for (int i = 0; i < blocks.Count; i++)
+            {
+                if (blocks[i] is not TextBlock first || !printedParagraphs.Contains(first) || EndsSentence(first.Paragraph))
+                {
+                    continue;
+                }
+
+                int next = i + 1;
+                while (next < blocks.Count && blocks[next] is TextBlock { Paragraph: var furniture } && PageNumberRegex().IsMatch(furniture))
+                {
+                    next++;
+                }
+
+                if (next < blocks.Count && blocks[next] is TextBlock second && printedParagraphs.Contains(second)
+                    && second.Topic == first.Topic && char.IsLower(second.Paragraph[0]))
+                {
+                    string separator = first.Paragraph[^1] is '-' or '—' or '–' ? string.Empty : " ";
+                    TextBlock joined = first with { Paragraph = first.Paragraph + separator + second.Paragraph };
+                    printedParagraphs.Add(joined);
+                    blocks[i] = joined;
+                    blocks.RemoveAt(next);
+                    i--;
+                }
+            }
+        }
+
+        private static bool EndsSentence(string paragraph) =>
+            paragraph.TrimEnd('”', '"', '’', ')') is { Length: > 0 } text && text[^1] is '.' or '?' or '!' or ':' or ';';
 
         public void ReadChildren(INode node)
         {
@@ -267,6 +327,30 @@ internal static partial class FilingBlockReader
                     return;
             }
 
+            if (element.LocalName == "div" && PositionedLine.From(element) is { } line)
+            {
+                // Left open: the next line may continue the paragraph. A note starting on this line ends it.
+                if (lastLine is { } previous && line.Continues(previous) && topic == paragraphTopic)
+                {
+                    JoinLine();
+                }
+                else
+                {
+                    FlushParagraph();
+                }
+
+                ReadChildren(element);
+                lastLine = line;
+                return;
+            }
+
+            // An empty positioned anchor (a link target) can sit between two lines of one paragraph.
+            if (lastLine is not null && BlockTags.Contains(element.LocalName) && element.TextContent.Trim().Length == 0
+                && !element.Descendants<IElement>().Any(e => e.LocalName is "img" or "hr" or "br" or "table"))
+            {
+                return;
+            }
+
             if (BlockTags.Contains(element.LocalName))
             {
                 FlushParagraph();
@@ -296,8 +380,27 @@ internal static partial class FilingBlockReader
             paragraph.Append(text);
         }
 
+        // The next printed line of the same paragraph: a space between, none after a hyphen or dash ending the line -
+        // in these filings always a compound's own ("third-party", "post-investment"), never a word broken to fit.
+        private void JoinLine()
+        {
+            int end = paragraph.Length;
+            while (end > 0 && paragraph[end - 1] == ' ')
+            {
+                end--;
+            }
+
+            paragraph.Length = end;
+            if (end > 0 && paragraph[end - 1] is not ('-' or '—' or '–'))
+            {
+                paragraph.Append(' ');
+            }
+        }
+
         private void FlushParagraph()
         {
+            bool printed = lastLine is not null;
+            lastLine = null;
             string lines = string.Join('\n', paragraph.ToString().Split('\n').Select(l => l.Trim(' ')).Where(l => l.Length > 0));
             paragraph.Clear();
             paragraphHasText = false;
@@ -318,7 +421,12 @@ internal static partial class FilingBlockReader
                 pendingMarker = null;
             }
 
-            blocks.Add(new TextBlock(lines) { Topic = paragraphTopic });
+            TextBlock block = new(lines) { Topic = paragraphTopic };
+            blocks.Add(block);
+            if (printed)
+            {
+                printedParagraphs.Add(block);
+            }
         }
 
         // A marker with no paragraph after it (a table or the end follows) stays a block of its own, where it was.
@@ -355,6 +463,67 @@ internal static partial class FilingBlockReader
         }
 
         return Collapse(text.ToString()).Trim(' ');
+    }
+
+    /// <summary>
+    /// One printed line of a fixed page layout (NDAQ's filing agent): a &lt;div&gt; placed by an inline "top:..pt" with
+    /// a "line-height", its text spans by "left:..pt". Every line is its own &lt;div&gt;, so read as blocks a paragraph
+    /// fell apart into its lines - sentences and wrapped headings ("Item 7. Management's Discussion and Analysis of")
+    /// cut at every line end. Lines of one paragraph are spaced 1.2 line heights apart, paragraphs at least 1.4: a
+    /// line continues the one before it in the same container (a column; a page's next column starts back at its
+    /// top) when it starts at the same left edge or under a hanging indent (a bullet's text, 9 or 18pt in) - never
+    /// further left, which is centered text: a statement title ("Consolidated Statements of Income") stays a line of
+    /// its own above its centered, equally bold "(in millions...)" line, since the title rules read whole lines. Both
+    /// sides of the break must be bold or both not, so a bold heading never runs into its first plain line, while a
+    /// wrapped heading joins. A rule line ("____") never joins: it sets footnotes apart.
+    /// </summary>
+    private sealed record PositionedLine(IElement Container, double Top, double LineHeight, double Left, bool StartsBold, bool EndsBold, bool IsRule)
+    {
+        // Deeper than a hanging indent (9 or 18pt), far narrower than the gap between columns; a rounding margin left.
+        private const double MaxHangingIndent = 20;
+        private const double EdgeRounding = 0.5;
+
+        // Between the line pitch (1.2) and the narrowest paragraph spacing (1.4).
+        private const double MaxLinePitch = 1.25;
+
+        public static PositionedLine? From(IElement div)
+        {
+            string style = div.GetAttribute("style") ?? string.Empty;
+            Match top = TopRegex().Match(style);
+            Match lineHeight = LineHeightRegex().Match(style);
+            string text = div.TextContent.Trim();
+            if (!top.Success || !lineHeight.Success || text.Length == 0 || div.ParentElement is null
+                || div.Descendants<IElement>().Any(e => e.LocalName is "table" or "div"))
+            {
+                return null;
+            }
+
+            double? left = div.Descendants<IElement>()
+                .Where(e => e.TextContent.Trim().Length > 0)
+                .Select(e => LeftRegex().Match(e.GetAttribute("style") ?? string.Empty))
+                .FirstOrDefault(m => m.Success) is { } m ? Points(m) : null;
+            List<IElement> runs = div.Descendants<IElement>()
+                .Where(e => e.GetAttribute("style")?.Contains("font-weight") == true && e.TextContent.Trim().Length > 0)
+                .ToList();
+            if (left is null || runs.Count == 0)
+            {
+                return null;
+            }
+
+            return new PositionedLine(div.ParentElement, Points(top), Points(lineHeight), left.Value,
+                IsBold(runs[0]), IsBold(runs[^1]), text.All(c => c == '_'));
+        }
+
+        public bool Continues(PositionedLine previous) =>
+            Container == previous.Container
+            && !IsRule && !previous.IsRule
+            && StartsBold == previous.EndsBold
+            && Left - previous.Left is > -EdgeRounding and < MaxHangingIndent
+            && Top > previous.Top && Top - previous.Top <= MaxLinePitch * previous.LineHeight;
+
+        private static double Points(Match m) => double.Parse(m.Groups[1].Value, System.Globalization.CultureInfo.InvariantCulture);
+
+        private static bool IsBold(IElement run) => BoldRegex().IsMatch(run.GetAttribute("style")!);
     }
 
     private static string Collapse(string text) => WhitespaceRunRegex().Replace(text, " ");

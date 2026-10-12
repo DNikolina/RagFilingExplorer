@@ -2078,7 +2078,7 @@ Adjustments to reconcile net income to net cash provided by operating activities
 Adjustments to reconcile net income to net cash provided by operating activities > Gains from investments and other, net — 2026: (2,433) | 2025: 667 | 2024: 720
 Changes in operating assets and liabilities:
 
---- Chunk 155/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 485 ---
+--- Chunk 155/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 478 ---
 CONSOLIDATED STATEMENTS OF CASH FLOWS
 
 For the Years Ended May 31, 2026, 2025 and 2024
@@ -2090,7 +2090,7 @@ Changes in operating assets and liabilities > Decrease in accounts payable and o
 Changes in operating assets and liabilities > Decrease in income taxes payable — 2026: (256) | 2025: (659) | 2024: (127)
 Changes in operating assets and liabilities > Increase in deferred revenues from customer prepayments with significant financing component — 2026: 4,592
 Changes in operating assets and liabilities > Increase in other deferred revenues — 2026: 50 | 2025: 154 | 2024: 656
-Changes in operating assets and liabilities > Net cash provided by operating activities — 2026: 31,977 | 2025: 20,821 | 2024: 18,673
+Net cash provided by operating activities — 2026: 31,977 | 2025: 20,821 | 2024: 18,673
 Cash flows from investing activities:
 Cash flows from investing activities > Purchases of marketable securities and other investments and acquisitions — 2026: (2,039) | 2025: (1,272) | 2024: (1,066)
 Cash flows from investing activities > Proceeds from sales and maturities of marketable securities and other investments — 2026: 5,848 | 2025: 776 | 2024: 572
@@ -2116,16 +2116,16 @@ Cash flows from financing activities > Repayments of senior notes, term loan cre
 Cash flows from financing activities > Other financing activities, net — 2026: (337) | 2025: (330) | 2024: 4
 Cash flows from financing activities > Net cash provided by (used for) financing activities — 2026: 40,284 | 2025: 1,098 | 2024: (10,554)
 
---- Chunk 157/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 355 ---
+--- Chunk 157/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules | tokens: 331 ---
 CONSOLIDATED STATEMENTS OF CASH FLOWS
 
 For the Years Ended May 31, 2026, 2025 and 2024
 
 (in millions) Year Ended May 31,
-Cash flows from financing activities > Effect of exchange rate changes on cash and cash equivalents — 2026: 96 | 2025: 124 | 2024: (70)
-Cash flows from financing activities > Net increase in cash and cash equivalents — 2026: 20,503 | 2025: 332 | 2024: 689
-Cash flows from financing activities > Cash and cash equivalents at beginning of period — 2026: 10,786 | 2025: 10,454 | 2024: 9,765
-Cash flows from financing activities > Cash and cash equivalents at end of period — 2026: $31,289 | 2025: $10,786 | 2024: $10,454
+Effect of exchange rate changes on cash and cash equivalents — 2026: 96 | 2025: 124 | 2024: (70)
+Net increase in cash and cash equivalents — 2026: 20,503 | 2025: 332 | 2024: 689
+Cash and cash equivalents at beginning of period — 2026: 10,786 | 2025: 10,454 | 2024: 9,765
+Cash and cash equivalents at end of period — 2026: $31,289 | 2025: $10,786 | 2024: $10,454
 Non-cash investing activities:
 Non-cash investing activities > Unpaid capital expenditures — 2026: $5,279 | 2025: $2,970 | 2024: $1,637
 Supplemental schedule of cash flow data:
@@ -2740,7 +2740,7 @@ $2,000, 6.10%, due September 2065(3) — Date of Issuance: September 2025 | May 
 $2,750, 6.85%, due February 2066(3) — Date of Issuance: February 2026 | May 31, 2026 Amount: 2,750 | May 31, 2026 Effective Interest Rate: 6.89% | May 31, 2025 Effective Interest Rate: N.A
 Floating-rate senior notes:
 
---- Chunk 200/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Notes Payable and Other Borrowings | tokens: 469 ---
+--- Chunk 200/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Notes Payable and Other Borrowings | tokens: 292 ---
 [Table of Contents](#toc_page)
 
 (Amounts in millions)
@@ -2748,14 +2748,14 @@ Floating-rate senior notes > $500, Compounded SOFR plus 0.76%, due August 2028 �
 Floating-rate senior notes > $500, Compounded SOFR plus 1.11%, due February 2029(3) — Date of Issuance: February 2026 | May 31, 2026 Amount: 500 | May 31, 2026 Effective Interest Rate: 4.78% | May 31, 2025 Effective Interest Rate: N.A
 Term loan credit agreements:
 Term loan credit agreements > $5,630, SOFR plus 1.35%, due August 2027(2) — Date of Issuance: June 2024 | May 31, 2026 Amount: 5,137 | May 31, 2026 Effective Interest Rate: 5.29% | May 31, 2025 Amount: 5,419 | May 31, 2025 Effective Interest Rate: 6.10%
-Term loan credit agreements > Commercial paper notes — May 31, 2026 Amount: 1,468 | May 31, 2026 Effective Interest Rate: 4.35% | May 31, 2025 Amount: 2,294 | May 31, 2025 Effective Interest Rate: 4.88%
-Term loan credit agreements > Other borrowings due August 2025 — Date of Issuance: November 2016 | May 31, 2026 Effective Interest Rate: N.A | May 31, 2025 Amount: 113 | May 31, 2025 Effective Interest Rate: 3.53%
-Term loan credit agreements > Total senior notes and other borrowings — May 31, 2026 Amount: $130,105 | May 31, 2025 Amount: $92,917
 
---- Chunk 201/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Notes Payable and Other Borrowings | tokens: 183 ---
+--- Chunk 201/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Notes Payable and Other Borrowings | tokens: 346 ---
 [Table of Contents](#toc_page)
 
 (Amounts in millions)
+Commercial paper notes — May 31, 2026 Amount: 1,468 | May 31, 2026 Effective Interest Rate: 4.35% | May 31, 2025 Amount: 2,294 | May 31, 2025 Effective Interest Rate: 4.88%
+Other borrowings due August 2025 — Date of Issuance: November 2016 | May 31, 2026 Effective Interest Rate: N.A | May 31, 2025 Amount: 113 | May 31, 2025 Effective Interest Rate: 3.53%
+Total senior notes and other borrowings — May 31, 2026 Amount: $130,105 | May 31, 2025 Amount: $92,917
 Unamortized discount/issuance costs — May 31, 2026 Amount: (564) | May 31, 2025 Amount: (348)
 Hedge accounting fair value adjustments(1) — May 31, 2025 Amount: (1)
 Total notes payable and other borrowings — May 31, 2026 Amount: $129,541 | May 31, 2025 Amount: $92,568
@@ -3272,7 +3272,7 @@ Effective income tax rate — 2026: 12.6% | 2025: 12.1% | 2024: 10.9%
 
 In fiscal year ended May 31, 2026, we adopted ASU 2023-09 prospectively. The following table reconciles the provision for income taxes to the amount computed by applying the statutory U.S. federal income tax rate to income before income taxes for the year ended May 31, 2026:
 
---- Chunk 239/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Income Taxes | tokens: 491 ---
+--- Chunk 239/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Income Taxes | tokens: 468 ---
 (Dollars in millions)
 U.S. federal statutory income tax rate — Amount: $4,106 | Percent: 21.0%
 Foreign tax effects — Amount: (77) | Percent: -0.4%
@@ -3286,18 +3286,20 @@ Malta > Other — Amount: (78) | Percent: -0.4%
 Bermuda
 Bermuda > Statutory tax rate difference between Bermuda and U.S. — Amount: (105) | Percent: -0.5%
 Bermuda > Income exclusion — Amount: (263) | Percent: -1.4%
-Bermuda > Other foreign jurisdictions — Amount: 1,016 | Percent: 5.2%
-Bermuda > Effect of changes in tax laws or rates enacted in the current period(1) — Amount: 933 | Percent: 4.8%
-Bermuda > Tax credits — Amount: (1,587) | Percent: -8.1%
-Bermuda > Federal research and development credit — Amount: (621) | Percent: -3.2%
-Bermuda > Foreign tax credits — Amount: (965) | Percent: -4.9%
-Bermuda > Other — Amount: (1) | Percent: 0.0%
-Bermuda > Nontaxable or nondeductible items — Amount: (1,970) | Percent: -10.1%
-Bermuda > Stock-based compensation — Amount: (2,062) | Percent: -10.6%
-Bermuda > Other — Amount: 92 | Percent: 0.5%
-Bermuda > Changes in unrecognized tax benefits — Amount: 847 | Percent: 4.3%
-Bermuda > Other adjustments(2) — Amount: 215 | Percent: 1.1%
-Bermuda > Effective income tax rate — Amount: $2,467 | Percent: 12.6%
+Other foreign jurisdictions — Amount: 1,016 | Percent: 5.2%
+Effect of changes in tax laws or rates enacted in the current period(1) — Amount: 933 | Percent: 4.8%
+Tax credits — Amount: (1,587) | Percent: -8.1%
+Federal research and development credit — Amount: (621) | Percent: -3.2%
+Foreign tax credits — Amount: (965) | Percent: -4.9%
+Other — Amount: (1) | Percent: 0.0%
+Nontaxable or nondeductible items — Amount: (1,970) | Percent: -10.1%
+Stock-based compensation — Amount: (2,062) | Percent: -10.6%
+Other — Amount: 92 | Percent: 0.5%
+Changes in unrecognized tax benefits — Amount: 847 | Percent: 4.3%
+Other adjustments(2) — Amount: 215 | Percent: 1.1%
+Effective income tax rate — Amount: $2,467 | Percent: 12.6%
+
+(1) Primarily related to the tax effects of enactment of the U.S. One, Big, Beautiful Bill Act.
 
 --- Chunk 240/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Income Taxes | tokens: 454 ---
 (1) Primarily related to the tax effects of enactment of the U.S. One, Big, Beautiful Bill Act.
@@ -3324,7 +3326,7 @@ Total provision for income taxes — 2025: $1,717 | 2024: $1,274
 
 Cash paid for income taxes, net of refunds received, by jurisdiction pursuant to the disclosure requirements of ASU 2023-09 for the year ended May 31, 2026 was as follows (in millions):
 
---- Chunk 241/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Income Taxes | tokens: 134 ---
+--- Chunk 241/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Income Taxes | tokens: 132 ---
 Cash paid for income taxes, net of refunds received, by jurisdiction pursuant to the disclosure requirements of ASU 2023-09 for the year ended May 31, 2026 was as follows (in millions):
 
 Federal — $2,460
@@ -3334,13 +3336,13 @@ Foreign > Korea — (262)
 Foreign > Japan — 203
 Foreign > India — 193
 Foreign > Other — 861
-Foreign > Total cash paid for income taxes, net of refunds received — $3,704
+Total cash paid for income taxes, net of refunds received — $3,704
 
 (1) No individual state accounted for more than 5%.
 
 The components of our deferred tax assets and liabilities were as follows:
 
---- Chunk 242/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Income Taxes | tokens: 472 ---
+--- Chunk 242/276 | heading: PART IV > Item 15. Exhibits and Financial Statement Schedules > Income Taxes | tokens: 480 ---
 (in millions) May 31,
 Deferred tax assets:
 Deferred tax assets > Accruals and allowances — 2026: $1,195 | 2025: $790
@@ -3351,8 +3353,8 @@ Deferred tax assets > Basis of property, plant and equipment and intangible asse
 Deferred tax assets > Capitalized research and development — 2026: 5,784 | 2025: 4,153
 Deferred tax assets > Tax credit and net operating loss carryforwards — 2026: 6,602 | 2025: 5,857
 Deferred tax assets > Total deferred tax assets — 2026: 31,772 | 2025: 23,841
-Valuation allowance — 2026: (2,483) | 2025: (1,962)
-Total deferred tax assets, net — 2026: 29,289 | 2025: 21,879
+Deferred tax assets > Valuation allowance — 2026: (2,483) | 2025: (1,962)
+Deferred tax assets > Total deferred tax assets, net — 2026: 29,289 | 2025: 21,879
 Deferred tax liabilities:
 Deferred tax liabilities > Acquired intangible assets — 2026: (544) | 2025: (920)
 Deferred tax liabilities > GILTI deferred — 2026: (6,852) | 2025: (6,949)

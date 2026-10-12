@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 427 offline unit tests (176 at v1.0) + 195 offline evaluation tests |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 439 offline unit tests (176 at v1.0) + 195 offline evaluation tests |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -96,7 +96,12 @@ budget, and answers in a later piece rank worse (12/14 in the top 5, MRR ~0.57, 
 to its last row-group change, so a group's total stays with its lines - held-out recall@5 28 -> 29/31, H25 11 -> 1;
 llama on the same Ollama build (0.40.2, original index re-answered fresh: 83/102) 84/102. `structured-hybrid-v3-ollama0402`
 is llama's baseline on this build. List markers (`•`, `(1)`) joined to their text - they were paragraphs alone in MSFT
-and ORCL; ranks unchanged in the top 5. Next: review NDAQ's chunks (the user saw odd ones), then llama on all 102 on this index (the new baseline), then the shared
+and ORCL; ranks unchanged in the top 5. NDAQ's chunks reviewed (2026-10-12): its fixed page layout made every printed line a paragraph - lines now
+joined back into paragraphs (within and across columns), and a bullet list laid out as a table no longer reads "▪ | ...";
+1,000 chunks, recall@5 86/94 unchanged, MRR 0.738 -> 0.751, five NDAQ ranks better, none worse. Then all four filings
+reviewed side by side: table rows no longer take the name of a group they're outside (indents, figures adding up, the
+group's own total - `HtmlTableLinearizer`), checked against the filers' XBRL presentation trees (`RowGroupsXbrlTests`, seven
+reviewed disagreements); 98 rows relabelled, 998 chunks, recall@5 86/94, MRR 0.746. Next: llama on all 102 on this index (the new baseline), then the shared
 `RagFilingExplorer.Core`, then Voyage.
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as

@@ -57,10 +57,13 @@ internal sealed record XbrlFact(
     IReadOnlyList<IElement> Elements);
 
 /// <summary>A filer's extension taxonomy: its roles and, per role, the concepts it presents; plus labels.</summary>
+/// <param name="PresentationParents">Per role, each presented concept's parent in the filer's presentation tree - the
+/// line item or abstract it is shown under.</param>
 internal sealed record XbrlTaxonomy(
     IReadOnlyList<XbrlRole> Roles,
     IReadOnlyDictionary<string, IReadOnlySet<string>> PresentedConcepts,
-    IReadOnlyDictionary<string, string> Labels)
+    IReadOnlyDictionary<string, string> Labels,
+    IReadOnlyDictionary<string, IReadOnlyDictionary<string, string>>? PresentationParents = null)
 {
     /// <summary>The primary financial statements: Statement roles, parentheticals excluded.</summary>
     public IEnumerable<XbrlRole> PrimaryStatements => Roles.Where(r => r.Type == "Statement" && !r.Title.Contains("Parenthetical", StringComparison.OrdinalIgnoreCase));

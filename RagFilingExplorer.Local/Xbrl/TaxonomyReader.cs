@@ -51,15 +51,29 @@ internal static class TaxonomyReader
         List<XbrlRole> roles = xsd.Descendants(Link + "roleType").Select(ReadRole).ToList();
 
         Dictionary<string, HashSet<string>> presented = [];
+        Dictionary<string, Dictionary<string, string>> parents = [];
         foreach (XElement link in linkbases.SelectMany(d => d.Descendants(Link + "presentationLink")))
         {
             string role = link.Attribute(XLink + "role")!.Value;
             if (!presented.TryGetValue(role, out HashSet<string>? concepts))
             {
                 presented[role] = concepts = [];
+                parents[role] = [];
             }
 
             concepts.UnionWith(link.Elements(Link + "loc").Select(l => ConceptOf(l.Attribute(XLink + "href")!.Value)));
+
+            Dictionary<string, string> locConcept = link.Elements(Link + "loc")
+                .GroupBy(l => l.Attribute(XLink + "label")!.Value)
+                .ToDictionary(g => g.Key, g => ConceptOf(g.First().Attribute(XLink + "href")!.Value));
+            foreach (XElement arc in link.Elements(Link + "presentationArc"))
+            {
+                if (locConcept.TryGetValue(arc.Attribute(XLink + "from")!.Value, out string? parent)
+                    && locConcept.TryGetValue(arc.Attribute(XLink + "to")!.Value, out string? child))
+                {
+                    parents[role].TryAdd(child, parent);
+                }
+            }
         }
 
         Dictionary<string, string> labels = [];
@@ -85,7 +99,8 @@ internal static class TaxonomyReader
             }
         }
 
-        return new XbrlTaxonomy(roles, presented.ToDictionary(p => p.Key, p => (IReadOnlySet<string>)p.Value), labels);
+        return new XbrlTaxonomy(roles, presented.ToDictionary(p => p.Key, p => (IReadOnlySet<string>)p.Value), labels,
+            parents.ToDictionary(p => p.Key, p => (IReadOnlyDictionary<string, string>)p.Value));
     }
 
     // "9952155 - Statement - Consolidated Statements of Changes in Stockholders' Equity"

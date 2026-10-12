@@ -22,7 +22,8 @@ internal enum LinearizedTableKind
 
 /// <param name="ColumnKey">Identity of the column within the table ("b{header block}c{leaf}"), for checks.</param>
 /// <param name="ContextRef">The inline-XBRL contextRef of a tagged value - carried through, with its concept and unit - PeriodLabels names a roll-forward row's period from it, and the tests check alignment against it; never used for alignment.</param>
-internal sealed record LinearizedValue(string ColumnKey, string ColumnLabel, string Text, string? ContextRef, string? Concept, string? Unit);
+/// <param name="ColumnParts">The header cells <paramref name="ColumnLabel"/> is joined from, widest first - a caption shared by every column is cut only between them.</param>
+internal sealed record LinearizedValue(string ColumnKey, string ColumnLabel, string Text, string? ContextRef, string? Concept, string? Unit, IReadOnlyList<string>? ColumnParts = null);
 
 internal sealed record LinearizedRow(string? GroupLabel, string Label, IReadOnlyList<LinearizedValue> Values);
 
@@ -54,6 +55,12 @@ internal static partial class HtmlTableLinearizer
     [GeneratedRegex(@"^(19|20)\d{2}$")]
     private static partial Regex BareYearRegex();
 
+    [GeneratedRegex(@"^(19|20)\d{2}\b")]
+    private static partial Regex LeadingYearRegex();
+
+    [GeneratedRegex(@"[a-z0-9]+")]
+    private static partial Regex WordRegex();
+
     [GeneratedRegex(@"^\(?\s*(in|dollars in|amounts in|\$ in)\s+(millions|thousands|billions)", RegexOptions.IgnoreCase)]
     private static partial Regex UnitsRegex();
 
@@ -63,15 +70,124 @@ internal static partial class HtmlTableLinearizer
     [GeneratedRegex(@"^((as of|as at|at|for the)\s+)?(((fiscal\s+)?(years?|quarters?|months|weeks)\s+ended,?)\s+)?(january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{1,2},?\s+(19|20)\d{2}:?$|^(fiscal\s+(year\s+)?)?(19|20)\d{2}:?$", RegexOptions.IgnoreCase)]
     private static partial Regex PeriodCaptionRegex();
 
+    // A row label's indent from its inline style (CellIndent); "padding-left" but never "line-height" or "margin-top".
+    [GeneratedRegex(@"(?<![-\w])(?:padding-left|margin-left|text-indent|padding-inline-start|margin-inline-start|left):\s*(?<value>-?[\d.]+)(?<unit>pt|px|in|em|%)?")]
+    private static partial Regex IndentRegex();
+
+    [GeneratedRegex(@"(?<![-\w])padding:\s*([^;""]+)")]
+    private static partial Regex PaddingShorthandRegex();
+
+    [GeneratedRegex(@"^(?<value>-?[\d.]+)(?<unit>pt|px|in|em|%)?$")]
+    private static partial Regex LengthRegex();
+
     private sealed record Fact(string ContextRef, string Concept, string Unit);
 
-    private sealed record Cell(int Start, int End, string Text, IReadOnlyList<Fact> Facts);
+    // Indent: how far in the cell's first text starts, in points (CellIndent).
+    private sealed record Cell(int Start, int End, string Text, IReadOnlyList<Fact> Facts, double Indent);
 
     private sealed record ValueGroup(int Start, int End, string Text, bool IsNumeric, bool IsBareYear, Fact? Fact);
 
     private sealed record HeaderCell(int Row, int Start, int End, string Text);
 
-    private sealed record Leaf(string Key, int Start, int End, string Label);
+    // A row not named as a total is taken for one only when its figures add up in this many columns: one could be
+    // chance - MSFT's table of contents, where pages 3 + 12 + 14 make "Item 1B." on page 29 look like a total.
+    private const int UnnamedTotalAmounts = 2;
+
+    private sealed record Leaf(string Key, int Start, int End, string Label, IReadOnlyList<string> Parts);
+
+    /// <summary>
+    /// The data rows of a run - a group, from its label, or everything since the last total - for the two signs that a
+    /// row isn't in the group still in force. A group runs until a "Total" row, but filers print a row outside it
+    /// two other ways: back at the group label's own indent while the group's rows sat deeper (MSFT's "Comprehensive
+    /// income" after "Other comprehensive income (loss), net of tax:", ORCL's "Effect of exchange rate changes" after
+    /// "Cash flows from financing activities:"), or as a grand total right after the last group, indented like its
+    /// rows (NFLX's derivatives "Total" over both hedging groups) - there only the figures tell, by adding up.
+    /// </summary>
+    private sealed class RunningRows(double labelIndent)
+    {
+        // Indents are compared within one table; anything closer than this is the same indent.
+        private const double SameIndent = 0.5;
+
+        private readonly Dictionary<string, (decimal Sum, int Count)> sums = [];
+        private double? shallowestRow;
+
+        public int Count { get; private set; }
+
+        public void Add(double indent, IReadOnlyList<LinearizedValue> values)
+        {
+            Count++;
+            shallowestRow = Math.Min(shallowestRow ?? indent, indent);
+            foreach (LinearizedValue value in values)
+            {
+                if (Amount(value.Text) is { } amount)
+                {
+                    (decimal sum, int count) = sums.GetValueOrDefault(value.ColumnKey);
+                    sums[value.ColumnKey] = (sum + amount.Value, count + 1);
+                }
+            }
+        }
+
+        // A row (not a total - a group's own total is often printed at its label's indent) back at the label's indent,
+        // when every row of the group so far was indented deeper.
+        public bool IsOutdentedPast(double indent, string label) =>
+            label.Length > 0 && shallowestRow is { } deepest && deepest > labelIndent + SameIndent && indent <= labelIndent + SameIndent;
+
+        // A total whose every figure is the sum of these rows.
+        public bool AddsUpTo(IReadOnlyList<LinearizedValue> values, int minAmounts = 1)
+        {
+            List<(decimal Value, decimal Unit, string Key)> amounts = values
+                .Select(v => (Amount: Amount(v.Text), v.ColumnKey))
+                .Where(a => a.Amount is not null)
+                .Select(a => (a.Amount!.Value.Value, a.Amount!.Value.Unit, a.ColumnKey))
+                .ToList();
+            return amounts.Count >= minAmounts && amounts.All(a => sums.TryGetValue(a.Key, out var addends) && AddsUp(addends, (a.Value, a.Unit)));
+        }
+
+        // A row whose figures are the sum of every running row but not of this group's rows alone.
+        public bool IsGrandTotal(IReadOnlyList<LinearizedValue> values, RunningRows running, int minAmounts)
+        {
+            if (running.Count <= Count)
+            {
+                return false;
+            }
+
+            int compared = 0;
+            bool ofGroup = true, ofAll = true;
+            foreach (LinearizedValue value in values)
+            {
+                if (Amount(value.Text) is not { } total)
+                {
+                    continue;
+                }
+
+                compared++;
+                ofGroup &= sums.TryGetValue(value.ColumnKey, out var mine) && AddsUp(mine, total);
+                ofAll &= running.sums.TryGetValue(value.ColumnKey, out var all) && AddsUp(all, total);
+            }
+
+            return compared >= minAmounts && ofAll && !ofGroup;
+        }
+
+        // Each addend is rounded to the total's last digit, so the sum may be off by half a unit per addend.
+        private static bool AddsUp((decimal Sum, int Count) addends, (decimal Value, decimal Unit) total) =>
+            Math.Abs(addends.Sum - total.Value) <= total.Unit / 2 * addends.Count;
+
+        // "$(1,610,019)" -> -1610019 in units of 1; "3.32" in units of 0.01. Percentages and dashes aren't amounts.
+        private static (decimal Value, decimal Unit)? Amount(string text)
+        {
+            string digits = text.Replace("$", string.Empty).Replace(",", string.Empty).Replace(" ", string.Empty);
+            bool negative = digits.StartsWith('(') && digits.EndsWith(')');
+            digits = digits.Trim('(', ')');
+            if (!decimal.TryParse(digits, System.Globalization.NumberStyles.AllowDecimalPoint | System.Globalization.NumberStyles.AllowLeadingSign,
+                    System.Globalization.CultureInfo.InvariantCulture, out decimal value))
+            {
+                return null;
+            }
+
+            int decimals = digits.Contains('.') ? digits.Length - digits.IndexOf('.') - 1 : 0;
+            return (negative ? -value : value, (decimal)Math.Pow(10, -decimals));
+        }
+    }
 
     public static LinearizedTable Linearize(IHtmlTableElement table)
     {
@@ -96,7 +212,7 @@ internal static partial class HtmlTableLinearizer
         if (labelEnd is null)
         {
             return new LinearizedTable(LinearizedTableKind.Text, null, null, [],
-                nonEmptyRows.Select(r => string.Join(" | ", r.Select(c => c.Text))).ToList());
+                nonEmptyRows.Select(r => TextRow(r.Select(c => c.Text))).ToList());
         }
 
         string? units = null;
@@ -110,6 +226,9 @@ internal static partial class HtmlTableLinearizer
         List<string> unconsumedHeaderRows = []; // header rows not yet followed by a data row
         bool lastWasData = false;
         List<LinearizedRow> output = [];
+        RunningRows groupRows = new(0);   // the current group's data rows, from its label
+        RunningRows running = new(0);     // every data row but totals, since the table's start or its last period caption
+        (string Label, int FirstRow)? outdented = null; // a group a row seemed to leave, until a total settles it
 
         for (int rowIndex = 0; rowIndex < nonEmptyRows.Count; rowIndex++)
         {
@@ -132,6 +251,8 @@ internal static partial class HtmlTableLinearizer
                     // rather than overwritten by the next group label.
                     periodCaption = label.TrimEnd(':');
                     groupLabel = null;
+                    running = new RunningRows(0);
+                    outdented = null;
                     output.Add(new LinearizedRow(null, label, []));
                 }
                 else if (headerCells.Count == 0 && block < 0 && output.Count == 0)
@@ -144,6 +265,8 @@ internal static partial class HtmlTableLinearizer
                 else
                 {
                     groupLabel = label;
+                    groupRows = new RunningRows(row[0].Indent);
+                    outdented = null;
                     output.Add(new LinearizedRow(null, label, []));
                 }
 
@@ -234,22 +357,67 @@ internal static partial class HtmlTableLinearizer
                         used.Add(key);
                     }
 
-                    values.Add(new LinearizedValue(key, leaf.Label, group.Text, group.Fact?.ContextRef, group.Fact?.Concept, group.Fact?.Unit));
+                    values.Add(new LinearizedValue(key, leaf.Label, group.Text, group.Fact?.ContextRef, group.Fact?.Concept, group.Fact?.Unit, leaf.Parts));
                 }
             }
 
-            string? path = (periodCaption, groupLabel) switch
-            {
-                (null, _) => groupLabel,
-                (_, null) => periodCaption,
-                ({ } period, { } group) => $"{period} > {group.TrimEnd(':')}",
-            };
-            output.Add(new LinearizedRow(path, label, values));
+            // A group's total ends it, named so or not: NFLX's "Net cash used in financing activities" adds up the
+            // financing rows, and "Effect of exchange rate changes" after it is no financing item. Unless the group's
+            // own "Total ..." comes later - then a total before it is a subtotal inside the group (MSFT's "Total cash,
+            // cash equivalents, and short-term investments" before "Total current assets"; NDAQ's "Foreign currency
+            // translation, net" before "Total other comprehensive income (loss), net of tax").
+            bool groupTotalLater = groupLabel is not null && nonEmptyRows.Skip(rowIndex + 1)
+                .Any(r => r[0].Text.StartsWith("Total", StringComparison.OrdinalIgnoreCase) && NamesGroup(r[0].Text, groupLabel));
+            bool isTotal = !groupTotalLater && (label.StartsWith("Total", StringComparison.OrdinalIgnoreCase)
+                || (groupLabel is not null && groupRows.Count >= 2 && groupRows.AddsUpTo(values, UnnamedTotalAmounts)));
 
-            if (label.StartsWith("Total", StringComparison.OrdinalIgnoreCase))
+            // A running total adds up every row of the table so far, not the group's alone, whatever its label: NFLX's
+            // derivatives "Total", ORCL's "Net cash provided by operating activities" (indented deeper than the
+            // working-capital rows above it), NDAQ's "Revenues less transaction-based expenses" (indented like them).
+            bool isRunningTotal = groupLabel is not null && groupRows.IsGrandTotal(values, running, label.StartsWith("Total", StringComparison.OrdinalIgnoreCase) ? 1 : UnnamedTotalAmounts);
+            if (isRunningTotal)
             {
                 groupLabel = null;
             }
+            else if (groupLabel is not null && !isTotal && groupRows.IsOutdentedPast(row[0].Indent, label))
+            {
+                outdented = (groupLabel, output.Count);
+                groupLabel = null;
+            }
+            else if (isTotal && outdented is { } held && NamesGroup(label, held.Label) && groupRows.AddsUpTo(values))
+            {
+                // The indent misled: the group's own total ("Total deferred tax liabilities" under "Deferred tax
+                // liabilities:") adds up only with the rows printed at its label's indent (NFLX's "Acquired intangibles"
+                // and "Other"), so they were the group's after all. A bare "Total" may be the whole table's (MSFT's
+                // contractual obligations, after "Long-term debt:") - it never pulls rows back.
+                groupLabel = held.Label;
+                for (int i = held.FirstRow; i < output.Count; i++)
+                {
+                    output[i] = output[i] with { GroupLabel = PathOf(groupLabel) };
+                }
+            }
+
+            output.Add(new LinearizedRow(PathOf(groupLabel), label, values));
+
+            // A total's figures are its rows', already in the running sum.
+            if (isTotal || isRunningTotal)
+            {
+                groupLabel = null;
+                outdented = null;
+            }
+            else
+            {
+                // An outdented row stays counted with its group until a total settles which it was.
+                groupRows.Add(row[0].Indent, values);
+                running.Add(row[0].Indent, values);
+            }
+
+            string? PathOf(string? g) => (periodCaption, g) switch
+            {
+                (null, _) => g,
+                (_, null) => periodCaption,
+                ({ } period, { } named) => $"{period} > {named.TrimEnd(':')}",
+            };
         }
 
         // Rows read as headers that no data row ever followed aren't headers at all - MSFT's exhibit index
@@ -295,7 +463,7 @@ internal static partial class HtmlTableLinearizer
     }
 
     /// <summary>
-    /// The text path alone, for any table: each non-empty row's cells joined with " | ", as <see cref="Linearize"/>
+    /// The text path alone, for any table: each non-empty row's cells joined with " | " (a lone bullet with a space), as <see cref="Linearize"/>
     /// does for a table with no numeric data rows. It keeps every cell's text by construction, so the Structured
     /// strategy uses it where <see cref="Linearize"/> falls back (Structured.FilingBlockReader.ReadTable).
     /// </summary>
@@ -304,9 +472,20 @@ internal static partial class HtmlTableLinearizer
         List<string> lines = ReadRows(table)
             .Select(r => r.Where(c => c.Text.Length > 0).ToList())
             .Where(r => r.Count > 0)
-            .Select(r => string.Join(" | ", r.Select(c => c.Text)))
+            .Select(r => TextRow(r.Select(c => c.Text)))
             .ToList();
         return new LinearizedTable(lines.Count == 0 ? LinearizedTableKind.Empty : LinearizedTableKind.Text, null, null, [], lines);
+    }
+
+    // A text row's cells joined with " | ", but a bullet in a cell of its own joins its text with a space: NDAQ lays out
+    // a nested list as a table - the bullet in one cell, its text in the next, a level deeper one cell further right -
+    // and "▪ | Capital Access Platforms" read as two columns of a table.
+    private static string TextRow(IEnumerable<string> cells)
+    {
+        List<string> texts = cells.ToList();
+        return texts.Count > 1 && texts[0] is "•" or "●" or "▪" or "◦"
+            ? $"{texts[0]} {string.Join(" | ", texts.Skip(1))}"
+            : string.Join(" | ", texts);
     }
 
     /// <summary>
@@ -401,19 +580,35 @@ internal static partial class HtmlTableLinearizer
     }
 
     // The longest word-boundary prefix shared by every column label - only when it leaves each label
-    // something of its own, so "2026" / "2025" stay distinguishable.
+    // something of its own, so "2026" / "2025" stay distinguishable. Inside one header cell it may only cut before a
+    // year ("December 31," over "2025" / "2024"); anywhere else it backs off to the header cells shared whole - NFLX's
+    // "Derivative Assets" / "Derivative Liabilities" share a first word, and cut there the columns read "Assets ...".
     private static string SharedCaption(LinearizedTable table)
     {
-        List<string> labels = table.Rows.SelectMany(r => r.Values).Select(v => v.ColumnLabel).Where(l => l.Length > 0).Distinct().ToList();
-        if (labels.Count < 2)
+        List<LinearizedValue> columns = table.Rows.SelectMany(r => r.Values).Where(v => v.ColumnLabel.Length > 0).DistinctBy(v => v.ColumnLabel).ToList();
+        if (columns.Count < 2)
         {
             return string.Empty;
         }
 
-        string prefix = labels.Aggregate((a, b) => new string(a.Zip(b).TakeWhile(p => p.First == p.Second).Select(p => p.First).ToArray()));
+        string prefix = columns.Select(v => v.ColumnLabel).Aggregate((a, b) => new string(a.Zip(b).TakeWhile(p => p.First == p.Second).Select(p => p.First).ToArray()));
         int cut = prefix.LastIndexOf(' ');
         prefix = cut < 0 ? string.Empty : prefix[..cut];
-        return labels.All(l => l.Length > prefix.Length + 1) ? prefix.Trim() : string.Empty;
+        if (!columns.All(v => v.ColumnLabel.Length > prefix.Length + 1))
+        {
+            return string.Empty;
+        }
+
+        bool atCellBoundary = columns.All(v => v.ColumnParts is not { } parts
+            || Enumerable.Range(0, parts.Count + 1).Any(n => string.Join(" ", parts.Take(n)) == prefix));
+        if (atCellBoundary || columns.All(v => LeadingYearRegex().IsMatch(v.ColumnLabel[prefix.Length..].TrimStart())))
+        {
+            return prefix.Trim();
+        }
+
+        List<IReadOnlyList<string>> partLists = columns.Select(v => v.ColumnParts ?? [v.ColumnLabel]).ToList();
+        int whole = Enumerable.Range(0, partLists.Min(p => p.Count) - 1).TakeWhile(i => partLists.All(p => p[i] == partLists[0][i])).Count();
+        return string.Join(" ", partLists[0].Take(whole));
     }
 
     /// <summary>
@@ -443,7 +638,7 @@ internal static partial class HtmlTableLinearizer
                     .Where(e => e.LocalName.Equals("ix:nonfraction", StringComparison.OrdinalIgnoreCase))
                     .Select(e => new Fact(e.GetAttribute("contextref") ?? string.Empty, e.GetAttribute("name") ?? string.Empty, e.GetAttribute("unitref") ?? string.Empty))
                     .ToList();
-                cells.Add(new Cell(position, position + span - 1, CellText(cell), facts));
+                cells.Add(new Cell(position, position + span - 1, CellText(cell), facts, CellIndent(cell)));
 
                 // rowspan="0" holds the columns to the end of the table.
                 int below = cell.RowSpan == 0 ? int.MaxValue : cell.RowSpan - 1;
@@ -474,6 +669,42 @@ internal static partial class HtmlTableLinearizer
 
         return rows;
     }
+
+    // How far in a cell's first text starts, in points: every left padding, margin, text indent and (NDAQ's positioned
+    // spans) left offset from the cell down to that text. Filers mix units - inches (MSFT, ORCL), points (NFLX, NDAQ),
+    // percentages with a negative text indent for a hanging line - so only rows of one table are compared, and a
+    // percentage counts as 5pt per 1%, about its share of a label column.
+    private static double CellIndent(IElement cell)
+    {
+        IText? first = cell.Descendants<IText>().FirstOrDefault(t => t.Data.Trim().Length > 0);
+        double indent = 0;
+        for (IElement? element = first?.ParentElement; element is not null; element = element == cell ? null : element.ParentElement)
+        {
+            string style = element.GetAttribute("style") ?? string.Empty;
+            foreach (Match m in IndentRegex().Matches(style))
+            {
+                indent += Points(m.Groups["value"].Value, m.Groups["unit"].Value);
+            }
+
+            if (PaddingShorthandRegex().Match(style) is { Success: true } padding)
+            {
+                string[] sides = padding.Groups[1].Value.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                string left = sides.Length switch { 4 => sides[3], >= 2 => sides[1], _ => sides[0] };
+                if (LengthRegex().Match(left) is { Success: true } length)
+                {
+                    indent += Points(length.Groups["value"].Value, length.Groups["unit"].Value);
+                }
+            }
+        }
+
+        return indent;
+    }
+
+    private static double Points(string value, string unit) =>
+        double.Parse(value, System.Globalization.CultureInfo.InvariantCulture) * unit switch
+        {
+            "in" => 72, "px" => 0.75, "em" => 10, "%" => 5, _ => 1,
+        };
 
     // TextContent would glue "comprehensive<br>income" into one word; block boundaries become spaces.
     private static string CellText(INode node)
@@ -543,6 +774,20 @@ internal static partial class HtmlTableLinearizer
         }
 
         return groups;
+    }
+
+    // "Total deferred tax liabilities" is the total of "Deferred tax liabilities:", and "Total finance lease
+    // liabilities" of "Finance Leases": the group's name opens the total's, plurals aside. Opens it - "Total
+    // liabilities and stockholders' equity" is no total of "Stockholders' equity:".
+    private static bool NamesGroup(string totalLabel, string groupLabel)
+    {
+        List<string> name = Words(groupLabel);
+        List<string> total = Words(totalLabel[Math.Min("Total".Length, totalLabel.Length)..]);
+        return name.Count > 0 && total.Take(name.Count).SequenceEqual(name);
+
+        static List<string> Words(string text) => WordRegex().Matches(text.ToLowerInvariant())
+            .Select(m => m.Value.Length > 3 && m.Value.EndsWith('s') ? m.Value[..^1] : m.Value)
+            .ToList();
     }
 
     private static bool IsNumericText(string text) => NumericRegex().IsMatch(text) || DashRegex().IsMatch(text);
@@ -619,7 +864,8 @@ internal static partial class HtmlTableLinearizer
                 .OrderByDescending(h => h.End - h.Start)
                 .ThenBy(h => h.Row)
                 .Select(h => h.Text));
-            leaves.Add(new Leaf($"b{block}c{index}", leaf.Start, leaf.End, string.Join(" ", stack.Distinct())));
+            List<string> parts = stack.Distinct().ToList();
+            leaves.Add(new Leaf($"b{block}c{index}", leaf.Start, leaf.End, string.Join(" ", parts), parts));
         }
 
         return null;

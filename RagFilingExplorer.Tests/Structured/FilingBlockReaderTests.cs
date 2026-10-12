@@ -182,4 +182,73 @@ public class FilingBlockReaderTests
 
         Assert.That(HtmlTableLinearizer.LeadingBoldRowCount(table), Is.EqualTo(0));
     }
+
+    // One printed line of NDAQ's fixed page layout: a positioned <div> placed by top, its text span by left.
+    private static string Line(double top, double left, string text, bool bold = false) =>
+        $"<div style=\"line-height:10pt;position:var(--position);top:{top}pt;width:612pt\">"
+        + $"<span style=\"font-weight:{(bold ? "bold" : "normal")};left:{left}pt;position:var(--position)\">{text}</span></div>";
+
+    // NDAQ: every printed line is its own positioned <div>, so each line read as a paragraph - sentences cut at every
+    // line end, chunks starting mid-sentence, and Item 7's heading lost "Financial Condition and Results of
+    // Operations" to the body text. Lines 12pt apart are one paragraph, 18pt apart a new one; a hanging indent and
+    // an empty anchor between lines stay inside it, and a line-end hyphen joins without a space.
+    [Test]
+    public void Read_PositionedLinesOfOneParagraph_JoinIntoIt()
+    {
+        List<string> texts = Texts("<div>"
+            + Line(45, 49.5, "Item 7. Management’s Discussion and Analysis of", bold: true)
+            + Line(57, 49.5, "Financial Condition and Results of Operations", bold: true)
+            + Line(75, 49.5, "Institutional investors conduct pre- ")
+            + "<div style=\"position:absolute;top:87pt\" id=\"anchor\"></div>"
+            + Line(87, 49.5, "investment due diligence. ")
+            + Line(105, 49.5, "•Bullet text that")
+            + Line(117, 58.5, "wraps under its indent.")
+            + "</div>");
+
+        Assert.That(texts, Is.EqualTo(new[]
+        {
+            "Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+            "Institutional investors conduct pre-investment due diligence.",
+            "•Bullet text that wraps under its indent.",
+        }));
+    }
+
+    // NDAQ: a statement title and its "(in millions...)" line are both bold and centered one line apart; joined, the
+    // title is no longer a whole line for the title rules. A bold heading over plain text and a rule line over a
+    // footnote stay apart too.
+    [Test]
+    public void Read_PositionedTitleOverCenteredOrPlainLine_StaysALineOfItsOwn()
+    {
+        List<string> texts = Texts("<div>"
+            + Line(57, 230.6, "Consolidated Statements of Income", bold: true)
+            + Line(69, 223.3, "(in millions, except per share amounts)", bold: true)
+            + Line(87, 49.5, "Tax Matters", bold: true)
+            + Line(99, 49.5, "The following table presents our provision.")
+            + Line(111, 49.5, "____________")
+            + Line(123, 49.5, "(1) Primarily relates to taxes.")
+            + "</div>");
+
+        Assert.That(texts, Is.EqualTo(new[]
+        {
+            "Consolidated Statements of Income", "(in millions, except per share amounts)", "Tax Matters",
+            "The following table presents our provision.", "\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_", "(1) Primarily relates to taxes.",
+        }));
+    }
+
+    // NDAQ: a paragraph running off the bottom of a column went on at the top of the next one, a new container, and
+    // was read as two - the second starting mid-sentence. The next page's number between them stays, after the join.
+    [Test]
+    public void Read_PositionedParagraphAcrossAColumnBreak_JoinsWhenItContinuesMidSentence()
+    {
+        List<string> texts = Texts(
+            "<div>" + Line(724, 49.5, "Our platforms help clients manage") + "</div>"
+            + "<div>" + Line(22, 304, "4") + "</div>"
+            + "<div>" + Line(45, 315, "their workflows.") + Line(63, 315, "Next paragraph ends") + "</div>"
+            + "<div>" + Line(45, 49.5, "New paragraph.") + "</div>");
+
+        Assert.That(texts, Is.EqualTo(new[]
+        {
+            "Our platforms help clients manage their workflows.", "4", "Next paragraph ends", "New paragraph.",
+        }));
+    }
 }

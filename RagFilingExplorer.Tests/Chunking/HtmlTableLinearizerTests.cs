@@ -207,6 +207,100 @@ public class HtmlTableLinearizerTests
         Assert.That(table.TextLines, Is.EqualTo(new[] { "Item 1. | Business", "Item 1A. | Risk Factors" }));
     }
 
+    private static string Label(string text, double indentPt) => $"<td style=\"padding-left:{indentPt}pt\">{text}</td>";
+
+    // MSFT: "Comprehensive income" read "Other comprehensive income (loss), net of tax > Comprehensive income" - a group
+    // ran until a "Total" row, and this one has none. The row is printed back at the group label's indent, outside it.
+    [Test]
+    public void RowBackAtTheGroupLabelsIndent_IsOutsideTheGroup()
+    {
+        LinearizedTable table = HtmlTableLinearizer.Linearize(Table("<table>"
+            + Tr("", "2026", "2025")
+            + Tr(Label("Net income", 12), "133,749", "101,832")
+            + Tr(Label("Other comprehensive income (loss), net of tax:", 12), "", "")
+            + Tr(Label("Net change related to derivatives", 24), "(7)", "5")
+            + Tr(Label("Comprehensive income", 12), "133,812", "104,075")
+            + "</table>"));
+
+        Assert.That(Row(table, "Net change related to derivatives").GroupLabel, Is.EqualTo("Other comprehensive income (loss), net of tax:"));
+        Assert.That(Row(table, "Comprehensive income").GroupLabel, Is.Null);
+    }
+
+    // NFLX: the derivatives table's "Total" - both hedging groups added up - read "Derivatives not designated as hedging
+    // instruments > Total", indented like that group's rows; only its figures show it is the whole table's.
+    [Test]
+    public void TotalAddingUpEveryGroup_IsNotTheLastGroupsTotal()
+    {
+        LinearizedTable table = HtmlTableLinearizer.Linearize(Table("<table>"
+            + Tr("", "Assets", "Liabilities")
+            + Tr(Label("Derivatives designated as hedging instruments:", 0), "", "")
+            + Tr(Label("Foreign exchange contracts", 19), "192,828", "426,341")
+            + Tr(Label("Derivatives not designated as hedging instruments:", 0), "", "")
+            + Tr(Label("Foreign exchange contracts", 19), "3,463", "11,704")
+            + Tr(Label("Total", 19), "196,291", "438,045")
+            + "</table>"));
+
+        Assert.That(Row(table, "Total").GroupLabel, Is.Null);
+    }
+
+    // NFLX: two deferred tax liabilities are printed at the group label's indent, a filer's slip - "Total deferred tax
+    // liabilities" adds them in, so they stay in the group. A bare "Total" adding up everything never pulls rows back.
+    [Test]
+    public void GroupsOwnTotalAddingUpOutdentedRows_KeepsThemInTheGroup()
+    {
+        LinearizedTable table = HtmlTableLinearizer.Linearize(Table("<table>"
+            + Tr("", "2025", "2024")
+            + Tr(Label("Deferred tax liabilities:", 0), "", "")
+            + Tr(Label("Depreciation", 19), "(100)", "(90)")
+            + Tr(Label("Acquired intangibles", 0), "(261)", "(282)")
+            + Tr(Label("Total deferred tax liabilities", 0), "(361)", "(372)")
+            + "</table>"));
+        LinearizedTable bareTotal = HtmlTableLinearizer.Linearize(Table("<table>"
+            + Tr("", "2027", "Thereafter")
+            + Tr(Label("Long-term debt:", 12), "", "")
+            + Tr(Label("Principal payments", 24), "2,250", "38,250")
+            + Tr(Label("Purchase commitments", 12), "169,008", "25,052")
+            + Tr(Label("Total", 12), "171,258", "63,302")
+            + "</table>"));
+
+        Assert.That(Row(table, "Acquired intangibles").GroupLabel, Is.EqualTo("Deferred tax liabilities:"));
+        Assert.That(Row(table, "Total deferred tax liabilities").GroupLabel, Is.EqualTo("Deferred tax liabilities:"));
+        Assert.That(Row(bareTotal, "Purchase commitments").GroupLabel, Is.Null);
+        Assert.That(Row(bareTotal, "Total").GroupLabel, Is.Null);
+    }
+
+    // NFLX: "Derivative Assets" / "Derivative Liabilities" share a first word, and the caption took it - the columns
+    // read "Assets Other current assets". Inside one header cell the caption only cuts before a year.
+    [Test]
+    public void SharedCaption_CutsInsideAHeaderCellOnlyBeforeAYear()
+    {
+        RowBlock derivatives = HtmlTableLinearizer.ToRowBlock(HtmlTableLinearizer.Linearize(Table("<table>"
+            + Tr("", "<td colspan=\"2\">Derivative Assets</td>", "<td colspan=\"2\">Derivative Liabilities</td>")
+            + Tr("", "Current", "Non-current", "Current", "Non-current")
+            + Tr("Foreign exchange contracts", "192,828", "88,985", "426,341", "214,574")
+            + "</table>")));
+        RowBlock dates = HtmlTableLinearizer.ToRowBlock(HtmlTableLinearizer.Linearize(Table("<table>"
+            + Tr("", "December 31, 2025", "December 31, 2024")
+            + Tr("Operating lease liabilities", "462", "388")
+            + "</table>")));
+
+        Assert.That(derivatives.Rows.Single(), Does.StartWith("Foreign exchange contracts — Derivative Assets Current: 192,828"));
+        Assert.That(dates.Context, Is.EqualTo("December 31,"));
+        Assert.That(dates.Rows.Single(), Is.EqualTo("Operating lease liabilities — 2025: 462 | 2024: 388"));
+    }
+
+    // NDAQ: the ARR chart's nested list is a table - each bullet in a cell of its own, a level deeper one cell further
+    // right - so its rows read "▪ | Capital Access Platforms", a pipe the page doesn't show.
+    [Test]
+    public void TextTable_BulletInACellOfItsOwn_JoinsItsTextWithASpace()
+    {
+        string html = "<table>" + Tr("▪", "Capital Access Platforms", "") + Tr("", "◦", "Index data subscriptions") + "</table>";
+        string[] expected = { "▪ Capital Access Platforms", "◦ Index data subscriptions" };
+
+        Assert.That(HtmlTableLinearizer.Linearize(Table(html)).TextLines, Is.EqualTo(expected));
+        Assert.That(HtmlTableLinearizer.LinearizeAsText(Table(html)).TextLines, Is.EqualTo(expected));
+    }
+
     // The shipped form: units + a caption shared by every column go into the context line once, and nil
     // "—" values are left out.
     [Test]

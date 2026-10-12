@@ -4131,6 +4131,89 @@ chunks. **Ranks** (`eval/v3-runs/ranks-nomic-markers.txt`), against the row-grou
 answered), R3 12 -> 11, A11 11 -> 12 (both outside the 5 either way). *Decision (user): commit, measured by rank only;*
 llama's answers on this index not yet run - the next llama baseline before any comparison.
 
+**NDAQ's printed lines joined into paragraphs (user saw odd chunks in its two-column pages, 2026-10-12).** Read side by
+side with the pages (each page as printed beside its chunk text), nothing was lost or out of order - the DOM gives a
+two-column page's left column, then its right. The fault was paragraphs: NDAQ's filing agent writes a fixed page
+layout, every printed line its own `<div>` placed by `top:..pt` (text spans by `left:..pt`), and `FilingBlockReader`
+starts a paragraph at every `<div>`. So each line was a paragraph: 127 of 296 chunks began mid-sentence (MSFT, ORCL,
+NFLX 3 each), 61 compounds split at a line-end hyphen ("pre-" / "investment"), and every wrapped heading lost its
+second line - 61 chunks headed "Item 7. Management's Discussion and Analysis of", with "Financial Condition and Results of
+Operations" as body text (Items 5, 9C, 10, 12, 13 too). The other three filings have no positioned lines.
+- **The rule, measured on NDAQ's lines:** lines of one paragraph are 1.2 line heights apart (6,670 of 10pt lines at
+  12pt), paragraphs at least 1.4 (14-18pt) - every gap sampled above 1.25 was a paragraph break, so a line joins the
+  one before it when it is within 1.25 line heights below it in the same container (a column), starts at the same left
+  edge or under a hanging indent (0, +9 or +18pt in the text; never further left - that is centered text), and is
+  bold on both sides of the break or on neither. The left-edge rule keeps "Consolidated Statements of Income" off its
+  centered, equally bold "(in millions...)" line - joined at first, which the whole-line title rules would have lost;
+  the bold rule keeps a heading off its first plain line. Rule lines (`____`) never join. A line-end hyphen joins
+  without a space - all 61 were compounds' own ("third-party", "cross-border"), none a word broken to fit.
+- **Across a column or page break:** a paragraph cut at a column's foot joins the next column's first paragraph when it
+  ends mid-sentence (no `.?!:;`) and the next starts lowercase; a page number between them stays, after the join.
+  Within columns alone left 117 paragraphs starting lowercase; with it, 6 (four roman TOC page numbers, a chart legend,
+  and one continuation after "non-U.S." - read as a sentence end, left).
+- **Checked on the output:** every printed line still in the chunks (the same 44 page numbers, rules and reformatted
+  headings missing as before); every table row identical; the whole-line statement titles as before; every bold line
+  join outside tables (123) inside a wrapped heading or risk-factor caption; MSFT, ORCL and NFLX byte-identical. NDAQ 296 -> 306 chunks (the blank
+  line after every line was cheap in tokens; whole paragraphs pack less tightly), largest 525 tokens; chunks starting
+  mid-sentence 127 -> 1; the same section headings, each now whole. Applies to `Structured` only - v1's strategies
+  read markitdown's text, which has the same per-line paragraphs for NDAQ (Markdown: 149 chunks start mid-sentence).
+- **Ranks** (`eval/v3-runs/ranks-nomic-ndaq-lines.txt`; index rebuilt, 1,000 chunks), against the list-marker index:
+  recall@5 86/94 unchanged, MRR 0.738 -> 0.751; five moved, all NDAQ, all better - H10 4 -> 1, H27 2 -> 1, H29 8 -> 7,
+  A9 12 -> 11, A16 24 -> 21 (the last three still outside the 5). Nothing worse.
+- **A bullet list laid out as a table (user, chunk 100):** NDAQ's ARR-chart list is a `<table>` - each bullet in a cell
+  of its own, a level deeper one cell further right - so the text-table path wrote "▪ | Capital Access Platforms", a
+  pipe the page doesn't show. A row whose first filled cell is a bullet glyph (`• ● ▪ ◦`) now joins it to its text with
+  a space (`HtmlTableLinearizer.TextRow`, both text paths); footnote marks like "(1)" are left as cells. The only such
+  table in the four filings (7 rows); the other dumps unchanged. Index rebuilt again (1,000 chunks): every rank identical
+  to the line-join index's. Shared code, so the Linearized index needs `--rebuild` if used.
+
+**Row groups read by layout and figures, checked against XBRL (user, 2026-10-12).** The same side-by-side review on
+MSFT, ORCL and NFLX (pages split at their page-break `<hr>`s): nothing lost, paragraphs intact - but tables mislabelled
+rows. `HtmlTableLinearizer` kept a group label ("Cash flows from financing activities:") in force until a row whose label
+starts "Total", never reading indentation, so any row after a group without its own "Total" took its name: MSFT's
+"Other comprehensive income (loss), net of tax > Comprehensive income", ORCL's "Cash flows from financing activities >
+Effect of exchange rate changes" and "> Cash and cash equivalents at end of period", NFLX's "Other income (expense) >
+Net income" and "Derivatives not designated as hedging instruments > Total" (the total of both groups), NDAQ's
+"TTM change ... > ARR". A side finding: NFLX's "Derivative Assets" / "Derivative Liabilities" lost their shared word to
+the caption, the columns reading "Assets ..." / "Liabilities ...".
+- *Why not XBRL (user asked):* XBRL decides statement types, note topics, roll-forward periods and the company - not
+  row groups, which were layout by v2's design (the linearizer reads tags only to carry them through, so the tests'
+  alignment check against them stays independent). The presentation linkbase would place tagged statement rows, but
+  not untagged MD&A tables (NDAQ's Index drivers) nor groups that are axis members (NFLX's hedging designations).
+  *Decision (user): layout rules for every table, XBRL as an independent check.*
+- **The rules** (each from a case above, in `RunningRows`): a row back at the group label's indent, after rows indented
+  deeper, is outside it (not a total - a group's own total is often printed at its label's indent); a row whose
+  figures add up every row so far, not the group's alone, is a running total outside any group, whatever its label
+  (ORCL's and NFLX's "Net cash provided by operating activities", NDAQ's "Revenues less transaction-based expenses" -
+  NDAQ indents nothing there, only its figures tell); a row adding up its group's rows is the group's total and ends
+  it, named "Total" or not (NFLX's "Net cash used in financing activities"); but any total before the group's own
+  "Total <group name>" is a subtotal inside it (MSFT's "Total cash, cash equivalents, and short-term investments"
+  before "Total current assets" - this one was wrong before today too, "Accounts receivable" and the rest of current
+  assets out of their group; NDAQ's "Foreign currency translation, net" inside other comprehensive income). Where the
+  indent misleads - NFLX prints two deferred tax liabilities at the group label's indent - the group's own named total
+  adding them in puts them back. Figures add up within half a unit of the total's last digit per row; an unnamed row
+  needs two columns to agree (MSFT's contents pages 3 + 12 + 14 made "Item 1B." on page 29 a total), a "Total" row one.
+  Indents are read as points from padding, margin, text-indent and NDAQ's positioned `left`. The caption cuts inside
+  a header cell only before a year ("December 31," over "2025"); elsewhere whole cells.
+- **The check** (`RowGroupsXbrlTests`, offline): the presentation tree (`TaxonomyReader` now keeps each concept's
+  parent per role) against the layout's groups - a grouped row under another branch, or an ungrouped row right after
+  a group though the tree puts it with that group's rows. Skipped where the tree can't speak: axis members, flat
+  `[Line Items]`, a group whose node also holds rows before it; totals judged by the figures. Its first runs found
+  three misses the rules then still had (ORCL's and NFLX's operating cash line, NDAQ's revenues less expenses), NFLX's
+  FX line, and a regression of my own (MSFT's finance lease liabilities out of "Finance Leases" - the look-ahead's name
+  match needed plurals ignored); each fixed. Seven disagreements remain, read against the pages and kept as reviewed in
+  the test: net lines and siblings the filer's tree hangs beside a group (MSFT's valuation allowance after the deferred
+  tax asset total, "Other foreign jurisdictions" after Ireland / Brazil, NDAQ's revolving facility and operating loss,
+  ORCL's net deferred tax assets).
+- **Measured on the chunks:** 98 rows lost a wrong group across the four filings, 9 gained a right one; no cell text
+  lost (the page-to-chunk check as before); every changed row read. Known, left: an unnamed single-column grand total
+  (MSFT's "Income taxes paid, net of refunds") stays under its last group - one column is too weak to call. 998 chunks.
+- **Ranks** (`eval/v3-runs/ranks-nomic-row-groups.txt`; index rebuilt), against the line-join index: recall@5 86/94
+  unchanged, MRR 0.751 -> 0.746. Five moved: H13 1 -> 2 (NFLX's cash, still in the 5), A10 6 -> 7 (outside either
+  way); A9 11 -> 10, A16 21 -> 16, A25 25 -> 14 (all outside the 5). The row groups also decide where the row-group
+  split (step 3b) cuts a statement, so H13's and A10's statements were re-cut. Read as no retrieval change in the top
+  5; what the labels do is for llama's answers to show.
+
 **Ollama build for batch 3: 0.40.2** (installed 2026-10-09 from the auto-updater's staged, Ollama-signed installer;
 0.40.0 -> 0.40.1 had auto-installed that morning). `nomic-embed-text` (0a109f422b47) and `llama3.1:8b` (46e0c10c039e)
 unchanged - not upgraded by 0.40's background model conversion. 0.40.0 reproduced 0.35.1's answers (above); 0.40.2 is
