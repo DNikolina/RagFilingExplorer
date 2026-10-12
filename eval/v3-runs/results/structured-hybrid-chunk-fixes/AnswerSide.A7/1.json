@@ -1,0 +1,114 @@
+{
+  "scenarioName": "AnswerSide.A7",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-chunk-fixes",
+  "creationTime": "2026-10-12T19:04:03.7128076Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Summary of Significant Accounting Policies ---\r\n\u0060\u0060\u0060\r\nCash and Cash Equivalents\n\nCash and cash equivalents include all non-restricted cash in banks and highly liquid investments with original maturities of 90 days or less at the time of purchase. Such equivalent investments included in cash and cash equivalents in the Consolidated Balance Sheets were $337 million as of December 31, 2025 and $373 million as of December 31, 2024. Cash equivalents are carried at cost plus accrued interest, which approximates fair value due to the short maturities of these investments.\n\nRestricted Cash\n\nRestricted cash and cash equivalents, which was $210 million as of December 31, 2025 and $31 million as of December 31, 2024, is restricted from withdrawal due to a contractual or regulatory requirement or not available for general use and as such is classified as restricted in the Consolidated Balance Sheets. As of December 31, 2025 and 2024, restricted cash and cash equivalents primarily includes funds held for regulatory capital for our trading and clearing businesses.\n\nDefault Funds and Margin Deposits\n\nNasdaq Clearing members\u2019 cash contributions are included in default funds and margin deposits in the Consolidated Balance Sheets as both a current asset and a current liability. These balances may fluctuate over time due to changes in the amount of deposits required and whether members choose to provide cash or non-cash contributions. Non-cash contributions include highly rated government debt securities that must meet specific criteria approved by Nasdaq Clearing. Non-cash contributions are pledged assets that are not recorded in the Consolidated Balance Sheets as Nasdaq Clearing does not take legal ownership of these assets and the risks and rewards remain with the clearing members.\n\nReceivables, net\n\nOur receivables are concentrated with our customers which primarily include corporate clients, banks, investment managers, brokers, and exchange operators. Receivables are shown net of allowance for credit losses. The allowance is maintained at a level that management believes to be sufficient to absorb expected losses over the life of our accounts receivable portfolio. The allowance is increased by the provision for bad debts, which is included in general, administrative and other expense in the Consolidated Statements of Income, and decreased by the amount of charge-offs, net of recoveries.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Cash Flows\n\n(in millions)\n\nYear Ended December 31,\nEffect of exchange rate changes on cash and cash equivalents and restricted cash and cash equivalents \u2014 2025: 726 | 2024: (537) | 2023: 202\nNet decrease in cash and cash equivalents and restricted cash and cash equivalents \u2014 2025: (1,072) | 2024: (2,112) | 2023: 124\nCash and cash equivalents, restricted cash and cash equivalents at beginning of period \u2014 2025: 5,006 | 2024: 7,118 | 2023: 6,994\nCash and cash equivalents, restricted cash and cash equivalents at end of period \u2014 2025: $3,934 | 2024: $5,006 | 2023: $7,118\nReconciliation of Cash, Cash Equivalents and Restricted Cash and Cash Equivalents\nReconciliation of Cash, Cash Equivalents and Restricted Cash and Cash Equivalents \u003E Cash and cash equivalents \u2014 2025: $604 | 2024: $592 | 2023: $453\nReconciliation of Cash, Cash Equivalents and Restricted Cash and Cash Equivalents \u003E Restricted cash and cash equivalents \u2014 2025: 210 | 2024: 31 | 2023: 20\nReconciliation of Cash, Cash Equivalents and Restricted Cash and Cash Equivalents \u003E Restricted cash and cash equivalents (default funds and margin deposits) \u2014 2025: 3,120 | 2024: 4,383 | 2023: 6,645\nReconciliation of Cash, Cash Equivalents and Restricted Cash and Cash Equivalents \u003E Total \u2014 2025: $3,934 | 2024: $5,006 | 2023: $7,118\nSupplemental Disclosure Cash Flow Information\nCash paid for:\nCash paid for \u003E Interest paid \u2014 2025: $354 | 2024: $405 | 2023: $177\nCash paid for \u003E Income taxes paid, net of refunds \u2014 2025: $373 | 2024: $358 | 2023: $254\n\n(1) See \u0022Default Fund Contributions and Margin Deposits,\u0022 of Note 15, \u0022Clearing Operations,\u0022 for further details.\n\nSee accompanying notes to consolidated financial statements.\n\nNasdaq, Inc.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nIncreased current assets were primarily due to:\n\n\u2022 higher restricted cash primarily due to the movement of regulatory capital to shorter term investments qualifying as cash equivalents,\n\n\u2022 an increase in other current assets, and\n\n\u2022 an increase in cash and cash equivalents; partially offset by\n\n\u2022 lower financial investments at fair value offset in restricted cash above, and\n\n\u2022 decreased receivables, net due to timing of billings.\n\nCash and Cash Equivalents\n\nCash and cash equivalents includes all non-restricted cash in banks and highly liquid investments with original maturities of 90 days or less at the time of purchase. The balance retained in cash and cash equivalents is a function of anticipated or possible short-term cash needs, prevailing interest rates, our investment policy, and alternative investment choices. As of December 31, 2025, our cash and cash equivalents of $604 million were primarily invested in money market funds, European government debt securities, bank deposits and state-owned enterprises notes.\n\nRepatriation of Cash\n\nOur cash and cash equivalents held outside of the U.S. in various foreign subsidiaries totaled $280 million as of December 31, 2025 and $181 million as of December 31, 2024. The remaining balance held in the U.S. totaled $324 million as of December 31, 2025 and $411 million as of December 31, 2024.\n\nRestricted Cash and Cash Equivalents\n\nRestricted cash and cash equivalents, which was $210 million as of December 31, 2025 and $31 million as of December 31, 2024, is restricted from withdrawal due to a contractual or regulatory requirement or not available for general use and as such is classified as restricted in the Consolidated Balance Sheets. The increase in this balance as of December 31, 2025 is primarily due to more regulatory capital being invested in shorter term investments, which are classified as cash equivalents, and are included in restricted cash and cash equivalents in the Consolidated Balance Sheets as of December 31, 2025. As of December 31, 2024, we had more regulatory capital being invested in longer term investments, which were classified as financial investments in the Consolidated Balance Sheets.\n\nCash Flow Analysis\n\nThe following table summarizes the changes in cash flows:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nNet Cash Used in Financing Activities\n\nNet cash used in financing activities increased for the year ended December 31, 2025 as compared to 2024 primarily driven by increases in repurchases of common stock of $471 million, an increase in dividends paid of $60 million and an increase in the repayment of debt of $14 million, resulting from our continued commitment toward deleveraging. These increases were partially offset by a decrease in default funds and margin deposits of $146 million which does not impact Nasdaq\u0027s cash, cash equivalents, restricted cash or restricted cash equivalents as it relates to customer funds.\n\nSee \u201CDefault Fund Contributions and Margin Deposits\u201D of Note 15, \u201CClearing Operations,\u201D for further discussion of these balances.\n\nSee Note 9, \u201CDebt Obligations,\u201D to the consolidated financial statements for further discussion of our debt obligations.\n\nSee \u201CShare Repurchase Program,\u201D and \u201CCash Dividends on Common Stock,\u201D of Note 12, \u201CNasdaq Stockholders\u2019 Equity,\u201D to the consolidated financial statements for further discussion of our share repurchase program and cash dividends declared and paid on our common stock.\n\nFinancial Investments\n\nOur financial investments totaled $28 million as of December 31, 2025 and $184 million as of December 31, 2024. Of these securities, $18 million as of December 31, 2025 and $171 million as of December 31, 2024 are assets primarily utilized to meet regulatory capital requirements, mainly for our clearing operations at Nasdaq Clearing. See Restricted Cash and Cash Equivalents above and Note 6, \u201CInvestments,\u201D to the consolidated financial statements for further discussion.\n\nRegulatory Capital Requirements\n\nClearing Operations Regulatory Capital Requirements\n\nWe are required to maintain minimum levels of regulatory capital for the clearing operations of Nasdaq Clearing. The level of regulatory capital required to be maintained is dependent upon many factors, including market conditions and creditworthiness of the counterparty. As of December 31, 2025, our required regulatory capital of $158 million was primarily comprised of cash and cash equivalents that are included in restricted cash and cash equivalents in the Consolidated Balance Sheets.\n\nBroker-Dealer Net Capital Requirements\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Clearing Operations ---\r\n\u0060\u0060\u0060\r\nNasdaq Clearing has invested the total cash contributions of\n\n$5,842 million as of December 31, 2025 and $5,664 million as of December 31, 2024, in accordance with its investment policy as follows:\n\n(in millions) December 31,\nDemand deposits \u2014 2025: $3,011 | 2024: $3,616\nCentral bank certificates \u2014 2025: 109 | 2024: 767\nRestricted cash and cash equivalents \u2014 2025: $3,120 | 2024: $4,383\nEuropean government debt securities \u2014 2025: 292 | 2024: 465\nReverse repurchase agreements \u2014 2025: 2,245 | 2024: 610\nMultilateral development bank debt securities \u2014 2025: 185 | 2024: 206\nInvestments \u2014 2025: $2,722 | 2024: $1,281\nTotal \u2014 2025: $5,842 | 2024: $5,664\n\nIn the table above, the change from December 31, 2024 to December 31, 2025 includes a favorable impact from currency translation adjustments of $701 million for restricted cash and cash equivalents and $361 million for investments.\n\nFor the years ended December 31, 2025, 2024 and 2023, investments related to default funds and margin deposits, net includes purchases of investment securities of $107,319 million, $33,693 million and $53,657 million, respectively, and proceeds from sales and redemptions of investment securities of $106,239 million, $32,986 million and $53,583 million, respectively.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Nasdaq\u0027s cash and cash equivalents at December 31, 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s cash and cash equivalents at December 31, 2025 were $604 million (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements \u003E Consolidated Statements of Cash Flows)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 604 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "$604 at rank 2 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 604 from excerpts 2 (cash_flow_statement), 3 (narrative)."
+        },
+        "metadata": {
+          "Stated 604": "excerpt 2 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022Reconciliation of Cash, Cash Equivalents and Restricted Cash and Cash Equivalents \u003E Cash and cash equivalents \u2014 2025: $604 | 2024: $592 | 2023: $453\u0022; excerpt 3 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022... investment choices. As of December 31, 2025, our cash and cash equivalents of $604 million were primarily invested in money market funds, European government d...\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 75.7601505,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2697,
+          "outputTokenCount": 48,
+          "totalTokenCount": 2745
+        },
+        "cacheKey": "BDAD739E75105B6E9B4B246595EDCF51641C56A45C5CA1B8EE6FEB52B644EDB8ADBDCCFFACB8822FD033E71BEA8C7CE0",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "excerpts:5",
+    "kind:figure",
+    "has traps",
+    "company:NDAQ",
+    "statement:none",
+    "ollama:0.40.2"
+  ],
+  "formatVersion": 1
+}

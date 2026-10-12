@@ -1,0 +1,113 @@
+{
+  "scenarioName": "HeldOut.H10",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-chunk-fixes",
+  "creationTime": "2026-10-12T18:40:13.7485437Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nWe also continued our efforts to create an inclusive work environment of equal opportunity, where employees feel respected and valued for their contributions, and where Nasdaq and its employees have opportunities to make positive contributions to our local communities.\n\nAdditional information regarding our human capital management matters can be found in our annual Sustainability Report, which will be available on our website later in 2026. Our Sustainability Report and other information on our website are not incorporated by reference into this Annual Report on Form 10-K.\n\nAs of December 31, 2025, Nasdaq had 9,525 full and part-time employees, including employees of non-wholly owned consolidated subsidiaries.\n\nFlexible and Hybrid Workplace\n\nThe majority of our employees balance their time between several days in the office and several days working from home, contributing to a positive work-life balance. In addition to vacation time, we provide every employee six paid \u201Cflex\u201D days per year, to be used as extra vacation days for mental health, family time, or any other purpose. We have found this flexibility has contributed both to our high engagement scores among current employees, as well as a positive element in attracting new talent to join Nasdaq.\n\nTalent Management and Development\n\nWe continued to increase our efforts in attracting and retaining our employees. Nasdaq seeks to hire world-class and innovative talent across the globe.\n\nIn 2025, our internal employee engagement score, based on our biannual employee engagement surveys, which most recently had a 94% participation rate, reached its record high rating of 81% favorable, with 14% neutral, placing us in the top 10% of tech companies, according to our survey provider. Our workforce voluntary attrition rate during 2025 was approximately 5.6%, which was nearly one percentage point lower than 2024.\n\nWe expanded our leadership development offerings in 2025, launching the \u201CElevate: Empowering Leaders. Driving Impact\u201D strategy and piloting new programs for aspiring and current managers across multiple regions. Our formal leadership curriculum was complemented by peer coaching circles, executive coaching, and the continued Manager Forum series, facilitated by our Chair and CEO and other senior leaders. In June 2025, we launched the \u201CAccelerating Manager Potential\u201D program to drive management excellence throughout our leadership ranks. More than half of all managers attended the program in 2025, with the remainder expected to complete the program in the first half of 2026.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nNasdaq accelerated its adoption of AI and digital tools in 2025. We facilitated workshops, piloted AI-powered agent solutions, and established our \u201CAI Champions\u201D community. These efforts further embedded digital skills into our culture and operations, with a significant portion of employees participating in AI training and enablement programs.\n\nWe maintained our commitment to professional development by offering access to a wide range of learning opportunities, including access to multiple eLearning platforms, tuition assistance, external training sponsorship and mentoring programs. Our AI-driven Career Hub continued to match employees to internal training, mentors, projects, and roles, supporting career satisfaction and internal mobility.\n\nTo reward our employees at various stages of their tenure with Nasdaq, we continued our anniversary recognition program that, for major milestones, recognition on our Nasdaq Tower in Times Square. Additionally, our peer-to-peer employee recognition program rewards employees and highlights recognized employees on our internal social media channels, further amplifying the recognition.\n\nOur Employee Culture\n\nAt Nasdaq, three pillars guide our employee culture: Employee Experience, Cultural Alignment, and Business Integration.\n\n\u2022 Employee Experience: We strive to ensure every team member has access to tools, support, and development so they can perform at their best. Our focus is on creating a consistent experience rooted in transparency and opportunity.\n\n\u2022 Cultural Alignment: We reinforce the shared values and behaviors that define how we work, lead, and grow together. These values are built into how we hire, recognize contributions, and support one another, fostering a respectful, collaborative environment.\n\n\u2022 Business Integration: We embed inclusive practices into our everyday operations\u2014from how we make decisions to how we manage talent. By focusing on objectivity and fairness, we aim to drive impact at scale while upholding the highest standards of compliance and integrity.\n\nWorkplace Demographics\n\nOur global female employee base in 2025 was approximately 36%. Our minority representation in the U.S., which includes Asian, Black/African American, Hispanic/Latino, Multiracial, Native American, Native Hawaiian, and Pacific Islander employees, was approximately 33% in 2025.\n\nGender and Ethnicity Data as of December 31, 2025 are presented below:\n\n[image]\n\n[image]\n\n\\* In the chart above, the Not disclosed percentage includes employees that have chosen not to disclose and race and ethnicities that are less than 1.0% of our total employee headcount.\n\nCompensation and Benefits\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nThrough our Purpose@Work Corporate Responsibility Program, we have committed to supporting the communities in which we live and work by providing eligible full and part-time employees with two paid days off per year to volunteer. We also match charitable donations of all Nasdaq employees and contractors up to $1,000, or more in certain circumstances, per calendar year. In 2025, Nasdaq employees raised over $580,000, including donations and matches, supporting more than 800 charities worldwide.\n\nDuring 2025, Nasdaq held its inaugural \u201CNasdaq Month of Impact: Empowering Purpose, Strengthening Communities.\u201D As part of our commitment to driving economic progress, Nasdaq\u2019s Month of Impact is our way of celebrating and observing Financial Literacy Awareness Month and Global Volunteer Month. Combining the core focus areas of enhancing financial literacy and promoting global volunteerism enables Nasdaq to create a more significant and positive impact within our communities.\n\nAdditionally, Nasdaq also hosted its third annual Economic Opportunity Summit, focusing on the theme \u201CDriving Purposeful Growth,\u201D which convened industry leaders, researchers, and change-makers to explore how we can expand access to opportunity, revitalize communities, and build a more prosperous future for all.\n\nDuring 2025, the Nasdaq Foundation provided grants to 20 organizations that share our same mission. These grants were awarded to, among others: Restore NYC, whose entrepreneurship services support survivors of trafficking in exploring business ownership as a pathway to economic independence; The Center on Rural Innovation, which will help rural entrepreneurs build, test, and implement AI-driven solutions for their startups; and Maryland Philanthropy Network, in partnership with Community Wealth Builders, whose innovative financial empowerment program will empower the local Baltimore community.\n\nNASDAQ WEBSITE AND AVAILABILITY OF SEC FILINGS\n\nWe file periodic reports, proxy statements and other information with the SEC. The SEC maintains a website that contains reports, proxy and information statements, and other information regarding issuers that file electronically with the SEC. The address of that site is www.sec.gov.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nThe increase in compensation and benefits expense for the year ended December 31, 2025 compared with the same period in 2024 was primarily driven by increased headcount and higher incentive compensation and the unfavorable impact from changes in foreign currency rates. The increase in 2025 compared with the same period in 2024 was partially offset by a pre-tax charge of $23 million in the first quarter of 2024 resulting from the finalization of the termination of our pension plan.\n\nHeadcount, including employees of non-wholly owned consolidated subsidiaries, increased to 9,525 employees as of December 31, 2025 from 9,162 employees as of December 31, 2024, as we support revenue growth and innovation.\n\nProfessional and contract services expense increased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to higher consulting fees, partially offset by lower legal fee accruals.\n\nTechnology and communication infrastructure expense increased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to increased investment in technology, particularly our cloud initiatives and software licensing.\n\nOccupancy expense increased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to colocation data center growth.\n\nGeneral, administrative and other expense decreased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to a gain on extinguishment of debt recorded for the year ended December 31, 2025 as well as the change in classification of costs related to the CAT from general, administrative and other expense to regulatory expense, beginning in the fourth quarter of 2024. See Note 9, \u201CDebt Obligations,\u201D to the consolidated financial statements for further discussion of the gain on extinguishment of debt.\n\nMarketing and advertising expense increased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to higher marketing expense resulting from higher IPO activity.\n\nDepreciation and amortization expense increased for the year ended December 31, 2025 compared with the same period in 2024 due to increased depreciation of capitalized software projects.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Share-Based Compensation ---\r\n\u0060\u0060\u0060\r\nESPP\n\nWe have an ESPP under which approximately 10.1 million shares of our common stock were available for future issuance as of December 31, 2025. Under our ESPP, employees may purchase shares having a value not exceeding 10.0% of their annual compensation, subject to applicable annual Internal Revenue Service limitations. We record compensation expense related to the 15.0% discount that is given to our employees.\n\nYear Ended December 31,\nNumber of shares purchased by employees \u2014 2025: 652,291 | 2024: 675,064 | 2023: 687,688\nWeighted-average price of shares purchased \u2014 2025: $69.33 | 2024: $49.16 | 2023: $42.33\nCompensation expense (in millions) \u2014 2025: $11 | 2024: $9 | 2023: $7\n\nThe impact of the activity above is included in Other issuances of common stock, net in the Consolidated\n\nStatements of Changes in Stockholders\u2019 Equity.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How many employees did Nasdaq have at the end of 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "As of December 31, 2025, Nasdaq had 9,525 full and part-time employees, including employees of non-wholly owned consolidated subsidiaries. (Source: NDAQ-10K-2025.html, PART I \u003E Item 1. Business)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 9,525."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "9,525 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 9,525 from excerpts 1 (narrative), 4 (narrative)."
+        },
+        "metadata": {
+          "Stated 9,525": "excerpt 1 (narrative, PART I \u003E Item 1. Business): \u0022As of December 31, 2025, Nasdaq had 9,525 full and part-time employees, including employees of non-wholly owned consolidated subsidiaries.\u0022; excerpt 4 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...including employees of non-wholly owned consolidated subsidiaries, increased to 9,525 employees as of December 31, 2025 from 9,162 employees as of December 31, ...\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 70.618685,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2514,
+          "outputTokenCount": 56,
+          "totalTokenCount": 2570
+        },
+        "cacheKey": "B5178B318A5FE616446EB8DC6F662B471756A689645FB3A5213BDA92BDAEEE3289FBE282B52C7251CAE7ED30B2DDB0A0",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "excerpts:5",
+    "kind:fact",
+    "company:NDAQ",
+    "statement:none",
+    "ollama:0.40.2"
+  ],
+  "formatVersion": 1
+}

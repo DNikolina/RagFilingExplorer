@@ -1,0 +1,110 @@
+{
+  "scenarioName": "HeldOut.H11",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-chunk-fixes",
+  "creationTime": "2026-10-12T18:40:15.8612007Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART I \u003E Item 2. Properties ---\r\n\u0060\u0060\u0060\r\nWe conduct our business operations in leased facilities. We do not own any real property. Our U.S. headquarters are located in New York, New York, and our European headquarters are located in Stockholm, Sweden. We also lease space in multiple locations around the world, which are used for research and development, sales and support, and administrative activities, as well as for data centers and disaster preparedness facilities.\n\nGenerally, our properties are not allocated for use by a particular business segment. Instead, most of our properties are used by two or more segments. We regularly monitor the facilities we occupy to ensure that they suit our needs in a hybrid work environment. We believe the facilities that we occupy are adequate for the purposes for which they are currently used and are well-maintained. See Note 16, \u201CLeases,\u201D to the consolidated financial statements for further discussion.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nConfidence in capital markets is paramount for trading to function properly. Nasdaq Nordic carries out market surveillance through an independent unit that is separate from the business operations. The surveillance work is conceptually organized into two functions: one for the review and admission of listing applications and surveillance activities related to issuers (issuer surveillance) and one for surveillance of trading (trading surveillance). The real-time trading surveillance for the Finnish, Icelandic, Danish and Swedish markets has been centralized in Stockholm. In addition, there are designated personnel who carry out surveillance activities at Nasdaq Oslo and the three Baltic exchanges. In Finland, Sweden and Estonia, decisions to list new companies on the main market are made by listing committees that have external members in addition to members from each respective exchange and in the other countries the decision is made either by the respective president of the exchange or by the executive board.\n\nIf there is suspicion that a listed company or member has acted in breach of exchange regulations, the matter is handled by the respective surveillance department. Serious breaches are considered by the respective disciplinary committee in Denmark, Finland, Iceland, Sweden and Norway. Suspected insider trading is reported to the appropriate authorities in the respective country.\n\nIn the United Kingdom, The Nasdaq Stock Market, Nasdaq Oslo ASA, Nasdaq Stockholm AB, Nasdaq Copenhagen A/S, and Nasdaq Helsinki Ltd are each subject to regulation by the Financial Conduct Authority as \u201CRecognised Overseas Investment Exchanges.\u201D Nasdaq Clearing is registered as a recognized third country CCP with the Bank of England under the temporary recognition regime. The registration became effective on December 31, 2020 and lasts until December 31, 2026 (which may be extended further), during which time Nasdaq Clearing may continue to act as a CCP vis-a-vis UK members. Nasdaq Clearing has submitted its application for permanent recognition and is awaiting further information as to the process and timeline from the Bank of England.\n\nHUMAN CAPITAL MANAGEMENT\n\nNasdaq has continued to strengthen our commitment to, and investment in, attracting, retaining, developing and motivating our employees during 2025.\n\nWe also continued our efforts to create an inclusive work environment of equal opportunity, where employees feel respected and valued for their contributions, and where Nasdaq and its employees have opportunities to make positive contributions to our local communities.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nOur U.S. Tape plans earn revenue from consolidated data products which are distributed by SEC-mandated consolidators (one for Nasdaq-listed stocks and another for NYSE and other-listed stocks) that share the revenue among the exchanges that contribute data. The consolidated data business is under competitive pressure from other securities exchanges that trade Nasdaq-listed securities. In addition, The Nasdaq Stock Market similarly competes for the tape fees from the sale of information on securities listed on other markets.\n\nIn Europe, our cash equities markets compete with exchanges such as Euronext N.V., Deutsche B\u00F6rse AG, London Stock Exchange Group plc, or LSE, and many Multilateral Trading Facilities, or MTFs, such as Cboe, Turquoise and Aquis. Our competitors in the trading and clearing of options and futures on European equities include Eurex, Cboe, ICE Futures Europe and London Clearing House, or LCH. In addition, in equities markets in Europe, we face competition from other broker-owned systems, dark pools, Systematic Internalizers, or SIs, and other types of OTC trading. Competition among exchanges for trading European equity derivatives tends to occur where there is competition in the trading of the underlying equities. In addition to exchange-based competition, we face competition from OTC derivative markets.\n\nMiFID II and MiFIR have resulted in further competitive pressure on our European trading business. SIs are attracting a significant share of electronically matched volume and compete aggressively for the trading of equity securities listed on our Nordic exchanges. Different bilateral trading systems pursuing block business also remain active in Europe.\n\nOur European fixed income and commodities products and services are subject to competitive pressure from European exchanges and clearinghouses.\n\nINTELLECTUAL PROPERTY\n\nWe believe that our IP assets are important for maintaining the competitive differentiation of our products, systems, software and services, enhancing our ability to access technology of third parties and maximizing our return on research and development investments.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nWe provide trading services in North America and Europe. In the U.S., we operate six options exchanges: Nasdaq PHLX, The Nasdaq Options Market, Nasdaq BX Options, Nasdaq ISE, Nasdaq GEMX and Nasdaq MRX. These exchanges facilitate the trading of equity, ETF, index and foreign currency options. Our combined options market share in 2025 represented the largest share of the U.S. market for multi-listed equity options. Our options trading platforms provide trading opportunities to retail investors, algorithmic trading firms and market makers, who tend to prefer electronic trading, and institutional investors, who typically require high touch services to execute their trades, which are often performed on our trading floor in Philadelphia.\n\nWe also operate three cash equity exchanges: The Nasdaq Stock Market, Nasdaq BX and Nasdaq PSX. Our U.S. cash equity exchanges offer trading of both Nasdaq-listed and non-Nasdaq-listed securities. The Nasdaq Stock Market is the largest single venue of liquidity for trading U.S.-listed cash equities. Market participants include market makers, broker-dealers, ATSs, institutional investors, and registered securities exchanges. We also operate a U.S. corporate bond exchange for the listing of corporate bonds.\n\nOur Market Services segment also includes revenues from U.S. Tape plans. The plan administrators sell quotation and last sale information for all transactions, whether traded on The Nasdaq Stock Market or other exchanges, to market participants and to data distributors, who then provide the information to subscribers. After deducting costs, the plan administrators distribute the tape revenues to the respective plan participants based on a formula required by Regulation NMS that takes into account both trading and quoting activity.\n\nIn Canada, we operate an exchange with three independent markets for the trading of Canadian-listed securities: Nasdaq Canada CXC, Nasdaq Canada CX2 and Nasdaq Canada CXD.\n\nIn Europe, we operate exchanges in Tallinn (Estonia), Riga (Latvia) and Vilnius (Lithuania) as Nasdaq Baltic and exchanges in Stockholm (Sweden), Copenhagen (Denmark), Helsinki (Finland), and Reykjavik (Iceland) together with the clearing operations of Nasdaq Clearing, as Nasdaq Nordic.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nWe also continued our efforts to create an inclusive work environment of equal opportunity, where employees feel respected and valued for their contributions, and where Nasdaq and its employees have opportunities to make positive contributions to our local communities.\n\nAdditional information regarding our human capital management matters can be found in our annual Sustainability Report, which will be available on our website later in 2026. Our Sustainability Report and other information on our website are not incorporated by reference into this Annual Report on Form 10-K.\n\nAs of December 31, 2025, Nasdaq had 9,525 full and part-time employees, including employees of non-wholly owned consolidated subsidiaries.\n\nFlexible and Hybrid Workplace\n\nThe majority of our employees balance their time between several days in the office and several days working from home, contributing to a positive work-life balance. In addition to vacation time, we provide every employee six paid \u201Cflex\u201D days per year, to be used as extra vacation days for mental health, family time, or any other purpose. We have found this flexibility has contributed both to our high engagement scores among current employees, as well as a positive element in attracting new talent to join Nasdaq.\n\nTalent Management and Development\n\nWe continued to increase our efforts in attracting and retaining our employees. Nasdaq seeks to hire world-class and innovative talent across the globe.\n\nIn 2025, our internal employee engagement score, based on our biannual employee engagement surveys, which most recently had a 94% participation rate, reached its record high rating of 81% favorable, with 14% neutral, placing us in the top 10% of tech companies, according to our survey provider. Our workforce voluntary attrition rate during 2025 was approximately 5.6%, which was nearly one percentage point lower than 2024.\n\nWe expanded our leadership development offerings in 2025, launching the \u201CElevate: Empowering Leaders. Driving Impact\u201D strategy and piloting new programs for aspiring and current managers across multiple regions. Our formal leadership curriculum was complemented by peer coaching circles, executive coaching, and the continued Manager Forum series, facilitated by our Chair and CEO and other senior leaders. In June 2025, we launched the \u201CAccelerating Manager Potential\u201D program to drive management excellence throughout our leadership ranks. More than half of all managers attended the program in 2025, with the remainder expected to complete the program in the first half of 2026.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Where is Nasdaq\u0027s U.S. headquarters?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s U.S. headquarters are located in New York, New York. (Source: NDAQ-10K-2025.html, PART I \u003E Item 2. Properties)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected New York."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "New York, New York at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "no figure stated",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "No figure stated - a text answer or a decline."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0011562,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2424,
+          "outputTokenCount": 40,
+          "totalTokenCount": 2464
+        },
+        "cacheKey": "61D934A29B4D51FE718D532ADBF7622B7450307EA3FA48CD686EC20BE33261C810CAF6DD2F577E93222C565AC0238CCA",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "excerpts:5",
+    "kind:fact",
+    "company:NDAQ",
+    "statement:none",
+    "ollama:0.40.2"
+  ],
+  "formatVersion": 1
+}

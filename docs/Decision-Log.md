@@ -4282,6 +4282,22 @@ the caption, the columns reading "Assets ..." / "Liabilities ...".
   outline - as MSFT's and NDAQ's never had it. 998 -> 981 chunks. **Ranks** (`ranks-nomic-toc-links.txt`): recall@5 86/94
   unchanged, recall@1 56 -> 59, MRR 0.741 -> 0.756 - T10 4 -> 1, A17 2 -> 1, H13 2 -> 1, H33 2 -> 1, A8 5 -> 4, H34 11 -> 8;
   T3 1 -> 3, A14 3 -> 4, A19 3 -> 4, A23 4 -> 5 (all still in the 5).
+- **llama on the current index (981 chunks): 85/102** (`structured-hybrid-chunk-fixes`, Ollama 0.40.2, 71 min) - against
+  86 for `structured-hybrid-chunk-review` (the row-group index) and 84 for `structured-hybrid-rowgroups`. Main 33/40,
+  held-out 31/35, answer side 21/27. Six grades changed from chunk-review, every one with the answer's rank in the top 5
+  in both runs except H29 (7, outside both):
+  - Gained: A8 (rank 5 -> 4; the $2.00 dividend now read), A24 (the unit now stated).
+  - H13 lost (rank 2 -> 1): the MD&A liquidity chunk lost its TOC link and was packed differently; llama now states
+    another of the note's cash figures ($5,208,710 thousand) - a misreading.
+  - T10 lost (rank 4 -> 1): without the links, the AOCI roll-forward's pieces each carry the table's title and four of
+    them fill the prompt; the derivatives note's reclassification table, which llama answered from, left the top 5. llama
+    now quotes the AOCI line's cash-flow-hedge column (125,639).
+  - H27 lost: the only prompt change was `![11002](ndaq-20251231_g7.gif)` -> `[image]`; llama dropped the annual $1.05
+    and listed the quarters - llama's sensitivity to an unrelated line, not retrieval.
+  - H29 declined -> wrong (both fail): rank 7 in both; llama now states an ARR figure instead of declining.
+  Net -1 within llama's sensitivity to prompt changes (H27 moved on one unrelated line). Kept: the fixes are faithful to
+  the filings, ranks improved (MRR 0.741 -> 0.756), and Claude, the paid comparison, reads the same chunks. This run is
+  llama's baseline on the current index.
 
 **Ollama build for batch 3: 0.40.2** (installed 2026-10-09 from the auto-updater's staged, Ollama-signed installer;
 0.40.0 -> 0.40.1 had auto-installed that morning). `nomic-embed-text` (0a109f422b47) and `llama3.1:8b` (46e0c10c039e)
