@@ -13,9 +13,10 @@ namespace RagFilingExplorer.Evaluation.Judging;
 
 /// <summary>
 /// The chat model's client, which raises Ollama's context window while <see cref="JudgeContext"/> is on - only while the
-/// judge evaluators run. The Groundedness prompt with five excerpts is ~4.5k tokens, past Ollama's default num_ctx of
-/// 4,096, and Ollama drops the oldest tokens silently - here the judge's own instructions (a live constraint: prompt +
-/// output must fit num_ctx). The app's answers keep the default: a variance pass must measure the app as it runs.
+/// judge evaluators run. The Groundedness prompt with five excerpts is ~4.5k tokens, past the app's num_ctx of 4,096
+/// (Ollama:ContextLength), and Ollama drops the oldest tokens silently - here the judge's own instructions (a live
+/// constraint: prompt + output must fit num_ctx). The app's answers keep the app's window: a variance pass must measure
+/// the app as it runs.
 /// It sits inside the response cache, so the cache keys don't change.
 /// </summary>
 internal sealed class JudgeContextChatClient(IChatClient inner) : DelegatingChatClient(inner)

@@ -1,6 +1,7 @@
 using CommunityToolkit.VectorData.SqliteVec;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.VectorData;
+using Microsoft.ML.Tokenizers;
 using RagFilingExplorer.Core.Chunking;
 using RagFilingExplorer.Core.Retrieval;
 using RagFilingExplorer.Core.VectorStore;
@@ -85,6 +86,14 @@ internal static class AppComposition
         // model is fetched separately and checked against its recorded SHA-256 before it's loaded - see CrossEncoderReranker.
         CrossEncoderReranker? reranker = settings.Retrieval.Rerank ? LoadReranker(settings.Retrieval) : null;
 
+        // A small window (Ollama's) must hold the index's largest prompt and the answer - see PromptFit.
+        if (chatModel.ContextWindow is int contextWindow)
+        {
+            Tokenizer tokenizer = TiktokenTokenizer.CreateForModel(settings.Chunking.TokenizerModel);
+            int largestPrompt = PromptFit.LargestPromptTokens(tokenizer, PromptFit.ReadChunks(index), settings.Retrieval.GenerationTopK);
+            PromptFit.EnsureFits(largestPrompt, chatModel.MaxOutputTokens, contextWindow, index.DbFileName, settings.Retrieval.GenerationTopK);
+        }
+
         RagAnswerService answerService = new(
             collection, chatClient, settings.Retrieval, chatModel, companies, EmbeddingTemplates.For(settings.Embedding.Model), keywordIndex, reranker);
         return new RagRuntime(answerService, companies, reranker);
@@ -103,7 +112,7 @@ internal static class AppComposition
         CompanyRegistry companies = RegisterCompanies(filings);
 
         EmbeddingTemplates templates = EmbeddingTemplates.For(settings.Embedding.Model);
-        IndexFiles index = IndexFiles.For(repoRoot, ChunkingStrategies.FileName(settings.Chunking.Strategy), templates);
+        IndexFiles index = IndexFiles.For(repoRoot, ChunkingStrategies.FileName(settings.Chunking.Strategy), templates, settings.Chunking.MaxTokensPerChunk);
         if (!index.Exists)
         {
             throw new StartupException($"{index.DbPath} doesn't exist - build it by running the app once (dotnet run --project RagFilingExplorer.Cli).");

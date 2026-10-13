@@ -212,6 +212,10 @@ exits with a one-line fix instead of a stack trace:
 
 - Ollama isn't reachable at the configured URL, or a configured model it serves in this run isn't pulled (the error
   prints the exact `ollama pull` command). Only the providers chosen are checked.
+- **The index won't fit Ollama's window.** llama is sent a fixed context window (`Ollama:ContextLength`, 4,096) instead
+  of Ollama's machine-dependent default; the index's largest prompt plus the answer must fit it, or Ollama would
+  silently drop the start of the prompt. The same for embeddings: a chunk budget past the embedding model's context
+  (nomic-embed-text reads 2,048 tokens) is refused, and an over-long input fails instead of being cut.
 - The `markitdown` CLI isn't on `PATH` (v1's strategies only, and only when an index build is actually needed).
 - A filing's XBRL taxonomy (`.xsd`, plus its linkbases when they're separate files) isn't in `data/` next to it
   (`Structured`), or one of its Statement roles can't be mapped to a statement type - both stop the build with

@@ -85,7 +85,19 @@ public class EmbeddingTemplatesTests
     [TestCase("voyage-finance-2", "rag.structured.voyage-finance-2.db")]
     public void IndexFilesFor_EachModel_HasItsOwnIndex(string model, string fileName)
     {
-        IndexFiles index = IndexFiles.For(new DirectoryInfo(Path.GetTempPath()), "structured", EmbeddingTemplates.For(model));
+        IndexFiles index = IndexFiles.For(new DirectoryInfo(Path.GetTempPath()), "structured", EmbeddingTemplates.For(model), IndexFiles.UnnamedChunkBudget);
+
+        Assert.That(index.DbFileName, Is.EqualTo(fileName));
+    }
+
+    // Another chunk budget is another index, kept beside the 500-token one; indexes built at 500 keep their names.
+    [TestCase("nomic-embed-text", 500, "rag.structured.db")]
+    [TestCase("nomic-embed-text", 1000, "rag.structured.1000tok.db")]
+    [TestCase("voyage-finance-2", 500, "rag.structured.voyage-finance-2.db")]
+    [TestCase("voyage-finance-2", 10000, "rag.structured.voyage-finance-2.10000tok.db")]
+    public void IndexFilesFor_ChunkBudget_NamedUnlessTheUnnamedOne(string model, int maxTokensPerChunk, string fileName)
+    {
+        IndexFiles index = IndexFiles.For(new DirectoryInfo(Path.GetTempPath()), "structured", EmbeddingTemplates.For(model), maxTokensPerChunk);
 
         Assert.That(index.DbFileName, Is.EqualTo(fileName));
     }

@@ -2,9 +2,10 @@ namespace RagFilingExplorer.Core.VectorStore;
 
 /// <summary>
 /// A chunking strategy's index on disk: rag.&lt;strategy&gt;.db (rag.&lt;strategy&gt;.&lt;model&gt;.db for an embedding
-/// model other than nomic-embed-text - EmbeddingTemplates.IndexSuffix), its SQLite side files, and the build manifest next
-/// to it. Each strategy and embedding model has its own, so switching either back and forth never forces a re-embed -
-/// see IChunkingStrategy.
+/// model other than nomic-embed-text - EmbeddingTemplates.IndexSuffix; .&lt;n&gt;tok before .db for a chunk budget other
+/// than <see cref="UnnamedChunkBudget"/>), its SQLite side files, and the build manifest next to it. Each strategy,
+/// embedding model and chunk budget has its own, so switching any of them back and forth never forces a re-embed - see
+/// IChunkingStrategy.
 /// </summary>
 internal sealed record IndexFiles(string DbPath)
 {
@@ -14,8 +15,15 @@ internal sealed record IndexFiles(string DbPath)
 
     public bool Exists => File.Exists(DbPath);
 
-    public static IndexFiles For(DirectoryInfo repoRoot, string strategyName, EmbeddingTemplates embedding) =>
-        new(Path.Combine(repoRoot.FullName, embedding.IndexSuffix is { } suffix ? $"rag.{strategyName}.{suffix}.db" : $"rag.{strategyName}.db"));
+    /// <summary>The chunk budget an index's name leaves out - the size every index was built at before the budget was
+    /// named, so those keep their names. A naming rule, not a default: the budget itself is Chunking:MaxTokensPerChunk.</summary>
+    public const int UnnamedChunkBudget = 500;
+
+    public static IndexFiles For(DirectoryInfo repoRoot, string strategyName, EmbeddingTemplates embedding, int maxTokensPerChunk) =>
+        new(Path.Combine(repoRoot.FullName, string.Join('.', new[] { "rag", strategyName, embedding.IndexSuffix, ChunkBudgetSuffix(maxTokensPerChunk), "db" }.OfType<string>())));
+
+    /// <summary>"1000tok" for a 1,000-token budget, none for <see cref="UnnamedChunkBudget"/> - also names chunk dumps and rank files.</summary>
+    public static string? ChunkBudgetSuffix(int maxTokensPerChunk) => maxTokensPerChunk == UnnamedChunkBudget ? null : $"{maxTokensPerChunk}tok";
 
     // An existing index is only trusted if it has a manifest (written only after a build finishes) that
     // matches the current settings and filings - see IndexManifest for the two failure modes this closes.

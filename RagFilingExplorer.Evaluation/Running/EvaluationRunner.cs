@@ -169,7 +169,7 @@ internal sealed class EvaluationRunner(
         // The model's own client; the reporting configuration wraps it per scenario with a response cache.
         (_, OllamaApiClient chat) = OllamaSetup.CreateClients(settings);
         IReadOnlyCollection<string> judgeNames = judges;
-        JudgeContextChatClient judgeChat = new(chat);
+        JudgeContextChatClient judgeChat = new(OllamaSetup.ChatClient(chat, settings.Ollama));
         // The answering client is the reporting configuration's, so the library's cache key carries its provider and
         // model id, and each run is tagged with the model that answered.
         IChatClient answerChat = judgeChat;

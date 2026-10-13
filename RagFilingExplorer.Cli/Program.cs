@@ -40,12 +40,14 @@ static async Task RunAsync(string[] args)
 
     DirectoryInfo repoRoot = RepoPaths.FindRoot(AppContext.BaseDirectory);
 
-    // Each chunking strategy has its own index and chunk dumps, and each embedding model its own index - see IndexFiles.
+    // Each chunking strategy and chunk budget has its own index and chunk dumps (chunk-review/<strategy>[.<n>tok]/), and
+    // each embedding model its own index - see IndexFiles.
     string strategyName = ChunkingStrategies.FileName(settings.Chunking.Strategy);
     EmbeddingTemplates embeddingTemplates = EmbeddingTemplates.For(settings.Embedding.Model);
     embeddingTemplates.EnsureServedBy(settings.Providers.Embedding);
-    IndexFiles index = IndexFiles.For(repoRoot, strategyName, embeddingTemplates);
-    string reviewDirectoryPath = Path.Combine(repoRoot.FullName, "chunk-review", strategyName);
+    IndexFiles index = IndexFiles.For(repoRoot, strategyName, embeddingTemplates, settings.Chunking.MaxTokensPerChunk);
+    string reviewDirectoryPath = Path.Combine(repoRoot.FullName, "chunk-review",
+        string.Join('.', new[] { strategyName, IndexFiles.ChunkBudgetSuffix(settings.Chunking.MaxTokensPerChunk) }.OfType<string>()));
     bool verbose = args.Contains("--verbose");
     Console.WriteLine($"Chunking strategy: {settings.Chunking.Strategy} (index: {index.DbFileName})");
 
@@ -81,13 +83,18 @@ static async Task RunAsync(string[] args)
 
     // Voyage embeds a chunk and a question differently (its input_type), so the index is built with one generator and
     // searched with the other; Ollama's model embeds both alike, its templates making the difference.
+    if (ollamaEmbeds)
+    {
+        await OllamaSetup.EnsureChunksFitEmbeddingAsync(ollamaChat, settings.Embedding.Model, settings.Chunking.MaxTokensPerChunk);
+    }
+
     (IEmbeddingGenerator<string, Embedding<float>> documentEmbedding, IEmbeddingGenerator<string, Embedding<float>> queryEmbedding) = ollamaEmbeds
-        ? (ollamaEmbedding, ollamaEmbedding)
+        ? (OllamaSetup.EmbeddingGenerator(ollamaEmbedding), OllamaSetup.EmbeddingGenerator(ollamaEmbedding))
         : await VoyageEmbedding.CreateAsync(Load(() => VoyageEmbedding.LoadKey(AppContext.BaseDirectory)), embeddingTemplates);
     Console.WriteLine($"Embedding model: {settings.Embedding.Model} ({settings.Providers.Embedding}, {embeddingTemplates.Dimensions} dimensions)");
 
     (IChatClient chat, ChatModelOptions chatModel) = claude is null
-        ? (ollamaChat, await OllamaSetup.ReadChatModelAsync(settings, ollamaChat))
+        ? (OllamaSetup.ChatClient(ollamaChat, settings.Ollama), await OllamaSetup.ReadChatModelAsync(settings, ollamaChat))
         : await ClaudeChat.CreateAsync(claude);
     Console.WriteLine(claude is null
         ? $"Chat model: {settings.Ollama.ChatModel} (Ollama)"

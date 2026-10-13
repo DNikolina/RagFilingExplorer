@@ -116,24 +116,7 @@ internal sealed class RagAnswerService(
                 .ToList();
         }
 
-        List<VectorSearchResult<FilingChunkRecord>> topForGeneration = results.Take(retrieval.GenerationTopK).ToList();
-        // Unnumbered labels in a form that isn't a citation: a numbered "[1] Source: X | Section: Y" label is
-        // a second citation format the model copies ("According to excerpt [1], Source: ..."), sometimes as the
-        // only citation - an excerpt number the reader never sees.
-        StringBuilder contextBuilder = new();
-        foreach (VectorSearchResult<FilingChunkRecord> result in topForGeneration)
-        {
-            FilingChunkRecord record = result.Record;
-            contextBuilder.AppendLine(ExcerptHeader(record.SourceFiling, record.Heading));
-            contextBuilder.AppendLine(record.Content);
-            contextBuilder.AppendLine();
-        }
-
-        List<ChatMessage> chatMessages =
-        [
-            new ChatMessage(ChatRole.System, SystemPrompt),
-            new ChatMessage(ChatRole.User, $"Context excerpts:\n\n{contextBuilder}\nQuestion: {question}"),
-        ];
+        List<ChatMessage> chatMessages = BuildPrompt(question, results.Take(retrieval.GenerationTopK).Select(r => r.Record));
 
         // Reasoning is only worth its cost (extra latency, extra output-token budget) for questions that need
         // multi-step synthesis; which effort each kind gets is the chat model's (ChatModelOptions). The effort is set
@@ -184,6 +167,28 @@ internal sealed class RagAnswerService(
 
     /// <summary>The line above each excerpt in the prompt, naming its filing and section.</summary>
     internal static string ExcerptHeader(string filing, string heading) => $"--- Excerpt from {filing}, section {heading} ---";
+
+    /// <summary>The messages the chat model is sent: the system prompt, then the excerpts and the question - also what
+    /// PromptFit measures, so the startup check counts the prompt the model really gets.</summary>
+    internal static List<ChatMessage> BuildPrompt(string question, IEnumerable<FilingChunkRecord> excerpts)
+    {
+        // Unnumbered labels in a form that isn't a citation: a numbered "[1] Source: X | Section: Y" label is
+        // a second citation format the model copies ("According to excerpt [1], Source: ..."), sometimes as the
+        // only citation - an excerpt number the reader never sees.
+        StringBuilder contextBuilder = new();
+        foreach (FilingChunkRecord record in excerpts)
+        {
+            contextBuilder.AppendLine(ExcerptHeader(record.SourceFiling, record.Heading));
+            contextBuilder.AppendLine(record.Content);
+            contextBuilder.AppendLine();
+        }
+
+        return
+        [
+            new ChatMessage(ChatRole.System, SystemPrompt),
+            new ChatMessage(ChatRole.User, $"Context excerpts:\n\n{contextBuilder}\nQuestion: {question}"),
+        ];
+    }
 
     // What the reranker reads for a chunk: its company line (as in its embedding text - without it the reranker ranks
     // worse than no reranking at all), then the excerpt header the chat model sees, then the chunk.

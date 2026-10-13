@@ -51,7 +51,7 @@ public class RagAnswerServiceTests
         };
 
         return new RagAnswerService(
-            collection.Object, chatClient.Object, retrieval, ChatModelOptions.ForOllama(retrieval, chatModelSupportsThinking), Companies, Nomic, keywordIndex, reranker);
+            collection.Object, chatClient.Object, retrieval, ChatModelOptions.ForOllama(retrieval, chatModelSupportsThinking, contextLength: 4096), Companies, Nomic, keywordIndex, reranker);
     }
 
     // The two companies these tests name, as their filings register them (CompanyRegistryTests checks the real ones).
@@ -632,7 +632,7 @@ public class RagAnswerServiceTests
         };
 
         Assert.Throws<ArgumentNullException>(() => new RagAnswerService(
-            collection.Object, chatClient.Object, retrieval, ChatModelOptions.ForOllama(retrieval, supportsThinking: false), Companies, Nomic));
+            collection.Object, chatClient.Object, retrieval, ChatModelOptions.ForOllama(retrieval, supportsThinking: false, contextLength: 4096), Companies, Nomic));
     }
 
     // Reranking. The scorer is the ONNX model's boundary, stood in for by a fake that scores a passage by the

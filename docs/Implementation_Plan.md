@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 465 offline unit tests (176 at v1.0) + 197 offline evaluation tests |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 478 offline unit tests (176 at v1.0) + 197 offline evaluation tests |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -114,7 +114,13 @@ library done** (`RagFilingExplorer.Voyage`, tested offline): `Providers:Embeddin
 `voyage-4-large` or `voyage-finance-2`, `input_type` sent - the index built with a document embedder, searched with a
 query one; the evaluation embeds as the app's settings say (`Providers__Embedding=Voyage` for one run). **Step 6 done:**
 the smoke test on Voyage's API (`voyage-finance-2`: 1024 dimensions, the question nearer its answer, ~1,850 free
-tokens). **Next: step 7** - both indexes built and ranked retrieval-only against nomic.
+tokens). **Step 7 done:** both Voyage
+indexes built and ranked retrieval-only against nomic (all 94): recall@5 / MRR - nomic 86 / 0.756, `voyage-finance-2`
+90 / 0.794, `voyage-4-large` 89 / 0.834 (recall@1 59 -> 70). **Chunk size measured** (1,000-10,000 tokens):
+bigger chunks help split statements; finance-2 improves with size to 94 / 0.874 at 10,000 (every answer in the top 5),
+4-large flattens; at equal text 500-token chunks reach all 94 by a top 7. `MaxTokensPerChunk` stays 500; a budget other
+than 500 now names its own index and dumps (`rag.structured.voyage-finance-2.10000tok.db` kept). **Next: step 8** -
+answers (user): 4-large at 500 with more excerpts, and/or finance-2 at 10,000.
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the
@@ -323,6 +329,8 @@ transitive via SqliteVec, referenced at the same version), `Microsoft.ML.OnnxRun
   an unlisted model is refused at startup). A wrong template never errors - retrieval just gets worse - and the
   manifest records the model, not its template, so changing a template needs `--rebuild`. Each model has its own index
   (`rag.<strategy>.<model>.db`; nomic keeps `rag.<strategy>.db`).
+- **A chunk budget other than 500 names its own index and dumps** (`.<n>tok`; `IndexFiles.UnnamedChunkBudget`): changing
+  `MaxTokensPerChunk` builds a new index beside the old one rather than making it stale.
 - **Chunking/embedding *code* changes need `--rebuild`.** Settings and filing changes are detected
   automatically via `rag.<strategy>.db.manifest.json` - under `Structured`, the filers' taxonomy files in `data/` too
   (not EDGAR's `_htm.xml` test files); code changes can't be.
@@ -330,9 +338,11 @@ transitive via SqliteVec, referenced at the same version), `Microsoft.ML.OnnxRun
   headings like "OPERATIONS" or "Cash Flows" mistagged up to 96 consecutive chunks.
 - **Never send a reasoning ("think") request to a model without the `thinking` capability** — Ollama
   hard-errors rather than ignoring it. The capability comes from `/api/show` at startup, never the name.
-- **Prompt + `Retrieval.MaxOutputTokens` must fit Ollama's `num_ctx`** (4096 by default; the app doesn't
-  set it). Past it, Ollama silently drops the oldest tokens - the system prompt and the top-ranked chunks.
-  Prompts reach ~3,000 tokens, so raising `MaxOutputTokens` or `GenerationTopK` needs `num_ctx` raised too.
+- **Prompt + `Retrieval.MaxOutputTokens` must fit Ollama's `num_ctx`** - the app sends `Ollama:ContextLength` (4096)
+  with every llama request; Ollama's own default depends on the machine's VRAM (4K / 32K / 256K) and its settings. Past
+  it, Ollama silently drops the oldest tokens - the system prompt and the top-ranked chunks. Startup refuses an index
+  whose largest prompt + answer won't fit (`PromptFit`; today's index: ~3,121 + 768 of 4,096), and refuses an Ollama
+  embedding model whose context is under the chunk budget; Ollama embeddings are sent with `truncate: false`.
 - **The .NET evaluators are the source of truth, not the Python tools** (user, 2026-10-06). `tools/grade_answers.py` and
   `tools/replay_recall.py` are kept unchanged as the record of what `StrictGrader` and `RetrievalRankEvaluator` were
   ported from - a grading rule changes in .NET only. The replay mirrors v2's retrieval (`HYBRID_CANDIDATES`, `RRF_K`):

@@ -34,6 +34,7 @@ public class AppSettingsTests
         AppSettings settings = LoadShippedSettings();
 
         Assert.That(settings.Ollama.ChatModel, Is.Not.Empty);
+        Assert.That(settings.Ollama.ContextLength, Is.EqualTo(4096), "the window every llama answer so far was given");
         Assert.That(settings.Retrieval.ReasoningEffort, Is.EqualTo(ReasoningEffort.Medium), "enum binds from its name");
         Assert.That(settings.Chunking.Strategy, Is.EqualTo(ChunkingStrategyKind.Structured), "enum binds from its name");
         Assert.That(settings.Retrieval.Search, Is.EqualTo(SearchMode.Hybrid), "enum binds from its name");
@@ -76,9 +77,10 @@ public class AppSettingsTests
     {
         string[] keys = AppSettings.RequiredConfigurationKeys().ToArray();
 
-        Assert.That(keys, Has.Length.EqualTo(23));
+        Assert.That(keys, Has.Length.EqualTo(24));
         Assert.That(keys, Does.Contain("Providers:Chat"));
         Assert.That(keys, Does.Contain("Ollama:ChatModel"));
+        Assert.That(keys, Does.Contain("Ollama:ContextLength"));
         Assert.That(keys, Does.Contain("Retrieval:ReasoningEffort"));
         Assert.That(keys, Does.Contain("Retrieval:Search"));
         Assert.That(keys, Does.Contain("Retrieval:RerankModelSha256"));

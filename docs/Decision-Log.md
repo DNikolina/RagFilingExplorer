@@ -4445,6 +4445,133 @@ tokens for both candidates), `model`, `input_type` (`query`, `document` or null)
   ~1,000 requests per index - minutes at Voyage's Tier 1 limit (2,000 RPM), hours at the limit without a payment method
   (3 RPM, 10K TPM); the client would need batching and pacing to fit the latter.
 
+**Step 7 - both Voyage indexes built and ranked (2026-10-13, user's go-ahead).** Built by the Cli with
+`Providers__Embedding=Voyage` and `Embedding__Model`: 981 chunks each, as nomic's (chunk dumps unchanged), no retry
+needed - `voyage-finance-2` in 407 s, `voyage-4-large` in 187 s. Ranked by `RetrievalRankRunTests` (retrieval only, all
+94 answerable questions, among 25), compared with nomic on the same index (`ranks-nomic-toc-links.txt`; the file's own
+"baseline" column is v3's older index, so not used here):
+
+| | nomic-embed-text | voyage-finance-2 | voyage-4-large |
+|---|---|---|---|
+| Main (37): recall@1 / recall@5 / MRR | 22 / 36 / 0.766 | 25 / 37 / 0.827 | 29 / 37 / 0.883 |
+| Held-out (31) | 26 / 29 / 0.896 | 21 / 31 / 0.824 | 25 / 30 / 0.878 |
+| Answer-side (26) | 11 / 21 / 0.577 | 15 / 22 / 0.711 | 16 / 22 / 0.711 |
+| **All (94)** | 59 / 86 / 0.756 | 61 / **90** / 0.794 | **70** / 89 / **0.834** |
+
+Every question outside the top 5 for at least one embedder (rank: nomic, finance-2, 4-large): A10 7, 1, 1; A11 12, 7,
+7; A14 4, 6, 7; A16 16, 3, 6; A25 14, 3, 4; A8 4, 7, 5; A9 10, 6, 7; H29 7, 5, 7; H34 8, 2, 3; R3 11, 2, 1.
+- **Both Voyage models beat nomic**, and both reach batch 1's four Claude retrieval misses better: H34 and R3 into the
+  top 3 with either; H29 into the top 5 with finance-2 only (rank 5); A11 7 with either (was 12).
+- **finance-2** puts the most answers in the top 5 (90) but ranks them lower: held-out recall@1 26 -> 21 (six answers 1 -> 2,
+  H2 1 -> 3, T10 1 -> 4). Two leave the top 5: A14 (6), A8 (7).
+- **4-large** ranks highest - recall@1 59 -> 70, MRR 0.756 -> 0.834 - one fewer in the top 5 than finance-2 (H29 at 7,
+  A16 at 6; A8 just in at 5). One leaves the top 5: A14 (7).
+- The finance-specialised model doesn't beat the general one here, as Voyage's own benchmarks would suggest; 4-large is
+  also the newer model, with four times the free tokens.
+Tokens: about 0.5M per index from the free allowances, plus a few thousand per rank run. Files:
+`eval/v3-runs/ranks-voyage-finance-2.txt`, `ranks-voyage-4-large.txt`.
+
+**Chunk size with Voyage - measured, not changed (user asked whether bigger chunks would fix the misses, 2026-10-13).**
+Never measured upward before (v1 tried 256: slightly worse). 5 of 4-large's 6 misses are figures in a later piece of a
+split statement (A8 equity statement 4/5; A9, A16 NDAQ cash flow 4/5; A11 3/4, A14 2/4 ORCL cash flow); H29 is a
+narrative chunk. Whole statements are ~190-2,100 tokens (text length / 4; ORCL's equity statement the largest), so
+2,500 keeps all 20 whole; sections run to ~26,000, past any useful size (Voyage takes 32,000 per text). nomic can't
+take 2,500 (Ollama cuts it at 2,048), nor can llama read five (num_ctx 4,096) - so measured on `voyage-4-large` only,
+by `Chunking__MaxTokensPerChunk` (overlap 50), rebuilt and ranked on all 94; the 500 index kept aside and restored.
+Questions grouped by where the needle is in the asked company's chunks: only a statement (28), both (46), only
+narrative or notes (20).
+
+| Budget | Chunks (avg tokens) | statement-only r@1 / r@5 / MRR | both | narrative-only | All r@1 / r@5 / MRR |
+|---|---|---|---|---|---|
+| 500 | 981 (~375) | 17 / 25 / 0.724 | 37 / 44 / 0.878 | 16 / 20 / 0.887 | 70 / 89 / 0.834 |
+| 1,000 | 519 (~690) | 19 / 26 / 0.770 | 39 / 45 / 0.916 | 12 / 20 / 0.779 | 70 / 91 / 0.844 |
+| 2,500 | 285 (~1,240) | 18 / 27 / 0.755 | 40 / 46 / 0.931 | 13 / 20 / 0.817 | 71 / 93 / 0.854 |
+
+- **Bigger chunks help the split statements and cost the narrative questions**, as expected: at 2,500, A9 7 -> 3, A14 7
+  -> 2, A8 5 -> 2, H29 7 -> 2; only A11 stays out (6). Narrative MRR 0.887 -> 0.817 (R3 1 -> 3, H10 1 -> 2, T2 1 -> 2).
+- **But a top 5 of bigger chunks is more text, and at equal text it's no better.** Five 2,500-budget chunks are ~6,200
+  tokens; the same text as 500-token chunks is a top 17, at 1,000 a top 9 - and those reach **94/94**, against 93/94 for
+  2,500's top 5 (A11 at 6). Bigger chunks and more excerpts are the same lever - how much text the model reads -
+  batch 3's step 0a measured the other form (Claude reading 12 excerpts: 102/102).
+- **Voyage's ranks aren't exactly repeatable.** The restored 500 index, ranked four times: A8 5 or 6, A11 7 or 8, the
+  rest identical (recall@5 88-89) - Voyage's query vectors vary slightly between calls, so near-tied chunks swap.
+  nomic through Ollama reproduced exactly. A difference of one question in recall@5 is noise for Voyage - finance-2's
+  90 against 4-large's 89 included.
+Files: `eval/v3-runs/ranks-voyage-4-large-1000tok.txt`, `ranks-voyage-4-large-2500tok.txt`. `MaxTokensPerChunk` stays 500.
+
+**The same on `voyage-finance-2` (user: maybe the finance model does better with bigger chunks).** Same procedure; its 500
+index restored byte for byte. (A first attempt ranked against the wrong budget - the size set for the build only - and
+was redone: one extra build.)
+
+| finance-2 budget | statement-only r@1 / r@5 / MRR | both | narrative-only | All r@1 / r@5 / MRR |
+|---|---|---|---|---|
+| 500 | 15 / 25 / 0.702 | 34 / 45 / 0.850 | 12 / 20 / 0.792 | 61 / 90 / 0.794 |
+| 1,000 | 19 / 27 / 0.778 | 40 / 45 / 0.920 | 11 / 20 / 0.752 | 70 / 92 / 0.842 |
+| 2,500 | 18 / 27 / 0.748 | 40 / 46 / 0.935 | 14 / 20 / 0.833 | 72 / 93 / 0.858 |
+| (4-large at 2,500) | 18 / 27 / 0.755 | 40 / 46 / 0.931 | 13 / 20 / 0.817 | 71 / 93 / 0.854 |
+
+- finance-2 gains more from bigger chunks than 4-large (MRR 0.794 -> 0.858 against 0.834 -> 0.854) - it starts lower at
+  500, notably on narrative (0.792 against 4-large's 0.887) - and **ends where 4-large ends**: at 2,500 the two are within
+  Voyage's own run-to-run noise. Its one top-5 miss at 2,500 is A25 (6); 4-large's is A11 (6).
+- **The deepest answer is rank 6-7 in every one of the six indexes** (two models, three budgets): a top 7 of 500-token
+  chunks (~2,600 tokens) puts all 94 answers in front of the model, a top 6 at 2,500 (~7,500 tokens) does too.
+Files: `ranks-voyage-finance-2-1000tok.txt`, `ranks-voyage-finance-2-2500tok.txt`.
+
+**finance-2 past 2,500 (user: the model was built for long financial documents).** Voyage's post on the model ("Domain-
+Specific Embeddings: Finance Edition", 2024-06-03): a 32K context; Apple's 10-K (2022) is one of its 11 *evaluation*
+sets ("not seen during training"); nothing on chunk size or on what it was trained on. At 2,500 every statement is
+already whole, so a bigger budget changes only narrative and notes chunks:
+
+| finance-2 budget | Chunks (avg tokens) | statement-only | both | narrative-only | All r@1 / r@5 / MRR |
+|---|---|---|---|---|---|
+| 2,500 | 285 (~1,240) | 18 / 27 / 0.748 | 40 / 46 / 0.935 | 14 / 20 / 0.833 | 72 / 93 / 0.858 |
+| 5,000 | 222 (~1,600) | 18 / 28 / 0.760 | 41 / 46 / 0.938 | 14 / 20 / 0.833 | 73 / **94** / 0.863 |
+| 10,000 | 203 (~1,750) | 18 / 28 / 0.769 | 41 / 46 / 0.942 | 15 / 20 / 0.867 | 74 / **94** / 0.874 |
+
+- **finance-2 keeps improving with size** - every answer in the top 5 at 5,000 and 10,000, rank 1 from 61 (500) to 74,
+  MRR 0.794 -> 0.874 - unlike 4-large, whose narrative questions lost precision with bigger chunks. Small steps past
+  2,500 (one question, MRR +0.016) are within Voyage's run-to-run noise; the trend from 500 is not.
+- **Still more text for the same reach**: the average chunk at 10,000 is ~1,750 tokens (most sections are smaller than the
+  budget; Risk Factors and MD&A pieces reach 10,000), so a top 5 is ~8,800 tokens on average, more when narrative chunks
+  are retrieved; 500-token chunks reach all 94 at a top 7 (~2,600). What the rank can't show is whether whole sections
+  help the model read an answer (a total with its lines, a roll-forward whole) - only answers measure that.
+Files: `ranks-voyage-finance-2-5000tok.txt`, `ranks-voyage-finance-2-10000tok.txt`. The 500 index restored byte for byte.
+
+**Each chunk budget its own index and dumps (user, 2026-10-13).** The experiments above replaced the 500 index and had to
+restore it, losing each bigger one. The budget now names the index and the dumps when it isn't 500 - the size every index
+was built at before (`IndexFiles.UnnamedChunkBudget`, a naming rule, not a second default for the setting):
+`rag.structured.voyage-finance-2.10000tok.db`, `chunk-review/structured.10000tok/`, `ranks-<model>-10000tok.txt`.
+Existing indexes keep their names (none renamed or rebuilt). finance-2 at 10,000 rebuilt and kept beside its 500 index
+(203 chunks, 186 s); its ranks identical to the experiment's on all 94. Kept for answers - Claude now, and llama on a
+machine where Ollama's num_ctx can be raised past ~10K (Voyage still embeds: nomic's 2,048-token cut is the model's, not
+the machine's). The app doesn't set num_ctx yet; raising it is a setting to add when that run comes.
+
+**Validation: an index Ollama can't use is refused at startup (user, 2026-10-13).** Checked first: Ollama's default
+window depends on the machine - "< 24 GiB VRAM: 4k context, 24-48 GiB VRAM: 32k context, >= 48 GiB VRAM: 256k context"
+(docs.ollama.com, "Context length") - and its app slider or `OLLAMA_CONTEXT_LENGTH` change it; `/api/ps` reports a
+loaded model's `context_length`; `/api/embed` truncates by default ("If false, returns an error"). So the window the
+llama answers so far had (4,096) was this laptop's default, not the app's choice. Chosen (user, of: the app sets it /
+ask Ollama at startup): **the app sets it.**
+- **`Ollama:ContextLength`** (4,096) is sent as num_ctx with every llama request - `OllamaSetup.ChatClient`, MEAI's
+  `ConfigureOptions` (`ConfigureOptionsChatClientBuilderExtensions`, Microsoft Learn), OllamaSharp's
+  `OllamaOption.NumCtx` (its mapper reads `num_ctx` from AdditionalProperties; checked in OllamaSharp's source, the
+  literal in the pinned 5.4.30). It sits inside the evaluation's response cache, as the judge's window does, so cache
+  keys are unchanged (ResponseCacheKeyTests pass) and a num_ctx already set wins (the judge's 8,192). Runs mean the same
+  on any machine - the Mac's default would be 256K.
+- **`PromptFit`** (Core): when the chat model has a small window (`ChatModelOptions.ContextWindow`, Ollama's; null for
+  Claude), `AppComposition.CreateRuntime` reads the index's chunks, lays out the `GenerationTopK` longest exactly as
+  `RagAnswerService.BuildPrompt` does (the prompt assembly moved there, unchanged), counts them with cl100k plus a
+  100-token question allowance, and refuses if that plus `MaxOutputTokens` exceeds the window - naming the three fixes.
+- **Ollama embeddings:** `truncate: false` on every request (`OllamaSetup.EmbeddingGenerator`, MEAI's embedding
+  `ConfigureOptions`; OllamaSharp maps `truncate`), and a startup check of `Chunking:MaxTokensPerChunk` against the
+  embedding model's context from `/api/show` (`*.context_length`).
+- **Verified against Ollama:** the default starts (largest prompt ~3,121 + 768 of 4,096 - the manual pass recorded
+  3,103); finance-2's 10,000 index with llama is refused (~50,650: its five largest chunks are 10,000-token narrative
+  pieces - on the Mac, top 5 of that index needs a ~52K window, or a smaller GenerationTopK); nomic at a 10,000 budget
+  is refused before any build; a ~3,000-token question gets Ollama's "the input length exceeds the context length"
+  instead of being cut; Microsoft's FY2026 revenue answered as before, and `/api/ps` shows llama loaded at 4,096. 478
+  unit tests (+9) + 197 evaluation tests.
+
 **Ollama build for batch 3: 0.40.2** (installed 2026-10-09 from the auto-updater's staged, Ollama-signed installer;
 0.40.0 -> 0.40.1 had auto-installed that morning). `nomic-embed-text` (0a109f422b47) and `llama3.1:8b` (46e0c10c039e)
 unchanged - not upgraded by 0.40's background model conversion. 0.40.0 reproduced 0.35.1's answers (above); 0.40.2 is

@@ -59,7 +59,8 @@ public class RetrievalRankRunTests
                 baseline.GetValueOrDefault(scenario)));
         }
 
-        string index = IndexFiles.For(Repo, ChunkingStrategies.FileName(settings.Chunking.Strategy), EmbeddingTemplates.For(settings.Embedding.Model)).DbFileName;
+        string index = IndexFiles.For(
+            Repo, ChunkingStrategies.FileName(settings.Chunking.Strategy), EmbeddingTemplates.For(settings.Embedding.Model), settings.Chunking.MaxTokensPerChunk).DbFileName;
         StringBuilder report = new();
         report.AppendLine($"Ranks: {settings.Embedding.Model} ({index}), {servedBy}, {ranks.Count} answerable questions, "
             + $"ranked among {settings.Retrieval.VerboseSearchTopK}; beside {Baseline} (nomic-embed-text). A rank > {settings.Retrieval.VerboseSearchTopK} is '-'.");
@@ -81,7 +82,9 @@ public class RetrievalRankRunTests
             report.AppendLine($"  {scenario}: {Show(rank)}, {Show(before)}");
         }
 
-        string path = Path.Combine(storage, $"ranks-{settings.Embedding.Model.Replace(':', '-')}.txt");
+        // Named as the index is, so runs at another chunk budget don't overwrite the model's ranks.
+        string budget = IndexFiles.ChunkBudgetSuffix(settings.Chunking.MaxTokensPerChunk) is { } suffix ? $"-{suffix}" : "";
+        string path = Path.Combine(storage, $"ranks-{settings.Embedding.Model.Replace(':', '-')}{budget}.txt");
         await File.WriteAllTextAsync(path, report.ToString());
         TestContext.Progress.WriteLine(report.ToString());
     }

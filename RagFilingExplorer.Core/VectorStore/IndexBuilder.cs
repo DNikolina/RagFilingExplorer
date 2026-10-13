@@ -79,7 +79,7 @@ internal static class IndexBuilder
 
     private static async Task UpsertRecordsAsync(VectorStoreCollection<int, FilingChunkRecord> collection, List<FilingChunkRecord> records, int batchSize)
     {
-        Console.WriteLine("Embedding and upserting all chunks (this calls Ollama for every chunk - may take a few minutes)...");
+        Console.WriteLine("Embedding and upserting all chunks (one embedding request per chunk - may take a few minutes)...");
 
         // batchSize must stay 1 on SqliteVec 1.0.1-preview - see VectorStoreSettings.UpsertBatchSize. It costs little:
         // embedding each chunk, not the upsert, is what takes the time.

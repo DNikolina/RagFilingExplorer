@@ -127,6 +127,15 @@ internal sealed class OllamaSettings
     public required string BaseUrl { get; set; }
     public required int TimeoutMinutes { get; set; }
     public required string ChatModel { get; set; }
+
+    /// <summary>
+    /// The chat model's context window, sent as num_ctx with every request (OllamaSetup.ChatClient) rather than left to
+    /// Ollama, whose default depends on the machine (4K under 24 GiB of VRAM, 32K to 48, 256K above) and on its own
+    /// settings - so a run means the same on any machine. The prompt and the answer (Retrieval:MaxOutputTokens) share it,
+    /// and past it Ollama silently drops the start of the prompt; startup refuses an index whose largest prompt won't fit
+    /// (PromptFit). 4,096 is the window every llama answer so far was given. A bigger one costs memory and time on a CPU.
+    /// </summary>
+    public required int ContextLength { get; set; }
 }
 
 internal sealed class ChunkingSettings
@@ -217,9 +226,9 @@ internal sealed class RetrievalSettings
     /// <summary>
     /// Ceiling for the model's total output (ChatOptions.MaxOutputTokens, Ollama's num_predict; thinking + answer for a
     /// reasoning model), for every question and every chat model - set explicitly rather than left to Ollama's default,
-    /// which a thinking model can exhaust silently. The prompt and this output share Ollama's context window (num_ctx,
-    /// not set by this app: 4096 by default), so prompt + this must stay under 4096 - past it, Ollama silently drops
-    /// the oldest tokens: the system prompt and the top-ranked chunks. The value leaves room for several times the longest
+    /// which a thinking model can exhaust silently. The prompt and this output share Ollama's context window
+    /// (Ollama:ContextLength), so prompt + this must fit it - past it, Ollama silently drops the oldest tokens: the system
+    /// prompt and the top-ranked chunks; startup checks it (PromptFit). The value leaves room for several times the longest
     /// answer seen (docs/Decision-Log.md, "pre-manual-pass review"). A reasoning model gets little room
     /// to think within this; giving it more means raising num_ctx too. A model that still hits this ceiling without
     /// producing answer text fails loudly (RagAnswerService's starved-response guard).
