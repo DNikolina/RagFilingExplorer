@@ -1,0 +1,114 @@
+{
+  "scenarioName": "HeldOut.H12",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-finance2-500",
+  "creationTime": "2026-10-13T16:02:11.154802Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nHUMAN CAPITAL\n\nOur business is to entertain the world across different countries, cultures, languages and tastes. To entertain an audience this global, our Company needs to reflect the world and the variety of stories we tell. To help ensure our workforce is representative of the members we serve, we employ people in multiple countries around the world and work to maintain a global culture of inclusion. We view our employees and our culture as key to our success. As of December\u00A031, 2025, we had approximately 16,000 full-time employees. Of these, approximately 10,900 (68%) were located in the United States and Canada, 2,500 (16%) in Europe, Middle East, and Africa, 1,900 (12%) in Asia-Pacific and 700 (4%) in Latin America. We also have a number of employees engaged in content production, some of whom are part-time or temporary, and whose numbers fluctuate throughout the year and may be covered by collective bargaining agreements.\n\nWe believe an important component of our success is our company culture as detailed in the \u201CNetflix Culture Memo\u201D, which was updated in 2024. Our culture is focused on excellence and creating an environment where talented people can thrive \u2014 lifting ourselves, each other and our audiences higher and higher. We engage employees and seek feedback through regular town halls, surveys, business reviews and memos, which we often share broadly, inviting comments. We aim to attract and retain great people \u2014 representing a broad array of perspectives and skills \u2014 to work together as a dream team. For more people and cultures to see themselves reflected on screen, it is important that our employee base represents the communities we serve.\n\nWe aim generally to pay our employees at their personal top of market, and they generally are able to choose the form of their compensation between cash and stock options. This permits employee compensation to be highly personalized and reflective of each employee\u0027s individual needs and preferences. We conduct pay equity analyses at least annually, and have adopted practices to help ensure that employees from underrepresented groups are not being underpaid based on gender identity (globally) and race or ethnicity (United States (\u201CU.S.\u201D)) relative to others doing the same or similar work under comparable circumstances. We aim to rectify any pay gaps that we find through this analysis.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements \u003E Commitments and Contingencies ---\r\n\u0060\u0060\u0060\r\n9. Commitments and Contingencies\n\nContent\n\nAt December\u00A031, 2025, the Company had $24.0 billion of obligations comprised of $4.1 billion included in \u201CCurrent content liabilities\u201D and $1.6 billion of \u201CNon-current content liabilities\u201D on the Consolidated Balance Sheets and $18.4 billion of obligations that are not reflected on the Consolidated Balance Sheets as they did not yet meet the criteria for recognition.\n\nAt December\u00A031, 2024, the Company had $23.2 billion of obligations comprised of $4.4 billion included in \u201CCurrent content liabilities\u201D and $1.8 billion of \u201CNon-current content liabilities\u201D on the Consolidated Balance Sheets and $17.0 billion of obligations that are not reflected on the Consolidated Balance Sheets as they did not yet meet the criteria for recognition.\n\nThe expected timing of payments for these content obligations is as follows:\n\n(in thousands) As of December 31,\nLess than one year \u2014 2025: $11,528,030 | 2024: $11,424,696\nDue after one year and through three years \u2014 2025: 8,376,160 | 2024: 8,113,910\nDue after three years and through five years \u2014 2025: 3,041,538 | 2024: 2,809,834\nDue after five years \u2014 2025: 1,093,500 | 2024: 900,491\nTotal content obligations \u2014 2025: $24,039,228 | 2024: $23,248,931\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART II \u003E Item 9A. Controls and Procedures ---\r\n\u0060\u0060\u0060\r\n(a) Evaluation of Disclosure Controls and Procedures\n\nOur management, with the participation of our co-Chief Executive Officers and Chief Financial Officer, evaluated the effectiveness of our disclosure controls and procedures (as defined in Rules 13a-15(e) and 15d-15(e) under the Exchange Act) as of the end of the period covered by this Annual Report on Form 10-K. Based on that evaluation, our co-Chief Executive Officers and Chief Financial Officer concluded that our disclosure controls and procedures as of the end of the period covered by this Annual Report on Form 10-K were effective in providing reasonable assurance that information required to be disclosed by us in reports that we file or submit under the Exchange Act, is recorded, processed, summarized and reported within the time periods specified in the Securities and Exchange Commission\u2019s rules and forms, and that such information is accumulated and communicated to our management, including our co-Chief Executive Officers and Chief Financial Officer, as appropriate, to allow timely decisions regarding required disclosures.\n\nOur management, including our co-Chief Executive Officers and Chief Financial Officer, does not expect that our disclosure controls and procedures or our internal controls will prevent all errors and all fraud. A control system, no matter how well conceived and operated, can provide only reasonable, not absolute, assurance that the objectives of the control system are met. Further, the design of a control system must reflect the fact that there are resource constraints, and the benefits of controls must be considered relative to their costs. Because of the inherent limitations in all control systems, no evaluation of controls can provide absolute assurance that all control issues and instances of fraud, if any, within Netflix have been detected.\n\n(b) Management\u2019s Annual Report on Internal Control Over Financial Reporting\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements \u003E Cash, Cash Equivalents, Restricted Cash, and Short-term Investments ---\r\n\u0060\u0060\u0060\r\n4. Cash, Cash Equivalents, Restricted Cash, and Short-term Investments\n\nThe Company classifies short-term investments, which consist of marketable securities with original maturities in excess of 90 days as available-for-sale (\u201CAFS\u201D). The Company does not buy and hold securities principally for the purpose of selling them in the near future. The Company\u2019s policy is focused on the preservation of capital, liquidity and return. From time to time, the Company may sell certain securities but the objectives are generally not to generate profits on short-term differences in price.\n\nThe following tables summarize the Company\u0027s cash, cash equivalents, restricted cash and short-term investments as of December\u00A031, 2025 and 2024:\n\n(in thousands) As of December 31, 2025\nCash \u2014 Amortized Cost: $5,214,163 | Gross Unrealized Gains: $\u2014 | Gross Unrealized Losses: $\u2014 | Estimated Fair Value: $5,214,163 | Cash and cash equivalents: $5,208,710 | Short-term investments: $\u2014 | Other Current Assets: $5,369 | Non-current Assets: $84\nLevel 1 securities:\nLevel 1 securities \u003E Money market funds \u2014 Amortized Cost: 3,259,240 | Estimated Fair Value: 3,259,240 | Cash and cash equivalents: 3,259,180 | Non-current Assets: 60\nLevel 2 securities:\nLevel 2 securities \u003E Time Deposits(1) \u2014 Amortized Cost: 594,469 | Estimated Fair Value: 594,469 | Cash and cash equivalents: 565,791 | Short-term investments: 28,678\nAmortized Cost: $9,067,872 | Gross Unrealized Gains: $\u2014 | Gross Unrealized Losses: $\u2014 | Estimated Fair Value: $9,067,872 | Cash and cash equivalents: $9,033,681 | Short-term investments: $28,678 | Other Current Assets: $5,369 | Non-current Assets: $144\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements \u003E Stockholders\u0027 Equity ---\r\n\u0060\u0060\u0060\r\nStock-Based Compensation\n\nThe following table summarizes total stock-based compensation expense and the related income tax impact:\n\n(in thousands) Year Ended December 31,\nTotal stock-based compensation expense \u2014 2025: $368,449 | 2024: $272,588 | 2023: $339,368\nTotal income tax impact on provision \u2014 2025: 54,338 | 2024: 43,876 | 2023: 61,588\n\nAs of December\u00A031, 2025, $47\u00A0million of total unrecognized compensation cost related to unvested RSUs and PSUs is expected to be recognized over a weighted-average period of 1.53 years.\n\nStock Repurchases\n\nIn September 2023, the Board of Directors authorized the repurchase of up to $10\u00A0billion of the Company\u2019s common stock, with no expiration date, and in December 2024, the Board of Directors increased the share repurchase authorization by an additional $15\u00A0billion, also with no expiration date. Stock repurchases may be effected through open market repurchases in compliance with Rule 10b-18 under the Exchange Act, including through the use of trading plans intended to qualify under Rule 10b5-1 under the Exchange Act, privately-negotiated\n\ntransactions, accelerated stock repurchase plans, block purchases, or other similar purchase techniques and in such amounts as management deems appropriate. The Company is not obligated to repurchase any specific number of shares, and the timing and actual number of shares repurchased will depend on a variety of factors, including the Company\u2019s stock price, general economic, business and market conditions, and alternative investment opportunities. The Company may discontinue any repurchases of its common stock at any time without prior notice. During the year ended December\u00A031, 2025, the Company repurchased 86,536,215 shares for an aggregate amount of $9.1\u00A0billion (excluding the 1% excise tax on stock repurchases as a result of the Inflation Reduction Act of 2022). As of December\u00A031, 2025, $8.0\u00A0billion remains available for repurchases. Shares repurchased by the Company are accounted for when the transaction is settled. As of December\u00A031, 2025, there were no unsettled share repurchases. Direct costs incurred to acquire the shares are included in the total cost of the shares.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How many full-time employees did Netflix have at the end of 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix had approximately 16,000 full-time employees as of December 31, 2025. (Source: NFLX-10K-2025.html, PART I \u003E Item 1. Business)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 16,000."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "16,000 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 16,000 from excerpt 1 (narrative)."
+        },
+        "metadata": {
+          "Stated 16,000": "excerpt 1 (narrative, PART I \u003E Item 1. Business): \u0022...ur culture as key to our success. As of December\u00A031, 2025, we had approximately 16,000 full-time employees. Of these, approximately 10,900 (68%) were located in...\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 67.0872887,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2530,
+          "outputTokenCount": 43,
+          "totalTokenCount": 2573
+        },
+        "cacheKey": "3911EBD4437883DA55939E323DD69B11C6131F24C2563A71794D431A568592702F72E6A2648965303BEE24A10C3DBB33",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "excerpts:5",
+    "embedding:voyage-finance-2",
+    "kind:fact",
+    "company:NFLX",
+    "statement:none",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

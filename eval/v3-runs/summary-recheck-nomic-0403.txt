@@ -1,0 +1,12 @@
+Execution recheck-nomic-0403: 15 questions, 17 min, chat model Local, graders Strict, every answer asked afresh (no cache)
+Main: reliable 1/7  no-unit 1  reliable 1  wrong 5  | answer in the top 5: 6  | figures: traced 7
+HeldOut: reliable 0/2  wrong 2  | answer in the top 5: 1  | figures: traced 2
+AnswerSide: reliable 5/6  reliable 5  wrong 1  | answer in the top 5: 4  | figures: calculated 2  traced 4
+Tokens: 37,208 input, 986 output.
+No untraced figure.
+5 grade(s) differ from the v2 baseline:
+  Main.T6: baseline declined, now wrong (expected figure absent) - The goodwill balance of Nasdaq's Financial Technology segment at December 31, 2025 was $7,947 million (Source: NDAQ-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations).
+  Main.T10: baseline reliable, now wrong (expected figure absent) - The amounts reclassified from accumulated other comprehensive income (loss) (year ended December 31, 2024) — Change in Unrealized Gains (Losses) on Cash Flow Hedges: (125,639) thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Stockholders' Equity).
+  HeldOut.H27: baseline reliable, now wrong (trap 0.27, 0.24) - Nasdaq's cash dividends declared per common share in 2025 were $0.24, $0.27, $0.27, and $0.27 for the first, second, third, and fourth quarters, respectively (Source: NDAQ-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations and PART IV > Financial Statements > Nasdaq Stockholders’ Equity).
+  HeldOut.H29: baseline declined, now wrong (expected figure absent) - Nasdaq's Index business generated $81 million in annual average revenue (ARR) in 2025, and index revenues increased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to higher average AUM in exchange traded products linked to Nasdaq indices and growth in trading volumes (Source: NDAQ-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations).
+  AnswerSide.A8: baseline wrong, now reliable () - Oracle declared cash dividends of $2.00 per share of its outstanding common stock in fiscal 2026. (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)

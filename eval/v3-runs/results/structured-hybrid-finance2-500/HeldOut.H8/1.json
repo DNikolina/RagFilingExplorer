@@ -1,0 +1,110 @@
+{
+  "scenarioName": "HeldOut.H8",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-finance2-500",
+  "creationTime": "2026-10-13T15:58:16.3400208Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF OPERATIONS\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions, except per share data) Year Ended May 31,\nRevenues:\nRevenues \u003E Cloud \u2014 2026: $33,989 | 2025: $24,506 | 2024: $19,774\nRevenues \u003E Software \u2014 2026: 24,541 | 2025: 24,724 | 2024: 24,690\nRevenues \u003E Hardware \u2014 2026: 3,084 | 2025: 2,936 | 2024: 3,066\nRevenues \u003E Services \u2014 2026: 5,743 | 2025: 5,233 | 2024: 5,431\nRevenues \u003E Total revenues \u2014 2026: 67,357 | 2025: 57,399 | 2024: 52,961\nOperating expenses:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF OPERATIONS\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions, except per share data) Year Ended May 31,\nOperating expenses \u003E Cloud and software(1) \u2014 2026: 17,597 | 2025: 11,569 | 2024: 9,427\nOperating expenses \u003E Hardware(1) \u2014 2026: 868 | 2025: 782 | 2024: 891\nOperating expenses \u003E Services(1) \u2014 2026: 4,556 | 2025: 4,576 | 2024: 4,825\nOperating expenses \u003E Sales and marketing(1) \u2014 2026: 8,331 | 2025: 8,651 | 2024: 8,274\nOperating expenses \u003E Research and development \u2014 2026: 10,272 | 2025: 9,860 | 2024: 8,915\nOperating expenses \u003E General and administrative \u2014 2026: 1,618 | 2025: 1,602 | 2024: 1,548\nOperating expenses \u003E Amortization of intangible assets \u2014 2026: 1,671 | 2025: 2,307 | 2024: 3,010\nOperating expenses \u003E Restructuring and other \u2014 2026: 1,838 | 2025: 374 | 2024: 718\nOperating expenses \u003E Total operating expenses \u2014 2026: 46,751 | 2025: 39,721 | 2024: 37,608\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Organization and Significant Accounting Policies ---\r\n\u0060\u0060\u0060\r\nIn fiscal 2026, we adopted Accounting Standards Update (ASU) 2023-09, Income Taxes (Topic 740): Improvements to Income Tax Disclosures (ASU 2023-09) on a prospective basis. ASU 2023-09 requires certain additional disclosure. Refer to Note 12 for additional information.\n\nUse of Estimates\n\nOur consolidated financial statements are prepared in accordance with United States (U.S.) generally accepted accounting principles (GAAP) as set forth in the Financial Accounting Standards Board\u2019s (FASB) Accounting Standards Codification (ASC), and we consider various staff accounting bulletins and other applicable guidance issued by the U.S. Securities and Exchange Commission. These accounting principles require us to make certain estimates, judgments and assumptions. We believe that the estimates, judgments and assumptions upon which we rely are reasonable based upon information available to us at the time that these estimates, judgments and assumptions are made. These estimates, judgments and assumptions can affect the reported amounts of assets and liabilities as of the date of the financial statements as well as the reported amounts of revenues and expenses during the periods presented. To the extent that there are differences between these estimates, judgments or assumptions and actual results, our consolidated financial statements will be affected. In many cases, the accounting treatment of a particular transaction is specifically dictated by GAAP and does not require management\u2019s judgment in its\n\napplication. There are also areas in which management\u2019s judgment in selecting among available alternatives would not produce a materially different result.\n\nRevenue Recognition\n\nOur sources of revenues are:\n\n\u2022 cloud and software revenues, comprising of: cloud revenues, which includes cloud applications and cloud infrastructure revenues; and software revenues, which includes software license and software support revenues;\n\n\u2022 hardware revenues, which include the sale of hardware products, including Oracle Engineered Systems, servers and storage products, and industry-specific hardware; and hardware support revenues; and\n\n\u2022 services revenues, which are earned from providing cloud-, software- and hardware-related services including consulting and customer success services.\n\nCloud revenues include revenues from Oracle Cloud offerings, which deliver applications and infrastructure technologies via cloud-based deployment models that we develop functionality for, provide unspecified updates and enhancements for, deploy, host, manage, upgrade and support and that customers access by entering into a subscription agreement with us for a stated period.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nWe have three businesses: cloud and software (formerly referred to as cloud and license); hardware; and services. Each business is comprised of a single operating segment. Item 7 Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations and Note 13 of Notes to Consolidated Financial Statements, both included elsewhere in this Annual Report, provide additional information related to our businesses and operating segments.\n\nOracle Applications and Infrastructure Technologies\n\nOracle applications and infrastructure technologies, including database and middleware software as well as enterprise applications, virtualization, clustering, large-scale systems management and related infrastructure products and services, are based upon industry standards and are designed to be enterprise-grade, reliable, scalable and secure. These technologies are the building blocks of Oracle Cloud, our partners\u2019 cloud services and our customers\u2019 cloud IT environments. Oracle applications and infrastructure offerings are marketed and sold through our cloud and software and hardware businesses, and are delivered through the Oracle Cloud or other IT deployment models chosen by our customers.\n\nWe believe that our Oracle Cloud offerings, which have built-in AI capabilities, represent opportunities for us to continue to expand our business. We believe that our customers increasingly recognize the value of access to the latest versions of Oracle cloud-based applications and infrastructure capabilities via a cost-effective, rapidly deployable, flexible and interoperable services model that Oracle provisions, manages, upgrades and maintains on our customers\u2019 behalf. We believe that we can market and sell our Oracle Cloud offerings together to help new and existing customers migrate their extensive installed base of on-premise and cloud-based applications and infrastructure technologies to the Oracle Cloud and we believe we are in the early stages of what we expect will be a material migration of our existing Oracle customer base from on-premise applications and infrastructure products and services to the Oracle Cloud. The proportion of our cloud revenues relative to our total revenues has increased, and our cloud revenues represented 51%, 43% and 37% of our total revenues during fiscal 2026, 2025 and 2024, respectively. We expect these trends to continue. During the past three fiscal years, customers with annual software\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nCloud and Software Business\n\nOur cloud and software business, which represented 87% and 86% of our total revenues in fiscal 2026 and 2025, respectively, markets, sells and delivers a broad spectrum of enterprise applications and infrastructure technologies through our cloud and software offerings. Revenue streams included in our cloud and software business are:\n\n\u2022 Cloud revenues, which are earned by providing customers access to Oracle Cloud applications and infrastructure technologies via cloud-based deployment models that Oracle develops, provides unspecified updates and enhancements for, deploys, hosts, manages and supports and that customers access by entering into a subscription agreement with us for a stated period. Oracle Cloud Applications and Oracle Cloud Infrastructure (collectively Oracle Cloud) arrangements generally: have durations of one to five years; are renewed at the customer\u2019s option; and are recognized as revenues ratably over the contractual period of the cloud contract or, in the case of usage model contracts, as the cloud services are consumed over time; and\n\n\u2022 Software revenues, which include:\n\no software license revenues, which are generated from licensing our software products, including Oracle Applications, Oracle Database, Oracle Middleware and Java, among others, for deployment by our customers in cloud-based, on-premise or other IT environments. Our software license transactions are generally perpetual in nature and are generally recognized as revenues up front at the point in time when the software is made available to the customer to download and use. Revenues from usage-based royalty arrangements for distinct software licenses are recognized at the point in time when the software end user usage occurs. The timing of a few large software license transactions can\n\nsubstantially affect our quarterly software license revenues due to the point-in-time nature of revenue recognition for software license transactions. Software license customers have the option to purchase and renew software support contracts, as further described below; and\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Oracle\u0027s total revenue in fiscal 2023?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The excerpts don\u0027t contain Oracle\u0027s total revenue in fiscal 2023."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "decline-ok",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Declines correctly: the filings don\u0027t contain this."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "Not scored: a negative has no answer to find."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "no figure stated",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "No figure stated - a text answer or a decline."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 49.9331836,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2286,
+          "outputTokenCount": 16,
+          "totalTokenCount": 2302
+        },
+        "cacheKey": "105D6845D4A5805121AFEBE6BB0D6E0186D2575E92047BD723830F821F8EAF1206DB0E23503F9E85360391A68647158E",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "excerpts:5",
+    "embedding:voyage-finance-2",
+    "kind:negative",
+    "company:ORCL",
+    "statement:income_statement",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

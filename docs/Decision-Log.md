@@ -4572,6 +4572,29 @@ ask Ollama at startup): **the app sets it.**
   instead of being cut; Microsoft's FY2026 revenue answered as before, and `/api/ps` shows llama loaded at 4,096. 478
   unit tests (+9) + 197 evaluation tests.
 
+**Step 8 - llama on `voyage-finance-2` at 500 tokens: 87/102 (nomic 85) (user: local first, 2026-10-13).** All 102 on
+Ollama 0.40.3 (`structured-hybrid-finance2-500`, 97 min; prompts identical to an earlier run's came from the cache), the
+same prompt, chunks and settings as nomic's baseline (`structured-hybrid-chunk-fixes`, 0.40.2) - only the embedder differs.
+
+| Set | nomic | finance-2 |
+|---|---|---|
+| Main (40) | 36 | 37 |
+| Held-out (35) | 31 | 33 |
+| Answer-side (27) | 18 | 17 |
+| **All** | **85** | **87** |
+
+15 grades changed (`eval/v3-runs/compare-nomic-vs-finance2-500.txt`):
+- **8 gains:** R3, H29, A10 - retrieval fixed (ranks 11, 7, 7 -> top 5); T1, T6, T10, H27, Q21 - the answer was in nomic's
+  top 5 too, read right from finance-2's excerpts.
+- **6 losses:** A8 - retrieval (rank 4 -> 7); A4 (trap 2,145), A7 (trap 3,934), A25 (trap 601), V1 (trap 942), A24 (no unit)
+  - the answer at rank 1-3, llama misread the new set of excerpts.
+- T9 failed both ways (wrong -> check). H34's answer moved into the top 5 (rank 2) but llama misreads it - wrong both ways.
+- **Not the Ollama build:** the 15 questions re-asked fresh on nomic at 0.40.3 (`recheck-nomic-0403`, no cache) got
+  every one of the baseline's 0.40.2 grades. Every change is the embedder's: different excerpts in the prompt.
+- **Reading, not retrieval, is llama's limit now:** of finance-2's 15 failures, 12 had the answer in the top 5 (5 of the 6
+  losses among them); 3 are retrieval (A8 and A11 rank 7, A14 rank 6). Better retrieval gave llama +2 net, the same kind of
+  gain-and-loss shuffle earlier prompt changes caused ("llama's sensitivity to prompt changes", chunk-review entries).
+
 **Ollama build for batch 3: 0.40.2** (installed 2026-10-09 from the auto-updater's staged, Ollama-signed installer;
 0.40.0 -> 0.40.1 had auto-installed that morning). `nomic-embed-text` (0a109f422b47) and `llama3.1:8b` (46e0c10c039e)
 unchanged - not upgraded by 0.40's background model conversion. 0.40.0 reproduced 0.35.1's answers (above); 0.40.2 is

@@ -1,0 +1,111 @@
+{
+  "scenarioName": "HeldOut.H11",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-finance2-500",
+  "creationTime": "2026-10-13T16:01:03.5924428Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART I \u003E Item 2. Properties ---\r\n\u0060\u0060\u0060\r\nWe conduct our business operations in leased facilities. We do not own any real property. Our U.S. headquarters are located in New York, New York, and our European headquarters are located in Stockholm, Sweden. We also lease space in multiple locations around the world, which are used for research and development, sales and support, and administrative activities, as well as for data centers and disaster preparedness facilities.\n\nGenerally, our properties are not allocated for use by a particular business segment. Instead, most of our properties are used by two or more segments. We regularly monitor the facilities we occupy to ensure that they suit our needs in a hybrid work environment. We believe the facilities that we occupy are adequate for the purposes for which they are currently used and are well-maintained. See Note 16, \u201CLeases,\u201D to the consolidated financial statements for further discussion.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Leases ---\r\n\u0060\u0060\u0060\r\n16. LEASES\n\nWe have operating leases, which are primarily real estate leases, predominantly for our U.S. and European headquarters, data centers and for general office space. The following table provides supplemental balance sheet information related to Nasdaq\u2019s operating leases:\n\n(in millions) Assets:\nOperating lease assets \u2014 Balance Sheet Classification: Operating lease assets | December 31, 2025: $447 | December 31, 2024: $375\nLiabilities:\nLiabilities \u003E Current lease liabilities \u2014 Balance Sheet Classification: Other current liabilities | December 31, 2025: $60 | December 31, 2024: $55\nLiabilities \u003E Non- current lease liabilities \u2014 Balance Sheet Classification: Operating lease liabilities | December 31, 2025: 462 | December 31, 2024: 388\nLiabilities \u003E Total lease liabilities \u2014 December 31, 2025: $522 | December 31, 2024: $443\n\nThe following table summarizes Nasdaq\u2019s lease cost:\n\n(in millions) Year Ended December 31,\nOperating lease cost \u2014 2025: $82 | 2024: $78 | 2023: $88\nVariable lease cost \u2014 2025: 44 | 2024: 37 | 2023: 44\nSublease income \u2014 2025: (2) | 2024: (3) | 2023: (3)\nTotal lease cost \u2014 2025: $124 | 2024: $112 | 2023: $129\n\nIn the table above, operating lease costs include short-term lease costs, which were immaterial.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section (no heading) ---\r\n\u0060\u0060\u0060\r\nEMIR: European Market Infrastructure Regulation\n\nEquity Plan: Nasdaq Equity Incentive Plan\n\nESG: Environmental, Social and Governance\n\nESPP: Nasdaq Employee Stock Purchase Plan\n\nETF: Exchange Traded Fund\n\nETP: Exchange Traded Product\n\niii\n\nEuro Notes: The 2029, 2030, 2032 and 2033 Notes\n\nExchange Act: Securities Exchange Act of 1934, as amended\n\nFASB: Financial Accounting Standards Board\n\nFINRA: Financial Industry Regulatory Authority\n\nGICS: Global Industry Classification Standard\n\nIP: Intellectual property\n\nIPO: Initial Public Offering\n\nMiFID II: Update to the Markets in Financial Instruments Directive\n\nMiFIR: Markets in Financial Instruments Regulation\n\nNSCC: National Securities Clearing Corporation\n\nOCC: The Options Clearing Corporation\n\nOTC: Over-the-Counter\n\nPCS: Post-contract Customer Support\n\nProxy Statement: Nasdaq\u2019s Definitive Proxy Statement for the 2026 Annual Meeting of Shareholders\n\nPSU: Performance Share Unit\n\nRegulation NMS: Regulation National Market System\n\nRegulation SCI: Regulation Systems Compliance and Integrity\n\nSaaS: Software as a Service\n\nSEC: U.S. Securities and Exchange Commission\n\nSERP: Supplemental Executive Retirement Plan\n\nSFSA: Swedish Financial Supervisory Authority\n\nSOFR: Secured Overnight Financing Rate\n\nS\u0026P: Standard \u0026 Poor\u2019s\n\nS\u0026P 500: S\u0026P 500 Stock Index\n\nSPAC: Special Purpose Acquisition Company\n\nSRO: Self-regulatory Organization\n\nSSMA: Swedish Securities Markets Act 2007:528\n\nTSR: Total Shareholder Return\n\nU.S. GAAP: U.S. Generally Accepted Accounting Principles\n\nU.S. Tape plans: U.S. cash equity and U.S. options industry data\n\nUTP: Unlisted Trading Privileges\n\nUTP Plan: Joint SRO Plan Governing the Collection, Consolidation, and Dissemination of Quotation and Transaction Information for Nasdaq-Listed Securities Traded on Exchanges on a UTP Basis\n\nNASDAQ, the NASDAQ logos, and other brand, service or product names or marks referred to in this report are trademarks or service marks, registered or otherwise, of Nasdaq, Inc. and/or its subsidiaries. FINRA and Trade Reporting Facility are registered trademarks of FINRA.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nRegulation SCI. Regulation SCI is a set of rules designed to strengthen the technology infrastructure of the U.S. securities markets. Regulation SCI applies to national securities exchanges, operators of certain ATSs, market data information providers and clearing agencies, subjecting these entities to extensive compliance obligations, with the goals of reducing the occurrence of technical issues that disrupt the securities markets and improving recovery time when disruptions occur. We implemented an inter-disciplinary program to ensure compliance with Regulation SCI. We have also created Regulation SCI policies and procedures, updated internal policies and procedures, and developed an information technology governance program to ensure compliance.\n\nRegulation of Registered Investment Advisor Subsidiary. Our subsidiary Nasdaq Dorsey Wright, or NDW, is an investment advisor registered with the SEC under the Investment Advisers Act of 1940. In this capacity, NDW is subject to oversight and inspections by the SEC. Among other things, registered investment advisors like NDW must comply with certain disclosure obligations, advertising and fee restrictions and requirements relating to client suitability and custody of funds and securities. Registered investment advisors are also subject to anti-fraud provisions under both federal and state law.\n\nCFTC Regulation. The Dodd-Frank Wall Street Reform and Consumer Protection Act resulted in increased CFTC regulation of our use of certain regulated derivatives products, as well as the operations of some of our subsidiaries outside the U.S. and their customers.\n\nCanadian Regulation\n\nRegulation of Nasdaq Canada is performed by the Canadian Securities Administrators, an umbrella organization of Canada\u2019s provincial and territorial securities regulators. As a recognized exchange in Ontario, Nasdaq Canada must comply with the terms and conditions of its exchange recognition order. While exempt from exchange recognition in each jurisdiction in Canada other than Ontario where Nasdaq Canada carries on business, Nasdaq must also comply with the terms and conditions of an exemption order granted by the other jurisdictions in order to maintain its exemptive status. Oversight of the exchange is performed by Nasdaq Canada\u2019s lead regulator, the Ontario Securities Commission.\n\nNasdaq Canada is subject to several national marketplace related instruments which set out requirements for marketplace operations, trading rules and managing electronic trading risk. Exchange terms and conditions include but are not limited to, requirements for governance, regulation, rules and rulemaking, fair access, conflict management and financial viability.\n\nEuropean Regulation\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nBroker-dealer regulation. Nasdaq\u2019s broker-dealer subsidiaries are subject to regulation by the SEC, the SROs and various state securities regulators. Nasdaq operates three broker-dealers: Nasdaq Execution Services, LLC, NFSTX, LLC, and Nasdaq Capital Markets Advisory LLC. Each broker-dealer is registered with the SEC, a member of FINRA and registered in the U.S. states and territories required by the operation of its business. In addition, we own a minority interest in The NASDAQ Private Market, LLC.\n\nNasdaq Execution Services operates as our routing broker for sending orders from Nasdaq\u2019s U.S. cash equity and options exchanges to other venues for execution. NFSTX is a registered ATS and acts as an intermediary to facilitate secondary transactions in certain funds (both registered or not registered under the Investment Company Act of 1940), business development companies, certain closed-end funds and private real estate investment funds. Nasdaq Capital Markets Advisory, or NCMA, is the distributor of product and strategy reports for its affiliate, Nasdaq Fund Network. Nasdaq Fund Network provides a comprehensive pricing, data, and analytics platform for investment products and provides coverage of unit investments trusts in product and strategy reports available to financial professionals and investors. NCMA submits product and strategy reports to FINRA\u2019s advertising review department prior to distribution.\n\nNCMA is also the distributor of investment strategy literature and research reports generated by its affiliate, Nasdaq Dorsey Wright, or NDW. It performs such functions pursuant to distribution/selling agreements. NDW is a Registered Investment Advisor that provides U.S. advisors proprietary investment strategies and research information. Members of the NDW sales team are registered with NCMA. This allows them to market and sell the suite of Dorsey Wright powered ETPs, along with designated additional ETPs tracking Nasdaq index-linked strategies, to U.S. based advisors and receive bonus compensation tied to the growth of those ETPs. The sales team also sells Nasdaq index-linked ETPs to institutional investors (such as pensions, endowments, and foundations) and facilitates seeding for newly launched Nasdaq index-linked ETPs and receives bonus compensation tied to revenue generated for Nasdaq from such activities.\n\nNeither NCMA nor NDW offer investment advice to clients. However, the research arm of NDW has research subscribers. The research tools are offered to assist financial advisors with managing their client portfolios and are not deemed investment advice.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Where is Nasdaq\u0027s U.S. headquarters?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s U.S. headquarters are located in New York, New York. (Source: NDAQ-10K-2025.html, PART I \u003E Item 2. Properties)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected New York."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "New York, New York at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "no figure stated",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "No figure stated - a text answer or a decline."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 65.2390055,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2380,
+          "outputTokenCount": 40,
+          "totalTokenCount": 2420
+        },
+        "cacheKey": "0BEAFFFDA9DCC1ABD0EBBD8FE530566E9FBA757D82D5AFAAB6ECCE9F18A9C87155B106D745A7341BB4A8EE42DE9312DA",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "excerpts:5",
+    "embedding:voyage-finance-2",
+    "kind:fact",
+    "company:NDAQ",
+    "statement:none",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}
