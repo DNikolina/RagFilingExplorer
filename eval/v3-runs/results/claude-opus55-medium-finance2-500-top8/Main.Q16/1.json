@@ -1,0 +1,112 @@
+{
+  "scenarioName": "Main.Q16",
+  "iterationName": "1",
+  "executionName": "claude-opus55-medium-finance2-500-top8",
+  "creationTime": "2026-10-13T18:52:36.3304598Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\r\n\u0060\u0060\u0060\r\nINCOME STATEMENTS\n\n(In millions, except per share amounts) Year Ended June 30,\nRevenue:\nRevenue \u003E Product \u2014 2026: $64,696 | 2025: $63,946 | 2024: $64,773\nRevenue \u003E Service and other \u2014 2026: 267,143 | 2025: 217,778 | 2024: 180,349\nRevenue \u003E Total revenue \u2014 2026: 331,839 | 2025: 281,724 | 2024: 245,122\nCost of revenue:\nCost of revenue \u003E Product \u2014 2026: 12,098 | 2025: 13,501 | 2024: 15,272\nCost of revenue \u003E Service and other \u2014 2026: 94,276 | 2025: 74,330 | 2024: 58,842\nCost of revenue \u003E Total cost of revenue \u2014 2026: 106,374 | 2025: 87,831 | 2024: 74,114\nGross margin \u2014 2026: 225,465 | 2025: 193,893 | 2024: 171,008\nResearch and development \u2014 2026: 35,562 | 2025: 32,488 | 2024: 29,510\nSales and marketing \u2014 2026: 26,710 | 2025: 25,654 | 2024: 24,456\nGeneral and administrative \u2014 2026: 7,956 | 2025: 7,223 | 2024: 7,609\nOperating income \u2014 2026: 155,237 | 2025: 128,528 | 2024: 109,433\nOther income (expense), net \u2014 2026: 10,697 | 2025: (4,901) | 2024: (1,646)\nIncome before income taxes \u2014 2026: 165,934 | 2025: 123,627 | 2024: 107,787\nProvision for income taxes \u2014 2026: 32,185 | 2025: 21,795 | 2024: 19,651\nNet income \u2014 2026: $133,749 | 2025: $101,832 | 2024: $88,136\nEarnings per share:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Income\n\n(in millions, except per share amounts)\n\nYear Ended December 31,\nRevenues:\nRevenues \u003E Capital Access Platforms \u2014 2025: $2,137 | 2024: $1,945 | 2023: $1,744\nRevenues \u003E Financial Technology \u2014 2025: 1,850 | 2024: 1,621 | 2023: 1,099\nRevenues \u003E Market Services \u2014 2025: 4,214 | 2024: 3,771 | 2023: 3,156\nRevenues \u003E Other revenues \u2014 2025: 61 | 2024: 63 | 2023: 65\nRevenues \u003E Total revenues \u2014 2025: 8,262 | 2024: 7,400 | 2023: 6,064\nTransaction-based expenses:\nTransaction-based expenses \u003E Transaction rebates \u2014 2025: (2,572) | 2024: (2,026) | 2023: (1,838)\nTransaction-based expenses \u003E Brokerage, clearance and exchange fees \u2014 2025: (441) | 2024: (725) | 2023: (331)\nRevenues less transaction-based expenses \u2014 2025: 5,249 | 2024: 4,649 | 2023: 3,895\nOperating expenses:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF OPERATIONS\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions, except per share data) Year Ended May 31,\nRevenues:\nRevenues \u003E Cloud \u2014 2026: $33,989 | 2025: $24,506 | 2024: $19,774\nRevenues \u003E Software \u2014 2026: 24,541 | 2025: 24,724 | 2024: 24,690\nRevenues \u003E Hardware \u2014 2026: 3,084 | 2025: 2,936 | 2024: 3,066\nRevenues \u003E Services \u2014 2026: 5,743 | 2025: 5,233 | 2024: 5,431\nRevenues \u003E Total revenues \u2014 2026: 67,357 | 2025: 57,399 | 2024: 52,961\nOperating expenses:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Segment Information ---\r\n\u0060\u0060\u0060\r\nGeographic Information\n\nDisclosed in the table below is geographic information for each country that comprised greater than three percent of our total revenues for any of fiscal 2026, 2025 or 2024:\n\n(in millions) As of and for the Year Ended May 31,\nU.S. \u2014 2026 Revenues: $39,835 | 2026 Long-Lived Assets(1): $102,717 | 2025 Revenues: $32,075 | 2025 Long-Lived Assets(1): $45,439 | 2024 Revenues: $29,055 | 2024 Long-Lived Assets(1): $24,798\nUnited Kingdom \u2014 2026 Revenues: 2,816 | 2026 Long-Lived Assets(1): 3,903 | 2025 Revenues: 2,594 | 2025 Long-Lived Assets(1): 2,530 | 2024 Revenues: 2,423 | 2024 Long-Lived Assets(1): 1,164\nGermany \u2014 2026 Revenues: 1,993 | 2026 Long-Lived Assets(1): 2,432 | 2025 Revenues: 1,817 | 2025 Long-Lived Assets(1): 2,013 | 2024 Revenues: 1,794 | 2024 Long-Lived Assets(1): 1,192\nJapan \u2014 2026 Revenues: 1,870 | 2026 Long-Lived Assets(1): 3,183 | 2025 Revenues: 1,759 | 2025 Long-Lived Assets(1): 2,320 | 2024 Revenues: 1,662 | 2024 Long-Lived Assets(1): 1,144\nOther countries \u2014 2026 Revenues: 20,843 | 2026 Long-Lived Assets(1): 21,029 | 2025 Revenues: 19,154 | 2025 Long-Lived Assets(1): 7,841 | 2024 Revenues: 18,027 | 2024 Long-Lived Assets(1): 3,962\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\n(Dollars in millions) Year Ended May 31,\nTotal Revenues by Business \u003E Cloud and software \u2014 2026: $58,530 | Percent Change Actual: 19% | Percent Change Constant: 17% | 2025: $49,230\nTotal Revenues by Business \u003E Hardware \u2014 2026: 3,084 | Percent Change Actual: 5% | Percent Change Constant: 3% | 2025: 2,936\nTotal Revenues by Business \u003E Services \u2014 2026: 5,743 | Percent Change Actual: 10% | Percent Change Constant: 8% | 2025: 5,233\nTotal Revenues by Business \u003E Total revenues \u2014 2026: $67,357 | Percent Change Actual: 17% | Percent Change Constant: 16% | 2025: $57,399\n% Revenues by Business:\n% Revenues by Business \u003E Cloud and software \u2014 2026: 87% | 2025: 86%\n% Revenues by Business \u003E Hardware \u2014 2026: 5% | 2025: 5%\n% Revenues by Business \u003E Services \u2014 2026: 8% | 2025: 9%\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Accounting Policies ---\r\n\u0060\u0060\u0060\r\nNOTES TO FINANCIAL STATEMENTS\n\nNOTE 1 \u2014 ACCOUNTING POLICIES\n\nAccounting Principles\n\nOur consolidated financial statements and accompanying notes are prepared in accordance with accounting principles generally accepted in the United States of America.\n\nPrinciples of Consolidation\n\nThe consolidated financial statements include the accounts of Microsoft Corporation and its subsidiaries. Intercompany transactions and balances have been eliminated.\n\nRecast of Certain Prior Period Information\n\nWe have recast certain prior period amounts on our consolidated cash flows statements to conform to the current period presentation. The recast of these prior period amounts had no impact on our consolidated balance sheets, consolidated income statements, or net cash from (used in) operations, investing, or financing on our consolidated cash flows statements.\n\nEstimates and Assumptions\n\nPreparing financial statements requires management to make estimates and assumptions that affect the reported amounts of assets, liabilities, revenue, and expenses. Examples of estimates and assumptions include: for revenue recognition, determining the nature and timing of satisfaction of performance obligations, and determining the standalone selling price (\u201CSSP\u201D) of performance obligations, variable consideration, and other obligations such as product returns and refunds; loss contingencies; the fair value of and/or potential impairment of goodwill and intangible assets for our reporting units; product life cycles; useful lives of our tangible and intangible assets; allowances for doubtful accounts; stock-based compensation forfeiture rates; when technological feasibility is achieved for our products; the potential outcome of uncertain tax positions that have been recognized in our consolidated financial statements or tax returns; and determining the timing and amount of measurement adjustments or impairments for investments. Actual results and outcomes may differ from management\u2019s estimates and assumptions due to risks and uncertainties.\n\nForeign Currencies\n\nAssets and liabilities recorded in foreign currencies are translated at the exchange rate on the balance sheet date. Revenue and expenses are translated at average rates of exchange prevailing during the year. Translation adjustments resulting from this process are recorded to other comprehensive income.\n\nRevenue\n\nProduct Revenue and Service and Other Revenue\n\nProduct revenue includes sales from operating systems, server applications, business solution applications, software development tools, desktop and server management tools, video games, and hardware such as PCs, tablets, gaming and entertainment consoles, other intelligent devices, and related accessories.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements \u003E Stockholders\u0027 Equity ---\r\n\u0060\u0060\u0060\r\nThe aggregate intrinsic value in the table above represents the total pretax intrinsic value (the difference between the Company\u2019s closing stock price on the last trading day of 2025 and the exercise price, multiplied by the number of in-the-money options) that would have been\n\nreceived by the option holders had all option holders exercised their options on the last trading day of 2025. This amount changes based on the fair market value of the Company\u2019s common stock.\n\nA summary of the amounts related to option exercises, is as follows:\n\n(in thousands) Year Ended December 31,\nTotal intrinsic value of options exercised \u2014 2025: $2,560,914 | 2024: $2,352,829 | 2023: $610,594\nCash received from options exercised \u2014 2025: 666,965 | 2024: 832,887 | 2023: 169,990\n\nThe total fair value of stock options that vested during the years ended December\u00A031, 2025, 2024 and 2023 was $251\u00A0million, $242\u00A0million and $311\u00A0million, respectively.\n\nRestricted Stock Unit Activity\n\nThe following table summarizes the activities related to the Company\u2019s unvested RSUs and PSUs, as adjusted for the Stock Split:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Business Segments ---\r\n\u0060\u0060\u0060\r\n(in millions) December 31, 2023\nTotal revenues \u2014 Capital Access Platforms: $1,744 | Financial Technology: $1,099 | Market Services: $3,156 | Corporate: $65 | Total: $6,064\nTransaction- based expenses \u2014 Market Services: (2,169) | Total: (2,169)\nRevenues less transaction- based expenses \u2014 Capital Access Platforms: 1,744 | Financial Technology: 1,099 | Market Services: 987 | Corporate: 65 | Total: 3,895\nDirectly consumed expenses \u2014 Capital Access Platforms: 625 | Financial Technology: 536 | Market Services: 330 | Total: 1,491\nOther expenses \u2014 Capital Access Platforms: 146 | Financial Technology: 69 | Market Services: 75 | Corporate: 536 | Total: 826\nOperating income \u2014 Capital Access Platforms: $973 | Financial Technology: $494 | Market Services: $582 | Corporate: $(471) | Total: $1,578\nDepreciation and amortization \u2014 Capital Access Platforms: 37 | Financial Technology: 36 | Market Services: 34 | Corporate: 216 | Total: 323\nPurchases of property and equipment \u2014 Capital Access Platforms: 53 | Financial Technology: 50 | Market Services: 55 | Total: 158\n\nDirectly consumed expenses in the table above include both direct and directly consumed costs for resources directly used by the segment for revenue generating activities. Other expenses include indirect overhead costs allocated to our segments. During the first year of integration of certain significant acquisitions such as Adenza or Verafin, the allocation of these indirect overhead costs to the Financial Technology segment were phased in and therefore these allocations may change in the future. Other expenses also includes expenses allocated to our Corporate segment. The following tables summarize revenues and expenses allocated to our Corporate segment:\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Apple\u0027s revenue last year?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The excerpts don\u0027t contain Apple\u0027s revenue for last year."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "decline-ok",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Declines correctly: the filings don\u0027t contain this."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-8 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "Not scored: a negative has no answer to find."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "no figure stated",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "No figure stated - a text answer or a decline."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 1.2291959,
+        "model": "claude-opus-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 5000,
+          "outputTokenCount": 41,
+          "totalTokenCount": 5041,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "2261ABC0D025297E355A2037D338131C59C2FC639702F4F31E4A3378A72DF7D8B0C4F9D3CE896411992123BDC36ADA07",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-opus-5-5",
+    "effort:Medium/Medium",
+    "excerpts:8",
+    "embedding:voyage-finance-2",
+    "kind:negative",
+    "company:none",
+    "statement:income_statement",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

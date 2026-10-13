@@ -4635,6 +4635,36 @@ code, chunks, prompt and settings, only the embedder differs (6.3 min, 371K + 31
 - **finance-2 is worth +2 strictly, +3 read, to Opus**, all by retrieval; llama gained +2 the same way. The two misses left
   on finance-2 (A11 rank 7, A14 rank 6) are retrieval too.
 
+**Opus on finance-2 at 10,000 tokens, 5 excerpts: 101/102 strictly, 102/102 read (user, 2026-10-13).**
+`claude-opus55-medium-finance2-10000` (7.6 min). Every answer ranked in the top 5 on this index (the rank run), and Opus
+reads them all: **A11 and A14 fixed** (whole cash-flow statements in one excerpt), H11 now `reliable`; the one strict
+failure is A12, the same correct answer as at 500 ("never declared or paid any cash dividends") outside the decline form.
+Main 40, held-out 35, answer-side 26 (`compare-opus-finance2-500-vs-10000.txt`: 3 grade changes, all gains).
+- **Cost: 2,525,675 input tokens** (~25K a question; up to ~50K when long narrative chunks are retrieved) + 30K output -
+  7x the 500-token run's 357K. Estimated from two smoke questions at ~16K each, which ran small: the estimate given
+  ($6-8) was low; **the run cost $10.70** (from the console). A smoke run of two questions doesn't
+  predict a big-chunk run's cost - the chunk sizes retrieved vary too much.
+- So: bigger chunks give the best answers - everything as read - at ~4-5x the cost per run of 500-token chunks and 5
+  excerpts (98 / 100). 500 tokens with a top 8 (~3,000 tokens of excerpts, every answer within rank 8) is the measured-by-
+  rank middle, not yet answered.
+
+**Opus on finance-2 at 500 tokens, 8 excerpts: 101/102 strictly, 102/102 read - the 10,000-token result at a fifth of the
+input (user, 2026-10-13).** `claude-opus55-medium-finance2-500-top8` (`Claude__GenerationTopK=8` for the run; shipped 5),
+6.5 min, 552,977 input + 29K output tokens, **$2.80** (its smoke run included).
+
+| Opus, finance-2 | 500, top 5 | 500, top 8 | 10,000, top 5 |
+|---|---|---|---|
+| Main / held-out / answer-side | 40 / 34 / 24 | 40 / 35 / 26 | 40 / 35 / 26 |
+| Strictly / read | 98 / 100 | **101 / 102** | 101 / 102 |
+| Input tokens | 357K | 553K ($2.80) | 2.53M ($10.70) |
+
+- Against top 5 (`compare-opus-finance2-500-top5-vs-top8.txt`): **A11, A14, H11 gained**, nothing lost; A12 the only strict
+  failure, as in every Opus run on finance-2 (a correct answer outside the decline form).
+- **The rank experiments' conclusion holds for answers:** bigger chunks and more excerpts are one lever - how much text
+  the model reads - and small chunks pulled deeper reach the same answers for much less. Best measured for Claude:
+  `voyage-finance-2`, 500-token chunks, 8 excerpts. llama can't take 8 at num_ctx 4,096 (PromptFit refuses it); on the
+  Mac, with a larger `Ollama:ContextLength`, it can.
+
 **Ollama build for batch 3: 0.40.2** (installed 2026-10-09 from the auto-updater's staged, Ollama-signed installer;
 0.40.0 -> 0.40.1 had auto-installed that morning). `nomic-embed-text` (0a109f422b47) and `llama3.1:8b` (46e0c10c039e)
 unchanged - not upgraded by 0.40's background model conversion. 0.40.0 reproduced 0.35.1's answers (above); 0.40.2 is

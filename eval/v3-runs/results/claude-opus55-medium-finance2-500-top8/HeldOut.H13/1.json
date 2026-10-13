@@ -1,0 +1,118 @@
+{
+  "scenarioName": "HeldOut.H13",
+  "iterationName": "1",
+  "executionName": "claude-opus55-medium-finance2-500-top8",
+  "creationTime": "2026-10-13T18:54:32.5779424Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF CASH FLOWS\n\n(in thousands)\n\nYear Ended December 31,\nCash flows from financing activities \u003E Proceeds from issuance of debt \u2014 2024: 1,794,460\nCash flows from financing activities \u003E Repayments of debt \u2014 2025: (1,833,450) | 2024: (400,000)\nCash flows from financing activities \u003E Proceeds from issuance of common stock \u2014 2025: 666,965 | 2024: 832,887 | 2023: 169,990\nCash flows from financing activities \u003E Repurchases of common stock \u2014 2025: (9,127,167) | 2024: (6,263,746) | 2023: (6,045,347)\nCash flows from financing activities \u003E Taxes paid related to net share settlement of equity awards \u2014 2025: (46,165) | 2024: (8,285)\nCash flows from financing activities \u003E Other financing activities \u2014 2025: (5,806) | 2024: (29,743) | 2023: (75,446)\nCash flows from financing activities \u003E Net cash used in financing activities \u2014 2025: (10,345,623) | 2024: (4,074,427) | 2023: (5,950,803)\nEffect of exchange rate changes on cash, cash equivalents and restricted cash \u2014 2025: 386,519 | 2024: (416,331) | 2023: 82,684\nNet increase in cash, cash equivalents and restricted cash \u2014 2025: 1,231,857 | 2024: 688,822 | 2023: 1,947,933\nCash, cash equivalents and restricted cash, beginning of year \u2014 2025: 7,807,337 | 2024: 7,118,515 | 2023: 5,170,582\nCash, cash equivalents and restricted cash, end of year \u2014 2025: $9,039,194 | 2024: $7,807,337 | 2023: $7,118,515\nSupplemental disclosure:\nSupplemental disclosure \u003E Interest paid \u2014 2025: 718,611 | 2024: 674,502 | 2023: 684,504\n\nSee accompanying notes to consolidated financial statements.\n\nNETFLIX, INC.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED BALANCE SHEETS\n\n(in thousands, except share and per share data)\n\nAs of December 31,\nAssets\nCurrent assets:\nCurrent assets \u003E Cash and cash equivalents \u2014 2025: $9,033,681 | 2024: $7,804,733\nCurrent assets \u003E Short-term investments \u2014 2025: 28,678 | 2024: 1,779,006\nCurrent assets \u003E Other current assets \u2014 2025: 3,957,832 | 2024: 3,516,640\nCurrent assets \u003E Total current assets \u2014 2025: 13,020,191 | 2024: 13,100,379\nContent assets, net \u2014 2025: 32,778,392 | 2024: 32,452,462\nProperty and equipment, net \u2014 2025: 2,004,350 | 2024: 1,593,756\nOther non-current assets \u2014 2025: 7,794,060 | 2024: 6,483,777\nTotal assets \u2014 2025: $55,596,993 | 2024: $53,630,374\nLiabilities and Stockholders\u2019 Equity\nCurrent liabilities:\nCurrent liabilities \u003E Current content liabilities \u2014 2025: $4,084,854 | 2024: $4,393,681\nCurrent liabilities \u003E Accounts payable \u2014 2025: 900,612 | 2024: 899,909\nCurrent liabilities \u003E Accrued expenses and other liabilities \u2014 2025: 3,220,869 | 2024: 2,156,544\nCurrent liabilities \u003E Deferred revenue \u2014 2025: 1,775,730 | 2024: 1,520,813\nCurrent liabilities \u003E Short-term debt \u2014 2025: 998,865 | 2024: 1,784,453\nCurrent liabilities \u003E Total current liabilities \u2014 2025: 10,980,930 | 2024: 10,755,400\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements \u003E Cash, Cash Equivalents, Restricted Cash, and Short-term Investments ---\r\n\u0060\u0060\u0060\r\n4. Cash, Cash Equivalents, Restricted Cash, and Short-term Investments\n\nThe Company classifies short-term investments, which consist of marketable securities with original maturities in excess of 90 days as available-for-sale (\u201CAFS\u201D). The Company does not buy and hold securities principally for the purpose of selling them in the near future. The Company\u2019s policy is focused on the preservation of capital, liquidity and return. From time to time, the Company may sell certain securities but the objectives are generally not to generate profits on short-term differences in price.\n\nThe following tables summarize the Company\u0027s cash, cash equivalents, restricted cash and short-term investments as of December\u00A031, 2025 and 2024:\n\n(in thousands) As of December 31, 2025\nCash \u2014 Amortized Cost: $5,214,163 | Gross Unrealized Gains: $\u2014 | Gross Unrealized Losses: $\u2014 | Estimated Fair Value: $5,214,163 | Cash and cash equivalents: $5,208,710 | Short-term investments: $\u2014 | Other Current Assets: $5,369 | Non-current Assets: $84\nLevel 1 securities:\nLevel 1 securities \u003E Money market funds \u2014 Amortized Cost: 3,259,240 | Estimated Fair Value: 3,259,240 | Cash and cash equivalents: 3,259,180 | Non-current Assets: 60\nLevel 2 securities:\nLevel 2 securities \u003E Time Deposits(1) \u2014 Amortized Cost: 594,469 | Estimated Fair Value: 594,469 | Cash and cash equivalents: 565,791 | Short-term investments: 28,678\nAmortized Cost: $9,067,872 | Gross Unrealized Gains: $\u2014 | Gross Unrealized Losses: $\u2014 | Estimated Fair Value: $9,067,872 | Cash and cash equivalents: $9,033,681 | Short-term investments: $28,678 | Other Current Assets: $5,369 | Non-current Assets: $144\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nProvision for Income Taxes\n\n(in thousands, except percentages)\nProvision for income taxes \u2014 Year Ended December 31, 2025: $1,741,351 | Year Ended December 31, 2024: $1,254,026 | Year Ended December 31, 2023: $797,415 | Change 2025 vs. 2024: $487,325 / 39%\nEffective tax rate \u2014 Year Ended December 31, 2025: 14% | Year Ended December 31, 2024: 13% | Year Ended December 31, 2023: 13%\n\nThe increase in our effective tax rate for the year ended December\u00A031, 2025, as compared to the year ended December\u00A031, 2024, is primarily due to a decrease in tax benefits associated with federal research and development tax credits as well as the growth in income before taxes exceeding the growth in excess tax benefits from stock-based compensation. See Note 11 Income Taxes to the consolidated financial statements for further information regarding income taxes.\n\nLiquidity and Capital Resources\n\n(in thousands, except percentages)\nCash, cash equivalents, restricted cash and short-term investments \u2014 As of December 31, 2025: $9,067,872 | As of December 31, 2024: $9,586,343 | Change 2025 vs. 2024: $(518,471) / (5)%\nShort-term and long-term debt \u2014 As of December 31, 2025: 14,462,836 | As of December 31, 2024: 15,582,804 | Change 2025 vs. 2024: (1,119,968) / (7)%\n\nCash, cash equivalents, restricted cash and short-term investments decreased $518 million in the year ended December\u00A031, 2025 primarily due to the repurchase of stock and repayment of debt, partially offset by cash provided by operations.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nCash, cash equivalents, restricted cash and short-term investments decreased $518 million in the year ended December\u00A031, 2025 primarily due to the repurchase of stock and repayment of debt, partially offset by cash provided by operations.\n\nDebt, net of debt issuance costs and discounts, decreased $1,120 million primarily due to approximately $1,833\u00A0million in repayments of debt, partially offset by the remeasurement of our Euro-denominated notes in the year ended December\u00A031, 2025. The amount of principal and interest on our outstanding notes due in the next twelve months is $1,690\u00A0million. See Note 7 Debt in the accompanying notes to our consolidated financial statements.\n\nUses of Cash\n\nOur primary uses of cash include the acquisition, licensing and production of content, marketing programs, streaming delivery, and personnel-related costs. Cash payment terms for non-original content have historically been in line with the amortization period. Investments in original content, and in particular content that we produce and own, require more cash upfront relative to licensed content. For example, production costs are paid as the content is created, well in advance of when the content is available on the service and amortized. We expect to continue to significantly invest in global content, particularly in original content, which will impact our liquidity. Our other uses of cash include strategic acquisitions and investments, as well as share repurchases. See the \u201CMaterial Cash Requirements\u201D section below for further detail on our expected use of cash in connection with the WBD transaction.\n\nFinancing Arrangements\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF CASH FLOWS\n\n(in thousands)\n\nYear Ended December 31,\nCash flows from operating activities:\nCash flows from operating activities \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\nAdjustments to reconcile net income to net cash provided by operating activities:\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Additions to content assets \u2014 2025: (17,096,617) | 2024: (16,223,617) | 2023: (12,554,703)\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Change in content liabilities \u2014 2025: (610,838) | 2024: (779,135) | 2023: (585,602)\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Amortization of content assets \u2014 2025: 16,422,166 | 2024: 15,301,517 | 2023: 14,197,437\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Depreciation and amortization of property, equipment and intangibles \u2014 2025: 333,389 | 2024: 328,914 | 2023: 356,947\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Stock-based compensation expense \u2014 2025: 368,449 | 2024: 272,588 | 2023: 339,368\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Foreign currency remeasurement loss (gain) on debt \u2014 2025: 72,348 | 2024: (121,539) | 2023: 176,296\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Other non-cash items \u2014 2025: 577,451 | 2024: 494,778 | 2023: 512,075\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Deferred income taxes \u2014 2025: (442,056) | 2024: (590,698) | 2023: (459,359)\nChanges in operating assets and liabilities:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF CASH FLOWS\n\n(in thousands)\n\nYear Ended December 31,\nChanges in operating assets and liabilities \u003E Other current assets \u2014 2025: (790,661) | 2024: 22,180 | 2023: (181,003)\nChanges in operating assets and liabilities \u003E Accounts payable \u2014 2025: (8,039) | 2024: 121,353 | 2023: 93,502\nChanges in operating assets and liabilities \u003E Accrued expenses and other liabilities \u2014 2025: 881,218 | 2024: 191,899 | 2023: 103,565\nChanges in operating assets and liabilities \u003E Deferred revenue \u2014 2025: 254,917 | 2024: 77,844 | 2023: 178,708\nChanges in operating assets and liabilities \u003E Other non-current assets and liabilities \u2014 2025: (793,655) | 2024: (446,351) | 2023: (310,920)\nNet cash provided by operating activities \u2014 2025: 10,149,273 | 2024: 7,361,364 | 2023: 7,274,301\nCash flows from investing activities:\nCash flows from investing activities \u003E Purchases of property and equipment \u2014 2025: (688,220) | 2024: (439,538) | 2023: (348,552)\nCash flows from investing activities \u003E Acquisitions \u2014 2025: (17,194)\nCash flows from investing activities \u003E Purchases of investments \u2014 2025: (169,965) | 2024: (1,742,246) | 2023: (504,862)\nCash flows from investing activities \u003E Proceeds from maturities and sales of investments \u2014 2025: 1,917,067 | 2023: 1,395,165\nCash flows from investing activities \u003E Net cash provided by (used in) investing activities \u2014 2025: 1,041,688 | 2024: (2,181,784) | 2023: 541,751\nCash flows from financing activities:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements \u003E Cash, Cash Equivalents, Restricted Cash, and Short-term Investments ---\r\n\u0060\u0060\u0060\r\n(in thousands) As of December 31, 2024\nCash \u2014 Amortized Cost: $4,866,753 | Gross Unrealized Gains: $\u2014 | Gross Unrealized Losses: $\u2014 | Estimated Fair Value: $4,866,753 | Cash and cash equivalents: $4,864,207 | Short-term investments: $\u2014 | Other Current Assets: $2,472 | Non-current Assets: $74\nLevel 1 securities:\nLevel 1 securities \u003E Money market funds \u2014 Amortized Cost: 2,676,314 | Estimated Fair Value: 2,676,314 | Cash and cash equivalents: 2,676,256 | Non-current Assets: 58\nLevel 2 securities:\nLevel 2 securities \u003E Time Deposits(1) \u2014 Amortized Cost: 301,374 | Estimated Fair Value: 301,374 | Cash and cash equivalents: 264,270 | Short-term investments: 37,104\nLevel 2 securities \u003E Government securities \u2014 Amortized Cost: 1,738,642 | Gross Unrealized Gains: 3,260 | Estimated Fair Value: 1,741,902 | Short-term investments: 1,741,902\nAmortized Cost: $9,583,083 | Gross Unrealized Gains: $3,260 | Gross Unrealized Losses: $\u2014 | Estimated Fair Value: $9,586,343 | Cash and cash equivalents: $7,804,733 | Short-term investments: $1,779,006 | Other Current Assets: $2,472 | Non-current Assets: $132\n\n(1) The majority of the Company\u0027s time deposits are international deposits, which mature within one year.\n\nOther current assets and non-current assets primarily consist of restricted cash for deposits related to self-insurance. The fair value of AFS securities, cash equivalents and short-term investments included in the Level 2 category is based on observable inputs, such as quoted prices for similar assets at the measurement date; quoted prices in markets that are not active; or other inputs that are observable, either directly or indirectly.\n\nSee Note 7 Debt and Note 8 Derivative Financial Instruments and Hedging Activities to the consolidated financial statements for further information regarding the fair value of the Company\u2019s senior notes and derivative financial instruments.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Netflix\u0027s cash and cash equivalents at December 31, 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s Cash and cash equivalents were $9,033,681 thousand as of December 31, 2025 (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements). This is a separate line from \u0022Cash, cash equivalents and restricted cash, end of year,\u0022 which was $9,039,194 thousand for the year ended December 31, 2025 (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 9,033,681 thousand."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-8 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "9,033,681 at rank 2 of 25 - in the model\u0027s context (top 8)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 9,033,681 from excerpts 2 (balance_sheet), 3 (narrative), 9,039,194 from excerpt 1 (cash_flow_statement)."
+        },
+        "metadata": {
+          "Stated 9,033,681": "excerpt 2 (balance_sheet, PART IV \u003E Financial Statements): \u0022Current assets \u003E Cash and cash equivalents \u2014 2025: $9,033,681 | 2024: $7,804,733\u0022; excerpt 3 (narrative, PART IV \u003E Financial Statements \u003E Cash, Cash Equivalents, Restricted Cash, and Short-term Investments): \u0022...zed Losses: $\u2014 | Estimated Fair Value: $9,067,872 | Cash and cash equivalents: $9,033,681 | Short-term investments: $28,678 | Other Current Assets: $5,369 | Non...\u0022",
+          "Stated 9,039,194": "excerpt 1 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022Cash, cash equivalents and restricted cash, end of year \u2014 2025: $9,039,194 | 2024: $7,807,337 | 2023: $7,118,515\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 2.7619858,
+        "model": "claude-opus-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 5852,
+          "outputTokenCount": 289,
+          "totalTokenCount": 6141,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "BE09D0F77EFF4C27A526B0389E0B096CA80BC13CBE43FBF987922BBEE36915236B1293E157D5CFEC9BD92FE94D9E924A",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-opus-5-5",
+    "effort:Medium/Medium",
+    "excerpts:8",
+    "embedding:voyage-finance-2",
+    "kind:figure",
+    "has traps",
+    "company:NFLX",
+    "statement:none",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

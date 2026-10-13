@@ -1,0 +1,112 @@
+{
+  "scenarioName": "HeldOut.H20",
+  "iterationName": "1",
+  "executionName": "claude-opus55-medium-finance2-500-top8",
+  "creationTime": "2026-10-13T18:54:55.1483003Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\r\n\u0060\u0060\u0060\r\nINCOME STATEMENTS\n\n(In millions, except per share amounts) Year Ended June 30,\nRevenue:\nRevenue \u003E Product \u2014 2026: $64,696 | 2025: $63,946 | 2024: $64,773\nRevenue \u003E Service and other \u2014 2026: 267,143 | 2025: 217,778 | 2024: 180,349\nRevenue \u003E Total revenue \u2014 2026: 331,839 | 2025: 281,724 | 2024: 245,122\nCost of revenue:\nCost of revenue \u003E Product \u2014 2026: 12,098 | 2025: 13,501 | 2024: 15,272\nCost of revenue \u003E Service and other \u2014 2026: 94,276 | 2025: 74,330 | 2024: 58,842\nCost of revenue \u003E Total cost of revenue \u2014 2026: 106,374 | 2025: 87,831 | 2024: 74,114\nGross margin \u2014 2026: 225,465 | 2025: 193,893 | 2024: 171,008\nResearch and development \u2014 2026: 35,562 | 2025: 32,488 | 2024: 29,510\nSales and marketing \u2014 2026: 26,710 | 2025: 25,654 | 2024: 24,456\nGeneral and administrative \u2014 2026: 7,956 | 2025: 7,223 | 2024: 7,609\nOperating income \u2014 2026: 155,237 | 2025: 128,528 | 2024: 109,433\nOther income (expense), net \u2014 2026: 10,697 | 2025: (4,901) | 2024: (1,646)\nIncome before income taxes \u2014 2026: 165,934 | 2025: 123,627 | 2024: 107,787\nProvision for income taxes \u2014 2026: 32,185 | 2025: 21,795 | 2024: 19,651\nNet income \u2014 2026: $133,749 | 2025: $101,832 | 2024: $88,136\nEarnings per share:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS ---\r\n\u0060\u0060\u0060\r\nThe following Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations (\u201CMD\u0026A\u201D) is intended to help the reader understand the results of operations and financial condition of Microsoft Corporation. MD\u0026A is provided as a supplement to, and should be read in conjunction with, our consolidated financial statements and the accompanying Notes to Financial Statements (Part II, Item 8 of this Form 10-K). This section generally discusses the results of our operations for the year ended June 30, 2026 compared to the year ended June 30, 2025. For a discussion of the year ended June 30, 2025 compared to the year ended June 30, 2024, please refer to Part II, Item 7, \u201CManagement\u2019s Discussion and Analysis of Financial Condition and Results of Operations\u201D in our Annual Report on Form 10-K for the year ended June 30, 2025.\n\nOVERVIEW\n\nMicrosoft is a technology company committed to making digital technology and artificial intelligence (\u201CAI\u201D) available broadly and doing so responsibly, with a mission to empower every person and every organization on the planet to achieve more. We create platforms and applications, powered by AI, that deliver innovative solutions that meet the evolving needs of our customers.\n\nWe generate revenue by offering a wide range of cloud-based solutions, content, and other services to people and businesses; licensing and supporting an array of software products; delivering relevant online advertising to a global audience; and designing and selling devices. Our most significant expenses are related to compensating employees; supporting and investing in our cloud-based services, including datacenter operations; designing, manufacturing, marketing, and selling our other products and services; and income taxes.\n\nHighlights from fiscal year 2026 compared with fiscal year 2025 included:\n\n\u2022 Microsoft Cloud revenue increased 27% to $214.4 billion.\n\n\u2022 Commercial remaining performance obligation increased 84% to $678 billion.\n\n\u2022 Microsoft 365 Commercial cloud revenue increased 17%.\n\n\u2022 Microsoft 365 Consumer cloud revenue increased 28%.\n\n\u2022 LinkedIn revenue increased 11%.\n\n\u2022 Dynamics 365 revenue increased 18%.\n\n\u2022 Azure and other cloud services revenue increased 41%.\n\n\u2022 Windows OEM and Devices revenue decreased slightly.\n\n\u2022 XBOX content and services revenue decreased 5%.\n\n\u2022 Search advertising (formerly Search and news advertising) revenue excluding traffic acquisition costs increased 12%.\n\nIndustry Trends and Opportunities\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Segment Information and Geographic Data ---\r\n\u0060\u0060\u0060\r\n(In millions) Year Ended June 30,\nProductivity and Business Processes\nProductivity and Business Processes \u003E Revenue \u2014 2026: $139,996 | 2025: $120,810 | 2024: $106,820\nProductivity and Business Processes \u003E Cost of revenue \u2014 2026: 25,017 | 2025: 22,422 | 2024: 19,611\nProductivity and Business Processes \u003E Operating expenses \u2014 2026: 31,100 | 2025: 28,615 | 2024: 27,548\nProductivity and Business Processes \u003E Operating income \u2014 2026: $83,879 | 2025: $69,773 | 2024: $59,661\nIntelligent Cloud\nIntelligent Cloud \u003E Revenue \u2014 2026: $137,791 | 2025: $106,265 | 2024: $87,464\nIntelligent Cloud \u003E Cost of revenue \u2014 2026: 57,876 | 2025: 40,171 | 2024: 29,611\nIntelligent Cloud \u003E Operating expenses \u2014 2026: 22,943 | 2025: 21,505 | 2024: 20,040\nIntelligent Cloud \u003E Operating income \u2014 2026: $56,972 | 2025: $44,589 | 2024: $37,813\nMore Personal Computing\nMore Personal Computing \u003E Revenue \u2014 2026: $54,052 | 2025: $54,649 | 2024: $50,838\nMore Personal Computing \u003E Cost of revenue \u2014 2026: 23,481 | 2025: 25,238 | 2024: 24,892\nMore Personal Computing \u003E Operating expenses \u2014 2026: 16,185 | 2025: 15,245 | 2024: 13,987\nMore Personal Computing \u003E Operating income \u2014 2026: $14,386 | 2025: $14,166 | 2024: $11,959\nTotal\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Segment Information and Geographic Data ---\r\n\u0060\u0060\u0060\r\n(In millions) Year Ended June 30,\nTotal \u003E Revenue \u2014 2026: $331,839 | 2025: $281,724 | 2024: $245,122\nTotal \u003E Cost of revenue \u2014 2026: 106,374 | 2025: 87,831 | 2024: 74,114\nTotal \u003E Operating expenses \u2014 2026: 70,228 | 2025: 65,365 | 2024: 61,575\nTotal \u003E Operating income \u2014 2026: $155,237 | 2025: $128,528 | 2024: $109,433\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\r\n\u0060\u0060\u0060\r\nINCOME STATEMENTS\n\n(In millions, except per share amounts) Year Ended June 30,\nEarnings per share \u003E Basic \u2014 2026: $18.00 | 2025: $13.70 | 2024: $11.86\nEarnings per share \u003E Diluted \u2014 2026: $17.95 | 2025: $13.64 | 2024: $11.80\nWeighted average shares outstanding:\nWeighted average shares outstanding \u003E Basic \u2014 2026: 7,429 | 2025: 7,433 | 2024: 7,431\nWeighted average shares outstanding \u003E Diluted \u2014 2026: 7,453 | 2025: 7,465 | 2024: 7,469\n\nRefer to accompanying notes.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS ---\r\n\u0060\u0060\u0060\r\n(In millions, except percentages)\nTotal \u003E Revenue \u2014 2026: $331,839 | 2025: $281,724 | Percentage Change: 18%\nTotal \u003E Cost of revenue \u2014 2026: 106,374 | 2025: 87,831 | Percentage Change: 21%\nTotal \u003E Operating expenses \u2014 2026: 70,228 | 2025: 65,365 | Percentage Change: 7%\nTotal \u003E Operating income \u2014 2026: $155,237 | 2025: $128,528 | Percentage Change: 21%\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS ---\r\n\u0060\u0060\u0060\r\nOur success is highly dependent on our ability to attract and retain qualified employees. We hire a mix of university and industry talent worldwide. We compete for talented individuals globally by offering an exceptional working environment, broad customer reach, scale in resources, the ability to grow one\u2019s career across many different products and businesses, and competitive compensation and benefits.\n\nOur international operations provide a significant portion of our total revenue and expenses. Many of these revenue and expenses are denominated in currencies other than the U.S. dollar. As a result, changes in foreign exchange rates may significantly affect revenue and expenses. Fluctuations in the U.S. dollar relative to certain foreign currencies increased reported revenue and did not have a material impact on reported expenses from our international operations in fiscal year 2026.\n\nFurther, global, regional, and local economic developments and changes in global trade policies such as restrictions on international trade, including tariffs and other controls on imports or exports, could result in increased supply chain challenges, cost volatility, and consumer and economic uncertainty which may adversely affect our results of operations.\n\nRefer to Risk Factors (Part I, Item 1A of this Form 10-K) for a discussion of these factors and other risks.\n\nSeasonality\n\nOur revenue fluctuates quarterly and is generally higher in the fourth quarter of our fiscal year. Fourth quarter revenue is driven by a higher volume of multi-year contracts executed during the period.\n\nReportable Segments\n\nWe report our financial performance based on the following three segments: Productivity and Business Processes, Intelligent Cloud, and More Personal Computing. The segment amounts included in MD\u0026A are presented on a basis consistent with our internal management reporting.\n\nAdditional information on our reportable segments is contained in Note 18 \u2013 Segment Information and Geographic Data of the Notes to Financial Statements (Part II, Item 8 of this Form 10-K).\n\nMetrics\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA \u003E Accounting Policies ---\r\n\u0060\u0060\u0060\r\nProduct revenue includes sales from operating systems, server applications, business solution applications, software development tools, desktop and server management tools, video games, and hardware such as PCs, tablets, gaming and entertainment consoles, other intelligent devices, and related accessories.\n\nService and other revenue includes sales from cloud-based solutions that provide customers with AI, software, services, platforms, and content such as Azure, Office 365, Enterprise Mobility and Security, LinkedIn, Dynamics 365, and XBOX; solution support; and consulting services. Service and other revenue also includes sales from online advertising.\n\nRevenue Recognition\n\nRevenue is recognized upon transfer of control of promised products or services to customers in an amount that reflects the consideration we expect to receive in exchange for those products or services. We enter into contracts that can include various combinations of products and services, which are generally capable of being distinct and accounted for as separate performance obligations. Revenue is recognized net of allowances for returns and any taxes collected from customers, which are subsequently remitted to governmental authorities.\n\nNature of Products and Services\n\nLicenses for on-premises software provide the customer with a right to use the software as it exists when made available to the customer. Customers may purchase perpetual licenses or subscribe to licenses, which provide customers with the same functionality and differ mainly in the duration over which the customer benefits from the software. Revenue from distinct on-premises licenses is recognized upfront at the point in time when the software is made available to the customer. In cases where we allocate revenue to software updates, primarily because the updates are provided at no additional charge, revenue is recognized as the updates are provided, which is generally ratably over the estimated life of the related device or license.\n\nCloud services, which include software-as-a-service, infrastructure-as-a-service, and platform-as-a-service, are provided on either a subscription or consumption basis. Revenue related to cloud services provided on a subscription basis is recognized ratably over the contract period. Revenue related to cloud services provided on a consumption basis, such as the amount of storage used in a period, is recognized based on the customer utilization of such resources. When cloud services require a significant level of integration and interdependency with software and the individual components are not considered distinct, all revenue is recognized over the period in which the cloud services are provided.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Microsoft\u0027s total revenue in fiscal year 2022?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The excerpts don\u0027t contain Microsoft\u0027s total revenue for fiscal year 2022."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "decline-ok",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Declines correctly: the filings don\u0027t contain this."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-8 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "Not scored: a negative has no answer to find."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "no figure stated",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "No figure stated - a text answer or a decline."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 1.4210896,
+        "model": "claude-opus-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 5036,
+          "outputTokenCount": 58,
+          "totalTokenCount": 5094,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "277080D3332779D55BCDBE5975ABA0E5EC83772E5574C17AA56FD6F986AC0D9605E9DA412B7CC52913EDD01D38EEBA5E",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-opus-5-5",
+    "effort:Medium/Medium",
+    "excerpts:8",
+    "embedding:voyage-finance-2",
+    "kind:negative",
+    "company:MSFT",
+    "statement:income_statement",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

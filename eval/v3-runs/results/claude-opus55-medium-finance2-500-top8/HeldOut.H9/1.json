@@ -1,0 +1,117 @@
+{
+  "scenarioName": "HeldOut.H9",
+  "iterationName": "1",
+  "executionName": "claude-opus55-medium-finance2-500-top8",
+  "creationTime": "2026-10-13T18:54:20.5121728Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Income\n\n(in millions, except per share amounts)\n\nYear Ended December 31,\nRevenues:\nRevenues \u003E Capital Access Platforms \u2014 2025: $2,137 | 2024: $1,945 | 2023: $1,744\nRevenues \u003E Financial Technology \u2014 2025: 1,850 | 2024: 1,621 | 2023: 1,099\nRevenues \u003E Market Services \u2014 2025: 4,214 | 2024: 3,771 | 2023: 3,156\nRevenues \u003E Other revenues \u2014 2025: 61 | 2024: 63 | 2023: 65\nRevenues \u003E Total revenues \u2014 2025: 8,262 | 2024: 7,400 | 2023: 6,064\nTransaction-based expenses:\nTransaction-based expenses \u003E Transaction rebates \u2014 2025: (2,572) | 2024: (2,026) | 2023: (1,838)\nTransaction-based expenses \u003E Brokerage, clearance and exchange fees \u2014 2025: (441) | 2024: (725) | 2023: (331)\nRevenues less transaction-based expenses \u2014 2025: 5,249 | 2024: 4,649 | 2023: 3,895\nOperating expenses:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nU.S. equity derivative trading revenues and U.S. equity derivative trading revenues, net increased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to higher industry trading volumes, partially offset by lower capture and lower overall U.S. matched market share executed on Nasdaq\u2019s exchanges.\n\nTransaction rebates, in which we credit a portion of the execution charge to the market participant, increased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to higher industry trading volumes, partially offset by lower rebate capture rate and lower overall U.S. matched market share executed on Nasdaq\u2019s exchanges.\n\nCash Equity Trading Revenues\n\nThe following tables present total revenues, transaction-based expenses, and total revenues less transaction-based expenses as well as key drivers and other metrics from our Cash Equity Trading business:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\n(in millions)\nBrokerage, clearance and exchange fees \u2014 Year Ended December 31, 2025: (441) | Year Ended December 31, 2024: (725) | Year Ended December 31, 2023: (331) | Percentage Change 2025 vs. 2024: (39.1)% | Percentage Change 2024 vs. 2023: 119.1%\nTotal revenues less transaction- based expenses \u2014 Year Ended December 31, 2025: $5,249 | Year Ended December 31, 2024: $4,649 | Year Ended December 31, 2023: $3,895 | Percentage Change 2025 vs. 2024: 12.9% | Percentage Change 2024 vs. 2023: 19.4%\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Acquisition and Divestitures ---\r\n\u0060\u0060\u0060\r\nThe unaudited supplemental pro forma financial information for the periods presented is as follows:\n\n(in millions)\nPro forma revenues less transaction- based expenses \u2014 Year Ended December 31, 2023: $4,329\nPro forma operating income \u2014 Year Ended December 31, 2023: 1,485\nPro forma net income attributable to Nasdaq \u2014 Year Ended December 31, 2023: 822\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\n(in millions, except currency rate)\nYear Ended December 31, 2025\nYear Ended December 31, 2025 \u003E Average FX rate to the U.S. dollar \u2014 Euro: 1.128 | Swedish Krona: 0.102 | Canadian Dollar: 0.716 | Other Foreign Currencies: # | U.S. Dollar: N/A\nYear Ended December 31, 2025 \u003E Percentage of revenues less transaction- based expenses \u2014 Euro: 7.7% | Swedish Krona: 3.3% | Canadian Dollar: 0.6% | Other Foreign Currencies: 3.5% | U.S. Dollar: 84.9%\nYear Ended December 31, 2025 \u003E Percentage of operating income \u2014 Euro: 8.6% | Swedish Krona: (2.8)% | Canadian Dollar: (6.4)% | Other Foreign Currencies: (9.8)% | U.S. Dollar: 110.4%\nYear Ended December 31, 2025 \u003E Impact of a 10% adverse currency fluctuation on revenues less transaction- based expenses \u2014 Euro: $(40) | Swedish Krona: $(17) | Canadian Dollar: $(3) | Other Foreign Currencies: $(18) | U.S. Dollar: $\u2014\nYear Ended December 31, 2025 \u003E Impact of a 10% adverse currency fluctuation on operating income \u2014 Euro: $(20) | Swedish Krona: $(7) | Canadian Dollar: $(15) | Other Foreign Currencies: $(23) | U.S. Dollar: $\u2014\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\n(in millions, except per share amounts)\nRevenues less transaction- based expenses \u2014 Year Ended December 31, 2025: $5,249 | Year Ended December 31, 2024: $4,649 | Year Ended December 31, 2023: $3,895 | Percentage Change 2025 vs. 2024: 12.9% | Percentage Change 2024 vs. 2023: 19.4%\nOperating expenses \u2014 Year Ended December 31, 2025: 2,918 | Year Ended December 31, 2024: 2,851 | Year Ended December 31, 2023: 2,317 | Percentage Change 2025 vs. 2024: 2.3% | Percentage Change 2024 vs. 2023: 23.0%\nOperating income \u2014 Year Ended December 31, 2025: $2,331 | Year Ended December 31, 2024: $1,798 | Year Ended December 31, 2023: $1,578 | Percentage Change 2025 vs. 2024: 29.7% | Percentage Change 2024 vs. 2023: 13.9%\nNet income attributable to Nasdaq \u2014 Year Ended December 31, 2025: $1,788 | Year Ended December 31, 2024: $1,117 | Year Ended December 31, 2023: $1,059 | Percentage Change 2025 vs. 2024: 60.1% | Percentage Change 2024 vs. 2023: 5.5%\nDiluted earnings per share \u2014 Year Ended December 31, 2025: $3.09 | Year Ended December 31, 2024: $1.93 | Year Ended December 31, 2023: $2.08 | Percentage Change 2025 vs. 2024: 60.3% | Percentage Change 2024 vs. 2023: (7.4)%\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Income\n\n(in millions, except per share amounts)\n\nYear Ended December 31,\nOperating expenses \u003E Compensation and benefits \u2014 2025: 1,392 | 2024: 1,324 | 2023: 1,082\nOperating expenses \u003E Professional and contract services \u2014 2025: 160 | 2024: 152 | 2023: 128\nOperating expenses \u003E Technology and communication infrastructure \u2014 2025: 316 | 2024: 281 | 2023: 233\nOperating expenses \u003E Occupancy \u2014 2025: 124 | 2024: 112 | 2023: 129\nOperating expenses \u003E General, administrative and other \u2014 2025: 75 | 2024: 109 | 2023: 113\nOperating expenses \u003E Marketing and advertising \u2014 2025: 65 | 2024: 54 | 2023: 47\nOperating expenses \u003E Depreciation and amortization \u2014 2025: 632 | 2024: 613 | 2023: 323\nOperating expenses \u003E Regulatory \u2014 2025: 52 | 2024: 55 | 2023: 34\nOperating expenses \u003E Merger and strategic initiatives \u2014 2025: 60 | 2024: 35 | 2023: 148\nOperating expenses \u003E Restructuring charges \u2014 2025: 42 | 2024: 116 | 2023: 80\nOperating expenses \u003E Total operating expenses \u2014 2025: 2,918 | 2024: 2,851 | 2023: 2,317\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Revenue from Contracts with Customers ---\r\n\u0060\u0060\u0060\r\n3. REVENUE FROM CONTRACTS WITH\n\nCUSTOMERS\n\nDisaggregation of Revenue\n\nThe following table summarizes the disaggregation of revenue by major product and service and by segment for the years ended December 31, 2025, 2024 and 2023:\n\n(in millions) Year Ended December 31,\nCapital Access Platforms\nCapital Access Platforms \u003E Data \u0026 Listing Services \u2014 2025: $804 | 2024: $754 | 2023: $749\nCapital Access Platforms \u003E Index \u2014 2025: 827 | 2024: 706 | 2023: 528\nCapital Access Platforms \u003E Workflow \u0026 Insights \u2014 2025: 506 | 2024: 485 | 2023: 467\nFinancial Technology\nFinancial Technology \u003E Financial Crime Management Technology \u2014 2025: 331 | 2024: 273 | 2023: 223\nFinancial Technology \u003E Regulatory Technology \u2014 2025: 428 | 2024: 352 | 2023: 212\nFinancial Technology \u003E Capital Markets Technology \u2014 2025: 1,091 | 2024: 996 | 2023: 664\nMarket Services, net \u2014 2025: 1,201 | 2024: 1,020 | 2023: 987\nOther revenues \u2014 2025: 61 | 2024: 63 | 2023: 65\nRevenues less transaction- based expenses \u2014 2025: $5,249 | 2024: $4,649 | 2023: $3,895\n\nSubstantially all revenues from the Capital Access Platforms and Financial Technology segments were recognized over time for the years ended December 31, 2025, 2024 and 2023.\n\nFor the years ended December 31, 2025, 2024 and 2023, approximately 95.3%, 95.3% and 93.0%, respectively, of Market Services revenues were recognized at a point in time and 4.7%, 4.7% and 7.0%, respectively, were recognized over time. See \u0022Revenue Recognition and Transaction-Based Expenses\u0022 in Note 2, \u0022Summary of Significant Accounting Policies,\u0022 for additional detail on Other Revenues.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Nasdaq\u0027s revenues less transaction-based expenses in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s revenues less transaction-based expenses were $5,249 million for the year ended December 31, 2025 (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 5,249 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-8 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "5,249 at rank 1 of 25 - in the model\u0027s context (top 8)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 5,249 from excerpts 1 (income_statement), 3 (narrative), 6 (narrative), 8 (narrative)."
+        },
+        "metadata": {
+          "Stated 5,249": "excerpt 1 (income_statement, PART IV \u003E Financial Statements): \u0022Revenues less transaction-based expenses \u2014 2025: 5,249 | 2024: 4,649 | 2023: 3,895\u0022; excerpt 3 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...otal revenues less transaction- based expenses \u2014 Year Ended December 31, 2025: $5,249 | Year Ended December 31, 2024: $4,649 | Year Ended December 31, 2023: $3,...\u0022; excerpt 6 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Revenues less transaction- based expenses \u2014 Year Ended December 31, 2025: $5,249 | Year Ended December 31, 2024: $4,649 | Year Ended December 31, 2023: $3,895 |...\u0022; excerpt 8 (narrative, PART IV \u003E Financial Statements \u003E Revenue from Contracts with Customers): \u0022Revenues less transaction- based expenses \u2014 2025: $5,249 | 2024: $4,649 | 2023: $3,895\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 1.9052096,
+        "model": "claude-opus-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 4192,
+          "outputTokenCount": 126,
+          "totalTokenCount": 4318,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "04D11BF34D698477469541D0BDE35163C1A76A481A4A89554A4820F2AF004C9FAE0BB2C56919A2F0B96DADC6ED9739F2",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-opus-5-5",
+    "effort:Medium/Medium",
+    "excerpts:8",
+    "embedding:voyage-finance-2",
+    "kind:figure",
+    "has traps",
+    "company:NDAQ",
+    "statement:income_statement",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

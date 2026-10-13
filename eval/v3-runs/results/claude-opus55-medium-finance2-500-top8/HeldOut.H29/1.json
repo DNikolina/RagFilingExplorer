@@ -1,0 +1,120 @@
+{
+  "scenarioName": "HeldOut.H29",
+  "iterationName": "1",
+  "executionName": "claude-opus55-medium-finance2-500-top8",
+  "creationTime": "2026-10-13T18:55:26.8960613Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nThe following table presents key drivers from our Index business:\n\nAs of or Year Ended December 31,\nNumber of licensed ETPs \u2014 2025: 451 | 2024: 401 | 2023: 364\nTTM change in period end ETP AUM tracking Nasdaq indices (in billions)\nTTM change in period end ETP AUM tracking Nasdaq indices (in billions) \u003E Beginning balance \u2014 2025: $647 | 2024: $473 | 2023: $315\nTTM change in period end ETP AUM tracking Nasdaq indices (in billions) \u003E Net appreciation \u2014 2025: 136 | 2024: 110 | 2023: 128\nTTM change in period end ETP AUM tracking Nasdaq indices (in billions) \u003E Net impact of ETP sponsor switches \u2014 2024: (16) | 2023: (1)\nTTM change in period end ETP AUM tracking Nasdaq indices (in billions) \u003E Net inflows \u2014 2025: 99 | 2024: 80 | 2023: 31\nTTM change in period end ETP AUM tracking Nasdaq indices (in billions) \u003E Ending balance \u2014 2025: $882 | 2024: $647 | 2023: $473\nAnnual average ETP AUM tracking Nasdaq indices (in billions) \u2014 2025: $740 | 2024: $558 | 2023: $396\nARR (in millions) \u2014 2025: $81 | 2024: $76 | 2023: $72\n\nIn the table above, TTM represents trailing twelve months.\n\nIndex revenues increased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to higher average AUM in exchange traded products linked to Nasdaq indices and growth in trading volumes. The increase in 2025 is partially offset by a $16 million one-time item recognized in the first quarter of 2024 related to a legal settlement to recoup revenue.\n\nWorkflow \u0026 Insights Revenues\n\nThe following table presents key drivers from our Workflow \u0026 Insights business:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nIndex\n\nOur Index business develops and licenses Nasdaq-branded indices and financial products. License fees for our trademark licenses vary by product based on a percentage of underlying assets, dollar value of a product issuance, number of products or number of contracts traded. We also license cash-settled options, futures and options on futures on our indices.\n\nAs of December 31, 2025, 451 ETPs listed on 27 exchanges in over 20 countries tracked a Nasdaq index and accounted for $882 billion in AUM. Our flagship index, the Nasdaq-100 Index, or NDX, includes the top 100 non-financial companies listed on The Nasdaq Stock Market. More than 100 ETPs worldwide track Nasdaq-100 core indices, which had $640 billion in assets tracking the indices as of December 31, 2025, or 73% of total AUM.\n\nWe provide index data products based on Nasdaq indices. Index data products include our Global Index Data Service, which delivers real-time and historical index values throughout the trading day, and Global Index Watch/Global Index File Delivery Service, which delivers daily and historical weightings and components data, corporate actions and a breadth of additional data for the indices that we operate.\n\nWorkflow \u0026 Insights\n\nWorkflow \u0026 Insights includes our analytics and corporate solutions products.\n\nOur analytics products provide asset managers, investment consultants and institutional asset owners with information and analytics to make data-driven investment decisions, deploy their resources more productively, and provide liquidity solutions for private funds. Through our eVestment platform, we provide a suite of cloud-based solutions that help institutional investors and consultants conduct pre-investment due diligence, and monitor their portfolios post-investment. The eVestment platform also enables asset managers to efficiently distribute information about their firms and funds to asset owners and consultants worldwide. Our eVestment platform has expanded the scale and reach of data assets to meet the evolving needs of clients and enhance the value to asset owners and asset managers, including in the private markets space, with over 80,000 private funds covered. In October 2025, we sold our Solovis business, a financial technology platform offering portfolio monitoring and analytics tools.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nIn the tables above:\n\n\u2022 The number of total listed companies on The Nasdaq Stock Market for the years ended December 31, 2025, 2024 and 2023 included 1,112, 768 and 600 ETPs, respectively.\n\n\u2022 IPOs, new listings (which includes IPOs) and total listed companies for exchanges that comprise Nasdaq Nordic and Nasdaq Baltic represent companies listed on the Nasdaq Nordic and Nasdaq Baltic exchanges and companies listed on the alternative markets of Nasdaq First North.\n\nData \u0026 Listing Services revenues increased for the year ended December 31, 2025 compared with the same period in 2024 due to new data sales, usage and pricing, increased annual listings revenues due to new listings and the favorable impact from changes in foreign currency rates, partially offset by delistings.\n\nIndex Revenues\n\nThe following table presents key drivers from our Index business:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nThe ARR chart includes:\n\n\u25AA Capital Access Platforms\n\u25E6 Proprietary market data subscriptions and annual listing fees within our Data \u0026 Listing Services business\n\u25E6 Index data subscriptions and guaranteed minimum on futures contracts within our Index business\n\u25E6 Subscription contracts under our Workflow \u0026 Insights business\n\u25AA Financial Technology\n\u25E6 Subscription contracts excluding non-recurring professional services.\n\u25AA Other includes ARR related to our Solovis business divested in October 2025.\n\nThe following chart summarizes our quarterly annualized SaaS revenues for December 31, 2025, 2024 and 2023 (in millions):\n\n[image]\n\n\\* In the chart above, Other for 4Q23 and 4Q24 includes $25 million and $28 million, respectively.\n\nSEGMENT OPERATING RESULTS\n\nThe following table presents our revenues by segment:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nThe following charts present our Capital Access Platforms, Financial Technology and Market Services segments as a percentage of our total revenues, less transaction-based expenses.\n\n[image]\n\nCapital Access Platforms\n\nThe following tables present revenues and ARR from our Capital Access Platforms segment:\n\n(in millions)\nData \u0026 Listing Services \u2014 Year Ended December 31, 2025: $804 | Year Ended December 31, 2024: $754 | Year Ended December 31, 2023: $749 | Percentage Change 2025 vs. 2024: 6.7% | Percentage Change 2024 vs. 2023: 0.7%\nIndex \u2014 Year Ended December 31, 2025: 827 | Year Ended December 31, 2024: 706 | Year Ended December 31, 2023: 528 | Percentage Change 2025 vs. 2024: 17.1% | Percentage Change 2024 vs. 2023: 33.7%\nWorkflow \u0026 Insights \u2014 Year Ended December 31, 2025: 506 | Year Ended December 31, 2024: 485 | Year Ended December 31, 2023: 467 | Percentage Change 2025 vs. 2024: 4.4% | Percentage Change 2024 vs. 2023: 3.9%\nTotal Capital Access Platforms \u2014 Year Ended December 31, 2025: $2,137 | Year Ended December 31, 2024: $1,945 | Year Ended December 31, 2023: $1,744 | Percentage Change 2025 vs. 2024: 9.9% | Percentage Change 2024 vs. 2023: 11.5%\n\nAs of December 31,\nARR (in millions) \u2014 2025: $1,340 | 2024: $1,240 | 2023: $1,210\n\nData \u0026 Listing Services Revenues\n\nThe following tables present key drivers from our Data \u0026 Listing Services business:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\n\u2022 The Financial Technology segment delivered 14% growth in ARR and revenue, reflecting an increase in new clients, cross-sells and upsells.\n\n\u2022 Market Services delivered record revenue, reflecting strength across U.S. cash equities and U.S. equities options volumes in 2025.\n\nMacroeconomic environment\n\nOur business performance can be positively or negatively impacted by a number of factors, including general economic conditions, the geopolitical environment, current or expected inflation, interest rate fluctuations, the threat or imposition of broad-based tariffs, market volatility, changes in investment patterns and priorities, regulatory changes, pandemics and other factors that are generally beyond our control. For example, higher overall U.S. trading volumes in 2025 as compared to 2024 led to an increase in our U.S. equities options and U.S. cash equities revenues. Market factors also contributed to higher valuations in Nasdaq Indices, higher overall volumes in Index derivatives and an improving IPO landscape. To the extent that global or national economic conditions weaken and result in slower growth or recessions, our business may be negatively impacted.\n\nNasdaq\u2019s Operating Results\n\nThe following table summarizes our financial performance for the year ended December 31, 2025 compared to the same period in 2024 and for the year ended December 31, 2024 compared to the same period in 2023. The comparability of our results of operations between reported periods is primarily impacted by our acquisition of Adenza in November 2023. See Note 4, \u201CAcquisition and Divestitures,\u201D to the consolidated financial statements for further discussion. For a detailed discussion of our results of operations, see \u201CSegment Operating Results\u201D below.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 5. Market for Registrant\u2019s Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities ---\r\n\u0060\u0060\u0060\r\nYear Ended December 31,*\nNasdaq, Inc. \u2014 2020: $100 | 2021: $160 | 2022: $142 | 2023: $137 | 2024: $185 | 2025: $235\nNasdaq Composite Index \u2014 2020: 100 | 2021: 122 | 2022: 82 | 2023: 119 | 2024: 154 | 2025: 187\nS\u0026P 500 \u2014 2020: 100 | 2021: 129 | 2022: 105 | 2023: 133 | 2024: 166 | 2025: 196\nS\u0026P 500 GICS 4020 Index \u2014 2020: 100 | 2021: 136 | 2022: 121 | 2023: 139 | 2024: 179 | 2025: 197\n\nCOMPARISON OF 5 YEAR CUMULATIVE TOTAL RETURN\n\nAmong Nasdaq, Inc., the Nasdaq Composite Index, the S\u0026P 500 and S\u0026P 500 GICS 4020 Index\n\n[image]\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Income\n\n(in millions, except per share amounts)\n\nYear Ended December 31,\nOperating income \u2014 2025: 2,331 | 2024: 1,798 | 2023: 1,578\nInterest income \u2014 2025: 39 | 2024: 28 | 2023: 115\nInterest expense \u2014 2025: (367) | 2024: (414) | 2023: (284)\nNet gain on divestitures \u2014 2025: 86\nOther income (loss) \u2014 2025: (27) | 2024: 21 | 2023: (1)\nNet income (loss) from unconsolidated investees \u2014 2025: 83 | 2024: 16 | 2023: (7)\nIncome before income taxes \u2014 2025: 2,145 | 2024: 1,449 | 2023: 1,401\nIncome tax provision \u2014 2025: 358 | 2024: 334 | 2023: 344\nNet income \u2014 2025: 1,787 | 2024: 1,115 | 2023: 1,057\nNet loss attributable to noncontrolling interests \u2014 2025: 1 | 2024: 2 | 2023: 2\nNet income attributable to Nasdaq \u2014 2025: $1,788 | 2024: $1,117 | 2023: $1,059\nPer share information:\nPer share information \u003E Basic earnings per share \u2014 2025: $3.12 | 2024: $1.94 | 2023: $2.10\nPer share information \u003E Diluted earnings per share \u2014 2025: $3.09 | 2024: $1.93 | 2023: $2.08\nPer share information \u003E Cash dividends declared per common share \u2014 2025: $1.05 | 2024: $0.94 | 2023: $0.86\n\nSee accompanying notes to consolidated financial statements.\n\nNasdaq, Inc.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much revenue did Nasdaq\u0027s Index business generate in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s Index business generated revenues of $827 million for the year ended December 31, 2025, up from $706 million for the year ended December 31, 2024, which the filing reports as a 17.1% increase (Source: NDAQ-10K-2025.html, PART II \u003E Item 7. Management\u0027s Discussion and Analysis of Financial Condition and Results of Operations). The filing attributes the increase mainly to higher average assets under management in exchange traded products linked to Nasdaq indices and to growth in trading volumes (Source: NDAQ-10K-2025.html, PART II \u003E Item 7. Management\u0027s Discussion and Analysis of Financial Condition and Results of Operations). The increase was partly offset by a $16 million one-time item recognized in the first quarter of 2024 from a legal settlement to recoup revenue (Source: NDAQ-10K-2025.html, PART II \u003E Item 7. Management\u0027s Discussion and Analysis of Financial Condition and Results of Operations)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 827 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 5,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-8 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "827 at rank 5 of 25 - in the model\u0027s context (top 8)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 827 from excerpt 5 (narrative), 706 from excerpt 5 (narrative), 17.1 from excerpt 5 (narrative), 16 from excerpts 1 (narrative), 8 (income_statement)."
+        },
+        "metadata": {
+          "Stated 827": "excerpt 5 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Index \u2014 Year Ended December 31, 2025: 827 | Year Ended December 31, 2024: 706 | Year Ended December 31, 2023: 528 | Percentage Change 2025 vs. 2024: 17.1% | Per...\u0022",
+          "Stated 706": "excerpt 5 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Index \u2014 Year Ended December 31, 2025: 827 | Year Ended December 31, 2024: 706 | Year Ended December 31, 2023: 528 | Percentage Change 2025 vs. 2024: 17.1% | Per...\u0022",
+          "Stated 17.1": "excerpt 5 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...5: 827 | Year Ended December 31, 2024: 706 | Year Ended December 31, 2023: 528 | Percentage Change 2025 vs. 2024: 17.1% | Percentage Change 2024 vs. 2023: 33.7%\u0022",
+          "Stated 16": "excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022TTM change in period end ETP AUM tracking Nasdaq indices (in billions) \u003E Net impact of ETP sponsor switches \u2014 2024: (16) | 2023: (1)\u0022 (\u002B1 more line); excerpt 8 (income_statement, PART IV \u003E Financial Statements): \u0022Net income (loss) from unconsolidated investees \u2014 2025: 83 | 2024: 16 | 2023: (7)\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 4.1240561,
+        "model": "claude-opus-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 4917,
+          "outputTokenCount": 399,
+          "totalTokenCount": 5316,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "84E50078A59729A0BF2DA7AAE67BB521A859227C47120524B1B9A912C86FA61042333311689B426788EEAB175DFCCF87",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-opus-5-5",
+    "effort:Medium/Medium",
+    "excerpts:8",
+    "embedding:voyage-finance-2",
+    "kind:figure",
+    "has traps",
+    "company:NDAQ",
+    "statement:income_statement",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

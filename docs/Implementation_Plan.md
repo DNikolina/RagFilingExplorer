@@ -124,7 +124,9 @@ llama on `voyage-finance-2` at 500 tokens **87/102** (nomic 85; 8 gains, 6 losse
 0.40.3 kept every grade); 12 of its 15 failures had the answer in the top 5. **Opus 5.5 (medium, 5 excerpts) on the same
 index: 98/102 strictly, 100/102 read** (on today's nomic index: 96 / 97, every miss retrieval) - its two misses A11,
 A14 retrieval at rank 7 and 6.
-Next (user).
+**Opus on finance-2 at 10,000 tokens, top 5: 101/102 strictly, 102/102 read** - A11, A14 fixed - at 2.5M input tokens
+(~7x; $10.70 the run). **The same at 500 tokens with 8 excerpts: 101/102 strictly, 102/102 read, 553K input tokens
+($2.80)** - best measured for Claude: finance-2, 500-token chunks, 8 excerpts. Next (user).
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the
