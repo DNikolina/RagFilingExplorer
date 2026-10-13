@@ -1,0 +1,118 @@
+{
+  "scenarioName": "HeldOut.H28",
+  "iterationName": "1",
+  "executionName": "claude-opus55-medium-nomic-current",
+  "creationTime": "2026-10-13T18:03:51.2261707Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Debt Obligations ---\r\n\u0060\u0060\u0060\r\n9. DEBT OBLIGATIONS\n\nThe following table presents the changes in the carrying amounts of our debt obligations during the year ended December 31, 2025:\n\n(in millions) Short-term debt:\nLong-term debt - senior unsecured notes \u003E 2052 Notes \u2014 December 31, 2024: 541 | Payments, Foreign Currency Translation and Accretion: (134) | December 31, 2025: 407\nLong-term debt - senior unsecured notes \u003E 2053 Notes \u2014 December 31, 2024: 738 | Payments, Foreign Currency Translation and Accretion: 1 | December 31, 2025: 739\nLong-term debt - senior unsecured notes \u003E 2063 Notes \u2014 December 31, 2024: 738 | December 31, 2025: 738\n2022 Revolving Credit Facility \u2014 December 31, 2024: (3) | Payments, Foreign Currency Translation and Accretion: 1 | December 31, 2025: (2)\nTotal long-term debt \u2014 December 31, 2024: $8,582 | Payments, Foreign Currency Translation and Accretion: $(9) | December 31, 2025: $8,573\nTotal debt obligations \u2014 December 31, 2024: $9,480 | Payments, Foreign Currency Translation and Accretion: $(476) | December 31, 2025: $9,004\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Debt Obligations ---\r\n\u0060\u0060\u0060\r\n9. DEBT OBLIGATIONS\n\nThe following table presents the changes in the carrying amounts of our debt obligations during the year ended December 31, 2025:\n\n(in millions) Short-term debt:\nLong-term debt - senior unsecured notes \u003E 2028 Notes \u2014 December 31, 2024: 935 | Payments, Foreign Currency Translation and Accretion: (142) | December 31, 2025: 793\nLong-term debt - senior unsecured notes \u003E 2029 Notes \u2014 December 31, 2024: 618 | Payments, Foreign Currency Translation and Accretion: 84 | December 31, 2025: 702\nLong-term debt - senior unsecured notes \u003E 2030 Notes \u2014 December 31, 2024: 617 | Payments, Foreign Currency Translation and Accretion: 85 | December 31, 2025: 702\nLong-term debt - senior unsecured notes \u003E 2031 Notes \u2014 December 31, 2024: 645 | Payments, Foreign Currency Translation and Accretion: 1 | December 31, 2025: 646\nLong-term debt - senior unsecured notes \u003E 2032 Notes \u2014 December 31, 2024: 769 | Payments, Foreign Currency Translation and Accretion: 105 | December 31, 2025: 874\nLong-term debt - senior unsecured notes \u003E 2033 Notes \u2014 December 31, 2024: 633 | Payments, Foreign Currency Translation and Accretion: 86 | December 31, 2025: 719\nLong-term debt - senior unsecured notes \u003E 2034 Notes \u2014 December 31, 2024: 1,220 | Payments, Foreign Currency Translation and Accretion: (98) | December 31, 2025: 1,122\nLong-term debt - senior unsecured notes \u003E 2040 Notes \u2014 December 31, 2024: 644 | Payments, Foreign Currency Translation and Accretion: 1 | December 31, 2025: 645\nLong-term debt - senior unsecured notes \u003E 2050 Notes \u2014 December 31, 2024: 487 | Payments, Foreign Currency Translation and Accretion: 1 | December 31, 2025: 488\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Debt Obligations ---\r\n\u0060\u0060\u0060\r\n9. DEBT OBLIGATIONS\n\nThe following table presents the changes in the carrying amounts of our debt obligations during the year ended December 31, 2025:\n\n(in millions) Short-term debt:\n2025 Notes \u2014 December 31, 2024: $399 | Payments, Foreign Currency Translation and Accretion: $(399) | December 31, 2025: $\u2014\n2026 Notes \u2014 December 31, 2024: 499 | Payments, Foreign Currency Translation and Accretion: (68) | December 31, 2025: 431\nTotal short-term debt \u2014 December 31, 2024: $898 | Payments, Foreign Currency Translation and Accretion: $(467) | December 31, 2025: $431\nLong-term debt - senior unsecured notes:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Balance Sheets\n\n(in millions, except share and par value amounts)\n\nDecember 31,\nLong-term debt \u2014 2025: 8,573 | 2024: 9,081\nDeferred tax liabilities, net \u2014 2025: 1,584 | 2024: 1,594\nOperating lease liabilities \u2014 2025: 462 | 2024: 388\nOther non-current liabilities \u2014 2025: 241 | 2024: 230\nTotal liabilities \u2014 2025: 18,821 | 2024: 19,195\nCommitments and contingencies\nEquity\nNasdaq stockholders\u2019 equity:\nNasdaq stockholders\u2019 equity \u003E Common stock, $0.01 par value, 900,000,000 shares authorized, shares issued: 594,620,320 at December 31, 2025 and 598,920,378 at December 31, 2024; shares outstanding: 569,894,024 at December 31, 2025 and 575,062,217 at December 31, 2024 \u2014 2025: 6 | 2024: 6\nNasdaq stockholders\u2019 equity \u003E Additional paid-in capital \u2014 2025: 5,122 | 2024: 5,530\nNasdaq stockholders\u2019 equity \u003E Common stock in treasury, at cost: 24,726,296 shares at December 31, 2025 and 23,858,161 shares at December 31, 2024 \u2014 2025: (716) | 2024: (647)\nNasdaq stockholders\u2019 equity \u003E Accumulated other comprehensive loss \u2014 2025: (1,773) | 2024: (2,099)\nNasdaq stockholders\u2019 equity \u003E Retained earnings \u2014 2025: 9,588 | 2024: 8,401\nNasdaq stockholders\u2019 equity \u003E Total Nasdaq stockholders\u2019 equity \u2014 2025: 12,227 | 2024: 11,191\nNoncontrolling interests \u2014 2025: 5 | 2024: 9\nTotal equity \u2014 2025: 12,232 | 2024: 11,200\nTotal liabilities and equity \u2014 2025: $31,053 | 2024: $30,395\n\nSee accompanying notes to consolidated financial statements.\n\nNasdaq, Inc.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Debt Obligations ---\r\n\u0060\u0060\u0060\r\nWe also repaid in full the 2025 Notes at maturity for an aggregate of $400 million. In the table above, $399 million reflects the repayment of $400 million net of $1 million of accretion recorded for the year ended December 31, 2025.\n\nUpon a change of control triggering event (as defined in the various supplemental indentures governing the applicable notes), the terms require us to repurchase all or part of each holder\u2019s notes for cash equal to 101% of the aggregate principal amount purchased plus accrued and unpaid interest, if any.\n\nThe Euro Notes pay interest annually. All other notes pay interest semi-annually. The U.S. dollar senior unsecured notes coupon rates may vary with Nasdaq\u2019s debt rating, to the extent Nasdaq is downgraded below investment grade, up to an upward rate adjustment not to exceed 2%.\n\nNet Investment Hedge\n\nOur Euro Notes have been designated as a hedge of our net investment in certain foreign subsidiaries to mitigate the foreign exchange risk associated with certain investments in these subsidiaries. Accordingly, the remeasurement of these notes is recorded in foreign currency translation gains (losses) within accumulated other comprehensive loss in the Consolidated Balance Sheets. For the year ended December 31, 2025, the impact of translation increased the U.S. dollar value of our Euro Notes by $357 million.\n\nCredit Facilities\n\n2022 Revolving Credit Facility\n\nIn December 2022, Nasdaq amended and restated its previously issued $1.25 billion five-year revolving credit facility, with a new maturity date of December 16, 2027. Nasdaq intends to use funds available under the 2022 Revolving Credit Facility for general corporate purposes and to provide liquidity to support our commercial paper program. Nasdaq is permitted to repay borrowings under our 2022 Revolving Credit Facility at any time in whole or in part, without penalty.\n\nAs of December 31, 2025, no amounts were outstanding on the 2022 Revolving Credit Facility. The $(2) million balance represents unamortized debt issuance costs which are being amortized through interest expense over the life of the credit facility.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Nasdaq\u0027s long-term debt at December 31, 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s long-term debt was $8,573 million at December 31, 2025, as reported on the \u0022Long-term debt\u0022 line of the balance sheet (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements). The \u0022Total long-term debt\u0022 line in the debt obligations note shows the same $8,573 million at December 31, 2025 (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements \u003E Debt Obligations). This figure does not include short-term debt, which was a separate $431 million at December 31, 2025 (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements \u003E Debt Obligations)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 8,573 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "8,573 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 8,573 from excerpts 1 (narrative), 4 (balance_sheet), 431 from excerpt 3 (narrative)."
+        },
+        "metadata": {
+          "Stated 8,573": "excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Debt Obligations): \u0022Total long-term debt \u2014 December 31, 2024: $8,582 | Payments, Foreign Currency Translation and Accretion: $(9) | December 31, 2025: $8,573\u0022; excerpt 4 (balance_sheet, PART IV \u003E Financial Statements): \u0022Long-term debt \u2014 2025: 8,573 | 2024: 9,081\u0022",
+          "Stated 431": "excerpt 3 (narrative, PART IV \u003E Financial Statements \u003E Debt Obligations): \u00222026 Notes \u2014 December 31, 2024: 499 | Payments, Foreign Currency Translation and Accretion: (68) | December 31, 2025: 431\u0022 (\u002B1 more line)"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0008135,
+        "model": "claude-opus-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 3478,
+          "outputTokenCount": 329,
+          "totalTokenCount": 3807,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "B5FD7FA73244316F0335A2EAB4E9F4FC5D81B3DD49A8E5F8C84729FC113D62E4D98DC8E8A589A191A0A76F9503059D0B",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-opus-5-5",
+    "effort:Medium/Medium",
+    "excerpts:5",
+    "embedding:nomic-embed-text",
+    "kind:figure",
+    "has traps",
+    "company:NDAQ",
+    "statement:none",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

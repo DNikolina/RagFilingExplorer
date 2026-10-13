@@ -121,7 +121,10 @@ bigger chunks help split statements; finance-2 improves with size to 94 / 0.874 
 4-large flattens; at equal text 500-token chunks reach all 94 by a top 7. `MaxTokensPerChunk` stays 500; a budget other
 than 500 now names its own index and dumps (`rag.structured.voyage-finance-2.10000tok.db` kept). **Step 8 started:**
 llama on `voyage-finance-2` at 500 tokens **87/102** (nomic 85; 8 gains, 6 losses, all the embedder's - nomic re-asked on
-0.40.3 kept every grade); 12 of its 15 failures had the answer in the top 5. Next (user): Claude on the Voyage indexes.
+0.40.3 kept every grade); 12 of its 15 failures had the answer in the top 5. **Opus 5.5 (medium, 5 excerpts) on the same
+index: 98/102 strictly, 100/102 read** (on today's nomic index: 96 / 97, every miss retrieval) - its two misses A11,
+A14 retrieval at rank 7 and 6.
+Next (user).
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the

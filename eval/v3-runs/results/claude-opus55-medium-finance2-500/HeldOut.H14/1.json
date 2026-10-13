@@ -1,0 +1,117 @@
+{
+  "scenarioName": "HeldOut.H14",
+  "iterationName": "1",
+  "executionName": "claude-opus55-medium-finance2-500",
+  "creationTime": "2026-10-13T17:30:24.8055524Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF OPERATIONS\n\n(in thousands, except per share data)\n\nYear ended December 31,\nRevenues \u2014 2025: $45,183,036 | 2024: $39,000,966 | 2023: $33,723,297\nCost of revenues \u2014 2025: 23,275,329 | 2024: 21,038,464 | 2023: 19,715,368\nSales and marketing \u2014 2025: 3,301,306 | 2024: 2,917,554 | 2023: 2,657,883\nTechnology and development \u2014 2025: 3,391,390 | 2024: 2,925,295 | 2023: 2,675,758\nGeneral and administrative \u2014 2025: 1,888,408 | 2024: 1,702,039 | 2023: 1,720,285\nOperating income \u2014 2025: 13,326,603 | 2024: 10,417,614 | 2023: 6,954,003\nOther income (expense):\nOther income (expense) \u003E Interest expense \u2014 2025: (776,510) | 2024: (718,733) | 2023: (699,826)\nOther income (expense) \u003E Interest and other income (expense) \u2014 2025: 172,459 | 2024: 266,776 | 2023: (48,772)\nIncome before income taxes \u2014 2025: 12,722,552 | 2024: 9,965,657 | 2023: 6,205,405\nProvision for income taxes \u2014 2025: (1,741,351) | 2024: (1,254,026) | 2023: (797,415)\nNet income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\nEarnings per share:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements \u003E Revenue Recognition ---\r\n\u0060\u0060\u0060\r\n2. Revenue Recognition\n\nThe following table summarizes streaming revenues by region for the years ended December\u00A031, 2025, 2024 and 2023. Total streaming revenues are inclusive of hedging gains (losses) of $(91)\u00A0million and $124\u00A0million for the years ended December\u00A031, 2025 and 2024, respectively. No hedging gains and losses were recognized in total streaming revenues for the year ended December\u00A031, 2023. See Note 8 Derivative Financial Instruments and Hedging Activities for further information.\n\n(in thousands) Year Ended December 31,\nUnited States and Canada (UCAN) \u2014 2025: $19,957,152 | 2024: $17,359,369 | 2023: $14,873,783\nEurope, Middle East, and Africa (EMEA) \u2014 2025: 14,514,646 | 2024: 12,387,035 | 2023: 10,556,487\nLatin America (LATAM) \u2014 2025: 5,357,521 | 2024: 4,839,816 | 2023: 4,446,461\nAsia-Pacific (APAC) \u2014 2025: 5,353,717 | 2024: 4,414,746 | 2023: 3,763,727\nTotal Streaming Revenues \u2014 2025: $45,183,036 | 2024: $39,000,966 | 2023: $33,640,458\n\nDeferred revenue consists of membership fees billed that have not been recognized, as well as gift and other prepaid memberships that have not been fully redeemed. As of December 31, 2025, total deferred revenue was $1,776\u00A0million, the vast majority of which was related to membership fees billed that are expected to be recognized as revenue within the next month. The remaining deferred revenue balance, which is related to gift cards and other prepaid memberships, will be recognized as revenue over the period of service after redemption, which is expected to occur over the next 12 months. Deferred revenue increased $255 million from $1,521 million as of December\u00A031, 2024 to $1,776 million as of December\u00A031, 2025. Deferred revenue balances may fluctuate due to the number of paid memberships and the price of our memberships.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED BALANCE SHEETS\n\n(in thousands, except share and per share data)\n\nAs of December 31,\nAssets\nCurrent assets:\nCurrent assets \u003E Cash and cash equivalents \u2014 2025: $9,033,681 | 2024: $7,804,733\nCurrent assets \u003E Short-term investments \u2014 2025: 28,678 | 2024: 1,779,006\nCurrent assets \u003E Other current assets \u2014 2025: 3,957,832 | 2024: 3,516,640\nCurrent assets \u003E Total current assets \u2014 2025: 13,020,191 | 2024: 13,100,379\nContent assets, net \u2014 2025: 32,778,392 | 2024: 32,452,462\nProperty and equipment, net \u2014 2025: 2,004,350 | 2024: 1,593,756\nOther non-current assets \u2014 2025: 7,794,060 | 2024: 6,483,777\nTotal assets \u2014 2025: $55,596,993 | 2024: $53,630,374\nLiabilities and Stockholders\u2019 Equity\nCurrent liabilities:\nCurrent liabilities \u003E Current content liabilities \u2014 2025: $4,084,854 | 2024: $4,393,681\nCurrent liabilities \u003E Accounts payable \u2014 2025: 900,612 | 2024: 899,909\nCurrent liabilities \u003E Accrued expenses and other liabilities \u2014 2025: 3,220,869 | 2024: 2,156,544\nCurrent liabilities \u003E Deferred revenue \u2014 2025: 1,775,730 | 2024: 1,520,813\nCurrent liabilities \u003E Short-term debt \u2014 2025: 998,865 | 2024: 1,784,453\nCurrent liabilities \u003E Total current liabilities \u2014 2025: 10,980,930 | 2024: 10,755,400\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements \u003E Income Taxes ---\r\n\u0060\u0060\u0060\r\nThe components of deferred tax assets and liabilities were as follows:\n\n(in thousands) As of December 31,\nDeferred tax assets:\nDeferred tax assets \u003E Stock-based compensation \u2014 2025: $438,684 | 2024: $440,889\nDeferred tax assets \u003E Tax credits and net operating loss carryforwards \u2014 2025: 835,529 | 2024: 834,402\nDeferred tax assets \u003E Capitalized research expenses \u2014 2025: 969,243 | 2024: 1,075,474\nDeferred tax assets \u003E Accruals and reserves \u2014 2025: 370,568 | 2024: 152,142\nDeferred tax assets \u003E Operating lease liabilities \u2014 2025: 520,170 | 2024: 522,489\nDeferred tax assets \u003E OCI hedging losses \u2014 2025: 116,492\nDeferred tax assets \u003E Unrealized losses \u2014 2025: 41,988 | 2024: 12,157\nDeferred tax assets \u003E Other \u2014 2025: 29,426 | 2024: 18,197\nDeferred tax assets \u003E Total deferred tax assets \u2014 2025: 3,322,100 | 2024: 3,055,750\nValuation allowance \u2014 2025: (617,575) | 2024: (540,272)\nNet deferred tax assets \u2014 2025: 2,704,525 | 2024: 2,515,478\nDeferred tax liabilities:\nDeferred tax liabilities \u003E Depreciation \u0026 amortization \u2014 2025: (32,780) | 2024: (370,709)\nDeferred tax liabilities \u003E Operating right-of-use lease assets \u2014 2025: (448,313) | 2024: (449,661)\nDeferred tax liabilities \u003E OCI hedging gains \u2014 2024: (220,009)\nDeferred tax liabilities \u003E Acquired intangibles \u2014 2025: (261,493) | 2024: (282,187)\nDeferred tax liabilities \u003E Other \u2014 2025: (7,136) | 2024: (15,354)\nDeferred tax liabilities \u003E Total deferred tax liabilities \u2014 2025: (749,722) | 2024: (1,337,920)\nNet deferred tax assets \u2014 2025: $1,954,803 | 2024: $1,177,558\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF CASH FLOWS\n\n(in thousands)\n\nYear Ended December 31,\nChanges in operating assets and liabilities \u003E Other current assets \u2014 2025: (790,661) | 2024: 22,180 | 2023: (181,003)\nChanges in operating assets and liabilities \u003E Accounts payable \u2014 2025: (8,039) | 2024: 121,353 | 2023: 93,502\nChanges in operating assets and liabilities \u003E Accrued expenses and other liabilities \u2014 2025: 881,218 | 2024: 191,899 | 2023: 103,565\nChanges in operating assets and liabilities \u003E Deferred revenue \u2014 2025: 254,917 | 2024: 77,844 | 2023: 178,708\nChanges in operating assets and liabilities \u003E Other non-current assets and liabilities \u2014 2025: (793,655) | 2024: (446,351) | 2023: (310,920)\nNet cash provided by operating activities \u2014 2025: 10,149,273 | 2024: 7,361,364 | 2023: 7,274,301\nCash flows from investing activities:\nCash flows from investing activities \u003E Purchases of property and equipment \u2014 2025: (688,220) | 2024: (439,538) | 2023: (348,552)\nCash flows from investing activities \u003E Acquisitions \u2014 2025: (17,194)\nCash flows from investing activities \u003E Purchases of investments \u2014 2025: (169,965) | 2024: (1,742,246) | 2023: (504,862)\nCash flows from investing activities \u003E Proceeds from maturities and sales of investments \u2014 2025: 1,917,067 | 2023: 1,395,165\nCash flows from investing activities \u003E Net cash provided by (used in) investing activities \u2014 2025: 1,041,688 | 2024: (2,181,784) | 2023: 541,751\nCash flows from financing activities:\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Netflix\u0027s total deferred revenue as of December 31, 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s total deferred revenue was $1,776 million as of December 31, 2025, most of which was membership fees billed and expected to be recognized as revenue within the next month (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements \u003E Revenue Recognition). The balance sheet\u0027s \u0022Deferred revenue\u0022 line under current liabilities shows the more precise figure of $1,775,730 thousand as of December 31, 2025 (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 1,776 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "1,776 at rank 2 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 1,776 from excerpt 2 (narrative), 1,775,730 from excerpt 3 (balance_sheet)."
+        },
+        "metadata": {
+          "Stated 1,776": "excerpt 2 (narrative, PART IV \u003E Financial Statements \u003E Revenue Recognition): \u0022...e not been fully redeemed. As of December 31, 2025, total deferred revenue was $1,776\u00A0million, the vast majority of which was related to membership fees billed ...\u0022",
+          "Stated 1,775,730": "excerpt 3 (balance_sheet, PART IV \u003E Financial Statements): \u0022Current liabilities \u003E Deferred revenue \u2014 2025: 1,775,730 | 2024: 1,520,813\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 3.3364159,
+        "model": "claude-opus-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 3747,
+          "outputTokenCount": 301,
+          "totalTokenCount": 4048,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "EC53F48671E9A27AFDF7011BFD8D45FD71389988B20AD4F552C102D9772E1B6458FAD8D77A39A7901C6F0B85E247E50E",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-opus-5-5",
+    "effort:Medium/Medium",
+    "excerpts:5",
+    "embedding:voyage-finance-2",
+    "kind:figure",
+    "company:NFLX",
+    "statement:income_statement",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

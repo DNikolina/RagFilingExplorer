@@ -1,0 +1,112 @@
+{
+  "scenarioName": "Main.Q16",
+  "iterationName": "1",
+  "executionName": "claude-opus55-medium-finance2-500",
+  "creationTime": "2026-10-13T17:28:28.4723412Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\r\n\u0060\u0060\u0060\r\nINCOME STATEMENTS\n\n(In millions, except per share amounts) Year Ended June 30,\nRevenue:\nRevenue \u003E Product \u2014 2026: $64,696 | 2025: $63,946 | 2024: $64,773\nRevenue \u003E Service and other \u2014 2026: 267,143 | 2025: 217,778 | 2024: 180,349\nRevenue \u003E Total revenue \u2014 2026: 331,839 | 2025: 281,724 | 2024: 245,122\nCost of revenue:\nCost of revenue \u003E Product \u2014 2026: 12,098 | 2025: 13,501 | 2024: 15,272\nCost of revenue \u003E Service and other \u2014 2026: 94,276 | 2025: 74,330 | 2024: 58,842\nCost of revenue \u003E Total cost of revenue \u2014 2026: 106,374 | 2025: 87,831 | 2024: 74,114\nGross margin \u2014 2026: 225,465 | 2025: 193,893 | 2024: 171,008\nResearch and development \u2014 2026: 35,562 | 2025: 32,488 | 2024: 29,510\nSales and marketing \u2014 2026: 26,710 | 2025: 25,654 | 2024: 24,456\nGeneral and administrative \u2014 2026: 7,956 | 2025: 7,223 | 2024: 7,609\nOperating income \u2014 2026: 155,237 | 2025: 128,528 | 2024: 109,433\nOther income (expense), net \u2014 2026: 10,697 | 2025: (4,901) | 2024: (1,646)\nIncome before income taxes \u2014 2026: 165,934 | 2025: 123,627 | 2024: 107,787\nProvision for income taxes \u2014 2026: 32,185 | 2025: 21,795 | 2024: 19,651\nNet income \u2014 2026: $133,749 | 2025: $101,832 | 2024: $88,136\nEarnings per share:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Income\n\n(in millions, except per share amounts)\n\nYear Ended December 31,\nRevenues:\nRevenues \u003E Capital Access Platforms \u2014 2025: $2,137 | 2024: $1,945 | 2023: $1,744\nRevenues \u003E Financial Technology \u2014 2025: 1,850 | 2024: 1,621 | 2023: 1,099\nRevenues \u003E Market Services \u2014 2025: 4,214 | 2024: 3,771 | 2023: 3,156\nRevenues \u003E Other revenues \u2014 2025: 61 | 2024: 63 | 2023: 65\nRevenues \u003E Total revenues \u2014 2025: 8,262 | 2024: 7,400 | 2023: 6,064\nTransaction-based expenses:\nTransaction-based expenses \u003E Transaction rebates \u2014 2025: (2,572) | 2024: (2,026) | 2023: (1,838)\nTransaction-based expenses \u003E Brokerage, clearance and exchange fees \u2014 2025: (441) | 2024: (725) | 2023: (331)\nRevenues less transaction-based expenses \u2014 2025: 5,249 | 2024: 4,649 | 2023: 3,895\nOperating expenses:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF OPERATIONS\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions, except per share data) Year Ended May 31,\nRevenues:\nRevenues \u003E Cloud \u2014 2026: $33,989 | 2025: $24,506 | 2024: $19,774\nRevenues \u003E Software \u2014 2026: 24,541 | 2025: 24,724 | 2024: 24,690\nRevenues \u003E Hardware \u2014 2026: 3,084 | 2025: 2,936 | 2024: 3,066\nRevenues \u003E Services \u2014 2026: 5,743 | 2025: 5,233 | 2024: 5,431\nRevenues \u003E Total revenues \u2014 2026: 67,357 | 2025: 57,399 | 2024: 52,961\nOperating expenses:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Segment Information ---\r\n\u0060\u0060\u0060\r\nGeographic Information\n\nDisclosed in the table below is geographic information for each country that comprised greater than three percent of our total revenues for any of fiscal 2026, 2025 or 2024:\n\n(in millions) As of and for the Year Ended May 31,\nU.S. \u2014 2026 Revenues: $39,835 | 2026 Long-Lived Assets(1): $102,717 | 2025 Revenues: $32,075 | 2025 Long-Lived Assets(1): $45,439 | 2024 Revenues: $29,055 | 2024 Long-Lived Assets(1): $24,798\nUnited Kingdom \u2014 2026 Revenues: 2,816 | 2026 Long-Lived Assets(1): 3,903 | 2025 Revenues: 2,594 | 2025 Long-Lived Assets(1): 2,530 | 2024 Revenues: 2,423 | 2024 Long-Lived Assets(1): 1,164\nGermany \u2014 2026 Revenues: 1,993 | 2026 Long-Lived Assets(1): 2,432 | 2025 Revenues: 1,817 | 2025 Long-Lived Assets(1): 2,013 | 2024 Revenues: 1,794 | 2024 Long-Lived Assets(1): 1,192\nJapan \u2014 2026 Revenues: 1,870 | 2026 Long-Lived Assets(1): 3,183 | 2025 Revenues: 1,759 | 2025 Long-Lived Assets(1): 2,320 | 2024 Revenues: 1,662 | 2024 Long-Lived Assets(1): 1,144\nOther countries \u2014 2026 Revenues: 20,843 | 2026 Long-Lived Assets(1): 21,029 | 2025 Revenues: 19,154 | 2025 Long-Lived Assets(1): 7,841 | 2024 Revenues: 18,027 | 2024 Long-Lived Assets(1): 3,962\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\n(Dollars in millions) Year Ended May 31,\nTotal Revenues by Business \u003E Cloud and software \u2014 2026: $58,530 | Percent Change Actual: 19% | Percent Change Constant: 17% | 2025: $49,230\nTotal Revenues by Business \u003E Hardware \u2014 2026: 3,084 | Percent Change Actual: 5% | Percent Change Constant: 3% | 2025: 2,936\nTotal Revenues by Business \u003E Services \u2014 2026: 5,743 | Percent Change Actual: 10% | Percent Change Constant: 8% | 2025: 5,233\nTotal Revenues by Business \u003E Total revenues \u2014 2026: $67,357 | Percent Change Actual: 17% | Percent Change Constant: 16% | 2025: $57,399\n% Revenues by Business:\n% Revenues by Business \u003E Cloud and software \u2014 2026: 87% | 2025: 86%\n% Revenues by Business \u003E Hardware \u2014 2026: 5% | 2025: 5%\n% Revenues by Business \u003E Services \u2014 2026: 8% | 2025: 9%\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Apple\u0027s revenue last year?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The excerpts don\u0027t contain Apple\u0027s revenue for last year."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "decline-ok",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Declines correctly: the filings don\u0027t contain this."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "Not scored: a negative has no answer to find."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "no figure stated",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "No figure stated - a text answer or a decline."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 1.784766,
+        "model": "claude-opus-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 3010,
+          "outputTokenCount": 41,
+          "totalTokenCount": 3051,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "6FF833CC44192A23828C6CAEE86CFFC036F4DF180DB966E971A2EDCAACF3BE2701671B2CA4E66FE91E5974D085151BB3",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-opus-5-5",
+    "effort:Medium/Medium",
+    "excerpts:5",
+    "embedding:voyage-finance-2",
+    "kind:negative",
+    "company:none",
+    "statement:income_statement",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

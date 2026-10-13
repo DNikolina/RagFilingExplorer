@@ -4595,6 +4595,46 @@ same prompt, chunks and settings as nomic's baseline (`structured-hybrid-chunk-f
   losses among them); 3 are retrieval (A8 and A11 rank 7, A14 rank 6). Better retrieval gave llama +2 net, the same kind of
   gain-and-loss shuffle earlier prompt changes caused ("llama's sensitivity to prompt changes", chunk-review entries).
 
+**Step 8 - Opus 5.5 on `voyage-finance-2` at 500 tokens, 5 excerpts: 98/102 strictly, 100/102 read (user, 2026-10-13).**
+`claude-opus55-medium-finance2-500`: medium effort as shipped, 6.5 min, 357K input + 29K output tokens (batch 1's run on
+nomic, 384K + 30K, cost ~$2.10). Against Opus on nomic (`claude-opus55-medium`, 97 strictly, 98 read) - answered
+2026-10-08 on the index before the chunk-review fixes, so the chunks differ as well as the embedder:
+
+| Set | Opus, nomic (batch 1) | Opus, finance-2 |
+|---|---|---|
+| Main (40) | 40 | 40 |
+| Held-out (35) | 31 | 34 |
+| Answer-side (27) | 26 | 24 |
+| **All, strictly** | **97** | **98** |
+
+- Grade changes (`eval/v3-runs/compare-opus-nomic-vs-finance2-500.txt`): **H25, H29 gained** (declines -> the figure; both were
+  batch 1's retrieval misses), **H34 gained** (check -> reliable); **A14 lost** - retrieval (rank 6: MD&A's rounded $55.7
+  billion instead); **A12 lost strictly only** - a negative answered "Netflix did not declare any cash dividends ... it has
+  never declared or paid any cash dividends", sourced to Item 5: correct, though not the decline form the grade expects.
+  R3 passes both ways.
+- **Read: 100/102.** H11 (`check`) names New York as the U.S. headquarters and Stockholm as the European one - right; A12
+  right as above. The two misses are **retrieval**, just outside the five excerpts: **A11** (rank 7 - answers the declared
+  5,725 instead of the 5,787 paid) and **A14** (rank 6). Both were in the top 5 at 2,500 tokens and 10,000 (finance-2), or with
+  more excerpts (step 0a).
+- llama on the same prompts: 87/102 - Claude reads what llama misreads; what's left for Claude is retrieval only.
+
+**The exact comparison - Opus on today's nomic index (user, 2026-10-13):** `claude-opus55-medium-nomic-current`, the same
+code, chunks, prompt and settings, only the embedder differs (6.3 min, 371K + 31K tokens): **96/102 strictly, 97 read**.
+
+| Set | Opus, nomic (today's index) | Opus, finance-2 |
+|---|---|---|
+| Main (40) | 39 | 40 |
+| Held-out (35) | 32 | 34 |
+| Answer-side (27) | 25 | 24 |
+| **Strictly / read** | **96 / 97** | **98 / 100** |
+
+- On nomic every miss is retrieval: R3 (rank 11, declines), H29 (7, declines), H34 (8, a lookalike), A10 (7, declines but
+  states the declared 27,034), A11 (12) - H11 reads right as on finance-2.
+- Grade changes (`compare-opus-nomic-current-vs-finance2-500.txt`): finance-2 **gains R3, H29, H34, A10** - each a retrieval
+  fix; **loses A14** (rank 4 -> 6, retrieval) and **A12** (strictly only, a correct answer not in the decline form).
+- **finance-2 is worth +2 strictly, +3 read, to Opus**, all by retrieval; llama gained +2 the same way. The two misses left
+  on finance-2 (A11 rank 7, A14 rank 6) are retrieval too.
+
 **Ollama build for batch 3: 0.40.2** (installed 2026-10-09 from the auto-updater's staged, Ollama-signed installer;
 0.40.0 -> 0.40.1 had auto-installed that morning). `nomic-embed-text` (0a109f422b47) and `llama3.1:8b` (46e0c10c039e)
 unchanged - not upgraded by 0.40's background model conversion. 0.40.0 reproduced 0.35.1's answers (above); 0.40.2 is

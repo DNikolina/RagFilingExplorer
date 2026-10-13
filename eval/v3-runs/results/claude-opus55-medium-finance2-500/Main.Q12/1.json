@@ -1,0 +1,116 @@
+{
+  "scenarioName": "Main.Q12",
+  "iterationName": "1",
+  "executionName": "claude-opus55-medium-finance2-500",
+  "creationTime": "2026-10-13T17:27:54.1484687Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART I \u003E Item 2. Properties ---\r\n\u0060\u0060\u0060\r\nOur properties consist of owned and leased facilities for cloud operations, sales, support, research and development, services, manufacturing and administrative and other functions. Our headquarters facility consists of approximately 0.9 million square feet in Austin, Texas, all of which we own. We also own or lease office facilities for current use consisting of approximately 25.4 million square feet in various other locations in the U.S. and abroad. Approximately 11.9 million square feet, or 45%, of our total owned and leased office facilities are sublet or are being actively marketed for sublease or disposition. We lease our principal internal manufacturing facility for our hardware products in Hillsboro, Oregon. Additionally, we have approximately 181 data center locations globally, substantially all of which are leased and used to deliver our Oracle Cloud offerings. We believe that our facilities are in good condition and suitable for the conduct of our business.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nWe directly market and sell our cloud, software, hardware, support and services offerings globally to businesses of many sizes and in many industries, government agencies and educational institutions. We also market and sell our offerings globally through indirect channels.\n\nIn the United States (U.S.), our sales and services employees are based throughout the country. Outside the U.S., our international subsidiaries sell, support and service our offerings in their local countries as well as within other foreign countries where we do not operate through a direct sales subsidiary. Our geographic coverage allows us to draw on business and technical expertise from a global workforce, provides stability to our operations and revenue streams to offset geography-specific economic trends and offers us an opportunity to take advantage of new markets for our offerings. Our international operations subject us to certain risks, which are more fully described in Risk Factors included in Item 1A of this Annual Report. A summary of our domestic and international revenues and long-lived assets is set forth in Note 13 of Notes to Consolidated Financial Statements included elsewhere in this Annual Report.\n\nWe also market our product offerings worldwide through indirect channels. The companies that comprise our indirect channel network are members of the Oracle Partner Network. The Oracle Partner Network is a global program that manages our business relationships with a large, broad-based network of companies, including cloud and software, hardware and services suppliers, system integrators and resellers that deliver innovative solutions and services based upon and in conjunction with our product offerings. By offering our partners access to our product offerings, educational information, technical services, marketing and sales support, the Oracle Partner Network program extends our market reach by providing our partners with the resources they need to be successful in delivering solutions to customers globally.\n\nResearch and Development\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section (no heading) ---\r\n\u0060\u0060\u0060\r\nIndicate by check mark whether the registrant is a shell company (as defined in Rule 12b-2 of the Exchange Act). Yes \u2610 No \u2612\n\nThe aggregate market value of the voting stock held by non-affiliates of the registrant was $346,760,150,000 based on the number of shares held by non-affiliates of the registrant as of May 31, 2026, and based on the closing sale price of common stock as reported by the New York Stock Exchange on November 28, 2025, which is the last business day of the registrant\u2019s most recently completed second fiscal quarter. This calculation does not reflect a determination that persons are affiliates for any other purposes.\n\nNumber of shares of common stock outstanding as of June 12, 2026: 2,880,471,000.\n\nDocuments Incorporated by Reference:\n\nPortions of the registrant\u0027s definitive proxy statement relating to its 2026 annual meeting of stockholders are incorporated by reference into Part III of this Annual Report on Form 10-K where indicated. Such proxy statement will be filed with the U.S. Securities and Exchange Commission within 120 days of the registrant\u2019s fiscal year ended May 31, 2026.\n\nORACLE CORPORATION\n\nFISCAL YEAR 2026\n\nFORM 10-K\n\nANNUAL REPORT\n\nTABLE OF CONTENTS\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART I \u003E Item 1C. Cybersecurity ---\r\n\u0060\u0060\u0060\r\nOur Senior Vice President, Oracle Security and Governance Risk Compliance is supported by team members who have relevant educational and industry experience. These team members provide regular reports to the Senior Vice President, Oracle Security and Governance Risk Compliance and work closely with our Chief Privacy Officer and include personnel dedicated to information security, product security, and physical security. Informed by the processes and practices discussed under \u201CRisk Management and Strategy\u201D above, team members escalate cybersecurity threats and incidents to the Senior Vice President, Oracle Security and Governance Risk Compliance who assesses the severity of such threats and incidents for inclusion in quarterly update to the F\u0026A Committee where appropriate. In addition to the ordinary-course Board and F\u0026A Committee reporting and oversight described above, we also maintain disclosure controls and procedures designed for prompt reporting to the Board and timely public disclosure, as appropriate, of material events covered by our risk management framework, including cybersecurity risks.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nAcquisitions\n\nOur selective acquisition program is another element of our corporate strategy. Historically, we have invested billions of dollars to acquire a number of complementary companies, products, services and technologies. As compelling opportunities become available, we may acquire companies, products, services and technologies in furtherance of our corporate strategy. We estimate the financial impact of any potential acquisition with regard to earnings, operating margin, cash flows and return on invested capital targets, among others, before deciding to move forward with an acquisition.\n\nCritical Accounting Estimates\n\nOur consolidated financial statements are prepared in accordance with U.S. generally accepted accounting principles (GAAP), which requires us to make certain estimates, judgments and assumptions that can affect the reported amounts of assets, liabilities, revenues, expenses and related disclosures. Critical accounting estimates are those estimates that involve a significant level of estimation uncertainty and have had, or are reasonably likely to have, a material impact on our financial condition or results of operations. We believe that the estimates, judgments and assumptions upon which we rely are reasonable based upon information available to us at the time that these estimates, judgments and assumptions are made. To the extent that there are differences between these estimates, judgments or assumptions and actual results, our financial statements will be affected. We have critical accounting estimates in the area of income taxes. Refer to Note 1 of Notes to Consolidated Financial Statements included elsewhere in this Annual Report for more discussion of our significant accounting policies.\n\nIncome Taxes\n\nJudgment is required in determining our worldwide income tax provision. In the ordinary course of a global business, there are many transactions and calculations where the ultimate tax outcome is uncertain. Some of these uncertainties arise as a consequence of revenue sharing and cost reimbursement arrangements among related entities, the process of identifying items of revenues and expenses that qualify for preferential tax treatment and the segregation of foreign and domestic earnings and expenses to avoid double taxation. Although we believe that our estimates are reasonable, the final tax outcome of these matters could be different from that which is reflected in our historical income tax provisions and accruals. Such differences could have a material effect on our income tax provision and net income in the period in which such determination is made.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Where is Oracle headquartered?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s headquarters is in Austin, Texas, in a facility of approximately 0.9 million square feet that Oracle owns entirely (Source: ORCL-10K-2026.html, PART I \u003E Item 2. Properties)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected Austin."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "Austin at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 0.9 from excerpt 1 (narrative)."
+        },
+        "metadata": {
+          "Stated 0.9": "excerpt 1 (narrative, PART I \u003E Item 2. Properties): \u0022...rative and other functions. Our headquarters facility consists of approximately 0.9 million square feet in Austin, Texas, all of which we own. We also own or le...\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 2.3634543,
+        "model": "claude-opus-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 2988,
+          "outputTokenCount": 181,
+          "totalTokenCount": 3169,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "6A5FB08782A368141A1DCD82A9EE6C1FBF2ED3FF58C012CEE43597422C908CBFFD2C7F7D78C2857446C95CF5FAF67B77",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-opus-5-5",
+    "effort:Medium/Medium",
+    "excerpts:5",
+    "embedding:voyage-finance-2",
+    "kind:fact",
+    "company:ORCL",
+    "statement:none",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}
