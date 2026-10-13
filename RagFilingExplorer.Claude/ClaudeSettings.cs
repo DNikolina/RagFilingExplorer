@@ -42,7 +42,9 @@ internal sealed class ClaudeSettings
     /// <summary>
     /// How many retrieved excerpts Claude reads - replaces appsettings.json's Retrieval:GenerationTopK, which is sized for
     /// Ollama's 4,096-token num_ctx; Claude's window is 1M. Applied by <see cref="ApplyTo"/>. At most
-    /// Retrieval:VerboseSearchTopK, the depth the evaluation retrieves and ranks within.
+    /// Retrieval:VerboseSearchTopK, the depth the evaluation retrieves and ranks within. 8, not llama's 5: what Claude
+    /// misses is an answer ranked just past its excerpts, and three more cost little against a whole prompt - the runs
+    /// at 5, 8 and 12: docs/Decision-Log.md, "paid services (v4)".
     /// </summary>
     public required int GenerationTopK { get; set; }
 

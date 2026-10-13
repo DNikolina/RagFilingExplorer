@@ -184,9 +184,23 @@ hasn't picked up. Swapping in the newer `vec0.dll` by hand was rejected: it woul
 regress for anyone who clones the repo. The cost is negligible: ~4-5 records/sec on this hardware, batched
 or not. Decision-Log.md, "persisted vector store".
 
-### Why wasn't a different embedding model tried?
+### Which embedding models were tried, and why is `nomic-embed-text` still the default?
 
-It was planned after linearization, since that changes what gets embedded and the two interact; the
-candidates' query/document templates are already recorded. It was deferred when the project stopped
-adding scope before the manual pass. Models limited to 512 tokens are excluded as they stand: chunks reach
-~800 tokens, so table rows would be silently truncated. Decision-Log.md, "embedding-model comparison".
+Three besides it, each judged first by where the expected answer ranks for every question - no answers asked - and only
+then by answers. Google's `embeddinggemma`, local through Ollama, tied nomic and did worse on the held-out questions, so
+nomic stayed. Voyage AI's `voyage-4-large` and `voyage-finance-2`, a paid API, both ranked answers higher, and
+`voyage-finance-2` improved both llama's and Claude's answers. nomic is still the default because the project's default
+is free and local; Voyage is one setting away (`Providers:Embedding`), with its own index. The newer `embeddinggemma-2`
+couldn't be measured here: Ollama runs it through MLX, whose only Windows runtime needs an NVIDIA GPU. Models limited
+to 512 tokens are excluded as they stand - chunks run past 512 tokens, so table rows would be cut silently. Each model's
+query and document templates come from its own card (`EmbeddingTemplates`). Decision-Log.md, "embedding-model
+comparison" and "Batch 3 - embeddings, free then paid".
+
+### Why Voyage, and not the open `voyage-4-nano`?
+
+Voyage builds embedding models for retrieval, offers one "optimized for finance retrieval and RAG" (`voyage-finance-2`),
+reads up to 32,000 tokens a text, and gives free tokens per model enough for this project's indexes. Voyage has no
+official .NET SDK, so the client is written here over `HttpClient`, sending Voyage's `input_type` so chunks and questions
+are embedded as Voyage intends. `voyage-4-nano` has open weights (Apache 2.0) but isn't served by Ollama: running it
+locally means porting it to ONNX with tokenizer and embedding parity checks, as the reranker needed - left for later, if
+the free stack needs it. Decision-Log.md, "Batch 3 - embeddings, free then paid".

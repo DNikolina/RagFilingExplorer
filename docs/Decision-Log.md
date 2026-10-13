@@ -3852,7 +3852,7 @@ arguments on internal methods - the guideline's reason is CLS compliance, a publ
 names as they were. Checked: 410 + 195 tests; a cached replay with the local judge 204/204 from the cache, answers and
 agreement identical; a cached Claude answer from the cache.
 
-### Batch 3 - embeddings, free then paid: IN PROGRESS (user, 2026-10-09)
+### Batch 3 - embeddings, free then paid: COMPLETE (user, 2026-10-09 to 2026-10-13)
 
 **Why.** Batch 1 left every Claude miss a retrieval miss: the answer's chunk ranked 7-12, never in the five excerpts the
 model reads. A better reader can't fix those; a better embedder might. Batch 3 changes the embeddings only - same
@@ -4692,3 +4692,22 @@ rate limits; the free tokens still apply). Steps 1-5 need neither.
 **Not in this batch:** `voyage-4-nano` (open weights, Apache 2.0, not in Ollama - an ONNX port with tokenizer and
 embedding parity checks, as the reranker had) and Voyage's rerankers - each a later step, if the paid embedder shows
 retrieval is where the gain is.
+
+**Step 9 - docs and closing decisions: batch 3 complete (user, 2026-10-13).**
+- **`Claude:GenerationTopK` 5 -> 8** (user): Opus at 8 excerpts reaches 101/102 strictly on either embedder, at ~$0.80
+  a run more than at 5; Claude's window holds them easily. llama stays at 5 - its 4,096 window can't take 8 (PromptFit).
+  `ClaudeSettingsTests` pins 8 and that it's more than llama's.
+- **Defaults otherwise unchanged:** `nomic-embed-text` and `llama3.1:8b`, free and local; Voyage and Claude only when
+  chosen in `Providers`.
+- **Voyage's rerankers: not taken up.** At 8 excerpts nothing left for Opus is a ranking miss a reranker would turn into
+  a pass (A12 is wording, A11 on nomic is gone with finance-2), and llama's misses are misreadings. A candidate for later,
+  with 200M free tokens per reranker model, if a new question set shows ranking misses again.
+- **Docs:** README - a Results table of every configuration measured on all 102 questions (the v1/v2 table moved to
+  `eval/README.md`), the providers in "How it works", the plain user-secrets key setup; Design-FAQ - "Which embedding
+  models were tried" (rewritten: it said the comparison was deferred) and "Why Voyage, and not the open voyage-4-nano?".
+- **Batch 3's outcome:** the embedder matters most to the model that reads well - Opus gains a few questions from
+  voyage-finance-2 at 5 excerpts, one at 8; llama, whose misses are misreadings, gains 2 (85 -> 87). More excerpts reach
+  the same answers more cheaply than bigger chunks (500 tokens with 8: $2.80 a run; 10,000 with 5: $10.70).
+- **Left for later (user):** batch 4 on the Mac (re-baseline llama there; a bigger local model; llama with 8 excerpts and
+  on the 10,000-token index with a larger `Ollama:ContextLength`); the evaluation's `ChatModel` vs `Providers` (open);
+  a pre-commit privacy hook (deferred); closing v4 (merge, tag).

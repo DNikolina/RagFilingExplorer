@@ -88,7 +88,7 @@ agrees with it on 305 of 306 verdicts, slightly more lenient (A11) - no self-pre
 nomic-embed-text, same chunking, search and prompt; first, Claude given more excerpts (top-12 - batch 1's four misses
 ranked 7-12), then a shared `RagFilingExplorer.Core` (no behaviour change), the Voyage client written here, one index per embedding model, answer rank measured before answers.
 Decision-Log.md, "Batch 3 - embeddings, free then paid". **Step 0a done (2026-10-09):** `Claude:GenerationTopK` (shipped 5);
-Sonnet 5.5 at 12 excerpts **102/102 strictly** (95 at 5) - every grade change a pass, the four retrieval misses fixed, ~$1.90. Claude stays at 5 (user). **Next: the free `embeddinggemma-2` before Voyage** - the embedder
+Sonnet 5.5 at 12 excerpts **102/102 strictly** (95 at 5) - every grade change a pass, the four retrieval misses fixed, ~$1.90. Claude stays at 5 (user; raised to 8 after batch 3). **Next: the free `embeddinggemma-2` before Voyage** - the embedder
 made swappable, a retrieval-only evaluation mode, its ranks against nomic's, llama's answers if they improve. **Steps 1-3 done:** EmbeddingGemma 2 can't run on
 this machine (MLX); the first `embeddinggemma` ties nomic (recall@5 87 vs 86/94) and is worse on the held-out set - nomic
 stays. Ranks showed why every embedder misses the same questions: **all 16 primary statements are split** at the token
@@ -127,7 +127,9 @@ A14 retrieval at rank 7 and 6.
 **Opus on finance-2 at 10,000 tokens, top 5: 101/102 strictly, 102/102 read** - A11, A14 fixed - at 2.5M input tokens
 (~7x; $10.70 the run). **The same at 500 tokens with 8 excerpts: 101/102 strictly, 102/102 read, 553K input tokens
 ($2.80)** - best measured for Claude: finance-2, 500-token chunks, 8 excerpts. **nomic at 8 excerpts: 101/102 strictly, 101 read** - at
-8 the embedder is worth one question as read (A11) to Opus, at 5 two strictly, three read. Next (user).
+8 the embedder is worth one question as read (A11) to Opus, at 5 two strictly, three read. **Step 9 done:** README results,
+Design-FAQ (embedding models tried; why Voyage), `Claude:GenerationTopK` 5 -> 8 (user). **Batch 3 complete.** Defaults
+unchanged otherwise: nomic and llama, free. Next (user): batch 4 on the Mac, or closing v4.
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the

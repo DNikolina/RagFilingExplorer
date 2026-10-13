@@ -46,8 +46,9 @@ public class ClaudeSettingsTests
         Assert.That(settings.LookupEffort, Is.EqualTo(ReasoningEffort.Medium), "enum binds from its name");
         Assert.That(settings.SynthesisEffort, Is.EqualTo(ReasoningEffort.Medium));
         Assert.That(settings.MaxOutputTokens, Is.Positive);
-        Assert.That(settings.GenerationTopK, Is.EqualTo(AppSettingsTests.LoadShippedSettings().Retrieval.GenerationTopK),
-            "Claude reads as many excerpts as llama until a run overrides it");
+        Assert.That(settings.GenerationTopK, Is.EqualTo(8));
+        Assert.That(settings.GenerationTopK, Is.GreaterThan(AppSettingsTests.LoadShippedSettings().Retrieval.GenerationTopK),
+            "Claude reads more excerpts than llama's window holds");
     }
 
     [Test]

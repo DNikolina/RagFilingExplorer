@@ -130,7 +130,7 @@ flowchart TB
         kw["Keyword search<br/>FTS5 bm25"]
         vecst["Vector search<br/>within the statement"]
         fuse["Reciprocal rank fusion"]
-        prompt["Top excerpts (5 by default) + citation rules<br/>must fit the chat model's window"]
+        prompt["Top excerpts (llama 5, Claude 8) + citation rules<br/>must fit the chat model's window"]
         llm["Chat model<br/>llama3.1:8b (Ollama, default)<br/>or Claude"]
         answer["Answer, each fact cited<br/>to filing and section"]
 
@@ -250,9 +250,9 @@ exits with a one-line fix instead of a stack trace:
 ## Answering with Claude (v4, optional, paid)
 
 Set `Providers:Chat` to `Claude` and the same app, over the same index, has Claude write the answer instead of
-`llama3.1:8b`. Only the chat model changes: chunking, embeddings, the index and retrieval are the same, so every
-question gets the same excerpts and the same prompt. The default stays free: nothing is sent to Anthropic unless this
-setting chooses it ([docs/Design-FAQ.md](docs/Design-FAQ.md)).
+`llama3.1:8b`. Chunking, embeddings, the index and retrieval are the same; Claude reads 8 excerpts to llama's 5
+(`Claude:GenerationTopK` - its window holds them, llama's doesn't). The default stays free: nothing is sent to Anthropic
+unless this setting chooses it ([docs/Design-FAQ.md](docs/Design-FAQ.md)).
 
 Besides the usual prerequisites, it needs:
 
