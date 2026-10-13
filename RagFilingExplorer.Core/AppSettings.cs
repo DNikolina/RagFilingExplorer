@@ -84,6 +84,19 @@ internal sealed class AppSettings
     }
 
     /// <summary>
+    /// Refuses a key with a space or a non-printable character - every provider's key is printable ASCII. Ctrl+V at a
+    /// hidden PowerShell prompt stores the control character itself, which an API answers with a bare 400.
+    /// </summary>
+    internal static void EnsurePrintableKey(string key, string keyName)
+    {
+        if (key.Any(c => c is <= ' ' or > '~'))
+        {
+            throw new StartupException(
+                $"The {keyName} key holds a space or non-printable character ({key.Length} characters) - a failed paste? Set it again.");
+        }
+    }
+
+    /// <summary>
     /// Every leaf key this type binds (e.g. "Ollama:ChatModel"), derived by reflection - a hand-maintained list
     /// could miss a new setting and silently reopen the "missing key binds as null" gap the check exists to close.
     /// </summary>

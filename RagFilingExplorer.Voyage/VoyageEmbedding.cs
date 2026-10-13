@@ -38,12 +38,7 @@ internal static class VoyageEmbedding
                 + $"{EnvironmentKeyName} environment variable - never in a settings file, the repository is public.");
         }
 
-        // A key is printable ASCII with no spaces; Ctrl+V at a hidden PowerShell prompt stores the control character itself.
-        if (apiKey.Any(c => c is <= ' ' or > '~'))
-        {
-            throw new StartupException(
-                $"The Voyage API key holds a space or non-printable character ({apiKey.Length} characters) - a failed paste? Set it again.");
-        }
+        AppSettings.EnsurePrintableKey(apiKey, "Voyage API");
 
         // The index build embeds one chunk per request (VectorStore:UpsertBatchSize), each well inside a minute.
         HttpClient http = new() { BaseAddress = BaseAddress, Timeout = TimeSpan.FromMinutes(2) };

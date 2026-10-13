@@ -27,13 +27,7 @@ internal static class ClaudeChat
                 + "ANTHROPIC_API_KEY environment variable - never in a settings file, the repository is public.");
         }
 
-        // A key is printable ASCII with no spaces. Ctrl+V at a hidden PowerShell prompt stores the control character
-        // itself, which the API answers with a bare 400 - named here instead.
-        if (claude.ApiKey.Any(c => c is <= ' ' or > '~'))
-        {
-            throw new StartupException(
-                $"The Claude API key holds a space or non-printable character ({claude.ApiKey.Length} characters) - a failed paste? Set it again.");
-        }
+        AppSettings.EnsurePrintableKey(claude.ApiKey, "Claude API");
 
         AnthropicClient client = new() { ApiKey = claude.ApiKey };
         try

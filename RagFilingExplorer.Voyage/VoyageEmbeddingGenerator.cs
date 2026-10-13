@@ -1,7 +1,6 @@
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using Microsoft.Extensions.AI;
 
 namespace RagFilingExplorer.Voyage;
@@ -26,6 +25,10 @@ internal sealed class VoyageEmbeddingGenerator(
     internal const int MaxAttempts = 8;
 
     private static readonly TimeSpan MaxBackOff = TimeSpan.FromSeconds(60);
+
+    // Voyage's fields are snake_case (input_type, total_tokens); the web defaults keep reading case-insensitive, as the
+    // HttpClient JSON helpers do without options.
+    private static readonly JsonSerializerOptions Json = new(JsonSerializerDefaults.Web) { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower };
 
     private readonly Func<TimeSpan, CancellationToken, Task> delay = delay ?? Task.Delay;
 
@@ -85,10 +88,10 @@ internal sealed class VoyageEmbeddingGenerator(
     {
         for (int attempt = 1; ; attempt++)
         {
-            using HttpResponseMessage response = await http.PostAsJsonAsync("embeddings", request, cancellationToken);
+            using HttpResponseMessage response = await http.PostAsJsonAsync("embeddings", request, Json, cancellationToken);
             if (response.IsSuccessStatusCode)
             {
-                return await response.Content.ReadFromJsonAsync<EmbeddingsResponse>(cancellationToken)
+                return await response.Content.ReadFromJsonAsync<EmbeddingsResponse>(Json, cancellationToken)
                     ?? throw new InvalidOperationException("Voyage returned an empty response.");
             }
 
@@ -122,20 +125,11 @@ internal sealed class VoyageEmbeddingGenerator(
         }
     }
 
-    private sealed record EmbeddingsRequest(
-        [property: JsonPropertyName("input")] List<string> Input,
-        [property: JsonPropertyName("model")] string Model,
-        [property: JsonPropertyName("input_type")] string InputType,
-        [property: JsonPropertyName("truncation")] bool Truncation);
+    private sealed record EmbeddingsRequest(List<string> Input, string Model, string InputType, bool Truncation);
 
-    private sealed record EmbeddingsResponse(
-        [property: JsonPropertyName("data")] List<EmbeddingData> Data,
-        [property: JsonPropertyName("model")] string Model,
-        [property: JsonPropertyName("usage")] EmbeddingsUsage Usage);
+    private sealed record EmbeddingsResponse(List<EmbeddingData> Data, string Model, EmbeddingsUsage Usage);
 
-    private sealed record EmbeddingData(
-        [property: JsonPropertyName("embedding")] float[] Embedding,
-        [property: JsonPropertyName("index")] int Index);
+    private sealed record EmbeddingData(float[] Embedding, int Index);
 
-    private sealed record EmbeddingsUsage([property: JsonPropertyName("total_tokens")] int TotalTokens);
+    private sealed record EmbeddingsUsage(int TotalTokens);
 }
