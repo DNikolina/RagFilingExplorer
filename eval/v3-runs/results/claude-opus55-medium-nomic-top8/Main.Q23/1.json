@@ -1,0 +1,123 @@
+{
+  "scenarioName": "Main.Q23",
+  "iterationName": "1",
+  "executionName": "claude-opus55-medium-nomic-top8",
+  "creationTime": "2026-10-13T19:13:16.2600634Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Balance Sheets\n\n(in millions, except share and par value amounts)\n\nDecember 31,\nLong-term debt \u2014 2025: 8,573 | 2024: 9,081\nDeferred tax liabilities, net \u2014 2025: 1,584 | 2024: 1,594\nOperating lease liabilities \u2014 2025: 462 | 2024: 388\nOther non-current liabilities \u2014 2025: 241 | 2024: 230\nTotal liabilities \u2014 2025: 18,821 | 2024: 19,195\nCommitments and contingencies\nEquity\nNasdaq stockholders\u2019 equity:\nNasdaq stockholders\u2019 equity \u003E Common stock, $0.01 par value, 900,000,000 shares authorized, shares issued: 594,620,320 at December 31, 2025 and 598,920,378 at December 31, 2024; shares outstanding: 569,894,024 at December 31, 2025 and 575,062,217 at December 31, 2024 \u2014 2025: 6 | 2024: 6\nNasdaq stockholders\u2019 equity \u003E Additional paid-in capital \u2014 2025: 5,122 | 2024: 5,530\nNasdaq stockholders\u2019 equity \u003E Common stock in treasury, at cost: 24,726,296 shares at December 31, 2025 and 23,858,161 shares at December 31, 2024 \u2014 2025: (716) | 2024: (647)\nNasdaq stockholders\u2019 equity \u003E Accumulated other comprehensive loss \u2014 2025: (1,773) | 2024: (2,099)\nNasdaq stockholders\u2019 equity \u003E Retained earnings \u2014 2025: 9,588 | 2024: 8,401\nNasdaq stockholders\u2019 equity \u003E Total Nasdaq stockholders\u2019 equity \u2014 2025: 12,227 | 2024: 11,191\nNoncontrolling interests \u2014 2025: 5 | 2024: 9\nTotal equity \u2014 2025: 12,232 | 2024: 11,200\nTotal liabilities and equity \u2014 2025: $31,053 | 2024: $30,395\n\nSee accompanying notes to consolidated financial statements.\n\nNasdaq, Inc.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART III \u003E Item 12. Security Ownership of Certain Beneficial Owners and Management and Related Stockholder Matters ---\r\n\u0060\u0060\u0060\r\nInformation about security ownership of certain beneficial owners and management, as required by Item\u00A0403 of Regulation S-K, is incorporated by reference from the discussion under the heading \u201COther Items - Security Ownership of Certain Beneficial Owners and Management\u201D in the Proxy Statement.\n\nEquity Compensation Plan and ESPP Information\n\nNasdaq\u2019s Equity Plan provides for the issuance of our equity securities to all employees and directors as part of their compensation plan.\n\nIn addition, in jurisdictions where participation in the ESPP is permitted, all our employees are eligible. Employees may purchase shares of our common stock at a 15% discount to the lesser of the closing price of our common stock on (i) the first trading day of the offering period or (ii) the last trading day of the offering period. Offering periods under the ESPP are nine months in duration. As of December 31, 2025, all our employees are eligible to participate.\n\nThe Equity Plan and the ESPP have been previously approved by our stockholders. The following table sets forth information regarding outstanding options and shares reserved for future issuance under all of Nasdaq\u2019s compensation plans as of December 31, 2025.\n\nPlan Category\nEquity compensation plans approved by stockholders \u2014 Number of shares to be issued upon exercise of outstanding options, warrants and rights(a): 1,420,323 | Weighted- average exercise price of outstanding options, warrants and rights(b): $41.79 | Number of shares remaining available for future issuance under equity compensation plans (excluding shares reflected in column(a))(c): 31,636,261\nEquity compensation plans not approved by stockholders\nTotal \u2014 Number of shares to be issued upon exercise of outstanding options, warrants and rights(a): 1,420,323 | Weighted- average exercise price of outstanding options, warrants and rights(b): $41.79 | Number of shares remaining available for future issuance under equity compensation plans (excluding shares reflected in column(a))(c): 31,636,261\n\nIn the table above:\n\n\u2022 As of December 31, 2025, we also had 6,298,594 shares to be issued upon vesting of outstanding restricted stock and PSUs.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 5. Market for Registrant\u2019s Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities ---\r\n\u0060\u0060\u0060\r\nMarket Information\n\nOur common stock is listed on The Nasdaq Stock Market under the ticker symbol \u201CNDAQ.\u201D As of February 3, 2026, we had approximately 177 holders of record of our common stock\n\nIssuer Purchases of Equity Securities\n\nShare Repurchase Program\n\nSee \u201CShare Repurchase Program,\u201D of Note 12, \u201CNasdaq Stockholders\u2019 Equity,\u201D to the consolidated financial statements for further discussion of our share repurchase program.\n\nPurchases of Equity Securities by the Issuer and Affiliated Purchasers\n\nUnder our board approved share repurchase program, we may repurchase shares from time to time at prevailing market prices in open market purchases, privately-negotiated transactions, block purchases, an accelerated share repurchase program or otherwise, as determined by our management. As of December 31, 2025, the remaining aggregate authorized amount under the existing share repurchase program was $1.1 billion. The share repurchase program may be suspended, modified or discontinued at any time, and has no defined expiration date.\n\nThe table below represents repurchases made by or on behalf of us or any \u201Caffiliated purchaser\u201D of our common stock during the fiscal quarter ended December 31, 2025:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity ---\r\n\u0060\u0060\u0060\r\n12. NASDAQ STOCKHOLDERS\u2019 EQUITY\n\nCommon Stock\n\nAs of December 31, 2025, 900,000,000 shares of our common stock were authorized, 594,620,320 shares were issued and 569,894,024 shares were outstanding. As of December 31, 2024, 900,000,000 shares of our common stock were authorized, 598,920,378 shares were issued and 575,062,217 shares were outstanding. The holders of common stock are entitled to one vote per share, except that our certificate of incorporation limits the ability of any shareholder to vote in excess of 5.0% of the then-outstanding shares of Nasdaq common stock.\n\nCommon Stock in Treasury, at Cost\n\nWe account for the purchase of treasury stock under the cost method with the shares of stock repurchased reflected as a reduction to Nasdaq stockholders\u2019 equity and included in common stock in treasury, at cost in the Consolidated Balance Sheets. Shares repurchased under our share repurchase program are currently retired and canceled and are therefore not included in the common stock in treasury balance. If treasury shares are reissued, they are recorded at the average cost of the treasury shares acquired. We held 24,726,296\u00A0shares of common stock in treasury as of December 31, 2025 and 23,858,161 shares as of December 31, 2024, most of which are related to shares of our common stock withheld for the settlement of employee tax withholding obligations arising from the vesting of restricted stock and PSUs.\n\nShare Repurchase Program\n\nAs of December 31, 2025, the remaining aggregate authorized amount under the existing share repurchase program was $1.1 billion.\n\nAs part of this program, repurchases may be made from time to time at prevailing market prices in open market purchases, privately-negotiated transactions, block purchase techniques, an accelerated share repurchase program or otherwise, as determined by our management. The repurchases are primarily funded from existing cash balances. The share repurchase program may be suspended, modified or discontinued at any time, and has no defined expiration date.\n\nThe following is a summary of our share repurchase activity, reported based on settlement date, for the year ended December 31, 2025:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART III \u003E Item 12. Security Ownership of Certain Beneficial Owners and Management and Related Stockholder Matters ---\r\n\u0060\u0060\u0060\r\n\u2022 As of December 31, 2025, we also had 6,298,594 shares to be issued upon vesting of outstanding restricted stock and PSUs.\n\n\u2022 The number\u00A0of\u00A0shares remaining\u00A0available for future issuance under equity compensation\u00A0plans (excluding shares reflected\u00A0in\u00A0column (a) includes 21,559,043 shares of common stock that may be awarded pursuant to the Equity Plan and (b) 10,077,218 shares of common stock that may be issued pursuant to the ESPP.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Changes in Stockholders\u2019 Equity\n\n(in millions)\n\nYear Ended December 31,\nNoncontrolling interests \u003E Beginning balance \u2014 2025 $: 9 | 2024 $: 11 | 2023 $: 13\nNoncontrolling interests \u003E Net activity related to noncontrolling interests \u2014 2025 $: (4) | 2024 $: (2) | 2023 $: (2)\nNoncontrolling interests \u003E Ending balance \u2014 2025 $: 5 | 2024 $: 9 | 2023 $: 11\nTotal Equity \u2014 2025 Shares: 570 | 2025 $: $12,232 | 2024 Shares: 575 | 2024 $: $11,200 | 2023 Shares: 575 | 2023 $: $10,827\n\nSee accompanying notes to consolidated financial statements.\n\nNasdaq, Inc.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 5. Market for Registrant\u2019s Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities ---\r\n\u0060\u0060\u0060\r\nIn the table above:\n\n\u2022 N/A - Not applicable.\n\n\u2022 Employee transactions represents shares surrendered to us to satisfy tax withholding obligations arising from the vesting of restricted stock and PSUs previously issued to employees.\n\n\u2022 Shares listed under share repurchase program in the table above primarily include repurchases under ASR agreements.\n\n\u25E6 In October 2025, we entered into a variable notional ASR agreement, in which we delivered $250 million to a third-party financial institution and received and immediately retired 1,812,219 shares of our common stock. In December 2025, upon the final settlement of this transaction, we received (i) an additional 504,401 shares, which were immediately retired, and (ii) a $45 million cash payment, which reflects the difference between the prepayment amount (maximum notional amount) and the final notional amount.\n\n\u25E6 In November 2025, we entered into an ASR with a third-party financial institution to repurchase $75 million of common stock and received and immediately retired 697,512 shares of our common stock. In December 2025, upon the final settlement of this transaction, we received an additional 117,855 shares, which were immediately retired.\n\n\u2022 See \u201CShare Repurchase Program,\u201D of Note 12, \u201CNasdaq Stockholders\u2019 Equity,\u201D to the consolidated financial statements for further discussion of our share repurchase program.\n\nPERFORMANCE GRAPH\n\nThe following performance graph and related information shall not be deemed \u201Cfiled\u201D for purposes of Section 18 of the Exchange Act or incorporated by reference into any of our other filings under the Securities Act or the Exchange Act, except as shall be expressly set forth by specific reference in such filing.\n\nThe following graph compares the total return of our common stock to the Nasdaq Composite Index, the S\u0026P 500 and S\u0026P 500 GICS 4020 Index, our peer group, for the past five years. The figures represented below assume an initial investment of $100 in the common stock or index at the closing price on December\u00A031, 2020 and the reinvestment of all dividends.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 5. Market for Registrant\u2019s Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities ---\r\n\u0060\u0060\u0060\r\nPeriod\nTotal Quarter Ended December 31, 2025 \u003E Share repurchase program \u2014 Total Number of Shares Purchased: 3,194,739 | Average Price Paid Per Share: $89.40 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: 3,194,739 | Maximum Dollar Value of Shares that May Yet Be Purchased Under the Plans or Programs (in millions): $1,129\nTotal Quarter Ended December 31, 2025 \u003E Employee transactions \u2014 Total Number of Shares Purchased: 70,356 | Average Price Paid Per Share: $89.04 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: N/A | Maximum Dollar Value of Shares that May Yet Be Purchased Under the Plans or Programs (in millions): N/A\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Nasdaq\u0027s total stockholders\u0027 equity?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s Total Nasdaq stockholders\u0027 equity was $12,227 million as of December 31, 2025, up from $11,191 million as of December 31, 2024 (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements). This line excludes noncontrolling interests. Total equity, which includes them, was $12,232 million as of December 31, 2025 and $11,200 million as of December 31, 2024 (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 12,227 million (names 12,232 as the contrast)."
+        },
+        "metadata": {
+          "Grader note": "names 12,232 as the contrast"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-8 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "12,227 at rank 1 of 25 - in the model\u0027s context (top 8)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 12,227 from excerpt 1 (balance_sheet), 11,191 from excerpt 1 (balance_sheet), 12,232 from excerpts 1 (balance_sheet), 6 (equity_statement), 11,200 from excerpts 1 (balance_sheet), 6 (equity_statement)."
+        },
+        "metadata": {
+          "Stated 12,227": "excerpt 1 (balance_sheet, PART IV \u003E Financial Statements): \u0022Nasdaq stockholders\u2019 equity \u003E Total Nasdaq stockholders\u2019 equity \u2014 2025: 12,227 | 2024: 11,191\u0022",
+          "Stated 11,191": "excerpt 1 (balance_sheet, PART IV \u003E Financial Statements): \u0022Nasdaq stockholders\u2019 equity \u003E Total Nasdaq stockholders\u2019 equity \u2014 2025: 12,227 | 2024: 11,191\u0022",
+          "Stated 12,232": "excerpt 1 (balance_sheet, PART IV \u003E Financial Statements): \u0022Total equity \u2014 2025: 12,232 | 2024: 11,200\u0022; excerpt 6 (equity_statement, PART IV \u003E Financial Statements): \u0022Total Equity \u2014 2025 Shares: 570 | 2025 $: $12,232 | 2024 Shares: 575 | 2024 $: $11,200 | 2023 Shares: 575 | 2023 $: $10,827\u0022",
+          "Stated 11,200": "excerpt 1 (balance_sheet, PART IV \u003E Financial Statements): \u0022Total equity \u2014 2025: 12,232 | 2024: 11,200\u0022; excerpt 6 (equity_statement, PART IV \u003E Financial Statements): \u0022Total Equity \u2014 2025 Shares: 570 | 2025 $: $12,232 | 2024 Shares: 575 | 2024 $: $11,200 | 2023 Shares: 575 | 2023 $: $10,827\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 3.3567453,
+        "model": "claude-opus-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 4840,
+          "outputTokenCount": 292,
+          "totalTokenCount": 5132,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "5BDF5F7A00022BAB78ACC9166351A50E9CC91EB044F46367495FECE2BD6E4991906C031B8CDAA9890893606A505DB636",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-opus-5-5",
+    "effort:Medium/Medium",
+    "excerpts:8",
+    "embedding:nomic-embed-text",
+    "kind:figure",
+    "has traps",
+    "company:NDAQ",
+    "statement:balance_sheet",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

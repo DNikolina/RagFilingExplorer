@@ -1,0 +1,116 @@
+{
+  "scenarioName": "Main.R2",
+  "iterationName": "1",
+  "executionName": "claude-opus55-medium-nomic-top8",
+  "creationTime": "2026-10-13T19:14:03.5916803Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Income\n\n(in millions, except per share amounts)\n\nYear Ended December 31,\nRevenues:\nRevenues \u003E Capital Access Platforms \u2014 2025: $2,137 | 2024: $1,945 | 2023: $1,744\nRevenues \u003E Financial Technology \u2014 2025: 1,850 | 2024: 1,621 | 2023: 1,099\nRevenues \u003E Market Services \u2014 2025: 4,214 | 2024: 3,771 | 2023: 3,156\nRevenues \u003E Other revenues \u2014 2025: 61 | 2024: 63 | 2023: 65\nRevenues \u003E Total revenues \u2014 2025: 8,262 | 2024: 7,400 | 2023: 6,064\nTransaction-based expenses:\nTransaction-based expenses \u003E Transaction rebates \u2014 2025: (2,572) | 2024: (2,026) | 2023: (1,838)\nTransaction-based expenses \u003E Brokerage, clearance and exchange fees \u2014 2025: (441) | 2024: (725) | 2023: (331)\nRevenues less transaction-based expenses \u2014 2025: 5,249 | 2024: 4,649 | 2023: 3,895\nOperating expenses:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Business Segments ---\r\n\u0060\u0060\u0060\r\n(in millions) December 31, 2025\nTotal revenues \u2014 Capital Access Platforms: $2,137 | Financial Technology: $1,850 | Market Services: $4,214 | Corporate: $61 | Total: $8,262\nTransaction- based expenses \u2014 Market Services: (3,013) | Total: (3,013)\nRevenues less transaction- based expenses \u2014 Capital Access Platforms: 2,137 | Financial Technology: 1,850 | Market Services: 1,201 | Corporate: 61 | Total: 5,249\nDirectly consumed expenses \u2014 Capital Access Platforms: 690 | Financial Technology: 871 | Market Services: 353 | Total: 1,914\nOther expenses \u2014 Capital Access Platforms: 173 | Financial Technology: 119 | Market Services: 84 | Corporate: 628 | Total: 1,004\nOperating income \u2014 Capital Access Platforms: $1,274 | Financial Technology: $860 | Market Services: $764 | Corporate: $(567) | Total: $2,331\nDepreciation and amortization \u2014 Capital Access Platforms: 42 | Financial Technology: 55 | Market Services: 45 | Corporate: 490 | Total: 632\nPurchases of property and equipment \u2014 Capital Access Platforms: 67 | Financial Technology: 133 | Market Services: 66 | Total: 266\nDecember 31, 2024\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Business Segments ---\r\n\u0060\u0060\u0060\r\n(in millions) December 31, 2025\nDecember 31, 2024 \u003E Total revenues \u2014 Capital Access Platforms: $1,945 | Financial Technology: $1,655 | Market Services: $3,771 | Corporate: $29 | Total: $7,400\nDecember 31, 2024 \u003E Transaction- based expenses \u2014 Market Services: (2,751) | Total: (2,751)\nDecember 31, 2024 \u003E Revenues less transaction- based expenses \u2014 Capital Access Platforms: 1,945 | Financial Technology: 1,655 | Market Services: 1,020 | Corporate: 29 | Total: 4,649\nDecember 31, 2024 \u003E Directly consumed expenses \u2014 Capital Access Platforms: 644 | Financial Technology: 794 | Market Services: 339 | Total: 1,777\nDecember 31, 2024 \u003E Other expenses \u2014 Capital Access Platforms: 164 | Financial Technology: 91 | Market Services: 84 | Corporate: 735 | Total: 1,074\nDecember 31, 2024 \u003E Operating income \u2014 Capital Access Platforms: $1,137 | Financial Technology: $770 | Market Services: $597 | Corporate: $(706) | Total: $1,798\nDecember 31, 2024 \u003E Depreciation and amortization \u2014 Capital Access Platforms: 38 | Financial Technology: 43 | Market Services: 39 | Corporate: 493 | Total: 613\nDecember 31, 2024 \u003E Purchases of property and equipment \u2014 Capital Access Platforms: 52 | Financial Technology: 105 | Market Services: 50 | Total: 207\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Business Segments ---\r\n\u0060\u0060\u0060\r\n(in millions) December 31, 2023\nTotal revenues \u2014 Capital Access Platforms: $1,744 | Financial Technology: $1,099 | Market Services: $3,156 | Corporate: $65 | Total: $6,064\nTransaction- based expenses \u2014 Market Services: (2,169) | Total: (2,169)\nRevenues less transaction- based expenses \u2014 Capital Access Platforms: 1,744 | Financial Technology: 1,099 | Market Services: 987 | Corporate: 65 | Total: 3,895\nDirectly consumed expenses \u2014 Capital Access Platforms: 625 | Financial Technology: 536 | Market Services: 330 | Total: 1,491\nOther expenses \u2014 Capital Access Platforms: 146 | Financial Technology: 69 | Market Services: 75 | Corporate: 536 | Total: 826\nOperating income \u2014 Capital Access Platforms: $973 | Financial Technology: $494 | Market Services: $582 | Corporate: $(471) | Total: $1,578\nDepreciation and amortization \u2014 Capital Access Platforms: 37 | Financial Technology: 36 | Market Services: 34 | Corporate: 216 | Total: 323\nPurchases of property and equipment \u2014 Capital Access Platforms: 53 | Financial Technology: 50 | Market Services: 55 | Total: 158\n\nDirectly consumed expenses in the table above include both direct and directly consumed costs for resources directly used by the segment for revenue generating activities. Other expenses include indirect overhead costs allocated to our segments. During the first year of integration of certain significant acquisitions such as Adenza or Verafin, the allocation of these indirect overhead costs to the Financial Technology segment were phased in and therefore these allocations may change in the future. Other expenses also includes expenses allocated to our Corporate segment. The following tables summarize revenues and expenses allocated to our Corporate segment:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nThe following charts present our Capital Access Platforms, Financial Technology and Market Services segments as a percentage of our total revenues, less transaction-based expenses.\n\n[image]\n\nCapital Access Platforms\n\nThe following tables present revenues and ARR from our Capital Access Platforms segment:\n\n(in millions)\nData \u0026 Listing Services \u2014 Year Ended December 31, 2025: $804 | Year Ended December 31, 2024: $754 | Year Ended December 31, 2023: $749 | Percentage Change 2025 vs. 2024: 6.7% | Percentage Change 2024 vs. 2023: 0.7%\nIndex \u2014 Year Ended December 31, 2025: 827 | Year Ended December 31, 2024: 706 | Year Ended December 31, 2023: 528 | Percentage Change 2025 vs. 2024: 17.1% | Percentage Change 2024 vs. 2023: 33.7%\nWorkflow \u0026 Insights \u2014 Year Ended December 31, 2025: 506 | Year Ended December 31, 2024: 485 | Year Ended December 31, 2023: 467 | Percentage Change 2025 vs. 2024: 4.4% | Percentage Change 2024 vs. 2023: 3.9%\nTotal Capital Access Platforms \u2014 Year Ended December 31, 2025: $2,137 | Year Ended December 31, 2024: $1,945 | Year Ended December 31, 2023: $1,744 | Percentage Change 2025 vs. 2024: 9.9% | Percentage Change 2024 vs. 2023: 11.5%\n\nAs of December 31,\nARR (in millions) \u2014 2025: $1,340 | 2024: $1,240 | 2023: $1,210\n\nData \u0026 Listing Services Revenues\n\nThe following tables present key drivers from our Data \u0026 Listing Services business:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Revenue from Contracts with Customers ---\r\n\u0060\u0060\u0060\r\n3. REVENUE FROM CONTRACTS WITH\n\nCUSTOMERS\n\nDisaggregation of Revenue\n\nThe following table summarizes the disaggregation of revenue by major product and service and by segment for the years ended December 31, 2025, 2024 and 2023:\n\n(in millions) Year Ended December 31,\nCapital Access Platforms\nCapital Access Platforms \u003E Data \u0026 Listing Services \u2014 2025: $804 | 2024: $754 | 2023: $749\nCapital Access Platforms \u003E Index \u2014 2025: 827 | 2024: 706 | 2023: 528\nCapital Access Platforms \u003E Workflow \u0026 Insights \u2014 2025: 506 | 2024: 485 | 2023: 467\nFinancial Technology\nFinancial Technology \u003E Financial Crime Management Technology \u2014 2025: 331 | 2024: 273 | 2023: 223\nFinancial Technology \u003E Regulatory Technology \u2014 2025: 428 | 2024: 352 | 2023: 212\nFinancial Technology \u003E Capital Markets Technology \u2014 2025: 1,091 | 2024: 996 | 2023: 664\nMarket Services, net \u2014 2025: 1,201 | 2024: 1,020 | 2023: 987\nOther revenues \u2014 2025: 61 | 2024: 63 | 2023: 65\nRevenues less transaction- based expenses \u2014 2025: $5,249 | 2024: $4,649 | 2023: $3,895\n\nSubstantially all revenues from the Capital Access Platforms and Financial Technology segments were recognized over time for the years ended December 31, 2025, 2024 and 2023.\n\nFor the years ended December 31, 2025, 2024 and 2023, approximately 95.3%, 95.3% and 93.0%, respectively, of Market Services revenues were recognized at a point in time and 4.7%, 4.7% and 7.0%, respectively, were recognized over time. See \u0022Revenue Recognition and Transaction-Based Expenses\u0022 in Note 2, \u0022Summary of Significant Accounting Policies,\u0022 for additional detail on Other Revenues.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Income\n\n(in millions, except per share amounts)\n\nYear Ended December 31,\nOperating income \u2014 2025: 2,331 | 2024: 1,798 | 2023: 1,578\nInterest income \u2014 2025: 39 | 2024: 28 | 2023: 115\nInterest expense \u2014 2025: (367) | 2024: (414) | 2023: (284)\nNet gain on divestitures \u2014 2025: 86\nOther income (loss) \u2014 2025: (27) | 2024: 21 | 2023: (1)\nNet income (loss) from unconsolidated investees \u2014 2025: 83 | 2024: 16 | 2023: (7)\nIncome before income taxes \u2014 2025: 2,145 | 2024: 1,449 | 2023: 1,401\nIncome tax provision \u2014 2025: 358 | 2024: 334 | 2023: 344\nNet income \u2014 2025: 1,787 | 2024: 1,115 | 2023: 1,057\nNet loss attributable to noncontrolling interests \u2014 2025: 1 | 2024: 2 | 2023: 2\nNet income attributable to Nasdaq \u2014 2025: $1,788 | 2024: $1,117 | 2023: $1,059\nPer share information:\nPer share information \u003E Basic earnings per share \u2014 2025: $3.12 | 2024: $1.94 | 2023: $2.10\nPer share information \u003E Diluted earnings per share \u2014 2025: $3.09 | 2024: $1.93 | 2023: $2.08\nPer share information \u003E Cash dividends declared per common share \u2014 2025: $1.05 | 2024: $0.94 | 2023: $0.86\n\nSee accompanying notes to consolidated financial statements.\n\nNasdaq, Inc.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nOur Value Proposition: We deliver world-leading platforms that advance the liquidity, transparency, and integrity of the global economy.\n\nOur Strategy: Our strategic direction is aimed at optimizing the deployment of resources, human capital, and financial assets towards our most promising growth opportunities. These opportunities, which we identified as substantial and expanding opportunities, included solutions for combating financial crime, compliance solutions, marketplace technology, workflow for investment managers and asset owners as well as insight solutions. Our strengths in technology, proprietary data, analytics, and capital markets expertise, in conjunction with our broad client base and innovative brand has positioned us favorably to meet the evolving demands of our clientele and deliver in a sustainable and scalable way.\n\nThrough our platforms:\n\n\u2022 We architect the world\u2019s most modern markets: Our platform delivers scalable, interoperable solutions that can minimize friction, strengthen resilience, and enable market operators to drive innovation into local market environments. As a result, we believe our platform delivers highly advanced market infrastructure, enabling deeper liquidity and more seamless flows of capital across markets globally.\n\n\u2022 We power the innovation economy: The world\u2019s most dynamic economies are not defined by geography or size. They are defined by their ability to transform ideas into growth and allowing that innovation to scale. Nasdaq sits at the center of the world\u2019s most dynamic innovation economies. We provide innovators and investors with the infrastructure, investment products, and data and insights that enable innovation to scale and investors to allocate with confidence.\n\n\u2022 We build trust in the financial system: As risk becomes more pervasive, interconnected, and embedded across the financial system, the gap between the speed of risk and the speed of response has widened. Nasdaq\u2019s platform can deliver intelligent, integrated solutions that help financial institutions identify and mitigate risk with agility and precision. From regulatory reporting to compliance and financial crime management, our platform helps institutions detect threats early, meet evolving obligations, and protect the integrity of their operations.\n\nPRODUCTS AND SERVICES\n\nCapital Access Platforms\n\nOur Capital Access Platforms segment delivers liquidity, transparency and integrity to the corporate issuer and investment community by empowering our clients to effectively navigate the capital markets, achieve their sustainability goals, and drive governance excellence. We offer a suite of products to assist companies in managing corporate governance standards.\n\nOur Capital Access Platforms segment comprises Data \u0026 Listing Services, Index and Workflow \u0026 Insights.\n\nData \u0026 Listing Services\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was the operating income of Nasdaq\u0027s Capital Access Platforms segment in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s Capital Access Platforms segment had operating income of $1,274 million for 2025, shown in the segment table under the column dated December 31, 2025 (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements \u003E Business Segments)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 1,274 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 2,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-8 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "1,274 at rank 2 of 25 - in the model\u0027s context (top 8)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 1,274 from excerpt 2 (narrative)."
+        },
+        "metadata": {
+          "Stated 1,274": "excerpt 2 (narrative, PART IV \u003E Financial Statements \u003E Business Segments): \u0022Operating income \u2014 Capital Access Platforms: $1,274 | Financial Technology: $860 | Market Services: $764 | Corporate: $(567) | Total: $2,331\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 2.7980286,
+        "model": "claude-opus-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 5530,
+          "outputTokenCount": 184,
+          "totalTokenCount": 5714,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "4B8A2778F57D2CEB39F53A6A14203EDA45396931663BB748B71697F00C1C2D52D00FCF1AE11E7C9590A169063B21FB1F",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-opus-5-5",
+    "effort:Medium/Medium",
+    "excerpts:8",
+    "embedding:nomic-embed-text",
+    "kind:routing",
+    "company:NDAQ",
+    "statement:income_statement",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

@@ -1,0 +1,112 @@
+{
+  "scenarioName": "AnswerSide.A12",
+  "iterationName": "1",
+  "executionName": "claude-opus55-medium-nomic-top8",
+  "creationTime": "2026-10-13T19:16:55.7821666Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements \u003E Earnings Per Share ---\r\n\u0060\u0060\u0060\r\n(in thousands, except per share data) Year Ended December 31,\nBasic earnings per share:\nBasic earnings per share \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\nShares used in computation:\nShares used in computation \u003E Weighted-average shares of common stock outstanding \u2014 2025: 4,249,512 | 2024: 4,295,191 | 2023: 4,415,712\nBasic earnings per share \u2014 2025: $2.58 | 2024: $2.03 | 2023: $1.22\nDiluted earnings per share:\nDiluted earnings per share \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\nShares used in computation:\nShares used in computation \u003E Weighted-average shares of common stock outstanding \u2014 2025: 4,249,512 | 2024: 4,295,191 | 2023: 4,415,712\nShares used in computation \u003E Effect of dilutive stock-based awards \u2014 2025: 94,351 | 2024: 97,417 | 2023: 79,254\nShares used in computation \u003E Weighted-average number of shares \u2014 2025: 4,343,863 | 2024: 4,392,608 | 2023: 4,494,966\nDiluted earnings per share \u2014 2025: $2.53 | 2024: $1.98 | 2023: $1.20\n\nThe following table summarizes the potential shares of common stock excluded from the diluted calculation, as adjusted for the Stock Split, as their inclusion would have been anti-dilutive:\n\n(in thousands) Year Ended December 31,\nStock-based awards \u2014 2025: 818 | 2024: 2,432 | 2023: 41,091\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF OPERATIONS\n\n(in thousands, except per share data)\n\nYear ended December 31,\nEarnings per share \u003E Basic \u2014 2025: $2.58 | 2024: $2.03 | 2023: $1.22\nEarnings per share \u003E Diluted \u2014 2025: $2.53 | 2024: $1.98 | 2023: $1.20\nWeighted-average shares of common stock outstanding:\nWeighted-average shares of common stock outstanding \u003E Basic \u2014 2025: 4,249,512 | 2024: 4,295,191 | 2023: 4,415,712\nWeighted-average shares of common stock outstanding \u003E Diluted \u2014 2025: 4,343,863 | 2024: 4,392,608 | 2023: 4,494,966\n\nSee accompanying notes to consolidated financial statements.\n\nNETFLIX, INC.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF CASH FLOWS\n\n(in thousands)\n\nYear Ended December 31,\nCash flows from financing activities \u003E Proceeds from issuance of debt \u2014 2024: 1,794,460\nCash flows from financing activities \u003E Repayments of debt \u2014 2025: (1,833,450) | 2024: (400,000)\nCash flows from financing activities \u003E Proceeds from issuance of common stock \u2014 2025: 666,965 | 2024: 832,887 | 2023: 169,990\nCash flows from financing activities \u003E Repurchases of common stock \u2014 2025: (9,127,167) | 2024: (6,263,746) | 2023: (6,045,347)\nCash flows from financing activities \u003E Taxes paid related to net share settlement of equity awards \u2014 2025: (46,165) | 2024: (8,285)\nCash flows from financing activities \u003E Other financing activities \u2014 2025: (5,806) | 2024: (29,743) | 2023: (75,446)\nCash flows from financing activities \u003E Net cash used in financing activities \u2014 2025: (10,345,623) | 2024: (4,074,427) | 2023: (5,950,803)\nEffect of exchange rate changes on cash, cash equivalents and restricted cash \u2014 2025: 386,519 | 2024: (416,331) | 2023: 82,684\nNet increase in cash, cash equivalents and restricted cash \u2014 2025: 1,231,857 | 2024: 688,822 | 2023: 1,947,933\nCash, cash equivalents and restricted cash, beginning of year \u2014 2025: 7,807,337 | 2024: 7,118,515 | 2023: 5,170,582\nCash, cash equivalents and restricted cash, end of year \u2014 2025: $9,039,194 | 2024: $7,807,337 | 2023: $7,118,515\nSupplemental disclosure:\nSupplemental disclosure \u003E Interest paid \u2014 2025: 718,611 | 2024: 674,502 | 2023: 684,504\n\nSee accompanying notes to consolidated financial statements.\n\nNETFLIX, INC.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nCash, cash equivalents, restricted cash and short-term investments decreased $518 million in the year ended December\u00A031, 2025 primarily due to the repurchase of stock and repayment of debt, partially offset by cash provided by operations.\n\nDebt, net of debt issuance costs and discounts, decreased $1,120 million primarily due to approximately $1,833\u00A0million in repayments of debt, partially offset by the remeasurement of our Euro-denominated notes in the year ended December\u00A031, 2025. The amount of principal and interest on our outstanding notes due in the next twelve months is $1,690\u00A0million. See Note 7 Debt in the accompanying notes to our consolidated financial statements.\n\nUses of Cash\n\nOur primary uses of cash include the acquisition, licensing and production of content, marketing programs, streaming delivery, and personnel-related costs. Cash payment terms for non-original content have historically been in line with the amortization period. Investments in original content, and in particular content that we produce and own, require more cash upfront relative to licensed content. For example, production costs are paid as the content is created, well in advance of when the content is available on the service and amortized. We expect to continue to significantly invest in global content, particularly in original content, which will impact our liquidity. Our other uses of cash include strategic acquisitions and investments, as well as share repurchases. See the \u201CMaterial Cash Requirements\u201D section below for further detail on our expected use of cash in connection with the WBD transaction.\n\nFinancing Arrangements\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nAs of December\u00A031, 2025, we had gross unrecognized tax benefits of $566\u00A0million, of which $409\u00A0million was classified in \u201COther non-current liabilities\u201D in the Consolidated Balance Sheets. In addition to the material cash requirements summarized in the table above, we expect to pay deposits of approximately $700\u00A0million related to non-income tax assessments in Brazil as described further in Note 9 Commitments and Contingencies. During the year ended December\u00A031, 2025, we also paid tax deposits of approximately $200\u00A0million related to certain direct taxes that exceeded our regularly recurring obligations.\n\nOther Planned Uses of Cash and Debt Capital\n\nOn December 4, 2025, we entered into a definitive agreement and plan of merger with WBD to acquire WBD\u0027s streaming and studios businesses, including its film and television studios, HBO Max and HBO, which was amended and restated by the parties thereto on January 19, 2026 (as so amended and restated, the \u201CAmended and Restated Merger Agreement\u201D). WBD is a leading global media and entertainment company and will separate its Global Linear Networks business, Discovery Global, into a new publicly-traded company prior to the closing of the WBD transaction. Under the terms of the Amended and Restated Merger Agreement, each WBD stockholder will receive $27.75 in cash (as may be adjusted in accordance with the terms of the Amended and Restated Merger Agreement) for each share of WBD common stock outstanding as of immediately prior to the closing of the WBD transaction, for a total equity value of approximately $72.0\u00A0billion and an enterprise value of approximately $82.7\u00A0billion (in each case, as of December 4, 2025). The total equity value and enterprise value of the WBD transaction may fluctuate based on WBD\u0027s capitalization as of the closing of the WBD transaction. We expect the WBD transaction to close in 12-18 months from December 4, 2025, subject to receipt of required regulatory approvals, approval of WBD stockholders, the consummation of the separation and distribution of Discovery Global and other customary closing conditions. See Note 6 Acquisitions and Note 9 Commitments and Contingencies for further information.\n\nCash Flows\n\nThe following table summarizes our cash flows:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED BALANCE SHEETS\n\n(in thousands, except share and per share data)\n\nAs of December 31,\nAssets\nCurrent assets:\nCurrent assets \u003E Cash and cash equivalents \u2014 2025: $9,033,681 | 2024: $7,804,733\nCurrent assets \u003E Short-term investments \u2014 2025: 28,678 | 2024: 1,779,006\nCurrent assets \u003E Other current assets \u2014 2025: 3,957,832 | 2024: 3,516,640\nCurrent assets \u003E Total current assets \u2014 2025: 13,020,191 | 2024: 13,100,379\nContent assets, net \u2014 2025: 32,778,392 | 2024: 32,452,462\nProperty and equipment, net \u2014 2025: 2,004,350 | 2024: 1,593,756\nOther non-current assets \u2014 2025: 7,794,060 | 2024: 6,483,777\nTotal assets \u2014 2025: $55,596,993 | 2024: $53,630,374\nLiabilities and Stockholders\u2019 Equity\nCurrent liabilities:\nCurrent liabilities \u003E Current content liabilities \u2014 2025: $4,084,854 | 2024: $4,393,681\nCurrent liabilities \u003E Accounts payable \u2014 2025: 900,612 | 2024: 899,909\nCurrent liabilities \u003E Accrued expenses and other liabilities \u2014 2025: 3,220,869 | 2024: 2,156,544\nCurrent liabilities \u003E Deferred revenue \u2014 2025: 1,775,730 | 2024: 1,520,813\nCurrent liabilities \u003E Short-term debt \u2014 2025: 998,865 | 2024: 1,784,453\nCurrent liabilities \u003E Total current liabilities \u2014 2025: 10,980,930 | 2024: 10,755,400\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements \u003E Earnings Per Share ---\r\n\u0060\u0060\u0060\r\n3. Earnings per Share\n\nOn November 14, 2025, the Company completed the Stock Split to all shareholders of record as of November 10, 2025.\n\nOutstanding share and per-share amounts disclosed for all periods provided have been retroactively adjusted to reflect the effects of the Stock Split.\n\nBasic earnings per share is computed using the weighted-average number of outstanding shares of common stock during the period. Diluted earnings per share is computed using the weighted-average number of outstanding shares of common stock and, when dilutive, potential outstanding shares of common stock during the period. Potential outstanding shares of common stock are calculated using the treasury-stock method and consist of incremental shares issuable upon the assumed exercise of stock options and vesting of time-based and performance-based restricted stock units. The computation of earnings per share, as adjusted for the Stock Split, is as follows:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED BALANCE SHEETS\n\n(in thousands, except share and per share data)\n\nAs of December 31,\nNon-current content liabilities \u2014 2025: 1,579,476 | 2024: 1,780,806\nLong-term debt \u2014 2025: 13,463,971 | 2024: 13,798,351\nOther non-current liabilities \u2014 2025: 2,957,128 | 2024: 2,552,250\nTotal liabilities \u2014 2025: 28,981,505 | 2024: 28,886,807\nCommitments and contingencies (Note 9)\nStockholders\u2019 equity:\nStockholders\u2019 equity \u003E Preferred stock, $0.001 par value; 10,000,000 shares authorized at December 31, 2025 and December 31, 2024; no shares issued and outstanding at December 31, 2025 and December 31, 2024\nStockholders\u2019 equity \u003E Common stock, $0.001 par value; 49,900,000,000 shares authorized at December 31, 2025 and December 31, 2024; 4,222,162,150 and 4,277,571,000 issued and outstanding at December 31, 2025 and December 31, 2024, respectively \u2014 2025: 7,286,410 | 2024: 6,252,126\nStockholders\u2019 equity \u003E Treasury stock at cost (346,541,145 and 259,534,600 shares at December 31, 2025 and December 31, 2024) \u2014 2025: (22,372,658) | 2024: (13,171,638)\nStockholders\u2019 equity \u003E Accumulated other comprehensive income (loss) \u2014 2025: (580,382) | 2024: 362,162\nStockholders\u2019 equity \u003E Retained earnings \u2014 2025: 42,282,118 | 2024: 31,300,917\nStockholders\u2019 equity \u003E Total stockholders\u2019 equity \u2014 2025: 26,615,488 | 2024: 24,743,567\nTotal liabilities and stockholders\u2019 equity \u2014 2025: $55,596,993 | 2024: $53,630,374\n\nSee accompanying notes to consolidated financial statements.\n\nNETFLIX, INC.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What cash dividends per share did Netflix declare in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The excerpts don\u0027t contain the cash dividends per share Netflix declared in 2025."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "decline-ok",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Declines correctly: the filings don\u0027t contain this."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-8 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "Not scored: a negative has no answer to find."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "no figure stated",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "No figure stated - a text answer or a decline."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 1.6384945,
+        "model": "claude-opus-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 5092,
+          "outputTokenCount": 82,
+          "totalTokenCount": 5174,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "6768769A635F8B5C5A93E5AC042243F8353612EB9463319C91E87C8132046BFD600F85C6B52327F611A24FF342B50116",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-opus-5-5",
+    "effort:Medium/Medium",
+    "excerpts:8",
+    "embedding:nomic-embed-text",
+    "kind:negative",
+    "company:NFLX",
+    "statement:none",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

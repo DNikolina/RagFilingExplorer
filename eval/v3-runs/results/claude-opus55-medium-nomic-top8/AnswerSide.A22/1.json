@@ -1,0 +1,120 @@
+{
+  "scenarioName": "AnswerSide.A22",
+  "iterationName": "1",
+  "executionName": "claude-opus55-medium-nomic-top8",
+  "creationTime": "2026-10-13T19:17:37.6197279Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Income\n\n(in millions, except per share amounts)\n\nYear Ended December 31,\nOperating income \u2014 2025: 2,331 | 2024: 1,798 | 2023: 1,578\nInterest income \u2014 2025: 39 | 2024: 28 | 2023: 115\nInterest expense \u2014 2025: (367) | 2024: (414) | 2023: (284)\nNet gain on divestitures \u2014 2025: 86\nOther income (loss) \u2014 2025: (27) | 2024: 21 | 2023: (1)\nNet income (loss) from unconsolidated investees \u2014 2025: 83 | 2024: 16 | 2023: (7)\nIncome before income taxes \u2014 2025: 2,145 | 2024: 1,449 | 2023: 1,401\nIncome tax provision \u2014 2025: 358 | 2024: 334 | 2023: 344\nNet income \u2014 2025: 1,787 | 2024: 1,115 | 2023: 1,057\nNet loss attributable to noncontrolling interests \u2014 2025: 1 | 2024: 2 | 2023: 2\nNet income attributable to Nasdaq \u2014 2025: $1,788 | 2024: $1,117 | 2023: $1,059\nPer share information:\nPer share information \u003E Basic earnings per share \u2014 2025: $3.12 | 2024: $1.94 | 2023: $2.10\nPer share information \u003E Diluted earnings per share \u2014 2025: $3.09 | 2024: $1.93 | 2023: $2.08\nPer share information \u003E Cash dividends declared per common share \u2014 2025: $1.05 | 2024: $0.94 | 2023: $0.86\n\nSee accompanying notes to consolidated financial statements.\n\nNasdaq, Inc.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Income\n\n(in millions, except per share amounts)\n\nYear Ended December 31,\nRevenues:\nRevenues \u003E Capital Access Platforms \u2014 2025: $2,137 | 2024: $1,945 | 2023: $1,744\nRevenues \u003E Financial Technology \u2014 2025: 1,850 | 2024: 1,621 | 2023: 1,099\nRevenues \u003E Market Services \u2014 2025: 4,214 | 2024: 3,771 | 2023: 3,156\nRevenues \u003E Other revenues \u2014 2025: 61 | 2024: 63 | 2023: 65\nRevenues \u003E Total revenues \u2014 2025: 8,262 | 2024: 7,400 | 2023: 6,064\nTransaction-based expenses:\nTransaction-based expenses \u003E Transaction rebates \u2014 2025: (2,572) | 2024: (2,026) | 2023: (1,838)\nTransaction-based expenses \u003E Brokerage, clearance and exchange fees \u2014 2025: (441) | 2024: (725) | 2023: (331)\nRevenues less transaction-based expenses \u2014 2025: 5,249 | 2024: 4,649 | 2023: 3,895\nOperating expenses:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Income\n\n(in millions, except per share amounts)\n\nYear Ended December 31,\nOperating expenses \u003E Compensation and benefits \u2014 2025: 1,392 | 2024: 1,324 | 2023: 1,082\nOperating expenses \u003E Professional and contract services \u2014 2025: 160 | 2024: 152 | 2023: 128\nOperating expenses \u003E Technology and communication infrastructure \u2014 2025: 316 | 2024: 281 | 2023: 233\nOperating expenses \u003E Occupancy \u2014 2025: 124 | 2024: 112 | 2023: 129\nOperating expenses \u003E General, administrative and other \u2014 2025: 75 | 2024: 109 | 2023: 113\nOperating expenses \u003E Marketing and advertising \u2014 2025: 65 | 2024: 54 | 2023: 47\nOperating expenses \u003E Depreciation and amortization \u2014 2025: 632 | 2024: 613 | 2023: 323\nOperating expenses \u003E Regulatory \u2014 2025: 52 | 2024: 55 | 2023: 34\nOperating expenses \u003E Merger and strategic initiatives \u2014 2025: 60 | 2024: 35 | 2023: 148\nOperating expenses \u003E Restructuring charges \u2014 2025: 42 | 2024: 116 | 2023: 80\nOperating expenses \u003E Total operating expenses \u2014 2025: 2,918 | 2024: 2,851 | 2023: 2,317\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nThe increase in compensation and benefits expense for the year ended December 31, 2025 compared with the same period in 2024 was primarily driven by increased headcount and higher incentive compensation and the unfavorable impact from changes in foreign currency rates. The increase in 2025 compared with the same period in 2024 was partially offset by a pre-tax charge of $23 million in the first quarter of 2024 resulting from the finalization of the termination of our pension plan.\n\nHeadcount, including employees of non-wholly owned consolidated subsidiaries, increased to 9,525 employees as of December 31, 2025 from 9,162 employees as of December 31, 2024, as we support revenue growth and innovation.\n\nProfessional and contract services expense increased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to higher consulting fees, partially offset by lower legal fee accruals.\n\nTechnology and communication infrastructure expense increased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to increased investment in technology, particularly our cloud initiatives and software licensing.\n\nOccupancy expense increased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to colocation data center growth.\n\nGeneral, administrative and other expense decreased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to a gain on extinguishment of debt recorded for the year ended December 31, 2025 as well as the change in classification of costs related to the CAT from general, administrative and other expense to regulatory expense, beginning in the fourth quarter of 2024. See Note 9, \u201CDebt Obligations,\u201D to the consolidated financial statements for further discussion of the gain on extinguishment of debt.\n\nMarketing and advertising expense increased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to higher marketing expense resulting from higher IPO activity.\n\nDepreciation and amortization expense increased for the year ended December 31, 2025 compared with the same period in 2024 due to increased depreciation of capitalized software projects.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nCash equity trading revenues and cash equity trading revenues, net increased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to higher U.S. and European industry trading volumes, partially offset by lower overall U.S. matched market share executed on Nasdaq\u0027s exchanges. Cash equity trading revenues, net was also partially offset by lower capture.\n\nTransaction rebates increased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to higher U.S. industry volumes and higher capture, partially offset by lower overall U.S. matched market share executed on Nasdaq\u2019s exchanges. For The Nasdaq Stock Market and Nasdaq PSX, we credit a portion of the per share execution charge to the market participant that provides the liquidity, and for Nasdaq BX, we credit a portion of the per share execution charge to the market participant that takes the liquidity.\n\nU.S. Tape Plans\n\nThe following table presents revenues from our U.S. Tape plans business:\n\n(in millions)\nU.S. Tape plans \u2014 Year Ended December 31, 2025: $139 | Year Ended December 31, 2024: $125 | Year Ended December 31, 2023: $141 | Percentage Change 2025 vs. 2024: 11.1% | Percentage Change 2024 vs. 2023: (11.5)%\n\nU.S. Tape plans revenues increased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to higher market share, higher usage volume and higher one-time industry-wide adjustments.\n\nOther\n\nOther includes\u00A0Nordic fixed income trading and clearing, Nordic derivatives and Canadian cash equities trading. The following table presents revenues from our Other business:\n\n(in millions)\nOther \u2014 Year Ended December 31, 2025: $84 | Year Ended December 31, 2024: $70 | Year Ended December 31, 2023: $75 | Percentage Change 2025 vs. 2024: 18.9% | Percentage Change 2024 vs. 2023: (6.2)%\n\nIn the preceding tables, Other is presented net of Canadian cash equity transaction rebates of $29 million, $22\u00A0million and $20\u00A0million for the years ended December 31, 2025, 2024 and 2023, respectively.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nThe following table summarizes the changes in cash flows:\n\n(in millions) Net cash provided by (used in): Year Ended December 31,\nOperating activities \u2014 2025: $2,255 | 2024: $1,939\nInvesting activities \u2014 2025: (1,100) | 2024: (953)\nFinancing activities \u2014 2025: (2,953) | 2024: (2,561)\n\nNet Cash Provided by Operating Activities\n\nNet cash provided by operating activities primarily consists of net income adjusted for certain non-cash items, including, but not limited to, depreciation and amortization expense, expense associated with share-based compensation, net income from unconsolidated investees, net gain on divestitures and the effects of changes in working capital. Refer to the above discussion regarding changes in working capital.\n\nNet cash provided by operating activities increased $316 million for the year ended December 31, 2025 compared with the same period in 2024. The increase was primarily driven by an increase in net income, partially offset by changes in working capital, as discussed above, and a decrease in adjustments to net income primarily driven by higher net income from unconsolidated investees and net gain on divestitures, partially offset by an increase in deferred income tax expense.\n\nNet Cash Used in Investing Activities\n\nNet cash used in investing activities increased for the year ended December 31, 2025 as compared to 2024 primarily driven by increases in net purchases of investments related to default funds and margin deposits of $373 million, purchases of property and equipment of $59 million and other investing activities of $46 million primarily related to our corporate venture program, partially offset by proceeds from sales and redemption of securities, net of $191 million, primarily due to more regulatory capital being invested in shorter term investments, which are classified as cash equivalents, and proceeds from divestitures of $140 million. The movement in our default funds and margin deposits has no impact on Nasdaq\u0027s cash, cash equivalents, restricted cash or restricted cash equivalents as it is held on behalf of our customers.\n\nNet Cash Used in Financing Activities\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nThe following table presents key drivers for our Financial Crime Management Technology business:\n\n(in millions) As of or Year Ended December 31,\nARR and Quarterly annualized SaaS revenues \u2014 2025: $329 | 2024: $278 | 2023: $226\n\nFinancial Crime Management Technology revenues increased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to higher subscription revenues from new and existing clients and higher professional services fees.\n\nRegulatory Technology Revenues\n\nThe following table presents key drivers for our Regulatory Technology business:\n\n(in millions) As of or Year Ended December 31,\nARR \u2014 2025: $407 | 2024: $354 | 2023: $325\nQuarterly annualized SaaS revenues \u2014 2025: 239 | 2024: 191 | 2023: 165\n\nRegulatory Technology revenues increased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to increased subscription revenues from our AxiomSL and Surveillance solutions driven by new sales and price increases to existing clients and revenue from new clients. The increase was also driven by a one-time revenue reduction recognized in the third quarter of 2024 related to a purchase accounting adjustment. See Note 3, \u201CRevenue from Contracts with Customers,\u201D to the consolidated financial statements for discussion on the measurement period adjustment.\n\nCapital Markets Technology Revenues\n\nThe following table presents key drivers for our Capital Markets Technology business:\n\n(in millions) As of or Year Ended December 31,\nARR \u2014 2025: $975 | 2024: $868 | 2023: $799\nQuarterly annualized SaaS revenues \u2014 2025: 156 | 2024: 134 | 2023: 108\n\nCapital Markets Technology revenues increased for the year ended December 31, 2025 compared with the same period in 2024. The increase was primarily due to higher revenues related to data center growth and higher subscription revenues from new sales and price increases to existing clients.\n\nMarket Services\n\nThe following table presents revenues from our Market Services segment:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nNet gains on divestitures for the year ended December 31, 2025 relates to the divestitures of our Solovis business, our Nordic power futures business and our Nasdaq Risk Modelling for Catastrophes business. See Note 4, \u201CAcquisition and Divestitures,\u201D to the consolidated financial statements for further discussion of these transactions.\n\nOther income (loss) primarily represents realized and unrealized gains and losses from strategic investments related to our corporate venture program. See \u201CEquity Securities,\u201D of Note 6, \u201CInvestments,\u201D to the consolidated financial statements for further discussion of these transactions.\n\nNet income (loss) from unconsolidated investees increased for the year ended December 31, 2025 compared with the same period in 2024 due to higher income recognized from our equity method investment in OCC driven by higher industry volumes. See \u201CEquity Method Investments,\u201D of Note 6, \u201CInvestments,\u201D to the consolidated financial statements for further discussion.\n\nTax Matters\n\nThe following table presents our income tax provision and effective tax rate:\n\n(in millions)\nIncome tax provision \u2014 Year Ended December 31, 2025: $358 | Year Ended December 31, 2024: $334 | Year Ended December 31, 2023: $344 | Percentage Change 2025 vs. 2024: 7.0% | Percentage Change 2024 vs. 2023: (2.8)%\nEffective tax rate \u2014 Year Ended December 31, 2025: 16.7% | Year Ended December 31, 2024: 23.1% | Year Ended December 31, 2023: 24.6%\n\nFor further discussion of our tax matters, see Note 17, \u201CIncome Taxes,\u201D to the consolidated financial statements.\n\nNON-GAAP FINANCIAL MEASURES\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "By how much did Nasdaq\u0027s operating income increase from 2024 to 2025, in millions?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s operating income rose by **$533 million** from 2024 to 2025.\n\n- Operating income was $2,331 million for the year ended December 31, 2025, and $1,798 million for the year ended December 31, 2024 (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements).\n- The increase is $2,331 million \u2212 $1,798 million = $533 million (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 533 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-8 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "2,331, 1,798 at rank 1 of 25 - in the model\u0027s context (top 8)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "calculated",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "533 in no excerpt - the question asks for a calculation; 533 from no excerpt, 2,331 from excerpt 1 (income_statement), 1,798 from excerpt 1 (income_statement)."
+        },
+        "metadata": {
+          "Stated 533": "in none of the excerpts",
+          "Stated 2,331": "excerpt 1 (income_statement, PART IV \u003E Financial Statements): \u0022Operating income \u2014 2025: 2,331 | 2024: 1,798 | 2023: 1,578\u0022",
+          "Stated 1,798": "excerpt 1 (income_statement, PART IV \u003E Financial Statements): \u0022Operating income \u2014 2025: 2,331 | 2024: 1,798 | 2023: 1,578\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 8.8194271,
+        "model": "claude-opus-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 5676,
+          "outputTokenCount": 198,
+          "totalTokenCount": 5874,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "DD92A75B039016ACFE78365273A0337BA756860980F476C422A5FA0AF9B33F62250B35C5F923FF6C348D1689374C8121",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-opus-5-5",
+    "effort:Medium/Medium",
+    "excerpts:8",
+    "embedding:nomic-embed-text",
+    "kind:figure",
+    "calculation",
+    "has traps",
+    "company:NDAQ",
+    "statement:income_statement",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

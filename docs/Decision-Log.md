@@ -4665,6 +4665,22 @@ input (user, 2026-10-13).** `claude-opus55-medium-finance2-500-top8` (`Claude__G
   `voyage-finance-2`, 500-token chunks, 8 excerpts. llama can't take 8 at num_ctx 4,096 (PromptFit refuses it); on the
   Mac, with a larger `Ollama:ContextLength`, it can.
 
+**Opus on nomic with 8 excerpts: 101/102 strictly, 101 read - the embedder is worth one question at 8 (user, 2026-10-13).**
+By rank, nomic's top 8 holds 89 of 94 answers (R3 11, A9 10, A11 12, A16 16, A25 14 outside; a top 16 reaches all), finance-2's
+and 4-large's all 94 (deepest rank 7). `claude-opus55-medium-nomic-top8`: 6.3 min, 565,825 input + 30K output tokens, $2.84 (its smoke run included).
+
+| Opus, top 8 | nomic | finance-2 |
+|---|---|---|
+| Main / held-out / answer-side | 40 / 35 / 26 | 40 / 35 / 26 |
+| Strictly / read | 101 / 101 | 101 / 102 |
+
+- The one real difference is **A11**: rank 12 on nomic, answered with the declared 5,725 instead of the 5,787 paid. A12 fails
+  strictly on finance-2 only (the correct "never declared" answer, out of the decline form); nomic declined it in form.
+- **Claude covers nomic's ranking:** A9, A16, A25 rank past 8 on nomic but are answered right from other excerpts carrying the
+  same figure (notes, MD&A); R3 declines cleanly (its routing test passes).
+- So for Opus the embedder is worth 3-4 questions at 5 excerpts (96/97 -> 98/100) and 1 at 8 (101/101 -> 101/102): a better
+  embedder and more excerpts fix largely the same misses. llama, at 5 excerpts and missing mostly by misreading, gained 2.
+
 **Ollama build for batch 3: 0.40.2** (installed 2026-10-09 from the auto-updater's staged, Ollama-signed installer;
 0.40.0 -> 0.40.1 had auto-installed that morning). `nomic-embed-text` (0a109f422b47) and `llama3.1:8b` (46e0c10c039e)
 unchanged - not upgraded by 0.40's background model conversion. 0.40.0 reproduced 0.35.1's answers (above); 0.40.2 is
