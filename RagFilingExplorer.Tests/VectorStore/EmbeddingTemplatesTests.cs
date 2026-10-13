@@ -33,12 +33,48 @@ public class EmbeddingTemplatesTests
         Assert.That(gemma.Document(null, "Some prose."), Is.EqualTo("title: none | text: Some prose."));
     }
 
+    // Voyage's prompts come from the request's input_type, so the text carries none - a prefix here would be doubled.
+    [TestCase("voyage-4-large")]
+    [TestCase("voyage-finance-2")]
+    public void For_Voyage_SendsTheTextAsIs(string model)
+    {
+        EmbeddingTemplates voyage = EmbeddingTemplates.For(model);
+
+        Assert.That(voyage.Query("What was revenue?"), Is.EqualTo("What was revenue?"));
+        Assert.That(voyage.Document(CompanyLine, "Some prose."), Is.EqualTo($"{CompanyLine}\nSome prose."));
+        Assert.That(voyage.Document(null, "Some prose."), Is.EqualTo("Some prose."));
+    }
+
+    // Each card's native size - the index's vector column is created with it.
+    [TestCase("nomic-embed-text", "Ollama", 768)]
+    [TestCase("embeddinggemma", "Ollama", 768)]
+    [TestCase("embeddinggemma-2:270m-bf16-text", "Ollama", 768)]
+    [TestCase("voyage-4-large", "Voyage", 1024)]
+    [TestCase("voyage-finance-2", "Voyage", 1024)]
+    public void For_EachModel_HasItsProviderAndCardsVectorSize(string model, string provider, int dimensions)
+    {
+        EmbeddingTemplates templates = EmbeddingTemplates.For(model);
+
+        Assert.That(templates.Provider.ToString(), Is.EqualTo(provider), "an internal enum can't be a public test's parameter");
+        Assert.That(templates.Dimensions, Is.EqualTo(dimensions));
+    }
+
+    // A Voyage model asked of Ollama would fail only as "not pulled"; refused naming both settings instead.
+    [Test]
+    public void EnsureServedBy_AnotherProvider_ThrowsNamingBoth()
+    {
+        StartupException ex = Assert.Throws<StartupException>(() => EmbeddingTemplates.For("voyage-4-large").EnsureServedBy(EmbeddingProvider.Ollama));
+
+        Assert.That(ex.Message, Does.Contain("Embedding:Model").And.Contain("Providers:Embedding"));
+        Assert.DoesNotThrow(() => EmbeddingTemplates.For("nomic-embed-text").EnsureServedBy(EmbeddingProvider.Ollama));
+    }
+
     [Test]
     public void For_UnlistedModel_ThrowsNamingIt()
     {
         StartupException ex = Assert.Throws<StartupException>(() => EmbeddingTemplates.For("mxbai-embed-large"));
 
-        Assert.That(ex.Message, Does.Contain("mxbai-embed-large").And.Contain("Ollama:EmbeddingModel"));
+        Assert.That(ex.Message, Does.Contain("mxbai-embed-large").And.Contain("Embedding:Model"));
     }
 
     // nomic-embed-text's index keeps its name, so it isn't rebuilt; any other model gets its own, tag included.
@@ -46,6 +82,7 @@ public class EmbeddingTemplatesTests
     [TestCase("nomic-embed-text:latest", "rag.structured.db")]
     [TestCase("embeddinggemma", "rag.structured.embeddinggemma.db")]
     [TestCase("embeddinggemma-2:270m-bf16-text", "rag.structured.embeddinggemma-2-270m-bf16-text.db")]
+    [TestCase("voyage-finance-2", "rag.structured.voyage-finance-2.db")]
     public void IndexFilesFor_EachModel_HasItsOwnIndex(string model, string fileName)
     {
         IndexFiles index = IndexFiles.For(new DirectoryInfo(Path.GetTempPath()), "structured", EmbeddingTemplates.For(model));

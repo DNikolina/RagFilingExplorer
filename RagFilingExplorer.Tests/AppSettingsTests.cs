@@ -43,17 +43,17 @@ public class AppSettingsTests
     [Test]
     public void Load_EnvironmentVariable_OverridesTheKeyForOneRun()
     {
-        Environment.SetEnvironmentVariable("Ollama__EmbeddingModel", "embeddinggemma");
+        Environment.SetEnvironmentVariable("Embedding__Model", "embeddinggemma");
         try
         {
-            Assert.That(LoadShippedSettings().Ollama.EmbeddingModel, Is.EqualTo("embeddinggemma"));
+            Assert.That(LoadShippedSettings().Embedding.Model, Is.EqualTo("embeddinggemma"));
         }
         finally
         {
-            Environment.SetEnvironmentVariable("Ollama__EmbeddingModel", null);
+            Environment.SetEnvironmentVariable("Embedding__Model", null);
         }
 
-        Assert.That(LoadShippedSettings().Ollama.EmbeddingModel, Is.EqualTo("nomic-embed-text"), "the file's value once unset");
+        Assert.That(LoadShippedSettings().Embedding.Model, Is.EqualTo("nomic-embed-text"), "the file's value once unset");
     }
 
     // MaxOutputTokens shipped as 4096 - Ollama's whole default context window, which the prompt shares, so

@@ -18,8 +18,8 @@ namespace RagFilingExplorer.Evaluation;
 /// (<see cref="RetrievalRankEvaluator.RankOf"/>) among Retrieval:VerboseSearchTopK chunks. Writes
 /// eval/v3-runs/ranks-&lt;embedding model&gt;.txt: recall@1, recall@5 and MRR per set over the answerable questions, and
 /// each rank beside <see cref="Baseline"/>'s stored one, every move listed. The embedding model is appsettings.json's, or
-/// Ollama__EmbeddingModel for one run; its index must be built. Needs Ollama. [Explicit]:
-///   Ollama__EmbeddingModel=embeddinggemma dotnet test RagFilingExplorer.Evaluation --filter "FullyQualifiedName~RetrievalRankRunTests"
+/// Embedding__Model for one run; its index must be built. Needs Ollama. [Explicit]:
+///   Embedding__Model=embeddinggemma dotnet test RagFilingExplorer.Evaluation --filter "FullyQualifiedName~RetrievalRankRunTests"
 /// </summary>
 [TestFixture]
 [Explicit("Needs Ollama and the built index.")]
@@ -39,9 +39,10 @@ public class RetrievalRankRunTests
         Dictionary<string, int?> baseline = (await EvaluationRunner.LatestResultsAsync(storage, Baseline))
             .ToDictionary(r => r.ScenarioName, r => Rank(r.EvaluationResult));
 
-        using RagRuntime runtime = await OllamaSetup.OpenExistingIndexAsync(settings, Repo, new RetrievalParityTests.NoChatClient());
-        (OllamaApiClient embedding, _) = OllamaSetup.CreateClients(settings.Ollama);
-        string ollamaVersion = (await embedding.GetVersionAsync()).ToString();
+        using RagRuntime runtime = await EvaluationIndex.OpenAsync(settings, Repo, new RetrievalParityTests.NoChatClient());
+        (OllamaApiClient ollama, _) = OllamaSetup.CreateClients(settings);
+        // The Ollama build matters only when Ollama embeds the questions.
+        string servedBy = settings.Providers.Embedding == EmbeddingProvider.Ollama ? $"Ollama {await ollama.GetVersionAsync()}" : settings.Providers.Embedding.ToString();
 
         List<(string Set, string Scenario, int? Rank, int? Before)> ranks = [];
         foreach ((QuestionSet set, string question, var entry) in EvaluationRunner.SelectQuestions(Repo, EvaluationRunner.AllSets, new HashSet<string>()))
@@ -58,9 +59,9 @@ public class RetrievalRankRunTests
                 baseline.GetValueOrDefault(scenario)));
         }
 
-        string index = IndexFiles.For(Repo, ChunkingStrategies.FileName(settings.Chunking.Strategy), EmbeddingTemplates.For(settings.Ollama.EmbeddingModel)).DbFileName;
+        string index = IndexFiles.For(Repo, ChunkingStrategies.FileName(settings.Chunking.Strategy), EmbeddingTemplates.For(settings.Embedding.Model)).DbFileName;
         StringBuilder report = new();
-        report.AppendLine($"Ranks: {settings.Ollama.EmbeddingModel} ({index}), Ollama {ollamaVersion}, {ranks.Count} answerable questions, "
+        report.AppendLine($"Ranks: {settings.Embedding.Model} ({index}), {servedBy}, {ranks.Count} answerable questions, "
             + $"ranked among {settings.Retrieval.VerboseSearchTopK}; beside {Baseline} (nomic-embed-text). A rank > {settings.Retrieval.VerboseSearchTopK} is '-'.");
         foreach (IGrouping<string, (string Set, string Scenario, int? Rank, int? Before)> set in ranks.GroupBy(r => r.Set).Append(ranks.GroupBy(_ => "All").Single()))
         {
@@ -80,7 +81,7 @@ public class RetrievalRankRunTests
             report.AppendLine($"  {scenario}: {Show(rank)}, {Show(before)}");
         }
 
-        string path = Path.Combine(storage, $"ranks-{settings.Ollama.EmbeddingModel.Replace(':', '-')}.txt");
+        string path = Path.Combine(storage, $"ranks-{settings.Embedding.Model.Replace(':', '-')}.txt");
         await File.WriteAllTextAsync(path, report.ToString());
         TestContext.Progress.WriteLine(report.ToString());
     }

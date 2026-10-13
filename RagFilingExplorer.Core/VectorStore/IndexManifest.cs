@@ -5,7 +5,7 @@ using RagFilingExplorer.Core.Chunking;
 namespace RagFilingExplorer.Core.VectorStore;
 
 /// <summary>
-/// Records what a finished rag.&lt;strategy&gt;.db was built from: the embedding model, the chunking
+/// Records what a finished rag.&lt;strategy&gt;.db was built from: the embedding model and its vector size, the chunking
 /// strategy and settings, and a SHA-256 hash of every filing. Written next to the index only after
 /// every chunk has been upserted, so it doubles as a completion marker.
 ///
@@ -13,7 +13,7 @@ namespace RagFilingExplorer.Core.VectorStore;
 /// - An interrupted or failed build (Ctrl+C during the embedding pass, markitdown missing, Ollama going
 ///   away) leaves a partial index behind - SqliteVectorStore creates the file before any chunking starts -
 ///   which a later run would trust as complete.
-/// - Changing EmbeddingModel, chunk size/overlap, or the filings in data/ would silently reuse the old index.
+/// - Changing Embedding:Model, chunk size/overlap, or the filings in data/ would silently reuse the old index.
 ///   An embedding-model change is the worst case: query vectors from the new model get compared against
 ///   stored vectors from the old one, so retrieval returns noise with no error at all.
 ///
@@ -24,6 +24,9 @@ internal sealed class IndexManifest
     private static readonly JsonSerializerOptions JsonOptions = new() { WriteIndented = true };
 
     public required string EmbeddingModel { get; init; }
+
+    // The vector column's size: a model's is fixed by its card (EmbeddingTemplates), so this catches an edit there.
+    public required int EmbeddingDimensions { get; init; }
 
     // Each strategy has its own index file, so this normally can't differ - recorded anyway so an index
     // renamed or copied by hand is caught rather than silently answering from the wrong chunks.
@@ -38,7 +41,8 @@ internal sealed class IndexManifest
 
     public static IndexManifest Create(AppSettings settings, IEnumerable<FileInfo> filings) => new()
     {
-        EmbeddingModel = settings.Ollama.EmbeddingModel,
+        EmbeddingModel = settings.Embedding.Model,
+        EmbeddingDimensions = EmbeddingTemplates.For(settings.Embedding.Model).Dimensions,
         ChunkingStrategy = settings.Chunking.Strategy.ToString(),
         TokenizerModel = settings.Chunking.TokenizerModel,
         MaxTokensPerChunk = settings.Chunking.MaxTokensPerChunk,
@@ -108,7 +112,8 @@ internal sealed class IndexManifest
             }
         }
 
-        Compare("Ollama:EmbeddingModel", EmbeddingModel, current.EmbeddingModel);
+        Compare("Embedding:Model", EmbeddingModel, current.EmbeddingModel);
+        Compare("the embedding model's vector size", EmbeddingDimensions, current.EmbeddingDimensions);
         Compare("Chunking:Strategy", ChunkingStrategy, current.ChunkingStrategy);
         Compare("Chunking:TokenizerModel", TokenizerModel, current.TokenizerModel);
         Compare("Chunking:MaxTokensPerChunk", MaxTokensPerChunk, current.MaxTokensPerChunk);

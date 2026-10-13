@@ -32,6 +32,7 @@
     <ProjectReference Include="..\RagFilingExplorer.Core\RagFilingExplorer.Core.csproj" />
     <ProjectReference Include="..\RagFilingExplorer.Ollama\RagFilingExplorer.Ollama.csproj" />
     <ProjectReference Include="..\RagFilingExplorer.Claude\RagFilingExplorer.Claude.csproj" />
+    <ProjectReference Include="..\RagFilingExplorer.Voyage\RagFilingExplorer.Voyage.csproj" />
   </ItemGroup>
 
 </Project>

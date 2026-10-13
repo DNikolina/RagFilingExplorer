@@ -52,12 +52,14 @@ internal static class AppComposition
         }
     }
 
-    /// <summary>The index's chunk collection, embedding with <paramref name="embedding"/>; created if it doesn't exist.</summary>
+    /// <summary>The index's chunk collection, embedding with <paramref name="embedding"/> (the model <paramref name="templates"/>
+    /// describes); created if it doesn't exist.</summary>
     public static async Task<VectorStoreCollection<int, FilingChunkRecord>> OpenCollectionAsync(
-        IndexFiles index, IEmbeddingGenerator<string, Embedding<float>> embedding)
+        IndexFiles index, IEmbeddingGenerator<string, Embedding<float>> embedding, EmbeddingTemplates templates)
     {
         SqliteVectorStore vectorStore = new($"Data Source={index.DbPath}", new() { EmbeddingGenerator = embedding });
-        VectorStoreCollection<int, FilingChunkRecord> collection = vectorStore.GetCollection<int, FilingChunkRecord>("chunks");
+        VectorStoreCollection<int, FilingChunkRecord> collection =
+            vectorStore.GetCollection<int, FilingChunkRecord>("chunks", FilingChunkRecord.Definition(templates.Dimensions));
         await collection.EnsureCollectionExistsAsync();
         return collection;
     }
@@ -84,7 +86,7 @@ internal static class AppComposition
         CrossEncoderReranker? reranker = settings.Retrieval.Rerank ? LoadReranker(settings.Retrieval) : null;
 
         RagAnswerService answerService = new(
-            collection, chatClient, settings.Retrieval, chatModel, companies, EmbeddingTemplates.For(settings.Ollama.EmbeddingModel), keywordIndex, reranker);
+            collection, chatClient, settings.Retrieval, chatModel, companies, EmbeddingTemplates.For(settings.Embedding.Model), keywordIndex, reranker);
         return new RagRuntime(answerService, companies, reranker);
     }
 
@@ -100,14 +102,15 @@ internal static class AppComposition
         FileInfo[] filings = FindFilings(repoRoot);
         CompanyRegistry companies = RegisterCompanies(filings);
 
-        IndexFiles index = IndexFiles.For(repoRoot, ChunkingStrategies.FileName(settings.Chunking.Strategy), EmbeddingTemplates.For(settings.Ollama.EmbeddingModel));
+        EmbeddingTemplates templates = EmbeddingTemplates.For(settings.Embedding.Model);
+        IndexFiles index = IndexFiles.For(repoRoot, ChunkingStrategies.FileName(settings.Chunking.Strategy), templates);
         if (!index.Exists)
         {
             throw new StartupException($"{index.DbPath} doesn't exist - build it by running the app once (dotnet run --project RagFilingExplorer.Cli).");
         }
 
         index.EnsureCurrent(IndexManifest.Create(settings, filings));
-        VectorStoreCollection<int, FilingChunkRecord> collection = await OpenCollectionAsync(index, embedding);
+        VectorStoreCollection<int, FilingChunkRecord> collection = await OpenCollectionAsync(index, embedding, templates);
         return CreateRuntime(settings, index, collection, companies, chatClient, chatModel);
     }
 

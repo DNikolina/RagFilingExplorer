@@ -19,10 +19,11 @@ public class IndexManifestTests
     public void TearDown() => Directory.Delete(_tempDirectory, recursive: true);
 
     private static IndexManifest Make(
-        string embeddingModel = "nomic-embed-text", int maxTokens = 500, int overlap = 50, SortedDictionary<string, string>? hashes = null,
+        string embeddingModel = "nomic-embed-text", int dimensions = 768, int maxTokens = 500, int overlap = 50, SortedDictionary<string, string>? hashes = null,
         string strategy = "Markdown") => new()
     {
         EmbeddingModel = embeddingModel,
+        EmbeddingDimensions = dimensions,
         ChunkingStrategy = strategy,
         TokenizerModel = "gpt-4",
         MaxTokensPerChunk = maxTokens,
@@ -44,7 +45,18 @@ public class IndexManifestTests
         List<string> differences = Make().DescribeDifferences(Make(embeddingModel: "mxbai-embed-large"));
 
         Assert.That(differences, Has.Count.EqualTo(1));
-        Assert.That(differences[0], Does.Contain("Ollama:EmbeddingModel").And.Contain("mxbai-embed-large"));
+        Assert.That(differences[0], Does.Contain("Embedding:Model").And.Contain("mxbai-embed-large"));
+    }
+
+    // A model's vector size is fixed in code (EmbeddingTemplates); an index whose vector column has another size can't
+    // be searched with it.
+    [Test]
+    public void DescribeDifferences_EmbeddingDimensionsChanged_IsReported()
+    {
+        List<string> differences = Make().DescribeDifferences(Make(dimensions: 1024));
+
+        Assert.That(differences, Has.Count.EqualTo(1));
+        Assert.That(differences[0], Does.Contain("vector size").And.Contain("1024"));
     }
 
     [Test]

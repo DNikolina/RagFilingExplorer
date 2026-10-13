@@ -5,4 +5,5 @@
   <Project Path="RagFilingExplorer.Evaluation/RagFilingExplorer.Evaluation.csproj" />
   <Project Path="RagFilingExplorer.Ollama/RagFilingExplorer.Ollama.csproj" />
   <Project Path="RagFilingExplorer.Tests/RagFilingExplorer.Tests.csproj" />
+  <Project Path="RagFilingExplorer.Voyage/RagFilingExplorer.Voyage.csproj" />
 </Solution>

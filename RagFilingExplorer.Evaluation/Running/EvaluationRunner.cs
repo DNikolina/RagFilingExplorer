@@ -167,7 +167,7 @@ internal sealed class EvaluationRunner(
         }
 
         // The model's own client; the reporting configuration wraps it per scenario with a response cache.
-        (_, OllamaApiClient chat) = OllamaSetup.CreateClients(settings.Ollama);
+        (_, OllamaApiClient chat) = OllamaSetup.CreateClients(settings);
         IReadOnlyCollection<string> judgeNames = judges;
         JudgeContextChatClient judgeChat = new(chat);
         // The answering client is the reporting configuration's, so the library's cache key carries its provider and
@@ -185,6 +185,7 @@ internal sealed class EvaluationRunner(
 
         GenerationTopK = settings.Retrieval.GenerationTopK;
         runTags.Add($"excerpts:{GenerationTopK}");
+        runTags.Add($"embedding:{settings.Embedding.Model}");
 
         // A Claude judge has its own client, beside the answering one - the answering client is the answers' cache key.
         // Each question's judge calls are cached in its scenario's cache, keyed by the judge model as well.
@@ -214,7 +215,7 @@ internal sealed class EvaluationRunner(
             tags: runTags);
 
         ScenarioChatClient scenarioChat = new();
-        using RagRuntime runtime = await OllamaSetup.OpenExistingIndexAsync(settings, repoRoot, scenarioChat, answerOptions);
+        using RagRuntime runtime = await EvaluationIndex.OpenAsync(settings, repoRoot, scenarioChat, answerOptions);
         // The Ollama build serving this run, tagged on every case (QuestionTags) - an update can change answers. Asked
         // after OpenExistingIndexAsync, whose readiness check turns "Ollama isn't running" into a message naming the fix.
         string ollamaVersion = (await chat.GetVersionAsync(cancellationToken)).ToString();

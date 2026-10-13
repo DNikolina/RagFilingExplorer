@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 442 offline unit tests (176 at v1.0) + 195 offline evaluation tests |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 465 offline unit tests (176 at v1.0) + 197 offline evaluation tests |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -107,7 +107,14 @@ the baseline from here) - H13, T10, H27 misread with the answer in the top 5, A8
 that never reference each other, Local able to embed with Voyage optionally - Decision-Log.md, "Core and providers". **Step 5 done:** `RagFilingExplorer.Core`
 (the pipeline, no provider); Ollama and Claude as provider libraries; one app, `RagFilingExplorer.Cli` (was Local; the
 Claude app folded in), choosing them from `Providers` in `appsettings.json`, which also took `claudesettings.json`'s
-section (user). Nothing else changed: tests, dumps, index, a cached replay 102/102 identical. Next: Voyage (step 6).
+section (user). Nothing else changed: tests, dumps, index, a cached replay 102/102 identical. **Step 6 started:** `Embedding:Model` replaces `Ollama:EmbeddingModel`, and the vector's
+size comes from the model's card (`EmbeddingTemplates`) through a record definition, recorded in the manifest - ranks
+identical on all 94. Ollama is now 0.40.3 (was 0.40.2): re-baseline llama before comparing answers. **The Voyage
+library done** (`RagFilingExplorer.Voyage`, tested offline): `Providers:Embedding = Voyage` with
+`voyage-4-large` or `voyage-finance-2`, `input_type` sent - the index built with a document embedder, searched with a
+query one; the evaluation embeds as the app's settings say (`Providers__Embedding=Voyage` for one run). **Step 6 done:**
+the smoke test on Voyage's API (`voyage-finance-2`: 1024 dimensions, the question nearer its answer, ~1,850 free
+tokens). **Next: step 7** - both indexes built and ranked retrieval-only against nomic.
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the
@@ -266,11 +273,15 @@ Shared by all three:
 ```
 
 v4 (branch `v4`), optional: `Providers:Chat = Claude` runs the same flow over the same index - embeddings still
-Ollama's - with Claude (`Anthropic` SDK, `AsIChatClient`) in place
+the embedding provider's - with Claude (`Anthropic` SDK, `AsIChatClient`) in place
 of llama3.1:8b. `ChatModelOptions` carries what differs: no temperature (Claude rejects a non-default one), reasoning
 effort for lookups as well as synthesis (never None - the SDK sends it as thinking disabled, a 400), output ceiling
 16,000 (thinking counts toward it). Settings in `appsettings.json`'s `Claude` section; the key from .NET user secrets
 (`Claude:ApiKey`, the Claude library's) or `ANTHROPIC_API_KEY`, never that file (refused at load). The evaluation picks the model with `evalsettings.json`'s `ChatModel`.
+`Providers:Embedding = Voyage` (`RagFilingExplorer.Voyage`, a hand-written `HttpClient` embedder) embeds with
+`Embedding:Model` (`voyage-4-large`, `voyage-finance-2`; 1024 dimensions) into that model's own index; Voyage's
+`input_type` differs for chunks and questions, so the index is built through a "document" generator and searched
+through a "query" one. Key: `VOYAGE_API_KEY` or `Voyage:ApiKey` in the Voyage library's user secrets, never the file.
 
 Packages: `AngleSharp` (the DOM - v2's reader and the linearizer), `Microsoft.Extensions.AI`, `Microsoft.Extensions.VectorData.Abstractions`,
 `CommunityToolkit.VectorData.SqliteVec` (1.0.1-preview), `OllamaSharp`,
@@ -278,7 +289,8 @@ Packages: `AngleSharp` (the DOM - v2's reader and the linearizer), `Microsoft.Ex
 `Microsoft.Bcl.Memory` (pinned — see below), `Microsoft.Data.Sqlite` (hybrid search's FTS5 queries; already
 transitive via SqliteVec, referenced at the same version), `Microsoft.ML.OnnxRuntime` 1.30.0 and
 `Microsoft.ML.Tokenizers` 2.0.0 (the reranker; its model is fetched separately). The Claude app (v4) only: `Anthropic`
-12.54.1 and `Microsoft.Extensions.Configuration.EnvironmentVariables`. Tests: NUnit + Moq. Tunables live in
+12.54.1 and `Microsoft.Extensions.Configuration.EnvironmentVariables`; Claude and Voyage libraries:
+`Microsoft.Extensions.Configuration.UserSecrets`. Tests: NUnit + Moq. Tunables live in
 `RagFilingExplorer.Cli/appsettings.json`; domain logic (keyword lists, regexes) stays in code.
 
 ---
@@ -307,7 +319,7 @@ transitive via SqliteVec, referenced at the same version), `Microsoft.ML.OnnxRun
   balance sheet has one clean total row; the equity statement is a wide roll-forward whose closing row
   gets lost among near-identical fragments (ORCL: rank 8-9 of 17). "Changes in ... equity" questions
   still go to the equity statement via `ResolveStatementType`'s longest-match rule.
-- **An embedding model's query/document templates come from its own model card** (`EmbeddingTemplates`, in code;
+- **An embedding model's query/document templates and vector size come from its own model card** (`EmbeddingTemplates`, in code;
   an unlisted model is refused at startup). A wrong template never errors - retrieval just gets worse - and the
   manifest records the model, not its template, so changing a template needs `--rebuild`. Each model has its own index
   (`rag.<strategy>.<model>.db`; nomic keeps `rag.<strategy>.db`).

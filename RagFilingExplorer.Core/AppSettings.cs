@@ -23,6 +23,7 @@ namespace RagFilingExplorer.Core;
 internal sealed class AppSettings
 {
     public required ProviderSettings Providers { get; set; }
+    public required EmbeddingSettings Embedding { get; set; }
     public required OllamaSettings Ollama { get; set; }
     public required ChunkingSettings Chunking { get; set; }
     public required VectorStoreSettings VectorStore { get; set; }
@@ -30,7 +31,7 @@ internal sealed class AppSettings
 
     public static AppSettings Load(string basePath)
     {
-        // An environment variable of the same name overrides a key for one run (Ollama__EmbeddingModel=embeddinggemma),
+        // An environment variable of the same name overrides a key for one run (Embedding__Model=embeddinggemma),
         // as in the evaluation's settings - the file stays the one source of every value.
         IConfigurationRoot configuration = new ConfigurationBuilder()
             .SetBasePath(basePath)
@@ -90,7 +91,8 @@ internal sealed class AppSettings
 /// </summary>
 internal sealed class ProviderSettings
 {
-    /// <summary>Ollama (the Ollama section's EmbeddingModel).</summary>
+    /// <summary>Ollama or Voyage (every chunk and question billed), serving the Embedding section's model - which must be
+    /// one of that provider's (EmbeddingTemplates).</summary>
     public required EmbeddingProvider Embedding { get; set; }
 
     /// <summary>Ollama (the Ollama section's ChatModel) or Claude (the Claude section; every answer billed).</summary>
@@ -100,6 +102,7 @@ internal sealed class ProviderSettings
 internal enum EmbeddingProvider
 {
     Ollama,
+    Voyage,
 }
 
 internal enum ChatProvider
@@ -108,11 +111,21 @@ internal enum ChatProvider
     Claude,
 }
 
+internal sealed class EmbeddingSettings
+{
+    /// <summary>
+    /// The embedding model, by its provider's name for it - apart from the provider's own section, since it decides the
+    /// index: each model has its own (rag.&lt;strategy&gt;.&lt;model&gt;.db; nomic-embed-text keeps rag.&lt;strategy&gt;.db),
+    /// with the query/document templates and vector size from its model card. An unlisted model is refused at startup -
+    /// see EmbeddingTemplates.
+    /// </summary>
+    public required string Model { get; set; }
+}
+
 internal sealed class OllamaSettings
 {
     public required string BaseUrl { get; set; }
     public required int TimeoutMinutes { get; set; }
-    public required string EmbeddingModel { get; set; }
     public required string ChatModel { get; set; }
 }
 

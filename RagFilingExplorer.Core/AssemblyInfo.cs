@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("RagFilingExplorer.Cli")] // the app
 [assembly: InternalsVisibleTo("RagFilingExplorer.Claude")] // a provider: Claude answering
 [assembly: InternalsVisibleTo("RagFilingExplorer.Ollama")] // a provider: its clients over Core's pipeline
+[assembly: InternalsVisibleTo("RagFilingExplorer.Voyage")] // a provider: Voyage embedding
 [assembly: InternalsVisibleTo("LinearizeSpike")] // tools/LinearizeSpike - the linearization spike runner
 
 // Moq mocks VectorStoreCollection<int, FilingChunkRecord> via Castle DynamicProxy, which generates the

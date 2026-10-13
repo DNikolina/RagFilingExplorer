@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Voyage AI as an embedding provider (docs/Decision-Log.md, "Batch 3 - embeddings, free then paid", "Core and
+       providers"): a hand-written HttpClient embedder, used when appsettings.json's Providers:Embedding is Voyage. No
+       SDK - Voyage has no official .NET one. A library - the app is RagFilingExplorer.Cli. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <!-- Where the API key can live outside the repository: dotnet user-secrets set Voyage:ApiKey ... (VoyageEmbedding).
+         Kept on this library, not the app, so the app and the evaluation read the same key. -->
+    <UserSecretsId>fc2a32e5-068a-4bfa-b6db-84b4eba383d3</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RagFilingExplorer.Core\RagFilingExplorer.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="10.0.12" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.12" />
+  </ItemGroup>
+
+</Project>

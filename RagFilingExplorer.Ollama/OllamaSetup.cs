@@ -9,26 +9,28 @@ namespace RagFilingExplorer.Ollama;
 internal static class OllamaSetup
 {
     /// <summary>One client for embeddings and one for chat, each with the configured timeout.</summary>
-    public static (OllamaApiClient Embedding, OllamaApiClient Chat) CreateClients(OllamaSettings ollama) =>
-        (new OllamaApiClient(CreateHttpClient(ollama), ollama.EmbeddingModel),
-         new OllamaApiClient(CreateHttpClient(ollama), ollama.ChatModel));
+    public static (OllamaApiClient Embedding, OllamaApiClient Chat) CreateClients(AppSettings settings) =>
+        (new OllamaApiClient(CreateHttpClient(settings.Ollama), settings.Embedding.Model),
+         new OllamaApiClient(CreateHttpClient(settings.Ollama), settings.Ollama.ChatModel));
 
     /// <summary>The configured Ollama chat model's options - its thinking capability asked of Ollama itself.</summary>
     public static async Task<ChatModelOptions> ReadChatModelAsync(AppSettings settings, OllamaApiClient chat) =>
         ChatModelOptions.ForOllama(settings.Retrieval, await ChatModelSupportsThinkingAsync(chat, settings.Ollama.ChatModel));
 
     /// <summary>
-    /// <see cref="AppComposition.OpenExistingIndexAsync"/> embedding with the configured Ollama model, once Ollama is
-    /// ready. The configured Ollama chat model answers unless <paramref name="chatClient"/> and <paramref name="chatModel"/>
-    /// say otherwise - an evaluation passes a client that caches the model's responses.
+    /// <see cref="AppComposition.OpenExistingIndexAsync"/> embedding questions with the configured Ollama model - or with
+    /// <paramref name="queryEmbedding"/>, another provider's, when given - once Ollama is ready. The configured Ollama chat
+    /// model answers unless <paramref name="chatClient"/> and <paramref name="chatModel"/> say otherwise - an evaluation
+    /// passes a client that caches the model's responses.
     /// </summary>
     public static async Task<RagRuntime> OpenExistingIndexAsync(
-        AppSettings settings, DirectoryInfo repoRoot, IChatClient? chatClient = null, ChatModelOptions? chatModel = null)
+        AppSettings settings, DirectoryInfo repoRoot, IChatClient? chatClient = null, ChatModelOptions? chatModel = null,
+        IEmbeddingGenerator<string, Embedding<float>>? queryEmbedding = null)
     {
-        (OllamaApiClient embedding, OllamaApiClient chat) = CreateClients(settings.Ollama);
-        await EnsureReadyAsync(chat, settings.Ollama, [settings.Ollama.EmbeddingModel, settings.Ollama.ChatModel]);
+        (OllamaApiClient embedding, OllamaApiClient chat) = CreateClients(settings);
+        await EnsureReadyAsync(chat, settings.Ollama, queryEmbedding is null ? [settings.Embedding.Model, settings.Ollama.ChatModel] : [settings.Ollama.ChatModel]);
         return await AppComposition.OpenExistingIndexAsync(
-            settings, repoRoot, embedding, chatClient ?? chat, chatModel ?? await ReadChatModelAsync(settings, chat));
+            settings, repoRoot, queryEmbedding ?? embedding, chatClient ?? chat, chatModel ?? await ReadChatModelAsync(settings, chat));
     }
 
     // Default HttpClient.Timeout (100s) isn't enough for CPU-only Ollama inference - a batch upsert of

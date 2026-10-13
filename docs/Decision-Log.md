@@ -4375,6 +4375,76 @@ model with `evalsettings.json`'s `ChatModel` and ignores `Providers`. The Voyage
 - `Providers__Chat=Claude`: the app finds the stored key, checks the model against the free Models endpoint and opens
   the same index, and answers Microsoft's FY2026 revenue, $331,839 million (one billed question, user's go-ahead).
 
+**Step 6, first half - the embedder's setting and vector size: done (2026-10-13).** Free, offline, no index rebuilt.
+- **`Embedding:Model`** replaces `Ollama:EmbeddingModel` (the environment override is now `Embedding__Model`); the
+  provider stays `Providers:Embedding`. Kept apart from the Ollama section because the model, not its provider, decides
+  the index, the templates and now the vector size. `OllamaSetup.CreateClients` takes the whole `AppSettings` for it.
+- **The vector's size comes from `EmbeddingTemplates`** (`Dimensions`), from each model's card like its templates:
+  nomic-embed-text 768, embeddinggemma 768, embeddinggemma-2 768 (Google's card: "truncated embeddings across 128d,
+  256d, 512d, and 768d" - 768 native). Not asked of the provider at runtime: Ollama's `/api/show` would serve, Voyage
+  has no such endpoint, and a size in code is checked by a test like the templates.
+- **`FilingChunkRecord`'s schema is a record definition** (`FilingChunkRecord.Definition(dimensions)`, passed to
+  `GetCollection`) instead of attributes - checked on Microsoft Learn ("Define your data model": a definition passed to
+  `GetCollection<TKey,TRecord>(String, VectorStoreCollectionDefinition)`; without one the schema comes from attributes).
+  Property names unchanged, so the stored tables (`vec_chunks`: `Text FLOAT[768] distance_metric=cosine`) open as before.
+- **The manifest records `EmbeddingDimensions`** and reports a change. The three local manifests (gitignored) had the
+  key added by hand, 768 - their vectors are nomic's - rather than rebuilt; an index built elsewhere has no manifest to
+  migrate.
+- **Bar met:** builds with no warning; 446 unit (+4: a vector-size case per model, the manifest's size change) + 195
+  offline evaluation tests; the Cli opens `rag.structured.db` as up to date and answers Microsoft's FY2026 revenue,
+  $331,839 million; `RetrievalRankRunTests` on all 94: every rank identical to `ranks-nomic-toc-links.txt`.
+- **Ollama is now 0.40.3** - updated since 0.40.2 although auto-update was off; `nomic-embed-text` (0a109f422b47) and
+  `llama3.1:8b` (46e0c10c039e) unchanged. Retrieval reproduced exactly on it (above); llama's answers weren't re-asked,
+  so a llama comparison against `structured-hybrid-chunk-fixes` (0.40.2) needs a fresh baseline on 0.40.3 first.
+
+**Step 6, second half - the Voyage library: done (2026-10-13).** Built and tested offline; no call made to Voyage (no
+key yet). Checked first on Voyage's own docs (API reference "Embeddings", "Embeddings" guide, "Rate limits", "Error
+codes"): POST `https://api.voyageai.com/v1/embeddings`, `Authorization: Bearer`, body `input` (up to 1,000 texts, 120K
+tokens for both candidates), `model`, `input_type` (`query`, `document` or null), `truncation`; response `data[]`
+(`embedding`, `index`), `model`, `usage.total_tokens`; a 4xx carries `{"detail": ...}`; 429 and 5xx are to be retried
+"after a brief wait", exponential back-off suggested, no Retry-After header documented.
+- **`input_type` sent, not its prompt prepended by hand.** The guide gives the prompts ("Represent the query for
+  retrieving supporting documents: ", "Represent the document for retrieval: ") but doesn't say prepending them with
+  `input_type` null gives the same vectors - so the type itself is sent. The vector store calls one generator for
+  everything it embeds, so each `VoyageEmbeddingGenerator` has one type: the Cli builds the index through a collection
+  with the "document" generator and searches through one with the "query" generator (Ollama passes its one client
+  to both). Voyage's `EmbeddingTemplates` entry therefore adds no text prefix - only the company line, as nomic's.
+- **`EmbeddingTemplates` knows each model's provider** (`Provider`, `EnsureServedBy`): `voyage-4-large` and
+  `voyage-finance-2` (both 1024 - finance-2's only size, 4-large's default; `output_dimension` not sent, since
+  finance-2 doesn't take it) are Voyage's, the rest Ollama's. A mismatch with `Providers:Embedding` stops startup -
+  otherwise a Voyage model asked of Ollama fails only as "not pulled".
+- **The client** (`RagFilingExplorer.Voyage`, over Core, no package beyond configuration's): `truncation: false`; every
+  vector's size checked against the card; embeddings returned in input order by `index`; 429 and 5xx retried up to 8
+  attempts, 1-2-4...-60 s apart (~2 min); any other status fails at once with Voyage's `detail`. One `HttpClient`
+  (2-minute timeout) shared by both generators.
+- **The key:** `VOYAGE_API_KEY`, else `Voyage:ApiKey` in user secrets under the Voyage library's own `UserSecretsId`;
+  refused in `appsettings.json` under either name, as Claude's. Startup embeds one word ("revenue", as a query) to
+  check the key, the model and the vector size - a few billed tokens, from the free allowance; a 401 names the key.
+- **Ollama only for what it serves:** with Voyage embedding and Claude answering, Ollama isn't contacted.
+- **Bar met:** builds with no warning, no vulnerable package; 465 unit (+19: request shape, input order, back-off and
+  give-up, a 400 not retried, a vector of the wrong size, the key's sources and refusal, the templates and provider
+  check) + 195 offline evaluation tests; the default app unchanged (Microsoft's FY2026 revenue, $331,839 million);
+  `Providers__Embedding=Voyage` with nomic refused naming both settings, and with no key refused naming where it goes.
+- **The evaluation chooses the embedder too** (same day, step 6's own item): from the app's settings -
+  `Providers:Embedding` and `Embedding:Model`, environment overrides for one run - not a new `evalsettings.json` key, as
+  "Step 6 additions" planned ("each app chooses the embedder from it; the evaluation too"); the chat model keeps its
+  own `ChatModel` there (unchanged, user undecided on aligning it). `EvaluationIndex.OpenAsync` checks the
+  model's provider, then passes Voyage's "query" generator to `OllamaSetup.OpenExistingIndexAsync` (a new optional
+  parameter; Ollama then checks only its chat model). All four evaluation entry points use it; runs are tagged
+  `embedding:<model>`; `RetrievalRankRunTests` names Voyage instead of the Ollama build when Voyage embeds. Bar: 197
+  offline evaluation tests (+2: a provider mismatch refused before any call, both ways); the rank run on nomic through
+  it - every rank identical to `ranks-nomic-toc-links.txt`.
+- **The smoke test - done, step 6 complete (2026-10-13, user's go-ahead).** Voyage documents no hard spending cap - a
+  budget sets an email alert only; revoking the key is the stop. `VoyageSmokeTests` ([Explicit], billed): startup's one-word check, Microsoft's income statement (key 94) and Netflix's
+  Item 2. Properties as documents in one request, "What was Microsoft's total revenue in fiscal year 2026?" as a query.
+  `voyage-finance-2`: 1024 dimensions, 900 tokens for the two chunks, 17 for the question; cosine 0.4977 to the income
+  statement, 0.0965 to Netflix's properties - the question lands on its answer, the input types the right way round.
+  Run twice (the second only to see the pass line - not asked for): ~1,850 tokens of the 50M free, no rate limiting
+  at three requests.
+  **Rate limits:** the index build embeds one chunk per request (`VectorStore:UpsertBatchSize` 1, SqliteVec's bug),
+  ~1,000 requests per index - minutes at Voyage's Tier 1 limit (2,000 RPM), hours at the limit without a payment method
+  (3 RPM, 10K TPM); the client would need batching and pacing to fit the latter.
+
 **Ollama build for batch 3: 0.40.2** (installed 2026-10-09 from the auto-updater's staged, Ollama-signed installer;
 0.40.0 -> 0.40.1 had auto-installed that morning). `nomic-embed-text` (0a109f422b47) and `llama3.1:8b` (46e0c10c039e)
 unchanged - not upgraded by 0.40's background model conversion. 0.40.0 reproduced 0.35.1's answers (above); 0.40.2 is

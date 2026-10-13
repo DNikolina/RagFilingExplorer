@@ -236,8 +236,8 @@ setting chooses it ([docs/Design-FAQ.md](docs/Design-FAQ.md)).
 
 Besides the usual prerequisites, it needs:
 
-- **Ollama, for embeddings** - a question's embedding is still `nomic-embed-text`'s (llama isn't needed). Switching the
-  chat model never rebuilds the index.
+- **Ollama, for embeddings** - a question's embedding is still `nomic-embed-text`'s (llama isn't needed), unless
+  Voyage embeds ([below](#embedding-with-voyage-v4-optional-paid)). Switching the chat model never rebuilds the index.
 - **An Anthropic API key, outside the repository** - it's public. In .NET user secrets (a file in your user profile),
   typed at a hidden prompt so it stays out of your shell history - paste it there with a right-click (Ctrl+V types a
   control character instead):
@@ -294,6 +294,25 @@ Strictly graded (the expected figure, its unit and the exact line):
 
 Every run is in `eval/v3-runs/` (`claude-*`), and each non-passing answer is read in
 [docs/Decision-Log.md](docs/Decision-Log.md), "paid services (v4)".
+
+## Embedding with Voyage (v4, optional, paid)
+
+Set `Providers:Embedding` to `Voyage` and `Embedding:Model` to `voyage-4-large` or `voyage-finance-2`, and Voyage AI
+embeds the chunks and questions instead of `nomic-embed-text` - with any chat model; with Claude answering, Ollama
+isn't needed at all. Chunking, search and prompts stay the same. Each embedding model has its own index
+(`rag.structured.voyage-4-large.db`), built on first run, so switching back to nomic needs no rebuild. Not yet measured
+against nomic.
+
+The key lives outside the repository, as Claude's: `dotnet user-secrets set "Voyage:ApiKey" $k --project
+RagFilingExplorer.Voyage` (typed at a hidden prompt as above), or the `VOYAGE_API_KEY` environment variable; a key in
+`appsettings.json` stops startup. Startup embeds one word to check the key and model - a few billed tokens; a first
+build embeds every chunk once (about half a million tokens, inside Voyage's free tokens per model).
+
+```powershell
+$env:Providers__Embedding = 'Voyage'; $env:Embedding__Model = 'voyage-4-large'
+dotnet run --project RagFilingExplorer.Cli
+Remove-Item Env:Providers__Embedding, Env:Embedding__Model
+```
 
 ## Configuration (`appsettings.json`)
 
@@ -487,6 +506,7 @@ Every measured run, v1's on, is kept in `eval/`.
 RagFilingExplorer.Core/                 the pipeline, no model provider - chunking, XBRL, vector store, retrieval, question loop
 RagFilingExplorer.Ollama/               Ollama as a provider - its clients, readiness and capability checks
 RagFilingExplorer.Claude/               Claude as a provider (v4): the chat client and its settings - billed, used only when chosen
+RagFilingExplorer.Voyage/               Voyage as a provider (v4): the embedder and its key - billed, used only when chosen
 RagFilingExplorer.Cli/                  the app - appsettings.json, providers chosen there, builds the index, the question loop
 RagFilingExplorer.Tests/                NUnit + Moq test suite
 RagFilingExplorer.Evaluation/           the evaluation (v3): evaluators, runner, report, variance and judge measurements

@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using Microsoft.Extensions.AI;
 using RagFilingExplorer.Evaluation.Evaluators;
 using RagFilingExplorer.Evaluation.Grading;
+using RagFilingExplorer.Evaluation.Running;
 using RagFilingExplorer.Core.Retrieval;
 
 namespace RagFilingExplorer.Evaluation;
@@ -61,7 +62,7 @@ public class RetrievalParityTests
             .Select(l => ReplayLine.Match(l)).Where(m => m.Success).ToList();
         Assert.That(replay, Has.Count.EqualTo(questions.Length), "one replay line per question");
 
-        using RagRuntime runtime = await OllamaSetup.OpenExistingIndexAsync(settings, Repo, new NoChatClient());
+        using RagRuntime runtime = await EvaluationIndex.OpenAsync(settings, Repo, new NoChatClient());
         List<string> differences = [];
         for (int i = 0; i < questions.Length; i++)
         {

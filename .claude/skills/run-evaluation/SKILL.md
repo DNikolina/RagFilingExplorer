@@ -63,6 +63,13 @@ the defaults clean.
 | `Execution` | the run's name; empty = `structured-hybrid-<yyyyMMddTHHmm>`. Reusing a name overwrites the questions asked again and keeps the rest (the summary lists them) - use a new name to keep runs apart |
 | `Sets` / `Only` | which questions: sets `Main`, `HeldOut`, `AnswerSide`; or ids like `Q1,A16` |
 | `NoCache` | `true` = ask the model afresh and cache nothing (a variance pass) |
+
+The embedder isn't an evaluation option: it's the app's (`appsettings.json`'s `Providers:Embedding` and
+`Embedding:Model`), overridden for one run as the app's are - `Providers__Embedding=Voyage`,
+`Embedding__Model=voyage-4-large`. That model's index must be built (run the app once with the same overrides). Voyage
+needs `VOYAGE_API_KEY` or `Voyage:ApiKey` in the Voyage library's user secrets, and bills each question's embedding
+(startup embeds one word to check the key) - ask the user before a run. For embedder comparisons, `RetrievalRankRunTests`
+ranks retrieval only, in seconds, with no chat model asked.
 | `UnloadEachQuestion` | unload the model before each question; needs `NoCache` |
 
 **Always smoke-test first** with two or three questions and a throwaway name, then run in full:

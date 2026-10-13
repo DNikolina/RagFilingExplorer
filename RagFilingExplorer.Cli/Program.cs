@@ -7,6 +7,7 @@ using RagFilingExplorer.Core.Chunking;
 using RagFilingExplorer.Core.Retrieval;
 using RagFilingExplorer.Core.VectorStore;
 using RagFilingExplorer.Ollama;
+using RagFilingExplorer.Voyage;
 
 using IDisposable utf8Console = Utf8Console.Use();
 
@@ -41,7 +42,9 @@ static async Task RunAsync(string[] args)
 
     // Each chunking strategy has its own index and chunk dumps, and each embedding model its own index - see IndexFiles.
     string strategyName = ChunkingStrategies.FileName(settings.Chunking.Strategy);
-    IndexFiles index = IndexFiles.For(repoRoot, strategyName, EmbeddingTemplates.For(settings.Ollama.EmbeddingModel));
+    EmbeddingTemplates embeddingTemplates = EmbeddingTemplates.For(settings.Embedding.Model);
+    embeddingTemplates.EnsureServedBy(settings.Providers.Embedding);
+    IndexFiles index = IndexFiles.For(repoRoot, strategyName, embeddingTemplates);
     string reviewDirectoryPath = Path.Combine(repoRoot.FullName, "chunk-review", strategyName);
     bool verbose = args.Contains("--verbose");
     Console.WriteLine($"Chunking strategy: {settings.Chunking.Strategy} (index: {index.DbFileName})");
@@ -65,11 +68,24 @@ static async Task RunAsync(string[] args)
         return;
     }
 
-    // Each provider is checked before any build: Ollama for only the models it serves here, Claude's key and model
-    // against its Models API (no tokens billed) - so a missing one fails now, not after a ten-minute embed.
-    (OllamaApiClient embeddingApiClient, OllamaApiClient ollamaChat) = OllamaSetup.CreateClients(settings.Ollama);
-    await OllamaSetup.EnsureReadyAsync(
-        ollamaChat, settings.Ollama, claude is null ? [settings.Ollama.EmbeddingModel, settings.Ollama.ChatModel] : [settings.Ollama.EmbeddingModel]);
+    // Each provider is checked before any build: Ollama for only the models it serves here (none with Voyage and Claude),
+    // Claude's key and model against its Models API (no tokens billed), Voyage's with one billed query embedding - so a
+    // missing one fails now, not after a ten-minute embed.
+    bool ollamaEmbeds = settings.Providers.Embedding == EmbeddingProvider.Ollama;
+    (OllamaApiClient ollamaEmbedding, OllamaApiClient ollamaChat) = OllamaSetup.CreateClients(settings);
+    string[] ollamaModels = [.. ollamaEmbeds ? [settings.Embedding.Model] : Array.Empty<string>(), .. claude is null ? [settings.Ollama.ChatModel] : Array.Empty<string>()];
+    if (ollamaModels.Length > 0)
+    {
+        await OllamaSetup.EnsureReadyAsync(ollamaChat, settings.Ollama, ollamaModels);
+    }
+
+    // Voyage embeds a chunk and a question differently (its input_type), so the index is built with one generator and
+    // searched with the other; Ollama's model embeds both alike, its templates making the difference.
+    (IEmbeddingGenerator<string, Embedding<float>> documentEmbedding, IEmbeddingGenerator<string, Embedding<float>> queryEmbedding) = ollamaEmbeds
+        ? (ollamaEmbedding, ollamaEmbedding)
+        : await VoyageEmbedding.CreateAsync(Load(() => VoyageEmbedding.LoadKey(AppContext.BaseDirectory)), embeddingTemplates);
+    Console.WriteLine($"Embedding model: {settings.Embedding.Model} ({settings.Providers.Embedding}, {embeddingTemplates.Dimensions} dimensions)");
+
     (IChatClient chat, ChatModelOptions chatModel) = claude is null
         ? (ollamaChat, await OllamaSetup.ReadChatModelAsync(settings, ollamaChat))
         : await ClaudeChat.CreateAsync(claude);
@@ -94,8 +110,6 @@ static async Task RunAsync(string[] args)
         index.Delete();
     }
 
-    VectorStoreCollection<int, FilingChunkRecord> collection = await AppComposition.OpenCollectionAsync(index, embeddingApiClient);
-
     if (indexExists)
     {
         Console.WriteLine($"Found an up-to-date {index.DbPath} - skipping chunking and embedding. Run with --rebuild to force a fresh build.");
@@ -104,7 +118,8 @@ static async Task RunAsync(string[] args)
     {
         try
         {
-            await IndexBuilder.BuildAsync(collection, settings, filings, reviewDirectoryPath);
+            await IndexBuilder.BuildAsync(
+                await AppComposition.OpenCollectionAsync(index, documentEmbedding, embeddingTemplates), settings, filings, reviewDirectoryPath);
         }
         catch (Exception ex)
         {
@@ -117,6 +132,7 @@ static async Task RunAsync(string[] args)
         currentManifest.Save(index.ManifestPath);
     }
 
+    VectorStoreCollection<int, FilingChunkRecord> collection = await AppComposition.OpenCollectionAsync(index, queryEmbedding, embeddingTemplates);
     using RagRuntime runtime = AppComposition.CreateRuntime(settings, index, collection, companies, chat, chatModel);
 
     Console.WriteLine(runtime.Reranker is null
