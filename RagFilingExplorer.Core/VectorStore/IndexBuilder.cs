@@ -10,14 +10,15 @@ namespace RagFilingExplorer.Core.VectorStore;
 internal static class IndexBuilder
 {
     public static async Task BuildAsync(
-        VectorStoreCollection<int, FilingChunkRecord> collection, AppSettings settings, FileInfo[] filings, string reviewDirectoryPath)
+        VectorStoreCollection<int, FilingChunkRecord> collection, EmbeddingTemplates templates, AppSettings settings, FileInfo[] filings,
+        string reviewDirectoryPath)
     {
         List<FilingChunk> allChunks = await ChunkFilingsAsync(settings, filings, reviewDirectoryPath);
 
         Console.WriteLine("=== Vector storage ===");
         Console.WriteLine($"Total chunks across all filings: {allChunks.Count}");
 
-        List<FilingChunkRecord> records = FilingChunkRecords.Build(allChunks, EmbeddingTemplates.For(settings.Embedding.Model));
+        List<FilingChunkRecord> records = FilingChunkRecords.Build(allChunks, templates);
         await UpsertRecordsAsync(collection, records, settings.VectorStore.UpsertBatchSize);
     }
 

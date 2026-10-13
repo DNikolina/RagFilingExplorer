@@ -65,10 +65,12 @@ internal static class AppComposition
         return collection;
     }
 
-    /// <summary>The answer service over a built index, answering with <paramref name="chatClient"/> as <paramref name="chatModel"/> describes.</summary>
+    /// <summary>The answer service over a built index, its questions embedded as <paramref name="templates"/> say (the
+    /// templates that sized <paramref name="collection"/>), answering with <paramref name="chatClient"/> as
+    /// <paramref name="chatModel"/> describes.</summary>
     public static RagRuntime CreateRuntime(
-        AppSettings settings, IndexFiles index, VectorStoreCollection<int, FilingChunkRecord> collection, CompanyRegistry companies,
-        IChatClient chatClient, ChatModelOptions chatModel)
+        AppSettings settings, IndexFiles index, VectorStoreCollection<int, FilingChunkRecord> collection, EmbeddingTemplates templates,
+        CompanyRegistry companies, IChatClient chatClient, ChatModelOptions chatModel)
     {
         // Company and statement-type filtering, search, prompt and generation are RagAnswerService's (see
         // QueryIntentResolver for why the filters exist); the question loop is InteractiveSession's.
@@ -95,7 +97,7 @@ internal static class AppComposition
         }
 
         RagAnswerService answerService = new(
-            collection, chatClient, settings.Retrieval, chatModel, companies, EmbeddingTemplates.For(settings.Embedding.Model), keywordIndex, reranker);
+            collection, chatClient, settings.Retrieval, chatModel, companies, templates, keywordIndex, reranker);
         return new RagRuntime(answerService, companies, reranker);
     }
 
@@ -120,7 +122,7 @@ internal static class AppComposition
 
         index.EnsureCurrent(IndexManifest.Create(settings, filings));
         VectorStoreCollection<int, FilingChunkRecord> collection = await OpenCollectionAsync(index, embedding, templates);
-        return CreateRuntime(settings, index, collection, companies, chatClient, chatModel);
+        return CreateRuntime(settings, index, collection, templates, companies, chatClient, chatModel);
     }
 
     private static CrossEncoderReranker LoadReranker(RetrievalSettings retrieval)

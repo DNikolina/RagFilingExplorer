@@ -24,7 +24,7 @@ internal static class PromptFit
     public static int LargestPromptTokens(Tokenizer tokenizer, IEnumerable<FilingChunkRecord> chunks, int topK)
     {
         IEnumerable<FilingChunkRecord> largest = chunks
-            .OrderByDescending(c => tokenizer.CountTokens(RagAnswerService.BuildPrompt("", [c])[1].Text))
+            .OrderByDescending(c => tokenizer.CountTokens(RagAnswerService.BuildPrompt("", [c]).Single(m => m.Role == ChatRole.User).Text))
             .Take(topK);
         return RagAnswerService.BuildPrompt("", largest).Sum(m => tokenizer.CountTokens(m.Text)) + QuestionAllowance;
     }

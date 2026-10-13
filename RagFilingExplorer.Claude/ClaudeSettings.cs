@@ -1,6 +1,5 @@
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Json;
 using RagFilingExplorer.Core;
 
 namespace RagFilingExplorer.Claude;
@@ -76,19 +75,7 @@ internal sealed class ClaudeSettings
         ClaudeSettings settings = configuration.GetSection(Section).Get<ClaudeSettings>()
             ?? throw new InvalidOperationException($"{FileName} failed to bind its {Section} section.");
 
-        // Both names the key is read under - a root "ANTHROPIC_API_KEY" in the file would be read too, and committed with it.
-        string[] keyNames = [EnvironmentKeyName, $"{Section}:{nameof(ApiKey)}"];
-        // This file's provider only: user secrets are a JSON file too (secrets.json), and that one is where the key belongs.
-        string? inFile = configuration is IConfigurationRoot root
-            ? keyNames.FirstOrDefault(k => root.Providers.OfType<JsonConfigurationProvider>().Any(p => p.Source.Path == FileName && p.TryGet(k, out _)))
-            : null;
-        if (inFile is not null)
-        {
-            throw new InvalidOperationException(
-                $"{FileName} holds {inFile} - remove it, the repository is public; keep the key in user secrets or ANTHROPIC_API_KEY.");
-        }
-
-        settings.apiKey = keyNames.Select(k => configuration[k]).FirstOrDefault(k => !string.IsNullOrEmpty(k));
+        settings.apiKey = AppSettings.ReadApiKey(configuration, FileName, EnvironmentKeyName, $"{Section}:{nameof(ApiKey)}");
 
         if (settings.LookupEffort == ReasoningEffort.None || settings.SynthesisEffort == ReasoningEffort.None)
         {

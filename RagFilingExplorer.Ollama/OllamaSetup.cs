@@ -80,11 +80,7 @@ internal static class OllamaSetup
         IEmbeddingGenerator<string, Embedding<float>>? queryEmbedding = null)
     {
         (OllamaApiClient embedding, OllamaApiClient chat) = CreateClients(settings);
-        await EnsureReadyAsync(chat, settings.Ollama, queryEmbedding is null ? [settings.Embedding.Model, settings.Ollama.ChatModel] : [settings.Ollama.ChatModel]);
-        if (queryEmbedding is null)
-        {
-            await EnsureChunksFitEmbeddingAsync(chat, settings.Embedding.Model, settings.Chunking.MaxTokensPerChunk);
-        }
+        await EnsureServesAsync(chat, settings, embeds: queryEmbedding is null, chats: true);
 
         return await AppComposition.OpenExistingIndexAsync(
             settings, repoRoot, queryEmbedding ?? EmbeddingGenerator(embedding), chatClient ?? ChatClient(chat, settings.Ollama),
@@ -97,10 +93,39 @@ internal static class OllamaSetup
     private static HttpClient CreateHttpClient(OllamaSettings ollama) =>
         new() { BaseAddress = new Uri(ollama.BaseUrl), Timeout = TimeSpan.FromMinutes(ollama.TimeoutMinutes) };
 
+    /// <summary>
+    /// Checks Ollama for what it serves in this run: the embedding model, and that the chunk budget fits it, when it
+    /// embeds; the chat model when it answers. With neither (Voyage and Claude) Ollama isn't contacted at all.
+    /// </summary>
+    public static async Task EnsureServesAsync(OllamaApiClient chat, AppSettings settings, bool embeds, bool chats)
+    {
+        List<string> models = [];
+        if (embeds)
+        {
+            models.Add(settings.Embedding.Model);
+        }
+
+        if (chats)
+        {
+            models.Add(settings.Ollama.ChatModel);
+        }
+
+        if (models.Count == 0)
+        {
+            return;
+        }
+
+        await EnsureReadyAsync(chat, settings.Ollama, models);
+        if (embeds)
+        {
+            await EnsureChunksFitEmbeddingAsync(chat, settings.Embedding.Model, settings.Chunking.MaxTokensPerChunk);
+        }
+    }
+
     // Fails fast, before any chunking, with the exact fix - otherwise a cloner without Ollama running (or
     // without a model pulled) gets a raw HttpRequestException stack trace, and during a first build only
     // after every filing has already been converted. Checks only the models given: the ones this run uses.
-    public static async Task EnsureReadyAsync(OllamaApiClient client, OllamaSettings ollama, IEnumerable<string> models)
+    private static async Task EnsureReadyAsync(OllamaApiClient client, OllamaSettings ollama, IEnumerable<string> models)
     {
         List<string> installed;
         try

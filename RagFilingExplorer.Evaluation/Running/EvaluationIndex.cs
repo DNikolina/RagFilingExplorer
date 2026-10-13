@@ -22,7 +22,7 @@ internal static class EvaluationIndex
         embedding.EnsureServedBy(settings.Providers.Embedding);
 
         IEmbeddingGenerator<string, Embedding<float>>? queries = settings.Providers.Embedding == EmbeddingProvider.Voyage
-            ? (await VoyageEmbedding.CreateAsync(VoyageEmbedding.LoadKey(Path.Combine(repoRoot.FullName, "RagFilingExplorer.Cli")), embedding)).Queries
+            ? (await VoyageEmbedding.CreateAsync(VoyageEmbedding.LoadKeyFromRepository(repoRoot), embedding)).Queries
             : null;
         return await OllamaSetup.OpenExistingIndexAsync(settings, repoRoot, chatClient, chatModel, queries);
     }

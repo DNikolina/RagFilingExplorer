@@ -61,11 +61,20 @@ internal sealed class VoyageEmbeddingGenerator(
         return embeddings;
     }
 
-    public object? GetService(Type serviceType, object? serviceKey = null) =>
-        serviceKey is not null ? null
-        : serviceType == typeof(EmbeddingGeneratorMetadata) ? metadata
-        : serviceType.IsInstanceOfType(this) ? this
-        : null;
+    public object? GetService(Type serviceType, object? serviceKey = null)
+    {
+        if (serviceKey is not null)
+        {
+            return null;
+        }
+
+        if (serviceType == typeof(EmbeddingGeneratorMetadata))
+        {
+            return metadata;
+        }
+
+        return serviceType.IsInstanceOfType(this) ? this : null;
+    }
 
     // The HttpClient is VoyageEmbedding's, shared by the document and query generators.
     public void Dispose()

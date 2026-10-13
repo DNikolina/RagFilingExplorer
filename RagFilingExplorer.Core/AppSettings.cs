@@ -1,6 +1,7 @@
 using System.Reflection;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
 using RagFilingExplorer.Core.Chunking;
 using RagFilingExplorer.Core.Retrieval;
 
@@ -59,6 +60,27 @@ internal sealed class AppSettings
         {
             throw new InvalidOperationException($"{fileName} is missing required key(s): {string.Join(", ", missing)}.");
         }
+    }
+
+    /// <summary>
+    /// A paid provider's API key: <paramref name="environmentName"/>, else <paramref name="secretsName"/> (user secrets); null
+    /// when neither is set. Refused when <paramref name="fileName"/> holds it under either name - the repository is public,
+    /// and a root "ANTHROPIC_API_KEY" in the file would be read too, and committed with it. Only that file's provider is
+    /// searched: user secrets are a JSON file too (secrets.json), and that one is where the key belongs.
+    /// </summary>
+    internal static string? ReadApiKey(IConfiguration configuration, string fileName, string environmentName, string secretsName)
+    {
+        string[] keyNames = [environmentName, secretsName];
+        string? inFile = configuration is IConfigurationRoot root
+            ? keyNames.FirstOrDefault(k => root.Providers.OfType<JsonConfigurationProvider>().Any(p => p.Source.Path == fileName && p.TryGet(k, out _)))
+            : null;
+        if (inFile is not null)
+        {
+            throw new InvalidOperationException(
+                $"{fileName} holds {inFile} - remove it, the repository is public; keep the key in user secrets or {environmentName}.");
+        }
+
+        return keyNames.Select(k => configuration[k]).FirstOrDefault(k => !string.IsNullOrEmpty(k));
     }
 
     /// <summary>

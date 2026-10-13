@@ -2,7 +2,6 @@ using System.Net;
 using System.Net.Http.Headers;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Json;
 using RagFilingExplorer.Core;
 using RagFilingExplorer.Core.VectorStore;
 
@@ -57,7 +56,7 @@ internal static class VoyageEmbedding
         }
         catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.Unauthorized)
         {
-            throw new StartupException($"Voyage rejected the key (user secrets' {SecretsKeyName}, or {EnvironmentKeyName} when set) ({ex.Message}).", ex);
+            throw new StartupException($"Voyage rejected the key from user secrets' {SecretsKeyName} (or {EnvironmentKeyName} when set): {ex.Message}", ex);
         }
         catch (Exception ex) when (ex is HttpRequestException or InvalidOperationException or TaskCanceledException)
         {
@@ -79,21 +78,10 @@ internal static class VoyageEmbedding
         .AddEnvironmentVariables()
         .Build());
 
-    /// <summary>The key from a configuration - refused when appsettings.json holds it, since the repository is public.</summary>
-    public static string? ReadKey(IConfiguration configuration)
-    {
-        // Both names the key is read under - a root "VOYAGE_API_KEY" in the file would be read too, and committed with it.
-        string[] keyNames = [EnvironmentKeyName, SecretsKeyName];
-        // The settings file's provider only: user secrets are a JSON file too (secrets.json), and that one is where the key belongs.
-        string? inFile = configuration is IConfigurationRoot root
-            ? keyNames.FirstOrDefault(k => root.Providers.OfType<JsonConfigurationProvider>().Any(p => p.Source.Path == SettingsFileName && p.TryGet(k, out _)))
-            : null;
-        if (inFile is not null)
-        {
-            throw new InvalidOperationException(
-                $"{SettingsFileName} holds {inFile} - remove it, the repository is public; keep the key in user secrets or {EnvironmentKeyName}.");
-        }
+    /// <summary>The key from the app's settings in a repository checkout - how the evaluation reads it.</summary>
+    public static string? LoadKeyFromRepository(DirectoryInfo repoRoot) => LoadKey(Path.Combine(repoRoot.FullName, "RagFilingExplorer.Cli"));
 
-        return keyNames.Select(k => configuration[k]).FirstOrDefault(k => !string.IsNullOrEmpty(k));
-    }
+    /// <summary>The key from a configuration - refused when appsettings.json holds it, since the repository is public.</summary>
+    public static string? ReadKey(IConfiguration configuration) =>
+        AppSettings.ReadApiKey(configuration, SettingsFileName, EnvironmentKeyName, SecretsKeyName);
 }

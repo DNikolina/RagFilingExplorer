@@ -42,7 +42,7 @@ internal static class ClaudeChat
         }
         catch (AnthropicUnauthorizedException ex)
         {
-            throw new StartupException($"The Claude API rejected the key (user secrets' Claude:ApiKey, or ANTHROPIC_API_KEY when set) ({ex.Message}).", ex);
+            throw new StartupException($"The Claude API rejected the key from user secrets' Claude:ApiKey (or ANTHROPIC_API_KEY when set): {ex.Message}", ex);
         }
         catch (AnthropicNotFoundException ex)
         {

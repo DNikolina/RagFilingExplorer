@@ -46,8 +46,7 @@ static async Task RunAsync(string[] args)
     EmbeddingTemplates embeddingTemplates = EmbeddingTemplates.For(settings.Embedding.Model);
     embeddingTemplates.EnsureServedBy(settings.Providers.Embedding);
     IndexFiles index = IndexFiles.For(repoRoot, strategyName, embeddingTemplates, settings.Chunking.MaxTokensPerChunk);
-    string reviewDirectoryPath = Path.Combine(repoRoot.FullName, "chunk-review",
-        string.Join('.', new[] { strategyName, IndexFiles.ChunkBudgetSuffix(settings.Chunking.MaxTokensPerChunk) }.OfType<string>()));
+    string reviewDirectoryPath = IndexFiles.ReviewDirectory(repoRoot, strategyName, settings.Chunking.MaxTokensPerChunk);
     bool verbose = args.Contains("--verbose");
     Console.WriteLine($"Chunking strategy: {settings.Chunking.Strategy} (index: {index.DbFileName})");
 
@@ -60,7 +59,7 @@ static async Task RunAsync(string[] args)
         Console.WriteLine($"Company filter: {string.Join(" / ", registration.Names)} -> {registration.Filing}");
     }
 
-    // --chunks-only: chunk every filing and write chunk-review/<strategy>/, nothing else - no Ollama, no
+    // --chunks-only: chunk every filing and write chunk-review/<strategy>[.<n>tok]/, nothing else - no Ollama, no
     // index. Reading the real chunk output is how chunking bugs are found; this makes that a one-minute loop
     // instead of a ten-minute re-embed.
     if (args.Contains("--chunks-only"))
@@ -75,19 +74,10 @@ static async Task RunAsync(string[] args)
     // missing one fails now, not after a ten-minute embed.
     bool ollamaEmbeds = settings.Providers.Embedding == EmbeddingProvider.Ollama;
     (OllamaApiClient ollamaEmbedding, OllamaApiClient ollamaChat) = OllamaSetup.CreateClients(settings);
-    string[] ollamaModels = [.. ollamaEmbeds ? [settings.Embedding.Model] : Array.Empty<string>(), .. claude is null ? [settings.Ollama.ChatModel] : Array.Empty<string>()];
-    if (ollamaModels.Length > 0)
-    {
-        await OllamaSetup.EnsureReadyAsync(ollamaChat, settings.Ollama, ollamaModels);
-    }
+    await OllamaSetup.EnsureServesAsync(ollamaChat, settings, embeds: ollamaEmbeds, chats: claude is null);
 
     // Voyage embeds a chunk and a question differently (its input_type), so the index is built with one generator and
     // searched with the other; Ollama's model embeds both alike, its templates making the difference.
-    if (ollamaEmbeds)
-    {
-        await OllamaSetup.EnsureChunksFitEmbeddingAsync(ollamaChat, settings.Embedding.Model, settings.Chunking.MaxTokensPerChunk);
-    }
-
     (IEmbeddingGenerator<string, Embedding<float>> documentEmbedding, IEmbeddingGenerator<string, Embedding<float>> queryEmbedding) = ollamaEmbeds
         ? (OllamaSetup.EmbeddingGenerator(ollamaEmbedding), OllamaSetup.EmbeddingGenerator(ollamaEmbedding))
         : await VoyageEmbedding.CreateAsync(Load(() => VoyageEmbedding.LoadKey(AppContext.BaseDirectory)), embeddingTemplates);
@@ -126,7 +116,7 @@ static async Task RunAsync(string[] args)
         try
         {
             await IndexBuilder.BuildAsync(
-                await AppComposition.OpenCollectionAsync(index, documentEmbedding, embeddingTemplates), settings, filings, reviewDirectoryPath);
+                await AppComposition.OpenCollectionAsync(index, documentEmbedding, embeddingTemplates), embeddingTemplates, settings, filings, reviewDirectoryPath);
         }
         catch (Exception ex)
         {
@@ -140,7 +130,7 @@ static async Task RunAsync(string[] args)
     }
 
     VectorStoreCollection<int, FilingChunkRecord> collection = await AppComposition.OpenCollectionAsync(index, queryEmbedding, embeddingTemplates);
-    using RagRuntime runtime = AppComposition.CreateRuntime(settings, index, collection, companies, chat, chatModel);
+    using RagRuntime runtime = AppComposition.CreateRuntime(settings, index, collection, embeddingTemplates, companies, chat, chatModel);
 
     Console.WriteLine(runtime.Reranker is null
         ? $"Search: {settings.Retrieval.Search}"

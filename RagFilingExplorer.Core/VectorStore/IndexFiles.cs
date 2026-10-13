@@ -20,10 +20,16 @@ internal sealed record IndexFiles(string DbPath)
     public const int UnnamedChunkBudget = 500;
 
     public static IndexFiles For(DirectoryInfo repoRoot, string strategyName, EmbeddingTemplates embedding, int maxTokensPerChunk) =>
-        new(Path.Combine(repoRoot.FullName, string.Join('.', new[] { "rag", strategyName, embedding.IndexSuffix, ChunkBudgetSuffix(maxTokensPerChunk), "db" }.OfType<string>())));
+        new(Path.Combine(repoRoot.FullName, Dotted("rag", strategyName, embedding.IndexSuffix, ChunkBudgetSuffix(maxTokensPerChunk), "db")));
+
+    /// <summary>The strategy's chunk dumps: chunk-review/&lt;strategy&gt;[.&lt;n&gt;tok]/, named by the same budget rule.</summary>
+    public static string ReviewDirectory(DirectoryInfo repoRoot, string strategyName, int maxTokensPerChunk) =>
+        Path.Combine(repoRoot.FullName, "chunk-review", Dotted(strategyName, ChunkBudgetSuffix(maxTokensPerChunk)));
 
     /// <summary>"1000tok" for a 1,000-token budget, none for <see cref="UnnamedChunkBudget"/> - also names chunk dumps and rank files.</summary>
     public static string? ChunkBudgetSuffix(int maxTokensPerChunk) => maxTokensPerChunk == UnnamedChunkBudget ? null : $"{maxTokensPerChunk}tok";
+
+    private static string Dotted(params string?[] parts) => string.Join('.', parts.OfType<string>());
 
     // An existing index is only trusted if it has a manifest (written only after a build finishes) that
     // matches the current settings and filings - see IndexManifest for the two failure modes this closes.
