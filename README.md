@@ -4,8 +4,9 @@ A local, retrieval-augmented Q&A tool for SEC 10-K filings, built in C#/.NET.
 
 **Zero cost, no API keys, no accounts.** Embedding, vector search, and answer generation all run
 locally via [Ollama](https://ollama.com/) — nothing is sent to a hosted LLM API, and there's nothing
-to sign up for. (A separate, optional app answers with Claude through Anthropic's paid API instead - [Answering with
-Claude](#answering-with-claude-v4-optional-paid). The local app doesn't depend on it.)
+to sign up for. (Optionally, and only when configured, Claude can answer through Anthropic's paid API and Voyage AI can
+embed - [Answering with Claude](#answering-with-claude-v4-optional-paid), [Embedding with
+Voyage](#embedding-with-voyage-v4-optional-paid). The default needs neither.)
 
 Ask a natural-language question about one of the included filings and get an answer grounded in, and
 cited to, the actual filing text — not the model's general knowledge.
@@ -24,13 +25,14 @@ reranking, a calculator tool, or a bigger model - is answered briefly in [docs/D
 
 **Contents**
 
-- [Versions](#versions)
+- [Versions](#versions) - [results](#results)
 - [How it works](#how-it-works)
 - [Stack](#stack)
 - [Prerequisites](#prerequisites--zero-cost-not-zero-setup)
 - [Hardware expectations](#hardware-expectations)
 - [Running it](#running-it) - [startup checks](#startup-checks)
 - [Answering with Claude (v4, optional, paid)](#answering-with-claude-v4-optional-paid)
+- [Embedding with Voyage (v4, optional, paid)](#embedding-with-voyage-v4-optional-paid)
 - [Configuration](#configuration-appsettingsjson) - [chunking strategies](#chunking-strategies), [search](#search),
   [reasoning models](#reasoning-models), [adding a new filing](#adding-a-new-filing)
 - [Known limitations](#known-limitations)
@@ -52,34 +54,46 @@ reranking, a calculator tool, or a bigger model - is answered briefly in [docs/D
   `Microsoft.Extensions.AI.Evaluation`: the strict grader and the retrieval rank as custom evaluators held exact to the
   Python originals, plus a new one that traces each figure in an answer to the excerpt and line it came from - every run
   stored, cached and reported ([The evaluation](#the-evaluation)).
-- **v4** (in progress, branch `v4`) - paid services measured against the local stack, starting with Claude as the chat
-  model in a separate, optional app; same embeddings, index and retrieval, so only the reading of the excerpts changes
-  ([Answering with Claude](#answering-with-claude-v4-optional-paid)). Measured on all 102 questions: Claude Opus 5.5
-  97/102 strictly graded against llama's 84, every remaining miss a retrieval miss.
+- **v4** (in progress, branch `v4`) - paid services measured against the local stack, each one a provider the same app
+  chooses from `appsettings.json` (`Providers`): Claude as the chat model, Voyage AI as the embedder. Measured on all 102
+  questions: Claude Opus 5.5 reads what llama misreads (97/102 strictly against llama's 84 on the same excerpts), and with
+  Voyage's `voyage-finance-2` embeddings and 8 excerpts reaches 101/102 - every answer right as read; llama gains 85 ->
+  87 from the same embeddings ([Answering with Claude](#answering-with-claude-v4-optional-paid),
+  [Embedding with Voyage](#embedding-with-voyage-v4-optional-paid)).
 
-v1's strategies still ship and are one setting away. Graded strictly (the expected figure, its unit and the exact
-line), with `llama3.1:8b` at temperature 0:
+### Results
 
-| Question set | v1 | v2 |
-|---|---|---|
-| Main (Q1-Q24) | 22/24 | 22/24 |
-| Targeted - mid-table rows, split tables, notes (T1-T10) | 4/10 | **7/10** |
-| Variants of main questions - lookalike line, absent year, arithmetic (V1-V3) | 1/3 | 2/3 |
-| Held-out, written before any v2 output (H1-H15) | 8/15 | **14/15** |
-| Held-out, written mid-v2 and never tuned on (H16-H35) | - | 17/20 |
-| Answer-side - lookalike lines, per-share, units, arithmetic (A1-A27) | - | 21/27 |
+All 102 evaluation questions on today's index (`Structured` chunking, hybrid search), graded strictly -
+the expected figure, its unit and the exact line ([The evaluation](#the-evaluation)). "As read" counts the answers the
+strict grade fails or leaves to a reader that are right when read - a correct answer worded outside the expected form;
+llama's weren't read.
 
-Routing tests (R1-R3), whose answer sits outside the statement a question's keywords point to: v1's hard filter
-can only decline them (3/3 clean declines); v2 answers two and gets the third wrong. The runs are in `eval/`
-(`baseline-v1/`, `structured-5a/`, `answer-side-norerank/`; the README there maps every folder), each measured
-step in [docs/Decision-Log.md](docs/Decision-Log.md), "XBRL hybrid (v2)". v3's .NET evaluation re-ran all 102
-questions on the v2 defaults and reproduced every grade but one (A16, where the model added an unrequested sum to the
-same prompt - a change not explained; see [The evaluation](#the-evaluation)).
+| Chat model | Embeddings | Chunks (tokens) | Excerpts | Strict | As read |
+|---|---|---|---|---|---|
+| `llama3.1:8b` (local, the free default) | `nomic-embed-text` (local) | 500 | 5 | 85 | - |
+| `llama3.1:8b` | `voyage-finance-2` | 500 | 5 | 87 | - |
+| Claude Opus 5.5 | `nomic-embed-text` | 500 | 5 | 96 | 97 |
+| Claude Opus 5.5 | `voyage-finance-2` | 500 | 5 | 98 | 100 |
+| Claude Opus 5.5 | `nomic-embed-text` | 500 | 8 | **101** | 101 |
+| Claude Opus 5.5 | `voyage-finance-2` | 500 | 8 | **101** | **102** |
+| Claude Opus 5.5 | `voyage-finance-2` | 10,000 | 5 | **101** | **102** |
+
+- llama's misses are mostly misreadings - the answer was among its excerpts; better retrieval gains it 2.
+- Opus reads them; what it misses is retrieval - an answer ranked past the excerpts it was given. Eight excerpts,
+  better embeddings or bigger chunks fix the same misses: the embedder is worth 2-3 questions at 5 excerpts, 0-1 at 8.
+- Bigger chunks are the costly way there: the 10,000-token run read ~2.5M input tokens ($10.70), 500-token chunks with 8
+  excerpts ~0.55M ($2.80), for the same answers.
+
+Every run is in `eval/v3-runs/` (`structured-hybrid-chunk-fixes`, `structured-hybrid-finance2-500`,
+`claude-opus55-medium-*`), each read in [docs/Decision-Log.md](docs/Decision-Log.md), "paid services (v4)". How v2
+improved on v1, question set by question set, is in [eval/README.md](eval/README.md).
 
 ## How it works
 
 Two flows: the index is built once (first run, or `--rebuild`), and then every question is answered from it.
-This is the default (v2); v1's `markitdown` pipeline and `Vector` search are a setting away.
+This is the default (v2); v1's `markitdown` pipeline and `Vector` search are a setting away. Who embeds and who answers
+are chosen in `appsettings.json`'s `Providers` - Ollama for both by default, free; Voyage and Claude only when chosen
+(v4). Each embedding model and chunk budget has its own index, so switching never rebuilds one.
 
 ```mermaid
 flowchart TB
@@ -92,8 +106,8 @@ flowchart TB
         blocks["Page reader<br/>paragraphs + tables as rows;<br/>roll-forward rows get their period"]
         sections["Sections<br/>Part > Item > note topic"]
         chunks["Chunks of ~500 tokens<br/>tables split between rows,<br/>headers repeated"]
-        embed["nomic-embed-text<br/>company line + heading + chunk"]
-        db[("rag.structured.db<br/>vectors + chunk text + FTS5 keyword index")]
+        embed["Embedding model<br/>nomic-embed-text (Ollama, default)<br/>or Voyage AI<br/>company line + heading + chunk"]
+        db[("rag.structured[.model][.budget].db<br/>vectors + chunk text + FTS5 keyword index")]
 
         html --> xbrl
         html --> blocks
@@ -116,8 +130,8 @@ flowchart TB
         kw["Keyword search<br/>FTS5 bm25"]
         vecst["Vector search<br/>within the statement"]
         fuse["Reciprocal rank fusion"]
-        prompt["Top 5 excerpts + citation rules"]
-        llm["llama3.1:8b"]
+        prompt["Top excerpts (5 by default) + citation rules<br/>must fit the chat model's window"]
+        llm["Chat model<br/>llama3.1:8b (Ollama, default)<br/>or Claude"]
         answer["Answer, each fact cited<br/>to filing and section"]
 
         q --> company
@@ -155,8 +169,10 @@ flowchart TB
   results, response caching and the HTML report; `.Quality`'s Equivalence as an optional judge - the local model, or
   Claude (v4)
 - **[Anthropic](https://github.com/anthropics/anthropic-sdk-csharp)** (the official C# SDK, through its `IChatClient`
-  adapter) — the optional Claude app only (v4)
-- **Local models**: `nomic-embed-text` (274MB, embeddings) and `llama3.1:8b` (4.9GB, answer generation)
+  adapter) — the optional Claude provider (v4)
+- **Voyage AI** — the optional embedding provider (v4), through a hand-written `HttpClient` `IEmbeddingGenerator`
+  (Voyage has no official .NET SDK)
+- **Local models**: `nomic-embed-text` (274MB, embeddings) and `llama3.1:8b` (4.9GB, answer generation) — the defaults
 - **Source data**: public [SEC EDGAR](https://www.sec.gov/edgar) 10-K filings (raw HTML)
 
 ## Prerequisites — zero *cost*, not zero *setup*
@@ -242,15 +258,9 @@ Besides the usual prerequisites, it needs:
 
 - **Ollama, for embeddings** - a question's embedding is still `nomic-embed-text`'s (llama isn't needed), unless
   Voyage embeds ([below](#embedding-with-voyage-v4-optional-paid)). Switching the chat model never rebuilds the index.
-- **An Anthropic API key, outside the repository** - it's public. In .NET user secrets (a file in your user profile),
-  typed at a hidden prompt so it stays out of your shell history - paste it there with a right-click (Ctrl+V types a
-  control character instead):
-  ```powershell
-  $s = Read-Host "Anthropic API key" -AsSecureString
-  $k = [System.Net.NetworkCredential]::new("", $s).Password
-  "Key length: $($k.Length)"   # about 100+; 1 means the paste failed
-  dotnet user-secrets set "Claude:ApiKey" $k --project RagFilingExplorer.Claude
-  Remove-Variable k, s
+- **An Anthropic API key, outside the repository** - it's public. In .NET user secrets (a file in your user profile):
+  ```
+  dotnet user-secrets set "Claude:ApiKey" <your key> --project RagFilingExplorer.Claude
   ```
   or in the `ANTHROPIC_API_KEY` environment variable, which wins when both are set. (Claude Code reads that variable
   too, for its own sign-in - user secrets keep the two apart.) A key in `appsettings.json` stops startup. Every
@@ -273,8 +283,9 @@ message instead of showing it empty. The evaluation runs it with `Evaluation__Ch
 
 ### Results: Claude against llama3.1:8b
 
-All 102 evaluation questions, the same index, retrieval and prompts - only the model reading the five excerpts differs.
-Strictly graded (the expected figure, its unit and the exact line):
+Batch 1 of v4 (2026-10-08, before batch 3's chunk fixes and Voyage embeddings - the current numbers are under
+[Results](#results)): all 102 evaluation questions, the same index, retrieval and prompts - only the model reading the
+five excerpts differs. Strictly graded (the expected figure, its unit and the exact line):
 
 | Chat model | Main (40) | Held-out (35) | Answer-side (27) | Total | Cost per run | Time per run |
 |---|---|---|---|---|---|---|
@@ -307,8 +318,8 @@ isn't needed at all. Chunking, search and prompts stay the same. Each embedding 
 (`rag.structured.voyage-4-large.db`), built on first run, so switching back to nomic needs no rebuild. Not yet measured
 against nomic.
 
-The key lives outside the repository, as Claude's: `dotnet user-secrets set "Voyage:ApiKey" $k --project
-RagFilingExplorer.Voyage` (typed at a hidden prompt as above), or the `VOYAGE_API_KEY` environment variable; a key in
+The key lives outside the repository, as Claude's: `dotnet user-secrets set "Voyage:ApiKey" <your key> --project
+RagFilingExplorer.Voyage`, or the `VOYAGE_API_KEY` environment variable; a key in
 `appsettings.json` stops startup. Startup embeds one word to check the key and model - a few billed tokens; a first
 build embeds every chunk once (about half a million tokens, inside Voyage's free tokens per model).
 
@@ -547,5 +558,5 @@ three real bugs found onboarding a fourth filing, and more).
 The code is [MIT](LICENSE). The filings and XBRL taxonomies in `data/` are public SEC filings, downloaded from
 [EDGAR](https://www.sec.gov/edgar) and included for convenience - they belong to their filers and aren't covered by
 this license. The models aren't part of the repo and come with their own licenses: `nomic-embed-text` and the optional
-reranker are Apache-2.0; `llama3.1:8b` is under Meta's Llama 3.1 Community License (free to use, but not open source). Claude, used by the optional app, is
-Anthropic's hosted service, under Anthropic's terms.
+reranker are Apache-2.0; `llama3.1:8b` is under Meta's Llama 3.1 Community License (free to use, but not open source). Claude and
+Voyage AI, used only when chosen in `Providers`, are hosted services under Anthropic's and Voyage AI's terms.

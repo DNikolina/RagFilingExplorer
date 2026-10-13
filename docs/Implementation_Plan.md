@@ -127,7 +127,7 @@ A14 retrieval at rank 7 and 6.
 **Opus on finance-2 at 10,000 tokens, top 5: 101/102 strictly, 102/102 read** - A11, A14 fixed - at 2.5M input tokens
 (~7x; $10.70 the run). **The same at 500 tokens with 8 excerpts: 101/102 strictly, 102/102 read, 553K input tokens
 ($2.80)** - best measured for Claude: finance-2, 500-token chunks, 8 excerpts. **nomic at 8 excerpts: 101/102 strictly, 101 read** - at
-8 the embedder is worth one question (A11) to Opus, at 5 three or four. Next (user).
+8 the embedder is worth one question as read (A11) to Opus, at 5 two strictly, three read. Next (user).
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the

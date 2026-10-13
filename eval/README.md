@@ -9,6 +9,30 @@ than remembered scores.
   grader marked `check` carry the reader's decision (`status`, `resolution`, `resolved_by`) and the grader's
   own call (`graded`).
 
+## Results by version (v1-v2)
+
+v1's strategies still ship and are one setting away. Graded strictly (the expected figure, its unit and the exact
+line), with `llama3.1:8b` at temperature 0:
+
+| Question set | v1 | v2 |
+|---|---|---|
+| Main (Q1-Q24) | 22/24 | 22/24 |
+| Targeted - mid-table rows, split tables, notes (T1-T10) | 4/10 | **7/10** |
+| Variants of main questions - lookalike line, absent year, arithmetic (V1-V3) | 1/3 | 2/3 |
+| Held-out, written before any v2 output (H1-H15) | 8/15 | **14/15** |
+| Held-out, written mid-v2 and never tuned on (H16-H35) | - | 17/20 |
+| Answer-side - lookalike lines, per-share, units, arithmetic (A1-A27) | - | 21/27 |
+
+Routing tests (R1-R3), whose answer sits outside the statement a question's keywords point to: v1's hard filter
+can only decline them (3/3 clean declines); v2 answers two and gets the third wrong. The runs are the folders below
+(`baseline-v1/`, `structured-5a/`, `answer-side-norerank/`), each measured step in
+[docs/Decision-Log.md](../docs/Decision-Log.md), "XBRL hybrid (v2)". v3's .NET evaluation re-ran all 102 questions on
+the v2 defaults and reproduced every grade but one (A16, where the model added an unrequested sum to the same prompt -
+a change not explained). From v3 on, every run is stored by the .NET evaluation in `v3-runs/`; v4's results, on all 102
+questions, are in the main [README](../README.md#results).
+
+## The runs
+
 **`baseline-v1/`** - tag `v1.0` code (Markdown strategy, prompt v1, `llama3.1:8b`, temperature 0), run
 2026-09-28. Main set reliable 22/24, targeted 4/10, routing 3/3, variants 1/3; held-out 8/15. Details and
 findings in `docs/Decision-Log.md`, "XBRL hybrid (v2)", step 0. `linearized-heldout.*` is the same code on the

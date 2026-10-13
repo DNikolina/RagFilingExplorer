@@ -4678,7 +4678,7 @@ and 4-large's all 94 (deepest rank 7). `claude-opus55-medium-nomic-top8`: 6.3 mi
   strictly on finance-2 only (the correct "never declared" answer, out of the decline form); nomic declined it in form.
 - **Claude covers nomic's ranking:** A9, A16, A25 rank past 8 on nomic but are answered right from other excerpts carrying the
   same figure (notes, MD&A); R3 declines cleanly (its routing test passes).
-- So for Opus the embedder is worth 3-4 questions at 5 excerpts (96/97 -> 98/100) and 1 at 8 (101/101 -> 101/102): a better
+- So for Opus the embedder is worth 2 strictly, 3 read, at 5 excerpts (96/97 -> 98/100) and 0 strictly, 1 read, at 8 (101/101 -> 101/102): a better
   embedder and more excerpts fix largely the same misses. llama, at 5 excerpts and missing mostly by misreading, gained 2.
 
 **Ollama build for batch 3: 0.40.2** (installed 2026-10-09 from the auto-updater's staged, Ollama-signed installer;
