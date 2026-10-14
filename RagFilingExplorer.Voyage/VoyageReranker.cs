@@ -8,8 +8,9 @@ namespace RagFilingExplorer.Voyage;
 /// <c>truncation: false</c> makes an over-long input fail instead of being cut silently - Voyage's default is to cut.
 /// The scores come back best first, each with its candidate's index; they're returned in the candidates' order, and a
 /// missing or repeated index fails rather than misplacing a score. <see cref="TotalTokens"/> adds up what was billed.
+/// It owns its client, disposed with it (the app's runtime disposes its reranker).
 /// </summary>
-internal sealed class VoyageReranker(HttpClient http, string model, Func<TimeSpan, CancellationToken, Task>? delay = null) : IRelevanceScorer
+internal sealed class VoyageReranker(HttpClient http, string model, Func<TimeSpan, CancellationToken, Task>? delay = null) : IRelevanceScorer, IDisposable
 {
     private readonly Func<TimeSpan, CancellationToken, Task> delay = delay ?? Task.Delay;
 
@@ -25,9 +26,19 @@ internal sealed class VoyageReranker(HttpClient http, string model, Func<TimeSpa
     public static async Task<VoyageReranker> CreateAsync(string? apiKey, string model)
     {
         VoyageReranker reranker = new(VoyageApi.CreateClient(apiKey), model);
-        await VoyageApi.CheckAsync(() => reranker.ScoreAsync("revenue", ["revenue"]), $"{VoyageSettings.Section}:RerankModel '{model}'");
-        return reranker;
+        try
+        {
+            await VoyageApi.CheckAsync(() => reranker.ScoreAsync("revenue", ["revenue"]), $"{VoyageSettings.Section}:RerankModel '{model}'");
+            return reranker;
+        }
+        catch
+        {
+            reranker.Dispose();
+            throw;
+        }
     }
+
+    public void Dispose() => http.Dispose();
 
     public async Task<IReadOnlyList<float>> ScoreAsync(string question, IReadOnlyList<string> passages, CancellationToken cancellationToken = default)
     {

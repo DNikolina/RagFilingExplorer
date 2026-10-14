@@ -15,11 +15,10 @@ public class AppCompositionTests
             throw new InvalidOperationException("not asked in these tests");
     }
 
-    private static AppSettings Reranking(RerankProvider provider, SearchMode search = SearchMode.Hybrid)
+    private static AppSettings Reranking(RerankProvider provider)
     {
         AppSettings settings = AppSettingsTests.LoadShippedSettings();
         settings.Retrieval.Rerank = true;
-        settings.Retrieval.Search = search;
         settings.Providers.Rerank = provider;
         return settings;
     }
@@ -39,13 +38,5 @@ public class AppCompositionTests
         StartupException ex = Assert.Throws<StartupException>(() => AppComposition.ChooseReranker(Reranking(RerankProvider.Voyage), null))!;
 
         Assert.That(ex.Message, Does.Contain("Providers:Rerank is Voyage"));
-    }
-
-    [Test]
-    public void ChooseReranker_VectorSearch_Throws()
-    {
-        StartupException ex = Assert.Throws<StartupException>(() => AppComposition.ChooseReranker(Reranking(RerankProvider.Voyage, SearchMode.Vector), new ProviderScorer()))!;
-
-        Assert.That(ex.Message, Does.Contain("Hybrid"));
     }
 }

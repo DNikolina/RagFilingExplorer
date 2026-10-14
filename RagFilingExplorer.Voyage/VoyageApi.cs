@@ -23,15 +23,19 @@ internal static class VoyageApi
     /// codes page advises; any other failure is not.</summary>
     internal const int MaxAttempts = 8;
 
-    private const string SettingsFileName = "appsettings.json";
-
     private static readonly Uri BaseAddress = new("https://api.voyageai.com/v1/");
 
     private static readonly TimeSpan MaxBackOff = TimeSpan.FromSeconds(60);
 
     // Voyage's fields are snake_case (input_type, relevance_score, total_tokens); the web defaults keep reading
-    // case-insensitive, as the HttpClient JSON helpers do without options.
-    private static readonly JsonSerializerOptions Json = new(JsonSerializerDefaults.Web) { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower };
+    // case-insensitive, as the HttpClient JSON helpers do without options. A response missing a field, or null where the
+    // record says it can't be, fails to read rather than binding as null and failing later.
+    private static readonly JsonSerializerOptions Json = new(JsonSerializerDefaults.Web)
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
+        RespectRequiredConstructorParameters = true,
+        RespectNullableAnnotations = true,
+    };
 
     /// <summary>
     /// The key from the app's configuration folder: VOYAGE_API_KEY, else Voyage:ApiKey from this library's .NET user secrets
@@ -40,7 +44,7 @@ internal static class VoyageApi
     /// </summary>
     public static string? LoadKey(string basePath) => ReadKey(new ConfigurationBuilder()
         .SetBasePath(basePath)
-        .AddJsonFile(SettingsFileName, optional: false)
+        .AddJsonFile(VoyageSettings.FileName, optional: false)
         .AddUserSecrets(typeof(VoyageApi).Assembly, optional: true)
         .AddEnvironmentVariables()
         .Build());
@@ -50,7 +54,7 @@ internal static class VoyageApi
 
     /// <summary>The key from a configuration - refused when appsettings.json holds it, since the repository is public.</summary>
     public static string? ReadKey(IConfiguration configuration) =>
-        AppSettings.ReadApiKey(configuration, SettingsFileName, EnvironmentKeyName, SecretsKeyName);
+        AppSettings.ReadApiKey(configuration, VoyageSettings.FileName, EnvironmentKeyName, SecretsKeyName);
 
     /// <summary>A client sending the key, after checking there is one and that it's printable.</summary>
     public static HttpClient CreateClient(string? apiKey)
@@ -98,11 +102,20 @@ internal static class VoyageApi
     {
         for (int attempt = 1; ; attempt++)
         {
-            using HttpResponseMessage response = await http.PostAsync(path, JsonContent.Create(request, request.GetType(), options: Json), cancellationToken);
+            // Declared as object, the request is serialized as its runtime type.
+            using HttpResponseMessage response = await http.PostAsJsonAsync(path, request, Json, cancellationToken);
             if (response.IsSuccessStatusCode)
             {
-                return await response.Content.ReadFromJsonAsync<TResponse>(Json, cancellationToken)
-                    ?? throw new InvalidOperationException("Voyage returned an empty response.");
+                try
+                {
+                    return await response.Content.ReadFromJsonAsync<TResponse>(Json, cancellationToken)
+                        ?? throw new InvalidOperationException("Voyage returned an empty response.");
+                }
+                catch (JsonException ex)
+                {
+                    // An InvalidOperationException, so the startup check reports it as Voyage's (CheckAsync).
+                    throw new InvalidOperationException($"Voyage's {path} response isn't in its documented shape: {ex.Message}", ex);
+                }
             }
 
             bool retryable = response.StatusCode == HttpStatusCode.TooManyRequests || (int)response.StatusCode >= 500;

@@ -114,6 +114,17 @@ public class AppSettingsTests
         Assert.That(settings.Retrieval.ChatTemperature, Is.Zero);
     }
 
+    // At load, so a paid reranker's billed startup check is never made for settings that can't run.
+    [Test]
+    public void Load_RerankWithVectorSearch_Throws()
+    {
+        WriteTempSettings(ShippedJson().Replace("\"Rerank\": false", "\"Rerank\": true").Replace("\"Search\": \"Hybrid\"", "\"Search\": \"Vector\""));
+
+        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => AppSettings.Load(_tempDirectory));
+
+        Assert.That(ex.Message, Does.Contain("Hybrid"));
+    }
+
     [Test]
     public void Load_MisspelledReasoningEffort_FailsAtLoadTime()
     {

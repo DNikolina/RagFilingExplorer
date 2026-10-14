@@ -111,6 +111,27 @@ public class VoyageRerankerTests
         Assert.That(voyage.Requests, Has.Count.EqualTo(2));
     }
 
+    // Missing, usage would bind as null and fail as a NullReferenceException - outside the startup check's reach.
+    [Test]
+    public void ScoreAsync_ResponseWithoutUsage_ThrowsNamingTheShape()
+    {
+        FakeVoyage voyage = new(Json(HttpStatusCode.OK, new { data = new[] { new { relevance_score = 0.5f, index = 0 } }, model = "rerank-3" }));
+
+        InvalidOperationException ex = Assert.ThrowsAsync<InvalidOperationException>(() => Create(voyage).ScoreAsync("q", ["a"]))!;
+
+        Assert.That(ex.Message, Does.Contain("documented shape"));
+    }
+
+    [Test]
+    public void Dispose_DisposesItsClient()
+    {
+        VoyageReranker reranker = Create(new FakeVoyage(Ok(9, (0, 0.5f))));
+
+        reranker.Dispose();
+
+        Assert.ThrowsAsync<ObjectDisposedException>(() => reranker.ScoreAsync("q", ["a"]));
+    }
+
     [Test]
     public void Name_NamesVoyageAndTheModel()
     {

@@ -127,19 +127,12 @@ internal static class AppComposition
         return CreateRuntime(settings, index, collection, templates, companies, chatClient, chatModel, providerReranker);
     }
 
-    /// <summary>The reranker Providers:Rerank names, hybrid search only: the local cross-encoder, loaded here, or the
-    /// provider's the caller created.</summary>
-    internal static IRelevanceScorer ChooseReranker(AppSettings settings, IRelevanceScorer? providerReranker)
-    {
-        if (settings.Retrieval.Search != SearchMode.Hybrid)
-        {
-            throw new StartupException("Retrieval:Rerank needs Retrieval:Search = Hybrid - reranking was measured on hybrid candidates only (docs/Decision-Log.md, \"Step 2b spike - measured\").");
-        }
-
-        return settings.Providers.Rerank == RerankProvider.Local
+    /// <summary>The reranker Providers:Rerank names: the local cross-encoder, loaded here, or the provider's the caller
+    /// created. Hybrid search is checked when the settings load (<see cref="AppSettings.Load"/>).</summary>
+    internal static IRelevanceScorer ChooseReranker(AppSettings settings, IRelevanceScorer? providerReranker) =>
+        settings.Providers.Rerank == RerankProvider.Local
             ? LoadLocalReranker(settings.Retrieval)
             : providerReranker ?? throw new StartupException($"Providers:Rerank is {settings.Providers.Rerank}, but no {settings.Providers.Rerank} reranker was created.");
-    }
 
     private static CrossEncoderReranker LoadLocalReranker(RetrievalSettings retrieval)
     {

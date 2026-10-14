@@ -44,6 +44,14 @@ internal sealed class AppSettings
             ?? throw new InvalidOperationException("appsettings.json is missing or failed to bind to AppSettings.");
 
         EnsureKeysPresent(configuration, typeof(AppSettings), prefix: null, "appsettings.json");
+
+        // Checked at load, before any provider is created - a paid reranker's startup check is billed.
+        if (settings.Retrieval.Rerank && settings.Retrieval.Search != SearchMode.Hybrid)
+        {
+            throw new InvalidOperationException(
+                "Retrieval:Rerank needs Retrieval:Search = Hybrid - reranking was measured on hybrid candidates only (docs/Decision-Log.md, \"Step 2b spike - measured\").");
+        }
+
         return settings;
     }
 
@@ -120,7 +128,7 @@ internal sealed class AppSettings
 
 /// <summary>
 /// Who embeds the chunks and questions, who answers, and who reranks - each chosen apart from the others, so any provider can pair with
-/// any other. Ollama for both (the default) is free and needs no key; a paid provider is used only when chosen here, and
+/// any other. Ollama and the local reranker (the defaults) are free and need no key; a paid provider is used only when chosen here, and
 /// then needs its key (user secrets or an environment variable, never this file). Only the chosen providers are checked
 /// at startup. The evaluation chooses its own chat model (evalsettings.json's ChatModel).
 /// </summary>

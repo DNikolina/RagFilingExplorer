@@ -4864,3 +4864,10 @@ lost. So the reranker does what 8 excerpts or 10,000-token chunks did for Opus, 
 | 500-token chunks, 5 excerpts, `rerank-3` | 102 | 366K | ~$2.05 |
 
 `Claude:GenerationTopK` stays 8: reranking is opt-in, and without it 8 excerpts are what reach 102.
+
+**Code review of batch 4 (code-simplifier):** no defect in the order mapping, token count, cancellation or settings
+checks. Three small gaps fixed: `Retrieval:Rerank` without hybrid search is now refused when the settings load, before
+any provider is created (it was refused after Voyage's billed startup check); a Voyage response missing a field or
+holding a null where none is allowed now fails as Voyage's error, reported by the startup check (strict JSON reading -
+it was a `NullReferenceException`); `VoyageReranker` disposes its client with the runtime. Also: one settings-file
+name shared, the request posted with `PostAsJsonAsync`. 495 unit tests, 201 evaluation.
