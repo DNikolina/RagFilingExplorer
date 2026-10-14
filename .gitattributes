@@ -1,0 +1,3 @@
+# The filings stay byte for byte as downloaded: the index manifest hashes them, so a line-ending conversion on checkout
+# makes every index read as stale (docs/Decision-Log.md, "A12 is a fact whose decline also passes").
+data/*.html -text

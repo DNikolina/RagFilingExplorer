@@ -15,6 +15,8 @@ internal sealed record AcceptedAlternative(
 /// the chunk prints it ("(601)", every input of an arithmetic question) - empty for a negative. <see cref="TrapWhy"/> says
 /// what each trap is ("dividends declared (equity statement), not paid") - from docs/Manual-Test-Questions.md, or the
 /// filing line where the doc gives none; read only for the report's explanations, never for grading.
+/// <see cref="DeclineOk"/> marks a fact whose clean decline passes too: the filing's answer is one sentence a search can
+/// miss (A12's "never declared ... any cash dividends"), and without it in the excerpts, declining is honest.
 /// </summary>
 internal sealed record ExpectedAnswer(
     [property: JsonPropertyName("id")] string Id,
@@ -27,7 +29,8 @@ internal sealed record ExpectedAnswer(
     [property: JsonPropertyName("accept")] IReadOnlyList<AcceptedAlternative>? Accept = null,
     [property: JsonPropertyName("exact")] bool Exact = false,
     [property: JsonPropertyName("chunk_expect")] IReadOnlyList<string>? ChunkExpect = null,
-    [property: JsonPropertyName("trap_why")] IReadOnlyDictionary<string, string>? TrapWhy = null)
+    [property: JsonPropertyName("trap_why")] IReadOnlyDictionary<string, string>? TrapWhy = null,
+    [property: JsonPropertyName("decline_ok")] bool DeclineOk = false)
 {
     private sealed record QuestionsFile([property: JsonPropertyName("questions")] IReadOnlyList<ExpectedAnswer> Questions);
 

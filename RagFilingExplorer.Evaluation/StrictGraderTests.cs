@@ -55,6 +55,17 @@ public class StrictGraderTests
         Assert.That(Grade(id, answer), Is.EqualTo(new StrictGrade("decline-ok", "")));
     }
 
+    // A12: Netflix's Item 5 says it has never declared a cash dividend. Opus on voyage-finance-2 read that sentence and
+    // answered with it - graded "answered a negative" while the question was a negative; a clean decline still passes,
+    // since a search that misses the sentence leaves nothing to answer from.
+    [TestCase("Netflix declared no cash dividends per share in 2025: the company states it has never declared or paid any cash dividends on its capital stock and does not currently expect to pay any in the foreseeable future (Source: NFLX-10K-2025.html, PART II > Item 5).", "reliable")]
+    [TestCase("The excerpts don't contain the cash dividends per share Netflix declared in 2025.", "decline-ok")]
+    [TestCase("Netflix declared cash dividends of $0.25 per share in 2025.", "wrong")]
+    public void Grade_FactWhoseDeclinePasses(string answer, string status)
+    {
+        Assert.That(Grade("A12", answer).Status, Is.EqualTo(status));
+    }
+
     // Figures from other periods are still figures: whether the decline is clean is a reader's call.
     [Test]
     public void Grade_DeclineStatingOtherPeriodsFigures_StaysACheck()

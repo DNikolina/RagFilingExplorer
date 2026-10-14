@@ -11,8 +11,8 @@ The evaluation asks every question in `tools/*-questions.txt` through the app ex
 - **Strict grade** - the expected figure, with its unit, from the exact line; a clean decline where the filings don't say.
   Statuses: `reliable`, `decline-ok` (both pass), `no-unit`, `wrong-unit`, `declined`, `wrong`, `malformed`, `check`
   (a reader decides).
-- **Answer rank** - where the expected figure first appears among the retrieved chunks. Ranks 1..GenerationTopK (5) are
-  in the model's prompt; a wrong answer with a good rank is a misreading, a missing or late rank a retrieval miss.
+- **Answer rank** - where the expected figure first appears among the retrieved chunks (for a calculation, the last
+  of its inputs). Ranks 1..GenerationTopK (5) are in the model's prompt; a wrong answer with a good rank is a misreading, a missing or late rank a retrieval miss.
 - **Figure source** - each figure the answer states, traced to the excerpt and line it came from: `traced`,
   `calculated` (an asked-for sum or ratio), `untraced` (in no excerpt - a possible invention), `no figure stated`.
 
@@ -151,7 +151,8 @@ tag back in its `results/*.json` afterwards, or later comparisons will name the 
 2. Add its entry to `tools/expected-answers.json`, matched by the exact question text: `id`, `kind` (`figure`, `fact`,
    `negative` - the filings don't say, `routing`), `expect` and `unit` (what's graded); `chunk_expect` - the answer as
    the chunk prints it, e.g. `"(26,445)"`, or every input of an asked-for calculation and not its result; `traps`, each
-   with a `trap_why`; and `conflicts` / `accept` for a lookalike line. A negative has no `chunk_expect`.
+   with a `trap_why`; and `conflicts` / `accept` for a lookalike line. A negative has no `chunk_expect`. A fact the
+   filing states in one sentence a search can miss takes `"decline_ok": true`, so a clean decline passes too (A12).
 3. Run `dotnet test` - `ExpectedAnswersTests` checks the entry is complete; a gap would make the report quietly wrong.
 4. Run just the new question (`Evaluation__Only=<id>`); every other answer comes from the cache.
 

@@ -55,17 +55,17 @@
         "interpretation": {
           "rating": "good",
           "failed": false,
-          "reason": "Declines correctly: the filings don\u0027t contain this."
+          "reason": "Declines - the filing states \u0022never declared\u0022 in one sentence a search can miss, so a clean decline passes too."
         }
       },
       "Answer rank": {
         "$type": "numeric",
         "name": "Answer rank",
-        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top) - for a calculation, whose result isn\u0027t printed, the figures it\u0027s calculated from, ranked by the last of them. Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
         "interpretation": {
-          "rating": "inconclusive",
-          "failed": false,
-          "reason": "Not scored: a negative has no answer to find."
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "never declared or paid any cash dividends not in the 5 excerpts the model was given - outside the model\u0027s context (top 5); this stored run keeps no chunks past them, so its exact rank isn\u0027t known."
         }
       },
       "Figure source": {
@@ -96,7 +96,7 @@
     ]
   },
   "tags": [
-    "kind:negative",
+    "kind:fact",
     "company:NFLX",
     "statement:none",
     "ollama:0.40.0"

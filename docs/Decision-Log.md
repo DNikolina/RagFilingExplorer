@@ -4711,3 +4711,45 @@ retrieval is where the gain is.
 - **Left for later (user):** batch 4 on the Mac (re-baseline llama there; a bigger local model; llama with 8 excerpts and
   on the 10,000-token index with a larger `Ollama:ContextLength`); the evaluation's `ChatModel` vs `Providers` (open);
   a pre-commit privacy hook (deferred); closing v4 (merge, tag).
+
+**V3 marked as a calculation (user, while reading the Opus finance-2 top-8 report):** V3 ("sum up the numbers") marked
+only the 2025 figure in its chunk_expect, so its answer rank named 10,149,273 for a 24,784,938 answer and a correct
+three-year sum showed as `untraced` - the gap noted in v3 step 5 ("V3 marks one figure"). Its chunk_expect now lists
+all three years' operating cash flows: Figure source reads it as `calculated` (as H4, A21-A27); the rank is unchanged -
+all three sit on one line. The rank's description says that a
+calculation is ranked by its inputs. No other question has a single marker for an unprinted result (T3, T7, V1 mark a
+nearby line, but their answers are printed). The 14 stored Claude runs (and the judge runs over Claude's answers) were
+re-scored offline, not replayed - batch 1's prompts came from an index since rebuilt, so a replay would miss the cache
+and bill: each V3 result's rank and figure source recomputed by the evaluators from its stored prompt, after first
+reproducing every stored metric exactly under the old chunk_expect. All 14 now read `calculated`, ranks unchanged; reports
+rewritten from the store. llama's V3 answers list the years without a sum, so stay `traced`; the runs' text summaries
+keep the untraced count they were written with. V3 is tagged `calculation` in every stored run, as a new run tags it.
+
+**A12 is a fact whose decline also passes (user, the same day):** A12 ("What cash dividends per share did Netflix declare
+in 2025?") was a negative, though Netflix's Item 5 answers it - "We have never declared or paid any cash dividends". The
+grade ran backwards: the 27 runs whose excerpts lacked that sentence declined and passed; Opus on voyage-finance-2 (500
+tokens at 5 and 8 excerpts, 10,000 at 5) read it, answered "none", and failed strictly - recorded above as "A12 lost
+strictly only". llama on finance-2 had it at rank 4 and declined, passing. Chosen (user) of two: accept both the answer and
+a clean decline, rather than only the answer (which would turn every past decline wrong, most with the sentence never
+retrieved). A12 is now `kind: fact`, `expect: ["never declared"]`, `chunk_expect` the Item 5 sentence, and the new
+`decline_ok` - a fact whose clean decline grades `decline-ok` (`StrictGrader`, a third rule beyond the Python grader).
+GraderParityTests needed no regrade: every recorded A12 answer is a clean decline.
+- **Stored runs re-scored offline** as V3's were, each grade first reproduced under the old definition: Opus's three
+  finance-2 runs wrong -> reliable (sentence at rank 1 at 10,000 tokens, 4 at 500); every other A12 stays `decline-ok`.
+  Ranks: exact where the sentence was in the excerpts (those three and llama's finance-2, rank 4); elsewhere "outside the
+  model's context", the position past the prompt not stored; the two variance runs keep no excerpts, so "not known". The
+  two imported v2 runs keep their stored grade (older format, status unchanged).
+- **Scores:** Opus finance-2 500/top 5 98 -> 99 strictly; 500/top 8 and 10,000/top 5 101 -> **102/102 strictly**. As
+  read unchanged (A12 was already read right). README results and the plan updated.
+- **`RetrievalParityTests` no longer passes on today's index**, independent of these changes: it compares against the
+  replay of the v2-era index, and batch 3's chunk-review rebuild moved ranks and fused scores on 30+ questions (Q4, Q7,
+  H10, A10, ...). **Deleted (user)**, with its oracle `eval/v3-retrieval-parity/`: its job was v3 step 3's port check,
+  done; regenerating it would revive the unmaintained replay script (~2 hours of llama for the logs, $0), and
+  `RetrievalRankRunTests` already ranks today's index in minutes. Its `NoChatClient` moved there.
+- **Found on the way:** `data/NDAQ-10K-2025.html` had been rewritten with CRLF line endings by a git checkout
+  (`core.autocrlf=true`, no `.gitattributes`), so the manifest's hash failed and the index read as stale. Restored to
+  git's bytes (the index's). The discard was SourceTree's; its log doesn't record git commands, and the reflog shows no
+  reset, so a path checkout - likely of a file listed as modified only by the autocrlf quirk (an LF file shown as `M` with
+  no diff). Added `.gitattributes`: `data/*.html -text` - the filings are written byte for byte on checkout. Not
+  `data/**`: the taxonomy files are LF in git but CRLF on disk (checked out with conversion), the indexes were built from
+  those bytes, and `-text` would rewrite them to LF on the next checkout - the same staleness.

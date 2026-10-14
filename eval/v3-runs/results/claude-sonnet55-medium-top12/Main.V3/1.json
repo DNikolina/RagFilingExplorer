@@ -62,22 +62,22 @@
         "$type": "numeric",
         "value": 2,
         "name": "Answer rank",
-        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-12 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top) - for a calculation, whose result isn\u0027t printed, the figures it\u0027s calculated from, ranked by the last of them. Ranks 1-12 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
         "interpretation": {
           "rating": "good",
           "failed": false,
-          "reason": "10,149,273 at rank 2 of 25 - in the model\u0027s context (top 12)."
+          "reason": "10,149,273, 7,361,364, 7,274,301 at rank 2 of 25 - in the model\u0027s context (top 12)."
         }
       },
       "Figure source": {
         "$type": "string",
-        "value": "untraced",
+        "value": "calculated",
         "name": "Figure source",
         "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
         "interpretation": {
-          "rating": "unacceptable",
-          "failed": true,
-          "reason": "24,784,938 in none of the excerpts the model was given; 10,149,273 from excerpts 2 (cash_flow_statement), 4 (narrative), 7,361,364 from excerpts 2 (cash_flow_statement), 4 (narrative), 7,274,301 from excerpts 2 (cash_flow_statement), 4 (narrative), 24,784,938 from no excerpt."
+          "rating": "good",
+          "failed": false,
+          "reason": "24,784,938 in no excerpt - the question asks for a calculation; 10,149,273 from excerpts 2 (cash_flow_statement), 4 (narrative), 7,361,364 from excerpts 2 (cash_flow_statement), 4 (narrative), 7,274,301 from excerpts 2 (cash_flow_statement), 4 (narrative), 24,784,938 from no excerpt."
         },
         "metadata": {
           "Stated 10,149,273": "excerpt 2 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022Changes in operating assets and liabilities \u003E Net cash provided by operating activities \u2014 2025: 10,149,273 | 2024: 7,361,364 | 2023: 7,274,301\u0022; excerpt 4 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Net cash provided by operating activities \u2014 Year Ended December 31, 2025: $10,149,273 | Year Ended December 31, 2024: $7,361,364 | Year Ended December 31, 2023:...\u0022",
@@ -110,6 +110,7 @@
     "effort:Medium/Medium",
     "excerpts:12",
     "kind:figure",
+    "calculation",
     "has traps",
     "company:NFLX",
     "statement:cash_flow_statement",

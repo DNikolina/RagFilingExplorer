@@ -57,7 +57,7 @@ reranking, a calculator tool, or a bigger model - is answered briefly in [docs/D
 - **v4** (in progress, branch `v4`) - paid services measured against the local stack, each one a provider the same app
   chooses from `appsettings.json` (`Providers`): Claude as the chat model, Voyage AI as the embedder. Measured on all 102
   questions: Claude Opus 5.5 reads what llama misreads (97/102 strictly against llama's 84 on the same excerpts), and with
-  Voyage's `voyage-finance-2` embeddings and 8 excerpts reaches 101/102 - every answer right as read; llama gains 85 ->
+  Voyage's `voyage-finance-2` embeddings and 8 excerpts reaches 102/102; llama gains 85 ->
   87 from the same embeddings ([Answering with Claude](#answering-with-claude-v4-optional-paid),
   [Embedding with Voyage](#embedding-with-voyage-v4-optional-paid)).
 
@@ -73,10 +73,10 @@ llama's weren't read.
 | `llama3.1:8b` (local, the free default) | `nomic-embed-text` (local) | 500 | 5 | 85 | - |
 | `llama3.1:8b` | `voyage-finance-2` | 500 | 5 | 87 | - |
 | Claude Opus 5.5 | `nomic-embed-text` | 500 | 5 | 96 | 97 |
-| Claude Opus 5.5 | `voyage-finance-2` | 500 | 5 | 98 | 100 |
-| Claude Opus 5.5 | `nomic-embed-text` | 500 | 8 | **101** | 101 |
-| Claude Opus 5.5 | `voyage-finance-2` | 500 | 8 | **101** | **102** |
-| Claude Opus 5.5 | `voyage-finance-2` | 10,000 | 5 | **101** | **102** |
+| Claude Opus 5.5 | `voyage-finance-2` | 500 | 5 | 99 | 100 |
+| Claude Opus 5.5 | `nomic-embed-text` | 500 | 8 | 101 | 101 |
+| Claude Opus 5.5 | `voyage-finance-2` | 500 | 8 | **102** | **102** |
+| Claude Opus 5.5 | `voyage-finance-2` | 10,000 | 5 | **102** | **102** |
 
 - llama's misses are mostly misreadings - the answer was among its excerpts; better retrieval gains it 2.
 - Opus reads them; what it misses is retrieval - an answer ranked past the excerpts it was given. Eight excerpts,

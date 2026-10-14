@@ -23,9 +23,12 @@ internal static class StrictGradeExplanation
         return grade.Status switch
         {
             "reliable" => grade.Note.Length > 0 ? $"States the expected {expect} ({grade.Note})." : $"States the expected {expect}.",
-            "decline-ok" => expected.Kind == "routing"
-                ? "Declines - a routing test, where the question's keywords point away from the answer, so a decline passes."
-                : "Declines correctly: the filings don't contain this.",
+            "decline-ok" => expected.Kind switch
+            {
+                "routing" => "Declines - a routing test, where the question's keywords point away from the answer, so a decline passes.",
+                "fact" => $"Declines - the filing states \"{expect}\" in one sentence a search can miss, so a clean decline passes too.",
+                _ => "Declines correctly: the filings don't contain this.",
+            },
             "no-unit" => $"States the expected {expect} without its unit.",
             "wrong-unit" => $"States the expected figure with the wrong unit - expected {expect}.",
             "declined" => $"Declines, though the filing states {expect}.",

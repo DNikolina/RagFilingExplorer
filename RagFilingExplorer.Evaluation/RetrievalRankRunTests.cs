@@ -1,5 +1,7 @@
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Text;
+using Microsoft.Extensions.AI;
 using Microsoft.Extensions.AI.Evaluation;
 using Microsoft.Extensions.AI.Evaluation.Reporting;
 using OllamaSharp;
@@ -13,7 +15,7 @@ namespace RagFilingExplorer.Evaluation;
 
 /// <summary>
 /// Every question's answer rank, retrieval only: the app's own search (AppComposition, as the evaluation asks it), the
-/// answer stream never read and the chat model never asked (<see cref="RetrievalParityTests.NoChatClient"/>) - so an
+/// answer stream never read and the chat model never asked (<see cref="NoChatClient"/>) - so an
 /// embedder or retrieval change is measured in minutes, not llama's two hours. The rank is the evaluation's
 /// (<see cref="RetrievalRankEvaluator.RankOf"/>) among Retrieval:VerboseSearchTopK chunks. Writes
 /// eval/v3-runs/ranks-&lt;embedding model&gt;.txt: recall@1, recall@5 and MRR per set over the answerable questions, and
@@ -31,6 +33,29 @@ public class RetrievalRankRunTests
 
     private static readonly DirectoryInfo Repo = RepoPaths.FindRoot(AppContext.BaseDirectory);
 
+    // Throws if asked: the run reads retrieval only, and a call would mean an answer was asked for.
+    private sealed class NoChatClient : IChatClient
+    {
+        public Task<ChatResponse> GetResponseAsync(IEnumerable<ChatMessage> messages, ChatOptions? options = null, CancellationToken cancellationToken = default) =>
+            throw new InvalidOperationException("A retrieval-only run must not ask the chat model.");
+
+        public async IAsyncEnumerable<ChatResponseUpdate> GetStreamingResponseAsync(
+            IEnumerable<ChatMessage> messages, ChatOptions? options = null, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        {
+            await Task.Yield();
+            throw new InvalidOperationException("A retrieval-only run must not ask the chat model.");
+#pragma warning disable CS0162 // an async iterator needs a yield
+            yield break;
+#pragma warning restore CS0162
+        }
+
+        public object? GetService(Type serviceType, object? serviceKey = null) => null;
+
+        public void Dispose()
+        {
+        }
+    }
+
     [Test]
     public async Task Rank_EveryQuestion_WritesRanksBesideTheBaseline()
     {
@@ -39,7 +64,7 @@ public class RetrievalRankRunTests
         Dictionary<string, int?> baseline = (await EvaluationRunner.LatestResultsAsync(storage, Baseline))
             .ToDictionary(r => r.ScenarioName, r => Rank(r.EvaluationResult));
 
-        using RagRuntime runtime = await EvaluationIndex.OpenAsync(settings, Repo, new RetrievalParityTests.NoChatClient());
+        using RagRuntime runtime = await EvaluationIndex.OpenAsync(settings, Repo, new NoChatClient());
         (OllamaApiClient ollama, _) = OllamaSetup.CreateClients(settings);
         // The Ollama build matters only when Ollama embeds the questions.
         string servedBy = settings.Providers.Embedding == EmbeddingProvider.Ollama ? $"Ollama {await ollama.GetVersionAsync()}" : settings.Providers.Embedding.ToString();

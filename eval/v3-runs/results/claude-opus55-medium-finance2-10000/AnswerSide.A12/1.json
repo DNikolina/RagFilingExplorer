@@ -49,26 +49,24 @@
     "metrics": {
       "Strict grade": {
         "$type": "string",
-        "value": "wrong",
+        "value": "reliable",
         "name": "Strict grade",
         "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
         "interpretation": {
-          "rating": "unacceptable",
-          "failed": true,
-          "reason": "Gives an answer, but the filings don\u0027t contain this - a decline was expected."
-        },
-        "metadata": {
-          "Grader note": "answered a negative"
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected never declared."
         }
       },
       "Answer rank": {
         "$type": "numeric",
+        "value": 1,
         "name": "Answer rank",
-        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top) - for a calculation, whose result isn\u0027t printed, the figures it\u0027s calculated from, ranked by the last of them. Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py and matched to its ranks on all 102 questions (RetrievalParityTests).",
         "interpretation": {
-          "rating": "inconclusive",
+          "rating": "exceptional",
           "failed": false,
-          "reason": "Not scored: a negative has no answer to find."
+          "reason": "never declared or paid any cash dividends at rank 1 of 25 - in the model\u0027s context (top 5)."
         }
       },
       "Figure source": {
@@ -106,7 +104,7 @@
     "effort:Medium/Medium",
     "excerpts:5",
     "embedding:voyage-finance-2",
-    "kind:negative",
+    "kind:fact",
     "company:NFLX",
     "statement:none",
     "ollama:0.40.3"

@@ -23,12 +23,14 @@ internal sealed record StrictGrade(string Status, string Note)
 ///   Complete - its unit is stated: "million"/"thousand" after the number (or anywhere in the answer when the number
 ///              itself carries none), "$" before a per-share figure, "%" after a rate. A different unit attached to the
 ///              number is wrong-unit: the digits are right but the figure is off by 1,000x.
-///   Reliable - both. A decline is correct for negatives, passes for routing tests, and is "declined" otherwise.
+///   Reliable - both. A decline is correct for negatives, passes for routing tests and for a fact marked decline_ok
+///              (<see cref="ExpectedAnswer.DeclineOk"/>), and is "declined" otherwise.
 /// The period ("for the year ended ...") is not checked: the manual grading didn't enforce it either. "check" marks an
 /// answer only a reader can settle - the expected figure next to a lookalike, or a decline that still states figures.
 ///
-/// Two rules go beyond the Python grader (docs/Decision-Log.md, "the strict grader extended"): a lookalike the answer names only as the contrast to the expected figure doesn't make
-/// it a check (<see cref="NamesLookalikeAsContrast"/>), and a date's day ("December 31") isn't a stated figure.
+/// Three rules go beyond the Python grader (docs/Decision-Log.md, "the strict grader extended"): a lookalike the answer names only as the contrast to the expected figure doesn't make
+/// it a check (<see cref="NamesLookalikeAsContrast"/>), a date's day ("December 31") isn't a stated figure, and a fact
+/// marked decline_ok passes a clean decline.
 ///
 /// This port is the specification: a rule changes here, and tools/grade_answers.py is
 /// kept unchanged as the record of what it was ported from. GraderParityTests holds it to the grade - status and note -
@@ -127,7 +129,7 @@ internal static partial class StrictGrader
 
             if (declined)
             {
-                return new("declined", "");
+                return entry.DeclineOk ? new("decline-ok", "") : new("declined", "");
             }
 
             return declines ? new("check", "declines but states figures") : new("wrong", $"missing {string.Join(", ", missing)}");

@@ -5,7 +5,7 @@ using RagFilingExplorer.Evaluation.Grading;
 
 namespace RagFilingExplorer.Evaluation;
 
-/// <summary>The rank rule and its evaluator, offline - the comparison with the replay is RetrievalParityTests' (needs Ollama).</summary>
+/// <summary>The rank rule and its evaluator, offline - ranks on a real index are RetrievalRankRunTests' (needs Ollama).</summary>
 [TestFixture]
 public class RetrievalRankEvaluatorTests
 {
@@ -55,7 +55,7 @@ public class RetrievalRankEvaluatorTests
     [Test]
     public async Task EvaluateAsync_Negative_HasNoRankAndDoesNotFail()
     {
-        NumericMetric metric = await RankAsync(new("A12", "q", "negative", ChunkExpect: []));
+        NumericMetric metric = await RankAsync(new("V2", "q", "negative", ChunkExpect: []));
 
         Assert.That(metric.Value, Is.Null);
         Assert.That(metric.Interpretation!.Failed, Is.False);

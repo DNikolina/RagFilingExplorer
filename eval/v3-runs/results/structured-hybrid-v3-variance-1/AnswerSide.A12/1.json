@@ -33,11 +33,11 @@
         "$type": "string",
         "value": "decline-ok",
         "name": "Strict grade",
-        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - tools/grade_answers.py\u0027s rules, ported and held to it.",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
         "interpretation": {
           "rating": "good",
           "failed": false,
-          "reason": "Declines correctly: the filings don\u0027t contain this."
+          "reason": "Declines - the filing states \u0022never declared\u0022 in one sentence a search can miss, so a clean decline passes too."
         }
       },
       "Answer rank": {
@@ -47,7 +47,7 @@
         "interpretation": {
           "rating": "inconclusive",
           "failed": false,
-          "reason": "Not scored: a negative has no answer to find."
+          "reason": "Not known: this stored run keeps no excerpts, so where the answer ranked can\u0027t be read back."
         }
       },
       "Figure source": {
@@ -78,7 +78,7 @@
     ]
   },
   "tags": [
-    "kind:negative",
+    "kind:fact",
     "company:NFLX",
     "statement:none",
     "ollama:0.35.1"

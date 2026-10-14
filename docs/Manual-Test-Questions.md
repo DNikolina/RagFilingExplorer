@@ -22,7 +22,8 @@ result worth flagging even if the final answer is correct.
 **Grading (from the 2026-09-25 pass).** Two columns per answer: **Correct** - the number matches the line
 the answer names (a right number under a near-identical line's name is wrong, as in Q10); **Complete** - the
 unit is stated and the period is clear (NFLX reports in *thousands*, the others in millions). Declines are a
-third outcome: correct for negative and routing tests, otherwise "declined". Results are in Decision-Log.md,
+third outcome: correct for negative and routing tests (and A12, whose one-sentence answer a search can miss),
+otherwise "declined". Results are in Decision-Log.md,
 "manual pass". `tools/grade_answers.py` applies these rules to a run log (expected answers in
 `tools/expected-answers.json`); answers it can't settle alone are marked "check" for a reader.
 
@@ -363,7 +364,7 @@ A13-A17, A21-A27) don't accept a rounded "$X.Y billion", as the user graded H34.
 | A9 | How much did Nasdaq pay in cash dividends in 2025? | **$601 million** | 1.05 (per share), 541 (2024) | per-share vs total | NDAQ 408, 404 |
 | A10 | How much cash did Microsoft pay in common stock dividends in fiscal 2026? | **$26,445 million** | 27,034 (declared), "$27.0 billion" (MD&A, declared), 3.64 (per share) | paid vs declared | MSFT 100, 102, 87 |
 | A11 | How much did Oracle pay in dividends to its stockholders in fiscal 2026? | **$5,787 million** | 5,725 (common, declared), 2.00 (per share), "$5.8 billion" (MD&A) | paid vs declared, MD&A rounding | ORCL 858, 854, 817 |
-| A12 | What cash dividends per share did Netflix declare in 2025? | **Decline** - "never declared or paid any cash dividends" | an invented figure | decline | NFLX 558 |
+| A12 | What cash dividends per share did Netflix declare in 2025? | **None** - "never declared or paid any cash dividends" (Item 5); a clean decline passes too | an invented figure | none, or decline | NFLX 558 |
 | A13 | How much did Microsoft spend on additions to property and equipment in fiscal 2026? | **$115,948 million** | "$51.4 billion" (MD&A - the increase), 64,551 (FY2025) | MD&A vs statement | MSFT 101, 84 |
 | A14 | How much did Oracle spend on capital expenditures in fiscal 2026? | **$55,663 million** | "$55.7 billion" (MD&A, rounded), 21,215 (FY2025) | MD&A vs statement | ORCL 857, 825 |
 | A15 | How much cash did Microsoft spend repurchasing its common stock in fiscal 2026? | **$22,271 million** | "$16.7 billion" (MD&A - the repurchase program only), 18,420 (FY2025) | MD&A vs statement | MSFT 100, 86 |
@@ -381,4 +382,4 @@ A13-A17, A21-A27) don't accept a rounded "$X.Y billion", as the user graded H34.
 | A27 | What was Oracle's net income as a percentage of its total revenues in fiscal 2026, to one decimal place? | **25.4%** | 17,087 / 67,357 | arithmetic | ORCL 848, 849 |
 
 Types: lookalike lines A1-A7, A19; per-share vs total A8, A9; paid vs declared A10, A11; MD&A or another statement vs the
-statement A11, A13-A17; units (thousands) A17-A20, A24; arithmetic A21-A27; decline A12.
+statement A11, A13-A17; units (thousands) A17-A20, A24; arithmetic A21-A27; none, or a decline A12.

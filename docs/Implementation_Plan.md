@@ -122,12 +122,13 @@ bigger chunks help split statements; finance-2 improves with size to 94 / 0.874 
 than 500 now names its own index and dumps (`rag.structured.voyage-finance-2.10000tok.db` kept). **Step 8 started:**
 llama on `voyage-finance-2` at 500 tokens **87/102** (nomic 85; 8 gains, 6 losses, all the embedder's - nomic re-asked on
 0.40.3 kept every grade); 12 of its 15 failures had the answer in the top 5. **Opus 5.5 (medium, 5 excerpts) on the same
-index: 98/102 strictly, 100/102 read** (on today's nomic index: 96 / 97, every miss retrieval) - its two misses A11,
+index: 99/102 strictly, 100/102 read** (on today's nomic index: 96 / 97, every miss retrieval) - its two misses A11,
 A14 retrieval at rank 7 and 6.
-**Opus on finance-2 at 10,000 tokens, top 5: 101/102 strictly, 102/102 read** - A11, A14 fixed - at 2.5M input tokens
-(~7x; $10.70 the run). **The same at 500 tokens with 8 excerpts: 101/102 strictly, 102/102 read, 553K input tokens
+**Opus on finance-2 at 10,000 tokens, top 5: 102/102 strictly** - A11, A14 fixed - at 2.5M input tokens
+(~7x; $10.70 the run). **The same at 500 tokens with 8 excerpts: 102/102 strictly, 553K input tokens
 ($2.80)** - best measured for Claude: finance-2, 500-token chunks, 8 excerpts. **nomic at 8 excerpts: 101/102 strictly, 101 read** - at
-8 the embedder is worth one question as read (A11) to Opus, at 5 two strictly, three read. **Step 9 done:** README results,
+8 the embedder is worth one question (A11) to Opus, at 5 three. (Scores as regraded 2026-10-14: A12, Netflix's "never
+declared" dividends, is a fact whose clean decline also passes - it was a negative, failing Opus's correct answer.) **Step 9 done:** README results,
 Design-FAQ (embedding models tried; why Voyage), `Claude:GenerationTopK` 5 -> 8 (user). **Batch 3 complete.** Defaults
 unchanged otherwise: nomic and llama, free. Next (user): batch 4 on the Mac, or closing v4.
 

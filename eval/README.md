@@ -146,8 +146,9 @@ Temperature 0 is deterministic here: the baseline's 40 main answers are word-for
 narrowed this: it holds within one Ollama build - two fresh passes identical, 102/102 - but an Ollama update can change
 answers, so runs are compared only on the same build; one change, A16's on 2026-10-02, stays unexplained. See `v3-runs/`.)
 
-**`v3-retrieval-parity/`** - v3 step 3's oracle: `tools/replay_recall.py`'s output on the three v2 baseline logs
-(`structured-5a/` main and held-out, `answer-side-norerank/`), which `RetrievalParityTests` matches rank for rank.
+**`v3-retrieval-parity/`** (removed, in git history) - v3 step 3's oracle: `tools/replay_recall.py`'s output on the
+three v2 baseline logs, which `RetrievalParityTests` matched rank for rank when the rank was ported. Both were removed
+once a rebuilt index made the v2-era replay unmatchable; ranks on today's index come from `RetrievalRankRunTests`.
 
 **Groundedness screen** (2026-10-05) - in `v3-runs/`: execution `groundedness-screen` (18 cached answers, `Graders:
 both`, `Judges: groundedness`), agreement `judge-groundedness-screen.txt`. 0 of 11 wrong answers failed; no full run.

@@ -141,6 +141,7 @@
     "chat:llama3.1:8b",
     "judge:claude-sonnet-5-5",
     "kind:figure",
+    "calculation",
     "has traps",
     "company:NFLX",
     "statement:cash_flow_statement",

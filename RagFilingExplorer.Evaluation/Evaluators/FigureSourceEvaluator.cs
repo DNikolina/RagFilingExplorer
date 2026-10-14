@@ -22,7 +22,7 @@ internal sealed record FigureSighting(int Position, RetrievedExcerpt Excerpt, st
 /// One string metric, "Figure source":
 ///   traced           every figure is in an excerpt
 ///   calculated       a figure is in none, and the question asks for a calculation (its chunk_expect lists two or more
-///                    inputs and not the expected figure - H4, A21-A27): the result isn't printed anywhere
+///                    inputs and not the expected figure - H4, V3, A21-A27): the result isn't printed anywhere
 ///   untraced         a figure is in none, on a question that doesn't ask for one - an invention to read (failed)
 ///   no figure stated a text answer ("Austin") or a decline - nothing to trace (a text answer isn't matched against
 ///                    the expected text)
@@ -159,7 +159,7 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
                 continue;
             }
 
-            // Not printed as stated: what the answer comes from (chunk_expect - a sum's or ratio's inputs, V3's first year)
+            // Not printed as stated: what the answer comes from (chunk_expect - a sum's or ratio's inputs, or a nearby line)
             // decides between "derived from figures it was given" and a retrieval miss - as the answer rank reads it.
             // A marker that is the figure itself ("(26,445)") says nothing more.
             List<(string Marker, int? Position)> markers = (expected.ChunkExpect ?? [])

@@ -120,7 +120,8 @@ public class FigureSourceEvaluatorTests
     [TestCase(new[] { "35,562", "32,488" }, new[] { "3,074" }, true)]     // H4: a difference
     [TestCase(new[] { "(26,445)" }, new[] { "26,445" }, false)]           // A10: the figure is its own marker
     [TestCase(new[] { "$20,935" }, new[] { "20,935" }, false)]            // A6: the marker carries a "$"
-    [TestCase(new[] { "10,149,273" }, new[] { "24,784,938" }, false)]     // V3: one marker, not its inputs
+    [TestCase(new[] { "10,149,273", "7,361,364", "7,274,301" }, new[] { "24,784,938" }, true)] // V3: a three-year sum
+    [TestCase(new[] { "1,124" }, new[] { "940" }, false)]                 // V1: one marker on a nearby line, not inputs
     [TestCase(new[] { "223,000" }, new[] { "223,000", "121,000" }, false)] // Q11: a fact, marked by one of its figures
     public void AsksForCalculation_TwoOrMoreInputsWithoutTheExpectedFigure(string[] chunkExpect, string[] expect, bool calculation)
     {

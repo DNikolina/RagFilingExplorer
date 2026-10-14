@@ -137,7 +137,7 @@ public class EvaluationRunTests
 
         // A warning, not a failure: a difference is something to read, not proof the evaluation broke - within one Ollama
         // build the model repeats exactly, but an Ollama update can change answers.
-        // The evaluators themselves are held exactly by GraderParityTests and RetrievalParityTests.
+        // The grader itself is held exactly by GraderParityTests.
         if (differences.Count > 0)
         {
             Assert.Warn($"{differences.Count} grade(s) differ from the v2 baseline:\n" + string.Join("\n", differences));

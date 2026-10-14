@@ -73,10 +73,11 @@ internal sealed class RetrievalRankEvaluator(int generationTopK) : IEvaluator
         // The sentence is the interpretation's reason - the report's "Why this score?"; the metric's own reason, shown as
         // "What this measures?", is the description.
         string description =
-            "Where the expected figure first appears among the chunks retrieved for the question (1 = the top). Ranks 1-"
+            "Where the expected figure first appears among the chunks retrieved for the question (1 = the top) - for a "
+            + "calculation, whose result isn't printed, the figures it's calculated from, ranked by the last of them. Ranks 1-"
             + $"{generationTopK} are in the model's prompt; a later rank, or none, means retrieval missed it - so a wrong answer "
-            + "with a good rank is the model's misreading. Deterministic - ported from tools/replay_recall.py and matched to its "
-            + "ranks on all 102 questions (RetrievalParityTests).";
+            + "with a good rank is the model's misreading. Deterministic - ported from tools/replay_recall.py, and matched to its "
+            + "ranks on all 102 questions when ported.";
         NumericMetric metric;
         if (expected.ChunkExpect is not { Count: > 0 } chunkExpect)
         {
