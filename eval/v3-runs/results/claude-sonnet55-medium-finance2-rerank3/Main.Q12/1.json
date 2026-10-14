@@ -1,0 +1,118 @@
+{
+  "scenarioName": "Main.Q12",
+  "iterationName": "1",
+  "executionName": "claude-sonnet55-medium-finance2-rerank3",
+  "creationTime": "2026-10-14T20:51:44.2480677Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART I \u003E Item 2. Properties ---\r\n\u0060\u0060\u0060\r\nOur properties consist of owned and leased facilities for cloud operations, sales, support, research and development, services, manufacturing and administrative and other functions. Our headquarters facility consists of approximately 0.9 million square feet in Austin, Texas, all of which we own. We also own or lease office facilities for current use consisting of approximately 25.4 million square feet in various other locations in the U.S. and abroad. Approximately 11.9 million square feet, or 45%, of our total owned and leased office facilities are sublet or are being actively marketed for sublease or disposition. We lease our principal internal manufacturing facility for our hardware products in Hillsboro, Oregon. Additionally, we have approximately 181 data center locations globally, substantially all of which are leased and used to deliver our Oracle Cloud offerings. We believe that our facilities are in good condition and suitable for the conduct of our business.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section Cover Page ---\r\n\u0060\u0060\u0060\r\nOracle Corporation - annual report on Form 10-K for the fiscal year ended May 31, 2026 (fiscal year 2026). Common stock trading symbol: ORCL, on the New York Stock Exchange. Address of principal executive offices: 2300 Oracle Way, Austin, Texas 78741. State of incorporation: Delaware. Independent registered public accounting firm (auditor): Ernst \u0026 Young LLP, San Jose, California (PCAOB ID 42).\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section (no heading) ---\r\n\u0060\u0060\u0060\r\nUNITED STATES\n\nSECURITIES AND EXCHANGE COMMISSION\n\nWashington, D.C. 20549\n\nFORM 10-K\n\n\u2612 ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934\n\nFor the fiscal year ended May 31, 2026\n\nOR\n\n\u2610 TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934\n\nFor the transition period from \\_\\_\\_ to \\_\\_\\_\n\nCommission File Number: 001-35992\n\nOracle Corporation\n\n(Exact name of registrant as specified in its charter)\n\nDelaware | 54-2185193\n(State or other jurisdiction of incorporation or organization) | (I.R.S. Employer Identification No.)\n2300 Oracle Way\nAustin, Texas (Address of principal executive offices) | 78741 (Zip Code)\n\n(737) 867-1000\n\n(Registrant\u2019s telephone number, including area code)\n\nSecurities registered pursuant to Section 12(b) of the Act:\n\nTitle of each class | Trading Symbol(s) | Name of each exchange on which registered\nCommon Stock, par value $0.01 per share | ORCL | New York Stock Exchange\nDepositary Shares, each representing a 1/2,000th interest in a share of 6.50% Series D Mandatory Convertible Preferred Stock, par value $0.01 per share | ORCL-PRD | New York Stock Exchange\n\nSecurities registered pursuant to Section 12(g) of the Act:\n\nNone\n\nIndicate by check mark if the registrant is a well-known seasoned issuer, as defined in Rule 405 of the Securities Act. Yes \u2612 No \u2610\n\nIndicate by check mark if the registrant is not required to file reports pursuant to Section 13 or Section 15(d) of the Act. Yes \u2610 No \u2612\n\nIndicate by check mark whether the registrant (1) has filed all reports required to be filed by Section 13 or 15(d) of the Securities Exchange Act of 1934 during the preceding 12 months (or for such shorter period that the registrant was required to file such reports), and (2) has been subject to such filing requirements for the past 90 days. Yes \u2612 No \u2610\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Organization and Significant Accounting Policies ---\r\n\u0060\u0060\u0060\r\nNOTES TO CONSOLIDATED FINANCIAL STATEMENTS\n\nMay 31, 2026\n\n1. ORGANIZATION AND SIGNIFICANT ACCOUNTING POLICIES\n\nOracle Corporation provides products and services that build, run and support enterprise information technology (IT) frameworks. Our products and services include enterprise applications and infrastructure offerings that incorporate and are enhanced by artificial intelligence (AI) technologies. We deliver our products and services to customers worldwide through a variety of flexible and interoperable IT deployment models. These models include cloud-based, on-premise and hybrid deployments. Oracle cloud offerings include Oracle Cloud Applications and Oracle Cloud Infrastructure (collectively Oracle Cloud), which provide comprehensive and integrated applications and infrastructure services, enabling our customers to choose the best option that meets their specific business needs. Customers may also elect to purchase Oracle software licenses and hardware products and related services to manage their own cloud-based or on-premise IT environments. Customers that purchase our software licenses may elect to purchase software support contracts, which provide our customers with rights to unspecified license upgrades and enhancements during the term of the support period as well as technical support assistance. Customers that purchase our hardware products may elect to purchase hardware support contracts, which provide customers with software updates and can include product repairs, maintenance services and technical support services. We also offer customers a broad set of services offerings that are designed to maximize the performance of their investments in Oracle technologies.\n\nOracle Corporation conducts business globally and was incorporated in the state of Delaware.\n\nBasis of Financial Statements\n\nThe consolidated financial statements include our accounts and the accounts of our wholly- and majority-owned subsidiaries. Noncontrolling interest positions of certain of our consolidated entities are reported as a separate component of consolidated equity from the equity attributable to Oracle\u2019s stockholders for all periods presented. The noncontrolling interests in our net income were not significant to our consolidated results for the periods presented and therefore have not been presented separately and instead are included as a component of non-operating income (expenses), net in our consolidated statements of operations. Intercompany transactions and balances have been eliminated. We reclassed certain prior year amounts and balances and their related disclosures to conform to the current period\u2019s presentation for all periods presented in our consolidated financial statements. Such reclassifications did not affect total revenue, income from operations or net income.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nWe directly market and sell our cloud, software, hardware, support and services offerings globally to businesses of many sizes and in many industries, government agencies and educational institutions. We also market and sell our offerings globally through indirect channels.\n\nIn the United States (U.S.), our sales and services employees are based throughout the country. Outside the U.S., our international subsidiaries sell, support and service our offerings in their local countries as well as within other foreign countries where we do not operate through a direct sales subsidiary. Our geographic coverage allows us to draw on business and technical expertise from a global workforce, provides stability to our operations and revenue streams to offset geography-specific economic trends and offers us an opportunity to take advantage of new markets for our offerings. Our international operations subject us to certain risks, which are more fully described in Risk Factors included in Item 1A of this Annual Report. A summary of our domestic and international revenues and long-lived assets is set forth in Note 13 of Notes to Consolidated Financial Statements included elsewhere in this Annual Report.\n\nWe also market our product offerings worldwide through indirect channels. The companies that comprise our indirect channel network are members of the Oracle Partner Network. The Oracle Partner Network is a global program that manages our business relationships with a large, broad-based network of companies, including cloud and software, hardware and services suppliers, system integrators and resellers that deliver innovative solutions and services based upon and in conjunction with our product offerings. By offering our partners access to our product offerings, educational information, technical services, marketing and sales support, the Oracle Partner Network program extends our market reach by providing our partners with the resources they need to be successful in delivering solutions to customers globally.\n\nResearch and Development\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Where is Oracle headquartered?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s headquarters facility is in Austin, Texas, and consists of approximately 0.9 million square feet, all of which Oracle owns (Source: ORCL-10K-2026.html, PART I \u003E Item 2. Properties). Its principal executive offices are at 2300 Oracle Way, Austin, Texas 78741 (Source: ORCL-10K-2026.html, Cover Page)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected Austin."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top) - for a calculation, whose result isn\u0027t printed, the figures it\u0027s calculated from, ranked by the last of them. Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py, and matched to its ranks on all 102 questions when ported.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "Austin at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 0.9 from excerpt 1 (narrative), 2300 from excerpts 2 (narrative), 3 (narrative), 78741 from excerpts 2 (narrative), 3 (narrative)."
+        },
+        "metadata": {
+          "Stated 0.9": "excerpt 1 (narrative, PART I \u003E Item 2. Properties): \u0022...rative and other functions. Our headquarters facility consists of approximately 0.9 million square feet in Austin, Texas, all of which we own. We also own or le...\u0022",
+          "Stated 2300": "excerpt 2 (narrative, Cover Page): \u0022...: ORCL, on the New York Stock Exchange. Address of principal executive offices: 2300 Oracle Way, Austin, Texas 78741. State of incorporation: Delaware. Independ...\u0022; excerpt 3 (narrative, (no heading)): \u00222300 Oracle Way\u0022",
+          "Stated 78741": "excerpt 2 (narrative, Cover Page): \u0022...xchange. Address of principal executive offices: 2300 Oracle Way, Austin, Texas 78741. State of incorporation: Delaware. Independent registered public accountin...\u0022; excerpt 3 (narrative, (no heading)): \u0022Austin, Texas (Address of principal executive offices) | 78741 (Zip Code)\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 8.0949981,
+        "model": "claude-sonnet-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 3246,
+          "outputTokenCount": 134,
+          "totalTokenCount": 3380,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "3FAFBCD7EA9AD2D1E9906717AB7C156DAF52B21BE12D03F0F8FE376CF21996CB65B83B38E7A25D6B923C6825ACFE6091",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-sonnet-5-5",
+    "effort:Medium/Medium",
+    "excerpts:5",
+    "embedding:voyage-finance-2",
+    "kind:fact",
+    "company:ORCL",
+    "statement:none",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

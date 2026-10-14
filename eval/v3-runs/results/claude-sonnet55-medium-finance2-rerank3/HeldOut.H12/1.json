@@ -1,0 +1,116 @@
+{
+  "scenarioName": "HeldOut.H12",
+  "iterationName": "1",
+  "executionName": "claude-sonnet55-medium-finance2-rerank3",
+  "creationTime": "2026-10-14T20:53:57.6217313Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nHUMAN CAPITAL\n\nOur business is to entertain the world across different countries, cultures, languages and tastes. To entertain an audience this global, our Company needs to reflect the world and the variety of stories we tell. To help ensure our workforce is representative of the members we serve, we employ people in multiple countries around the world and work to maintain a global culture of inclusion. We view our employees and our culture as key to our success. As of December\u00A031, 2025, we had approximately 16,000 full-time employees. Of these, approximately 10,900 (68%) were located in the United States and Canada, 2,500 (16%) in Europe, Middle East, and Africa, 1,900 (12%) in Asia-Pacific and 700 (4%) in Latin America. We also have a number of employees engaged in content production, some of whom are part-time or temporary, and whose numbers fluctuate throughout the year and may be covered by collective bargaining agreements.\n\nWe believe an important component of our success is our company culture as detailed in the \u201CNetflix Culture Memo\u201D, which was updated in 2024. Our culture is focused on excellence and creating an environment where talented people can thrive \u2014 lifting ourselves, each other and our audiences higher and higher. We engage employees and seek feedback through regular town halls, surveys, business reviews and memos, which we often share broadly, inviting comments. We aim to attract and retain great people \u2014 representing a broad array of perspectives and skills \u2014 to work together as a dream team. For more people and cultures to see themselves reflected on screen, it is important that our employee base represents the communities we serve.\n\nWe aim generally to pay our employees at their personal top of market, and they generally are able to choose the form of their compensation between cash and stock options. This permits employee compensation to be highly personalized and reflective of each employee\u0027s individual needs and preferences. We conduct pay equity analyses at least annually, and have adopted practices to help ensure that employees from underrepresented groups are not being underpaid based on gender identity (globally) and race or ethnicity (United States (\u201CU.S.\u201D)) relative to others doing the same or similar work under comparable circumstances. We aim to rectify any pay gaps that we find through this analysis.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF OPERATIONS\n\n(in thousands, except per share data)\n\nYear ended December 31,\nRevenues \u2014 2025: $45,183,036 | 2024: $39,000,966 | 2023: $33,723,297\nCost of revenues \u2014 2025: 23,275,329 | 2024: 21,038,464 | 2023: 19,715,368\nSales and marketing \u2014 2025: 3,301,306 | 2024: 2,917,554 | 2023: 2,657,883\nTechnology and development \u2014 2025: 3,391,390 | 2024: 2,925,295 | 2023: 2,675,758\nGeneral and administrative \u2014 2025: 1,888,408 | 2024: 1,702,039 | 2023: 1,720,285\nOperating income \u2014 2025: 13,326,603 | 2024: 10,417,614 | 2023: 6,954,003\nOther income (expense):\nOther income (expense) \u003E Interest expense \u2014 2025: (776,510) | 2024: (718,733) | 2023: (699,826)\nOther income (expense) \u003E Interest and other income (expense) \u2014 2025: 172,459 | 2024: 266,776 | 2023: (48,772)\nIncome before income taxes \u2014 2025: 12,722,552 | 2024: 9,965,657 | 2023: 6,205,405\nProvision for income taxes \u2014 2025: (1,741,351) | 2024: (1,254,026) | 2023: (797,415)\nNet income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\nEarnings per share:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements \u003E Segment and Geographic Information ---\r\n\u0060\u0060\u0060\r\n(in thousands) Year Ended December 31,\nRevenues \u2014 2025: $45,183,036 | 2024: $39,000,966 | 2023: $33,723,297\nLess:\nLess \u003E Content amortization \u2014 2025: 16,422,166 | 2024: 15,301,517 | 2023: 14,197,437\nLess \u003E Other cost of revenues \u2014 2025: 6,853,163 | 2024: 5,736,947 | 2023: 5,517,931\nLess \u003E Sales and marketing \u2014 2025: 3,301,306 | 2024: 2,917,554 | 2023: 2,657,883\nLess \u003E Technology and development \u2014 2025: 3,391,390 | 2024: 2,925,295 | 2023: 2,675,758\nLess \u003E General and administrative \u2014 2025: 1,888,408 | 2024: 1,702,039 | 2023: 1,720,285\nOperating income \u2014 2025: 13,326,603 | 2024: 10,417,614 | 2023: 6,954,003\nOperating margin \u2014 2025: 29.5% | 2024: 26.7% | 2023: 20.6%\nOther income (expense)\nOther income (expense) \u003E Interest expense \u2014 2025: (776,510) | 2024: (718,733) | 2023: (699,826)\nOther income (expense) \u003E Interest and other income (expense)(1) \u2014 2025: 172,459 | 2024: 266,776 | 2023: (48,772)\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nThe following represents our consolidated performance highlights(1):\n\n(in thousands, except percentages)\nFinancial Results:\nFinancial Results \u003E Streaming revenues \u2014 Year Ended December 31, 2025: $45,183,036 | Year Ended December 31, 2024: $39,000,966 | Year Ended December 31, 2023: $33,640,458 | Change 2025 vs. 2024: $6,182,070 / 16%\nFinancial Results \u003E DVD revenues(2) \u2014 Year Ended December 31, 2025: $\u2014 | Year Ended December 31, 2024: $\u2014 | Year Ended December 31, 2023: $82,839 | Change 2025 vs. 2024: $\u2014 / \u2014%\nFinancial Results \u003E Total revenues \u2014 Year Ended December 31, 2025: $45,183,036 | Year Ended December 31, 2024: $39,000,966 | Year Ended December 31, 2023: $33,723,297 | Change 2025 vs. 2024: $6,182,070 / 16%\nConstant currency change in revenues(3) \u2014 Change 2025 vs. 2024: 17%\nOperating income \u2014 Year Ended December 31, 2025: $13,326,603 | Year Ended December 31, 2024: $10,417,614 | Year Ended December 31, 2023: $6,954,003 | Change 2025 vs. 2024: $2,908,989 / 28%\nOperating margin \u2014 Year Ended December 31, 2025: 29.5% | Year Ended December 31, 2024: 26.7% | Year Ended December 31, 2023: 20.6% | Change 2025 vs. 2024: 2.8%\nNet income \u2014 Year Ended December 31, 2025: $10,981,201 | Year Ended December 31, 2024: $8,711,631 | Year Ended December 31, 2023: $5,407,990 | Change 2025 vs. 2024: $2,269,570 / 26%\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nWe care about the health and well-being of our employees and their families and provide a variety of benefit programs based on region, including health benefits. In the U.S., employees generally receive an annual cash health benefit allowance that they may allocate to medical, dental and vision premiums in a way that makes sense for them. Employees have access to a host of other benefits, including mental health, childcare, family planning and a company match for charitable donations.\n\nWe believe that our approach to human capital resources has been instrumental in our growth, and has made Netflix a desirable destination for employees.\n\nOTHER INFORMATION\n\nWe maintain a website at www.netflix.com. The contents of our website are not incorporated in, or otherwise to be regarded as part of, this Annual Report on Form 10-K. We make available, free of charge on our website, access to our Annual Report on Form 10-K, our Quarterly Reports on Form 10-Q, our Current Reports on Form 8-K and amendments to those reports filed or furnished pursuant to Section 13(a) or 15(d) of the Securities Exchange Act of 1934, as amended (the \u201CExchange Act\u201D), as soon as reasonably practicable after we file or furnish them electronically with the Securities and Exchange Commission (\u201CSEC\u201D).\n\nInvestors and others should note that we announce material financial and other information to our investors using our investor relations website (ir.netflix.net), SEC filings, press releases, public conference calls and webcasts. We use these channels as well as social media and blogs to communicate with our members and the public about our company, our services and other issues. It is possible that the information we post on social media and blogs could be deemed to be material information. Therefore, we encourage investors, the media, and others interested in our company to review the information we post on the social media channels and blogs listed on our investor relations website.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How many full-time employees did Netflix have at the end of 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "As of December 31, 2025, Netflix had approximately 16,000 full-time employees (Source: NFLX-10K-2025.html, PART I \u003E Item 1. Business)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 16,000."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top) - for a calculation, whose result isn\u0027t printed, the figures it\u0027s calculated from, ranked by the last of them. Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py, and matched to its ranks on all 102 questions when ported.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "16,000 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 16,000 from excerpt 1 (narrative)."
+        },
+        "metadata": {
+          "Stated 16,000": "excerpt 1 (narrative, PART I \u003E Item 1. Business): \u0022...ur culture as key to our success. As of December\u00A031, 2025, we had approximately 16,000 full-time employees. Of these, approximately 10,900 (68%) were located in...\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 1.0990333,
+        "model": "claude-sonnet-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 3545,
+          "outputTokenCount": 59,
+          "totalTokenCount": 3604,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "5F5CCA543E748F5EAF42E889F6C54E320FD04712EA69F8F4A5494FF45CF2CF4D3791374767CCA03564CE7DB100F78558",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-sonnet-5-5",
+    "effort:Medium/Medium",
+    "excerpts:5",
+    "embedding:voyage-finance-2",
+    "kind:fact",
+    "company:NFLX",
+    "statement:none",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

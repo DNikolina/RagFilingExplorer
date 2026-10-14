@@ -4871,3 +4871,16 @@ any provider is created (it was refused after Voyage's billed startup check); a 
 holding a null where none is allowed now fails as Voyage's error, reported by the startup check (strict JSON reading -
 it was a `NullReferenceException`); `VoyageReranker` disposes its client with the runtime. Also: one settings-file
 name shared, the request posted with `PostAsJsonAsync`. 495 unit tests, 201 evaluation.
+
+**Step 4 - Sonnet 5.5 (medium) on finance-2 + `rerank-3`, 5 excerpts** (`claude-sonnet55-medium-finance2-rerank3`, user's
+go-ahead, estimated ~$1.05-1.20): **100/102 strictly, 102/102 read.** 5 min, 365,634 input + 17,782 output tokens,
+**~$0.91** - under half the Opus run, on the same prompts. The two `check` grades are right when read: Q10 gives 2,113
+and names 2,114 as the "attributable to Nasdaq" line in a second paragraph; H8 declines cleanly and lists the three years
+the excerpts do cover. One untraced figure, H34's "$9.13 billion" - 9,127,167 thousand rounded, beside the exact line.
+Every answer's figure in the top 5. Sonnet without the reranker, 5 excerpts: 95 strictly (batch 1, an older index); at
+12 excerpts 102. Compared with Opus on the same prompts: `compare-opus-vs-sonnet-finance2-rerank3.txt`.
+
+| Claude on finance-2 + `rerank-3`, 5 excerpts | Strict | Read | Cost |
+|---|---|---|---|
+| Opus 5.5 | 102 | 102 | ~$2.05 |
+| Sonnet 5.5 | 100 | 102 | ~$0.91 |

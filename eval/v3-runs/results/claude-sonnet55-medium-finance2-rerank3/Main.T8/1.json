@@ -1,0 +1,118 @@
+{
+  "scenarioName": "Main.T8",
+  "iterationName": "1",
+  "executionName": "claude-sonnet55-medium-finance2-rerank3",
+  "creationTime": "2026-10-14T20:52:59.3293862Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 5. Market for Registrant\u2019s Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities ---\r\n\u0060\u0060\u0060\r\nPeriod\nOctober 2025\nOctober 2025 \u003E Share repurchase program \u2014 Total Number of Shares Purchased: 1,812,219 | Average Price Paid Per Share: $88.59 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: 1,812,219 | Maximum Dollar Value of Shares that May Yet Be Purchased Under the Plans or Programs (in millions): $1,254\nOctober 2025 \u003E Employee transactions \u2014 Total Number of Shares Purchased: 25,679 | Average Price Paid Per Share: $89.10 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: N/A | Maximum Dollar Value of Shares that May Yet Be Purchased Under the Plans or Programs (in millions): N/A\nNovember 2025\nNovember 2025 \u003E Share repurchase program \u2014 Total Number of Shares Purchased: 760,264 | Average Price Paid Per Share: $91.47 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: 760,264 | Maximum Dollar Value of Shares that May Yet Be Purchased Under the Plans or Programs (in millions): $1,185\nNovember 2025 \u003E Employee transactions \u2014 Total Number of Shares Purchased: 11,491 | Average Price Paid Per Share: $85.49 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: N/A | Maximum Dollar Value of Shares that May Yet Be Purchased Under the Plans or Programs (in millions): N/A\nDecember 2025\nDecember 2025 \u003E Share repurchase program \u2014 Total Number of Shares Purchased: 622,256 | Average Price Paid Per Share: $89.24 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: 622,256 | Maximum Dollar Value of Shares that May Yet Be Purchased Under the Plans or Programs (in millions): $1,129\nDecember 2025 \u003E Employee transactions \u2014 Total Number of Shares Purchased: 33,186 | Average Price Paid Per Share: $90.22 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: N/A | Maximum Dollar Value of Shares that May Yet Be Purchased Under the Plans or Programs (in millions): N/A\nTotal Quarter Ended December 31, 2025\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity ---\r\n\u0060\u0060\u0060\r\nThe following is a summary of our share repurchase activity, reported based on settlement date, for the year ended December 31, 2025:\n\nNumber of shares of common stock repurchased \u2014 Year Ended December 31, 2025: 7,202,346\nAverage price paid per share \u2014 Year Ended December 31, 2025: $85.47\nTotal purchase price (in millions) \u2014 Year Ended December 31, 2025: $616\n\nIn the table above, the number of shares of common stock repurchased includes share repurchase activity associated with various ASR agreements executed in 2025 and excludes an aggregate of 868,135 shares withheld to satisfy tax obligations of the grantee upon the vesting of restricted stock and PSUs. Total purchase price in the table above and repurchases of common stock in the Consolidated Statements of Cash Flows for the year ended December 31, 2025 exclude $4 million of accrued excise tax that had not been paid as of December 31, 2025.\n\nUnder ASR agreements, we make payments to our counterparties and receive an initial delivery of shares of common stock. The final number of shares to be repurchased is based on the volume-weighted average price of Nasdaq\u0027s common stock during the term of the ASR agreement, less a discount and subject to adjustments pursuant to the terms of the ASR agreement. At settlement, our counterparty may be required to deliver additional shares of common stock to us, or, under certain circumstances, we may be required to deliver shares of our common stock or may elect to make a cash payment to our counterparty. Receiving our shares of common stock, during initial delivery and the final receipt of shares upon settlement of the ASR agreements, results in an immediate reduction of the outstanding shares used to calculate the weighted-average common shares outstanding for basic and diluted earnings per share.\n\nIn October 2025, we entered into a variable notional ASR agreement, in which we paid $250 million to a third-party financial institution and initially received and immediately retired 1,812,219 shares of our common stock. In December 2025, upon the final settlement of this transaction, we received an additional 504,401 shares, which were immediately retired, and a $45 million cash payment, which reflects the difference between the prepayment amount (maximum notional amount) and the final notional amount.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 5. Market for Registrant\u2019s Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities ---\r\n\u0060\u0060\u0060\r\nPeriod\nTotal Quarter Ended December 31, 2025 \u003E Share repurchase program \u2014 Total Number of Shares Purchased: 3,194,739 | Average Price Paid Per Share: $89.40 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: 3,194,739 | Maximum Dollar Value of Shares that May Yet Be Purchased Under the Plans or Programs (in millions): $1,129\nTotal Quarter Ended December 31, 2025 \u003E Employee transactions \u2014 Total Number of Shares Purchased: 70,356 | Average Price Paid Per Share: $89.04 | Total Number of Shares Purchased as Part of Publicly Announced Plans or Programs: N/A | Maximum Dollar Value of Shares that May Yet Be Purchased Under the Plans or Programs (in millions): N/A\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 5. Market for Registrant\u2019s Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities ---\r\n\u0060\u0060\u0060\r\nIn the table above:\n\n\u2022 N/A - Not applicable.\n\n\u2022 Employee transactions represents shares surrendered to us to satisfy tax withholding obligations arising from the vesting of restricted stock and PSUs previously issued to employees.\n\n\u2022 Shares listed under share repurchase program in the table above primarily include repurchases under ASR agreements.\n\n\u25E6 In October 2025, we entered into a variable notional ASR agreement, in which we delivered $250 million to a third-party financial institution and received and immediately retired 1,812,219 shares of our common stock. In December 2025, upon the final settlement of this transaction, we received (i) an additional 504,401 shares, which were immediately retired, and (ii) a $45 million cash payment, which reflects the difference between the prepayment amount (maximum notional amount) and the final notional amount.\n\n\u25E6 In November 2025, we entered into an ASR with a third-party financial institution to repurchase $75 million of common stock and received and immediately retired 697,512 shares of our common stock. In December 2025, upon the final settlement of this transaction, we received an additional 117,855 shares, which were immediately retired.\n\n\u2022 See \u201CShare Repurchase Program,\u201D of Note 12, \u201CNasdaq Stockholders\u2019 Equity,\u201D to the consolidated financial statements for further discussion of our share repurchase program.\n\nPERFORMANCE GRAPH\n\nThe following performance graph and related information shall not be deemed \u201Cfiled\u201D for purposes of Section 18 of the Exchange Act or incorporated by reference into any of our other filings under the Securities Act or the Exchange Act, except as shall be expressly set forth by specific reference in such filing.\n\nThe following graph compares the total return of our common stock to the Nasdaq Composite Index, the S\u0026P 500 and S\u0026P 500 GICS 4020 Index, our peer group, for the past five years. The figures represented below assume an initial investment of $100 in the common stock or index at the closing price on December\u00A031, 2020 and the reinvestment of all dividends.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity ---\r\n\u0060\u0060\u0060\r\nIn November 2025, we entered into an ASR agreement, in which we paid $75 million to a third-party financial institution and initially received and immediately retired 697,512 shares of our common stock. In December 2025, upon the final settlement of this transaction, we received an additional 117,855 shares which were immediately retired.\n\nIn January 2026, we entered into a variable notional ASR agreement, for which we paid $300\u00A0million to a third-party financial institution in exchange for an initial delivery of shares of common stock. The final notional amount is subject to a minimum and maximum and will depend on the price of our shares of common stock during the term of the ASR. The final settlement of the ASR agreement is expected to be completed in the first quarter of 2026. At settlement, additional shares of common stock may be delivered to us or, under certain circumstances, we may be required to deliver shares of our common stock or may elect to make a cash payment. In addition, we may receive the excess of the amount we prepaid over the final notional amount of the ASR in cash or, at our election, in shares of our common stock.\n\nPreferred Stock\n\nOur certificate of incorporation authorizes the issuance of 30,000,000 shares of preferred stock, par value $0.01 per share, issuable from time to time in one or more series. As of December 31, 2025 and December 31, 2024, no shares of preferred stock were issued or outstanding.\n\nCash Dividends on Common Stock\n\nDuring 2025, our board of directors declared and paid the following cash dividends:\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What average price per share did Nasdaq pay for shares it repurchased in November 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s average price paid per share was $91.47 for shares purchased under the share repurchase program in November 2025 (Source: NDAQ-10K-2025.html, PART II \u003E Item 5. Market for Registrant\u0027s Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities).\n\nEmployee transactions, which are shares surrendered to satisfy tax withholding obligations, had a separate average price of $85.49 per share for November 2025 (Source: NDAQ-10K-2025.html, PART II \u003E Item 5. Market for Registrant\u0027s Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected $91.47."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top) - for a calculation, whose result isn\u0027t printed, the figures it\u0027s calculated from, ranked by the last of them. Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py, and matched to its ranks on all 102 questions when ported.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "91.47 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 91.47 from excerpt 1 (narrative), 85.49 from excerpt 1 (narrative)."
+        },
+        "metadata": {
+          "Stated 91.47": "excerpt 1 (narrative, PART II \u003E Item 5. Market for Registrant\u2019s Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities): \u0022...am \u2014 Total Number of Shares Purchased: 760,264 | Average Price Paid Per Share: $91.47 | Total Number of Shares Purchased as Part of Publicly Announced Plans or ...\u0022",
+          "Stated 85.49": "excerpt 1 (narrative, PART II \u003E Item 5. Market for Registrant\u2019s Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities): \u0022...ons \u2014 Total Number of Shares Purchased: 11,491 | Average Price Paid Per Share: $85.49 | Total Number of Shares Purchased as Part of Publicly Announced Plans or ...\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 2.0949933,
+        "model": "claude-sonnet-5-5",
+        "modelProvider": "anthropic",
+        "usage": {
+          "inputTokenCount": 3756,
+          "outputTokenCount": 227,
+          "totalTokenCount": 3983,
+          "cachedInputTokenCount": 0
+        },
+        "cacheKey": "BB79CAEFF641EBB521BC257197DE2CFCA993D7AAC638CDCEA102AE6AA0501B8AAC6E8911F2CE3D7B461F613AD774B4CB",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:claude-sonnet-5-5",
+    "effort:Medium/Medium",
+    "excerpts:5",
+    "embedding:voyage-finance-2",
+    "kind:figure",
+    "has traps",
+    "company:NDAQ",
+    "statement:none",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}
