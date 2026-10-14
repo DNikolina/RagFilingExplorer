@@ -4848,3 +4848,19 @@ against the same index unreranked, run the same day; 95 answerable questions (A1
 - The reranker is called on every run, cached answers or not - the response cache is the chat model's, and the
   excerpts it keys on come from the reranker. A score cache was considered and not built: ~1.25M tokens a run of 200M
   free. Built only if a cached Claude replay on reranked excerpts misses.
+
+**Step 4 - Opus 5.5 (medium) on finance-2 + `rerank-3`, 5 excerpts** (`claude-opus55-medium-finance2-rerank3`, user's
+go-ahead, estimated ~$2.15): **102/102 strictly**, every answer's figure in the top 5, no untraced figure. 7 min,
+366,239 input + 29,350 output tokens, ~$2.05 - every question asked fresh (the reranked excerpts changed every prompt).
+Against the same run unreranked (99, `compare-opus-finance2-500-vs-rerank3.txt`): A11 (5,787, rank 7 -> in the
+excerpts) and A14 (55,663, rank 6 ->) gained - the two retrieval misses; H11 `check` -> reliable on wording. Nothing
+lost. So the reranker does what 8 excerpts or 10,000-token chunks did for Opus, at the 5-excerpt price:
+
+| Opus 5.5 on finance-2 | Strict | Input tokens | Cost |
+|---|---|---|---|
+| 500-token chunks, 5 excerpts | 99 | 357K | ~$2.00 |
+| 10,000-token chunks, 5 excerpts | 102 | ~2.5M | $10.70 |
+| 500-token chunks, 8 excerpts | 102 | 553K | $2.80 |
+| 500-token chunks, 5 excerpts, `rerank-3` | 102 | 366K | ~$2.05 |
+
+`Claude:GenerationTopK` stays 8: reranking is opt-in, and without it 8 excerpts are what reach 102.

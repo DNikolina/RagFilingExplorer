@@ -77,12 +77,17 @@ llama's weren't read.
 | Claude Opus 5.5 | `nomic-embed-text` | 500 | 8 | 101 | 101 |
 | Claude Opus 5.5 | `voyage-finance-2` | 500 | 8 | **102** | **102** |
 | Claude Opus 5.5 | `voyage-finance-2` | 10,000 | 5 | **102** | **102** |
+| `llama3.1:8b` | `nomic-embed-text` + Voyage `rerank-3` | 500 | 5 | 86 | - |
+| `llama3.1:8b` | `voyage-finance-2` + `rerank-3` | 500 | 5 | 87 | - |
+| Claude Opus 5.5 | `voyage-finance-2` + `rerank-3` | 500 | 5 | **102** | **102** |
 
 - llama's misses are mostly misreadings - the answer was among its excerpts; better retrieval gains it 2.
 - Opus reads them; what it misses is retrieval - an answer ranked past the excerpts it was given. Eight excerpts,
   better embeddings or bigger chunks fix the same misses: the embedder is worth 2-3 questions at 5 excerpts, 0-1 at 8.
 - Bigger chunks are the costly way there: the 10,000-token run read ~2.5M input tokens ($10.70), 500-token chunks with 8
   excerpts ~0.55M ($2.80), for the same answers.
+- A reranker (Voyage `rerank-3`, over each company's top 25 candidates) is the cheapest way: it puts every answer in the
+  top 5, so Opus reaches 102 on 5 excerpts (~0.37M input tokens, ~$2.05). llama barely moves - its misses are reading.
 
 Every run is in `eval/v3-runs/` (`structured-hybrid-chunk-fixes`, `structured-hybrid-finance2-500`,
 `claude-opus55-medium-*`), each read in [docs/Decision-Log.md](docs/Decision-Log.md), "paid services (v4)". How v2
