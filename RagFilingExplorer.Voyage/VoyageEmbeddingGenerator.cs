@@ -1,6 +1,3 @@
-using System.Net;
-using System.Net.Http.Json;
-using System.Text.Json;
 using Microsoft.Extensions.AI;
 
 namespace RagFilingExplorer.Voyage;
@@ -14,22 +11,12 @@ namespace RagFilingExplorer.Voyage;
 ///
 /// Sent with <c>truncation: false</c>, so an over-long text fails instead of being cut silently (Voyage's default is to
 /// cut). Every vector's size is checked against the model's card (EmbeddingTemplates), so a model that answers with
-/// another size fails here, not as a vector-column error inside SQLite.
+/// another size fails here, not as a vector-column error inside SQLite. A 429 or 5xx is retried (<see cref="VoyageApi.PostAsync"/>).
 /// </summary>
 internal sealed class VoyageEmbeddingGenerator(
     HttpClient http, string model, string inputType, int dimensions, Func<TimeSpan, CancellationToken, Task>? delay = null)
     : IEmbeddingGenerator<string, Embedding<float>>
 {
-    /// <summary>Attempts per request: a 429 (rate limit) or a 5xx is retried with exponential back-off, as Voyage's error
-    /// codes page advises; any other failure is not.</summary>
-    internal const int MaxAttempts = 8;
-
-    private static readonly TimeSpan MaxBackOff = TimeSpan.FromSeconds(60);
-
-    // Voyage's fields are snake_case (input_type, total_tokens); the web defaults keep reading case-insensitive, as the
-    // HttpClient JSON helpers do without options.
-    private static readonly JsonSerializerOptions Json = new(JsonSerializerDefaults.Web) { PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower };
-
     private readonly Func<TimeSpan, CancellationToken, Task> delay = delay ?? Task.Delay;
 
     private readonly EmbeddingGeneratorMetadata metadata = new("voyage", http.BaseAddress, model, dimensions);
@@ -38,7 +25,8 @@ internal sealed class VoyageEmbeddingGenerator(
         IEnumerable<string> values, EmbeddingGenerationOptions? options = null, CancellationToken cancellationToken = default)
     {
         List<string> inputs = values.ToList();
-        EmbeddingsResponse response = await PostAsync(new EmbeddingsRequest(inputs, model, inputType, Truncation: false), cancellationToken);
+        EmbeddingsResponse response = await VoyageApi.PostAsync<EmbeddingsResponse>(
+            http, "embeddings", new EmbeddingsRequest(inputs, model, inputType, Truncation: false), delay, cancellationToken);
 
         if (response.Data.Count != inputs.Count)
         {
@@ -82,47 +70,6 @@ internal sealed class VoyageEmbeddingGenerator(
     // The HttpClient is VoyageEmbedding's, shared by the document and query generators.
     public void Dispose()
     {
-    }
-
-    private async Task<EmbeddingsResponse> PostAsync(EmbeddingsRequest request, CancellationToken cancellationToken)
-    {
-        for (int attempt = 1; ; attempt++)
-        {
-            using HttpResponseMessage response = await http.PostAsJsonAsync("embeddings", request, Json, cancellationToken);
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadFromJsonAsync<EmbeddingsResponse>(Json, cancellationToken)
-                    ?? throw new InvalidOperationException("Voyage returned an empty response.");
-            }
-
-            bool retryable = response.StatusCode == HttpStatusCode.TooManyRequests || (int)response.StatusCode >= 500;
-            if (!retryable || attempt == MaxAttempts)
-            {
-                // Voyage's 4xx body is {"detail": "..."}; a 5xx may have none.
-                string body = await response.Content.ReadAsStringAsync(cancellationToken);
-                string detail = TryReadDetail(body) ?? body;
-                throw new HttpRequestException(
-                    $"Voyage answered {(int)response.StatusCode} {response.StatusCode}{(retryable ? $" after {MaxAttempts} attempts" : "")}: {detail}",
-                    inner: null, response.StatusCode);
-            }
-
-            await delay(BackOff(attempt), cancellationToken);
-        }
-    }
-
-    /// <summary>1, 2, 4 ... seconds, at most <see cref="MaxBackOff"/> - about two minutes over every attempt.</summary>
-    internal static TimeSpan BackOff(int attempt) => TimeSpan.FromSeconds(Math.Min(Math.Pow(2, attempt - 1), MaxBackOff.TotalSeconds));
-
-    private static string? TryReadDetail(string body)
-    {
-        try
-        {
-            return JsonDocument.Parse(body).RootElement.TryGetProperty("detail", out JsonElement detail) ? detail.ToString() : null;
-        }
-        catch (JsonException)
-        {
-            return null;
-        }
     }
 
     private sealed record EmbeddingsRequest(List<string> Input, string Model, string InputType, bool Truncation);

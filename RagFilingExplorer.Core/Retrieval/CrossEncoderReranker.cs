@@ -3,14 +3,6 @@ using Microsoft.ML.OnnxRuntime;
 
 namespace RagFilingExplorer.Core.Retrieval;
 
-/// <summary>Scores how well each passage answers a question - higher is better; only the order means anything.</summary>
-internal interface IRelevanceScorer
-{
-    string Name { get; }
-
-    IReadOnlyList<float> Score(string question, IReadOnlyList<string> passages);
-}
-
 /// <summary>
 /// A cross-encoder (ms-marco-MiniLM-L6-v2, run locally by ONNX Runtime) reading each (question, chunk) pair whole, where
 /// the embedding and keyword searches only compared them; it costs seconds of CPU per question. Off by default (Retrieval:Rerank):
@@ -73,8 +65,12 @@ internal sealed class CrossEncoderReranker : IRelevanceScorer, IDisposable
         return new CrossEncoderReranker(Path.GetFileName(directory.TrimEnd('/', '\\')), new InferenceSession(modelPath), encoder);
     }
 
-    /// <summary>One raw score (the model's logit) per passage, all pairs in one batch padded to its longest.</summary>
-    public IReadOnlyList<float> Score(string question, IReadOnlyList<string> passages)
+    /// <summary>One raw score (the model's logit) per passage, all pairs in one batch padded to its longest - computed on the
+    /// calling thread: the model is local.</summary>
+    public Task<IReadOnlyList<float>> ScoreAsync(string question, IReadOnlyList<string> passages, CancellationToken cancellationToken = default) =>
+        Task.FromResult(Score(question, passages));
+
+    private IReadOnlyList<float> Score(string question, IReadOnlyList<string> passages)
     {
         if (passages.Count == 0)
         {

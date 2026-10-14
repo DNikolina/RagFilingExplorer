@@ -642,10 +642,10 @@ public class RagAnswerServiceTests
     {
         public string Name => "test-scorer";
 
-        public IReadOnlyList<float> Score(string question, IReadOnlyList<string> passages)
+        public Task<IReadOnlyList<float>> ScoreAsync(string question, IReadOnlyList<string> passages, CancellationToken cancellationToken = default)
         {
             capturedPassages?.Add(passages);
-            return passages.Select(p => float.Parse(Regex.Match(p, @"score:(-?\d+)").Groups[1].Value)).ToList();
+            return Task.FromResult<IReadOnlyList<float>>(passages.Select(p => float.Parse(Regex.Match(p, @"score:(-?\d+)").Groups[1].Value)).ToList());
         }
     }
 

@@ -365,9 +365,11 @@ Why three, and how they compare: [docs/Design-FAQ.md](docs/Design-FAQ.md).
   statement - a vector search within that statement, which boosts its chunks without excluding any others.
 - **`Vector`** (v1) - one vector search, with the question's statement type as a hard filter.
 
-`Retrieval.Rerank` adds a local cross-encoder (`ms-marco-MiniLM-L6-v2`, ONNX) that reorders each company's top 25
-hybrid candidates. It's built, tested and measured, and off by default: across every question set, hybrid search
-alone puts as many answers in the model's context ([docs/Design-FAQ.md](docs/Design-FAQ.md)).
+`Retrieval.Rerank` adds a reranker that reorders each company's top 25 hybrid candidates - by default a local
+cross-encoder (`ms-marco-MiniLM-L6-v2`, ONNX). It's built, tested and measured, and off by default: across every
+question set, hybrid search alone puts as many answers in the model's context ([docs/Design-FAQ.md](docs/Design-FAQ.md)).
+`Providers:Rerank = Voyage` uses Voyage's reranker instead (`Voyage:RerankModel`, `rerank-3` or `rerank-3-lite`; the
+embedder's key) - being measured in v4's batch 4.
 
 ### Reasoning models
 

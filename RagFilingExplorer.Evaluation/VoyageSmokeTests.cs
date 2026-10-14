@@ -34,7 +34,7 @@ public class VoyageSmokeTests
         string unrelated = ChunkText("SourceFiling = 'NFLX-10K-2025.html' AND Heading LIKE '%Item 2. Properties%'");
 
         (IEmbeddingGenerator<string, Embedding<float>> documents, IEmbeddingGenerator<string, Embedding<float>> queries) =
-            await VoyageEmbedding.CreateAsync(VoyageEmbedding.LoadKeyFromRepository(Repo), templates);
+            await VoyageEmbedding.CreateAsync(VoyageApi.LoadKeyFromRepository(Repo), templates);
 
         GeneratedEmbeddings<Embedding<float>> chunks = await documents.GenerateAsync([templates.Document(null, answer), templates.Document(null, unrelated)]);
         GeneratedEmbeddings<Embedding<float>> question = await queries.GenerateAsync([templates.Query(Question)]);

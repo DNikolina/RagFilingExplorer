@@ -174,7 +174,7 @@ internal static class InteractiveSession
 
     /// <summary>
     /// A retrieved chunk's scores in the verbose list: "score=0.0325" (fused, or a distance under vector search), and when
-    /// reranked, " rerank=3.86 hybrid=#3" - the cross-encoder's score and the rank its company's hybrid search gave it.
+    /// reranked, " rerank=3.86 hybrid=#3" - the reranker's score and the rank its company's hybrid search gave it.
     /// "score=" stays the fused score, so the chunk marked hybrid=#1 is still the one tools/replay_recall.py's top score
     /// can be checked against.
     /// </summary>

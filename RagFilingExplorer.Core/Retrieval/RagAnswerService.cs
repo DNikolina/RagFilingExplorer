@@ -24,7 +24,7 @@ internal sealed record RagAnswer(
     IReadOnlyDictionary<int, RerankedChunk>? Reranked = null,
     IReadOnlyList<ChatMessage>? Prompt = null);
 
-/// <summary>A reranked chunk's cross-encoder score and its rank in its company's hybrid list before reranking.</summary>
+/// <summary>A reranked chunk's reranker score and its rank in its company's hybrid list before reranking.</summary>
 internal sealed record RerankedChunk(float Score, int HybridRank);
 
 /// <summary>
@@ -151,11 +151,11 @@ internal sealed class RagAnswerService(
             return await HybridSearchAsync(keywords, question, keywordQuery, top, filing, statementType, cancellationToken);
         }
 
-        // The company's top RerankCandidates, reordered by the cross-encoder, then cut - for a question naming several
+        // The company's top RerankCandidates, reordered by the reranker, then cut - for a question naming several
         // companies this runs once per company, so each keeps its own share of the slots.
         List<VectorSearchResult<FilingChunkRecord>> candidates =
             await HybridSearchAsync(keywords, question, keywordQuery, Math.Max(top, retrieval.RerankCandidates), filing, statementType, cancellationToken);
-        IReadOnlyList<float> scores = reranker.Score(question, candidates.Select(c => RerankPassage(c.Record)).ToList());
+        IReadOnlyList<float> scores = await reranker.ScoreAsync(question, candidates.Select(c => RerankPassage(c.Record)).ToList(), cancellationToken);
         for (int i = 0; i < candidates.Count; i++)
         {
             reranked![candidates[i].Record.Key] = new RerankedChunk(scores[i], i + 1);

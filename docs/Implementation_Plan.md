@@ -48,7 +48,7 @@ revisiting any decision summarized here.
 | 4. Vector storage | Done — SqliteVec-persisted, one index per chunking strategy (`rag.<strategy>.db` + build manifest) |
 | 5. Retrieval | Done — with company + statement-type metadata filtering |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
-| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 478 offline unit tests (176 at v1.0) + 197 offline evaluation tests |
+| 7. Testing | Done — 6/6 on the Step 7 questions; manual pass graded strictly (unit + exact line): 22/24 reliable on both strategies; targeted T1-T10: Markdown 4, Linearized 5; 493 offline unit tests (176 at v1.0) + 201 offline evaluation tests |
 | 8. Publish | Done — pushed and tagged `v1.0` (2026-09-28) |
 
 **Completion checkpoint:** once the manual pass is done and the repo is pushed, **v1** is complete -
@@ -130,7 +130,9 @@ A14 retrieval at rank 7 and 6.
 8 the embedder is worth one question (A11) to Opus, at 5 three. (Scores as regraded 2026-10-14: A12, Netflix's "never
 declared" dividends, is a fact whose clean decline also passes - it was a negative, failing Opus's correct answer.) **Step 9 done:** README results,
 Design-FAQ (embedding models tried; why Voyage), `Claude:GenerationTopK` 5 -> 8 (user). **Batch 3 complete.** Defaults
-unchanged otherwise: nomic and llama, free. Next (user): batch 4 on the Mac, or closing v4.
+unchanged otherwise: nomic and llama, free. **Batch 4 planned (user, 2026-10-14): a paid reranker** - Voyage's `rerank-3`
+and `rerank-3-lite` (200M free tokens each) behind the local reranker's interface, screened retrieval-only on nomic and
+finance-2 before any answers; Decision-Log.md, "Batch 4 - a paid reranker". The Mac work becomes batch 5; then closing v4.
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the

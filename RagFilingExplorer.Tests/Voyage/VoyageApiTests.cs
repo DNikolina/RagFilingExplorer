@@ -1,19 +1,18 @@
 using Microsoft.Extensions.Configuration;
 using RagFilingExplorer.Core;
-using RagFilingExplorer.Core.VectorStore;
 using RagFilingExplorer.Voyage;
 
 namespace RagFilingExplorer.Tests.Voyage;
 
 [TestFixture]
-public class VoyageEmbeddingTests
+public class VoyageApiTests
 {
     private string directory = "";
 
     [SetUp]
     public void SetUp()
     {
-        directory = Path.Combine(Path.GetTempPath(), $"VoyageEmbeddingTests-{Guid.NewGuid():N}");
+        directory = Path.Combine(Path.GetTempPath(), $"VoyageApiTests-{Guid.NewGuid():N}");
         Directory.CreateDirectory(directory);
     }
 
@@ -36,7 +35,7 @@ public class VoyageEmbeddingTests
     [TestCase("""{ "VOYAGE_API_KEY": "pa-secret" }""", "VOYAGE_API_KEY")]
     public void ReadKey_KeyInTheSettingsFile_IsRefused(string settingsJson, string keyName)
     {
-        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => VoyageEmbedding.ReadKey(Configuration(settingsJson)));
+        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => VoyageApi.ReadKey(Configuration(settingsJson)));
 
         Assert.That(ex.Message, Does.Contain(keyName).And.Not.Contain("pa-secret"));
     }
@@ -44,7 +43,7 @@ public class VoyageEmbeddingTests
     [Test]
     public void ReadKey_EnvironmentAndSecrets_PrefersTheEnvironment()
     {
-        string? key = VoyageEmbedding.ReadKey(Configuration("{}", new() { ["Voyage:ApiKey"] = "pa-secrets", ["VOYAGE_API_KEY"] = "pa-environment" }));
+        string? key = VoyageApi.ReadKey(Configuration("{}", new() { ["Voyage:ApiKey"] = "pa-secrets", ["VOYAGE_API_KEY"] = "pa-environment" }));
 
         Assert.That(key, Is.EqualTo("pa-environment"));
     }
@@ -52,23 +51,29 @@ public class VoyageEmbeddingTests
     [Test]
     public void ReadKey_NoKey_IsNull()
     {
-        Assert.That(VoyageEmbedding.ReadKey(Configuration("{}")), Is.Null);
+        Assert.That(VoyageApi.ReadKey(Configuration("{}")), Is.Null);
     }
 
     // Both fail before any request is sent.
     [Test]
-    public void CreateAsync_NoKey_ThrowsNamingWhereItGoes()
+    public void CreateClient_NoKey_ThrowsNamingWhereItGoes()
     {
-        StartupException ex = Assert.ThrowsAsync<StartupException>(() => VoyageEmbedding.CreateAsync(null, EmbeddingTemplates.For("voyage-4-large")));
+        StartupException ex = Assert.Throws<StartupException>(() => VoyageApi.CreateClient(null))!;
 
         Assert.That(ex.Message, Does.Contain("Voyage:ApiKey").And.Contain("VOYAGE_API_KEY"));
     }
 
     [Test]
-    public void CreateAsync_KeyWithAControlCharacter_Throws()
+    public void CreateClient_KeyWithAControlCharacter_Throws()
     {
-        StartupException ex = Assert.ThrowsAsync<StartupException>(() => VoyageEmbedding.CreateAsync("\u0016", EmbeddingTemplates.For("voyage-4-large")));
+        StartupException ex = Assert.Throws<StartupException>(() => VoyageApi.CreateClient("\u0016"))!;
 
         Assert.That(ex.Message, Does.Contain("non-printable"));
+    }
+
+    [Test]
+    public void BackOff_DoublesUpToAMinute()
+    {
+        Assert.That(Enumerable.Range(1, 8).Select(a => VoyageApi.BackOff(a).TotalSeconds), Is.EqualTo(new double[] { 1, 2, 4, 8, 16, 32, 60, 60 }));
     }
 }

@@ -39,6 +39,7 @@ public class AppSettingsTests
         Assert.That(settings.Chunking.Strategy, Is.EqualTo(ChunkingStrategyKind.Structured), "enum binds from its name");
         Assert.That(settings.Retrieval.Search, Is.EqualTo(SearchMode.Hybrid), "enum binds from its name");
         Assert.That(settings.Retrieval.Rerank, Is.False, "reranking is opt-in");
+        Assert.That(settings.Providers.Rerank, Is.EqualTo(RerankProvider.Local), "enum binds from its name; free unless chosen");
     }
 
     [Test]
@@ -77,8 +78,9 @@ public class AppSettingsTests
     {
         string[] keys = AppSettings.RequiredConfigurationKeys().ToArray();
 
-        Assert.That(keys, Has.Length.EqualTo(24));
+        Assert.That(keys, Has.Length.EqualTo(25));
         Assert.That(keys, Does.Contain("Providers:Chat"));
+        Assert.That(keys, Does.Contain("Providers:Rerank"));
         Assert.That(keys, Does.Contain("Ollama:ChatModel"));
         Assert.That(keys, Does.Contain("Ollama:ContextLength"));
         Assert.That(keys, Does.Contain("Retrieval:ReasoningEffort"));

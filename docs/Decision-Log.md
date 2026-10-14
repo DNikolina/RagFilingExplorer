@@ -4753,3 +4753,40 @@ GraderParityTests needed no regrade: every recorded A12 answer is a clean declin
   no diff). Added `.gitattributes`: `data/*.html -text` - the filings are written byte for byte on checkout. Not
   `data/**`: the taxonomy files are LF in git but CRLF on disk (checked out with conversion), the indexes were built from
   those bytes, and `-text` would rewrite them to LF on the next checkout - the same staleness.
+
+### Batch 4 - a paid reranker: PLANNED (user, 2026-10-14)
+
+Voyage's rerankers `rerank-3` ("highest accuracy") and `rerank-3-lite` (both 200M free tokens per account, then $0.05 and
+$0.02 per 1M - Voyage's reranker and pricing pages, read 2026-10-14) over the same hybrid candidates the local
+cross-encoder reorders. Part of v4 (user): every stage is compared against a paid service. The Mac work, planned as batch
+4, becomes batch 5.
+
+**What it can gain** (from batch 3's stored ranks and grades): a reranker only helps an answer ranked past the excerpts
+and still among the 25 candidates. llama + nomic: 5 retrieval misses of 17 failures (A10, A11, H29, H34, R3 - ranks 7-12),
+ceiling 85 -> 90; llama + finance-2: 3 of 15 (A8, A11, A14 - ranks 6-7), 87 -> 90. Opus + nomic at 8 excerpts: A11
+(rank 12), 101 -> 102; Opus + finance-2 at 8: nothing left (102); at 5: A11, A14 (ranks 6-7) - a reranker could let Opus
+read 5 excerpts instead of 8. The local cross-encoders (MiniLM, bge) gained about as many as they lost (step 2b); a
+stronger model is the open question.
+
+**Steps** (each measured before the next):
+0. This plan.
+1. **The client** in `RagFilingExplorer.Voyage`: `POST /v1/rerank` (`query`, `documents`, `model`, `truncation: false` - an
+   over-long input fails rather than being cut, as for embeddings; `top_k` unset, so every candidate is scored), behind
+   Core's `IRelevanceScorer` (made async - Voyage is an HTTP call). The passage is the local reranker's: company line,
+   excerpt header, chunk. Settings: `Providers:Rerank` (`Local` | `Voyage`), `Retrieval:Rerank` still the switch, the model
+   in a new `Voyage` section (`Voyage:RerankModel`), the key the embedder's. Defaults unchanged: reranking off. Offline
+   tests.
+2. **Smoke test** on the API: both model names answer, the order is sensible, the tokens are as estimated.
+3. **Retrieval-only screen** (`RetrievalRankRunTests`, no chat model): {nomic, finance-2} x {rerank-3, rerank-3-lite} -
+   recall@5, recall@8, MRR against today's ranks and every question moved. ~1.5M tokens a run, ~6M of 400M free: $0.
+4. **Answers, only if 3 lifts recall without losses:** llama on the better configuration(s) (free, ~2 hours each); Opus at
+   5 excerpts (paid, ~$2 a run - estimated and asked first).
+
+**Step 1 done (offline, no call to Voyage):** `VoyageReranker` (`RagFilingExplorer.Voyage`) - every candidate scored,
+`truncation: false`, the scores returned in the candidates' order (Voyage sorts them; a missing, repeated or
+out-of-range index fails), `TotalTokens` adding up Voyage's `usage.total_tokens`; one billed call at startup checks the
+key and model. What the embedder and reranker share - key, client, retried POST, startup check - moved into `VoyageApi`
+(the embedder's behaviour unchanged, its tests moved with it). `IRelevanceScorer.ScoreAsync` (the cross-encoder answers
+synchronously, wrapped). `Providers:Rerank` (`Local` shipped), `Voyage:RerankModel` (`rerank-3` shipped; read only when
+Voyage reranks); Core takes a provider's reranker from its caller (Program, the evaluation's `EvaluationIndex`) and fails
+at startup if the one named wasn't created. 15 new offline tests (493 unit, 201 evaluation).

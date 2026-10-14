@@ -87,15 +87,15 @@ public class VoyageEmbeddingGeneratorTests
     [Test]
     public void GenerateAsync_RateLimitedEveryTime_GivesUpAfterMaxAttempts()
     {
-        FakeVoyage voyage = new(Enumerable.Range(0, VoyageEmbeddingGenerator.MaxAttempts)
+        FakeVoyage voyage = new(Enumerable.Range(0, VoyageApi.MaxAttempts)
             .Select(_ => Json(HttpStatusCode.TooManyRequests, new { detail = "slow down" })).ToArray());
         (VoyageEmbeddingGenerator generator, List<TimeSpan> delays) = Create(voyage);
 
         HttpRequestException ex = Assert.ThrowsAsync<HttpRequestException>(() => generator.GenerateAsync(["first"]));
 
         Assert.That(ex.StatusCode, Is.EqualTo(HttpStatusCode.TooManyRequests));
-        Assert.That(ex.Message, Does.Contain("slow down").And.Contain($"after {VoyageEmbeddingGenerator.MaxAttempts} attempts"));
-        Assert.That(delays, Has.Count.EqualTo(VoyageEmbeddingGenerator.MaxAttempts - 1));
+        Assert.That(ex.Message, Does.Contain("slow down").And.Contain($"after {VoyageApi.MaxAttempts} attempts"));
+        Assert.That(delays, Has.Count.EqualTo(VoyageApi.MaxAttempts - 1));
     }
 
     // A malformed request (an unknown model, a text over the context with truncation off) won't succeed on a retry.
@@ -119,11 +119,5 @@ public class VoyageEmbeddingGeneratorTests
         InvalidOperationException ex = Assert.ThrowsAsync<InvalidOperationException>(() => Create(voyage, dimensions: 2).Generator.GenerateAsync(["first"]));
 
         Assert.That(ex.Message, Does.Contain("3-dimension").And.Contain("2"));
-    }
-
-    [Test]
-    public void BackOff_DoublesUpToAMinute()
-    {
-        Assert.That(Enumerable.Range(1, 8).Select(a => VoyageEmbeddingGenerator.BackOff(a).TotalSeconds), Is.EqualTo(new double[] { 1, 2, 4, 8, 16, 32, 60, 60 }));
     }
 }

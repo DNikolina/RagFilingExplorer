@@ -70,8 +70,8 @@ static async Task RunAsync(string[] args)
     }
 
     // Each provider is checked before any build: Ollama for only the models it serves here (none with Voyage and Claude),
-    // Claude's key and model against its Models API (no tokens billed), Voyage's with one billed query embedding - so a
-    // missing one fails now, not after a ten-minute embed.
+    // Claude's key and model against its Models API (no tokens billed), Voyage's with one billed query embedding or
+    // rerank - so a missing one fails now, not after a ten-minute embed.
     bool ollamaEmbeds = settings.Providers.Embedding == EmbeddingProvider.Ollama;
     (OllamaApiClient ollamaEmbedding, OllamaApiClient ollamaChat) = OllamaSetup.CreateClients(settings);
     await OllamaSetup.EnsureServesAsync(ollamaChat, settings, embeds: ollamaEmbeds, chats: claude is null);
@@ -80,8 +80,13 @@ static async Task RunAsync(string[] args)
     // searched with the other; Ollama's model embeds both alike, its templates making the difference.
     (IEmbeddingGenerator<string, Embedding<float>> documentEmbedding, IEmbeddingGenerator<string, Embedding<float>> queryEmbedding) = ollamaEmbeds
         ? (OllamaSetup.EmbeddingGenerator(ollamaEmbedding), OllamaSetup.EmbeddingGenerator(ollamaEmbedding))
-        : await VoyageEmbedding.CreateAsync(Load(() => VoyageEmbedding.LoadKey(AppContext.BaseDirectory)), embeddingTemplates);
+        : await VoyageEmbedding.CreateAsync(Load(() => VoyageApi.LoadKey(AppContext.BaseDirectory)), embeddingTemplates);
     Console.WriteLine($"Embedding model: {settings.Embedding.Model} ({settings.Providers.Embedding}, {embeddingTemplates.Dimensions} dimensions)");
+
+    // Voyage's reranker is checked here with the other providers (one billed call); the local one loads with the runtime.
+    VoyageReranker? voyageReranker = settings.Retrieval.Rerank && settings.Providers.Rerank == RerankProvider.Voyage
+        ? await VoyageReranker.CreateAsync(Load(() => VoyageApi.LoadKey(AppContext.BaseDirectory)), Load(() => VoyageSettings.Load(AppContext.BaseDirectory)).RerankModel)
+        : null;
 
     (IChatClient chat, ChatModelOptions chatModel) = claude is null
         ? (OllamaSetup.ChatClient(ollamaChat, settings.Ollama), await OllamaSetup.ReadChatModelAsync(settings, ollamaChat))
@@ -130,7 +135,7 @@ static async Task RunAsync(string[] args)
     }
 
     VectorStoreCollection<int, FilingChunkRecord> collection = await AppComposition.OpenCollectionAsync(index, queryEmbedding, embeddingTemplates);
-    using RagRuntime runtime = AppComposition.CreateRuntime(settings, index, collection, embeddingTemplates, companies, chat, chatModel);
+    using RagRuntime runtime = AppComposition.CreateRuntime(settings, index, collection, embeddingTemplates, companies, chat, chatModel, voyageReranker);
 
     Console.WriteLine(runtime.Reranker is null
         ? $"Search: {settings.Retrieval.Search}"

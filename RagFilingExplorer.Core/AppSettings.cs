@@ -119,7 +119,7 @@ internal sealed class AppSettings
 }
 
 /// <summary>
-/// Who embeds the chunks and questions, and who answers - each chosen apart from the other, so any provider can pair with
+/// Who embeds the chunks and questions, who answers, and who reranks - each chosen apart from the others, so any provider can pair with
 /// any other. Ollama for both (the default) is free and needs no key; a paid provider is used only when chosen here, and
 /// then needs its key (user secrets or an environment variable, never this file). Only the chosen providers are checked
 /// at startup. The evaluation chooses its own chat model (evalsettings.json's ChatModel).
@@ -132,6 +132,10 @@ internal sealed class ProviderSettings
 
     /// <summary>Ollama (the Ollama section's ChatModel) or Claude (the Claude section; every answer billed).</summary>
     public required ChatProvider Chat { get; set; }
+
+    /// <summary>Who reranks when Retrieval:Rerank is on: Local (the cross-encoder in Retrieval:RerankModelDirectory) or
+    /// Voyage (the Voyage section's RerankModel; every question's candidates billed). Unused while reranking is off.</summary>
+    public required RerankProvider Rerank { get; set; }
 }
 
 internal enum EmbeddingProvider
@@ -144,6 +148,12 @@ internal enum ChatProvider
 {
     Ollama,
     Claude,
+}
+
+internal enum RerankProvider
+{
+    Local,
+    Voyage,
 }
 
 internal sealed class EmbeddingSettings
@@ -224,10 +234,10 @@ internal sealed class RetrievalSettings
     public required int HybridCandidates { get; set; }
 
     /// <summary>
-    /// Rerank each company's top <see cref="RerankCandidates"/> hybrid candidates with a local cross-encoder before the
-    /// top-K is cut (CrossEncoderReranker). Hybrid only - it was measured on hybrid candidates. Off by default: built
-    /// and measured, then not kept - hybrid alone puts as many answers in the model's context (docs/Decision-Log.md,
-    /// "A1-A27 with reranking off" onwards).
+    /// Rerank each company's top <see cref="RerankCandidates"/> hybrid candidates before the top-K is cut, with the
+    /// reranker Providers:Rerank names. Hybrid only - it was measured on hybrid candidates. Off by default: the local
+    /// cross-encoder was built and measured, then not kept - hybrid alone puts as many answers in the model's context
+    /// (docs/Decision-Log.md, "A1-A27 with reranking off" onwards); Voyage's: "Batch 4 - a paid reranker".
     /// </summary>
     public required bool Rerank { get; set; }
 
@@ -235,7 +245,7 @@ internal sealed class RetrievalSettings
     /// spike - measured".</summary>
     public required int RerankCandidates { get; set; }
 
-    /// <summary>Where the reranker's model lives, outside the repo (environment variables expanded):
+    /// <summary>Where the local reranker's model lives, outside the repo (environment variables expanded):
     /// ms-marco-MiniLM-L6-v2's onnx/model.onnx and vocab.txt, fetched separately (docs/Decision-Log.md, "Step 2b
     /// resumed").</summary>
     public required string RerankModelDirectory { get; set; }
