@@ -1,0 +1,76 @@
+Variance across 2 executions: structured-hybrid-nomic-rerank3, structured-hybrid-finance2-rerank3
+102 questions answered in every execution.
+
+All: identical 82  wording 15  figures 4  grade 1
+AnswerSide: identical 23  wording 3  figures 1  grade 0
+HeldOut: identical 30  wording 3  figures 1  grade 1
+Main: identical 29  wording 9  figures 2  grade 0
+
+Pairs (same text / same grade):
+  structured-hybrid-nomic-rerank3 vs structured-hybrid-finance2-rerank3: 82/102 / 101/102
+
+Grade (1):
+  HeldOut.H29
+    [structured-hybrid-nomic-rerank3] wrong, figures 1,201 (traced): Nasdaq's Index business generated $1,201 million in revenue for the year ended December 31, 2025 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Revenue from Contracts with Customers).
+    [structured-hybrid-finance2-rerank3] reliable, figures 827 (traced): Nasdaq's Index business generated $827 million in revenue for the year ended December 31, 2025 (Source: NDAQ-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations).
+
+Figures (4):
+  AnswerSide.A27
+    [structured-hybrid-nomic-rerank3] wrong, figures 100 17,087 17,087,000,000 25.3 67,357 67,357,000,000 (calculated): Oracle's net income was $17,087 million and its total revenues were $67,357 million in fiscal 2026. To calculate the percentage, we divide the net income by the total revenues and multiply by 100: ($17,087,000,000 / $67,357,000,000) * 100 = 25.3%. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules and PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations).
+    [structured-hybrid-finance2-rerank3] wrong, figures 25.7 (calculated): Oracle's net income as a percentage of its total revenues in fiscal 2026 was 25.7%. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules, and PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  HeldOut.H2
+    [structured-hybrid-nomic-rerank3] reliable, figures 19 (traced): Microsoft's effective tax rate for fiscal year 2026 was 19% (Source: MSFT-10K-2026.html, PART II > Item 7. MANAGEMENT’S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS).
+    [structured-hybrid-finance2-rerank3] reliable, figures 19.4 (traced): Microsoft's effective tax rate for fiscal year 2026 was 19.4% (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Income Taxes).
+  Main.Q12
+    [structured-hybrid-nomic-rerank3] reliable, figures 2300 78741 (traced): Oracle's headquarters is located at 2300 Oracle Way, Austin, Texas 78741. (Source: ORCL-10K-2026.html, Cover Page)
+    [structured-hybrid-finance2-rerank3] reliable, figures 0.9 (traced): Oracle's headquarters facility is located in Austin, Texas, and it consists of approximately 0.9 million square feet, all of which Oracle owns (Source: ORCL-10K-2026.html, PART I > Item 2. Properties).
+  Main.Q13
+    [structured-hybrid-nomic-rerank3] reliable, figures 42 (traced): Nasdaq's independent registered public accounting firm is Ernst & Young LLP, with PCAOB ID 42. (Source: NDAQ-10K-2025.html, Cover Page and PART II > Item 9A. Controls and Procedures)
+    [structured-hybrid-finance2-rerank3] reliable, figures - (no figure stated): Nasdaq's independent registered public accounting firm is Ernst & Young LLP. (Source: NDAQ-10K-2025.html, section Cover Page and PART II > Item 9A. Controls and Procedures)
+
+Wording (15):
+  AnswerSide.A12
+    [structured-hybrid-nomic-rerank3] decline-ok, figures - (no figure stated): The excerpts don't contain information about cash dividends per share declared by Netflix in 2025.
+    [structured-hybrid-finance2-rerank3] decline-ok, figures - (no figure stated): The excerpts don't contain the cash dividends per share declared by Netflix in 2025.
+  AnswerSide.A21
+    [structured-hybrid-nomic-rerank3] wrong, figures 12,443 17,087 (traced): Oracle's combined net income for fiscal 2025 and fiscal 2026 was $17,087 million for 2026 and $12,443 million for 2025. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules, CONSOLIDATED STATEMENTS OF OPERATIONS)
+    [structured-hybrid-finance2-rerank3] wrong, figures 12,443 17,087 (traced): Oracle's combined net income for fiscal 2025 and fiscal 2026 was $17,087 million for 2026 and $12,443 million for 2025. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)
+  AnswerSide.A7
+    [structured-hybrid-nomic-rerank3] reliable, figures 604 (traced): Nasdaq's cash and cash equivalents were $604 million as of December 31, 2025. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Consolidated Balance Sheets and PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+    [structured-hybrid-finance2-rerank3] reliable, figures 604 (traced): Nasdaq's cash and cash equivalents were $604 million as of December 31, 2025. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements and PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  HeldOut.H10
+    [structured-hybrid-nomic-rerank3] reliable, figures 9,525 (traced): As of December 31, 2025, Nasdaq had 9,525 full and part-time employees, including employees of non-wholly owned consolidated subsidiaries. (Source: NDAQ-10K-2025.html, PART I > Item 1. Business)
+    [structured-hybrid-finance2-rerank3] reliable, figures 9,525 (traced): As of December 31, 2025, Nasdaq had 9,525 full and part-time employees, including employees of non-wholly owned consolidated subsidiaries. (Source: NDAQ-10K-2025.html, PART I > Item 1. Business and PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  HeldOut.H11
+    [structured-hybrid-nomic-rerank3] reliable, figures - (no figure stated): Nasdaq's U.S. headquarters is located in New York, New York. (Source: NDAQ-10K-2025.html, PART I > Item 2. Properties)
+    [structured-hybrid-finance2-rerank3] reliable, figures - (no figure stated): Nasdaq's U.S. headquarters is located in New York, New York (Source: NDAQ-10K-2025.html, PART I > Item 2. Properties).
+  HeldOut.H12
+    [structured-hybrid-nomic-rerank3] reliable, figures 16,000 (traced): Netflix had approximately 16,000 full-time employees as of December 31, 2025. (Source: NFLX-10K-2025.html, PART I > Item 1. Business)
+    [structured-hybrid-finance2-rerank3] reliable, figures 16,000 (traced): As of December 31, 2025, Netflix had approximately 16,000 full-time employees. (Source: NFLX-10K-2025.html, PART I > Item 1. Business)
+  Main.Q1
+    [structured-hybrid-nomic-rerank3] reliable, figures 758,376 (traced): Microsoft's total assets as of June 30, 2026, were $758,376 million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
+    [structured-hybrid-finance2-rerank3] reliable, figures 758,376 (traced): Microsoft's total assets were $758,376 million as of June 30, 2026. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
+  Main.Q14
+    [structured-hybrid-nomic-rerank3] reliable, figures 331,839 67,357 (traced): Microsoft's total revenue for 2026 was $331,839 million, while Oracle's total revenue for 2026 was $67,357 million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA; ORCL-10K-2026.html, PART II > Item 8. CONSOLIDATED STATEMENTS OF OPERATIONS)
+    [structured-hybrid-finance2-rerank3] reliable, figures 331,839 67,357 (traced): Microsoft's total revenue for 2026 was $331,839 million, while Oracle's total revenue for 2026 was $67,357 million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA; ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)
+  Main.Q15
+    [structured-hybrid-nomic-rerank3] decline-ok, figures - (no figure stated): The excerpts don't contain the total revenue for fiscal year 2030.
+    [structured-hybrid-finance2-rerank3] decline-ok, figures - (no figure stated): The excerpts don't contain Nasdaq's total revenue in fiscal year 2030.
+  Main.Q16
+    [structured-hybrid-nomic-rerank3] decline-ok, figures - (no figure stated): The excerpts don't contain Apple's revenue.
+    [structured-hybrid-finance2-rerank3] decline-ok, figures - (no figure stated): The excerpts don't contain Apple's revenue for the year in question.
+  Main.Q17
+    [structured-hybrid-nomic-rerank3] reliable, figures 45,183,036 (traced): Netflix's total revenue for fiscal year 2025 was $45,183,036 thousand. (Source: NFLX-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+    [structured-hybrid-finance2-rerank3] reliable, figures 45,183,036 (traced): Netflix's total revenue for fiscal year 2025 was $45,183,036 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements and PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  Main.Q20
+    [structured-hybrid-nomic-rerank3] reliable, figures 10,149,273 (traced): For the year ended December 31, 2025, Netflix's net cash provided by operating activities was $10,149,273 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements)
+    [structured-hybrid-finance2-rerank3] reliable, figures 10,149,273 (traced): For the year ended December 31, 2025, Netflix's net cash provided by operating activities was $10,149,273 thousand. (Source: NFLX-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  Main.Q9
+    [structured-hybrid-nomic-rerank3] reliable, figures 16,882 (traced): Oracle's comprehensive income for the year ended May 31, 2026 was $16,882 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)
+    [structured-hybrid-finance2-rerank3] reliable, figures 16,882 (traced): Oracle's comprehensive income for the year ended May 31, 2026 was $16,882 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules, CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME)
+  Main.R1
+    [structured-hybrid-nomic-rerank3] reliable, figures 9,916 (traced): Oracle's current deferred revenues as of May 31, 2026 were $9,916 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules > Deferred Revenues)
+    [structured-hybrid-finance2-rerank3] reliable, figures 9,916 (traced): Oracle's current deferred revenues as of May 31, 2026 were $9,916 million (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules).
+  Main.T10
+    [structured-hybrid-nomic-rerank3] reliable, figures 96,795 (traced): $96,795 thousand was reclassified from accumulated other comprehensive income (loss) into the Consolidated Statements of Operations in the year ended December 31, 2024 (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Stockholders' Equity).
+    [structured-hybrid-finance2-rerank3] reliable, figures 96,795 (traced): $96,795 thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Stockholders' Equity).

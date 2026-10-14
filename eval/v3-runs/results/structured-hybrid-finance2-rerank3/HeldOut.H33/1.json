@@ -1,0 +1,115 @@
+{
+  "scenarioName": "HeldOut.H33",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-finance2-rerank3",
+  "creationTime": "2026-10-14T19:47:11.5497009Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements \u003E Balance Sheet Components ---\r\n\u0060\u0060\u0060\r\n5. Balance Sheet Components\n\nContent Assets, Net\n\nContent assets consisted of the following:\n\n(in thousands) As of December 31,\nLicensed content, net \u2014 2025: $12,138,578 | 2024: $12,422,309\nProduced content, net\nProduced content, net \u003E Released, less amortization \u2014 2025: 10,687,444 | 2024: 10,151,543\nProduced content, net \u003E In production \u2014 2025: 9,210,735 | 2024: 9,317,367\nProduced content, net \u003E In development and pre-production \u2014 2025: 741,635 | 2024: 561,243\nProduced content, net \u003E  \u2014 2025: 20,639,814 | 2024: 20,030,153\nContent assets, net \u2014 2025: $32,778,392 | 2024: $32,452,462\n\nAs of December\u00A031, 2025, approximately $6,381\u00A0million, $2,280\u00A0million, and $1,469\u00A0million of the $12,139\u00A0million unamortized cost of the licensed content is expected to be amortized in each of the next three years. As of December\u00A031, 2025, approximately $4,309\u00A0million, $2,784\u00A0million, and $1,840\u00A0million of the $10,687\u00A0million unamortized cost of the produced content that has been released is expected to be amortized in each of the next three years.\n\nThe following table summarizes the amortization of content assets:\n\n(in thousands) Year Ended December 31,\nLicensed content \u2014 2025: $8,713,558 | 2024: $7,689,014 | 2023: $7,145,446\nProduced content(1) \u2014 2025: 7,708,608 | 2024: 7,612,503 | 2023: 7,051,991\nTotal \u2014 2025: $16,422,166 | 2024: $15,301,517 | 2023: $14,197,437\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED BALANCE SHEETS\n\n(in thousands, except share and per share data)\n\nAs of December 31,\nAssets\nCurrent assets:\nCurrent assets \u003E Cash and cash equivalents \u2014 2025: $9,033,681 | 2024: $7,804,733\nCurrent assets \u003E Short-term investments \u2014 2025: 28,678 | 2024: 1,779,006\nCurrent assets \u003E Other current assets \u2014 2025: 3,957,832 | 2024: 3,516,640\nCurrent assets \u003E Total current assets \u2014 2025: 13,020,191 | 2024: 13,100,379\nContent assets, net \u2014 2025: 32,778,392 | 2024: 32,452,462\nProperty and equipment, net \u2014 2025: 2,004,350 | 2024: 1,593,756\nOther non-current assets \u2014 2025: 7,794,060 | 2024: 6,483,777\nTotal assets \u2014 2025: $55,596,993 | 2024: $53,630,374\nLiabilities and Stockholders\u2019 Equity\nCurrent liabilities:\nCurrent liabilities \u003E Current content liabilities \u2014 2025: $4,084,854 | 2024: $4,393,681\nCurrent liabilities \u003E Accounts payable \u2014 2025: 900,612 | 2024: 899,909\nCurrent liabilities \u003E Accrued expenses and other liabilities \u2014 2025: 3,220,869 | 2024: 2,156,544\nCurrent liabilities \u003E Deferred revenue \u2014 2025: 1,775,730 | 2024: 1,520,813\nCurrent liabilities \u003E Short-term debt \u2014 2025: 998,865 | 2024: 1,784,453\nCurrent liabilities \u003E Total current liabilities \u2014 2025: 10,980,930 | 2024: 10,755,400\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF CASH FLOWS\n\n(in thousands)\n\nYear Ended December 31,\nCash flows from operating activities:\nCash flows from operating activities \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\nAdjustments to reconcile net income to net cash provided by operating activities:\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Additions to content assets \u2014 2025: (17,096,617) | 2024: (16,223,617) | 2023: (12,554,703)\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Change in content liabilities \u2014 2025: (610,838) | 2024: (779,135) | 2023: (585,602)\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Amortization of content assets \u2014 2025: 16,422,166 | 2024: 15,301,517 | 2023: 14,197,437\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Depreciation and amortization of property, equipment and intangibles \u2014 2025: 333,389 | 2024: 328,914 | 2023: 356,947\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Stock-based compensation expense \u2014 2025: 368,449 | 2024: 272,588 | 2023: 339,368\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Foreign currency remeasurement loss (gain) on debt \u2014 2025: 72,348 | 2024: (121,539) | 2023: 176,296\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Other non-cash items \u2014 2025: 577,451 | 2024: 494,778 | 2023: 512,075\nAdjustments to reconcile net income to net cash provided by operating activities \u003E Deferred income taxes \u2014 2025: (442,056) | 2024: (590,698) | 2023: (459,359)\nChanges in operating assets and liabilities:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nWe recognize content assets (licensed and produced) as \u201CContent assets, net\u201D on the Consolidated Balance Sheets. For licensed content, we capitalize the fee per title and record a corresponding liability at the gross amount of the liability when the license period begins, the cost of the title is known and the title is accepted and available for streaming. For produced content, we capitalize costs associated with the production, including development costs, direct costs and production overhead, as costs are incurred.\n\nBased on factors including historical and estimated viewing patterns, we amortize the content assets (licensed and produced) in \u201CCost of revenues\u201D on the Consolidated Statements of Operations over the shorter of each title\u0027s contractual window of availability, estimated period of use or ten years, beginning with the month of first availability. The amortization is on an accelerated basis, as we typically expect more upfront viewing, and film amortization is more accelerated than TV series amortization. On average, over 90% of a licensed or produced content asset is expected to be amortized within four years after its month of first availability. We review factors that impact the amortization of the content assets on a regular basis. Our estimates related to these factors require considerable management judgment.\n\nIn the normal course of business, we, or a third-party producing content on our behalf, may qualify for tax incentives through eligible spend on productions. The accounting for tax incentives is dependent on the particular type of incentive, including the nature of the benefit and the location the incentive is earned. In general, tax incentives are realized as cash receipts and may be received prior to or after a title launches on our service. Any amounts we are eligible for through qualified production spend but have not received, are recognized in \u201COther current assets\u201D or \u201COther non-current assets\u201D on the Consolidated Balance Sheets as receivables. Tax incentives are generally accounted for as a reduction to the cost basis of content assets (presented in \u201CContent assets, net\u201D) and reduce content amortization over the life of the title (as presented in \u201CCost of revenues\u201D) on the Consolidated Statements of Operations.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements \u003E Organization and Summary of Significant Accounting Policies ---\r\n\u0060\u0060\u0060\r\nShort-term investments are reviewed periodically for allowances for credit losses and impairment. When evaluating the investments, the Company reviews factors such as the extent to which the fair value of the security is less than the amortized cost basis, adverse conditions specifically related to the security, the financial condition of the issuer, the Company\u2019s intent to sell, and whether it would be more likely than not that the Company would be required to sell the investments before the recovery of their amortized cost basis.\n\nContent\n\nThe Company acquires, licenses and produces content, including original programming, in order to offer members unlimited viewing of video entertainment. The content licenses are for a fixed fee and specific windows of availability. Payment terms for certain content licenses and the production of content require more upfront cash payments relative to the amortization expense. Payments for content, including additions to content assets and the changes in related liabilities, are classified within \u201CNet cash provided by operating activities\u201D on the Consolidated Statements of Cash Flows.\n\nThe Company recognizes content assets (licensed and produced) as \u201CContent assets, net\u201D on the Consolidated Balance Sheets. For licensed content, the Company capitalizes the fee per title and records a corresponding liability at the gross amount of the liability when the license period begins, the cost of the title is known and the title is accepted and available for streaming. For produced content, the Company capitalizes costs associated with the production, including development costs, direct costs and production overhead, as costs are incurred.\n\nBased on factors including historical and estimated viewing patterns, the Company amortizes the content assets (licensed and produced) in \u201CCost of revenues\u201D on the Consolidated Statements of Operations over the shorter of each title\u0027s contractual window of availability, estimated period of use or ten years, beginning with the month of first availability. The amortization is on an accelerated basis, as the Company typically expects more upfront viewing, and film amortization is more accelerated than TV series amortization. On average, over 90% of a licensed or produced content asset is expected to be amortized within four years after its month of first availability. The Company reviews factors impacting the amortization of the content assets on a regular basis. The Company\u0027s estimates related to these factors require considerable management judgment.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was the net value of Netflix\u0027s content assets at December 31, 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The net value of Netflix\u0027s content assets at December 31, 2025 was $32,778,392 thousand (Source: NFLX-10K-2025.html, PART IV \u003E Financial Statements \u003E Balance Sheet Components)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 32,778,392 thousand."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top) - for a calculation, whose result isn\u0027t printed, the figures it\u0027s calculated from, ranked by the last of them. Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py, and matched to its ranks on all 102 questions when ported.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "32,778,392 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 32,778,392 from excerpts 1 (narrative), 2 (balance_sheet)."
+        },
+        "metadata": {
+          "Stated 32,778,392": "excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Balance Sheet Components): \u0022Content assets, net \u2014 2025: $32,778,392 | 2024: $32,452,462\u0022; excerpt 2 (balance_sheet, PART IV \u003E Financial Statements): \u0022Content assets, net \u2014 2025: 32,778,392 | 2024: 32,452,462\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0021469,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2729,
+          "outputTokenCount": 48,
+          "totalTokenCount": 2777
+        },
+        "cacheKey": "44901F81FF628AB18357221A986F6F472E5C7252262906DF363363A6E3C46761D07AF6B891027CB94C4D4BF7C1CF4634",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "excerpts:5",
+    "embedding:voyage-finance-2",
+    "kind:figure",
+    "has traps",
+    "company:NFLX",
+    "statement:none",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

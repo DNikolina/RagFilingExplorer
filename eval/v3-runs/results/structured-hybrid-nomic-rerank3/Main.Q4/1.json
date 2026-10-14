@@ -1,0 +1,114 @@
+{
+  "scenarioName": "Main.Q4",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-nomic-rerank3",
+  "creationTime": "2026-10-14T17:18:07.6228293Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\r\n\u0060\u0060\u0060\r\nCASH FLOWS STATEMENTS\n\n(In millions) Year Ended June 30,\nChanges in operating assets and liabilities \u003E Accounts receivable \u2014 2026: (12,737) | 2025: (10,581) | 2024: (7,191)\nChanges in operating assets and liabilities \u003E Inventories \u2014 2026: (461) | 2025: 309 | 2024: 1,284\nChanges in operating assets and liabilities \u003E Other current assets \u2014 2026: (2,627) | 2025: (3,044) | 2024: (1,648)\nChanges in operating assets and liabilities \u003E Other long-term assets \u2014 2026: (3,964) | 2025: (2,950) | 2024: (6,817)\nChanges in operating assets and liabilities \u003E Accounts payable \u2014 2026: 5,268 | 2025: 569 | 2024: 3,545\nChanges in operating assets and liabilities \u003E Unearned revenue \u2014 2026: 9,361 | 2025: 5,438 | 2024: 5,348\nChanges in operating assets and liabilities \u003E Income taxes \u2014 2026: (1,875) | 2025: (38) | 2024: 1,687\nChanges in operating assets and liabilities \u003E Other current liabilities \u2014 2026: 6,847 | 2025: 5,922 | 2024: 4,867\nChanges in operating assets and liabilities \u003E Other long-term liabilities \u2014 2026: (4,707) | 2025: (975) | 2024: 749\nNet cash from operations \u2014 2026: 182,935 | 2025: 136,162 | 2024: 118,548\nFinancing\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\r\n\u0060\u0060\u0060\r\nCASH FLOWS STATEMENTS\n\n(In millions) Year Ended June 30,\nOperations\nOperations \u003E Net income \u2014 2026: $133,749 | 2025: $101,832 | 2024: $88,136\nAdjustments to reconcile net income to net cash from operations:\nAdjustments to reconcile net income to net cash from operations \u003E Depreciation, amortization, and other \u2014 2026: 38,534 | 2025: 29,433 | 2024: 20,958\nAdjustments to reconcile net income to net cash from operations \u003E Stock-based compensation expense \u2014 2026: 12,405 | 2025: 11,974 | 2024: 10,734\nAdjustments to reconcile net income to net cash from operations \u003E Net recognized losses (gains) on investments and derivatives \u2014 2026: (11,047) | 2025: 5,329 | 2024: 1,634\nAdjustments to reconcile net income to net cash from operations \u003E Deferred income taxes \u2014 2026: 14,189 | 2025: (7,056) | 2024: (4,738)\nChanges in operating assets and liabilities:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS ---\r\n\u0060\u0060\u0060\r\nA majority of our investments are priced by pricing vendors and are generally Level 1 or Level 2 investments as these vendors either provide a quoted market price in an active market or use observable inputs for their pricing without applying significant adjustments. Broker pricing is used mainly when a quoted price is not available, the investment is not priced by our pricing vendors, or when a broker price is more reflective of fair values in the market in which the investment trades. Our broker-priced investments are generally classified as Level 2 investments because the broker prices these investments based on similar assets without applying significant adjustments. In addition, all our broker-priced investments have a sufficient level of trading volume to demonstrate that the fair values used are appropriate for these investments. Our fair value processes include controls that are designed to ensure appropriate fair values are recorded. These controls include model validation, review of key model inputs, analysis of period-over-period fluctuations, and independent recalculation of prices where appropriate.\n\nCash Flows\n\nCash from operations increased $46.8 billion to $182.9 billion for fiscal year 2026, primarily due to an increase in cash received from customers and a decrease in cash used to pay income taxes, offset in part by an increase in cash paid to suppliers. Cash used in financing increased $847 million to $52.5 billion for fiscal year 2026, primarily due to a $6.0 billion decrease in cash used for repayments of debt, offset in part by a $3.9 billion increase in common stock repurchases and a $2.4 billion increase in dividends paid. Cash used in investing increased $66.9 billion to $139.5 billion for fiscal year 2026, primarily due to a $51.4 billion increase in additions to property and equipment and a $22.2 billion increase in cash used in other investing primarily to facilitate the purchase of components, offset in part by a $4.2 billion decrease in cash used in the acquisition of companies, net of cash acquired and divestitures, and purchases of intangible and other assets and a $2.4 billion decrease in cash used in net investment purchases, sales, and maturities.\n\nDebt Proceeds\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA ---\r\n\u0060\u0060\u0060\r\nCASH FLOWS STATEMENTS\n\n(In millions) Year Ended June 30,\nInvesting \u003E Additions to property and equipment \u2014 2026: (115,948) | 2025: (64,551) | 2024: (44,477)\nInvesting \u003E Acquisition of companies, net of cash acquired and divestitures, and purchases of intangible and other assets \u2014 2026: (1,743) | 2025: (5,978) | 2024: (69,132)\nInvesting \u003E Purchases of investments \u2014 2026: (58,351) | 2025: (29,775) | 2024: (17,732)\nInvesting \u003E Maturities of investments \u2014 2026: 34,605 | 2025: 16,079 | 2024: 24,775\nInvesting \u003E Sales of investments \u2014 2026: 21,798 | 2025: 9,309 | 2024: 10,894\nInvesting \u003E Other, net \u2014 2026: (19,861) | 2025: 2,317 | 2024: (1,298)\nInvesting \u003E Net cash used in investing \u2014 2026: (139,500) | 2025: (72,599) | 2024: (96,970)\nEffect of foreign exchange rates on cash and cash equivalents \u2014 2026: (196) | 2025: 63 | 2024: (210)\nNet change in cash and cash equivalents \u2014 2026: (9,307) | 2025: 11,927 | 2024: (16,389)\nCash and cash equivalents, beginning of period \u2014 2026: 30,242 | 2025: 18,315 | 2024: 34,704\nCash and cash equivalents, end of period \u2014 2026: $20,935 | 2025: $30,242 | 2024: $18,315\n\nRefer to accompanying notes.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [MSFT-10K-2026.html](../../data/MSFT-10K-2026.html), section PART II \u003E Item 7. MANAGEMENT\u2019S DISCUSSION AND ANALYSIS OF FINANCIAL CONDITION AND RESULTS OF OPERATIONS ---\r\n\u0060\u0060\u0060\r\nLIQUIDITY AND CAPITAL RESOURCES\n\nWe expect existing cash, cash equivalents, short-term investments, cash flows from operations, and access to capital markets to continue to be sufficient to fund our operating activities and cash commitments for investing and financing activities, such as dividends, share repurchases, debt maturities, and material capital expenditures, for at least the next 12 months and thereafter for the foreseeable future.\n\nCash, Cash Equivalents, and Investments\n\nCash, cash equivalents, and short-term investments totaled $76.8 billion and $94.6 billion as of June 30, 2026 and 2025, respectively. Equity and other investments were $36.3 billion and $15.4 billion as of June 30, 2026 and 2025, respectively. Our short-term investments are primarily intended to facilitate liquidity and capital preservation. They consist predominantly of highly liquid investment-grade fixed-income securities, diversified among industries and individual issuers. The investments are predominantly U.S. dollar-denominated securities, but also include foreign currency-denominated securities to diversify risk. Our fixed-income investments are exposed to interest rate risk and credit risk. The credit risk and average maturity of our fixed-income portfolio are managed to achieve economic returns that correlate to certain fixed-income indices. The settlement risk related to these investments is insignificant given that the short-term investments held are primarily highly liquid investment-grade fixed-income securities.\n\nValuation\n\nIn general, and where applicable, we use quoted prices in active markets for identical assets or liabilities to determine the fair value of our financial instruments. This pricing methodology applies to our Level 1 investments, such as U.S. government securities, common and preferred stock, and mutual funds. If quoted prices in active markets for identical assets or liabilities are not available to determine fair value, then we use quoted prices for similar assets and liabilities or inputs other than the quoted prices that are observable either directly or indirectly. This pricing methodology applies to our Level 2 investments, such as commercial paper, certificates of deposit, U.S. agency securities, foreign government bonds, mortgage- and asset-backed securities, corporate notes and bonds, and municipal securities. Level 3 investments are valued using internally-developed models with unobservable inputs. Assets and liabilities measured at fair value on a recurring basis using unobservable inputs are an immaterial portion of our portfolio.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Microsoft\u0027s net cash from operations?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Microsoft\u0027s net cash from operations was $182,935 million for the year ended June 30, 2026. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 182,935 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top) - for a calculation, whose result isn\u0027t printed, the figures it\u0027s calculated from, ranked by the last of them. Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py, and matched to its ranks on all 102 questions when ported.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "182,935 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 182,935 from excerpt 1 (cash_flow_statement)."
+        },
+        "metadata": {
+          "Stated 182,935": "excerpt 1 (cash_flow_statement, PART II \u003E Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA): \u0022Net cash from operations \u2014 2026: 182,935 | 2025: 136,162 | 2024: 118,548\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 70.6291228,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2500,
+          "outputTokenCount": 56,
+          "totalTokenCount": 2556
+        },
+        "cacheKey": "8478FBBB03B325AF06AFE198099659AA5F8CB045386A39239C99636560BEB9002EFEDF918850D8AE6900D66A81DB029B",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "excerpts:5",
+    "embedding:nomic-embed-text",
+    "kind:figure",
+    "company:MSFT",
+    "statement:cash_flow_statement",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

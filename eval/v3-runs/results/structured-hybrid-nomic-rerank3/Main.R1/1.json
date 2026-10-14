@@ -1,0 +1,114 @@
+{
+  "scenarioName": "Main.R1",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-nomic-rerank3",
+  "creationTime": "2026-10-14T17:52:02.4033908Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Deferred Revenues ---\r\n\u0060\u0060\u0060\r\n8. DEFERRED REVENUES\n\nDeferred revenues consisted of the following:\n\n(in millions) May 31,\nCloud \u2014 2026: $3,228 | 2025: $2,959\nSoftware \u2014 2026: 5,662 | 2025: 5,350\nHardware \u2014 2026: 521 | 2025: 614\nServices \u2014 2026: 505 | 2025: 464\nDeferred revenues, current \u2014 2026: 9,916 | 2025: 9,387\nDeferred revenues, non-current (in other non-current liabilities) \u2014 2026: 5,479 | 2025: 1,346\nTotal deferred revenues \u2014 2026: $15,395 | 2025: $10,733\n\nDeferred cloud revenues, deferred software revenues and deferred hardware revenues substantially represent customer payments made in advance for cloud or support contracts that are billed in advance with corresponding revenues generally being recognized ratably or based upon customer usage over the respective contractual periods. Deferred services revenues include prepayments for our services business and revenues for these services are generally recognized as the services are performed.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED BALANCE SHEETS\n\nAs of May 31, 2026 and 2025\n\n(in millions, except per share data) May 31,\nCurrent liabilities \u003E Notes payable and other borrowings, current \u2014 2026: $7,199 | 2025: $7,271\nCurrent liabilities \u003E Accounts payable \u2014 2026: 10,977 | 2025: 5,113\nCurrent liabilities \u003E Accrued compensation and related benefits \u2014 2026: 2,225 | 2025: 2,243\nCurrent liabilities \u003E Deferred revenues \u2014 2026: 9,916 | 2025: 9,387\nCurrent liabilities \u003E Other current liabilities \u2014 2026: 11,447 | 2025: 8,629\nCurrent liabilities \u003E Total current liabilities \u2014 2026: 41,764 | 2025: 32,643\nNon-current liabilities:\nNon-current liabilities \u003E Notes payable and other borrowings, non-current \u2014 2026: 122,342 | 2025: 85,297\nNon-current liabilities \u003E Income taxes payable \u2014 2026: 11,771 | 2025: 10,269\nNon-current liabilities \u003E Operating lease liabilities \u2014 2026: 26,648 | 2025: 11,536\nNon-current liabilities \u003E Other non-current liabilities \u2014 2026: 16,178 | 2025: 7,647\nNon-current liabilities \u003E Total non-current liabilities \u2014 2026: 176,939 | 2025: 114,749\nCommitments and contingencies\nOracle Corporation stockholders\u2019 equity:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Organization and Significant Accounting Policies ---\r\n\u0060\u0060\u0060\r\nRemaining performance obligations represent contracted revenues that had not yet been recognized, and include deferred revenues; invoices that have been issued to customers but were uncollected and have not been recognized as revenues; and amounts that will be invoiced and recognized as revenues in future periods. We have elected the optional exemption to not disclose the variable consideration for contracts in which the variable consideration expected to be received over the duration of the contract is allocated entirely to the wholly unsatisfied performance obligations. The volumes and amounts of customer contracts that we book and total revenues that we recognize are impacted by a variety of seasonal factors and the timing of booking of large contracts. In each fiscal year, the amounts and volumes of contracting activity, other than the impact of booking of large contracts, and our total revenues are typically highest in our fourth fiscal quarter and lowest in our first fiscal quarter. These seasonal impacts and the timing of booking of large contracts influence how our remaining performance obligations change over time and, combined with foreign exchange rate fluctuations and other factors, influence the amount of remaining performance obligations that we report at a point in time. As of May 31, 2026, our remaining performance obligations were $638 billion, of which we expect to recognize approximately 12% as revenues over the next twelve months, 34% over the subsequent month 13 to month 36, 34% over the subsequent month 37 to month 60 and the remainder thereafter.\n\nCustomer Prepayments and Sales of Financing Receivables\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF CASH FLOWS\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions) Year Ended May 31,\nChanges in operating assets and liabilities \u003E Increase in trade receivables, net \u2014 2026: (2,190) | 2025: (653) | 2024: (965)\nChanges in operating assets and liabilities \u003E Decrease in prepaid expenses and other assets \u2014 2026: 2,179 | 2025: 266 | 2024: 542\nChanges in operating assets and liabilities \u003E Decrease in accounts payable and other liabilities \u2014 2026: (240) | 2025: (608) | 2024: (594)\nChanges in operating assets and liabilities \u003E Decrease in income taxes payable \u2014 2026: (256) | 2025: (659) | 2024: (127)\nChanges in operating assets and liabilities \u003E Increase in deferred revenues from customer prepayments with significant financing component \u2014 2026: 4,592\nChanges in operating assets and liabilities \u003E Increase in other deferred revenues \u2014 2026: 50 | 2025: 154 | 2024: 656\nNet cash provided by operating activities \u2014 2026: 31,977 | 2025: 20,821 | 2024: 18,673\nCash flows from investing activities:\nCash flows from investing activities \u003E Purchases of marketable securities and other investments and acquisitions \u2014 2026: (2,039) | 2025: (1,272) | 2024: (1,066)\nCash flows from investing activities \u003E Proceeds from sales and maturities of marketable securities and other investments \u2014 2026: 5,848 | 2025: 776 | 2024: 572\nCash flows from investing activities \u003E Capital expenditures \u2014 2026: (55,663) | 2025: (21,215) | 2024: (6,866)\nCash flows from investing activities \u003E Net cash used for investing activities \u2014 2026: (51,854) | 2025: (21,711) | 2024: (7,360)\nCash flows from financing activities:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Income Taxes ---\r\n\u0060\u0060\u0060\r\n(in millions) May 31,\nDeferred tax assets:\nDeferred tax assets \u003E Accruals and allowances \u2014 2026: $1,195 | 2025: $790\nDeferred tax assets \u003E Employee compensation and benefits \u2014 2026: 1,006 | 2025: 1,068\nDeferred tax assets \u003E Differences in timing of revenue recognition \u2014 2026: 970 | 2025: 894\nDeferred tax assets \u003E Lease liabilities \u2014 2026: 9,333 | 2025: 3,279\nDeferred tax assets \u003E Basis of property, plant and equipment and intangible assets \u2014 2026: 6,882 | 2025: 7,800\nDeferred tax assets \u003E Capitalized research and development \u2014 2026: 5,784 | 2025: 4,153\nDeferred tax assets \u003E Tax credit and net operating loss carryforwards \u2014 2026: 6,602 | 2025: 5,857\nDeferred tax assets \u003E Total deferred tax assets \u2014 2026: 31,772 | 2025: 23,841\nDeferred tax assets \u003E Valuation allowance \u2014 2026: (2,483) | 2025: (1,962)\nDeferred tax assets \u003E Total deferred tax assets, net \u2014 2026: 29,289 | 2025: 21,879\nDeferred tax liabilities:\nDeferred tax liabilities \u003E Acquired intangible assets \u2014 2026: (544) | 2025: (920)\nDeferred tax liabilities \u003E GILTI deferred \u2014 2026: (6,852) | 2025: (6,949)\nDeferred tax liabilities \u003E ROU assets \u2014 2026: (9,181) | 2025: (3,207)\nDeferred tax liabilities \u003E Withholding taxes on foreign earnings \u2014 2026: (424) | 2025: (364)\nDeferred tax liabilities \u003E Other \u2014 2026: (1,069) | 2025: (191)\nDeferred tax liabilities \u003E Total deferred tax liabilities \u2014 2026: (18,070) | 2025: (11,631)\nNet deferred tax assets \u2014 2026: $11,219 | 2025: $10,248\nRecorded as:\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Oracle\u0027s current deferred revenues as of May 31, 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s current deferred revenues as of May 31, 2026 were $9,916 million. (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Deferred Revenues)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 9,916 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top) - for a calculation, whose result isn\u0027t printed, the figures it\u0027s calculated from, ranked by the last of them. Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py, and matched to its ranks on all 102 questions when ported.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "9,916 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 9,916 from excerpts 1 (narrative), 2 (balance_sheet)."
+        },
+        "metadata": {
+          "Stated 9,916": "excerpt 1 (narrative, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Deferred Revenues): \u0022Deferred revenues, current \u2014 2026: 9,916 | 2025: 9,387\u0022; excerpt 2 (balance_sheet, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Current liabilities \u003E Deferred revenues \u2014 2026: 9,916 | 2025: 9,387\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 64.1419311,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2328,
+          "outputTokenCount": 54,
+          "totalTokenCount": 2382
+        },
+        "cacheKey": "11632CC67557261AC1317F76DDDFDE17C12FE52C3DBC90B091359E7DFC10366E6F6E8194DF889D4D772B120809615860",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "excerpts:5",
+    "embedding:nomic-embed-text",
+    "kind:routing",
+    "company:ORCL",
+    "statement:income_statement",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

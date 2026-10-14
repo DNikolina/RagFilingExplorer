@@ -1,0 +1,115 @@
+{
+  "scenarioName": "Main.Q12",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-nomic-rerank3",
+  "creationTime": "2026-10-14T17:27:02.5539478Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART I \u003E Item 2. Properties ---\r\n\u0060\u0060\u0060\r\nOur properties consist of owned and leased facilities for cloud operations, sales, support, research and development, services, manufacturing and administrative and other functions. Our headquarters facility consists of approximately 0.9 million square feet in Austin, Texas, all of which we own. We also own or lease office facilities for current use consisting of approximately 25.4 million square feet in various other locations in the U.S. and abroad. Approximately 11.9 million square feet, or 45%, of our total owned and leased office facilities are sublet or are being actively marketed for sublease or disposition. We lease our principal internal manufacturing facility for our hardware products in Hillsboro, Oregon. Additionally, we have approximately 181 data center locations globally, substantially all of which are leased and used to deliver our Oracle Cloud offerings. We believe that our facilities are in good condition and suitable for the conduct of our business.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section Cover Page ---\r\n\u0060\u0060\u0060\r\nOracle Corporation - annual report on Form 10-K for the fiscal year ended May 31, 2026 (fiscal year 2026). Common stock trading symbol: ORCL, on the New York Stock Exchange. Address of principal executive offices: 2300 Oracle Way, Austin, Texas 78741. State of incorporation: Delaware. Independent registered public accounting firm (auditor): Ernst \u0026 Young LLP, San Jose, California (PCAOB ID 42).\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nLeaders Who Listen\n\nWe believe that an important aspect of creating a workforce that supports employee, customer and business success is listening to employee feedback. We share the results of our annual employee engagement survey with leaders, including members of our Board of Directors (the Board). In fiscal 2026, more than 105,000 employees participated in the annual survey. Leaders listen to employees, evaluate feedback and prioritize actions to enhance employee, business and customer success.\n\nMaking a Difference\n\nEach year, through our volunteering and giving programs, Oracle employees donate tens of thousands of volunteer hours and millions of dollars (matched by Oracle) to a wide variety of causes. Oracle and our employees also rise to the occasion in times of crisis.\n\nDuring fiscal 2026, Oracle donated tens of millions of dollars to advance education, promote health, strengthen communities and protect the environment. We also have two nonprofit foundations that focus on children and young people. Oracle Health Foundation makes pediatric case grants available around the world that fund medical care ranging from hearing aids to major surgeries. Oracle Education Foundation teaches young people how to innovate, solve problems with technology and shape a better future. Oracle Academy, our global philanthropic educational program, is helping build a scalable, job-ready talent pipeline for data centers by aligning education with industry needs through targeted curriculum, partnerships and educator support. Since 2014, Oracle has also partnered with Design Tech High School, a public charter school for which we built a home at our Redwood Shores, California campus in 2016. Most recently, Oracle has brought its philanthropic efforts to the communities near its data center sites, funding local nonprofit organizations that deliver a range of programs, including education, food security, housing and health.\n\nSeasonality and Cyclicality\n\nOur quarterly revenues have historically been affected by a variety of seasonal factors, including the structure of our sales force incentive compensation plans, which are common in the IT industry. In each fiscal year, our total revenues and operating margins are typically highest in our fourth fiscal quarter and lowest in our first fiscal quarter. See \u201CCloud and Software Business\u201D in Item 7 of this Annual Report for more information regarding the seasonality and cyclicality of the revenues, expenses and margins of our cloud and software business, which is our largest business.\n\nCompetition\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nWe directly market and sell our cloud, software, hardware, support and services offerings globally to businesses of many sizes and in many industries, government agencies and educational institutions. We also market and sell our offerings globally through indirect channels.\n\nIn the United States (U.S.), our sales and services employees are based throughout the country. Outside the U.S., our international subsidiaries sell, support and service our offerings in their local countries as well as within other foreign countries where we do not operate through a direct sales subsidiary. Our geographic coverage allows us to draw on business and technical expertise from a global workforce, provides stability to our operations and revenue streams to offset geography-specific economic trends and offers us an opportunity to take advantage of new markets for our offerings. Our international operations subject us to certain risks, which are more fully described in Risk Factors included in Item 1A of this Annual Report. A summary of our domestic and international revenues and long-lived assets is set forth in Note 13 of Notes to Consolidated Financial Statements included elsewhere in this Annual Report.\n\nWe also market our product offerings worldwide through indirect channels. The companies that comprise our indirect channel network are members of the Oracle Partner Network. The Oracle Partner Network is a global program that manages our business relationships with a large, broad-based network of companies, including cloud and software, hardware and services suppliers, system integrators and resellers that deliver innovative solutions and services based upon and in conjunction with our product offerings. By offering our partners access to our product offerings, educational information, technical services, marketing and sales support, the Oracle Partner Network program extends our market reach by providing our partners with the resources they need to be successful in delivering solutions to customers globally.\n\nResearch and Development\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nResearch and Development\n\nWe develop the substantial majority of our products and services offerings internally utilizing the skills and diversity of a global workforce. In addition, we have extended our products and services offerings and intellectual property through acquisitions of businesses and technologies. We also purchase or license intellectual property rights in certain circumstances. Internal development allows us to maintain technical control over the design and development of our products. We have a number of U.S. and foreign patents and pending applications that relate to various aspects of our products and technology. However, although we believe that our patents have value, neither our business as a whole nor any of our principal businesses are materially dependent on a single patent. Rapid technological advances in cloud, software and hardware development, evolving standards in computer hardware and software technology, changing customer needs and frequent new product introductions, offerings and enhancements characterize the markets in which we compete. We plan to continue to dedicate a significant amount of resources to research and development efforts to develop new products and services offerings, as well as maintain and improve our current offerings. We may not receive significant revenues from our current research and development efforts for several years, if at all, and this risk is further described in Risk Factors included in Item 1A of this Annual Report.\n\nHuman Capital Resources\n\nAt Oracle, our success is driven by the quality of our people, who we believe are among the best and brightest in the industry. We strive to attract and retain talented employees, to support our employees\u2019 success and well-being and to foster a culture of inclusion where everyone is empowered to have a voice in driving innovation. The\n\nCompensation Committee of our Board of Directors (the Compensation Committee) is responsible for reviewing and monitoring matters related to human capital management, including talent acquisition and retention.\n\nWorkforce\n\nAs of May 31, 2026, we employed approximately 141,000 full-time employees, of which approximately 49,000 were employed in the U.S. and approximately 92,000 were employed internationally. Our approximate employee counts by lines of business are:\n\n26,000 | Cloud and software | 34,000 | Services\n25,000 | Sales and marketing | 43,000 | Research and development\n2,000 | Hardware | 11,000 | General and administrative\n\nThe average tenure of our employees is approximately eight years and 31% of our employees have been employed with Oracle for ten or more years.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Where is Oracle headquartered?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s headquarters is located at 2300 Oracle Way, Austin, Texas 78741. (Source: ORCL-10K-2026.html, Cover Page)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected Austin."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top) - for a calculation, whose result isn\u0027t printed, the figures it\u0027s calculated from, ranked by the last of them. Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py, and matched to its ranks on all 102 questions when ported.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "Austin at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 2300 from excerpt 2 (narrative), 78741 from excerpt 2 (narrative)."
+        },
+        "metadata": {
+          "Stated 2300": "excerpt 2 (narrative, Cover Page): \u0022...: ORCL, on the New York Stock Exchange. Address of principal executive offices: 2300 Oracle Way, Austin, Texas 78741. State of incorporation: Delaware. Independ...\u0022",
+          "Stated 78741": "excerpt 2 (narrative, Cover Page): \u0022...xchange. Address of principal executive offices: 2300 Oracle Way, Austin, Texas 78741. State of incorporation: Delaware. Independent registered public accountin...\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 48.7139171,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 1988,
+          "outputTokenCount": 36,
+          "totalTokenCount": 2024
+        },
+        "cacheKey": "6EB2AA17C02199CFEBC3DCC835073A028464E980FCBFE8F8FFFF2D3B6DC0656948838FD83BA57468EAD6C27B4AD37DAE",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "excerpts:5",
+    "embedding:nomic-embed-text",
+    "kind:fact",
+    "company:ORCL",
+    "statement:none",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

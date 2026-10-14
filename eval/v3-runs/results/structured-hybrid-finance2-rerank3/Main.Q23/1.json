@@ -1,0 +1,115 @@
+{
+  "scenarioName": "Main.Q23",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-finance2-rerank3",
+  "creationTime": "2026-10-14T19:29:47.0821769Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Balance Sheets\n\n(in millions, except share and par value amounts)\n\nDecember 31,\nLong-term debt \u2014 2025: 8,573 | 2024: 9,081\nDeferred tax liabilities, net \u2014 2025: 1,584 | 2024: 1,594\nOperating lease liabilities \u2014 2025: 462 | 2024: 388\nOther non-current liabilities \u2014 2025: 241 | 2024: 230\nTotal liabilities \u2014 2025: 18,821 | 2024: 19,195\nCommitments and contingencies\nEquity\nNasdaq stockholders\u2019 equity:\nNasdaq stockholders\u2019 equity \u003E Common stock, $0.01 par value, 900,000,000 shares authorized, shares issued: 594,620,320 at December 31, 2025 and 598,920,378 at December 31, 2024; shares outstanding: 569,894,024 at December 31, 2025 and 575,062,217 at December 31, 2024 \u2014 2025: 6 | 2024: 6\nNasdaq stockholders\u2019 equity \u003E Additional paid-in capital \u2014 2025: 5,122 | 2024: 5,530\nNasdaq stockholders\u2019 equity \u003E Common stock in treasury, at cost: 24,726,296 shares at December 31, 2025 and 23,858,161 shares at December 31, 2024 \u2014 2025: (716) | 2024: (647)\nNasdaq stockholders\u2019 equity \u003E Accumulated other comprehensive loss \u2014 2025: (1,773) | 2024: (2,099)\nNasdaq stockholders\u2019 equity \u003E Retained earnings \u2014 2025: 9,588 | 2024: 8,401\nNasdaq stockholders\u2019 equity \u003E Total Nasdaq stockholders\u2019 equity \u2014 2025: 12,227 | 2024: 11,191\nNoncontrolling interests \u2014 2025: 5 | 2024: 9\nTotal equity \u2014 2025: 12,232 | 2024: 11,200\nTotal liabilities and equity \u2014 2025: $31,053 | 2024: $30,395\n\nSee accompanying notes to consolidated financial statements.\n\nNasdaq, Inc.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Changes in Stockholders\u2019 Equity\n\n(in millions)\n\nYear Ended December 31,\nCommon stock in treasury, at cost \u003E Beginning balance \u2014 2025 $: (647) | 2024 $: (587) | 2023 $: (515)\nCommon stock in treasury, at cost \u003E Employee shares withheld \u2014 2025 Shares: (1) | 2025 $: (69) | 2024 Shares: (1) | 2024 $: (60) | 2023 Shares: (2) | 2023 $: (72)\nCommon stock in treasury, at cost \u003E Ending balance \u2014 2025 $: (716) | 2024 $: (647) | 2023 $: (587)\nAccumulated other comprehensive loss\nAccumulated other comprehensive loss \u003E Beginning balance \u2014 2025 $: (2,099) | 2024 $: (1,924) | 2023 $: (1,991)\nAccumulated other comprehensive loss \u003E Other comprehensive income (loss) \u2014 2025 $: 326 | 2024 $: (175) | 2023 $: 67\nAccumulated other comprehensive loss \u003E Ending balance \u2014 2025 $: (1,773) | 2024 $: (2,099) | 2023 $: (1,924)\nRetained earnings\nRetained earnings \u003E Beginning balance \u2014 2025 $: 8,401 | 2024 $: 7,825 | 2023 $: 7,207\nRetained earnings \u003E Net income attributable to Nasdaq \u2014 2025 $: 1,788 | 2024 $: 1,117 | 2023 $: 1,059\nRetained earnings \u003E Cash dividends declared and paid \u2014 2025 $: (601) | 2024 $: (541) | 2023 $: (441)\nRetained earnings \u003E Ending balance \u2014 2025 $: 9,588 | 2024 $: 8,401 | 2023 $: 7,825\nTotal Nasdaq stockholders\u2019 equity \u2014 2025 $: 12,227 | 2024 $: 11,191 | 2023 $: 10,816\nNoncontrolling interests\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Changes in Stockholders\u2019 Equity\n\n(in millions)\n\nYear Ended December 31,\nNoncontrolling interests \u003E Beginning balance \u2014 2025 $: 9 | 2024 $: 11 | 2023 $: 13\nNoncontrolling interests \u003E Net activity related to noncontrolling interests \u2014 2025 $: (4) | 2024 $: (2) | 2023 $: (2)\nNoncontrolling interests \u003E Ending balance \u2014 2025 $: 5 | 2024 $: 9 | 2023 $: 11\nTotal Equity \u2014 2025 Shares: 570 | 2025 $: $12,232 | 2024 Shares: 575 | 2024 $: $11,200 | 2023 Shares: 575 | 2023 $: $10,827\n\nSee accompanying notes to consolidated financial statements.\n\nNasdaq, Inc.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Nasdaq Stockholders\u2019 Equity ---\r\n\u0060\u0060\u0060\r\n12. NASDAQ STOCKHOLDERS\u2019 EQUITY\n\nCommon Stock\n\nAs of December 31, 2025, 900,000,000 shares of our common stock were authorized, 594,620,320 shares were issued and 569,894,024 shares were outstanding. As of December 31, 2024, 900,000,000 shares of our common stock were authorized, 598,920,378 shares were issued and 575,062,217 shares were outstanding. The holders of common stock are entitled to one vote per share, except that our certificate of incorporation limits the ability of any shareholder to vote in excess of 5.0% of the then-outstanding shares of Nasdaq common stock.\n\nCommon Stock in Treasury, at Cost\n\nWe account for the purchase of treasury stock under the cost method with the shares of stock repurchased reflected as a reduction to Nasdaq stockholders\u2019 equity and included in common stock in treasury, at cost in the Consolidated Balance Sheets. Shares repurchased under our share repurchase program are currently retired and canceled and are therefore not included in the common stock in treasury balance. If treasury shares are reissued, they are recorded at the average cost of the treasury shares acquired. We held 24,726,296\u00A0shares of common stock in treasury as of December 31, 2025 and 23,858,161 shares as of December 31, 2024, most of which are related to shares of our common stock withheld for the settlement of employee tax withholding obligations arising from the vesting of restricted stock and PSUs.\n\nShare Repurchase Program\n\nAs of December 31, 2025, the remaining aggregate authorized amount under the existing share repurchase program was $1.1 billion.\n\nAs part of this program, repurchases may be made from time to time at prevailing market prices in open market purchases, privately-negotiated transactions, block purchase techniques, an accelerated share repurchase program or otherwise, as determined by our management. The repurchases are primarily funded from existing cash balances. The share repurchase program may be suspended, modified or discontinued at any time, and has no defined expiration date.\n\nThe following is a summary of our share repurchase activity, reported based on settlement date, for the year ended December 31, 2025:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Changes in Stockholders\u2019 Equity\n\n(in millions)\n\nYear Ended December 31,\nCommon stock\nCommon stock \u003E Beginning balance \u2014 2025 Shares: 575 | 2025 $: 6 | 2024 Shares: 575 | 2024 $: 6 | 2023 Shares: 492 | 2023 $: 5\nCommon stock \u003E Acquisition-related stock issuance \u2014 2023 Shares: 86 | 2023 $: 1\nCommon stock \u003E Ending balance \u2014 2025 $: 6 | 2024 $: 6 | 2023 $: 6\nAdditional paid-in capital\nAdditional paid-in capital \u003E Beginning balance \u2014 2025 $: 5,530 | 2024 $: 5,496 | 2023 $: 1,445\nAdditional paid-in capital \u003E Share repurchase program \u2014 2025 Shares: (7) | 2025 $: (620) | 2024 Shares: (2) | 2024 $: (145) | 2023 Shares: (5) | 2023 $: (269)\nAdditional paid-in capital \u003E Share-based compensation \u2014 2025 Shares: 2 | 2025 $: 165 | 2024 Shares: 2 | 2024 $: 141 | 2023 Shares: 3 | 2023 $: 122\nAdditional paid-in capital \u003E Acquisition-related stock issuance \u2014 2023 $: 4,169\nAdditional paid-in capital \u003E Other issuances of common stock, net \u2014 2025 Shares: 1 | 2025 $: 47 | 2024 Shares: 1 | 2024 $: 38 | 2023 Shares: 1 | 2023 $: 29\nAdditional paid-in capital \u003E Ending balance \u2014 2025 $: 5,122 | 2024 $: 5,530 | 2023 $: 5,496\nCommon stock in treasury, at cost\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Nasdaq\u0027s total stockholders\u0027 equity?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s total stockholders\u0027 equity was $12,227 million as of December 31, 2025. (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements \u003E Consolidated Balance Sheets)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 12,227 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top) - for a calculation, whose result isn\u0027t printed, the figures it\u0027s calculated from, ranked by the last of them. Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py, and matched to its ranks on all 102 questions when ported.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "12,227 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 12,227 from excerpts 1 (balance_sheet), 2 (equity_statement)."
+        },
+        "metadata": {
+          "Stated 12,227": "excerpt 1 (balance_sheet, PART IV \u003E Financial Statements): \u0022Nasdaq stockholders\u2019 equity \u003E Total Nasdaq stockholders\u2019 equity \u2014 2025: 12,227 | 2024: 11,191\u0022; excerpt 2 (equity_statement, PART IV \u003E Financial Statements): \u0022Total Nasdaq stockholders\u2019 equity \u2014 2025 $: 12,227 | 2024 $: 11,191 | 2023 $: 10,816\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0021985,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2524,
+          "outputTokenCount": 50,
+          "totalTokenCount": 2574
+        },
+        "cacheKey": "D394A57652D12C9177891B76E671EA7FC88926AD906030CEAE25F5A195F2B41E0292696F93546B35ED632AC7A753BE50",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "excerpts:5",
+    "embedding:voyage-finance-2",
+    "kind:figure",
+    "has traps",
+    "company:NDAQ",
+    "statement:balance_sheet",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

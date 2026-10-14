@@ -1,0 +1,115 @@
+{
+  "scenarioName": "AnswerSide.A2",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-nomic-rerank3",
+  "creationTime": "2026-10-14T18:34:31.1805531Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Income\n\n(in millions, except per share amounts)\n\nYear Ended December 31,\nOperating income \u2014 2025: 2,331 | 2024: 1,798 | 2023: 1,578\nInterest income \u2014 2025: 39 | 2024: 28 | 2023: 115\nInterest expense \u2014 2025: (367) | 2024: (414) | 2023: (284)\nNet gain on divestitures \u2014 2025: 86\nOther income (loss) \u2014 2025: (27) | 2024: 21 | 2023: (1)\nNet income (loss) from unconsolidated investees \u2014 2025: 83 | 2024: 16 | 2023: (7)\nIncome before income taxes \u2014 2025: 2,145 | 2024: 1,449 | 2023: 1,401\nIncome tax provision \u2014 2025: 358 | 2024: 334 | 2023: 344\nNet income \u2014 2025: 1,787 | 2024: 1,115 | 2023: 1,057\nNet loss attributable to noncontrolling interests \u2014 2025: 1 | 2024: 2 | 2023: 2\nNet income attributable to Nasdaq \u2014 2025: $1,788 | 2024: $1,117 | 2023: $1,059\nPer share information:\nPer share information \u003E Basic earnings per share \u2014 2025: $3.12 | 2024: $1.94 | 2023: $2.10\nPer share information \u003E Diluted earnings per share \u2014 2025: $3.09 | 2024: $1.93 | 2023: $2.08\nPer share information \u003E Cash dividends declared per common share \u2014 2025: $1.05 | 2024: $0.94 | 2023: $0.86\n\nSee accompanying notes to consolidated financial statements.\n\nNasdaq, Inc.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Earnings Per Share ---\r\n\u0060\u0060\u0060\r\n13. EARNINGS PER SHARE\n\nThe following table sets forth the computation of basic and diluted earnings per share:\n\n(in millions, except share and per share amounts) Numerator: Year Ended December 31,\nNet income attributable to common shareholders \u2014 2025: $1,788 | 2024: $1,117 | 2023: $1,059\nDenominator:\nDenominator \u003E Weighted-average common shares outstanding for basic earnings per share \u2014 2025: 573,257,760 | 2024: 575,428,536 | 2023: 504,909,392\nDenominator \u003E Weighted-average effect of dilutive securities - Employee equity awards \u2014 2025: 5,339,927 | 2024: 3,760,986 | 2023: 3,483,590\nDenominator \u003E Weighted-average common shares outstanding for diluted earnings per share \u2014 2025: 578,597,687 | 2024: 579,189,522 | 2023: 508,392,982\nBasic and diluted earnings per share:\nBasic and diluted earnings per share \u003E Basic earnings per share \u2014 2025: $3.12 | 2024: $1.94 | 2023: $2.10\nBasic and diluted earnings per share \u003E Diluted earnings per share \u2014 2025: $3.09 | 2024: $1.93 | 2023: $2.08\n\nIn the table above, employee equity awards from our PSU program, which are considered contingently issuable, are included in the computation of dilutive earnings per share on a weighted average basis when management determines that the applicable performance criteria would have been met if the performance period ended as of the date of the relevant computation.\n\nSecurities that were not included in the computation of diluted earnings per share because their effect was antidilutive were immaterial for the years ended December 31, 2025, 2024 and 2023.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Summary of Significant Accounting Policies ---\r\n\u0060\u0060\u0060\r\nOther revenues also includes revenues related to our Solovis business which was sold in October 2025. See \u201CCapital Access Platforms\u201D of Note 1, \u201COrganization and Nature of Operations,\u201D and Note 4, \u201CAcquisition and Divestitures,\u201D for further discussion. Revenues from this business are reflected in other revenues in the Consolidated Statements of Income for all periods presented. Prior to the sale, these revenues were included in our Capital Access Platforms segment.\n\nThe presentation of the above items within Other revenues is intended to facilitate comparability across periods.\n\nEarnings Per Share\n\nWe present both basic and diluted earnings per share. Basic earnings per share is computed by dividing net income attributable to Nasdaq by the weighted-average number of common shares outstanding for the period. Diluted earnings per share is computed by dividing net income attributable to Nasdaq by the weighted-average number of common shares and common share equivalents outstanding during the period and reflects the assumed conversion of all dilutive securities, which primarily consist of restricted stock, PSUs, and employee stock options. Common share equivalents are excluded from the computation in periods for which they have an anti-dilutive effect. Stock options for which the exercise price exceeds the average market price over the period are anti-dilutive and, accordingly, are excluded from the calculation. Shares which are considered contingently issuable are included in the computation of dilutive earnings per share on a weighted average basis when management determines the applicable performance criteria would have been met if the performance period ended as of the date of the relevant computation. See Note 13, \u201CEarnings Per Share,\u201D for further discussion.\n\nPension, SERP and Other Post-Retirement Benefit Plans\n\nWe maintain nonqualified SERPs for certain senior executives and other post-retirement benefit plans for eligible employees in the U.S. Most employees outside the U.S. are covered by local retirement plans or by applicable social laws. Benefits under social laws are generally expensed in the periods in which the costs are incurred.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\n(in millions, except per share amounts)\nRevenues less transaction- based expenses \u2014 Year Ended December 31, 2025: $5,249 | Year Ended December 31, 2024: $4,649 | Year Ended December 31, 2023: $3,895 | Percentage Change 2025 vs. 2024: 12.9% | Percentage Change 2024 vs. 2023: 19.4%\nOperating expenses \u2014 Year Ended December 31, 2025: 2,918 | Year Ended December 31, 2024: 2,851 | Year Ended December 31, 2023: 2,317 | Percentage Change 2025 vs. 2024: 2.3% | Percentage Change 2024 vs. 2023: 23.0%\nOperating income \u2014 Year Ended December 31, 2025: $2,331 | Year Ended December 31, 2024: $1,798 | Year Ended December 31, 2023: $1,578 | Percentage Change 2025 vs. 2024: 29.7% | Percentage Change 2024 vs. 2023: 13.9%\nNet income attributable to Nasdaq \u2014 Year Ended December 31, 2025: $1,788 | Year Ended December 31, 2024: $1,117 | Year Ended December 31, 2023: $1,059 | Percentage Change 2025 vs. 2024: 60.1% | Percentage Change 2024 vs. 2023: 5.5%\nDiluted earnings per share \u2014 Year Ended December 31, 2025: $3.09 | Year Ended December 31, 2024: $1.93 | Year Ended December 31, 2023: $2.08 | Percentage Change 2025 vs. 2024: 60.3% | Percentage Change 2024 vs. 2023: (7.4)%\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\n(in millions, except per share amounts) Year Ended December 31,\nNon-GAAP net income attributable to Nasdaq \u2014 2025: $2,014 | 2024: $1,631 | 2023: $1,433\nU.S. GAAP effective tax rate \u2014 2025: 16.7% | 2024: 23.1% | 2023: 24.6%\nTotal adjustments from non- GAAP tax rate \u2014 2025: 5.7% | 2024: 0.7% | 2023: 0.4%\nNon-GAAP effective tax rate \u2014 2025: 22.4% | 2024: 23.8% | 2023: 25.0%\nWeighted-average common shares outstanding for diluted earnings per share \u2014 2025: 578.6 | 2024: 579.2 | 2023: 508.4\nU.S. GAAP diluted earnings per share \u2014 2025: $3.09 | 2024: $1.93 | 2023: $2.08\nTotal adjustments from non- GAAP net income \u2014 2025: 0.39 | 2024: 0.89 | 2023: 0.74\nNon-GAAP diluted earnings per share \u2014 2025: $3.48 | 2024: $2.82 | 2023: $2.82\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Nasdaq\u0027s basic earnings per share in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s basic earnings per share in 2025 was $3.12 (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected $3.12."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top) - for a calculation, whose result isn\u0027t printed, the figures it\u0027s calculated from, ranked by the last of them. Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py, and matched to its ranks on all 102 questions when ported.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "3.12 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 3.12 from excerpts 1 (income_statement), 2 (narrative)."
+        },
+        "metadata": {
+          "Stated 3.12": "excerpt 1 (income_statement, PART IV \u003E Financial Statements): \u0022Per share information \u003E Basic earnings per share \u2014 2025: $3.12 | 2024: $1.94 | 2023: $2.10\u0022; excerpt 2 (narrative, PART IV \u003E Financial Statements \u003E Earnings Per Share): \u0022Basic and diluted earnings per share \u003E Basic earnings per share \u2014 2025: $3.12 | 2024: $1.94 | 2023: $2.10\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 51.7381953,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2477,
+          "outputTokenCount": 37,
+          "totalTokenCount": 2514
+        },
+        "cacheKey": "800F1C7A2E7A7277DCBF21A7C3218BC7BDEF7828C34DD6B1CB80A6296B0C626F4C24922FD58FFD99BA66B9CDD28B6117",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "excerpts:5",
+    "embedding:nomic-embed-text",
+    "kind:figure",
+    "has traps",
+    "company:NDAQ",
+    "statement:income_statement",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

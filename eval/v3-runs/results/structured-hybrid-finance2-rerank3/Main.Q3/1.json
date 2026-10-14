@@ -1,0 +1,115 @@
+{
+  "scenarioName": "Main.Q3",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-finance2-rerank3",
+  "creationTime": "2026-10-14T19:20:14.6422417Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Balance Sheets\n\n(in millions, except share and par value amounts)\n\nDecember 31,\nLong-term debt \u2014 2025: 8,573 | 2024: 9,081\nDeferred tax liabilities, net \u2014 2025: 1,584 | 2024: 1,594\nOperating lease liabilities \u2014 2025: 462 | 2024: 388\nOther non-current liabilities \u2014 2025: 241 | 2024: 230\nTotal liabilities \u2014 2025: 18,821 | 2024: 19,195\nCommitments and contingencies\nEquity\nNasdaq stockholders\u2019 equity:\nNasdaq stockholders\u2019 equity \u003E Common stock, $0.01 par value, 900,000,000 shares authorized, shares issued: 594,620,320 at December 31, 2025 and 598,920,378 at December 31, 2024; shares outstanding: 569,894,024 at December 31, 2025 and 575,062,217 at December 31, 2024 \u2014 2025: 6 | 2024: 6\nNasdaq stockholders\u2019 equity \u003E Additional paid-in capital \u2014 2025: 5,122 | 2024: 5,530\nNasdaq stockholders\u2019 equity \u003E Common stock in treasury, at cost: 24,726,296 shares at December 31, 2025 and 23,858,161 shares at December 31, 2024 \u2014 2025: (716) | 2024: (647)\nNasdaq stockholders\u2019 equity \u003E Accumulated other comprehensive loss \u2014 2025: (1,773) | 2024: (2,099)\nNasdaq stockholders\u2019 equity \u003E Retained earnings \u2014 2025: 9,588 | 2024: 8,401\nNasdaq stockholders\u2019 equity \u003E Total Nasdaq stockholders\u2019 equity \u2014 2025: 12,227 | 2024: 11,191\nNoncontrolling interests \u2014 2025: 5 | 2024: 9\nTotal equity \u2014 2025: 12,232 | 2024: 11,200\nTotal liabilities and equity \u2014 2025: $31,053 | 2024: $30,395\n\nSee accompanying notes to consolidated financial statements.\n\nNasdaq, Inc.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Balance Sheets\n\n(in millions, except share and par value amounts)\n\nDecember 31,\nAssets\nCurrent assets:\nCurrent assets \u003E Cash and cash equivalents \u2014 2025: $604 | 2024: $592\nCurrent assets \u003E Restricted cash and cash equivalents \u2014 2025: 210 | 2024: 31\nCurrent assets \u003E Default funds and margin deposits (including restricted cash and cash equivalents of $3,120 and $4,383, respectively) \u2014 2025: 5,842 | 2024: 5,664\nCurrent assets \u003E Financial investments \u2014 2025: 28 | 2024: 184\nCurrent assets \u003E Receivables, net \u2014 2025: 943 | 2024: 1,022\nCurrent assets \u003E Other current assets \u2014 2025: 376 | 2024: 293\nCurrent assets \u003E Total current assets \u2014 2025: 8,003 | 2024: 7,786\nProperty and equipment, net \u2014 2025: 728 | 2024: 593\nGoodwill \u2014 2025: 14,371 | 2024: 13,957\nIntangible assets, net \u2014 2025: 6,511 | 2024: 6,905\nOperating lease assets \u2014 2025: 447 | 2024: 375\nOther non-current assets \u2014 2025: 993 | 2024: 779\nTotal assets \u2014 2025: $31,053 | 2024: $30,395\nLiabilities\nCurrent liabilities:\nCurrent liabilities \u003E Accounts payable and accrued expenses \u2014 2025: $280 | 2024: $269\nCurrent liabilities \u003E Section 31 fees payable to SEC \u2014 2024: 319\nCurrent liabilities \u003E Accrued personnel costs \u2014 2025: 364 | 2024: 325\nCurrent liabilities \u003E Deferred revenue \u2014 2025: 785 | 2024: 711\nCurrent liabilities \u003E Other current liabilities \u2014 2025: 259 | 2024: 215\nCurrent liabilities \u003E Default funds and margin deposits \u2014 2025: 5,842 | 2024: 5,664\nCurrent liabilities \u003E Short-term debt \u2014 2025: 431 | 2024: 399\nCurrent liabilities \u003E Total current liabilities \u2014 2025: 7,961 | 2024: 7,902\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Leases ---\r\n\u0060\u0060\u0060\r\n16. LEASES\n\nWe have operating leases, which are primarily real estate leases, predominantly for our U.S. and European headquarters, data centers and for general office space. The following table provides supplemental balance sheet information related to Nasdaq\u2019s operating leases:\n\n(in millions) Assets:\nOperating lease assets \u2014 Balance Sheet Classification: Operating lease assets | December 31, 2025: $447 | December 31, 2024: $375\nLiabilities:\nLiabilities \u003E Current lease liabilities \u2014 Balance Sheet Classification: Other current liabilities | December 31, 2025: $60 | December 31, 2024: $55\nLiabilities \u003E Non- current lease liabilities \u2014 Balance Sheet Classification: Operating lease liabilities | December 31, 2025: 462 | December 31, 2024: 388\nLiabilities \u003E Total lease liabilities \u2014 December 31, 2025: $522 | December 31, 2024: $443\n\nThe following table summarizes Nasdaq\u2019s lease cost:\n\n(in millions) Year Ended December 31,\nOperating lease cost \u2014 2025: $82 | 2024: $78 | 2023: $88\nVariable lease cost \u2014 2025: 44 | 2024: 37 | 2023: 44\nSublease income \u2014 2025: (2) | 2024: (3) | 2023: (3)\nTotal lease cost \u2014 2025: $124 | 2024: $112 | 2023: $129\n\nIn the table above, operating lease costs include short-term lease costs, which were immaterial.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART I \u003E Item 1A. Risk Factors ---\r\n\u0060\u0060\u0060\r\n\u2022 risks associated with divesting employees, customers or vendors when divesting businesses or assets;\n\n\u2022 declines in the value of investments;\n\n\u2022 exposure to unanticipated liabilities, including after a transaction is completed;\n\n\u2022 incurred but unreported claims for an acquired company; and\n\n\u2022 difficulties in realizing projected efficiencies and synergies.\n\nRISKS RELATED TO LIQUIDITY AND CAPITAL RESOURCES\n\nA downgrade of our credit rating could increase the cost of our funding from the capital markets.\n\nOur debt is currently rated investment grade by two of the major rating agencies. These rating agencies regularly evaluate us, and their ratings of our long-term debt and commercial paper are based on a number of factors, including our financial strength and corporate development activity, as well as factors not entirely within our control, including conditions affecting our industry generally. There can be no assurance that we will maintain our current ratings. Our failure to maintain such ratings could reduce or eliminate our ability to issue commercial paper and adversely affect the cost and other terms upon which we are able to obtain funding and increase our cost of capital. A reduction in credit ratings would also result in increases in the cost of our commercial paper and other outstanding debt as the interest rate on the outstanding amounts under our credit facilities and our senior notes fluctuates based on our credit ratings.\n\nOur leverage limits our financial flexibility, increases our exposure to weakening economic conditions and may adversely affect our ability to obtain additional financing.\n\nOur indebtedness as of December 31, 2025 was $9.0 billion. We may borrow additional amounts by utilizing available liquidity under our existing credit facilities, issuing additional debt securities or issuing short-term, unsecured commercial paper notes through our commercial paper program.\n\nOur leverage and reliance on the capital markets could:\n\n\u2022 reduce funds available to us for operations and general corporate purposes or for capital expenditures as a result of the dedication of a substantial portion of our consolidated cash flow from operations to the payment of principal and interest on our indebtedness;\n\n\u2022 increase our exposure to a continued downturn in general economic conditions;\n\n\u2022 place us at a competitive disadvantage compared with our competitors with less debt;\n\n\u2022 affect our ability to obtain additional financing in the future for refinancing indebtedness, acquisitions, working capital, capital expenditures or other purposes; and\n\n\u2022 increase our cost of debt and reduce or eliminate our ability to issue commercial paper.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Statements of Cash Flows\n\n(in millions)\n\nYear Ended December 31,\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Receivables, net \u2014 2025: 91 | 2024: (193) | 2023: 3\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Other assets \u2014 2025: (96) | 2024: (50) | 2023: 9\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Accounts payable and accrued expenses \u2014 2025: (6) | 2024: (60) | 2023: 149\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Section 31 fees payable to SEC \u2014 2025: (319) | 2024: 235 | 2023: (160)\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Accrued personnel costs \u2014 2025: 25 | 2024: 34 | 2023: 13\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Deferred revenue \u2014 2025: 69 | 2024: 67 | 2023: 88\nNet change in operating assets and liabilities, excluding the effects of divestitures \u003E Other liabilities \u2014 2025: 1 | 2024: 13 | 2023: (63)\nNet cash provided by operating activities \u2014 2025: 2,255 | 2024: 1,939 | 2023: 1,696\nCash flows from investing activities:\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Nasdaq\u0027s total liabilities?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s total liabilities were $18,821 million as of December 31, 2025. (Source: NDAQ-10K-2025.html, PART IV \u003E Financial Statements)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 18,821 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top) - for a calculation, whose result isn\u0027t printed, the figures it\u0027s calculated from, ranked by the last of them. Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py, and matched to its ranks on all 102 questions when ported.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "18,821 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 18,821 from excerpt 1 (balance_sheet)."
+        },
+        "metadata": {
+          "Stated 18,821": "excerpt 1 (balance_sheet, PART IV \u003E Financial Statements): \u0022Total liabilities \u2014 2025: 18,821 | 2024: 19,195\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 60.0309671,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2621,
+          "outputTokenCount": 42,
+          "totalTokenCount": 2663
+        },
+        "cacheKey": "25B68340E5980C2DDAAFA4ECE495F17EEADF6986FE8FF2887D3097D7B12D169094B1A4BC81B52C9CCCBF57E100EACD22",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "excerpts:5",
+    "embedding:voyage-finance-2",
+    "kind:figure",
+    "has traps",
+    "company:NDAQ",
+    "statement:balance_sheet",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

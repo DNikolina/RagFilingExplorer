@@ -132,7 +132,11 @@ declared" dividends, is a fact whose clean decline also passes - it was a negati
 Design-FAQ (embedding models tried; why Voyage), `Claude:GenerationTopK` 5 -> 8 (user). **Batch 3 complete.** Defaults
 unchanged otherwise: nomic and llama, free. **Batch 4 planned (user, 2026-10-14): a paid reranker** - Voyage's `rerank-3`
 and `rerank-3-lite` (200M free tokens each) behind the local reranker's interface, screened retrieval-only on nomic and
-finance-2 before any answers; Decision-Log.md, "Batch 4 - a paid reranker". The Mac work becomes batch 5; then closing v4.
+finance-2 before any answers; Decision-Log.md, "Batch 4 - a paid reranker". Steps 1-3 done: `VoyageReranker` behind
+`IRelevanceScorer` (`Providers:Rerank`); retrieval-only, `rerank-3` lifts recall@5 nomic 86 -> 94, finance-2 91 -> 95
+(of 95), MRR ~0.75 -> ~0.94, no answer lost; `rerank-3-lite` one behind. **Step 4 (llama):** nomic + `rerank-3` 86/102
+(85 without), finance-2 + `rerank-3` 87 (87) - every failure now a misreading with the answer at rank 1-3. Reranking
+stays off by default (user): the shipped default stays free. The Mac work becomes batch 5; then closing v4.
 
 **Latest full run (2026-09-24, temperature 0):** 24/24 on `tools/manual-questions.txt`, every filter as
 expected, on both chunking strategies; `tools/replay_recall.py` 22/22 answerable questions with the

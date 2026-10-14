@@ -1,0 +1,119 @@
+{
+  "scenarioName": "HeldOut.H6",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-finance2-rerank3",
+  "creationTime": "2026-10-14T19:38:54.7132202Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nTotal services revenues increased by $510 million in reported currency in fiscal 2026 relative to fiscal 2025. Excluding the favorable impact of currency rate fluctuations of 2% in fiscal 2026, the increase in services revenues was primarily due to increases in our consulting services revenues in fiscal 2026 relative to fiscal 2025. The constant currency increase in services revenues in the Americas region was partially offset by a constant currency decrease in services revenues in the EMEA and the Asia Pacific regions in fiscal 2026.\n\nTotal services expenses decreased by $30 million in reported currency in fiscal 2026 relative to fiscal 2025. Excluding the unfavorable effects of currency rate fluctuations of 1% in fiscal 2026, the constant currency decrease in services expenses was primarily due to a $54 million decrease in employee-related expenses and a $53 million decrease in bad debt expenses, partially offset by a $37 million increase in external contractor expenses, in each case during fiscal 2026 relative to fiscal 2025.\n\nIn constant currency, our services business\u2019 total margin and total margin as a percentage of revenues increased in fiscal 2026 relative to fiscal 2025 due to higher total revenues and lower total expenses for this business as described above.\n\nResearch and Development Expenses: Research and development expenses consist primarily of personnel-related expenditures. We intend to continue to invest significantly in our research and development efforts because, in our judgment, they are essential to maintaining our competitive position.\n\n(Dollars in millions) Year Ended May 31,\nResearch and development(1) \u2014 2026: $7,467 | Percent Change Actual: 3% | Percent Change Constant: 3% | 2025: $7,222\nStock-based compensation \u2014 2026: 2,805 | Percent Change Actual: 6% | Percent Change Constant: 6% | 2025: 2,638\nTotal expenses \u2014 2026: $10,272 | Percent Change Actual: 4% | Percent Change Constant: 4% | 2025: $9,860\n% of Total Revenues \u2014 2026: 15% | 2025: 17%\n\n(1) Excluding stock-based compensation\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF OPERATIONS\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions, except per share data) Year Ended May 31,\nOperating expenses \u003E Cloud and software(1) \u2014 2026: 17,597 | 2025: 11,569 | 2024: 9,427\nOperating expenses \u003E Hardware(1) \u2014 2026: 868 | 2025: 782 | 2024: 891\nOperating expenses \u003E Services(1) \u2014 2026: 4,556 | 2025: 4,576 | 2024: 4,825\nOperating expenses \u003E Sales and marketing(1) \u2014 2026: 8,331 | 2025: 8,651 | 2024: 8,274\nOperating expenses \u003E Research and development \u2014 2026: 10,272 | 2025: 9,860 | 2024: 8,915\nOperating expenses \u003E General and administrative \u2014 2026: 1,618 | 2025: 1,602 | 2024: 1,548\nOperating expenses \u003E Amortization of intangible assets \u2014 2026: 1,671 | 2025: 2,307 | 2024: 3,010\nOperating expenses \u003E Restructuring and other \u2014 2026: 1,838 | 2025: 374 | 2024: 718\nOperating expenses \u003E Total operating expenses \u2014 2026: 46,751 | 2025: 39,721 | 2024: 37,608\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\n(1) Excluding stock-based compensation\n\nTotal research and development expenses increased by $412 million in reported currency in fiscal 2026 relative to fiscal 2025. Excluding the favorable effects of currency rate fluctuations of less than 1% in fiscal 2026, the constant currency increase in research and development expenses was primarily due to a $234 million increase in employee-related expenses, including stock-based compensation, and a $132 million increase in computer equipment expenses in fiscal 2026 relative to fiscal 2025.\n\nGeneral and Administrative Expenses: General and administrative expenses primarily consist of personnel-related expenditures for IT, finance, legal and human resources support functions.\n\n(Dollars in millions) Year Ended May 31,\nGeneral and administrative(1) \u2014 2026: $1,230 | Percent Change Actual: 6% | Percent Change Constant: 4% | 2025: $1,163\nStock-based compensation \u2014 2026: 388 | Percent Change Actual: -12% | Percent Change Constant: -12% | 2025: 439\nTotal expenses \u2014 2026: $1,618 | Percent Change Actual: 1% | Percent Change Constant: 0% | 2025: $1,602\n% of Total Revenues \u2014 2026: 2% | 2025: 3%\n\n(1) Excluding stock-based compensation\n\nTotal general and administrative expenses increased by $16 million in reported currency in fiscal 2026 relative to fiscal 2025. Excluding the unfavorable effects of currency rate fluctuations of 1% in fiscal 2026, general and administrative expenses in constant currency remained flat in fiscal 2026 relative to fiscal 2025.\n\nAmortization of Intangible Assets: Substantially all our intangible assets were acquired through our business combinations. We amortize our intangible assets over, and monitor the appropriateness of, the estimated useful lives of these assets. We also periodically review these intangible assets for potential impairment based upon relevant facts and circumstances. Refer to Note 5 of Notes to Consolidated Financial Statements included elsewhere in this Annual Report for additional information regarding our intangible assets and related amortization.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nOracle hardware products include Oracle Engineered Systems, servers, storage and industry-specific products, among others. Customers generally opt to purchase hardware support contracts when they purchase Oracle hardware products.\n\nOracle also offers professional services to assist our customers and partners to maximize the performance of their investments in Oracle products and services.\n\nOur global customer base includes businesses of various sizes and industries, government agencies, educational institutions and resellers that we market and sell to directly through our worldwide sales force or indirectly through the Oracle Partner Network. Using Oracle technologies, our customers build, deploy, run, manage and support their products and services and critical business operations. We feature a wide range of customer success stories using Oracle technologies to modernize and transform their businesses at www.oracle.com/customers.\n\nOur investments in and innovation with respect to Oracle products and services that we offer through our three businesses (cloud and software, hardware and services businesses, described further below) are another important element of our corporate strategy. In fiscal 2026, 2025 and 2024, we invested $10.3 billion, $9.9 billion and $8.9 billion, respectively, in research and development to enhance our existing portfolio of offerings and to develop new technologies and services. We have a deep understanding of how applications and infrastructure technologies interact and function with one another, including using OCI to power our OCA, which we and our customers use to run internal business processes. We focus our development efforts on improving the performance, security, reliability, operation, integration and cost-effectiveness of our offerings relative to our competitors; facilitating the ease with which organizations are able to deploy, use, manage and maintain our offerings; and incorporating emerging technologies, such as AI, within our offerings to enable leaner business processes, automation and innovation.\n\nAfter an initial purchase of Oracle products and services, our customers can continue to benefit from our offerings, research and development efforts and deep IT expertise by electing to purchase and renew Oracle support offerings for their software and hardware deployments, which may include unspecified product upgrades and enhancements that we periodically deliver to our products, and by renewing their Oracle Cloud contracts with us.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\n(3) Stock-based compensation was included in the following operating expense line items of our consolidated statements of operations (in millions):\n\nYear Ended May 31,\nCloud and software \u2014 2026: $622 | 2025: $609\nHardware \u2014 2026: 27 | 2025: 29\nServices \u2014 2026: 210 | 2025: 202\nSales and marketing \u2014 2026: 759 | 2025: 757\nStock-based compensation, operating segments \u2014 2026: 1,618 | 2025: 1,597\nResearch and development \u2014 2026: 2,805 | 2025: 2,638\nGeneral and administrative \u2014 2026: 388 | 2025: 439\nTotal stock-based compensation \u2014 2026: $4,811 | 2025: $4,674\n\n(4) For fiscal 2026 and 2025, the applicable jurisdictional tax rates were applied to our income before income taxes after excluding the tax effects of items within the table above such as for stock-based compensation, amortization of intangible assets, restructuring and other expenses, and after excluding the net deferred tax effects associated with a previously recorded income tax benefit that resulted from a partial realignment of our legal entity structure; and for fiscal 2026, after excluding the impact of the U.S. One, Big, Beautiful Bill Act related to the remeasurement of a deferred tax liability. These adjustments resulted in an effective tax rate of 19.9%, instead of 12.6%, for fiscal 2026 and 19.7%, instead of 12.1%, for fiscal 2025, which in each case represented our effective tax rates as derived per our consolidated statements of operations.\n\nCloud and Software Business\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What were Oracle\u0027s total research and development expenses in fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s total research and development expenses in fiscal 2026 were $7,467 million (Source: ORCL-10K-2026.html, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "States 7,467 (MD\u0026A, excluding stock-based compensation) instead of the expected 10,272 million."
+        },
+        "metadata": {
+          "Grader note": "trap 7,467"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top) - for a calculation, whose result isn\u0027t printed, the figures it\u0027s calculated from, ranked by the last of them. Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py, and matched to its ranks on all 102 questions when ported.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "10,272 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "A misreading - every figure is in an excerpt: 7,467 from excerpt 1 (narrative); the expected 10,272 was in excerpts 1 (narrative), 2 (income_statement)."
+        },
+        "metadata": {
+          "Stated 7,467": "excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Research and development(1) \u2014 2026: $7,467 | Percent Change Actual: 3% | Percent Change Constant: 3% | 2025: $7,222\u0022",
+          "Expected 10,272": "excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Total expenses \u2014 2026: $10,272 | Percent Change Actual: 4% | Percent Change Constant: 4% | 2025: $9,860\u0022; excerpt 2 (income_statement, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Operating expenses \u003E Research and development \u2014 2026: 10,272 | 2025: 9,860 | 2024: 8,915\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0010828,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2538,
+          "outputTokenCount": 52,
+          "totalTokenCount": 2590
+        },
+        "cacheKey": "E6F4A2CC9A4C501288395C8074FC1FD3F0F87F9A44C716E0DAD96EC7135DD832B23DE16F9446E9C69595A7F82F151A54",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "excerpts:5",
+    "embedding:voyage-finance-2",
+    "kind:figure",
+    "has traps",
+    "company:ORCL",
+    "statement:none",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

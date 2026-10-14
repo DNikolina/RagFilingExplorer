@@ -1,0 +1,217 @@
+Variance across 2 executions: structured-hybrid-finance2-500, structured-hybrid-finance2-rerank3
+102 questions answered in every execution.
+
+All: identical 35  wording 53  figures 5  grade 9
+AnswerSide: identical 8  wording 14  figures 2  grade 3
+HeldOut: identical 16  wording 16  figures 1  grade 2
+Main: identical 11  wording 23  figures 2  grade 4
+
+Pairs (same text / same grade):
+  structured-hybrid-finance2-500 vs structured-hybrid-finance2-rerank3: 35/102 / 93/102
+
+Grade (9):
+  AnswerSide.A10
+    [structured-hybrid-finance2-500] reliable, figures 26,445 (traced): Microsoft paid $26,445 million in common stock cash dividends in fiscal 2026. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Retained earnings > Common stock cash dividends)
+    [structured-hybrid-finance2-rerank3] wrong, figures 27,034 (traced): Microsoft paid $27,034 million in common stock cash dividends in fiscal 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data > Retained earnings > Common stock cash dividends).
+  AnswerSide.A4
+    [structured-hybrid-finance2-500] wrong, figures 2,145 (traced): Nasdaq's operating income in 2025 was $2,145 million (Source: NDAQ-10K-2025.html, PART IV > Financial Statements).
+    [structured-hybrid-finance2-rerank3] reliable, figures 2,331 (traced): Nasdaq's operating income in 2025 was $2,331 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements and PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  AnswerSide.A7
+    [structured-hybrid-finance2-500] wrong, figures 3,934 (traced): Nasdaq's cash and cash equivalents at December 31, 2025 were $3,934 million (Source: NDAQ-10K-2025.html, PART IV > Financial Statements).
+    [structured-hybrid-finance2-rerank3] reliable, figures 604 (traced): Nasdaq's cash and cash equivalents were $604 million as of December 31, 2025. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements and PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  HeldOut.H13
+    [structured-hybrid-finance2-500] wrong, figures 5,214,163 (traced): Netflix's cash and cash equivalents at December 31, 2025 were $5,214,163 (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Cash, Cash Equivalents, Restricted Cash, and Short-term Investments).
+    [structured-hybrid-finance2-rerank3] reliable, figures 9,033,681 (traced): Netflix's cash and cash equivalents at December 31, 2025 were $9,033,681 thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Cash, Cash Equivalents, Restricted Cash, and Short-term Investments).
+  HeldOut.H6
+    [structured-hybrid-finance2-500] reliable, figures 10,272 (traced): Oracle's total research and development expenses in fiscal 2026 were $10,272 million. (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+    [structured-hybrid-finance2-rerank3] wrong, figures 7,467 (traced): Oracle's total research and development expenses in fiscal 2026 were $7,467 million (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations).
+  Main.Q24
+    [structured-hybrid-finance2-500] reliable, figures 27,034 (traced): Microsoft's statement of stockholders' equity showed that common stock cash dividends were $(27,034) million for the fiscal year ended June 30, 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA).
+    [structured-hybrid-finance2-rerank3] wrong, figures 26,445 (traced): Microsoft's statement of stockholders' equity showed that common stock cash dividends in fiscal year 2026 were $(26,445) million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > CASH FLOWS STATEMENTS)
+  Main.T6
+    [structured-hybrid-finance2-500] reliable, figures 7,952 (traced): The goodwill balance of Nasdaq's Financial Technology segment at December 31, 2025 was $7,952 million (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Goodwill and Acquired Intangible Assets).
+    [structured-hybrid-finance2-rerank3] wrong, figures 7,947 (traced): The goodwill balance of Nasdaq's Financial Technology segment at December 31, 2025 was $7,947 million (Source: NDAQ-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations).
+  Main.T9
+    [structured-hybrid-finance2-500] check, figures 1.70 (traced): Oracle declared $1.70 per share in common stock dividends in fiscal 2025, which is a total of $1.70 per share multiplied by the number of shares, but the number of shares is not stated in the excerpts.
+    [structured-hybrid-finance2-rerank3] wrong, figures 1.70 (traced): Oracle declared cash dividends of $1.70 per share of common stock in fiscal 2025, which is stated in the excerpt from ORCL-10K-2026.html, section PART IV > Item 15. Exhibits and Financial Statement Schedules (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules).
+  Main.V1
+    [structured-hybrid-finance2-500] wrong, figures 942 (traced): Nasdaq's total comprehensive income for 2024 was $942 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements, Consolidated Statements of Comprehensive Income)
+    [structured-hybrid-finance2-rerank3] reliable, figures 940 (traced): Nasdaq's total comprehensive income for 2024 was $940 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements, Consolidated Statements of Comprehensive Income)
+
+Figures (5):
+  AnswerSide.A25
+    [structured-hybrid-finance2-500] wrong, figures 1,219 601 618 (calculated): Nasdaq returned $1,219 million to shareholders in 2025 through dividends paid and share repurchases combined. The dividends paid were $601 million (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Consolidated Statements of Cash Flows) and the share repurchases were $618 million (Source: NDAQ-10K-2025.html, PART II > Item 5. Market for Registrant’s Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities).
+    [structured-hybrid-finance2-rerank3] wrong, figures 2,569 (calculated): Nasdaq returned $2,569 million to shareholders in 2025 through dividends paid and share repurchases combined. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Consolidated Statements of Cash Flows and PART IV > Financial Statements > Nasdaq Stockholders’ Equity)
+  AnswerSide.A27
+    [structured-hybrid-finance2-500] wrong, figures 100 17,087 17,087,000,000 25.3 67,357 67,357,000,000 (calculated): Oracle's net income was $17,087 million and its total revenues were $67,357 million in fiscal 2026. To calculate the percentage, we divide the net income by the total revenues: ($17,087,000,000 ÷ $67,357,000,000) × 100% ≈ 25.3%. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)
+    [structured-hybrid-finance2-rerank3] wrong, figures 25.7 (calculated): Oracle's net income as a percentage of its total revenues in fiscal 2026 was 25.7%. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules, and PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  HeldOut.H34
+    [structured-hybrid-finance2-500] wrong, figures 9.1 (traced): Netflix spent $9.1 billion repurchasing its common stock in 2025 (Source: NFLX-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations).
+    [structured-hybrid-finance2-rerank3] wrong, figures 86,536,215 9.1 (traced): Netflix repurchased 86,536,215 shares of common stock for an aggregate amount of $9.1 billion in 2025. (Source: NFLX-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  Main.Q14
+    [structured-hybrid-finance2-500] reliable, figures 264,482 331,839 67,357 (untraced): Microsoft's total revenue for the year ended June 30, 2026 was $331,839 million, while Oracle's total revenue for the year ended May 31, 2026 was $67,357 million. Therefore, Microsoft's total revenue was $264,482 million more than Oracle's. (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data; ORCL-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data)
+    [structured-hybrid-finance2-rerank3] reliable, figures 331,839 67,357 (traced): Microsoft's total revenue for 2026 was $331,839 million, while Oracle's total revenue for 2026 was $67,357 million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA; ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)
+  Main.V3
+    [structured-hybrid-finance2-500] wrong, figures 10,149,273 7,274,301 7,361,364 (traced): Netflix's net cash provided by operating activities for the year ended December 31, 2025 was $10,149,273 thousand, for the year ended December 31, 2024 was $7,361,364 thousand, and for the year ended December 31, 2023 was $7,274,301 thousand.
+    [structured-hybrid-finance2-rerank3] wrong, figures 10,149,273 24,484,938 7,274,301 7,361,364 (calculated): Netflix's net cash provided by operating activities for the year ended December 31, 2025 was $10,149,273 thousand, for the year ended December 31, 2024 was $7,361,364 thousand, and for the year ended December 31, 2023 was $7,274,301 thousand. The total is $24,484,938 thousand. (Source: NFLX-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations and PART IV > Financial Statements)
+
+Wording (53):
+  AnswerSide.A1
+    [structured-hybrid-finance2-500] reliable, figures 17.95 (traced): Microsoft's diluted earnings per share for fiscal year 2026 were $17.95. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Earnings Per Share)
+    [structured-hybrid-finance2-rerank3] reliable, figures 17.95 (traced): Microsoft's diluted earnings per share for fiscal year 2026 were $17.95. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
+  AnswerSide.A11
+    [structured-hybrid-finance2-500] wrong, figures 5.7 63 (traced): Oracle paid $63 million in dividends to its holders of Mandatory Convertible Preferred Stock and $5.7 billion in dividends to its holders of common stock in fiscal 2026. (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+    [structured-hybrid-finance2-rerank3] wrong, figures 5.7 63 (traced): Oracle paid $63 million in dividends to its stockholders of Mandatory Convertible Preferred Stock and $5.7 billion in dividends to its stockholders of common stock in fiscal 2026. (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  AnswerSide.A12
+    [structured-hybrid-finance2-500] decline-ok, figures - (no figure stated): The excerpts don't contain the cash dividends per share that Netflix declared in 2025.
+    [structured-hybrid-finance2-rerank3] decline-ok, figures - (no figure stated): The excerpts don't contain the cash dividends per share declared by Netflix in 2025.
+  AnswerSide.A13
+    [structured-hybrid-finance2-500] reliable, figures 115,948 (traced): Microsoft spent $115,948 million on additions to property and equipment in fiscal 2026. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > CASH FLOWS STATEMENTS)
+    [structured-hybrid-finance2-rerank3] reliable, figures 115,948 (traced): Microsoft spent $115,948 million on additions to property and equipment in fiscal 2026. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
+  AnswerSide.A15
+    [structured-hybrid-finance2-500] wrong, figures 16,719 (traced): Microsoft spent $16,719 million in fiscal 2026 repurchasing its common stock. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Stockholders' Equity)
+    [structured-hybrid-finance2-rerank3] wrong, figures 16,719 (traced): Microsoft spent $16,719 million repurchasing its common stock in fiscal 2026. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Stockholders' Equity)
+  AnswerSide.A16
+    [structured-hybrid-finance2-500] reliable, figures 616 (traced): Nasdaq spent $616 million in total purchase price to repurchase its common stock in 2025 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Nasdaq Stockholders’ Equity).
+    [structured-hybrid-finance2-rerank3] reliable, figures 616 (traced): Nasdaq spent $616 million in cash repurchasing its common stock in 2025 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Consolidated Statements of Cash Flows).
+  AnswerSide.A17
+    [structured-hybrid-finance2-500] reliable, figures 13,463,971 (traced): Netflix's long-term debt at December 31, 2025 was $13,463,971 thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements).
+    [structured-hybrid-finance2-rerank3] reliable, figures 13,463,971 (traced): Netflix's long-term debt at December 31, 2025 was $13,463,971 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements)
+  AnswerSide.A2
+    [structured-hybrid-finance2-500] reliable, figures 3.12 (traced): Nasdaq's basic earnings per share in 2025 were $3.12 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements).
+    [structured-hybrid-finance2-rerank3] reliable, figures 3.12 (traced): Nasdaq's basic earnings per share in 2025 was $3.12 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements).
+  AnswerSide.A20
+    [structured-hybrid-finance2-500] reliable, figures 3,301,306 (traced): Netflix's sales and marketing expenses in 2025 were $3,301,306 thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements and PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations).
+    [structured-hybrid-finance2-rerank3] reliable, figures 3,301,306 (traced): Netflix's sales and marketing expenses in 2025 were $3,301,306 thousand. (Source: NFLX-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  AnswerSide.A21
+    [structured-hybrid-finance2-500] wrong, figures 12,443 17,087 (traced): Oracle's combined net income for fiscal 2025 and fiscal 2026 was $17,087 million for 2026 and $12,443 million for 2025. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules, CONSOLIDATED STATEMENTS OF OPERATIONS)
+    [structured-hybrid-finance2-rerank3] wrong, figures 12,443 17,087 (traced): Oracle's combined net income for fiscal 2025 and fiscal 2026 was $17,087 million for 2026 and $12,443 million for 2025. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)
+  AnswerSide.A22
+    [structured-hybrid-finance2-500] reliable, figures 533 (calculated): Nasdaq's operating income increased by $533 million from 2024 to 2025. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements)
+    [structured-hybrid-finance2-rerank3] reliable, figures 533 (calculated): Nasdaq's operating income increased by $533 million from 2024 to 2025. (Source: NDAQ-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations and PART IV > Financial Statements)
+  AnswerSide.A24
+    [structured-hybrid-finance2-500] no-unit, figures 10,981,201 25,100,822 5,407,990 8,711,631 (calculated): The total net income for 2023, 2024, and 2025 is $10,981,201 + $8,711,631 + $5,407,990 = $25,100,822. (Source: NFLX-10K-2025.html, PART IV > Financial Statements)
+    [structured-hybrid-finance2-rerank3] no-unit, figures 10,981,201 25,100,822 5,407,990 8,711,631 (calculated): The total net income for 2023, 2024, and 2025 was $10,981,201 + $8,711,631 + $5,407,990 = $25,100,822. (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Segment and Geographic Information and PART IV > Financial Statements > Consolidated Statements of Operations)
+  AnswerSide.A3
+    [structured-hybrid-finance2-500] reliable, figures 315,989 (traced): Microsoft's total liabilities as of June 30, 2026 were $315,989 million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
+    [structured-hybrid-finance2-rerank3] reliable, figures 315,989 (traced): Microsoft's total liabilities as of June 30, 2026, were $315,989 million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
+  AnswerSide.A5
+    [structured-hybrid-finance2-500] reliable, figures 19,554 (traced): Oracle's income before income taxes in fiscal 2026 was $19,554 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules > Segment Information)
+    [structured-hybrid-finance2-rerank3] reliable, figures 19,554 (traced): Oracle's income before income taxes in fiscal 2026 was $19,554 million (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules > CONSOLIDATED STATEMENTS OF OPERATIONS).
+  HeldOut.H10
+    [structured-hybrid-finance2-500] reliable, figures 9,525 (traced): As of December 31, 2025, Nasdaq had 9,525 full and part-time employees, including employees of non-wholly owned consolidated subsidiaries. (Source: NDAQ-10K-2025.html, PART I > Item 1. Business)
+    [structured-hybrid-finance2-rerank3] reliable, figures 9,525 (traced): As of December 31, 2025, Nasdaq had 9,525 full and part-time employees, including employees of non-wholly owned consolidated subsidiaries. (Source: NDAQ-10K-2025.html, PART I > Item 1. Business and PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  HeldOut.H11
+    [structured-hybrid-finance2-500] reliable, figures - (no figure stated): Nasdaq's U.S. headquarters are located in New York, New York. (Source: NDAQ-10K-2025.html, PART I > Item 2. Properties)
+    [structured-hybrid-finance2-rerank3] reliable, figures - (no figure stated): Nasdaq's U.S. headquarters is located in New York, New York (Source: NDAQ-10K-2025.html, PART I > Item 2. Properties).
+  HeldOut.H12
+    [structured-hybrid-finance2-500] reliable, figures 16,000 (traced): Netflix had approximately 16,000 full-time employees as of December 31, 2025. (Source: NFLX-10K-2025.html, PART I > Item 1. Business)
+    [structured-hybrid-finance2-rerank3] reliable, figures 16,000 (traced): As of December 31, 2025, Netflix had approximately 16,000 full-time employees. (Source: NFLX-10K-2025.html, PART I > Item 1. Business)
+  HeldOut.H14
+    [structured-hybrid-finance2-500] reliable, figures 1,776 (traced): Netflix's total deferred revenue as of December 31, 2025 was $1,776 million. (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Revenue Recognition)
+    [structured-hybrid-finance2-rerank3] reliable, figures 1,776 (traced): As of December 31, 2025, Netflix's total deferred revenue was $1,776 million. (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Revenue Recognition)
+  HeldOut.H16
+    [structured-hybrid-finance2-500] reliable, figures 3.64 (traced): Microsoft's cash dividends declared per common share in fiscal year 2026 were $3.64. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Stockholders' Equity)
+    [structured-hybrid-finance2-rerank3] reliable, figures 3.64 (traced): Microsoft's cash dividends declared per common share in fiscal year 2026 were $3.64. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
+  HeldOut.H19
+    [structured-hybrid-finance2-500] reliable, figures 119,651 (traced): Microsoft's goodwill balance as of June 30, 2026 was $119,651 million (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA).
+    [structured-hybrid-finance2-rerank3] reliable, figures 119,651 (traced): Microsoft's goodwill balance as of June 30, 2026 was $119,651 million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
+  HeldOut.H21
+    [structured-hybrid-finance2-500] reliable, figures 20,606 (traced): Oracle's operating income in fiscal 2026 was $20,606 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)
+    [structured-hybrid-finance2-rerank3] reliable, figures 20,606 (traced): Oracle's operating income in fiscal 2026 was $20,606 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules > CONSOLIDATED STATEMENTS OF OPERATIONS)
+  HeldOut.H22
+    [structured-hybrid-finance2-500] reliable, figures 5.94 (traced): Oracle's basic earnings per share for fiscal 2026 were $5.94 (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules).
+    [structured-hybrid-finance2-rerank3] reliable, figures 5.94 (traced): Oracle's basic earnings per share for fiscal 2026 was $5.94 (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules > Earnings Per Share).
+  HeldOut.H23
+    [structured-hybrid-finance2-500] reliable, figures 44,478 (traced): Oracle generated $44,478 million in revenue in the Americas in fiscal 2026 (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations).
+    [structured-hybrid-finance2-rerank3] reliable, figures 44,478 (traced): Oracle generated $44,478 million in revenue in the Americas in fiscal 2026. (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  HeldOut.H26
+    [structured-hybrid-finance2-500] reliable, figures 1,788 (traced): Net income attributable to Nasdaq in 2025 was $1,788 million (Source: NDAQ-10K-2025.html, PART IV > Financial Statements).
+    [structured-hybrid-finance2-rerank3] reliable, figures 1,788 (traced): Net income attributable to Nasdaq in 2025 was $1,788 million (Source: NDAQ-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations).
+  HeldOut.H28
+    [structured-hybrid-finance2-500] reliable, figures 8,573 (traced): Nasdaq's long-term debt at December 31, 2025 was $8,573 million (Source: NDAQ-10K-2025.html, PART IV > Financial Statements).
+    [structured-hybrid-finance2-rerank3] reliable, figures 8,573 (traced): Nasdaq's long-term debt at December 31, 2025 was $8,573 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements)
+  HeldOut.H31
+    [structured-hybrid-finance2-500] reliable, figures 13,326,603 (traced): Netflix's operating income in 2025 was $13,326,603 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Segment and Geographic Information)
+    [structured-hybrid-finance2-rerank3] reliable, figures 13,326,603 (traced): Netflix's operating income in 2025 was $13,326,603 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements)
+  HeldOut.H32
+    [structured-hybrid-finance2-500] reliable, figures 2.53 (traced): Netflix's diluted earnings per share for 2025 were $2.53 (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Earnings Per Share).
+    [structured-hybrid-finance2-rerank3] reliable, figures 2.53 (traced): Netflix's diluted earnings per share for 2025 were $2.53. (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Earnings Per Share)
+  HeldOut.H35
+    [structured-hybrid-finance2-500] reliable, figures 12,722,552 (traced): Netflix's income before income taxes in 2025 was $12,722,552 thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Segment and Geographic Information).
+    [structured-hybrid-finance2-rerank3] reliable, figures 12,722,552 (traced): Netflix's income before income taxes in 2025 was $12,722,552 thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Income Taxes).
+  HeldOut.H7
+    [structured-hybrid-finance2-500] reliable, figures 5.83 (traced): Oracle's diluted earnings per share for fiscal 2026 were $5.83. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules > Earnings Per Share)
+    [structured-hybrid-finance2-rerank3] reliable, figures 5.83 (traced): Oracle's diluted earnings per share for fiscal 2026 were $5.83 (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules > Earnings Per Share).
+  HeldOut.H9
+    [structured-hybrid-finance2-500] reliable, figures 5,249 (traced): Nasdaq's revenues less transaction-based expenses in 2025 were $5,249 million. (Source: NDAQ-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+    [structured-hybrid-finance2-rerank3] reliable, figures 5,249 (traced): Nasdaq's revenues less transaction-based expenses in 2025 were $5,249 million (Source: NDAQ-10K-2025.html, PART IV > Financial Statements).
+  Main.Q10
+    [structured-hybrid-finance2-500] reliable, figures 2,113 (traced): Nasdaq's total comprehensive income for 2025 was $2,113 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements, Consolidated Statements of Comprehensive Income)
+    [structured-hybrid-finance2-rerank3] reliable, figures 2,113 (traced): Nasdaq's total comprehensive income for 2025 was $2,113 million (Source: NDAQ-10K-2025.html, PART IV > Financial Statements, Consolidated Statements of Comprehensive Income).
+  Main.Q11
+    [structured-hybrid-finance2-500] reliable, figures 102,000 121,000 223,000 (traced): As of June 30, 2026, Microsoft employed approximately 223,000 people on a full-time basis, with 121,000 in the U.S. and 102,000 internationally. (Source: MSFT-10K-2026.html, PART I > Item 1. BUSINESS > HUMAN CAPITAL RESOURCES)
+    [structured-hybrid-finance2-rerank3] reliable, figures 102,000 121,000 223,000 (traced): As of June 30, 2026, Microsoft employed approximately 223,000 people on a full-time basis, with 121,000 in the U.S. and 102,000 internationally (Source: MSFT-10K-2026.html, PART I > Item 1. BUSINESS).
+  Main.Q12
+    [structured-hybrid-finance2-500] reliable, figures 0.9 (traced): Oracle's headquarters facility is located in Austin, Texas, and it consists of approximately 0.9 million square feet (Source: ORCL-10K-2026.html, PART I > Item 2. Properties).
+    [structured-hybrid-finance2-rerank3] reliable, figures 0.9 (traced): Oracle's headquarters facility is located in Austin, Texas, and it consists of approximately 0.9 million square feet, all of which Oracle owns (Source: ORCL-10K-2026.html, PART I > Item 2. Properties).
+  Main.Q13
+    [structured-hybrid-finance2-500] reliable, figures - (no figure stated): Nasdaq's independent registered public accounting firm is Ernst & Young LLP. (Source: NDAQ-10K-2025.html, Cover Page and PART II > Item 9A. Controls and Procedures)
+    [structured-hybrid-finance2-rerank3] reliable, figures - (no figure stated): Nasdaq's independent registered public accounting firm is Ernst & Young LLP. (Source: NDAQ-10K-2025.html, section Cover Page and PART II > Item 9A. Controls and Procedures)
+  Main.Q16
+    [structured-hybrid-finance2-500] decline-ok, figures - (no figure stated): The excerpts don't contain Apple's revenue.
+    [structured-hybrid-finance2-rerank3] decline-ok, figures - (no figure stated): The excerpts don't contain Apple's revenue for the year in question.
+  Main.Q18
+    [structured-hybrid-finance2-500] reliable, figures 10,981,201 (traced): Netflix's net income for 2025 was $10,981,201 thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements > CONSOLIDATED STATEMENTS OF OPERATIONS).
+    [structured-hybrid-finance2-rerank3] reliable, figures 10,981,201 (traced): Netflix's net income for 2025 was $10,981,201 thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Segment and Geographic Information).
+  Main.Q2
+    [structured-hybrid-finance2-500] reliable, figures 43,056 (traced): As of May 31, 2026, Oracle's total stockholders' equity was $43,056 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)
+    [structured-hybrid-finance2-rerank3] reliable, figures 43,056 (traced): As of May 31, 2026, Oracle's total stockholders' equity was $43,056 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules, CONSOLIDATED BALANCE SHEETS)
+  Main.Q20
+    [structured-hybrid-finance2-500] reliable, figures 10,149,273 (traced): Netflix's net cash provided by operating activities was $10,149,273 thousand for the year ended December 31, 2025 (Source: NFLX-10K-2025.html, PART IV > Financial Statements).
+    [structured-hybrid-finance2-rerank3] reliable, figures 10,149,273 (traced): For the year ended December 31, 2025, Netflix's net cash provided by operating activities was $10,149,273 thousand. (Source: NFLX-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  Main.Q21
+    [structured-hybrid-finance2-500] reliable, figures 10,038,657 (traced): Netflix's comprehensive income for the year ended December 31, 2025 was $10,038,657 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements)
+    [structured-hybrid-finance2-rerank3] reliable, figures 10,038,657 (traced): Netflix's comprehensive income for the year ended December 31, 2025, was $10,038,657 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements)
+  Main.Q22
+    [structured-hybrid-finance2-500] reliable, figures - (no figure stated): Los Gatos, California, which is the location of our corporate headquarters (Source: NFLX-10K-2025.html, PART I > Item 2. Properties).
+    [structured-hybrid-finance2-rerank3] reliable, figures - (no figure stated): Netflix's corporate headquarters is located in Los Gatos, California (Source: NFLX-10K-2025.html, PART I > Item 2. Properties and PART I > Item 1. Business > ABOUT US).
+  Main.Q23
+    [structured-hybrid-finance2-500] reliable, figures 12,227 (traced): Nasdaq's total stockholders' equity was $12,227 million as of December 31, 2025 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements).
+    [structured-hybrid-finance2-rerank3] reliable, figures 12,227 (traced): Nasdaq's total stockholders' equity was $12,227 million as of December 31, 2025. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Consolidated Balance Sheets)
+  Main.Q6
+    [structured-hybrid-finance2-500] reliable, figures 2,255 (traced): Nasdaq's net cash provided by operating activities in 2025 was $2,255 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Consolidated Statements of Cash Flows)
+    [structured-hybrid-finance2-rerank3] reliable, figures 2,255 (traced): Nasdaq's net cash provided by operating activities in 2025 was $2,255 million. (Source: NDAQ-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  Main.Q7
+    [structured-hybrid-finance2-500] reliable, figures 442,387 (traced): Microsoft's total stockholders' equity was $442,387 million as of June 30, 2026. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
+    [structured-hybrid-finance2-rerank3] reliable, figures 442,387 (traced): Microsoft's total stockholders' equity was $442,387 million as of June 30, 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA).
+  Main.Q9
+    [structured-hybrid-finance2-500] reliable, figures 16,882 (traced): Oracle's comprehensive income for the year ended May 31, 2026 was $16,882 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules)
+    [structured-hybrid-finance2-rerank3] reliable, figures 16,882 (traced): Oracle's comprehensive income for the year ended May 31, 2026 was $16,882 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules, CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME)
+  Main.R1
+    [structured-hybrid-finance2-500] reliable, figures 9,916 (traced): Oracle's current deferred revenues as of May 31, 2026 were $9,916 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules > Deferred Revenues)
+    [structured-hybrid-finance2-rerank3] reliable, figures 9,916 (traced): Oracle's current deferred revenues as of May 31, 2026 were $9,916 million (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules).
+  Main.R3
+    [structured-hybrid-finance2-500] reliable, figures 137,791 (traced): Microsoft's Intelligent Cloud segment revenue was $137,791 million for the year ended June 30, 2026. (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data)
+    [structured-hybrid-finance2-rerank3] reliable, figures 137,791 (traced): Microsoft's Intelligent Cloud segment revenue was $137,791 million for the year ended June 30, 2026. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Segment Information and Geographic Data)
+  Main.T1
+    [structured-hybrid-finance2-500] reliable, figures 2,243 (traced): Microsoft's other comprehensive income for fiscal year 2025 was $2,243 million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
+    [structured-hybrid-finance2-rerank3] reliable, figures 2,243 (traced): Microsoft's other comprehensive income for fiscal year 2025 was $2,243 million (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA).
+  Main.T10
+    [structured-hybrid-finance2-500] reliable, figures 96,795 (traced): $96,795 thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements > CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME).
+    [structured-hybrid-finance2-rerank3] reliable, figures 96,795 (traced): $96,795 thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Stockholders' Equity).
+  Main.T2
+    [structured-hybrid-finance2-500] reliable, figures 3,500 (traced): Microsoft spent $3,500 million in the second quarter of fiscal year 2025 repurchasing its shares. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Stockholders' Equity)
+    [structured-hybrid-finance2-rerank3] reliable, figures 3,500 (traced): Microsoft spent $3,500 million repurchasing its shares in the second quarter of fiscal year 2025. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Stockholders' Equity)
+  Main.T4
+    [structured-hybrid-finance2-500] reliable, figures 3,603 (traced): Oracle's operating lease payments due in fiscal 2028 are $3,603 million (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules > Leases, Other Commitments and Certain Contingencies).
+    [structured-hybrid-finance2-rerank3] reliable, figures 3,603 (traced): Oracle's operating lease payments due in fiscal 2028 are $3,603 million. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules > Leases, Other Commitments and Certain Contingencies)
+  Main.T5
+    [structured-hybrid-finance2-500] reliable, figures 48,562 (traced): The recorded basis of Microsoft's U.S. government securities as of June 30, 2026 was $48,562 million. (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data)
+    [structured-hybrid-finance2-rerank3] reliable, figures 48,562 (traced): The recorded basis of Microsoft's U.S. government securities as of June 30, 2026 was $48,562 million (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data).
+  Main.T7
+    [structured-hybrid-finance2-500] reliable, figures 2.6 4,301 (traced): The effect of the Ireland statutory tax rate difference on Microsoft's effective tax rate in fiscal year 2026 was a decrease of $4,301 million, or 2.6% (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Income Taxes).
+    [structured-hybrid-finance2-rerank3] reliable, figures 2.6 4,301 (traced): The effect of the Ireland statutory tax rate difference on Microsoft's effective tax rate in fiscal year 2026 was a decrease of $4,301 million, or 2.6% of the federal statutory tax rate. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > Income Taxes)
+  Main.T8
+    [structured-hybrid-finance2-500] reliable, figures 91.47 (traced): Nasdaq paid an average price per share of $91.47 for shares it repurchased in November 2025. (Source: NDAQ-10K-2025.html, PART II > Item 5. Market for Registrant’s Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities)
+    [structured-hybrid-finance2-rerank3] reliable, figures 91.47 (traced): Nasdaq paid an average price of $91.47 per share for the shares it repurchased in November 2025. (Source: NDAQ-10K-2025.html, PART II > Item 5. Market for Registrant’s Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities)

@@ -1,0 +1,115 @@
+{
+  "scenarioName": "HeldOut.H29",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-finance2-rerank3",
+  "creationTime": "2026-10-14T19:46:21.8439841Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nThe following charts present our Capital Access Platforms, Financial Technology and Market Services segments as a percentage of our total revenues, less transaction-based expenses.\n\n[image]\n\nCapital Access Platforms\n\nThe following tables present revenues and ARR from our Capital Access Platforms segment:\n\n(in millions)\nData \u0026 Listing Services \u2014 Year Ended December 31, 2025: $804 | Year Ended December 31, 2024: $754 | Year Ended December 31, 2023: $749 | Percentage Change 2025 vs. 2024: 6.7% | Percentage Change 2024 vs. 2023: 0.7%\nIndex \u2014 Year Ended December 31, 2025: 827 | Year Ended December 31, 2024: 706 | Year Ended December 31, 2023: 528 | Percentage Change 2025 vs. 2024: 17.1% | Percentage Change 2024 vs. 2023: 33.7%\nWorkflow \u0026 Insights \u2014 Year Ended December 31, 2025: 506 | Year Ended December 31, 2024: 485 | Year Ended December 31, 2023: 467 | Percentage Change 2025 vs. 2024: 4.4% | Percentage Change 2024 vs. 2023: 3.9%\nTotal Capital Access Platforms \u2014 Year Ended December 31, 2025: $2,137 | Year Ended December 31, 2024: $1,945 | Year Ended December 31, 2023: $1,744 | Percentage Change 2025 vs. 2024: 9.9% | Percentage Change 2024 vs. 2023: 11.5%\n\nAs of December 31,\nARR (in millions) \u2014 2025: $1,340 | 2024: $1,240 | 2023: $1,210\n\nData \u0026 Listing Services Revenues\n\nThe following tables present key drivers from our Data \u0026 Listing Services business:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Revenue from Contracts with Customers ---\r\n\u0060\u0060\u0060\r\n3. REVENUE FROM CONTRACTS WITH\n\nCUSTOMERS\n\nDisaggregation of Revenue\n\nThe following table summarizes the disaggregation of revenue by major product and service and by segment for the years ended December 31, 2025, 2024 and 2023:\n\n(in millions) Year Ended December 31,\nCapital Access Platforms\nCapital Access Platforms \u003E Data \u0026 Listing Services \u2014 2025: $804 | 2024: $754 | 2023: $749\nCapital Access Platforms \u003E Index \u2014 2025: 827 | 2024: 706 | 2023: 528\nCapital Access Platforms \u003E Workflow \u0026 Insights \u2014 2025: 506 | 2024: 485 | 2023: 467\nFinancial Technology\nFinancial Technology \u003E Financial Crime Management Technology \u2014 2025: 331 | 2024: 273 | 2023: 223\nFinancial Technology \u003E Regulatory Technology \u2014 2025: 428 | 2024: 352 | 2023: 212\nFinancial Technology \u003E Capital Markets Technology \u2014 2025: 1,091 | 2024: 996 | 2023: 664\nMarket Services, net \u2014 2025: 1,201 | 2024: 1,020 | 2023: 987\nOther revenues \u2014 2025: 61 | 2024: 63 | 2023: 65\nRevenues less transaction- based expenses \u2014 2025: $5,249 | 2024: $4,649 | 2023: $3,895\n\nSubstantially all revenues from the Capital Access Platforms and Financial Technology segments were recognized over time for the years ended December 31, 2025, 2024 and 2023.\n\nFor the years ended December 31, 2025, 2024 and 2023, approximately 95.3%, 95.3% and 93.0%, respectively, of Market Services revenues were recognized at a point in time and 4.7%, 4.7% and 7.0%, respectively, were recognized over time. See \u0022Revenue Recognition and Transaction-Based Expenses\u0022 in Note 2, \u0022Summary of Significant Accounting Policies,\u0022 for additional detail on Other Revenues.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nThe following table presents key drivers from our Index business:\n\nAs of or Year Ended December 31,\nNumber of licensed ETPs \u2014 2025: 451 | 2024: 401 | 2023: 364\nTTM change in period end ETP AUM tracking Nasdaq indices (in billions)\nTTM change in period end ETP AUM tracking Nasdaq indices (in billions) \u003E Beginning balance \u2014 2025: $647 | 2024: $473 | 2023: $315\nTTM change in period end ETP AUM tracking Nasdaq indices (in billions) \u003E Net appreciation \u2014 2025: 136 | 2024: 110 | 2023: 128\nTTM change in period end ETP AUM tracking Nasdaq indices (in billions) \u003E Net impact of ETP sponsor switches \u2014 2024: (16) | 2023: (1)\nTTM change in period end ETP AUM tracking Nasdaq indices (in billions) \u003E Net inflows \u2014 2025: 99 | 2024: 80 | 2023: 31\nTTM change in period end ETP AUM tracking Nasdaq indices (in billions) \u003E Ending balance \u2014 2025: $882 | 2024: $647 | 2023: $473\nAnnual average ETP AUM tracking Nasdaq indices (in billions) \u2014 2025: $740 | 2024: $558 | 2023: $396\nARR (in millions) \u2014 2025: $81 | 2024: $76 | 2023: $72\n\nIn the table above, TTM represents trailing twelve months.\n\nIndex revenues increased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to higher average AUM in exchange traded products linked to Nasdaq indices and growth in trading volumes. The increase in 2025 is partially offset by a $16 million one-time item recognized in the first quarter of 2024 related to a legal settlement to recoup revenue.\n\nWorkflow \u0026 Insights Revenues\n\nThe following table presents key drivers from our Workflow \u0026 Insights business:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nThe following discussion and analysis of the financial condition and results of operations of Nasdaq refers to the year over year comparison for the fiscal years ended December 31, 2025 and 2024 and should be read in conjunction with our consolidated financial statements and related notes included in this Form 10-K, as well as the discussion under \u201CPart I, Item 1A. Risk Factors.\u201D For further discussion of our growth strategy, products and services, and competitive strengths, see \u201CPart I, Item 1. Business.\u201D For a similar discussion comparing the fiscal years ended December 31, 2024 and 2023, refer to \u201CPart II, Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations\u201D of our Annual Report on Form 10-K for the fiscal year ended December 31, 2024, which was previously filed with the SEC on February 21, 2025.\n\nCertain percentages and per share amounts herein may not sum or recalculate due to rounding.\n\nEXECUTIVE OVERVIEW\n\nNasdaq is a leading technology platform that powers the world\u2019s economies. We architect the infrastructure of the world\u2019s most modern markets, power the innovation economy, and build trust in the financial system. We empower economic opportunity by designing and deploying the technology, data, and advanced analytics that enable our clients to capture opportunities, navigate risk, and strengthen resilience.\n\nWe manage, operate and provide our products and services in three business segments: Capital Access Platforms, Financial Technology and Market Services.\n\n2025 Highlights\n\n\u2022 Nasdaq extended its listing leadership in 2025 and achieved its seventh consecutive year as the top U.S. exchange by proceeds raised.\n\n\u2022 In 2025, U.S. operating company IPOs on Nasdaq raised over $24 billion in proceeds. In 2025, Nasdaq set a record for listing transfers, with $1.2 trillion in annual switches for the first time including the largest exchange transfer on record.\n\n\u2022 Index achieved record net inflows of $99 billion in 2025, and exited the year with ETP AUM of $882 billion, an all-time high. Nasdaq launched 122 new Index products in 2025, with nearly half of the launches being international products and 32 new products in the institutional insurance annuity space.\n\n\u2022 The Financial Technology segment delivered 14% growth in ARR and revenue, reflecting an increase in new clients, cross-sells and upsells.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nIn the tables above:\n\n\u2022 The number of total listed companies on The Nasdaq Stock Market for the years ended December 31, 2025, 2024 and 2023 included 1,112, 768 and 600 ETPs, respectively.\n\n\u2022 IPOs, new listings (which includes IPOs) and total listed companies for exchanges that comprise Nasdaq Nordic and Nasdaq Baltic represent companies listed on the Nasdaq Nordic and Nasdaq Baltic exchanges and companies listed on the alternative markets of Nasdaq First North.\n\nData \u0026 Listing Services revenues increased for the year ended December 31, 2025 compared with the same period in 2024 due to new data sales, usage and pricing, increased annual listings revenues due to new listings and the favorable impact from changes in foreign currency rates, partially offset by delistings.\n\nIndex Revenues\n\nThe following table presents key drivers from our Index business:\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much revenue did Nasdaq\u0027s Index business generate in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Nasdaq\u0027s Index business generated $827 million in revenue for the year ended December 31, 2025 (Source: NDAQ-10K-2025.html, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 827 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top) - for a calculation, whose result isn\u0027t printed, the figures it\u0027s calculated from, ranked by the last of them. Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py, and matched to its ranks on all 102 questions when ported.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "827 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 827 from excerpts 1 (narrative), 2 (narrative)."
+        },
+        "metadata": {
+          "Stated 827": "excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Index \u2014 Year Ended December 31, 2025: 827 | Year Ended December 31, 2024: 706 | Year Ended December 31, 2023: 528 | Percentage Change 2025 vs. 2024: 17.1% | Per...\u0022; excerpt 2 (narrative, PART IV \u003E Financial Statements \u003E Revenue from Contracts with Customers): \u0022Capital Access Platforms \u003E Index \u2014 2025: 827 | 2024: 706 | 2023: 528\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 67.8771905,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2518,
+          "outputTokenCount": 57,
+          "totalTokenCount": 2575
+        },
+        "cacheKey": "D8AB0574F17ABAD2837BC097B26FB4D26EA16B77C5F424F483E385DC595EAC8BB24ECC04E00FF88A8818CB20500DBEAC",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "excerpts:5",
+    "embedding:voyage-finance-2",
+    "kind:figure",
+    "has traps",
+    "company:NDAQ",
+    "statement:income_statement",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

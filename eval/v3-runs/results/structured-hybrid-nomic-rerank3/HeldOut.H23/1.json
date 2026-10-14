@@ -1,0 +1,115 @@
+{
+  "scenarioName": "HeldOut.H23",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-nomic-rerank3",
+  "creationTime": "2026-10-14T18:19:02.5213139Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\n(Dollars in millions) Year Ended May 31,\nTotal Revenues by Geography:\nTotal Revenues by Geography \u003E Americas \u2014 2026: $44,478 | Percent Change Actual: 22% | Percent Change Constant: 22% | 2025: $36,339\nTotal Revenues by Geography \u003E EMEA(1) \u2014 2026: 15,297 | Percent Change Actual: 9% | Percent Change Constant: 3% | 2025: 14,025\nTotal Revenues by Geography \u003E Asia Pacific \u2014 2026: 7,582 | Percent Change Actual: 8% | Percent Change Constant: 8% | 2025: 7,035\nTotal Revenues by Geography \u003E Total revenues \u2014 2026: 67,357 | Percent Change Actual: 17% | Percent Change Constant: 16% | 2025: 57,399\nTotal Operating Expenses \u2014 2026: 46,751 | Percent Change Actual: 18% | Percent Change Constant: 17% | 2025: 39,721\nTotal Operating Margin \u2014 2026: $20,606 | Percent Change Actual: 17% | Percent Change Constant: 13% | 2025: $17,678\nTotal Operating Margin % \u2014 2026: 31% | 2025: 31%\n% Revenues by Geography:\n% Revenues by Geography \u003E Americas \u2014 2026: 66% | 2025: 63%\n% Revenues by Geography \u003E EMEA \u2014 2026: 23% | 2025: 25%\n% Revenues by Geography \u003E Asia Pacific \u2014 2026: 11% | 2025: 12%\nTotal Revenues by Business:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Segment Information ---\r\n\u0060\u0060\u0060\r\nDisaggregation of Revenues\n\nWe have considered information that is regularly reviewed by our CODMs in evaluating financial performance and disclosures presented outside of our financial statements in our earnings releases and used in investor presentations to disaggregate revenues to depict how the nature, amount, timing and uncertainty of revenues and cash flows are affected by economic factors. The principal category we use to disaggregate revenues is the nature of our products and services as presented in our consolidated statements of operations.\n\nThe following table presents a summary of our total revenues by geographic region, which are generally based on the location of our customers:\n\n(in millions) Year Ended May 31,\nAmericas \u2014 2026: $44,478 | 2025: $36,339 | 2024: $33,122\nEMEA(1) \u2014 2026: 15,297 | 2025: 14,025 | 2024: 13,030\nAsia Pacific \u2014 2026: 7,582 | 2025: 7,035 | 2024: 6,809\nTotal revenues \u2014 2026: $67,357 | 2025: $57,399 | 2024: $52,961\n\n(1) Comprises Europe, the Middle East and Africa\n\nThe following table presents our software revenues by offerings:\n\n(in millions) Year Ended May 31,\nSoftware license \u2014 2026: $4,737 | 2025: $5,201 | 2024: $5,081\nSoftware support \u2014 2026: 19,804 | 2025: 19,523 | 2024: 19,609\nTotal software revenues \u2014 2026: $24,541 | 2025: $24,724 | 2024: $24,690\n\nThe following table presents our cloud revenues by offerings:\n\n(in millions) Year Ended May 31,\nCloud applications \u2014 2026: $15,888 | 2025: $14,272 | 2024: $12,934\nCloud infrastructure \u2014 2026: 18,101 | 2025: 10,234 | 2024: 6,840\nTotal cloud revenues \u2014 2026: $33,989 | 2025: $24,506 | 2024: $19,774\n\nGeographic Information\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nServices Business\n\n(Dollars in millions) Year Ended May 31,\nServices Revenues:\nServices Revenues \u003E Americas \u2014 2026: $3,656 | Percent Change Actual: 15% | Percent Change Constant: 14% | 2025: $3,184\nServices Revenues \u003E EMEA \u2014 2026: 1,423 | Percent Change Actual: 5% | Percent Change Constant: -1% | 2025: 1,359\nServices Revenues \u003E Asia Pacific \u2014 2026: 664 | Percent Change Actual: -4% | Percent Change Constant: -3% | 2025: 690\nServices Revenues \u003E Total revenues \u2014 2026: 5,743 | Percent Change Actual: 10% | Percent Change Constant: 8% | 2025: 5,233\nTotal Expenses(1) \u2014 2026: 4,210 | Percent Change Actual: -1% | Percent Change Constant: -2% | 2025: 4,240\nTotal Margin \u2014 2026: $1,533 | Percent Change Actual: 54% | Percent Change Constant: 51% | 2025: $993\nTotal Margin % \u2014 2026: 27% | 2025: 19%\n% Revenues by Geography:\n% Revenues by Geography \u003E Americas \u2014 2026: 64% | 2025: 61%\n% Revenues by Geography \u003E EMEA \u2014 2026: 25% | 2025: 26%\n% Revenues by Geography \u003E Asia Pacific \u2014 2026: 11% | 2025: 13%\n\n(1) Excludes stock-based compensation and certain allocations. Also excludes amortization of intangible assets and certain other GAAP-based expenses, which were not allocated to our operating segment results for purposes of reporting to and review by our CODMs, as further described under \u201CPresentation of Operating Segment Results and Other Financial Information\u201D above.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\n(Dollars in millions) Year Ended May 31,\nCloud and Software Revenues:\nCloud and Software Revenues \u003E Americas \u2014 2026: $39,304 | Percent Change Actual: 24% | Percent Change Constant: 23% | 2025: $31,714\nCloud and Software Revenues \u003E EMEA \u2014 2026: 12,951 | Percent Change Actual: 10% | Percent Change Constant: 4% | 2025: 11,773\nCloud and Software Revenues \u003E Asia Pacific \u2014 2026: 6,275 | Percent Change Actual: 9% | Percent Change Constant: 10% | 2025: 5,743\nCloud and Software Revenues \u003E Total revenues \u2014 2026: 58,530 | Percent Change Actual: 19% | Percent Change Constant: 17% | 2025: 49,230\nExpenses:\nExpenses \u003E Cloud and software(1) \u2014 2026: 16,850 | Percent Change Actual: 56% | Percent Change Constant: 54% | 2025: 10,827\nExpenses \u003E Sales and marketing(1) \u2014 2026: 7,212 | Percent Change Actual: -3% | Percent Change Constant: -5% | 2025: 7,473\nExpenses \u003E Total expenses(1) \u2014 2026: 24,062 | Percent Change Actual: 31% | Percent Change Constant: 30% | 2025: 18,300\nTotal Margin \u2014 2026: $34,468 | Percent Change Actual: 11% | Percent Change Constant: 10% | 2025: $30,930\nTotal Margin % \u2014 2026: 59% | 2025: 63%\n% Revenues by Geography:\n% Revenues by Geography \u003E Americas \u2014 2026: 67% | 2025: 64%\n% Revenues by Geography \u003E EMEA \u2014 2026: 22% | 2025: 24%\n% Revenues by Geography \u003E Asia Pacific \u2014 2026: 11% | 2025: 12%\nRevenues by Offerings:\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nHardware Business\n\n(Dollars in millions) Year Ended May 31,\nHardware Revenues:\nHardware Revenues \u003E Americas \u2014 2026: $1,518 | Percent Change Actual: 5% | Percent Change Constant: 5% | 2025: $1,441\nHardware Revenues \u003E EMEA \u2014 2026: 923 | Percent Change Actual: 3% | Percent Change Constant: -2% | 2025: 893\nHardware Revenues \u003E Asia Pacific \u2014 2026: 643 | Percent Change Actual: 7% | Percent Change Constant: 7% | 2025: 602\nHardware Revenues \u003E Total revenues \u2014 2026: 3,084 | Percent Change Actual: 5% | Percent Change Constant: 3% | 2025: 2,936\nExpenses:\nExpenses \u003E Hardware(1) \u2014 2026: 832 | Percent Change Actual: 12% | Percent Change Constant: 9% | 2025: 742\nExpenses \u003E Sales and marketing(1) \u2014 2026: 235 | Percent Change Actual: -15% | Percent Change Constant: -17% | 2025: 276\nExpenses \u003E Total expenses(1) \u2014 2026: 1,067 | Percent Change Actual: 5% | Percent Change Constant: 2% | 2025: 1,018\nTotal Margin \u2014 2026: $2,017 | Percent Change Actual: 5% | Percent Change Constant: 3% | 2025: $1,918\nTotal Margin % \u2014 2026: 65% | 2025: 65%\n% Revenues by Geography:\n% Revenues by Geography \u003E Americas \u2014 2026: 49% | 2025: 49%\n% Revenues by Geography \u003E EMEA \u2014 2026: 30% | 2025: 30%\n% Revenues by Geography \u003E Asia Pacific \u2014 2026: 21% | 2025: 21%\n\n(1) Excludes stock-based compensation and certain expense allocations. Also excludes amortization of intangible assets and certain other GAAP-based expenses, which were not allocated to our operating segment results for purposes of reporting to and review by our CODMs, as further described under \u201CPresentation of Operating Segment Results and Other Financial Information\u201D above.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much revenue did Oracle generate in the Americas in fiscal 2026?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle generated $44,478 million in revenue in the Americas in fiscal 2026. (Source: ORCL-10K-2026.html, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 44,478 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top) - for a calculation, whose result isn\u0027t printed, the figures it\u0027s calculated from, ranked by the last of them. Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py, and matched to its ranks on all 102 questions when ported.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "44,478 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 44,478 from excerpts 1 (narrative), 2 (narrative)."
+        },
+        "metadata": {
+          "Stated 44,478": "excerpt 1 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Total Revenues by Geography \u003E Americas \u2014 2026: $44,478 | Percent Change Actual: 22% | Percent Change Constant: 22% | 2025: $36,339\u0022; excerpt 2 (narrative, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Segment Information): \u0022Americas \u2014 2026: $44,478 | 2025: $36,339 | 2024: $33,122\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 77.6551629,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2724,
+          "outputTokenCount": 52,
+          "totalTokenCount": 2776
+        },
+        "cacheKey": "B0AC95CB9FEF459CFA8C9AC23E66BF627D2CB8EA0BA6F4085AFBF42D62E968AB1E0B437FD585722052A8400CC569D1CA",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "excerpts:5",
+    "embedding:nomic-embed-text",
+    "kind:figure",
+    "has traps",
+    "company:ORCL",
+    "statement:income_statement",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

@@ -1,0 +1,119 @@
+{
+  "scenarioName": "Main.T6",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-nomic-rerank3",
+  "creationTime": "2026-10-14T17:46:08.5980998Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Goodwill and Acquired Intangible Assets ---\r\n\u0060\u0060\u0060\r\n5. GOODWILL AND ACQUIRED INTANGIBLE\n\nASSETS\n\nGoodwill\n\nThe following table presents the changes in goodwill by business segment during the year ended December 31, 2025:\n\n(in millions)\nCapital Access Platforms\nCapital Access Platforms \u003E Balance at December 31, 2024 \u2014 $4,127\nCapital Access Platforms \u003E Divestiture and acquisition of a business (year ended December 31, 2025) \u2014 (19)\nCapital Access Platforms \u003E Foreign currency translation adjustments (year ended December 31, 2025) \u2014 177\nCapital Access Platforms \u003E Balance at December 31, 2025 \u2014 $4,285\nFinancial Technology\nFinancial Technology \u003E Balance at December 31, 2024 \u2014 $7,925\nFinancial Technology \u003E Divestiture of a business (year ended December 31, 2025) \u2014 (9)\nFinancial Technology \u003E Foreign currency translation adjustments (year ended December 31, 2025) \u2014 36\nFinancial Technology \u003E Balance at December 31, 2025 \u2014 $7,952\nMarket Services\nMarket Services \u003E Balance at December 31, 2024 \u2014 $1,905\nMarket Services \u003E Foreign currency translation adjustments (year ended December 31, 2025) \u2014 229\nMarket Services \u003E Balance at December 31, 2025 \u2014 $2,134\nTotal\nTotal \u003E Balance at December 31, 2024 \u2014 $13,957\nTotal \u003E Acquisition and divestitures of businesses (year ended December 31, 2025) \u2014 (28)\nTotal \u003E Foreign currency translation adjustments (year ended December 31, 2025) \u2014 442\nTotal \u003E Balance at December 31, 2025 \u2014 $14,371\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements \u003E Acquisition and Divestitures ---\r\n\u0060\u0060\u0060\r\nThe amounts in the table below represent the preliminary allocation of the purchase price to the acquired intangible assets, the deferred tax liability on the acquired intangible assets and other assets acquired and liabilities assumed based on their preliminary respective estimated fair values on the date of acquisition.\n\nThe excess purchase price over the net tangible and acquired intangible assets has been recorded as goodwill. The goodwill recognized is attributable primarily to expected synergies and is assigned to our Financial Technology segment.\n\n(in millions)\nGoodwill \u2014 $5,933\nAcquired intangible assets \u2014 5,050\nReceivables, net \u2014 236\nOther net assets acquired \u2014 153\nCash and cash equivalents \u2014 48\nAccrued personnel costs \u2014 (44)\nDeferred revenue \u2014 (130)\nDeferred tax liability on acquired intangible assets \u2014 (1,262)\nTotal purchase consideration \u2014 $9,984\n\nIn the third quarter of 2024, we recorded a purchase accounting adjustment to the estimated purchase price allocation shown above and disclosed as of December 31, 2023. This adjustment relates to the impact of the change from upfront to ratable revenue recognition for AxiomSL on-premises contracts entered into prior to the acquisition date, as described above, and decreased accrued income (which reflects revenue earned but not yet billed and included in receivables above) by $46 million, increased deferred revenue by $56 million and increased goodwill by $77 million, net of a deferred tax asset of $25 million. In the fourth quarter of 2024, we finalized the purchase accounting for this acquisition.\n\nIntangible Assets\n\nThe following table presents the details of acquired intangible assets at the date of acquisition. Acquired intangible assets with finite lives are amortized using the straight-line method.\n\nIntangible asset value (in millions) \u2014 Customer Relationships: $3,740 | Technology: $950 | Trade Names: $360 | Total Acquired Intangible Assets: $5,050\nDiscount rate used \u2014 Customer Relationships: 9.5% | Technology: 8.5% | Trade Names: 8.5%\nEstimated average useful life | 22 years | 6 years | 20 years\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nThe following table presents the carrying value of goodwill for our reportable segments at the time of our 2025 annual impairment test:\n\n(in millions)\nCapital Access Platforms \u2014 October 1, 2025: $4,282\nFinancial Technology \u2014 October 1, 2025: 7,947\nMarket Services \u2014 October 1, 2025: 2,107\nOctober 1, 2025: $14,336\n\nIn 2025, we performed a qualitative impairment test for goodwill on all reporting units and indefinite-lived intangible assets, as the excesses of their fair values over their respective carrying amounts, at the time of the last quantitative test in 2023, were significant. In conducting the qualitative assessment, we evaluated the performance of each of these reporting units and indefinite-lived intangible assets since the last quantitative test, as well as future financial projections to determine if there were any changes in the key inputs used to determine their respective fair values. We also considered the qualitative factors in FASB ASC Topic 350, \u201CIntangibles\u2013Goodwill and Other,\u201D as well as other relevant events and circumstances. Based on the results of the qualitative assessment for each reporting unit and indefinite-lived intangible asset, and the predominance of positive indicators and the weight of such indicators, we concluded that the fair values of our reporting units and indefinite-lived intangible assets are more likely than not greater than their respective carrying amounts and as a result, quantitative analyses were not needed. No impairment of goodwill or indefinite-lived intangible assets was recorded in 2025, 2024 and 2023.\n\nAlthough we believe our estimates of fair value are reasonable, the determination of certain valuation inputs is subject to management\u2019s judgment. Changes in these inputs could materially affect the results of our impairment review. If our forecasts of cash flows or other key inputs are negatively revised in the future, the estimated fair value of each reporting unit and of our indefinite-lived intangible assets would be adversely impacted, potentially leading to an impairment in the future that could materially affect our operating results.\n\nSubsequent to our annual impairment test, no indications of impairment were identified.\n\nOther Long-Lived Assets and Related Impairment\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nConsolidated Balance Sheets\n\n(in millions, except share and par value amounts)\n\nDecember 31,\nAssets\nCurrent assets:\nCurrent assets \u003E Cash and cash equivalents \u2014 2025: $604 | 2024: $592\nCurrent assets \u003E Restricted cash and cash equivalents \u2014 2025: 210 | 2024: 31\nCurrent assets \u003E Default funds and margin deposits (including restricted cash and cash equivalents of $3,120 and $4,383, respectively) \u2014 2025: 5,842 | 2024: 5,664\nCurrent assets \u003E Financial investments \u2014 2025: 28 | 2024: 184\nCurrent assets \u003E Receivables, net \u2014 2025: 943 | 2024: 1,022\nCurrent assets \u003E Other current assets \u2014 2025: 376 | 2024: 293\nCurrent assets \u003E Total current assets \u2014 2025: 8,003 | 2024: 7,786\nProperty and equipment, net \u2014 2025: 728 | 2024: 593\nGoodwill \u2014 2025: 14,371 | 2024: 13,957\nIntangible assets, net \u2014 2025: 6,511 | 2024: 6,905\nOperating lease assets \u2014 2025: 447 | 2024: 375\nOther non-current assets \u2014 2025: 993 | 2024: 779\nTotal assets \u2014 2025: $31,053 | 2024: $30,395\nLiabilities\nCurrent liabilities:\nCurrent liabilities \u003E Accounts payable and accrued expenses \u2014 2025: $280 | 2024: $269\nCurrent liabilities \u003E Section 31 fees payable to SEC \u2014 2024: 319\nCurrent liabilities \u003E Accrued personnel costs \u2014 2025: 364 | 2024: 325\nCurrent liabilities \u003E Deferred revenue \u2014 2025: 785 | 2024: 711\nCurrent liabilities \u003E Other current liabilities \u2014 2025: 259 | 2024: 215\nCurrent liabilities \u003E Default funds and margin deposits \u2014 2025: 5,842 | 2024: 5,664\nCurrent liabilities \u003E Short-term debt \u2014 2025: 431 | 2024: 399\nCurrent liabilities \u003E Total current liabilities \u2014 2025: 7,961 | 2024: 7,902\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NDAQ-10K-2025.html](../../data/NDAQ-10K-2025.html), section PART I \u003E Item 1A. Risk Factors ---\r\n\u0060\u0060\u0060\r\nAWS operates a platform that we use to provide exchange and other services to our clients, and therefore we are vulnerable to service outages on the AWS platform that affect Nasdaq workloads running or stored in the AWS environment. While certain of our offerings were affected by the AWS outage in October 2025, the outage did not affect trading on our exchanges. If AWS does not deliver our system requirements on time, fails to provide maintenance and support to our specifications or a migration experiences integration challenges, the successful migration of the relevant workload to, or the availability of the relevant service on, the AWS cloud platform may be significantly delayed, which may adversely affect our reputation and financial results.\n\nWe also rely on members of our trading community to maintain markets and add liquidity. To the extent that any of our largest members experience difficulties, materially change their business relationship with us or are unable for any reason to perform market-making activities, our business or our reputation may be materially adversely affected.\n\nWe may be required to recognize impairments of our goodwill, intangible assets or other long-lived assets in the future.\n\nOur business acquisitions typically result in the recording of goodwill and intangible assets, and the recorded values of those assets may become impaired in the future. As of December 31, 2025, goodwill totaled $14.4 billion and intangible assets, net of accumulated amortization, totaled $6.5 billion. The determination of the value of such goodwill and intangible assets requires management to make estimates and assumptions that affect our consolidated financial statements.\n\nWe assess goodwill and intangible assets, as well as other long-lived assets, including equity method investments, equity securities, and property and equipment, for potential impairment on an annual basis or more frequently if indicators of impairment arise. We estimate the fair value of such assets by assessing many factors, including historical performance and projected cash flows. Considerable management judgment is necessary to project future cash flows and evaluate the impact of expected operating and macroeconomic changes on these cash flows. The estimates and assumptions we use are consistent with our internal planning process. However, there are inherent uncertainties in these estimates.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was the goodwill balance of Nasdaq\u0027s Financial Technology segment at December 31, 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "The goodwill balance of Nasdaq\u0027s Financial Technology segment at December 31, 2025 was $7,947 million (Source: NDAQ-10K-2025.html, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "States 7,947 instead of the expected 7,952 million."
+        },
+        "metadata": {
+          "Grader note": "expected figure absent"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top) - for a calculation, whose result isn\u0027t printed, the figures it\u0027s calculated from, ranked by the last of them. Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py, and matched to its ranks on all 102 questions when ported.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "7,952 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "A misreading - every figure is in an excerpt: 7,947 from excerpt 3 (narrative); the expected 7,952 was in excerpt 1 (narrative)."
+        },
+        "metadata": {
+          "Stated 7,947": "excerpt 3 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Financial Technology \u2014 October 1, 2025: 7,947\u0022",
+          "Expected 7,952": "excerpt 1 (narrative, PART IV \u003E Financial Statements \u003E Goodwill and Acquired Intangible Assets): \u0022Financial Technology \u003E Balance at December 31, 2025 \u2014 $7,952\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 73.1908234,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2655,
+          "outputTokenCount": 58,
+          "totalTokenCount": 2713
+        },
+        "cacheKey": "A6FEEFFB7104B5361C24260AD1F6CE78A9F07666148B7DEECB628BF3880C91A6093081811B530E90F9D9E691ED7735FB",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "excerpts:5",
+    "embedding:nomic-embed-text",
+    "kind:figure",
+    "has traps",
+    "company:NDAQ",
+    "statement:none",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

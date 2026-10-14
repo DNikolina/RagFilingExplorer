@@ -4823,3 +4823,28 @@ against the same index unreranked, run the same day; 95 answerable questions (A1
 - With `rerank-3`, nomic (free) reaches what finance-2 alone didn't: 94 vs 91 in the top 5.
 - Tokens: ~1.25M a run, 5.0M for the four - of 400M free. $0. The two unreranked rank files were rewritten from
   today's runs (A12 counted, recall@8 added).
+
+**Step 4 - llama's answers on the reranked configurations** (all 102, Ollama 0.40.3, `rerank-3`, 5 excerpts; free):
+
+| Embeddings | Reranker | Strict | Answer in the top 5 | Run |
+|---|---|---|---|---|
+| nomic | - | 85 | | `structured-hybrid-chunk-fixes` |
+| nomic | `rerank-3` | 86 | 94 | `structured-hybrid-nomic-rerank3` |
+| finance-2 | - | 87 | | `structured-hybrid-finance2-500` |
+| finance-2 | `rerank-3` | 87 | 95 | `structured-hybrid-finance2-rerank3` |
+
+- **nomic + `rerank-3`: 6 gained, 5 lost** (`compare-nomic-vs-nomic-rerank3.txt`). Gained R3 (the segment table's
+  137,791, was MD&A's growth), T1, T10 (lookalike lines), H13, H27, Q21 (its unit). Lost Q24 and H6 (trap figures),
+  A8 (the quarterly $0.50), A25 (a wrong sum), A24 (its unit) - each with the answer at rank 1-3.
+- **finance-2 + `rerank-3`: 4 gained, 4 lost** (`compare-finance2-500-vs-finance2-rerank3.txt`). Gained A4, A7, H13,
+  V1; lost A10, Q24, H6 (trap figures), T6; T9 `check` -> wrong on the same $1.70.
+- **The two reranked runs are nearly one run:** 82 of 102 answers word for word the same, one grade different (H29,
+  right on finance-2) - from 25 candidates either embedder, the reranker picks the same five excerpts.
+- **Every failure is now a misreading:** all 15-16 have the answer at rank 1-3; no retrieval miss is left. The swaps
+  are llama reading a different set of excerpts - Q24 and A10, the equity statement's 27,034 and the cash flow
+  statement's 26,445, trade places.
+- **Kept off by default (user):** for llama the reranker is worth 0-1 question, and the shipped default stays free.
+  `Retrieval:Rerank` with `Providers:Rerank = Voyage` stays opt-in.
+- The reranker is called on every run, cached answers or not - the response cache is the chat model's, and the
+  excerpts it keys on come from the reranker. A score cache was considered and not built: ~1.25M tokens a run of 200M
+  free. Built only if a cached Claude replay on reranked excerpts misses.

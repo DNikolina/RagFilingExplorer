@@ -369,7 +369,8 @@ Why three, and how they compare: [docs/Design-FAQ.md](docs/Design-FAQ.md).
 cross-encoder (`ms-marco-MiniLM-L6-v2`, ONNX). It's built, tested and measured, and off by default: across every
 question set, hybrid search alone puts as many answers in the model's context ([docs/Design-FAQ.md](docs/Design-FAQ.md)).
 `Providers:Rerank = Voyage` uses Voyage's reranker instead (`Voyage:RerankModel`, `rerank-3` or `rerank-3-lite`; the
-embedder's key) - being measured in v4's batch 4.
+embedder's key): it puts the answer in llama's five excerpts for 94-95 of 95 answerable questions (86-91 without), but
+llama scores 86-87/102 either way - its remaining failures are misreadings. Off by default, so the default stays free.
 
 ### Reasoning models
 

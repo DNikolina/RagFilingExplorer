@@ -1,0 +1,111 @@
+{
+  "scenarioName": "Main.Q22",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-finance2-rerank3",
+  "creationTime": "2026-10-14T19:26:54.5292852Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART I \u003E Item 2. Properties ---\r\n\u0060\u0060\u0060\r\nWe have leased principal properties in both Los Gatos, California, which is the location of our corporate headquarters, and in Los Angeles, California. In addition, we own and lease various office and production space throughout the world.\n\nWe believe that our existing facilities are adequate to meet current requirements, and that suitable additional or substitute space will be available as needed to accommodate any further physical expansion of operations and for any additional offices.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section Cover Page ---\r\n\u0060\u0060\u0060\r\nNetflix, Inc. - annual report on Form 10-K for the fiscal year ended December 31, 2025 (fiscal year 2025). Common stock trading symbol: NFLX, on the NASDAQ Global Select Market. Address of principal executive offices: 121 Albright Way, Los Gatos, California 95032. State of incorporation: Delaware. Independent registered public accounting firm (auditor): Ernst \u0026 Young LLP, San Jose, California (PCAOB ID 42).\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section (no heading) ---\r\n\u0060\u0060\u0060\r\nUNITED\u00A0STATES\u00A0SECURITIES\u00A0AND\u00A0EXCHANGE\u00A0COMMISSION\n\nWashington, D.C. 20549\n\nFORM 10-K\n\n(Mark One)\n\n\u2612 | ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934\n\nFor the fiscal year ended December 31, 2025\n\nOR\n\n\u2610 | TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934\n\nFor the transition period from \u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0 to\n\nCommission File Number: 001-35727\n\nNetflix, Inc.\n\n(Exact name of registrant as specified in its charter)\n\nDelaware | 77-0467272\n(State or other jurisdiction of incorporation or organization) | (I.R.S. Employer Identification No.)\n\n121 Albright Way, Los Gatos, California 95032\n\n(Address and zip code of principal executive offices)\n\n(408) 540-3700\n\n(Registrant\u2019s telephone number, including area code)\n\nSecurities registered pursuant to Section\u00A012(b) of the Act:\n\nTitle of each class | Trading Symbol(s) | Name of each exchange on which registered\nCommon stock, par value $0.001 per share | NFLX | NASDAQ Global Select Market\n\nSecurities registered pursuant to Section\u00A012(g) of the Act: None\n\nIndicate by check mark if the registrant is a well-known seasoned issuer, as defined in Rule 405 of the Securities Act.\u00A0Yes \u2612 No \u2610\n\nIndicate by check mark if the registrant is not required to file reports pursuant to Section\u00A013 or Section\u00A015(d) of the Act.\u00A0Yes \u2610 No \u2612\n\nIndicate by check mark whether the registrant: (1)\u00A0has filed all reports required to be filed by Section\u00A013 or 15(d) of the Securities Exchange Act of 1934 during the preceding 12 months (or for such shorter period that the registrant was required to file such reports), and (2)\u00A0has been subject to such filing requirements for the past 90\u00A0days. Yes \u2612 No \u2610\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nHUMAN CAPITAL\n\nOur business is to entertain the world across different countries, cultures, languages and tastes. To entertain an audience this global, our Company needs to reflect the world and the variety of stories we tell. To help ensure our workforce is representative of the members we serve, we employ people in multiple countries around the world and work to maintain a global culture of inclusion. We view our employees and our culture as key to our success. As of December\u00A031, 2025, we had approximately 16,000 full-time employees. Of these, approximately 10,900 (68%) were located in the United States and Canada, 2,500 (16%) in Europe, Middle East, and Africa, 1,900 (12%) in Asia-Pacific and 700 (4%) in Latin America. We also have a number of employees engaged in content production, some of whom are part-time or temporary, and whose numbers fluctuate throughout the year and may be covered by collective bargaining agreements.\n\nWe believe an important component of our success is our company culture as detailed in the \u201CNetflix Culture Memo\u201D, which was updated in 2024. Our culture is focused on excellence and creating an environment where talented people can thrive \u2014 lifting ourselves, each other and our audiences higher and higher. We engage employees and seek feedback through regular town halls, surveys, business reviews and memos, which we often share broadly, inviting comments. We aim to attract and retain great people \u2014 representing a broad array of perspectives and skills \u2014 to work together as a dream team. For more people and cultures to see themselves reflected on screen, it is important that our employee base represents the communities we serve.\n\nWe aim generally to pay our employees at their personal top of market, and they generally are able to choose the form of their compensation between cash and stock options. This permits employee compensation to be highly personalized and reflective of each employee\u0027s individual needs and preferences. We conduct pay equity analyses at least annually, and have adopted practices to help ensure that employees from underrepresented groups are not being underpaid based on gender identity (globally) and race or ethnicity (United States (\u201CU.S.\u201D)) relative to others doing the same or similar work under comparable circumstances. We aim to rectify any pay gaps that we find through this analysis.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART I \u003E Item 1. Business ---\r\n\u0060\u0060\u0060\r\nABOUT US\n\nNetflix, Inc. (\u201CNetflix\u201D, the \u201CCompany\u201D, \u201Cregistrant\u201D, \u201Cwe\u201D, or \u201Cus\u201D) is one of the world\u2019s leading entertainment services offering TV series, films, games and live programming across a wide variety of genres and languages. Members can play, pause and resume watching as much as they want, anytime, anywhere, and can change their plans at any time.\n\nOur core strategy is to grow our business globally within the parameters of our operating margin target. We strive to continuously improve our members\u0027 experience by offering compelling content that delights them and attracts new members. We aim to offer a range of pricing plans, including our ad-supported subscription plan, to meet a variety of consumer needs. We seek to drive conversation around our content to further enhance member joy, and we are continuously enhancing our user interface to help our members more easily choose content that they will find enjoyable.\n\nBUSINESS SEGMENTS\n\nWe operate as one operating segment. Our revenues are primarily derived from monthly membership fees for services related to streaming content to our members. See Note 13, Segment and Geographic Information, in the accompanying notes to our consolidated financial statements for further detail.\n\nCOMPETITION\n\nThe market for entertainment video is intensely competitive and subject to rapid change. We compete with a broad set of activities for consumers\u2019 leisure time, including other entertainment video providers, such as linear television, streaming entertainment providers (including those that provide pirated content), video gaming providers, open content platform providers, which provide access to user-generated and professionally produced content, as well as more broadly against other sources of entertainment, such as social media, that our members could choose in their moments of free time. We also compete against entertainment video providers and content producers in obtaining content for our service, both for licensed content and for original content projects.\n\nWhile consumers may maintain simultaneous relationships with multiple entertainment sources, we strive for consumers to choose us in their moments of free time. We have often referred to this choice as our objective of \u201Cwinning moments of truth.\u201D In attempting to win these moments of truth with our members, we seek to continually improve our service, including both our technology and our content offerings.\n\nINTELLECTUAL PROPERTY\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Where is Netflix headquartered?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix\u0027s corporate headquarters is located in Los Gatos, California (Source: NFLX-10K-2025.html, PART I \u003E Item 2. Properties and PART I \u003E Item 1. Business \u003E ABOUT US)."
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected Los Gatos."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top) - for a calculation, whose result isn\u0027t printed, the figures it\u0027s calculated from, ranked by the last of them. Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py, and matched to its ranks on all 102 questions when ported.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "Los Gatos at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "no figure stated",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "inconclusive",
+          "failed": false,
+          "reason": "No figure stated - a text answer or a decline."
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 0.0022668,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 1965,
+          "outputTokenCount": 47,
+          "totalTokenCount": 2012
+        },
+        "cacheKey": "E2985FD725DB696EB4511121FF9F8AC519F05D0053D89D2967579CBB8440D63D78D4C20897D5634B71ED28C420B605C9",
+        "cacheHit": true
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "excerpts:5",
+    "embedding:voyage-finance-2",
+    "kind:fact",
+    "company:NFLX",
+    "statement:none",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

@@ -1,0 +1,120 @@
+{
+  "scenarioName": "HeldOut.H34",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-nomic-rerank3",
+  "creationTime": "2026-10-14T18:31:44.4375741Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF CASH FLOWS\n\n(in thousands)\n\nYear Ended December 31,\nCash flows from financing activities \u003E Proceeds from issuance of debt \u2014 2024: 1,794,460\nCash flows from financing activities \u003E Repayments of debt \u2014 2025: (1,833,450) | 2024: (400,000)\nCash flows from financing activities \u003E Proceeds from issuance of common stock \u2014 2025: 666,965 | 2024: 832,887 | 2023: 169,990\nCash flows from financing activities \u003E Repurchases of common stock \u2014 2025: (9,127,167) | 2024: (6,263,746) | 2023: (6,045,347)\nCash flows from financing activities \u003E Taxes paid related to net share settlement of equity awards \u2014 2025: (46,165) | 2024: (8,285)\nCash flows from financing activities \u003E Other financing activities \u2014 2025: (5,806) | 2024: (29,743) | 2023: (75,446)\nCash flows from financing activities \u003E Net cash used in financing activities \u2014 2025: (10,345,623) | 2024: (4,074,427) | 2023: (5,950,803)\nEffect of exchange rate changes on cash, cash equivalents and restricted cash \u2014 2025: 386,519 | 2024: (416,331) | 2023: 82,684\nNet increase in cash, cash equivalents and restricted cash \u2014 2025: 1,231,857 | 2024: 688,822 | 2023: 1,947,933\nCash, cash equivalents and restricted cash, beginning of year \u2014 2025: 7,807,337 | 2024: 7,118,515 | 2023: 5,170,582\nCash, cash equivalents and restricted cash, end of year \u2014 2025: $9,039,194 | 2024: $7,807,337 | 2023: $7,118,515\nSupplemental disclosure:\nSupplemental disclosure \u003E Interest paid \u2014 2025: 718,611 | 2024: 674,502 | 2023: 684,504\n\nSee accompanying notes to consolidated financial statements.\n\nNETFLIX, INC.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nSee Note 7 Debt and Note 14 Subsequent Event for further information on the financing arrangements the Company has entered into in connection with the WBD transaction.\n\nWe anticipate that we may periodically raise additional debt capital. Our ability to obtain this or any additional financing that we may choose or need, including for the refinancing of upcoming maturities or potential strategic acquisitions and investments, will depend on, among other things, our development efforts, business plans, operating performance, and the condition of the capital markets at the time we seek financing. We may not be able to obtain such financing on terms acceptable to us or at all. If we raise additional funds through the issuance of equity or debt securities, those securities may have rights, preferences or privileges senior to the rights of our common stock, and our stockholders may experience dilution.\n\nShare Repurchases\n\nIn September 2023, the Board of Directors authorized the repurchase of up to $10\u00A0billion of our common stock, with no expiration date, and in December 2024, the Board of Directors increased the share repurchase authorization by an additional $15\u00A0billion, also with no expiration date. Stock repurchases may be effected through open market repurchases in compliance with Rule 10b-18 under the Exchange Act, including through the use of trading plans intended to qualify under Rule 10b5-1 under the Exchange Act, privately-negotiated transactions, accelerated stock repurchase plans, block purchases, or other similar purchase techniques and in such amounts as management deems appropriate. We are not obligated to repurchase any specific number of shares, and the timing and actual number of shares repurchased will depend on a variety of factors, including our stock price, general economic, business and market conditions, and alternative investment opportunities. We may discontinue any repurchases of our common stock at any time without prior notice. In the fiscal year ended December\u00A031, 2025, the Company repurchased 86,536,215 shares of common stock for an aggregate amount of $9.1\u00A0billion (excluding the 1% excise tax on stock repurchases as a result of the Inflation Reduction Act of 2022). As of December\u00A031, 2025, $8.0\u00A0billion remains available for repurchases.\n\nMaterial Cash Requirements\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements \u003E Stockholders\u0027 Equity ---\r\n\u0060\u0060\u0060\r\nStock-Based Compensation\n\nThe following table summarizes total stock-based compensation expense and the related income tax impact:\n\n(in thousands) Year Ended December 31,\nTotal stock-based compensation expense \u2014 2025: $368,449 | 2024: $272,588 | 2023: $339,368\nTotal income tax impact on provision \u2014 2025: 54,338 | 2024: 43,876 | 2023: 61,588\n\nAs of December\u00A031, 2025, $47\u00A0million of total unrecognized compensation cost related to unvested RSUs and PSUs is expected to be recognized over a weighted-average period of 1.53 years.\n\nStock Repurchases\n\nIn September 2023, the Board of Directors authorized the repurchase of up to $10\u00A0billion of the Company\u2019s common stock, with no expiration date, and in December 2024, the Board of Directors increased the share repurchase authorization by an additional $15\u00A0billion, also with no expiration date. Stock repurchases may be effected through open market repurchases in compliance with Rule 10b-18 under the Exchange Act, including through the use of trading plans intended to qualify under Rule 10b5-1 under the Exchange Act, privately-negotiated\n\ntransactions, accelerated stock repurchase plans, block purchases, or other similar purchase techniques and in such amounts as management deems appropriate. The Company is not obligated to repurchase any specific number of shares, and the timing and actual number of shares repurchased will depend on a variety of factors, including the Company\u2019s stock price, general economic, business and market conditions, and alternative investment opportunities. The Company may discontinue any repurchases of its common stock at any time without prior notice. During the year ended December\u00A031, 2025, the Company repurchased 86,536,215 shares for an aggregate amount of $9.1\u00A0billion (excluding the 1% excise tax on stock repurchases as a result of the Inflation Reduction Act of 2022). As of December\u00A031, 2025, $8.0\u00A0billion remains available for repurchases. Shares repurchased by the Company are accounted for when the transaction is settled. As of December\u00A031, 2025, there were no unsettled share repurchases. Direct costs incurred to acquire the shares are included in the total cost of the shares.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations ---\r\n\u0060\u0060\u0060\r\nNet cash used in financing activities for the year ended December\u00A031, 2025 increased $6,271 million as compared to the year ended December\u00A031, 2024, primarily driven by changes in cash flows related to the issuance and repayment of debt. The increase in financing cash outflows was primarily driven by no proceeds from the issuance of debt in the year ended December\u00A031, 2025, as compared to proceeds from the issuance of debt of $1,794\u00A0million, in the corresponding period in 2024, coupled with a $1,433\u00A0million increase in repayments of debt. In addition, repurchases of common stock increased $2,863 million in the year ended December\u00A031, 2025 as compared to the corresponding period in 2024.\n\nIndemnifications\n\nThe information set forth under Note 9 Commitments and Contingencies in the accompanying notes to our consolidated financial statements included in Part II, Item 8, \u201CFinancial Statements and Supplementary Data\u201D of this Annual Report on Form 10-K is incorporated herein by reference.\n\nCritical Accounting Estimates\n\nThe preparation of consolidated financial statements in conformity with accounting principles generally accepted in the United States of America requires management to make estimates and assumptions that affect the reported amounts of assets and liabilities, disclosures of contingent assets and liabilities at the date of the financial statements, and the reported amounts of revenues and expenses during the reported periods. The Securities and Exchange Commission (\u201CSEC\u201D) has defined a company\u2019s critical accounting policies as the ones that are most important to the portrayal of a company\u2019s financial condition and results of operations, and which require a company to make its most difficult and subjective judgments. Based on this definition, we have identified the critical accounting policies and judgments addressed below. We base our estimates on historical experience and on various other assumptions that we believe to be reasonable under the circumstances. Actual results may differ from these estimates.\n\nContent\n\nWe acquire, license and produce content, including original programming, in order to offer our members unlimited viewing of video entertainment. The content licenses are for a fixed fee and specific windows of availability. Payment terms for certain content licenses and the production of content require more upfront cash payments relative to the amortization expense. Payments for content, including additions to content assets and the changes in related liabilities, are classified within \u201CNet cash provided by operating activities\u201D on the Consolidated Statements of Cash Flows.\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [NFLX-10K-2025.html](../../data/NFLX-10K-2025.html), section PART IV \u003E Financial Statements ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF STOCKHOLDERS\u2019 EQUITY\n\n(in thousands, except share data)\n\nIssuance of common stock (year ended December 31, 2025) \u2014 Common Stock and Additional Paid-in Capital Shares: 31,597,695 | Common Stock and Additional Paid-in Capital Amount: 665,835 | Total Stockholders\u2019 Equity: 665,835\nRepurchases of common stock (year ended December 31, 2025) \u2014 Common Stock and Additional Paid-in Capital Shares: (86,536,215) | Treasury Stock: (9,154,855) | Total Stockholders\u2019 Equity: (9,154,855)\nShares withheld related to net share settlement of equity awards (year ended December 31, 2025) \u2014 Common Stock and Additional Paid-in Capital Shares: (470,330) | Treasury Stock: (46,165) | Total Stockholders\u2019 Equity: (46,165)\nStock-based compensation expense (year ended December 31, 2025) \u2014 Common Stock and Additional Paid-in Capital Amount: 368,449 | Total Stockholders\u2019 Equity: 368,449\nBalances as of December 31, 2025 \u2014 Common Stock and Additional Paid-in Capital Shares: 4,222,162,150 | Common Stock and Additional Paid-in Capital Amount: $7,286,410 | Treasury Stock: $(22,372,658) | Accumulated Other Comprehensive Income (Loss): $(580,382) | Retained Earnings: $42,282,118 | Total Stockholders\u2019 Equity: $26,615,488\n\nSee accompanying notes to consolidated financial statements.\n\nNETFLIX, INC.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "How much cash did Netflix spend repurchasing its common stock in 2025?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Netflix repurchased 86,536,215 shares of common stock for an aggregate amount of $9.1 billion in 2025. (Source: NFLX-10K-2025.html, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "wrong",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "unacceptable",
+          "failed": true,
+          "reason": "States 9.1 instead of the expected 9,127,167 thousand; also states 86,536,215 (shares)."
+        },
+        "metadata": {
+          "Grader note": "trap 86,536,215"
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top) - for a calculation, whose result isn\u0027t printed, the figures it\u0027s calculated from, ranked by the last of them. Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py, and matched to its ranks on all 102 questions when ported.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "9,127,167 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "A misreading - every figure is in an excerpt: 86,536,215 from excerpts 2 (narrative), 3 (narrative), 5 (equity_statement), 9.1 from excerpts 2 (narrative), 3 (narrative); the expected 9,127,167 was in excerpt 1 (cash_flow_statement)."
+        },
+        "metadata": {
+          "Stated 86,536,215": "excerpt 2 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...ior notice. In the fiscal year ended December\u00A031, 2025, the Company repurchased 86,536,215 shares of common stock for an aggregate amount of $9.1\u00A0billion (exclu...\u0022; excerpt 3 (narrative, PART IV \u003E Financial Statements \u003E Stockholders\u0027 Equity): \u0022... prior notice. During the year ended December\u00A031, 2025, the Company repurchased 86,536,215 shares for an aggregate amount of $9.1\u00A0billion (excluding the 1% exci...\u0022; excerpt 5 (equity_statement, PART IV \u003E Financial Statements): \u0022...ended December 31, 2025) \u2014 Common Stock and Additional Paid-in Capital Shares: (86,536,215) | Treasury Stock: (9,154,855) | Total Stockholders\u2019 Equity: (9,154,8...\u0022",
+          "Stated 9.1": "excerpt 2 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...mpany repurchased 86,536,215 shares of common stock for an aggregate amount of $9.1\u00A0billion (excluding the 1% excise tax on stock repurchases as a result of the...\u0022; excerpt 3 (narrative, PART IV \u003E Financial Statements \u003E Stockholders\u0027 Equity): \u0022...31, 2025, the Company repurchased 86,536,215 shares for an aggregate amount of $9.1\u00A0billion (excluding the 1% excise tax on stock repurchases as a result of the...\u0022",
+          "Expected 9,127,167": "excerpt 1 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022Cash flows from financing activities \u003E Repurchases of common stock \u2014 2025: (9,127,167) | 2024: (6,263,746) | 2023: (6,045,347)\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 80.290708,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2771,
+          "outputTokenCount": 62,
+          "totalTokenCount": 2833
+        },
+        "cacheKey": "47EFECBEAC7C9956FE6DE75982DE1284CC6F161C84C1B3DEA59774DF50F76249D0BE64EB1B50E6C31638D73CDC5D9E5A",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "excerpts:5",
+    "embedding:nomic-embed-text",
+    "kind:figure",
+    "has traps",
+    "company:NFLX",
+    "statement:none",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}

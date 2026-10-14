@@ -1,0 +1,114 @@
+{
+  "scenarioName": "Main.Q9",
+  "iterationName": "1",
+  "executionName": "structured-hybrid-nomic-rerank3",
+  "creationTime": "2026-10-14T17:23:51.4166707Z",
+  "messages": [
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "You are a financial research assistant answering questions about SEC 10-K filings.\r\nAnswer using ONLY the context excerpts provided below - do not use any outside knowledge about\r\nthese companies, even if you recognize them. If the excerpts do not contain the answer, say so in\r\none sentence instead of guessing, in exactly this form: \u0022The excerpts don\u0027t contain \u003Cwhat the\r\nquestion asks for\u003E.\u0022\r\n\r\nRules for every answer:\r\n- State each figure with its unit right after the number and its period, e.g. \u0022$55,596,993 thousand\r\n  for the year ended December 31, 2025\u0022. Take the unit from the table\u0027s units line, such as\r\n  \u0022(in thousands)\u0022 or \u0022(In millions)\u0022. If no units line applies, say the unit is not stated.\r\n- When several lines have similar names, use the line whose label matches the question and name\r\n  that line exactly.\r\n- End each sentence that states a fact with one citation of the filing and section it came from,\r\n  e.g. (Source: MSFT-10K-2026.html, PART II \u003E Item 8. Financial Statements and Supplementary Data).\r\n- Do not copy table rows or table formatting into the answer; state figures in sentences.\r\n- Do not calculate anything the question does not ask for. If it does, show the numbers and the\r\n  operation."
+        }
+      ]
+    },
+    {
+      "role": "system",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "Context excerpts the model was given - sent with the question in one message, shown apart here.\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions) Year Ended May 31,\nNet income \u2014 2026: $17,087 | 2025: $12,443 | 2024: $10,467\nOther comprehensive (loss) income, net of tax:\nOther comprehensive (loss) income, net of tax \u003E Net foreign currency translation (losses) gains \u2014 2026: (232) | 2025: 369 | 2024: (17)\nOther comprehensive (loss) income, net of tax \u003E Net unrealized gains on defined benefit plans \u2014 2026: 45 | 2025: 13 | 2024: 31\nOther comprehensive (loss) income, net of tax \u003E Net unrealized (losses) gains on cash flow hedges \u2014 2026: (18) | 2025: (125) | 2024: 77\nOther comprehensive (loss) income, net of tax \u003E Other, net \u2014 2024: (1)\nOther comprehensive (loss) income, net of tax \u003E Total other comprehensive (loss) income, net \u2014 2026: (205) | 2025: 257 | 2024: 90\nComprehensive income \u2014 2026: $16,882 | 2025: $12,700 | 2024: $10,557\n\nSee notes to consolidated financial statements.\n\nORACLE CORPORATION\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF OPERATIONS\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions, except per share data) Year Ended May 31,\nOperating income \u2014 2026: 20,606 | 2025: 17,678 | 2024: 15,353\nInterest expense \u2014 2026: (4,599) | 2025: (3,578) | 2024: (3,514)\nNon-operating income (expenses), net \u2014 2026: 3,547 | 2025: 60 | 2024: (98)\nIncome before income taxes \u2014 2026: 19,554 | 2025: 14,160 | 2024: 11,741\nProvision for income taxes \u2014 2026: 2,467 | 2025: 1,717 | 2024: 1,274\nNet income \u2014 2026: $17,087 | 2025: $12,443 | 2024: $10,467\nPreferred stock dividends \u2014 2026: 103\nNet income available to common shareholders \u2014 2026: $16,984 | 2025: $12,443 | 2024: $10,467\nEarnings per share attributable to common shareholders:\nEarnings per share attributable to common shareholders \u003E Basic \u2014 2026: $5.94 | 2025: $4.46 | 2024: $3.82\nEarnings per share attributable to common shareholders \u003E Diluted \u2014 2026: $5.83 | 2025: $4.34 | 2024: $3.71\nWeighted average common shares outstanding:\nWeighted average common shares outstanding \u003E Basic \u2014 2026: 2,860 | 2025: 2,789 | 2024: 2,744\nWeighted average common shares outstanding \u003E Diluted \u2014 2026: 2,914 | 2025: 2,866 | 2024: 2,823\n\n(1) Exclusive of amortization of intangible assets, which is shown separately.\n\nSee notes to consolidated financial statements.\n\nORACLE CORPORATION\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF STOCKHOLDERS\u2019 EQUITY\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions, except per share data)\nOther, net (fiscal 2026, year ended May 31, 2026) \u2014 Preferred and Common Stock and Additional Paid in Capital Amount: (7) | Accumulated Other Comprehensive Loss: (205) | Noncontrolling Interests: (192) | Total Stockholders\u2019 Equity: (404)\nNet income (fiscal 2026, year ended May 31, 2026) \u2014 Accumulated Deficit: 17,087 | Noncontrolling Interests: 222 | Total Stockholders\u2019 Equity: 17,309\nBalances as of May 31, 2026 \u2014 Preferred and Common Stock and Additional Paid in Capital Preferred Stock Shares: \u2014 (1) | Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 2,880 | Preferred and Common Stock and Additional Paid in Capital Amount: $48,197 | Accumulated Deficit: $(4,309) | Accumulated Other Comprehensive Loss: $(1,380) | Noncontrolling Interests: $548 | Total Stockholders\u2019 Equity: $43,056\n\n(1) We issued 50,000 shares of our 6.50% Series D Mandatory Convertible Preferred Stock on February 5, 2026. As of May 31, 2026, 50,000 shares were outstanding.\n\nSee notes to consolidated financial statements.\n\nORACLE CORPORATION\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules ---\r\n\u0060\u0060\u0060\r\nCONSOLIDATED STATEMENTS OF STOCKHOLDERS\u2019 EQUITY\n\nFor the Years Ended May 31, 2026, 2025 and 2024\n\n(in millions, except per share data)\nRepurchases of common stock (fiscal 2025, year ended May 31, 2025) \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: (4) | Preferred and Common Stock and Additional Paid in Capital Amount: (47) | Accumulated Deficit: (553) | Total Stockholders\u2019 Equity: (600)\nShares repurchased for tax withholdings upon vesting of restricted stock-based awards (fiscal 2025, year ended May 31, 2025) \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: (7) | Preferred and Common Stock and Additional Paid in Capital Amount: (900) | Total Stockholders\u2019 Equity: (900)\nCash dividends declared ($1.70 per share) (fiscal 2025, year ended May 31, 2025) \u2014 Accumulated Deficit: (4,743) | Total Stockholders\u2019 Equity: (4,743)\nOther, net (fiscal 2025, year ended May 31, 2025) \u2014 Preferred and Common Stock and Additional Paid in Capital Amount: (37) | Accumulated Other Comprehensive Loss: 257 | Noncontrolling Interests: (201) | Total Stockholders\u2019 Equity: 19\nNet income (fiscal 2025, year ended May 31, 2025) \u2014 Accumulated Deficit: 12,443 | Noncontrolling Interests: 184 | Total Stockholders\u2019 Equity: 12,627\nBalances as of May 31, 2025 \u2014 Preferred and Common Stock and Additional Paid in Capital Common Stock Shares: 2,807 | Preferred and Common Stock and Additional Paid in Capital Amount: 37,107 | Accumulated Deficit: (15,481) | Accumulated Other Comprehensive Loss: (1,175) | Noncontrolling Interests: 518 | Total Stockholders\u2019 Equity: 20,969\r\n\u0060\u0060\u0060\r\n\r\n--- Excerpt from [ORCL-10K-2026.html](../../data/ORCL-10K-2026.html), section PART IV \u003E Item 15. Exhibits and Financial Statement Schedules \u003E Organization and Significant Accounting Policies ---\r\n\u0060\u0060\u0060\r\nNon-Operating Income (Expenses), net\n\nNon-operating income (expenses), net consists primarily of interest income, net foreign currency exchange losses, the noncontrolling interests in the net profits of our majority-owned subsidiaries (primarily Oracle Financial Services Software Limited and Oracle Corporation Japan), net gains and losses related to marketable and non-marketable investments, including net gains and losses attributable to equity method investments and net other income and expenses, including net gains and losses from our investment portfolio related to our deferred compensation plan, for which an equal and offsetting amount was recorded to our operating expenses during the same period, and non-service net periodic pension income and losses.\n\n(in millions) Year Ended May 31,\nInterest income \u2014 2026: $780 | 2025: $578 | 2024: $451\nForeign currency losses, net \u2014 2026: (131) | 2025: (147) | 2024: (228)\nNoncontrolling interests in income \u2014 2026: (222) | 2025: (184) | 2024: (186)\nGains (losses) from marketable and non-marketable investments, net \u2014 2026: 2,811 | 2025: (278) | 2024: (303)\nOther income, net \u2014 2026: 309 | 2025: 91 | 2024: 168\nTotal non-operating income (expenses), net \u2014 2026: $3,547 | 2025: $60 | 2024: $(98)\n\nIncome Taxes\n\nWe account for income taxes in accordance with ASC 740, Income Taxes (ASC 740). Deferred income taxes are recorded for the expected tax consequences of temporary differences between the tax bases of assets and liabilities for financial reporting purposes and amounts recognized for income tax purposes. We record a valuation allowance to reduce our deferred tax assets to the amount of future tax benefit that is more likely than not to be realized.\r\n\u0060\u0060\u0060\r\n"
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "contents": [
+        {
+          "$type": "text",
+          "text": "What was Oracle\u0027s comprehensive income?"
+        }
+      ]
+    }
+  ],
+  "modelResponse": {
+    "messages": [
+      {
+        "role": "assistant",
+        "contents": [
+          {
+            "$type": "text",
+            "text": "Oracle\u0027s comprehensive income for the year ended May 31, 2026 was $16,882 million. (Source: ORCL-10K-2026.html, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules)"
+          }
+        ]
+      }
+    ]
+  },
+  "evaluationResult": {
+    "metrics": {
+      "Strict grade": {
+        "$type": "string",
+        "value": "reliable",
+        "name": "Strict grade",
+        "reason": "Whether the answer states the expected figure with its unit, from the line the question asks about: a lookalike line\u0027s figure, a missing or wrong unit, or a decline where the filing has the figure all fail; where the filing doesn\u0027t say, a decline passes. Deterministic - ported from tools/grade_answers.py and matched to its grade on all 1,029 answers graded in v1 and v2 (GraderParityTests).",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "States the expected 16,882 million."
+        }
+      },
+      "Answer rank": {
+        "$type": "numeric",
+        "value": 1,
+        "name": "Answer rank",
+        "reason": "Where the expected figure first appears among the chunks retrieved for the question (1 = the top) - for a calculation, whose result isn\u0027t printed, the figures it\u0027s calculated from, ranked by the last of them. Ranks 1-5 are in the model\u0027s prompt; a later rank, or none, means retrieval missed it - so a wrong answer with a good rank is the model\u0027s misreading. Deterministic - ported from tools/replay_recall.py, and matched to its ranks on all 102 questions when ported.",
+        "interpretation": {
+          "rating": "exceptional",
+          "failed": false,
+          "reason": "16,882 at rank 1 of 25 - in the model\u0027s context (top 5)."
+        }
+      },
+      "Figure source": {
+        "$type": "string",
+        "value": "traced",
+        "name": "Figure source",
+        "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
+        "interpretation": {
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 16,882 from excerpt 1 (comprehensive_income)."
+        },
+        "metadata": {
+          "Stated 16,882": "excerpt 1 (comprehensive_income, PART IV \u003E Item 15. Exhibits and Financial Statement Schedules): \u0022Comprehensive income \u2014 2026: $16,882 | 2025: $12,700 | 2024: $10,557\u0022"
+        }
+      }
+    }
+  },
+  "chatDetails": {
+    "turnDetails": [
+      {
+        "latency": 64.5994949,
+        "model": "llama3.1:8b",
+        "modelProvider": "ollama (local)",
+        "usage": {
+          "inputTokenCount": 2439,
+          "outputTokenCount": 51,
+          "totalTokenCount": 2490
+        },
+        "cacheKey": "E319285FD6B1178C09F63B44EB13294AD128C7FBABB92288522E8FA9370CF91EA59C73360577350B6D7515AD15814B59",
+        "cacheHit": false
+      }
+    ]
+  },
+  "tags": [
+    "chat:llama3.1:8b",
+    "excerpts:5",
+    "embedding:nomic-embed-text",
+    "kind:figure",
+    "company:ORCL",
+    "statement:comprehensive_income",
+    "ollama:0.40.3"
+  ],
+  "formatVersion": 1
+}
