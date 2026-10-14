@@ -13,6 +13,8 @@ namespace RagFilingExplorer.Evaluation;
 /// an unrelated chunk (the input types the right way round). Billed against the key in user secrets or VOYAGE_API_KEY -
 /// [Explicit], ask the user before running. Embedding__Model picks the model (voyage-finance-2 by default here):
 ///   dotnet test RagFilingExplorer.Evaluation --filter "FullyQualifiedName~VoyageSmokeTests"
+/// The reranker's case scores three chunks against the same question with each reranker model - two requests per model
+/// (startup's check, then the three), a few thousand tokens of the free allowance.
 /// </summary>
 [TestFixture]
 [Explicit("Calls Voyage's API with the user's key - billed.")]
@@ -48,6 +50,30 @@ public class VoyageSmokeTests
         Assert.That(chunks, Has.Count.EqualTo(2));
         Assert.That(chunks.Concat(question).Select(e => e.Vector.Length), Is.All.EqualTo(templates.Dimensions));
         Assert.That(toAnswer, Is.GreaterThan(toUnrelated), "the question should land nearer its answer");
+    }
+
+    [TestCase("rerank-3")]
+    [TestCase("rerank-3-lite")]
+    public async Task Rerank_ThreeChunks_AnswerScoredHighest(string model)
+    {
+        // The answer, a lookalike from the same company (its balance sheet - no revenue line), and an unrelated chunk.
+        string[] chunks =
+        [
+            ChunkText("SourceFiling = 'MSFT-10K-2026.html' AND StatementType = 'income_statement' AND Content LIKE '%Total revenue%'"),
+            ChunkText("SourceFiling = 'MSFT-10K-2026.html' AND StatementType = 'balance_sheet'"),
+            ChunkText("SourceFiling = 'NFLX-10K-2025.html' AND Heading LIKE '%Item 2. Properties%'"),
+        ];
+
+        VoyageReranker reranker = await VoyageReranker.CreateAsync(VoyageApi.LoadKeyFromRepository(Repo), model);
+        long checkTokens = reranker.TotalTokens;
+        IReadOnlyList<float> scores = await reranker.ScoreAsync(Question, chunks);
+        TestContext.Progress.WriteLine(
+            $"{reranker.Name}: scores income statement {scores[0]:F4}, balance sheet {scores[1]:F4}, Netflix's properties {scores[2]:F4}; "
+            + $"tokens: check {checkTokens}, three chunks {reranker.TotalTokens - checkTokens}");
+
+        Assert.That(scores, Has.Count.EqualTo(3));
+        Assert.That(scores[0], Is.GreaterThan(scores[1]).And.GreaterThan(scores[2]), "the income statement holds the answer");
+        Assert.That(reranker.TotalTokens - checkTokens, Is.GreaterThan(0), "Voyage reports what it billed");
     }
 
     private static string ChunkText(string where)

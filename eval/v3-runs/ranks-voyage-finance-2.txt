@@ -1,9 +1,9 @@
-Ranks: voyage-finance-2 (rag.structured.voyage-finance-2.db), Voyage, 94 answerable questions, ranked among 25; beside structured-hybrid-v3-baseline (nomic-embed-text). A rank > 25 is '-'.
-Main: recall@1 25/37  recall@5 37/37  MRR 0.827  | baseline: recall@1 25/37  recall@5 36/37  MRR 0.809
-HeldOut: recall@1 21/31  recall@5 31/31  MRR 0.824  | baseline: recall@1 22/31  recall@5 28/31  MRR 0.810
-AnswerSide: recall@1 15/26  recall@5 22/26  MRR 0.711  | baseline: recall@1 10/26  recall@5 22/26  MRR 0.558
-All: recall@1 61/94  recall@5 90/94  MRR 0.794  | baseline: recall@1 57/94  recall@5 86/94  MRR 0.740
-Moved (35), better first:
+Ranks: voyage-finance-2 (rag.structured.voyage-finance-2.db), Voyage, 95 answerable questions, ranked among 25; beside structured-hybrid-v3-baseline (nomic-embed-text). A rank > 25 is '-'.
+Main: recall@1 25/37  recall@5 37/37  recall@8 37/37  MRR 0.827  | baseline: recall@1 25/37  recall@5 36/37  recall@8 36/37  MRR 0.809
+HeldOut: recall@1 21/31  recall@5 31/31  recall@8 31/31  MRR 0.824  | baseline: recall@1 22/31  recall@5 28/31  recall@8 29/31  MRR 0.810
+AnswerSide: recall@1 15/27  recall@5 23/27  recall@8 27/27  MRR 0.694  | baseline: recall@1 10/27  recall@5 22/27  recall@8 22/27  MRR 0.537
+All: recall@1 61/95  recall@5 91/95  recall@8 95/95  MRR 0.788  | baseline: recall@1 57/95  recall@5 86/95  recall@8 87/95  MRR 0.732
+Moved (36), better first:
   HeldOut.H25: 11 -> 1
   AnswerSide.A15: 4 -> 1
   AnswerSide.A10: 3 -> 1
@@ -22,6 +22,7 @@ Moved (35), better first:
   AnswerSide.A16: 18 -> 3
   Main.T5: 4 -> 2
   HeldOut.H10: 4 -> 2
+  AnswerSide.A12: - -> 4
   Main.R2: 3 -> 2
   AnswerSide.A13: 3 -> 2
   AnswerSide.A17: 3 -> 2
@@ -119,6 +120,7 @@ Every rank (this run, baseline):
   AnswerSide.A9: 6, 10
   AnswerSide.A10: 1, 3
   AnswerSide.A11: 7, 12
+  AnswerSide.A12: 4, -
   AnswerSide.A13: 2, 3
   AnswerSide.A14: 6, 4
   AnswerSide.A15: 1, 4

@@ -4790,3 +4790,36 @@ key and model. What the embedder and reranker share - key, client, retried POST,
 synchronously, wrapped). `Providers:Rerank` (`Local` shipped), `Voyage:RerankModel` (`rerank-3` shipped; read only when
 Voyage reranks); Core takes a provider's reranker from its caller (Program, the evaluation's `EvaluationIndex`) and fails
 at startup if the one named wasn't created. 15 new offline tests (493 unit, 201 evaluation).
+
+**Step 2 done - the smoke test on Voyage's API** (`VoyageSmokeTests.Rerank_ThreeChunks_AnswerScoredHighest`, user's
+go-ahead): "What was Microsoft's total revenue in fiscal year 2026?" against three chunks of `rag.structured.db` -
+Microsoft's income statement (the answer), its balance sheet (same company, no revenue line), Netflix's properties.
+`rerank-3`: 0.7734 / 0.3984 / 0.2559; `rerank-3-lite`: 0.6502 / 0.4111 / 0.2869 - both names answer, both put the
+answer first, `rerank-3` by the wider margin. 1,471 tokens for the three chunks with either model (~490 a chunk, the
+question counted once per chunk); the one-word startup check was reported as 0 tokens. So a question's 25 candidates
+are ~12,500 tokens, a run of all 102 ~1.3M (two-company questions rerank each company's 25) - as estimated.
+
+**Step 3 done - the retrieval-only screen** (`RetrievalRankRunTests`, no chat model; Ollama 0.40.3). Each reranked run
+against the same index unreranked, run the same day; 95 answerable questions (A12 now one). `rag.structured.db` and
+`rag.structured.voyage-finance-2.db`, 500-token chunks, each company's top 25 hybrid candidates reranked:
+
+| Embeddings | Reranker | recall@1 | recall@5 | recall@8 | MRR | Voyage tokens |
+|---|---|---|---|---|---|---|
+| nomic | - | 59 | 86 | 89 | 0.748 | - |
+| nomic | `rerank-3` | **85** | **94** | 94 | **0.938** | 1,275,460 |
+| nomic | `rerank-3-lite` | 82 | 93 | 94 | 0.914 | 1,275,460 |
+| finance-2 | - | 61 | 91 | 95 | 0.788 | - |
+| finance-2 | `rerank-3` | **86** | **95** | 95 | **0.948** | 1,237,341 |
+| finance-2 | `rerank-3-lite` | 85 | 94 | 95 | 0.935 | 1,237,341 |
+
+- **Nothing lost, anywhere:** no answer leaves the top 5 or top 8 in any of the four runs - unlike the local
+  cross-encoders, which traded answers in and out (step 2b).
+- **nomic + `rerank-3`:** all 8 answers outside the top 5 come in - R3 (11 -> 1), H29 (7 -> 1), H34 (8 -> 1), A9 (10 -> 4),
+  A10 (7 -> 1), A11 (12 -> 2), A16 (16 -> 2), A25 (14 -> 1). The one miss left is A12, whose Item 5 sentence isn't among
+  nomic's 25 candidates - a reranker can't reach it. **finance-2 + `rerank-3`:** A8, A9, A11, A14 (ranks 6-7) come in -
+  every answer in the top 5.
+- `rerank-3-lite` is close behind (one fewer each; A9 stays at 6) at the same token count - its price is lower past the
+  free allowance, which these runs don't reach.
+- With `rerank-3`, nomic (free) reaches what finance-2 alone didn't: 94 vs 91 in the top 5.
+- Tokens: ~1.25M a run, 5.0M for the four - of 400M free. $0. The two unreranked rank files were rewritten from
+  today's runs (A12 counted, recall@8 added).

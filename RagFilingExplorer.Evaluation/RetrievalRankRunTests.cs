@@ -10,6 +10,7 @@ using RagFilingExplorer.Evaluation.Running;
 using RagFilingExplorer.Core.Chunking;
 using RagFilingExplorer.Core.Retrieval;
 using RagFilingExplorer.Core.VectorStore;
+using RagFilingExplorer.Voyage;
 
 namespace RagFilingExplorer.Evaluation;
 
@@ -18,9 +19,10 @@ namespace RagFilingExplorer.Evaluation;
 /// answer stream never read and the chat model never asked (<see cref="NoChatClient"/>) - so an
 /// embedder or retrieval change is measured in minutes, not llama's two hours. The rank is the evaluation's
 /// (<see cref="RetrievalRankEvaluator.RankOf"/>) among Retrieval:VerboseSearchTopK chunks. Writes
-/// eval/v3-runs/ranks-&lt;embedding model&gt;.txt: recall@1, recall@5 and MRR per set over the answerable questions, and
-/// each rank beside <see cref="Baseline"/>'s stored one, every move listed. The embedding model is appsettings.json's, or
-/// Embedding__Model for one run; its index must be built. Needs Ollama. [Explicit]:
+/// eval/v3-runs/ranks-&lt;embedding model&gt;[-&lt;reranker&gt;].txt: recall@1, recall@5, recall@8 and MRR per set over the
+/// answerable questions, and each rank beside <see cref="Baseline"/>'s stored one, every move listed. The embedding model
+/// and the reranker are appsettings.json's, or overridden for one run (Embedding__Model, Retrieval__Rerank,
+/// Providers__Rerank, Voyage__RerankModel); the index must be built. Needs Ollama. [Explicit]:
 ///   Embedding__Model=embeddinggemma dotnet test RagFilingExplorer.Evaluation --filter "FullyQualifiedName~RetrievalRankRunTests"
 /// </summary>
 [TestFixture]
@@ -87,7 +89,12 @@ public class RetrievalRankRunTests
         string index = IndexFiles.For(
             Repo, ChunkingStrategies.FileName(settings.Chunking.Strategy), EmbeddingTemplates.For(settings.Embedding.Model), settings.Chunking.MaxTokensPerChunk).DbFileName;
         StringBuilder report = new();
-        report.AppendLine($"Ranks: {settings.Embedding.Model} ({index}), {servedBy}, {ranks.Count} answerable questions, "
+        // A reranked run reorders each company's top RerankCandidates; Voyage's reports the tokens it billed.
+        string reranked = runtime.Reranker is null
+            ? ""
+            : $", reranked by {runtime.Reranker.Name} (top {settings.Retrieval.RerankCandidates})"
+                + (runtime.Reranker is VoyageReranker voyage ? $", {voyage.TotalTokens:N0} Voyage tokens" : "");
+        report.AppendLine($"Ranks: {settings.Embedding.Model} ({index}), {servedBy}{reranked}, {ranks.Count} answerable questions, "
             + $"ranked among {settings.Retrieval.VerboseSearchTopK}; beside {Baseline} (nomic-embed-text). A rank > {settings.Retrieval.VerboseSearchTopK} is '-'.");
         foreach (IGrouping<string, (string Set, string Scenario, int? Rank, int? Before)> set in ranks.GroupBy(r => r.Set).Append(ranks.GroupBy(_ => "All").Single()))
         {
@@ -107,9 +114,11 @@ public class RetrievalRankRunTests
             report.AppendLine($"  {scenario}: {Show(rank)}, {Show(before)}");
         }
 
-        // Named as the index is, so runs at another chunk budget don't overwrite the model's ranks.
+        // Named as the index is, so runs at another chunk budget don't overwrite the model's ranks - and by the reranker,
+        // so a reranked run doesn't overwrite the unreranked one ("Voyage rerank-3" -> "-voyage-rerank-3").
         string budget = IndexFiles.ChunkBudgetSuffix(settings.Chunking.MaxTokensPerChunk) is { } suffix ? $"-{suffix}" : "";
-        string path = Path.Combine(storage, $"ranks-{settings.Embedding.Model.Replace(':', '-')}{budget}.txt");
+        string rerankedBy = runtime.Reranker is null ? "" : $"-{runtime.Reranker.Name.ToLowerInvariant().Replace(' ', '-')}";
+        string path = Path.Combine(storage, $"ranks-{settings.Embedding.Model.Replace(':', '-')}{budget}{rerankedBy}.txt");
         await File.WriteAllTextAsync(path, report.ToString());
         TestContext.Progress.WriteLine(report.ToString());
     }
@@ -124,6 +133,6 @@ public class RetrievalRankRunTests
     private static string Show(int? rank) => rank?.ToString(CultureInfo.InvariantCulture) ?? "-";
 
     private static string Metrics(IReadOnlyList<int?> ranks) =>
-        $"recall@1 {ranks.Count(r => r == 1)}/{ranks.Count}  recall@5 {ranks.Count(r => r <= 5)}/{ranks.Count}  "
+        $"recall@1 {ranks.Count(r => r == 1)}/{ranks.Count}  recall@5 {ranks.Count(r => r <= 5)}/{ranks.Count}  recall@8 {ranks.Count(r => r <= 8)}/{ranks.Count}  "
         + $"MRR {ranks.Average(Reciprocal).ToString("F3", CultureInfo.InvariantCulture)}";
 }

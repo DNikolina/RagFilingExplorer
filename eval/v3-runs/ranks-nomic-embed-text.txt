@@ -1,21 +1,43 @@
-Ranks: nomic-embed-text (rag.structured.db), Ollama 0.40.2, 94 answerable questions, ranked among 25; beside structured-hybrid-v3-baseline (nomic-embed-text). A rank > 25 is '-'.
-Main: recall@1 25/37  recall@5 36/37  MRR 0.809  | baseline: recall@1 25/37  recall@5 36/37  MRR 0.809
-HeldOut: recall@1 22/31  recall@5 28/31  MRR 0.810  | baseline: recall@1 22/31  recall@5 28/31  MRR 0.810
-AnswerSide: recall@1 10/26  recall@5 22/26  MRR 0.558  | baseline: recall@1 10/26  recall@5 22/26  MRR 0.558
-All: recall@1 57/94  recall@5 86/94  MRR 0.740  | baseline: recall@1 57/94  recall@5 86/94  MRR 0.740
-Moved (0), better first:
+Ranks: nomic-embed-text (rag.structured.db), Ollama 0.40.3, 95 answerable questions, ranked among 25; beside structured-hybrid-v3-baseline (nomic-embed-text). A rank > 25 is '-'.
+Main: recall@1 22/37  recall@5 36/37  recall@8 36/37  MRR 0.766  | baseline: recall@1 25/37  recall@5 36/37  recall@8 36/37  MRR 0.809
+HeldOut: recall@1 26/31  recall@5 29/31  recall@8 31/31  MRR 0.896  | baseline: recall@1 22/31  recall@5 28/31  recall@8 29/31  MRR 0.810
+AnswerSide: recall@1 11/27  recall@5 21/27  recall@8 22/27  MRR 0.555  | baseline: recall@1 10/27  recall@5 22/27  recall@8 22/27  MRR 0.537
+All: recall@1 59/95  recall@5 86/95  recall@8 89/95  MRR 0.748  | baseline: recall@1 57/95  recall@5 86/95  recall@8 87/95  MRR 0.732
+Moved (22), better first:
+  HeldOut.H25: 11 -> 1
+  Main.T10: 4 -> 1
+  HeldOut.H10: 4 -> 1
+  AnswerSide.A17: 3 -> 1
+  HeldOut.H27: 2 -> 1
+  HeldOut.H33: 2 -> 1
+  AnswerSide.A2: 2 -> 1
+  Main.R2: 3 -> 2
+  Main.T5: 4 -> 3
+  AnswerSide.A8: 5 -> 4
+  AnswerSide.A25: 25 -> 14
+  HeldOut.H34: 9 -> 8
+  Main.R3: 12 -> 11
+  AnswerSide.A16: 18 -> 16
+  AnswerSide.A19: 3 -> 4
+  AnswerSide.A10: 3 -> 7
+  Main.Q4: 2 -> 4
+  Main.Q7: 1 -> 2
+  Main.R1: 1 -> 2
+  AnswerSide.A7: 1 -> 2
+  Main.Q11: 1 -> 3
+  Main.T3: 1 -> 3
 Every rank (this run, baseline):
   Main.Q1: 1, 1
   Main.Q2: 1, 1
   Main.Q3: 1, 1
-  Main.Q4: 2, 2
+  Main.Q4: 4, 2
   Main.Q5: 2, 2
   Main.Q6: 2, 2
-  Main.Q7: 1, 1
+  Main.Q7: 2, 1
   Main.Q8: 1, 1
   Main.Q9: 1, 1
   Main.Q10: 1, 1
-  Main.Q11: 1, 1
+  Main.Q11: 3, 1
   Main.Q12: 1, 1
   Main.Q13: 1, 1
   Main.Q17: 1, 1
@@ -29,17 +51,17 @@ Every rank (this run, baseline):
   Main.Q24: 1, 1
   Main.T1: 1, 1
   Main.T2: 1, 1
-  Main.T3: 1, 1
+  Main.T3: 3, 1
   Main.T4: 1, 1
-  Main.T5: 4, 4
+  Main.T5: 3, 4
   Main.T6: 1, 1
   Main.T7: 1, 1
   Main.T8: 2, 2
   Main.T9: 2, 2
-  Main.T10: 4, 4
-  Main.R1: 1, 1
-  Main.R2: 3, 3
-  Main.R3: 12, 12
+  Main.T10: 1, 4
+  Main.R1: 2, 1
+  Main.R2: 2, 3
+  Main.R3: 11, 12
   Main.V1: 1, 1
   Main.V3: 2, 2
   HeldOut.H1: 1, 1
@@ -50,7 +72,7 @@ Every rank (this run, baseline):
   HeldOut.H6: 1, 1
   HeldOut.H7: 1, 1
   HeldOut.H9: 1, 1
-  HeldOut.H10: 4, 4
+  HeldOut.H10: 1, 4
   HeldOut.H11: 1, 1
   HeldOut.H12: 1, 1
   HeldOut.H13: 1, 1
@@ -63,39 +85,40 @@ Every rank (this run, baseline):
   HeldOut.H22: 1, 1
   HeldOut.H23: 2, 2
   HeldOut.H24: 1, 1
-  HeldOut.H25: 11, 11
+  HeldOut.H25: 1, 11
   HeldOut.H26: 1, 1
-  HeldOut.H27: 2, 2
+  HeldOut.H27: 1, 2
   HeldOut.H28: 1, 1
   HeldOut.H29: 7, 7
   HeldOut.H31: 1, 1
   HeldOut.H32: 1, 1
-  HeldOut.H33: 2, 2
-  HeldOut.H34: 9, 9
+  HeldOut.H33: 1, 2
+  HeldOut.H34: 8, 9
   HeldOut.H35: 1, 1
   AnswerSide.A1: 1, 1
-  AnswerSide.A2: 2, 2
+  AnswerSide.A2: 1, 2
   AnswerSide.A3: 2, 2
   AnswerSide.A4: 1, 1
   AnswerSide.A5: 2, 2
   AnswerSide.A6: 1, 1
-  AnswerSide.A7: 1, 1
-  AnswerSide.A8: 5, 5
+  AnswerSide.A7: 2, 1
+  AnswerSide.A8: 4, 5
   AnswerSide.A9: 10, 10
-  AnswerSide.A10: 3, 3
+  AnswerSide.A10: 7, 3
   AnswerSide.A11: 12, 12
+  AnswerSide.A12: -, -
   AnswerSide.A13: 3, 3
   AnswerSide.A14: 4, 4
   AnswerSide.A15: 4, 4
-  AnswerSide.A16: 18, 18
-  AnswerSide.A17: 3, 3
+  AnswerSide.A16: 16, 18
+  AnswerSide.A17: 1, 3
   AnswerSide.A18: 1, 1
-  AnswerSide.A19: 3, 3
+  AnswerSide.A19: 4, 3
   AnswerSide.A20: 1, 1
   AnswerSide.A21: 1, 1
   AnswerSide.A22: 1, 1
   AnswerSide.A23: 5, 5
   AnswerSide.A24: 1, 1
-  AnswerSide.A25: 25, 25
+  AnswerSide.A25: 14, 25
   AnswerSide.A26: 1, 1
   AnswerSide.A27: 2, 2
