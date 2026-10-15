@@ -236,8 +236,9 @@ joining them. Well inside nomic-embed-text's context, so harmless in practice; t
 
 Default (v2): `Structured` chunking, `Hybrid` search, no reranking. Projects (v4): `RagFilingExplorer.Core` holds all of
 the pipeline below and no model provider; each provider is a library over it (`RagFilingExplorer.Ollama`,
-`RagFilingExplorer.Claude`); one app, `RagFilingExplorer.Cli`, chooses them from `appsettings.json`'s `Providers`
-(Ollama for both by default) and passes Core the embedder and chat client.
+`RagFilingExplorer.Claude`, `RagFilingExplorer.Voyage`); one app, `RagFilingExplorer.Cli`, chooses them from
+`appsettings.json`'s `Providers` (Ollama for both by default, the local reranker, reranking off) and passes Core the
+embedder, chat client and reranker.
 
 ```
 data/*.html + taxonomy (.xsd, linkbases)
@@ -291,7 +292,8 @@ Shared by all three:
                           vector + FTS5 bm25 (chunks_fts, created at startup) + vector-within-statement,
                           50 deep each, fused by RRF (k = 60); Vector (v1): statement type a hard filter →
                           [Rerank, opt-in] each company's top 25 reordered by a local cross-encoder
-                          (ms-marco-MiniLM-L6-v2, ONNX; company line + excerpt header + chunk) →
+                          (ms-marco-MiniLM-L6-v2, ONNX) or Voyage's rerank-3 (v4); company line +
+                          excerpt header + chunk →
                           citation prompt → llama3.1:8b (reasoning only for synthesis questions
                           on a model that reports the "thinking" capability)
 ```
@@ -306,15 +308,20 @@ effort for lookups as well as synthesis (never None - the SDK sends it as thinki
 `Embedding:Model` (`voyage-4-large`, `voyage-finance-2`; 1024 dimensions) into that model's own index; Voyage's
 `input_type` differs for chunks and questions, so the index is built through a "document" generator and searched
 through a "query" one. Key: `VOYAGE_API_KEY` or `Voyage:ApiKey` in the Voyage library's user secrets, never the file.
+`Providers:Rerank = Voyage` (with `Retrieval:Rerank` on) reranks through `VoyageReranker` behind `IRelevanceScorer`:
+`Voyage:RerankModel` (`rerank-3` or `rerank-3-lite`), every candidate scored, `truncation: false`, the embedder's key; one
+billed call at startup checks the key and model. The evaluation calls it on every run, cached answers or not - the
+response cache keys on the excerpts it picks.
 
 Packages: `AngleSharp` (the DOM - v2's reader and the linearizer), `Microsoft.Extensions.AI`, `Microsoft.Extensions.VectorData.Abstractions`,
 `CommunityToolkit.VectorData.SqliteVec` (1.0.1-preview), `OllamaSharp`,
 `Microsoft.ML.Tokenizers.Data.Cl100kBase`, `Microsoft.Extensions.Configuration.Json` and `.Binder` (the base package comes with `.Json`),
 `Microsoft.Bcl.Memory` (pinned — see below), `Microsoft.Data.Sqlite` (hybrid search's FTS5 queries; already
 transitive via SqliteVec, referenced at the same version), `Microsoft.ML.OnnxRuntime` 1.30.0 and
-`Microsoft.ML.Tokenizers` 2.0.0 (the reranker; its model is fetched separately). The Claude app (v4) only: `Anthropic`
-12.54.1 and `Microsoft.Extensions.Configuration.EnvironmentVariables`; Claude and Voyage libraries:
-`Microsoft.Extensions.Configuration.UserSecrets`. Tests: NUnit + Moq. Tunables live in
+`Microsoft.ML.Tokenizers` 2.0.0 (the reranker; its model is fetched separately), and
+`Microsoft.Extensions.Configuration.EnvironmentVariables` (also in the Claude and Voyage libraries and the evaluation).
+The Claude library (v4) only: `Anthropic` 12.54.1; Claude and Voyage libraries: `Microsoft.Extensions.Configuration.UserSecrets`.
+Tests: NUnit + Moq. The evaluation: `Microsoft.Extensions.AI.Evaluation`, `.Quality` and `.Reporting`, on NUnit. Tunables live in
 `RagFilingExplorer.Cli/appsettings.json`; domain logic (keyword lists, regexes) stays in code.
 
 ---
