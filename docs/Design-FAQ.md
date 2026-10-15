@@ -130,7 +130,7 @@ reasoning support, not as a replacement. Implementation_Plan.md, "Prerequisites"
 Because the embedder, the chat model and the reranker are independent choices - Voyage embeddings with llama answering
 is as valid as nomic with Claude - and an app per paid service would tie them together. Each provider is a library over
 `RagFilingExplorer.Core`, which holds the pipeline and knows no provider; the one app, `RagFilingExplorer.Cli`, reads
-`appsettings.json`'s `Providers` and passes Core the embedder, chat client and reranker chosen. The default is Ollama for both:
+`appsettings.json`'s `Providers` and passes Core the embedder, chat client and reranker chosen. The default is Ollama for both, and the local reranker (reranking off):
 free, no key, nothing sent to a hosted service unless the setting says so, and only the chosen providers are checked
 at startup. The cost of one app is that it carries the Anthropic package even when it never calls it. v4 began with a
 separate Claude app over the local one; it was folded in when paid embeddings made the two choices independent.
