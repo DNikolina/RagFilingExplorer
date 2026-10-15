@@ -90,6 +90,13 @@ alone puts as many answers in the model's context as reranking or RRF blends of 
 family (bge-reranker-v2-m3) did no better on the questions they disagree on, at many times the CPU. So reranking
 stays an opt-in setting, built and measured, not a default. Decision-Log.md, "A1-A27 with reranking off" onwards.
 
+A paid reranker was then tried behind the same interface: Voyage's `rerank-3` (`Providers:Rerank = Voyage`), over the
+same 25 candidates. Unlike the local cross-encoders it lost no answer from the top 5 or top 8 on either embedder, and
+put nearly every answer in the top 5 - the one left out was never among the candidates. For llama that's worth at most
+one question, because its remaining misses are misreadings with the answer at rank 1-3. For Claude it does what 8
+excerpts or 10,000-token chunks did, at the 5-excerpt cost. It stays opt-in: the default is free. Decision-Log.md,
+"Batch 4 - a paid reranker".
+
 For hybrid search, `IKeywordHybridSearchable` exists in `Microsoft.Extensions.VectorData`, but the SQLite connector
 doesn't implement it (Microsoft's connector page: "HybridSearch supported? No"), and the connectors that do are all
 servers or cloud services.
@@ -120,10 +127,10 @@ reasoning support, not as a replacement. Implementation_Plan.md, "Prerequisites"
 
 ### Why is Claude a setting in one app, not a separate app?
 
-Because the embedder and the chat model are independent choices - Voyage embeddings with llama answering is as valid
-as nomic with Claude - and an app per paid service would tie them together. Each provider is a library over
+Because the embedder, the chat model and the reranker are independent choices - Voyage embeddings with llama answering
+is as valid as nomic with Claude - and an app per paid service would tie them together. Each provider is a library over
 `RagFilingExplorer.Core`, which holds the pipeline and knows no provider; the one app, `RagFilingExplorer.Cli`, reads
-`appsettings.json`'s `Providers` and passes Core the embedder and chat client chosen. The default is Ollama for both:
+`appsettings.json`'s `Providers` and passes Core the embedder, chat client and reranker chosen. The default is Ollama for both:
 free, no key, nothing sent to a hosted service unless the setting says so, and only the chosen providers are checked
 at startup. The cost of one app is that it carries the Anthropic package even when it never calls it. v4 began with a
 separate Claude app over the local one; it was folded in when paid embeddings made the two choices independent.
@@ -173,7 +180,7 @@ switchable, as v1's reference.
 So a changed answer can be attributed to a code change rather than sampling. At 0.2, questions whose
 figure was already in the context flipped between right and wrong from run to run. Decision-Log.md,
 "trailing remainders, per-company search, table-piece headers". Claude's current models reject any temperature but
-their default, so the Claude app sends none: an evaluation run is fixed by its response cache instead, and passes asked
+their default, so the app sends none to Claude: an evaluation run is fixed by its response cache instead, and passes asked
 afresh measure how much the answers vary. Decision-Log.md, "paid services (v4)".
 
 ### Why is `VectorStore.UpsertBatchSize` 1?
@@ -201,6 +208,7 @@ comparison" and "Batch 3 - embeddings, free then paid".
 Voyage builds embedding models for retrieval, offers one "optimized for finance retrieval and RAG" (`voyage-finance-2`),
 reads up to 32,000 tokens a text, and gives free tokens per model enough for this project's indexes. Voyage has no
 official .NET SDK, so the client is written here over `HttpClient`, sending Voyage's `input_type` so chunks and questions
-are embedded as Voyage intends. `voyage-4-nano` has open weights (Apache 2.0) but isn't served by Ollama: running it
+are embedded as Voyage intends; the same client and key serve Voyage's reranker (`rerank-3`, see the reranking
+answer). `voyage-4-nano` has open weights (Apache 2.0) but isn't served by Ollama: running it
 locally means porting it to ONNX with tokenizer and embedding parity checks, as the reranker needed - left for later, if
 the free stack needs it. Decision-Log.md, "Batch 3 - embeddings, free then paid".
