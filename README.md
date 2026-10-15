@@ -5,7 +5,7 @@ A local, retrieval-augmented Q&A tool for SEC 10-K filings, built in C#/.NET.
 **Zero cost, no API keys, no accounts.** Embedding, vector search, and answer generation all run
 locally via [Ollama](https://ollama.com/) — nothing is sent to a hosted LLM API, and there's nothing
 to sign up for. (Optionally, and only when configured, Claude can answer through Anthropic's paid API and Voyage AI can
-embed - [Answering with Claude](#answering-with-claude-v4-optional-paid), [Embedding with
+embed and rerank - [Answering with Claude](#answering-with-claude-v4-optional-paid), [Embedding with
 Voyage](#embedding-with-voyage-v4-optional-paid). The default needs neither.)
 
 Ask a natural-language question about one of the included filings and get an answer grounded in, and
@@ -55,10 +55,10 @@ reranking, a calculator tool, or a bigger model - is answered briefly in [docs/D
   Python originals, plus a new one that traces each figure in an answer to the excerpt and line it came from - every run
   stored, cached and reported ([The evaluation](#the-evaluation)).
 - **v4** (in progress, branch `v4`) - paid services measured against the local stack, each one a provider the same app
-  chooses from `appsettings.json` (`Providers`): Claude as the chat model, Voyage AI as the embedder. Measured on all 102
-  questions: Claude Opus 5.5 reads what llama misreads (97/102 strictly against llama's 84 on the same excerpts), and with
-  Voyage's `voyage-finance-2` embeddings and 8 excerpts reaches 102/102; llama gains 85 ->
-  87 from the same embeddings ([Answering with Claude](#answering-with-claude-v4-optional-paid),
+  chooses from `appsettings.json` (`Providers`): Claude as the chat model, Voyage AI as the embedder and the reranker.
+  Measured on all 102 questions: Claude Opus 5.5 reads what llama misreads (97/102 strictly against llama's 84 on the
+  same excerpts), and with Voyage's `voyage-finance-2` embeddings reaches 102/102 - on 8 excerpts, or on 5 with Voyage's
+  `rerank-3`; llama gains 85 -> 87 from the same embeddings ([Answering with Claude](#answering-with-claude-v4-optional-paid),
   [Embedding with Voyage](#embedding-with-voyage-v4-optional-paid)).
 
 ### Results
@@ -87,20 +87,20 @@ llama's weren't read.
   better embeddings or bigger chunks fix the same misses: the embedder is worth 2-3 questions at 5 excerpts, 0-1 at 8.
 - Bigger chunks are the costly way there: the 10,000-token run read ~2.5M input tokens ($10.70), 500-token chunks with 8
   excerpts ~0.55M ($2.80), for the same answers.
-- A reranker (Voyage `rerank-3`, over each company's top 25 candidates) is the cheapest way: it puts every answer in the
-  top 5, so Opus reaches 102 on 5 excerpts (~0.37M input tokens, ~$2.05) and Sonnet 102 as read (~$0.91). llama
+- A reranker (Voyage `rerank-3`, over each company's top 25 candidates) is the cheapest way: on finance-2 it puts every answer in
+  the top 5 (94 of 95 on nomic), so Opus reaches 102 on 5 excerpts (~0.37M input tokens, ~$2.05) and Sonnet 102 as read (~$0.91). llama
   barely moves - its misses are reading.
 
 Every run is in `eval/v3-runs/` (`structured-hybrid-chunk-fixes`, `structured-hybrid-finance2-500`,
-`claude-opus55-medium-*`), each read in [docs/Decision-Log.md](docs/Decision-Log.md), "paid services (v4)". How v2
+`structured-hybrid-*-rerank3`, `claude-opus55-medium-*`, `claude-sonnet55-medium-finance2-rerank3`), each read in [docs/Decision-Log.md](docs/Decision-Log.md), "paid services (v4)". How v2
 improved on v1, question set by question set, is in [eval/README.md](eval/README.md).
 
 ## How it works
 
 Two flows: the index is built once (first run, or `--rebuild`), and then every question is answered from it.
-This is the default (v2); v1's `markitdown` pipeline and `Vector` search are a setting away. Who embeds and who answers
-are chosen in `appsettings.json`'s `Providers` - Ollama for both by default, free; Voyage and Claude only when chosen
-(v4). Each embedding model and chunk budget has its own index, so switching never rebuilds one.
+This is the default (v2); v1's `markitdown` pipeline and `Vector` search are a setting away. Who embeds, who answers and who
+reranks are chosen in `appsettings.json`'s `Providers` - Ollama for both by default and reranking off, free; Voyage and
+Claude only when chosen (v4). Each embedding model and chunk budget has its own index, so switching never rebuilds one.
 
 ```mermaid
 flowchart TB
@@ -137,6 +137,7 @@ flowchart TB
         kw["Keyword search<br/>FTS5 bm25"]
         vecst["Vector search<br/>within the statement"]
         fuse["Reciprocal rank fusion"]
+        rerank["Reranker - opt-in, off by default<br/>local cross-encoder or Voyage rerank-3<br/>each company's top 25"]
         prompt["Top excerpts (llama 5, Claude 8) + citation rules<br/>must fit the chat model's window"]
         llm["Chat model<br/>llama3.1:8b (Ollama, default)<br/>or Claude"]
         answer["Answer, each fact cited<br/>to filing and section"]
@@ -150,7 +151,8 @@ flowchart TB
         vec --> fuse
         kw --> fuse
         vecst --> fuse
-        fuse --> prompt
+        fuse --> rerank
+        rerank --> prompt
         prompt --> llm
         llm --> answer
     end
@@ -177,8 +179,8 @@ flowchart TB
   Claude (v4)
 - **[Anthropic](https://github.com/anthropics/anthropic-sdk-csharp)** (the official C# SDK, through its `IChatClient`
   adapter) — the optional Claude provider (v4)
-- **Voyage AI** — the optional embedding provider (v4), through a hand-written `HttpClient` `IEmbeddingGenerator`
-  (Voyage has no official .NET SDK)
+- **Voyage AI** — the optional embedding and reranking provider (v4), through a hand-written `HttpClient`
+  `IEmbeddingGenerator` and reranker (Voyage has no official .NET SDK)
 - **Local models**: `nomic-embed-text` (274MB, embeddings) and `llama3.1:8b` (4.9GB, answer generation) — the defaults
 - **Source data**: public [SEC EDGAR](https://www.sec.gov/edgar) 10-K filings (raw HTML)
 
@@ -201,7 +203,7 @@ Developed and tested on a 12th Gen Intel i7-12800H, 32GB RAM, **CPU-only inferen
 models were chosen specifically because they run acceptably on CPU alone.
 
 - **First run** reads, chunks, and embeds every filing in `data/` and builds the index
-  (`rag.structured.db` for the default chunking strategy) from scratch: 975 chunks across the 4 included
+  (`rag.structured.db` for the default chunking strategy) from scratch: 981 chunks across the 4 included
   filings, about **6 minutes** on the hardware above - embedding is the slow part.
 - **Every run after that** finds the existing index and skips straight to the interactive loop —
   well under a minute to start.
@@ -215,8 +217,8 @@ models were chosen specifically because they run acceptably on CPU alone.
 dotnet run --project RagFilingExplorer.Cli
 ```
 
-One app for every configuration: `appsettings.json`'s `Providers` section chooses who embeds and who answers - Ollama
-for both by default, free and with no key. Works from any directory - `data/`, `chunk-review/` and the index are located relative to the repo
+One app for every configuration: `appsettings.json`'s `Providers` section chooses who embeds, who answers and who
+reranks - Ollama for both by default and reranking off, free and with no key. Works from any directory - `data/`, `chunk-review/` and the index are located relative to the repo
 root. The first line of output names the chunking strategy and index in use.
 
 - `--rebuild` — deletes the current strategy's index and rebuilds from scratch. Needed after changing chunking/embedding
@@ -243,7 +245,8 @@ exits with a one-line fix instead of a stack trace:
 - A filing's XBRL taxonomy (`.xsd`, plus its linkbases when they're separate files) isn't in `data/` next to it
   (`Structured`), or one of its Statement roles can't be mapped to a statement type - both stop the build with
   the reason, rather than mislabel chunks.
-- The reranker is on but its model is missing or fails its SHA-256 check, or `Retrieval:Search` isn't `Hybrid`.
+- The reranker is on but `Retrieval:Search` isn't `Hybrid`, or the local model is missing or fails its SHA-256 check,
+  or Voyage's key or rerank model doesn't answer.
 - **The index can't be trusted.** A build writes `rag.<strategy>.db.manifest.json` only after every
   chunk has been embedded. It records the embedding model, the chunking strategy and settings, and a
   SHA-256 hash of every filing (under `Structured`, of its taxonomy files too). If the index has no manifest, the last build was interrupted or failed. If the manifest doesn't match
@@ -322,8 +325,9 @@ Every run is in `eval/v3-runs/` (`claude-*`), and each non-passing answer is rea
 Set `Providers:Embedding` to `Voyage` and `Embedding:Model` to `voyage-4-large` or `voyage-finance-2`, and Voyage AI
 embeds the chunks and questions instead of `nomic-embed-text` - with any chat model; with Claude answering, Ollama
 isn't needed at all. Chunking, search and prompts stay the same. Each embedding model has its own index
-(`rag.structured.voyage-4-large.db`), built on first run, so switching back to nomic needs no rebuild. Not yet measured
-against nomic.
+(`rag.structured.voyage-4-large.db`), built on first run, so switching back to nomic needs no rebuild. Both rank answers higher than
+nomic, and `voyage-finance-2` improves llama's and Claude's answers ([Results](#results)). The same key serves Voyage's
+reranker (`Providers:Rerank = Voyage`, [Search](#search)).
 
 The key lives outside the repository, as Claude's: `dotnet user-secrets set "Voyage:ApiKey" <your key> --project
 RagFilingExplorer.Voyage`, or the `VOYAGE_API_KEY` environment variable; a key in
@@ -462,8 +466,8 @@ Runs both test projects, fully offline - no live Ollama instance or populated ve
 `RagFilingExplorer.Tests` (NUnit + Moq) covers chunking, section and statement detection, query routing,
 company registration, settings and index-manifest checks, the retrieve+generate orchestration (mocked; hybrid
 search against a real FTS5 file), the reranker's tokenization, and v2's page and inline XBRL readers - checked
-against the filings in `data/`, including fact for fact against EDGAR's own extraction - and Claude's
-settings checks (no API call). `RagFilingExplorer.Evaluation` checks the evaluators themselves.
+against the filings in `data/`, including fact for fact against EDGAR's own extraction - Claude's
+settings checks, and Voyage's embedder and reranker (no API call). `RagFilingExplorer.Evaluation` checks the evaluators themselves.
 
 ### The evaluation
 
@@ -531,7 +535,7 @@ Every measured run, v1's on, is kept in `eval/`.
 RagFilingExplorer.Core/                 the pipeline, no model provider - chunking, XBRL, vector store, retrieval, question loop
 RagFilingExplorer.Ollama/               Ollama as a provider - its clients, readiness and capability checks
 RagFilingExplorer.Claude/               Claude as a provider (v4): the chat client and its settings - billed, used only when chosen
-RagFilingExplorer.Voyage/               Voyage as a provider (v4): the embedder and its key - billed, used only when chosen
+RagFilingExplorer.Voyage/               Voyage as a provider (v4): the embedder, the reranker and their key - billed, used only when chosen
 RagFilingExplorer.Cli/                  the app - appsettings.json, providers chosen there, builds the index, the question loop
 RagFilingExplorer.Tests/                NUnit + Moq test suite
 RagFilingExplorer.Evaluation/           the evaluation (v3): evaluators, runner, report, variance and judge measurements
