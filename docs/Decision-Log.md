@@ -35,12 +35,14 @@ One line per section, in file order. Quote a section's name to reference it - na
 - **Follow-up: equity routing and title captions** - done. Period-end equity routes to the balance sheet; titles ride on a table's first piece.
 - **Follow-up: trailing remainders, per-company search, table-piece headers** - done. Footer chunks merged, one search per named company, temperature 0.2 -> 0, two table-splitting fixes.
 - **Follow-up: linearized tables as a second chunking strategy** - done. Tables linearized from the HTML (colspan-aware); XBRL as a test oracle only, not at runtime.
-- **Follow-up: embedding-model comparison** - deferred; candidate models and their templates recorded.
+- **Follow-up: embedding-model comparison** - deferred; candidate models and their templates recorded. Run in v4, batch 3.
 - **Follow-up: targeted questions and a rank metric** - done. Linearized puts the answer in context 7/10 vs 4/10 but answers only one more right; `Markdown` stays default; scope stops here.
 - **Follow-up: pre-manual-pass review** - done. Lost first chunk (key 0), back-matter headings, output ceiling; soft filter measured, not built; Program.cs split.
 - **Follow-up: XBRL hybrid (v2)** - done, tag `v2.0` (2026-10-02). `Structured` chunking from the HTML and inline XBRL (no markitdown), hybrid search (vector + FTS5, RRF); reranking built and left opt-in; answer-side rule and calculator screened, not built.
 - **Follow-up: manual pass (v1)** - done. Main set 23/24 correct, 16/24 reliable (units); targeted 3/10; routing and negatives all declined. Prompt change re-run: 22/24 reliable on both strategies; two further prompt revisions tried and not kept; `Markdown` stays default.
-- **Follow-up: evaluation in .NET (v3)** - planned: the strict grader and retrieval rank as `Microsoft.Extensions.AI.Evaluation` custom evaluators, with reporting and response caching; each step must reproduce the Python tools exactly.
+- **Follow-up: evaluation in .NET (v3)** - done, tag `v3.0` (2026-10-06). The strict grader and retrieval rank as `Microsoft.Extensions.AI.Evaluation` custom evaluators, held exact to the Python tools; a figure-source evaluator; reporting and response caching; a local judge measured, kept alongside.
+- **Follow-up: over-engineering audit (ponytail)** - done. 11 of 17 findings applied, behaviour unchanged; the other six are the project's deliberate records and options.
+- **Follow-up: paid services (v4)** - in progress, branch `v4`. Claude as the chat model (batch 1), a paid judge (batch 2), Voyage embeddings (batch 3) and Voyage's reranker (batch 4); defaults stay free.
 
 ---
 
@@ -1307,7 +1309,7 @@ measure the leak first, using indentation as a *test* oracle for the three filer
 indented no deeper than its group label is outside it), and fix only if the rate and its effect on
 answers warrant it.
 
-## Follow-up: embedding-model comparison — DEFERRED (its first step, the rank metric, done; comparison not run)
+## Follow-up: embedding-model comparison — DEFERRED here; run in v4 (see "Batch 3 - embeddings, free then paid")
 
 **Why not now.** Retrieval isn't what's failing: `replay_recall.py` has 22/22 answerable questions with
 the figure in the top-5 context, and every recent wrong answer had the right chunk in context. But a
@@ -2823,7 +2825,7 @@ didn't regress anywhere, T4 included. It ties on the main set, answers one more 
 faster, but regressed on T4 (declined - operating and finance lease rows mixed in one chunk) and Q2 (the
 lookalike equity line), both of which Markdown answers. Both strategies stay switchable.
 
-## Follow-up: evaluation in .NET (v3) — PLANNED
+## Follow-up: evaluation in .NET (v3) — DONE (tag `v3.0`), outcome below
 
 **Why (user, 2026-10-02, after `v2.0`).** The evaluation is what made every v1 and v2 decision measurable, and it is
 still a set of Python scripts (`tools/grade_answers.py`, `tools/replay_recall.py`) run by hand over console logs, with
@@ -3419,7 +3421,7 @@ every step - chunking output, every prompt, answer, grade, rank and figure sourc
 audit's four largest findings were the project's deliberate records and options, which bears on using the plugin as a
 standing mode rather than on demand - the user's call.
 
-## Follow-up: paid services (v4) — PLANNED
+## Follow-up: paid services (v4) — IN PROGRESS (branch `v4`; batches 1-3 complete, batch 4 steps 0-4 done)
 
 **Why (user, 2026-10-02 and 2026-10-06).** v1-v3 are local and free on purpose. v4 measures what money buys over that:
 the same questions answered by paid services, and - the third path - by a bigger local model on better hardware. The
@@ -3662,7 +3664,7 @@ grades predate the rules (90/102) - regraded offline, 6 `check`s become `reliabl
 
 **Batch 1 complete (2026-10-08):** README "Results: Claude against llama3.1:8b". `v4` not pushed (user).
 
-### Batch 2 - a paid judge: PLANNED (user, 2026-10-08)
+### Batch 2 - a paid judge: COMPLETE (user, 2026-10-08)
 
 **Why.** v3's local judge - Microsoft's Equivalence evaluator scored by `llama3.1:8b` - passed 14 of the 18 answers the
 strict grade fails, rating $27,034M against $26,445M "a slight difference" ("Step 6 - the local judge"); Microsoft's docs
@@ -4754,7 +4756,7 @@ GraderParityTests needed no regrade: every recorded A12 answer is a clean declin
   `data/**`: the taxonomy files are LF in git but CRLF on disk (checked out with conversion), the indexes were built from
   those bytes, and `-text` would rewrite them to LF on the next checkout - the same staleness.
 
-### Batch 4 - a paid reranker: PLANNED (user, 2026-10-14)
+### Batch 4 - a paid reranker: STEPS 0-4 DONE (user, 2026-10-14)
 
 Voyage's rerankers `rerank-3` ("highest accuracy") and `rerank-3-lite` (both 200M free tokens per account, then $0.05 and
 $0.02 per 1M - Voyage's reranker and pricing pages, read 2026-10-14) over the same hybrid candidates the local
