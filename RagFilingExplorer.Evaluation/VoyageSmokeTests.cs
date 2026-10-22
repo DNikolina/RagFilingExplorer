@@ -64,7 +64,7 @@ public class VoyageSmokeTests
             ChunkText("SourceFiling = 'NFLX-10K-2025.html' AND Heading LIKE '%Item 2. Properties%'"),
         ];
 
-        VoyageReranker reranker = await VoyageReranker.CreateAsync(VoyageApi.LoadKeyFromRepository(Repo), model);
+        using VoyageReranker reranker = await VoyageReranker.CreateAsync(VoyageApi.LoadKeyFromRepository(Repo), model);
         long checkTokens = reranker.TotalTokens;
         IReadOnlyList<float> scores = await reranker.ScoreAsync(Question, chunks);
         TestContext.Progress.WriteLine(

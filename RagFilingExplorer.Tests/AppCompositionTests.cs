@@ -39,4 +39,16 @@ public class AppCompositionTests
 
         Assert.That(ex.Message, Does.Contain("Providers:Rerank is Voyage"));
     }
+
+    // Local loads the cross-encoder even when a provider's reranker is passed; a missing model is the proof it tried.
+    [Test]
+    public void ChooseReranker_LocalWithAProvidersReranker_LoadsTheLocalModel()
+    {
+        AppSettings settings = Reranking(RerankProvider.Local);
+        settings.Retrieval.RerankModelDirectory = Path.Combine(Path.GetTempPath(), $"AppCompositionTests-{Guid.NewGuid():N}");
+
+        StartupException ex = Assert.Throws<StartupException>(() => AppComposition.ChooseReranker(settings, new ProviderScorer()))!;
+
+        Assert.That(ex.Message, Does.Contain("model.onnx").And.Contain("Fetch the model"));
+    }
 }
