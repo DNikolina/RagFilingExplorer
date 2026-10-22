@@ -51,4 +51,4 @@ extend (e.g. `RagAnswerServiceTests.MakeMocks`, `CreateService`).
   positions are all the linearizer aligns by.
 - **Running:** `dotnet test` from the repo root (`RagFilingExplorer.slnx`; `tools/LinearizeSpike` is
   deliberately outside it). Don't build or test while the app is running - the locked DLL fails the build.
-  The test count is quoted in the plan's Status table - update it when adding tests.
+  The test count lives only in `dotnet test`'s output and a Decision-Log entry's "Checked:" line - never the plan.
