@@ -259,7 +259,7 @@ exits with a one-line fix instead of a stack trace:
 
 ## Answering with Claude (v4, optional, paid)
 
-Set `Providers:Chat` to `Claude` and the same app, over the same index, has Claude write the answer instead of
+Set `Providers:Chat` to `Claude` in `appsettings.json` and the same app, over the same index, has Claude write the answer instead of
 `llama3.1:8b`. Chunking, embeddings, the index and retrieval are the same; Claude reads 8 excerpts to llama's 5
 (`Claude:GenerationTopK` - its window holds them, llama's doesn't). The default stays free: nothing is sent to Anthropic
 unless this setting chooses it ([docs/Design-FAQ.md](docs/Design-FAQ.md)).
@@ -275,6 +275,14 @@ Besides the usual prerequisites, it needs:
   or in the `ANTHROPIC_API_KEY` environment variable, which wins when both are set. (Claude Code reads that variable
   too, for its own sign-in - user secrets keep the two apart.) A key in `appsettings.json` stops startup. Every
   answer is billed, so set a spending limit in the Anthropic Console first.
+
+Then choose it in `appsettings.json`:
+
+```json
+"Providers": { "Embedding": "Ollama", "Chat": "Claude", "Rerank": "Local" }
+```
+
+Or, for one run only, leave the file's free default and override the key with an environment variable of the same name:
 
 ```powershell
 $env:Providers__Chat = 'Claude'; dotnet run --project RagFilingExplorer.Cli; Remove-Item Env:Providers__Chat
@@ -322,17 +330,29 @@ Every run is in `eval/v3-runs/` (`claude-*`), and each non-passing answer is rea
 
 ## Embedding with Voyage (v4, optional, paid)
 
-Set `Providers:Embedding` to `Voyage` and `Embedding:Model` to `voyage-4-large` or `voyage-finance-2`, and Voyage AI
+Set `Providers:Embedding` to `Voyage` and `Embedding:Model` to `voyage-4-large` or `voyage-finance-2` in
+`appsettings.json`, and Voyage AI
 embeds the chunks and questions instead of `nomic-embed-text` - with any chat model; with Claude answering, Ollama
 isn't needed at all. Chunking, search and prompts stay the same. Each embedding model has its own index
 (`rag.structured.voyage-4-large.db`), built on first run, so switching back to nomic needs no rebuild. Both rank answers higher than
 nomic, and `voyage-finance-2` improves llama's and Claude's answers ([Results](#results)). The same key serves Voyage's
-reranker (`Providers:Rerank = Voyage`, [Search](#search)).
+reranker (`Providers:Rerank = Voyage`, [Search](#search)). The embedding model is `Embedding:Model`, not in the `Voyage`
+section, because both embedding providers share it - the model names the index. The `Voyage` section holds only what's
+Voyage's own: the rerank model, and the key's name in user secrets (`Voyage:ApiKey`).
 
 The key lives outside the repository, as Claude's: `dotnet user-secrets set "Voyage:ApiKey" <your key> --project
 RagFilingExplorer.Voyage`, or the `VOYAGE_API_KEY` environment variable; a key in
 `appsettings.json` stops startup. Startup embeds one word to check the key and model - a few billed tokens; a first
 build embeds every chunk once (about half a million tokens, inside Voyage's free tokens per model).
+
+Then choose it in `appsettings.json`:
+
+```json
+"Providers": { "Embedding": "Voyage", "Chat": "Ollama", "Rerank": "Local" },
+"Embedding": { "Model": "voyage-finance-2" }
+```
+
+Or, for one run only, with environment variables of the same names:
 
 ```powershell
 $env:Providers__Embedding = 'Voyage'; $env:Embedding__Model = 'voyage-4-large'
