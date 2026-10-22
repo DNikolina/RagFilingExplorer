@@ -49,7 +49,7 @@ revisiting any decision summarized here.
 | 5. Retrieval | Done — company filter; `Hybrid` search (v2), the statement type a boost; reranking opt-in |
 | 6. Answer generation | Done — citation-grounded prompt, reasoning-model support |
 | 7. Testing | Done — unit tests, and the .NET evaluation (v3): every question graded strictly, its answer ranked, its figures traced |
-| 8. Publish | Done — `v1.0`, `v2.0`, `v3.0` tagged on `main` |
+| 8. Publish | Done — `v1.0` to `v4.0` tagged on `main` |
 
 Each version is complete on its own; the next starts only when the user asks. The history behind every line below is
 in Decision-Log.md, under the section named.
@@ -59,7 +59,7 @@ in Decision-Log.md, under the section named.
 | v1 (`v1.0`, 2026-09-28) | `Markdown` and `Linearized` chunking over markitdown, vector search with a statement-type filter, the citation prompt | Manual pass graded strictly: 22/24 reliable on both strategies | Steps 1-8, "manual pass (v1)" |
 | v2 (`v2.0`, 2026-10-02) | `Structured` chunking from the DOM and inline XBRL; `Hybrid` search (FTS5 + vectors, RRF); a fixed decline form; the local cross-encoder reranker, opt-in | Held-out H1-H15 10 -> 14/15 from hybrid search; reranking measured and left off (recall@5 85 vs hybrid's 86, of 94); granite4.1 tried, llama kept | "XBRL hybrid (v2)" |
 | v3 (`v3.0`, 2026-10-06) | The evaluation in .NET (`Microsoft.Extensions.AI.Evaluation`): strict grade, answer rank, figure source, reports, response cache; a local judge as a second view | v2's grades reproduced; llama's Equivalence judge passed 14 of 18 wrong answers, so the strict grade stays the grade | "evaluation in .NET (v3)" |
-| v4 (open, branch `v4`) | Paid providers beside the local stack: Core plus provider libraries, one app (`RagFilingExplorer.Cli`); Claude as chat model and judge; Voyage embeddings and reranker | Below | "paid services (v4)" |
+| v4 (`v4.0`, 2026-10-22) | Paid providers beside the local stack: Core plus provider libraries, one app (`RagFilingExplorer.Cli`); Claude as chat model and judge; Voyage embeddings and reranker | Below | "paid services (v4)" |
 
 **v4, batch by batch:**
 1. **Claude as the chat model - complete.** Opus 5.5 and Sonnet 5.5 on the default index: every remaining miss a
@@ -73,7 +73,7 @@ in Decision-Log.md, under the section named.
 4. **A paid reranker - complete.** `rerank-3` lifts recall@5 nomic 86 -> 94, finance-2
    91 -> 95, losing no answer; `rerank-3-lite` one behind. llama barely moves (86 and 87/102) - its failures are now
    misreadings with the answer at rank 1-3.
-5. **The Mac work.** Then closing v4.
+5. **The Mac - moved out of v4** (user): a bigger local model on better hardware, when the hardware arrives.
 
 **Where it stands:**
 - **Shipped defaults - free and local:** `Structured`, `Hybrid`, nomic-embed-text, llama3.1:8b at temperature 0 (so a

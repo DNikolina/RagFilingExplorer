@@ -42,7 +42,7 @@ One line per section, in file order. Quote a section's name to reference it - na
 - **Follow-up: manual pass (v1)** - done. Main set 23/24 correct, 16/24 reliable (units); targeted 3/10; routing and negatives all declined. Prompt change re-run: 22/24 reliable on both strategies; two further prompt revisions tried and not kept; `Markdown` stays default.
 - **Follow-up: evaluation in .NET (v3)** - done, tag `v3.0` (2026-10-06). The strict grader and retrieval rank as `Microsoft.Extensions.AI.Evaluation` custom evaluators, held exact to the Python tools; a figure-source evaluator; reporting and response caching; a local judge measured, kept alongside.
 - **Follow-up: over-engineering audit (ponytail)** - done. 11 of 17 findings applied, behaviour unchanged; the other six are the project's deliberate records and options.
-- **Follow-up: paid services (v4)** - in progress, branch `v4`. Batches 1-4 complete: Claude as the chat model, a paid judge, Voyage embeddings, Voyage's reranker; defaults stay free. Next: the Mac (batch 5), then closing v4.
+- **Follow-up: paid services (v4)** - done, tag `v4.0` (2026-10-22). Claude as the chat model, a paid judge, Voyage embeddings, Voyage's reranker; defaults stay free. The Mac (a bigger local model) moved out of v4, waiting for the hardware.
 
 ---
 
@@ -3421,7 +3421,7 @@ every step - chunking output, every prompt, answer, grade, rank and figure sourc
 audit's four largest findings were the project's deliberate records and options, which bears on using the plugin as a
 standing mode rather than on demand - the user's call.
 
-## Follow-up: paid services (v4) — IN PROGRESS (branch `v4`; batches 1-4 complete)
+## Follow-up: paid services (v4) — DONE (tag `v4.0`; batches 1-4)
 
 **Why (user, 2026-10-02 and 2026-10-06).** v1-v3 are local and free on purpose. v4 measures what money buys over that:
 the same questions answered by paid services, and - the third path - by a bigger local model on better hardware. The
@@ -4903,3 +4903,8 @@ model asked) and their reports regenerated; the `summary-*.txt` files keep the r
 **Batch 4 complete (user, 2026-10-22).** `rerank-3` puts nearly every answer in the top 5 and lets Claude read 5 excerpts
 instead of 8 for the same grades; llama, whose misses are misreadings, barely moves. Reranking stays off by default - the
 shipped default stays free. Next: batch 5, the Mac; then closing v4.
+
+**Closing v4 (user, 2026-10-22).** The Mac hasn't arrived, so v4 closes without it: the third path in "Why" above - a
+bigger local model on better hardware - moves out of v4 and starts when the hardware is here (user). v4 stands on its
+four batches: Claude reads what llama misreads; Voyage's embeddings and reranker fix what's left, which is retrieval; the
+shipped default is unchanged and free. Merged to `main` (fast-forward), tag `v4.0`.

@@ -54,7 +54,7 @@ reranking, a calculator tool, or a bigger model - is answered briefly in [docs/D
   `Microsoft.Extensions.AI.Evaluation`: the strict grader and the retrieval rank as custom evaluators held exact to the
   Python originals, plus a new one that traces each figure in an answer to the excerpt and line it came from - every run
   stored, cached and reported ([The evaluation](#the-evaluation)).
-- **v4** (in progress, branch `v4`) - paid services measured against the local stack, each one a provider the same app
+- **v4** (tag `v4.0`) - paid services measured against the local stack, each one a provider the same app
   chooses from `appsettings.json` (`Providers`): Claude as the chat model, Voyage AI as the embedder and the reranker.
   Measured on all 102 questions: Claude Opus 5.5 reads what llama misreads (97/102 strictly against llama's 84 on the
   same excerpts), and with Voyage's `voyage-finance-2` embeddings reaches 102/102 - on 8 excerpts, or on 5 with Voyage's
