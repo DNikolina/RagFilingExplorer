@@ -70,7 +70,7 @@ in Decision-Log.md, under the section named.
    into paragraphs, row groups checked against the XBRL presentation trees). Retrieval-only over 94 questions, recall@5 /
    MRR: nomic 86 / 0.756, `voyage-finance-2` 90 / 0.794, `voyage-4-large` 89 / 0.834; bigger chunks measured,
    `MaxTokensPerChunk` stays 500. `Claude:GenerationTopK` 5 -> 8.
-4. **A paid reranker - steps 1-4 done, awaiting the user's close.** `rerank-3` lifts recall@5 nomic 86 -> 94, finance-2
+4. **A paid reranker - complete.** `rerank-3` lifts recall@5 nomic 86 -> 94, finance-2
    91 -> 95, losing no answer; `rerank-3-lite` one behind. llama barely moves (86 and 87/102) - its failures are now
    misreadings with the answer at rank 1-3.
 5. **The Mac work.** Then closing v4.

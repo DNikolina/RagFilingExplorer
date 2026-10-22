@@ -42,7 +42,7 @@ One line per section, in file order. Quote a section's name to reference it - na
 - **Follow-up: manual pass (v1)** - done. Main set 23/24 correct, 16/24 reliable (units); targeted 3/10; routing and negatives all declined. Prompt change re-run: 22/24 reliable on both strategies; two further prompt revisions tried and not kept; `Markdown` stays default.
 - **Follow-up: evaluation in .NET (v3)** - done, tag `v3.0` (2026-10-06). The strict grader and retrieval rank as `Microsoft.Extensions.AI.Evaluation` custom evaluators, held exact to the Python tools; a figure-source evaluator; reporting and response caching; a local judge measured, kept alongside.
 - **Follow-up: over-engineering audit (ponytail)** - done. 11 of 17 findings applied, behaviour unchanged; the other six are the project's deliberate records and options.
-- **Follow-up: paid services (v4)** - in progress, branch `v4`. Claude as the chat model (batch 1), a paid judge (batch 2), Voyage embeddings (batch 3) and Voyage's reranker (batch 4); defaults stay free.
+- **Follow-up: paid services (v4)** - in progress, branch `v4`. Batches 1-4 complete: Claude as the chat model, a paid judge, Voyage embeddings, Voyage's reranker; defaults stay free. Next: the Mac (batch 5), then closing v4.
 
 ---
 
@@ -3421,7 +3421,7 @@ every step - chunking output, every prompt, answer, grade, rank and figure sourc
 audit's four largest findings were the project's deliberate records and options, which bears on using the plugin as a
 standing mode rather than on demand - the user's call.
 
-## Follow-up: paid services (v4) — IN PROGRESS (branch `v4`; batches 1-3 complete, batch 4 steps 0-4 done)
+## Follow-up: paid services (v4) — IN PROGRESS (branch `v4`; batches 1-4 complete)
 
 **Why (user, 2026-10-02 and 2026-10-06).** v1-v3 are local and free on purpose. v4 measures what money buys over that:
 the same questions answered by paid services, and - the third path - by a bigger local model on better hardware. The
@@ -4756,7 +4756,7 @@ GraderParityTests needed no regrade: every recorded A12 answer is a clean declin
   `data/**`: the taxonomy files are LF in git but CRLF on disk (checked out with conversion), the indexes were built from
   those bytes, and `-text` would rewrite them to LF on the next checkout - the same staleness.
 
-### Batch 4 - a paid reranker: STEPS 0-4 DONE (user, 2026-10-14)
+### Batch 4 - a paid reranker: COMPLETE (user, 2026-10-14 to 2026-10-22)
 
 Voyage's rerankers `rerank-3` ("highest accuracy") and `rerank-3-lite` (both 200M free tokens per account, then $0.05 and
 $0.02 per 1M - Voyage's reranker and pricing pages, read 2026-10-14) over the same hybrid candidates the local
@@ -4899,3 +4899,7 @@ or "billion" to another figure the same answer states, when that one is in an ex
 millions, rounds to it at the figure's decimal places; a sum rounds none of the answer's figures, so A11's 5.76 stays
 untraced. The 6 stored results were rewritten as the evaluator now writes them (only their figure source changes; no
 model asked) and their reports regenerated; the `summary-*.txt` files keep the run-time count. 9 new tests (210 evaluation).
+
+**Batch 4 complete (user, 2026-10-22).** `rerank-3` puts nearly every answer in the top 5 and lets Claude read 5 excerpts
+instead of 8 for the same grades; llama, whose misses are misreadings, barely moves. Reranking stays off by default - the
+shipped default stays free. Next: batch 5, the Mac; then closing v4.
