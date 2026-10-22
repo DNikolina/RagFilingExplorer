@@ -14,7 +14,8 @@ The evaluation asks every question in `tools/*-questions.txt` through the app ex
 - **Answer rank** - where the expected figure first appears among the retrieved chunks (for a calculation, the last
   of its inputs). Ranks 1..GenerationTopK (5) are in the model's prompt; a wrong answer with a good rank is a misreading, a missing or late rank a retrieval miss.
 - **Figure source** - each figure the answer states, traced to the excerpt and line it came from: `traced`,
-  `calculated` (an asked-for sum or ratio), `untraced` (in no excerpt - a possible invention), `no figure stated`.
+  `calculated` (an asked-for sum or ratio), `untraced` (in no excerpt - a possible invention; a rounding of a figure
+  the answer states, "about $9.13 billion" beside 9,127,167 thousand, counts as traced), `no figure stated`.
 
 Each run has a name - the library calls it an *execution*, hence the `Execution` setting. Results are stored per
 question under `eval/v3-runs/results/<run>/`, model responses are cached in `eval/v3-runs/cache/` (gitignored), and each

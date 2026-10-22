@@ -4886,3 +4886,16 @@ Every answer's figure in the top 5. Sonnet without the reranker, 5 excerpts: 95 
 |---|---|---|---|
 | Opus 5.5 | 102 | 102 | ~$2.05 |
 | Sonnet 5.5 | 100 | 102 | ~$0.91 |
+
+**Batch 4 review (user, 2026-10-22):** every batch 4 commit read again; the code holds, and every figure in this section,
+the README and the plan matches its run file in `eval/v3-runs/`. Two gaps closed: a test of `ChooseReranker`'s `Local`
+path, and `VoyageSmokeTests` disposing its reranker. **Figure source: a rounding is traced.** The report failed Sonnet's
+H34 above - "$(9,127,167) thousand ..., meaning about $9.13 billion" - because 9.13 is printed in no excerpt. Of the 17
+`untraced` results stored in `eval/v3-runs/`, 6 (4 answers - the judge runs reuse Sonnet's cached ones) were such roundings, each beside the exact figure: H34,
+Sonnet's Q18 (10.98 billion, in its plain, top-12 and both judge runs) and Q17 (45.2 billion, top-12). The other 11 are
+arithmetic the question didn't ask for - Opus's A11 sums ($5,828M, ~$5.76B), Sonnet's H25 sums, llama's A16 sum and Q14
+difference - the possible inventions the flag is for. `FigureSourceEvaluator` now traces a figure followed by "million"
+or "billion" to another figure the same answer states, when that one is in an excerpt and, in dollars, thousands or
+millions, rounds to it at the figure's decimal places; a sum rounds none of the answer's figures, so A11's 5.76 stays
+untraced. The 6 stored results were rewritten as the evaluator now writes them (only their figure source changes; no
+model asked) and their reports regenerated; the `summary-*.txt` files keep the run-time count. 9 new tests (210 evaluation).

@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.AI.Evaluation;
@@ -5,8 +6,9 @@ using RagFilingExplorer.Evaluation.Grading;
 
 namespace RagFilingExplorer.Evaluation.Evaluators;
 
-/// <summary>Where one stated figure sits: each excerpt holding it, by its position in the prompt (1-based).</summary>
-internal sealed record FigureSource(string Figure, IReadOnlyList<FigureSighting> Sightings);
+/// <summary>Where one stated figure sits: each excerpt holding it, by its position in the prompt (1-based) - for a figure
+/// that rounds another the answer states (<paramref name="RoundsFrom"/>), the excerpts holding that one.</summary>
+internal sealed record FigureSource(string Figure, IReadOnlyList<FigureSighting> Sightings, string? RoundsFrom = null);
 
 /// <summary>An excerpt holding a figure, and the first of its lines that does (with how many more do).</summary>
 internal sealed record FigureSighting(int Position, RetrievedExcerpt Excerpt, string Line, int MoreLines);
@@ -26,8 +28,10 @@ internal sealed record FigureSighting(int Position, RetrievedExcerpt Excerpt, st
 ///   untraced         a figure is in none, on a question that doesn't ask for one - an invention to read (failed)
 ///   no figure stated a text answer ("Austin") or a decline - nothing to trace (a text answer isn't matched against
 ///                    the expected text)
-/// Deterministic - no model is asked. A figure is matched as the grader tokenizes numbers, so "(26,445)" holds 26,445;
-/// a figure the answer restates in other units ("$3.1 billion" for 3,074) isn't found.
+/// Deterministic - no model is asked. A figure is matched as the grader tokenizes numbers, so "(26,445)" holds 26,445.
+/// A figure restated in millions or billions ("$9,127,167 thousand (about $9.13 billion)") is printed nowhere, but is
+/// no invention: it's traced to the figure it rounds, when the answer states that one and it's in an excerpt. A sum or
+/// difference rounds none of the answer's figures, so it stays untraced.
 /// </summary>
 internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvaluator
 {
@@ -42,6 +46,12 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
     [GeneratedRegex(@"\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}\b",
         RegexOptions.CultureInvariant)]
     private static partial Regex MonthDayRegex();
+
+    [GeneratedRegex(@"\G\)?\s*(million|billion)\b", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
+    private static partial Regex ScaleAfterRegex();
+
+    // The units a figure the answer rounds can be in: a table's dollars, thousands or millions.
+    private static readonly decimal[] SourceUnits = [1m, 1_000m, 1_000_000m];
 
     /// <summary>A calculation question: two or more inputs in chunk_expect, none of them the expected figure.</summary>
     public static bool AsksForCalculation(ExpectedAnswer expected)
@@ -80,7 +90,35 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
             sources.Add(new FigureSource(figure, sightings));
         }
 
+        for (int i = 0; i < sources.Count; i++)
+        {
+            if (sources[i].Sightings.Count == 0
+                && ScaleAfter(answer, sources[i].Figure) is { } scale
+                && sources.FirstOrDefault(s => s.Sightings.Count > 0 && s.RoundsFrom is null && Rounds(sources[i].Figure, scale, s.Figure)) is { } exact)
+            {
+                sources[i] = sources[i] with { Sightings = exact.Sightings, RoundsFrom = exact.Figure };
+            }
+        }
+
         return sources;
+    }
+
+    /// <summary>1,000,000 or 1,000,000,000 when the figure's first mention in the answer says "million" or "billion" after it.</summary>
+    private static decimal? ScaleAfter(string answer, string figure)
+    {
+        int at = StrictGrader.IndexOfNumber(answer, figure);
+        Match scale = at < 0 ? Match.Empty : ScaleAfterRegex().Match(answer, at + figure.Length);
+        return !scale.Success ? null : scale.Groups[1].Value.Equals("billion", StringComparison.OrdinalIgnoreCase) ? 1_000_000_000m : 1_000_000m;
+    }
+
+    /// <summary>Whether <paramref name="figure"/> (in <paramref name="scale"/>) is <paramref name="source"/> - in dollars,
+    /// thousands or millions - rounded to the figure's decimal places: 9.13 billion from 9,127,167 thousand.</summary>
+    internal static bool Rounds(string figure, decimal scale, string source)
+    {
+        decimal rounded = decimal.Parse(figure.Replace(",", ""), CultureInfo.InvariantCulture);
+        decimal exact = decimal.Parse(source.Replace(",", ""), CultureInfo.InvariantCulture);
+        int places = figure.IndexOf('.') is var dot and >= 0 ? figure.Length - dot - 1 : 0;
+        return rounded > 0 && SourceUnits.Any(unit => Math.Round(exact * unit / scale, places, MidpointRounding.AwayFromZero) == rounded);
     }
 
     /// <summary>The line, or for a long one about <see cref="MaxLineLength"/> characters centred on the figure.</summary>
@@ -100,9 +138,9 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
     private static string Detail(FigureSource source) =>
         source.Sightings.Count == 0
             ? "in none of the excerpts"
-            : string.Join("; ", source.Sightings.Select(s =>
+            : (source.RoundsFrom is { } exact ? $"rounds {exact}: " : "") + string.Join("; ", source.Sightings.Select(s =>
             {
-                string line = Window(s.Line, source.Figure);
+                string line = Window(s.Line, source.RoundsFrom ?? source.Figure);
                 string more = s.MoreLines > 0 ? $" (+{s.MoreLines} more line{(s.MoreLines > 1 ? "s" : "")})" : "";
                 return $"excerpt {s.Position} ({s.Excerpt.StatementType}, {s.Excerpt.Heading}): \"{line}\"{more}";
             }));
@@ -111,7 +149,7 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
     private static string Summary(FigureSource source) =>
         source.Sightings.Count == 0
             ? $"{source.Figure} from no excerpt"
-            : $"{source.Figure} from excerpt{(source.Sightings.Count > 1 ? "s" : "")} "
+            : $"{source.Figure}{(source.RoundsFrom is { } exact ? $" (rounds {exact})" : "")} from excerpt{(source.Sightings.Count > 1 ? "s" : "")} "
                 + string.Join(", ", source.Sightings.Select(s => $"{s.Position} ({s.Excerpt.StatementType})"));
 
     /// <summary>Where an expected figure was: <see cref="Detail"/> in full (the metadata), <see cref="Summary"/> in short (the

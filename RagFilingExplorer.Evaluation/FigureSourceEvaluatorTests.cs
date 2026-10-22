@@ -176,6 +176,51 @@ public class FigureSourceEvaluatorTests
         Assert.That(metric.Interpretation!.Failed, Is.False);
     }
 
+    // NFLX, H34: Sonnet gave the cash flow line's $(9,127,167) thousand and "about $9.13 billion" - a correct rounding,
+    // printed in no excerpt, so the answer was failed as an invention.
+    [Test]
+    public async Task EvaluateAsync_RoundingOfAStatedFigure_IsTracedToIt()
+    {
+        RetrievedExcerpt netflix = new("NFLX-10K-2025.html", "PART IV > Financial Statements", "cash_flow_statement",
+            "CONSOLIDATED STATEMENTS OF CASH FLOWS\n(in thousands)\nCash flows from financing activities > Repurchases of common stock — 2025: (9,127,167) | 2024: (6,263,746)");
+        ExpectedAnswer h34 = new("H34", "How much cash did Netflix spend repurchasing its common stock in 2025?", "figure",
+            Expect: ["9,127,167"], Unit: "thousand", ChunkExpect: ["(9,127,167)"]);
+
+        StringMetric metric = await SourceAsync(h34,
+            "The cash flow line \"Repurchases of common stock\" was $(9,127,167) thousand for 2025, meaning about $9.13 billion of cash was spent.", [netflix]);
+
+        Assert.That(metric.Value, Is.EqualTo("traced"));
+        Assert.That(metric.Interpretation!.Failed, Is.False);
+        Assert.That(metric.Metadata!["Stated 9.13"], Does.StartWith("rounds 9,127,167: excerpt 1 (cash_flow_statement").And.Contain("(9,127,167)"));
+        Assert.That(metric.Interpretation!.Reason, Does.Contain("9.13 (rounds 9,127,167) from excerpt 1 (cash_flow_statement)"));
+    }
+
+    // ORCL, A11: Opus added two dividend lines into "about $5.76 billion" unasked - a figure it made, which must stay flagged.
+    [Test]
+    public async Task EvaluateAsync_SumInBillions_StaysUntraced()
+    {
+        RetrievedExcerpt oracle = new("ORCL-10K-2026.html", "PART II > Item 7", "narrative",
+            "Cash dividends of $63 million on preferred stock and $5.7 billion on common stock; common stock dividends of $5,725 million.");
+        ExpectedAnswer a11 = new("A11", "How much did Oracle pay in dividends in fiscal 2026?", "figure", Expect: ["5,787"], Unit: "million", ChunkExpect: ["5,787"]);
+
+        StringMetric metric = await SourceAsync(a11, "$63 million + $5.7 billion gives about $5.76 billion; the equity statement shows $5,725 million.", [oracle]);
+
+        Assert.That(metric.Value, Is.EqualTo("untraced"));
+        Assert.That(metric.Metadata!["Stated 5.76"], Is.EqualTo("in none of the excerpts"));
+    }
+
+    [TestCase("9.13", 1_000_000_000, "9,127,167", true)]    // thousands to billions (H34)
+    [TestCase("45.2", 1_000_000_000, "45,183,036", true)]   // one decimal place (Q17)
+    [TestCase("10.98", 1_000_000_000, "10,981,201", true)]  // Q18
+    [TestCase("26.4", 1_000_000_000, "26,445", true)]       // millions to billions
+    [TestCase("5.8", 1_000_000, "5,787,000", true)]         // dollars to millions
+    [TestCase("9.12", 1_000_000_000, "9,127,167", false)]   // a wrong rounding
+    [TestCase("5.76", 1_000_000_000, "5,725", false)]       // A11's sum, against one of its inputs
+    public void Rounds_FigureInMillionsOrBillions(string figure, decimal scale, string source, bool rounds)
+    {
+        Assert.That(FigureSourceEvaluator.Rounds(figure, scale, source), Is.EqualTo(rounds));
+    }
+
     [Test]
     public async Task EvaluateAsync_FigureOnlyBeyondGenerationTopK_IsUntraced()
     {

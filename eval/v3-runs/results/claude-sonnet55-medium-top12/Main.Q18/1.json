@@ -71,17 +71,17 @@
       },
       "Figure source": {
         "$type": "string",
-        "value": "untraced",
+        "value": "traced",
         "name": "Figure source",
         "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
         "interpretation": {
-          "rating": "unacceptable",
-          "failed": true,
-          "reason": "10.98 in none of the excerpts the model was given; 10,981,201 from excerpts 1 (income_statement), 2 (narrative), 3 (comprehensive_income), 4 (cash_flow_statement), 6 (narrative), 9 (narrative), 10.98 from no excerpt."
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 10,981,201 from excerpts 1 (income_statement), 2 (narrative), 3 (comprehensive_income), 4 (cash_flow_statement), 6 (narrative), 9 (narrative), 10.98 (rounds 10,981,201) from excerpts 1 (income_statement), 2 (narrative), 3 (comprehensive_income), 4 (cash_flow_statement), 6 (narrative), 9 (narrative)."
         },
         "metadata": {
           "Stated 10,981,201": "excerpt 1 (income_statement, PART IV \u003E Financial Statements): \u0022Other income (expense) \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\u0022; excerpt 2 (narrative, PART IV \u003E Financial Statements \u003E Segment and Geographic Information): \u0022Other income (expense) \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\u0022; excerpt 3 (comprehensive_income, PART IV \u003E Financial Statements): \u0022Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\u0022; excerpt 4 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022Cash flows from operating activities \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\u0022; excerpt 6 (narrative, PART IV \u003E Financial Statements \u003E Earnings Per Share): \u0022Basic earnings per share \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\u0022 (\u002B1 more line); excerpt 9 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Net income \u2014 Year Ended December 31, 2025: $10,981,201 | Year Ended December 31, 2024: $8,711,631 | Year Ended December 31, 2023: $5,407,990 | Change 2025 vs. 2...\u0022",
-          "Stated 10.98": "in none of the excerpts"
+          "Stated 10.98": "rounds 10,981,201: excerpt 1 (income_statement, PART IV \u003E Financial Statements): \u0022Other income (expense) \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\u0022; excerpt 2 (narrative, PART IV \u003E Financial Statements \u003E Segment and Geographic Information): \u0022Other income (expense) \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\u0022; excerpt 3 (comprehensive_income, PART IV \u003E Financial Statements): \u0022Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\u0022; excerpt 4 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022Cash flows from operating activities \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\u0022; excerpt 6 (narrative, PART IV \u003E Financial Statements \u003E Earnings Per Share): \u0022Basic earnings per share \u003E Net income \u2014 2025: $10,981,201 | 2024: $8,711,631 | 2023: $5,407,990\u0022 (\u002B1 more line); excerpt 9 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022Net income \u2014 Year Ended December 31, 2025: $10,981,201 | Year Ended December 31, 2024: $8,711,631 | Year Ended December 31, 2023: $5,407,990 | Change 2025 vs. 2...\u0022"
         }
       }
     }

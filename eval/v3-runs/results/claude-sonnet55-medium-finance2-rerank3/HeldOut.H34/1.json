@@ -74,17 +74,17 @@
       },
       "Figure source": {
         "$type": "string",
-        "value": "untraced",
+        "value": "traced",
         "name": "Figure source",
         "reason": "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), and - for an answer that doesn\u0027t pass - where the expected figure was: on a line the model misread, derived from figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless the question asks for a calculation. Deterministic - no model is asked.",
         "interpretation": {
-          "rating": "unacceptable",
-          "failed": true,
-          "reason": "9.13 in none of the excerpts the model was given; 9,127,167 from excerpt 1 (cash_flow_statement), 9.13 from no excerpt, 86,536,215 from excerpts 2 (narrative), 3 (narrative), 5 (equity_statement), 9.1 from excerpts 2 (narrative), 3 (narrative), 1 from excerpts 2 (narrative), 3 (narrative), 9,154,855 from excerpt 5 (equity_statement)."
+          "rating": "good",
+          "failed": false,
+          "reason": "Every figure is in an excerpt: 9,127,167 from excerpt 1 (cash_flow_statement), 9.13 (rounds 9,127,167) from excerpt 1 (cash_flow_statement), 86,536,215 from excerpts 2 (narrative), 3 (narrative), 5 (equity_statement), 9.1 from excerpts 2 (narrative), 3 (narrative), 1 from excerpts 2 (narrative), 3 (narrative), 9,154,855 from excerpt 5 (equity_statement)."
         },
         "metadata": {
           "Stated 9,127,167": "excerpt 1 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022Cash flows from financing activities \u003E Repurchases of common stock \u2014 2025: (9,127,167) | 2024: (6,263,746) | 2023: (6,045,347)\u0022",
-          "Stated 9.13": "in none of the excerpts",
+          "Stated 9.13": "rounds 9,127,167: excerpt 1 (cash_flow_statement, PART IV \u003E Financial Statements): \u0022Cash flows from financing activities \u003E Repurchases of common stock \u2014 2025: (9,127,167) | 2024: (6,263,746) | 2023: (6,045,347)\u0022",
           "Stated 86,536,215": "excerpt 2 (narrative, PART IV \u003E Financial Statements \u003E Stockholders\u0027 Equity): \u0022... prior notice. During the year ended December\u00A031, 2025, the Company repurchased 86,536,215 shares for an aggregate amount of $9.1\u00A0billion (excluding the 1% exci...\u0022; excerpt 3 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...ior notice. In the fiscal year ended December\u00A031, 2025, the Company repurchased 86,536,215 shares of common stock for an aggregate amount of $9.1\u00A0billion (exclu...\u0022; excerpt 5 (equity_statement, PART IV \u003E Financial Statements): \u0022...ended December 31, 2025) \u2014 Common Stock and Additional Paid-in Capital Shares: (86,536,215) | Treasury Stock: (9,154,855) | Total Stockholders\u2019 Equity: (9,154,8...\u0022",
           "Stated 9.1": "excerpt 2 (narrative, PART IV \u003E Financial Statements \u003E Stockholders\u0027 Equity): \u0022...31, 2025, the Company repurchased 86,536,215 shares for an aggregate amount of $9.1\u00A0billion (excluding the 1% excise tax on stock repurchases as a result of the...\u0022; excerpt 3 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022...mpany repurchased 86,536,215 shares of common stock for an aggregate amount of $9.1\u00A0billion (excluding the 1% excise tax on stock repurchases as a result of the...\u0022",
           "Stated 1": "excerpt 2 (narrative, PART IV \u003E Financial Statements \u003E Stockholders\u0027 Equity): \u0022...ule 10b-18 under the Exchange Act, including through the use of trading plans intended to qualify under Rule 10b5-1 under the Exchange Act, privately-negotiated\u0022 (\u002B1 more line); excerpt 3 (narrative, PART II \u003E Item 7. Management\u2019s Discussion and Analysis of Financial Condition and Results of Operations): \u0022... including through the use of trading plans intended to qualify under Rule 10b5-1 under the Exchange Act, privately-negotiated transactions, accelerated stock r...\u0022",
