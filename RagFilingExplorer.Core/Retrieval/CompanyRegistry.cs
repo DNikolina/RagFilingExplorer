@@ -43,6 +43,7 @@ internal sealed class CompanyRegistry(IReadOnlyList<CompanyRegistration> registr
     {
         string name = CoverFacts.RegistrantName(xbrl)
             ?? throw new InvalidOperationException($"{filing} tags no dei:EntityRegistrantName, so questions naming its company can't be routed to it.");
+        
         string? form = CoverFacts.Clean(xbrl.First("dei:DocumentType")?.Text);
         if (form != "10-K")
         {
@@ -51,18 +52,23 @@ internal sealed class CompanyRegistry(IReadOnlyList<CompanyRegistration> registr
 
         List<string> names = [CoverFacts.ShortName(name), .. CoverFacts.CommonStocks(xbrl).Select(c => c.Symbol)];
 
-        return new CompanyRegistration(filing, names.Distinct(StringComparer.OrdinalIgnoreCase).ToList(), CoverFacts.EmbeddingContext(xbrl),
-            CoverFacts.Clean(xbrl.First("dei:EntityCentralIndexKey")?.Text), CoverFacts.Clean(xbrl.First("dei:DocumentFiscalYearFocus")?.Text));
+        return new CompanyRegistration(
+            filing,
+            [.. names.Distinct(StringComparer.OrdinalIgnoreCase)],
+            CoverFacts.EmbeddingContext(xbrl),
+            CoverFacts.Clean(xbrl.First("dei:EntityCentralIndexKey")?.Text),
+            CoverFacts.Clean(xbrl.First("dei:DocumentFiscalYearFocus")?.Text)
+        );
     }
 
     /// <summary>Fails naming the filings when two are the same company's (by CIK, else by name) for the same fiscal year.</summary>
     internal static void EnsureOneFilingPerCompanyYear(IReadOnlyList<CompanyRegistration> registrations)
     {
-        string[] duplicates = registrations
+        string[] duplicates = [.. registrations
             .GroupBy(r => (Company: r.Cik ?? r.Names[0], r.FiscalYear))
             .Where(g => g.Count() > 1)
-            .Select(g => $"{string.Join(" and ", g.Select(r => r.Filing))} ({g.First().Names[0]}, fiscal year {g.Key.FiscalYear ?? "untagged"})")
-            .ToArray();
+            .Select(g => $"{string.Join(" and ", g.Select(r => r.Filing))} ({g.First().Names[0]}, fiscal year {g.Key.FiscalYear ?? "untagged"})")];
+        
         if (duplicates.Length > 0)
         {
             throw new InvalidOperationException(
@@ -87,10 +93,9 @@ internal sealed class CompanyRegistry(IReadOnlyList<CompanyRegistration> registr
     /// Every filing the question names, in a stable (ordinal) order; empty when it names none. RagAnswerService
     /// searches each one separately - in one shared search, one company's chunks can crowd the other's out of the top-K.
     /// </summary>
-    public string[] ResolveFilings(string question) => Registrations
+    public string[] ResolveFilings(string question) => [.. Registrations
         .Where(r => r.Names.Any(name => Regex.IsMatch(question, $@"\b{Regex.Escape(name)}\b", RegexOptions.IgnoreCase)))
         .Select(r => r.Filing)
         .Distinct()
-        .Order(StringComparer.Ordinal)
-        .ToArray();
+        .Order(StringComparer.Ordinal)];
 }

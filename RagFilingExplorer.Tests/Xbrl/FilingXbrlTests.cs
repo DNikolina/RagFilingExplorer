@@ -18,6 +18,7 @@ public class FilingXbrlTests
 
     private readonly Dictionary<string, (IDocument Page, XbrlDocument Xbrl, XbrlTaxonomy Taxonomy)> _read = [];
     private DirectoryInfo _data = null!;
+    private DirectoryInfo _tempDir = null!;
 
     [OneTimeSetUp]
     public void OneTimeSetUp()
@@ -30,6 +31,12 @@ public class FilingXbrlTests
             _read[filing] = (page, InlineXbrlReader.Read(page), TaxonomyReader.Read(schema));
         }
     }
+
+    [SetUp]
+    public void SetUp() => _tempDir = Directory.CreateDirectory(Path.Combine(Path.GetTempPath(), $"FilingXbrlTests-{Guid.NewGuid():N}"));
+
+    [TearDown]
+    public void TearDown() => _tempDir.Delete(recursive: true);
 
     [TestCaseSource(nameof(Filings))]
     public void Read_EveryContextAndUnitReferenceResolves(string filing)
@@ -200,5 +207,18 @@ public class FilingXbrlTests
     public void FindForFiling_NflxWithoutSchemaRef_IsFoundByNamespace()
     {
         Assert.That(TaxonomyReader.FindForFiling(_read["NFLX-10K-2025.html"].Page, _data)?.Name, Is.EqualTo("nflx-20251231.xsd"));
+    }
+
+    // The SEC's dei-2025.xsd, saved into data/ as a reference, sorted first and matched every filing's dei namespace:
+    // all four were read with it, and chunking stopped at "Primary statements don't map one to one".
+    [Test]
+    public void FindForFiling_StandardSchemaBesideTheFilers_FailsNamingBoth()
+    {
+        File.Copy(Path.Combine(_data.FullName, "nflx-20251231.xsd"), Path.Combine(_tempDir.FullName, "nflx-20251231.xsd"));
+        File.WriteAllText(Path.Combine(_tempDir.FullName, "dei-2025.xsd"),
+            """<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xbrl.sec.gov/dei/2025"/>""");
+
+        Assert.That(() => TaxonomyReader.FindForFiling(_read["NFLX-10K-2025.html"].Page, _tempDir),
+            Throws.InvalidOperationException.With.Message.Contains("dei-2025.xsd").And.Message.Contains("nflx-20251231.xsd"));
     }
 }

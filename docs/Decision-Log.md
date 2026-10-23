@@ -4932,3 +4932,11 @@ shipped default is unchanged and free. Merged to `main` (fast-forward), tag `v4.
 **Reading a filing moved out of `MarkItDownConverter`.** `ReadFiling` and `DetectEncoding` - how every strategy and
 the company registry open a filing - sat in the class that shells out to markitdown, which only `Markdown` uses. They
 are `FilingFile.Read` and `FilingFile.DetectEncoding` now, unchanged; their tests moved to `FilingFileTests`.
+
+**A filing's taxonomy must be the only schema matching it.** `TaxonomyReader.FindForFiling` took the first `.xsd` in
+`data/` whose namespace the page declares - but every page declares the standard ones too. The SEC's `dei-2025.xsd`,
+saved into `data/` as reference, sorted first and became all four filings' taxonomy: chunking stopped at "Primary
+statements don't map one to one", which names the statements, not the schema. The XBRL `types.xsd` matched MSFT and
+ORCL and was picked for neither only because it sorts after them. Several matches now fail, naming every schema.
+Neither standard schema is needed: the filers' own label files already label every us-gaap concept they use, and
+the one DEI concept the code lacked, `EntityLegalForm`, none of the four filings tags. 1 new test (508).

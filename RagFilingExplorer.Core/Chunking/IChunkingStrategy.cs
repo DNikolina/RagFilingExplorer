@@ -43,6 +43,6 @@ internal static class ChunkingStrategies
         };
     }
 
-    /// <summary>Lowercase name used in the strategy's index and chunk-dump paths, e.g. "markdown".</summary>
+    /// <summary>Lowercase name used in the strategy's index and chunk-dump paths, e.g. "structured".</summary>
     public static string FileName(ChunkingStrategyKind strategy) => strategy.ToString().ToLowerInvariant();
 }
