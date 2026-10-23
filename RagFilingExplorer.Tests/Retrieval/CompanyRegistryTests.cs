@@ -38,6 +38,18 @@ public class CompanyRegistryTests
 
     private static CompanyRegistry? _real;
 
+    private string _tempDir = null!;
+
+    [SetUp]
+    public void SetUp()
+    {
+        _tempDir = Path.Combine(Path.GetTempPath(), $"CompanyRegistryTests-{Guid.NewGuid():N}");
+        Directory.CreateDirectory(_tempDir);
+    }
+
+    [TearDown]
+    public void TearDown() => Directory.Delete(_tempDir, recursive: true);
+
     private static DirectoryInfo Repo => RepoPaths.FindRoot(TestContext.CurrentContext.TestDirectory);
 
     private static FileInfo[] DataFilings() =>
@@ -176,4 +188,79 @@ public class CompanyRegistryTests
 
         Assert.Throws<InvalidOperationException>(() => CompanyRegistry.Register("AAPL-10K-2026.html", noCover));
     }
+
+    // With several files in data/, an error that doesn't name the file leaves the user to find it.
+    [Test]
+    public void FromFilings_FileWithoutInlineXbrl_FailsNamingTheFile()
+    {
+        string page = Path.Combine(_tempDir, "notes.html");
+        File.WriteAllText(page, "<html><body><p>Not a filing.</p></body></html>");
+
+        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => CompanyRegistry.FromFilings([new FileInfo(page)]))!;
+
+        Assert.That(ex.Message, Does.StartWith("notes.html: ").And.Contain("not an inline XBRL filing"));
+    }
+
+    [TestCase("10-Q")]
+    [TestCase("10-K/A")]
+    [TestCase("8-K")]
+    public void Register_FormOtherThan10K_FailsNamingTheForm(string form)
+    {
+        XbrlDocument cover = Cover(("dei:EntityRegistrantName", "Apple Inc."), ("dei:DocumentType", form));
+
+        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => CompanyRegistry.Register("AAPL.html", cover))!;
+
+        Assert.That(ex.Message, Does.Contain($"AAPL.html is a Form {form}"));
+    }
+
+    [Test]
+    public void Register_FormUntagged_Fails()
+    {
+        XbrlDocument cover = Cover(("dei:EntityRegistrantName", "Apple Inc."));
+
+        Assert.That(() => CompanyRegistry.Register("AAPL.html", cover), Throws.InvalidOperationException.With.Message.Contains("no dei:DocumentType"));
+    }
+
+    [Test]
+    public void Register_10K_RecordsItsCikAndFiscalYear()
+    {
+        XbrlDocument cover = Cover(("dei:EntityRegistrantName", "Apple Inc."), ("dei:DocumentType", "10-K"),
+            ("dei:EntityCentralIndexKey", "0000320193"), ("dei:DocumentFiscalYearFocus", "2026"));
+
+        CompanyRegistration registration = CompanyRegistry.Register("AAPL.html", cover);
+
+        Assert.That((registration.Cik, registration.FiscalYear), Is.EqualTo(("0000320193", "2026")));
+    }
+
+    [Test]
+    public void EnsureOneFilingPerCompanyYear_SameCompanySameYear_FailsNamingBothFilings()
+    {
+        CompanyRegistration[] registrations =
+        [
+            new("MSFT-10K-2026.html", ["Microsoft", "MSFT"], Cik: "0000789019", FiscalYear: "2026"),
+            new("MSFT-copy.html", ["Microsoft", "MSFT"], Cik: "0000789019", FiscalYear: "2026"),
+        ];
+
+        Assert.That(() => CompanyRegistry.EnsureOneFilingPerCompanyYear(registrations),
+            Throws.InvalidOperationException.With.Message.Contains("MSFT-10K-2026.html and MSFT-copy.html"));
+    }
+
+    // Another year of the same company is a filing to keep, not a duplicate.
+    [Test]
+    public void EnsureOneFilingPerCompanyYear_SameCompanyDifferentYears_Passes()
+    {
+        CompanyRegistration[] registrations =
+        [
+            new("MSFT-10K-2025.html", ["Microsoft", "MSFT"], Cik: "0000789019", FiscalYear: "2025"),
+            new("MSFT-10K-2026.html", ["Microsoft", "MSFT"], Cik: "0000789019", FiscalYear: "2026"),
+        ];
+
+        Assert.That(() => CompanyRegistry.EnsureOneFilingPerCompanyYear(registrations), Throws.Nothing);
+    }
+
+    // A cover page holding only the given dei: facts, each in its own context.
+    private static XbrlDocument Cover(params (string Concept, string Text)[] facts) => new(
+        new Dictionary<string, XbrlContext>(),
+        new Dictionary<string, XbrlUnit>(),
+        facts.Select((f, i) => new XbrlFact(null, f.Concept, $"c{i}", null, false, false, null, 0, null, false, f.Text, null, f.Text, false, [])).ToList());
 }

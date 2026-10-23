@@ -43,7 +43,7 @@ internal sealed class AppSettings
         AppSettings settings = configuration.Get<AppSettings>()
             ?? throw new InvalidOperationException("appsettings.json is missing or failed to bind to AppSettings.");
 
-        EnsureKeysPresent(configuration, typeof(AppSettings), prefix: null, "appsettings.json");
+        EnsureKeysValid(configuration, typeof(AppSettings), prefix: null, "appsettings.json");
 
         // Checked at load, before any provider is created - a paid reranker's startup check is billed.
         if (settings.Retrieval.Rerank && settings.Retrieval.Search != SearchMode.Hybrid)
@@ -57,16 +57,28 @@ internal sealed class AppSettings
 
     /// <summary>
     /// Fails naming every key <paramref name="type"/> binds (under <paramref name="prefix"/>) that the configuration
-    /// lacks - the evaluation's settings use it too. Checks presence against the raw configuration tree rather than the
-    /// bound values, so a legitimately-zero setting (e.g. OverlapTokens: 0, ChatTemperature: 0) is never mistaken for
-    /// "missing" - see the class summary for why `required` alone doesn't catch this.
+    /// lacks, or whose enum value isn't one of the enum's names - the provider and evaluation settings use it too. Checks
+    /// the raw configuration tree rather than the bound values, so a legitimately-zero setting (e.g. OverlapTokens: 0,
+    /// ChatTemperature: 0) is never mistaken for "missing" - see the class summary for why `required` alone doesn't catch
+    /// this. The binder also takes an enum's number: "7" binds as an undefined ChatProvider, which code testing for Claude
+    /// reads as Ollama.
     /// </summary>
-    internal static void EnsureKeysPresent(IConfiguration configuration, Type type, string? prefix, string fileName)
+    internal static void EnsureKeysValid(IConfiguration configuration, Type type, string? prefix, string fileName)
     {
-        string[] missing = LeafKeys(type, prefix).Where(key => configuration[key] is null).ToArray();
+        List<(string Key, Type Type)> leaves = [.. LeafKeys(type, prefix)];
+        string[] missing = [.. leaves.Where(leaf => configuration[leaf.Key] is null).Select(leaf => leaf.Key)];
         if (missing.Length > 0)
         {
             throw new InvalidOperationException($"{fileName} is missing required key(s): {string.Join(", ", missing)}.");
+        }
+
+        // Case-insensitive, as the binder reads names ("strict" for Grader.Strict).
+        string[] notNames = [.. leaves
+            .Where(leaf => leaf.Type.IsEnum && !Enum.GetNames(leaf.Type).Contains(configuration[leaf.Key]!.Trim(), StringComparer.OrdinalIgnoreCase))
+            .Select(leaf => $"{leaf.Key} is \"{configuration[leaf.Key]}\" - one of {string.Join(", ", Enum.GetNames(leaf.Type))}")];
+        if (notNames.Length > 0)
+        {
+            throw new InvalidOperationException($"{fileName}: {string.Join("; ", notNames)}.");
         }
     }
 
@@ -108,17 +120,17 @@ internal sealed class AppSettings
     /// Every leaf key this type binds (e.g. "Ollama:ChatModel"), derived by reflection - a hand-maintained list
     /// could miss a new setting and silently reopen the "missing key binds as null" gap the check exists to close.
     /// </summary>
-    internal static IEnumerable<string> RequiredConfigurationKeys() => LeafKeys(typeof(AppSettings), prefix: null);
+    internal static IEnumerable<string> RequiredConfigurationKeys() => LeafKeys(typeof(AppSettings), prefix: null).Select(leaf => leaf.Key);
 
     // Settable properties only: a read-only one is computed from the others, not bound.
-    private static IEnumerable<string> LeafKeys(Type type, string? prefix)
+    private static IEnumerable<(string Key, Type Type)> LeafKeys(Type type, string? prefix)
     {
         foreach (PropertyInfo property in type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanWrite))
         {
             string key = prefix is null ? property.Name : $"{prefix}:{property.Name}";
             bool isSection = property.PropertyType.IsClass && property.PropertyType != typeof(string);
 
-            foreach (string leaf in isSection ? LeafKeys(property.PropertyType, key) : [key])
+            foreach ((string Key, Type Type) leaf in isSection ? LeafKeys(property.PropertyType, key) : [(key, property.PropertyType)])
             {
                 yield return leaf;
             }

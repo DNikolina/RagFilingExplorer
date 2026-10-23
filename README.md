@@ -416,7 +416,8 @@ reported as an error, not shown empty. For `llama3.1:8b` only the output cap app
 
 ### Adding a new filing
 
-Drop the `.html` into `data/` and the app asks for `--rebuild`. Then check - the `filer-onboarding-checker`
+Drop the `.html` into `data/` and the app asks for `--rebuild`. Only Form 10-K annual reports are accepted, one per
+company per fiscal year: anything else stops startup and names the file. Then check - the `filer-onboarding-checker`
 subagent in `.claude/agents/` runs these checks and reports with evidence:
 
 1. **Its XBRL taxonomy is in `data/` too** - the `.xsd`, plus the `_pre`/`_lab`/`_cal`/`_def.xml` linkbases when the

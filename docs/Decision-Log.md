@@ -4908,3 +4908,23 @@ shipped default stays free. Next: batch 5, the Mac; then closing v4.
 bigger local model on better hardware - moves out of v4 and starts when the hardware is here (user). v4 stands on its
 four batches: Claude reads what llama misreads; Voyage's embeddings and reranker fix what's left, which is retrieval; the
 shipped default is unchanged and free. Merged to `main` (fast-forward), tag `v4.0`.
+
+## Follow-up: code walkthrough fixes (v5) - IN PROGRESS (branch `v5`, local)
+
+**Context (user, 2026-10-23, after v4.0):** fixes found while reading the code, part by part.
+
+**Startup checks.**
+- **The stale-index check runs before any provider is checked.** Before, Voyage's billed startup calls were made
+  before the app found the index out of date. `--rebuild` still deletes the index only after the providers pass, so a
+  provider that's down doesn't cost the index.
+- **The data folder is checked as it's registered.**
+  - A file without inline XBRL fails naming the file. Before, the error was "No `<ix:header>`" alone.
+  - Only Form 10-K registers, by `dei:DocumentType`. A 10-Q, a 10-K/A or an 8-K would have been indexed, its figures
+    answering beside the annual ones and its profile calling it an annual report.
+  - Two filings of one company (by CIK) for the same fiscal year are refused, naming both. Different years are not
+    refused (user), but they aren't supported yet either: a second MSFT year makes every MSFT question a two-filing
+    search. Multi-year support is on v5's list.
+- **An enum setting must be one of its names**, ignoring case as the binder does. `"Chat": "7"` bound as an undefined
+  provider and started Ollama without a word, and `"1"` chose Claude by its position in the enum. `EnsureKeysPresent`
+  is now `EnsureKeysValid`, for the app, Claude, Voyage and the evaluation.
+- 11 new tests (507).

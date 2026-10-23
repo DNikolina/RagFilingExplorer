@@ -101,7 +101,7 @@ internal sealed class EvaluationSettings
     /// <summary>The settings from a configuration - every key present, every value valid, or an error naming it.</summary>
     public static EvaluationSettings From(IConfiguration configuration)
     {
-        AppSettings.EnsureKeysPresent(configuration, typeof(EvaluationSettings), Section, FileName);
+        AppSettings.EnsureKeysValid(configuration, typeof(EvaluationSettings), Section, FileName);
         EvaluationSettings settings = configuration.GetSection(Section).Get<EvaluationSettings>()
             ?? throw new InvalidOperationException($"{FileName} failed to bind its {Section} section.");
         settings.Validate();

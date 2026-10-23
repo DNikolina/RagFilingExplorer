@@ -125,6 +125,29 @@ public class AppSettingsTests
         Assert.That(ex.Message, Does.Contain("Hybrid"));
     }
 
+    // The binder takes an enum's number as well as its name: "7" bound as an undefined ChatProvider, and the app, testing
+    // for Claude, started on Ollama without a word; "1" chose Claude by its position in the enum.
+    [TestCase("7")]
+    [TestCase("1")]
+    public void Load_EnumGivenAsNumber_FailsNamingTheAcceptedNames(string number)
+    {
+        const string Shipped = "\"Chat\": \"Ollama\"";
+        Assert.That(ShippedJson(), Does.Contain(Shipped), "the shipped chat provider this test replaces");
+        WriteTempSettings(ShippedJson().Replace(Shipped, $"\"Chat\": \"{number}\""));
+
+        Assert.That(() => AppSettings.Load(_tempDirectory),
+            Throws.InvalidOperationException.With.Message.Contains($"Providers:Chat is \"{number}\" - one of Ollama, Claude"));
+    }
+
+    // Names are read ignoring case, as the binder reads them - the evaluation ships "Graders": "strict".
+    [Test]
+    public void Load_EnumNameInLowercase_Binds()
+    {
+        WriteTempSettings(ShippedJson().Replace("\"Chat\": \"Ollama\"", "\"Chat\": \"ollama\""));
+
+        Assert.That(AppSettings.Load(_tempDirectory).Providers.Chat, Is.EqualTo(ChatProvider.Ollama));
+    }
+
     [Test]
     public void Load_MisspelledReasoningEffort_FailsAtLoadTime()
     {
