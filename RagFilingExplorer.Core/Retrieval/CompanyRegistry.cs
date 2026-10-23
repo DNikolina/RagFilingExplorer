@@ -34,7 +34,7 @@ internal sealed class CompanyRegistry(IReadOnlyList<CompanyRegistration> registr
     /// <summary>Reads each filing's cover facts - each page is parsed, so this costs a little time per filing at startup.</summary>
     public static CompanyRegistry FromFilings(IEnumerable<FileInfo> filings)
     {
-        List<CompanyRegistration> registrations = filings.Select(filing => Register(filing.Name, ReadXbrl(filing))).ToList();
+        List<CompanyRegistration> registrations = [.. filings.Select(filing => Register(filing.Name, ReadXbrl(filing)))];
         EnsureOneFilingPerCompanyYear(registrations);
         return new(registrations);
     }
@@ -75,7 +75,7 @@ internal sealed class CompanyRegistry(IReadOnlyList<CompanyRegistration> registr
     {
         try
         {
-            return InlineXbrlReader.Read(new HtmlParser().ParseDocument(MarkItDownConverter.ReadFiling(filing)));
+            return InlineXbrlReader.Read(new HtmlParser().ParseDocument(FilingFile.Read(filing)));
         }
         catch (InvalidOperationException ex)
         {

@@ -33,7 +33,8 @@ internal static class AppComposition
     public static FileInfo[] FindFilings(DirectoryInfo repoRoot)
     {
         DirectoryInfo dataDirectory = new(Path.Combine(repoRoot.FullName, "data"));
-        FileInfo[] filings = dataDirectory.Exists ? dataDirectory.GetFiles("*.html").OrderBy(f => f.Name).ToArray() : [];
+        FileInfo[] filings = dataDirectory.Exists ? [.. dataDirectory.GetFiles("*.html").OrderBy(f => f.Name)] : [];
+
         return filings.Length > 0 ? filings : throw new StartupException($"No *.html filings found in {dataDirectory.FullName}.");
     }
 

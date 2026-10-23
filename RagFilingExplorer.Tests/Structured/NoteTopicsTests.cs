@@ -113,7 +113,7 @@ public class NoteTopicsTests
     public void Find_RealFiling_EveryNoteOnce(string filing, int notes)
     {
         DirectoryInfo data = new(Path.Combine(RepoPaths.FindRoot(TestContext.CurrentContext.TestDirectory).FullName, "data"));
-        IDocument page = new HtmlParser().ParseDocument(MarkItDownConverter.ReadFiling(new FileInfo(Path.Combine(data.FullName, filing))));
+        IDocument page = new HtmlParser().ParseDocument(FilingFile.Read(new FileInfo(Path.Combine(data.FullName, filing))));
 
         List<NoteSpan> found = NoteTopics.Find(page, InlineXbrlReader.Read(page), TaxonomyReader.Read(TaxonomyReader.FindForFiling(page, data)!));
 

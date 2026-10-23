@@ -82,7 +82,7 @@ public class CoverFactsTests
     {
         string path = Path.Combine(RepoPaths.FindRoot(TestContext.CurrentContext.TestDirectory).FullName, "data", filing);
         XbrlDocument xbrl = InlineXbrlReader.Read(new AngleSharp.Html.Parser.HtmlParser().ParseDocument(
-            RagFilingExplorer.Core.Chunking.MarkItDownConverter.ReadFiling(new FileInfo(path))));
+            RagFilingExplorer.Core.Chunking.FilingFile.Read(new FileInfo(path))));
 
         Assert.That(CoverFacts.EmbeddingContext(xbrl), Is.EqualTo(expected));
     }

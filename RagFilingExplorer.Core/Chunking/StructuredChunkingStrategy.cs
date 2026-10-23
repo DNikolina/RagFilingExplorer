@@ -31,7 +31,7 @@ internal sealed class StructuredChunkingStrategy(Tokenizer tokenizer, int maxTok
 
     public StructuredFiling Read(FileInfo filing)
     {
-        IHtmlDocument document = new HtmlParser().ParseDocument(MarkItDownConverter.ReadFiling(filing));
+        IHtmlDocument document = new HtmlParser().ParseDocument(FilingFile.Read(filing));
 
         // The taxonomy sits next to the filing in data/, downloaded with it from EDGAR (docs/Decision-Log.md).
         FileInfo schema = TaxonomyReader.FindForFiling(document, filing.Directory!)

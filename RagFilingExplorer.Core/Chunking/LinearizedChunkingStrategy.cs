@@ -20,7 +20,7 @@ internal sealed class LinearizedChunkingStrategy(Tokenizer tokenizer, int maxTok
 {
     public async Task<ChunkedFiling> ChunkAsync(FileInfo filing)
     {
-        string html = MarkItDownConverter.StripIxHeader(MarkItDownConverter.ReadFiling(filing));
+        string html = MarkItDownConverter.StripIxHeader(FilingFile.Read(filing));
         string raw = await MarkItDownConverter.ConvertHtmlAsync(LinearizeTables(html), filing.Name);
         return MarkdownChunkingStrategy.ChunkText(raw, filing.Name, tokenizer, maxTokensPerChunk, overlapTokens);
     }

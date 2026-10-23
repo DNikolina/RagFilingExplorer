@@ -4928,3 +4928,7 @@ shipped default is unchanged and free. Merged to `main` (fast-forward), tag `v4.
   provider and started Ollama without a word, and `"1"` chose Claude by its position in the enum. `EnsureKeysPresent`
   is now `EnsureKeysValid`, for the app, Claude, Voyage and the evaluation.
 - 11 new tests (507).
+
+**Reading a filing moved out of `MarkItDownConverter`.** `ReadFiling` and `DetectEncoding` - how every strategy and
+the company registry open a filing - sat in the class that shells out to markitdown, which only `Markdown` uses. They
+are `FilingFile.Read` and `FilingFile.DetectEncoding` now, unchanged; their tests moved to `FilingFileTests`.
