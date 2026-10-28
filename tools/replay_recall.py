@@ -1,4 +1,4 @@
-# Kept as the record, not maintained (user, 2026-10-06): the evaluation's "Answer rank" (RagFilingExplorer.Local.Evaluation,
+# Kept as the record, not maintained (user, 2026-10-06): the evaluation's "Answer rank" (RagFilingExplorer.Evaluation,
 # RetrievalRankEvaluator) is the source of truth since v3 - it reads the app's own retrieval, no replay. This script
 # mirrors v2's retrieval and stops reproducing the app after a retrieval change.
 #

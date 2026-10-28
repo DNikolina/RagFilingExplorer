@@ -565,11 +565,8 @@ data/                                   source 10-K filings (HTML, from sec.gov/
                                         extracted facts (_htm.xml) are gitignored - download them to run the XBRL
                                         reader's EDGAR comparison test, which skips without them
 chunk-review/<strategy>/                full per-chunk text dumps, one file per filing, for manual review
-tools/                                  the question files and expected-answers.json; run-variance.ps1 and
-                                        run-judge.ps1; grade_answers.py and replay_recall.py (the Python originals
-                                        of the strict grade and the rank, kept as the record); rerank_spike.py;
-                                        LinearizeSpike + xbrl_column_check.py; vector_map.py (an index's chunk
-                                        vectors drawn in 2D, close chunks close together)
+tools/                                  the evaluation's questions and expected answers, scripts to run, the Python
+                                        records and spikes - what each is for in its README
 eval/                                   every measured run: logs, grades, replays, screens - mapped in its README;
                                         v3-runs/ holds the .NET evaluation's stored runs and reports
 .claude/                                Claude Code config: filer-onboarding-checker subagent, run-evaluation skill,
