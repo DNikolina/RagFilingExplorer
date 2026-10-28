@@ -33,7 +33,7 @@ if not natives:
 conn = sqlite3.connect(f'file:{args.db}?mode=ro', uri=True)
 conn.enable_load_extension(True)
 conn.load_extension(natives[0].rsplit('.', 1)[0])
-rows = conn.execute('''select v.Key, v.Text, c.SourceFiling, c.Heading, c.StatementType, substr(c.Content, 1, 300)
+rows = conn.execute('''select v.Key, v.Text, c.SourceFiling, c.Heading, c.StatementType, c.Content
                        from vec_chunks v join chunks c on c.Key = v.Key order by v.Key''').fetchall()
 
 X = np.array([np.frombuffer(r[1], dtype=np.float32) for r in rows])
