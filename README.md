@@ -131,6 +131,7 @@ flowchart TB
     subgraph ask["Answer a question"]
         direction TB
         q["Question"]
+        qembed["Question embedded - once<br/>same model as the chunks,<br/>its query template"]
         company["Company filter<br/>names and tickers from each filing's cover"]
         statement["Statement type<br/>from keywords - a boost, not a filter"]
         vec["Vector search"]
@@ -144,6 +145,9 @@ flowchart TB
 
         q --> company
         q --> statement
+        q --> qembed
+        qembed --> vec
+        qembed --> vecst
         company --> vec
         company --> kw
         company --> vecst

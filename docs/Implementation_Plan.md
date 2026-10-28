@@ -133,6 +133,7 @@ Indexing - at startup, rebuilt when the build manifest says the index is stale
 
 Answering - per question
   → QueryIntentResolver   company filter (CompanyRegistry) + statement type (keyword substring match)
+  → embedder              the question, once, in the model's query template; the vector goes to every vector search
   → Hybrid search         per named company: vector + FTS5 bm25 + vector-within-statement, 50 deep each,
                           fused by RRF (k = 60); two or more companies interleaved
   → [reranker, opt-in]    each company's top 25 reordered
