@@ -4947,6 +4947,14 @@ after the slowest step - or behind a registration error. Neither index check nee
 registration now follows them. The console keeps registering first: it builds the index, and a refused filing must
 stop it before a build.
 
+**A question is embedded once.** Each vector search passed the question as text, and the vector store embedded it again
+for every search: under `Hybrid`, a question naming a statement embedded twice per company - four times for two
+companies - for one vector. With Voyage each is a billed call and a round trip before the search can run (the tokens
+are a fraction of a cent a run; the waiting is what shows). `RagAnswerService` now embeds the question once, through
+the generator the collection was opened with, and passes the vector to every search - MEVD's `SearchAsync` takes a
+`ReadOnlyMemory<float>` as well as text (Microsoft Learn, `VectorStoreCollection.SearchAsync<TInput>`). Checked:
+`RetrievalRankRunTests` on nomic reproduced every stored rank; 1 new test (509).
+
 ## Follow-up: a map of the chunk vectors (v5)
 
 **Context (user, 2026-10-28):** while reading `vec_chunks` in DB Browser (sqlite-vec's `vec0.dll` loaded as an

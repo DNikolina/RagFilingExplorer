@@ -134,7 +134,7 @@ static async Task RunAsync(string[] args)
     }
 
     VectorStoreCollection<int, FilingChunkRecord> collection = await AppComposition.OpenCollectionAsync(index, queryEmbedding, embeddingTemplates);
-    using RagRuntime runtime = AppComposition.CreateRuntime(settings, index, collection, embeddingTemplates, companies, chat, chatModel, voyageReranker);
+    using RagRuntime runtime = AppComposition.CreateRuntime(settings, index, collection, queryEmbedding, embeddingTemplates, companies, chat, chatModel, voyageReranker);
 
     Console.WriteLine(runtime.Reranker is null
         ? $"Search: {settings.Retrieval.Search}"

@@ -31,15 +31,16 @@ internal sealed record RerankedChunk(float Score, int HybridRank);
 /// Owns the retrieve+generate flow: resolving the question's company and statement type (see
 /// <see cref="CompanyRegistry"/> and <see cref="QueryIntentResolver"/>), running the search - vector, or
 /// hybrid (vector + keyword, fused), optionally reranked - building the citation-grounded context prompt, and
-/// calling the chat model. Its two real dependencies (<see cref="VectorStoreCollection{TKey, TRecord}"/> and
-/// <see cref="IChatClient"/>) are injected so tests can mock them instead of requiring a live Ollama instance
-/// and a populated vector store.
+/// calling the chat model. Its real dependencies (<see cref="VectorStoreCollection{TKey, TRecord}"/>, the embedding
+/// generator and <see cref="IChatClient"/>) are injected so tests can mock them instead of requiring a live Ollama
+/// instance and a populated vector store.
 ///
 /// Tunables come in as <see cref="RetrievalSettings"/> and <see cref="ChatModelOptions"/> with no defaults of their own -
 /// defaults here would duplicate appsettings.json and drift from it.
 /// </summary>
 internal sealed class RagAnswerService(
     VectorStoreCollection<int, FilingChunkRecord> collection,
+    IEmbeddingGenerator<string, Embedding<float>> questionEmbedder,
     IChatClient chatClient,
     RetrievalSettings retrieval,
     ChatModelOptions chatModel,
@@ -92,10 +93,14 @@ internal sealed class RagAnswerService(
         string? keywordQuery = keywords is null ? null : KeywordQuery.Build(question, companies.Registrations.SelectMany(r => r.Names));
         Dictionary<int, RerankedChunk>? reranked = reranker is null ? null : new();
 
+        // Embedded once and passed to every vector search: a string would be embedded again by each search the store
+        // runs - per company, and again for the statement-type list - each a billed call with a paid embedder.
+        ReadOnlyMemory<float> questionVector = (await questionEmbedder.GenerateAsync(embedding.Query(question), cancellationToken: cancellationToken)).Vector;
+
         List<VectorSearchResult<FilingChunkRecord>> results;
         if (targetFilings.Length <= 1)
         {
-            results = await RetrieveAsync(question, keywordQuery, searchTopK, targetFilings.SingleOrDefault(), targetStatementType, reranked, cancellationToken);
+            results = await RetrieveAsync(question, questionVector, keywordQuery, searchTopK, targetFilings.SingleOrDefault(), targetStatementType, reranked, cancellationToken);
         }
         else
         {
@@ -107,7 +112,7 @@ internal sealed class RagAnswerService(
             List<List<VectorSearchResult<FilingChunkRecord>>> perFiling = [];
             foreach (string filing in targetFilings)
             {
-                perFiling.Add(await RetrieveAsync(question, keywordQuery, perFilingTopK, filing, targetStatementType, reranked, cancellationToken));
+                perFiling.Add(await RetrieveAsync(question, questionVector, keywordQuery, perFilingTopK, filing, targetStatementType, reranked, cancellationToken));
             }
 
             results = Enumerable.Range(0, perFilingTopK)
@@ -138,23 +143,23 @@ internal sealed class RagAnswerService(
     }
 
     private async Task<List<VectorSearchResult<FilingChunkRecord>>> RetrieveAsync(
-        string question, string? keywordQuery, int top, string? filing, string? statementType,
+        string question, ReadOnlyMemory<float> questionVector, string? keywordQuery, int top, string? filing, string? statementType,
         Dictionary<int, RerankedChunk>? reranked, CancellationToken cancellationToken)
     {
         if (keywords is null)
         {
-            return await SearchAsync(question, top, filing, statementType, cancellationToken);
+            return await SearchAsync(questionVector, top, filing, statementType, cancellationToken);
         }
 
         if (reranker is null)
         {
-            return await HybridSearchAsync(keywords, question, keywordQuery, top, filing, statementType, cancellationToken);
+            return await HybridSearchAsync(keywords, questionVector, keywordQuery, top, filing, statementType, cancellationToken);
         }
 
         // The company's top RerankCandidates, reordered by the reranker, then cut - for a question naming several
         // companies this runs once per company, so each keeps its own share of the slots.
         List<VectorSearchResult<FilingChunkRecord>> candidates =
-            await HybridSearchAsync(keywords, question, keywordQuery, Math.Max(top, retrieval.RerankCandidates), filing, statementType, cancellationToken);
+            await HybridSearchAsync(keywords, questionVector, keywordQuery, Math.Max(top, retrieval.RerankCandidates), filing, statementType, cancellationToken);
         IReadOnlyList<float> scores = await reranker.ScoreAsync(question, candidates.Select(c => RerankPassage(c.Record)).ToList(), cancellationToken);
         for (int i = 0; i < candidates.Count; i++)
         {
@@ -207,15 +212,15 @@ internal sealed class RagAnswerService(
     // hybrid without the boost loses statement questions; the variants compared: docs/Decision-Log.md, "Step 2 -
     // hybrid search".
     private async Task<List<VectorSearchResult<FilingChunkRecord>>> HybridSearchAsync(
-        KeywordIndex keywordIndex, string question, string? keywordQuery, int top, string? filing, string? statementType,
+        KeywordIndex keywordIndex, ReadOnlyMemory<float> questionVector, string? keywordQuery, int top, string? filing, string? statementType,
         CancellationToken cancellationToken)
     {
         int depth = retrieval.HybridCandidates;
-        List<VectorSearchResult<FilingChunkRecord>> semantic = await SearchAsync(question, depth, filing, null, cancellationToken);
+        List<VectorSearchResult<FilingChunkRecord>> semantic = await SearchAsync(questionVector, depth, filing, null, cancellationToken);
         List<FilingChunkRecord> keyword = keywordQuery is null ? [] : keywordIndex.Search(keywordQuery, filing, depth);
         List<VectorSearchResult<FilingChunkRecord>> boost = statementType is null
             ? []
-            : await SearchAsync(question, depth, filing, statementType, cancellationToken);
+            : await SearchAsync(questionVector, depth, filing, statementType, cancellationToken);
 
         Dictionary<int, FilingChunkRecord> records = [];
         foreach (FilingChunkRecord record in semantic.Concat(boost).Select(r => r.Record).Concat(keyword))
@@ -230,7 +235,7 @@ internal sealed class RagAnswerService(
     }
 
     private async Task<List<VectorSearchResult<FilingChunkRecord>>> SearchAsync(
-        string question, int top, string? filing, string? statementType, CancellationToken cancellationToken)
+        ReadOnlyMemory<float> questionVector, int top, string? filing, string? statementType, CancellationToken cancellationToken)
     {
         VectorSearchOptions<FilingChunkRecord> searchOptions = new();
         if (filing is not null && statementType is not null)
@@ -246,7 +251,7 @@ internal sealed class RagAnswerService(
             searchOptions.Filter = r => r.StatementType == statementType;
         }
 
-        return await collection.SearchAsync(embedding.Query(question), top, searchOptions, cancellationToken).ToListAsync(cancellationToken);
+        return await collection.SearchAsync(questionVector, top, searchOptions, cancellationToken).ToListAsync(cancellationToken);
     }
 
     // A reasoning model can spend its entire MaxOutputTokens budget on "thinking" (see

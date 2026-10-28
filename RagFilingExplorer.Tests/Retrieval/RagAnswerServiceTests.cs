@@ -32,7 +32,8 @@ public class RagAnswerServiceTests
         int hybridCandidates = 50,
         IRelevanceScorer? reranker = null,
         int rerankCandidates = 25,
-        SearchMode? search = null)
+        SearchMode? search = null,
+        Mock<IEmbeddingGenerator<string, Embedding<float>>>? embedder = null)
     {
         RetrievalSettings retrieval = new()
         {
@@ -51,7 +52,20 @@ public class RagAnswerServiceTests
         };
 
         return new RagAnswerService(
-            collection.Object, chatClient.Object, retrieval, ChatModelOptions.ForOllama(retrieval, chatModelSupportsThinking, contextLength: 4096), Companies, Nomic, keywordIndex, reranker);
+            collection.Object, (embedder ?? MakeEmbedder()).Object, chatClient.Object, retrieval,
+            ChatModelOptions.ForOllama(retrieval, chatModelSupportsThinking, contextLength: 4096), Companies, Nomic, keywordIndex, reranker);
+    }
+
+    // The embedding model's boundary: every question embeds to the same one-number vector, and each call is recorded.
+    private static Mock<IEmbeddingGenerator<string, Embedding<float>>> MakeEmbedder(List<string>? embeddedTexts = null)
+    {
+        Mock<IEmbeddingGenerator<string, Embedding<float>>> embedder = new();
+        embedder
+            .Setup(e => e.GenerateAsync(It.IsAny<IEnumerable<string>>(), It.IsAny<EmbeddingGenerationOptions>(), It.IsAny<CancellationToken>()))
+            .Callback<IEnumerable<string>, EmbeddingGenerationOptions?, CancellationToken>((values, _, _) => embeddedTexts?.AddRange(values))
+            .ReturnsAsync(new GeneratedEmbeddings<Embedding<float>>([new Embedding<float>(new float[] { 1f })]));
+
+        return embedder;
     }
 
     // The two companies these tests name, as their filings register them (CompanyRegistryTests checks the real ones).
@@ -105,8 +119,8 @@ public class RagAnswerServiceTests
     {
         Mock<VectorStoreCollection<int, FilingChunkRecord>> collection = new();
         collection
-            .Setup(c => c.SearchAsync<string>(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<VectorSearchOptions<FilingChunkRecord>>(), It.IsAny<CancellationToken>()))
-            .Callback<string, int, VectorSearchOptions<FilingChunkRecord>, CancellationToken>((_, _, options, _) => onSearch?.Invoke(options))
+            .Setup(c => c.SearchAsync(It.IsAny<ReadOnlyMemory<float>>(), It.IsAny<int>(), It.IsAny<VectorSearchOptions<FilingChunkRecord>>(), It.IsAny<CancellationToken>()))
+            .Callback<ReadOnlyMemory<float>, int, VectorSearchOptions<FilingChunkRecord>, CancellationToken>((_, _, options, _) => onSearch?.Invoke(options))
             .Returns(AsAsync(searchResults ?? []));
 
         Mock<IChatClient> chatClient = new();
@@ -172,8 +186,8 @@ public class RagAnswerServiceTests
         List<int> requestedTops = [];
         (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks();
         collection
-            .Setup(c => c.SearchAsync<string>(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<VectorSearchOptions<FilingChunkRecord>>(), It.IsAny<CancellationToken>()))
-            .Returns((string _, int top, VectorSearchOptions<FilingChunkRecord> options, CancellationToken _) =>
+            .Setup(c => c.SearchAsync(It.IsAny<ReadOnlyMemory<float>>(), It.IsAny<int>(), It.IsAny<VectorSearchOptions<FilingChunkRecord>>(), It.IsAny<CancellationToken>()))
+            .Returns((ReadOnlyMemory<float> _, int top, VectorSearchOptions<FilingChunkRecord> options, CancellationToken _) =>
             {
                 requestedTops.Add(top);
                 Func<FilingChunkRecord, bool> filter = options.Filter!.Compile();
@@ -372,7 +386,7 @@ public class RagAnswerServiceTests
         };
         ChatModelOptions alwaysThinks = new(Temperature: null, LookupEffort: ReasoningEffort.Low, SynthesisEffort: ReasoningEffort.High, MaxOutputTokens: 8000);
 
-        RagAnswer answer = await new RagAnswerService(collection.Object, chatClient.Object, retrieval, alwaysThinks, Companies, Nomic)
+        RagAnswer answer = await new RagAnswerService(collection.Object, MakeEmbedder().Object, chatClient.Object, retrieval, alwaysThinks, Companies, Nomic)
             .AskAsync("What was total revenue?", SearchTopK);
 
         Assert.That(captured?.Reasoning?.Effort, Is.EqualTo(ReasoningEffort.Low));
@@ -513,8 +527,8 @@ public class RagAnswerServiceTests
         Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, IReadOnlyList<FilingChunkRecord> pool, List<int>? requestedTops = null)
     {
         collection
-            .Setup(c => c.SearchAsync<string>(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<VectorSearchOptions<FilingChunkRecord>>(), It.IsAny<CancellationToken>()))
-            .Returns((string _, int top, VectorSearchOptions<FilingChunkRecord> options, CancellationToken _) =>
+            .Setup(c => c.SearchAsync(It.IsAny<ReadOnlyMemory<float>>(), It.IsAny<int>(), It.IsAny<VectorSearchOptions<FilingChunkRecord>>(), It.IsAny<CancellationToken>()))
+            .Returns((ReadOnlyMemory<float> _, int top, VectorSearchOptions<FilingChunkRecord> options, CancellationToken _) =>
             {
                 requestedTops?.Add(top);
                 Func<FilingChunkRecord, bool> filter = options.Filter?.Compile() ?? (_ => true);
@@ -611,6 +625,30 @@ public class RagAnswerServiceTests
         Assert.That(answer.RetrievedChunks, Has.Count.EqualTo(SearchTopK));
     }
 
+    // Two companies and a statement type make four vector searches; a question passed to each as text was embedded four
+    // times - four billed calls with a paid embedder, for one vector.
+    [Test]
+    public async Task AskAsync_Hybrid_TwoCompaniesAndAStatementType_EmbedsTheQuestionOnce()
+    {
+        FilingChunkRecord[] pool =
+        [
+            Record(1, "MSFT-10K-2026.html", "Total revenue 281,724", "income_statement"),
+            Record(2, "ORCL-10K-2026.html", "Total revenues 67,357", "income_statement"),
+        ];
+        List<int> requestedTops = [];
+        List<string> embeddedTexts = [];
+        (Mock<VectorStoreCollection<int, FilingChunkRecord>> collection, Mock<IChatClient> chatClient) = MakeMocks();
+        SearchPoolInOrder(collection, pool, requestedTops);
+        const string question = "Compare Microsoft's and Oracle's total revenue.";
+
+        RagAnswerService service = CreateService(
+            collection, chatClient, keywordIndex: MakeKeywordIndex(_hybridDirectory, pool), embedder: MakeEmbedder(embeddedTexts));
+        await service.AskAsync(question, SearchTopK);
+
+        Assert.That(requestedTops, Has.Count.EqualTo(4), "per company: the company-wide list and the statement-type list");
+        Assert.That(embeddedTexts, Is.EqualTo(new[] { Nomic.Query(question) }), "one embedding, in the model's query template");
+    }
+
     [Test]
     public void Constructor_HybridWithoutKeywordIndex_Throws()
     {
@@ -632,7 +670,7 @@ public class RagAnswerServiceTests
         };
 
         Assert.Throws<ArgumentNullException>(() => new RagAnswerService(
-            collection.Object, chatClient.Object, retrieval, ChatModelOptions.ForOllama(retrieval, supportsThinking: false, contextLength: 4096), Companies, Nomic));
+            collection.Object, MakeEmbedder().Object, chatClient.Object, retrieval, ChatModelOptions.ForOllama(retrieval, supportsThinking: false, contextLength: 4096), Companies, Nomic));
     }
 
     // Reranking. The scorer is the ONNX model's boundary, stood in for by a fake that scores a passage by the
