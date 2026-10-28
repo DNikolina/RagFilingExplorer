@@ -4946,3 +4946,27 @@ inline XBRL for the company registry before finding the index missing or stale, 
 after the slowest step - or behind a registration error. Neither index check needs the registry, only the filing list;
 registration now follows them. The console keeps registering first: it builds the index, and a refused filing must
 stop it before a build.
+
+## Follow-up: a map of the chunk vectors (v5)
+
+**Context (user, 2026-10-28):** while reading `vec_chunks` in DB Browser (sqlite-vec's `vec0.dll` loaded as an
+extension after the database is opened), the user asked to see the vectors as dots, close chunks close together.
+
+**`tools/vector_map.py`** draws one index's chunk vectors in 2D as a standalone HTML page: a dot per chunk, coloured
+by filing; a click rings that chunk's 5 nearest by cosine distance over the full vectors, so closeness can be checked
+whatever the layout shows. A tool to look with, not part of the app or the evaluation.
+
+- **Two layouts, measured by how many of each chunk's 5 true nearest stay among its 5 nearest dots.** On
+  `rag.structured.db` (981 chunks, 768 dimensions): PCA 0.53 - its two axes hold only 15.2% + 10.7% of the variance;
+  t-SNE (cosine, perplexity 30, seeded) 3.14. On `rag.structured.voyage-finance-2.db`, t-SNE keeps 2.99. PCA is the
+  default since it needs only numpy; t-SNE is `--tsne`.
+- **No Microsoft package does t-SNE.** ML.NET has PCA (`ProjectToPrincipalComponents`), the same picture numpy draws,
+  and no t-SNE or UMAP; Microsoft Learn's RAG guidance ("RAG generate embeddings phase") points to scikit-learn or
+  PyTorch for t-SNE. scikit-learn 1.9.1 it is, for `--tsne` only, in a venv apart from the Python markitdown runs from.
+- **What the first map showed: the vectors group by topic, not by company.** NDAQ's #368 (AxiomSL's on-premises
+  license and support recognized ratably as one performance obligation) has MSFT's #108 (on-premises licenses with
+  Software Assurance, recognized ratably) third among its nearest, at cosine distance 0.105 - behind two NDAQ chunks,
+  ahead of the rest. Every chunk opens with its company line, but a few words of company lose to a paragraph of
+  topic. Harmless to answers: a question naming a company searches only that company's chunks (`QueryIntentResolver`,
+  the company filter), which is why that filter is a live constraint. Separate tables per filing would change nothing
+  for vectors: a cosine distance doesn't depend on the other rows.
