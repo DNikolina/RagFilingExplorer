@@ -114,7 +114,6 @@ internal static class AppComposition
         IChatClient chatClient, ChatModelOptions chatModel, IRelevanceScorer? providerReranker = null)
     {
         FileInfo[] filings = FindFilings(repoRoot);
-        CompanyRegistry companies = RegisterCompanies(filings);
 
         EmbeddingTemplates templates = EmbeddingTemplates.For(settings.Embedding.Model);
         IndexFiles index = IndexFiles.For(repoRoot, ChunkingStrategies.FileName(settings.Chunking.Strategy), templates, settings.Chunking.MaxTokensPerChunk);
@@ -123,7 +122,9 @@ internal static class AppComposition
             throw new StartupException($"{index.DbPath} doesn't exist - build it by running the app once (dotnet run --project RagFilingExplorer.Cli).");
         }
 
+        // Registration reads every filing's inline XBRL; a missing or stale index is reported before that work.
         index.EnsureCurrent(IndexManifest.Create(settings, filings));
+        CompanyRegistry companies = RegisterCompanies(filings);
         VectorStoreCollection<int, FilingChunkRecord> collection = await OpenCollectionAsync(index, embedding, templates);
         return CreateRuntime(settings, index, collection, templates, companies, chatClient, chatModel, providerReranker);
     }

@@ -4940,3 +4940,9 @@ statements don't map one to one", which names the statements, not the schema. Th
 ORCL and was picked for neither only because it sorts after them. Several matches now fail, naming every schema.
 Neither standard schema is needed: the filers' own label files already label every us-gaap concept they use, and
 the one DEI concept the code lacked, `EntityLegalForm`, none of the four filings tags. 1 new test (508).
+
+**The evaluation checks its index before registering the companies.** `OpenExistingIndexAsync` read every filing's
+inline XBRL for the company registry before finding the index missing or stale, so the fix that error names came
+after the slowest step - or behind a registration error. Neither index check needs the registry, only the filing list;
+registration now follows them. The console keeps registering first: it builds the index, and a refused filing must
+stop it before a build.
