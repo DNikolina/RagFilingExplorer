@@ -538,10 +538,10 @@ its entry - matched by the exact text - in `tools/expected-answers.json` (`kind`
 
 Three measurements built on it:
 
-- **Repeatability** (`tools/run-variance.ps1`): all 102 questions asked afresh twice came back word for word identical -
+- **Repeatability** (`tools/run-variance.cs`): all 102 questions asked afresh twice came back word for word identical -
   at temperature 0 the model repeats exactly on the same setup. Against answers from three days earlier, 100/102 grades
   matched; Ollama had updated itself in between (a newer llama.cpp), so runs are compared only on the same Ollama build.
-- **A local judge** (`tools/run-judge.ps1`): Microsoft's Equivalence evaluator, scored by `llama3.1:8b`, agreed with the
+- **A local judge** (`tools/run-judge.cs`): Microsoft's Equivalence evaluator, scored by `llama3.1:8b`, agreed with the
   strict grade on 87 of 101 answers - but passed 14 of the 18 wrong ones, rating $27,034 million against $26,445 million
   "a slight difference". It rates similarity, not the exact figure, so the strict grade stays the grade and the judge
   runs alongside it only when asked for.

@@ -20,9 +20,10 @@ Adding a question: the run-evaluation skill (`.claude/skills/`) has the steps.
 
 | File | What it does |
 |---|---|
-| `run-variance.ps1` | Asks the questions afresh several times, no response cache, and compares the passes with a reference run |
-| `run-judge.ps1` | The local judge (Microsoft's Quality evaluators) over the cached answers, and its agreement with the strict grade |
-| `eval-common.ps1` | Helpers the two scripts above share - not run on its own |
+| `run-variance.cs` | Asks the questions afresh several times, no response cache, and compares the passes with a reference run |
+| `run-judge.cs` | The local judge (Microsoft's Quality evaluators) over the cached answers, and its agreement with the strict grade |
+| `eval-common.cs` | Helpers the two scripts above share - not run on its own |
+| `run-variance.ps1`, `run-judge.ps1`, `eval-common.ps1` | The same three in Windows PowerShell |
 | `vector_map.py` | An index's chunk vectors drawn in 2D as an HTML page, close chunks close together ([Decision-Log.md](../docs/Decision-Log.md), "a map of the chunk vectors") |
 
 ## Kept as the record, not maintained
