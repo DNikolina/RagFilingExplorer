@@ -265,7 +265,7 @@ internal sealed class RetrievalSettings
     /// spike - measured".</summary>
     public required int RerankCandidates { get; set; }
 
-    /// <summary>Where the local reranker's model lives, outside the repo (environment variables expanded):
+    /// <summary>Where the local reranker's model lives, outside the repo (a leading ~/ is the user's home, on every OS):
     /// ms-marco-MiniLM-L6-v2's onnx/model.onnx and vocab.txt, fetched separately (docs/Decision-Log.md, "Step 2b
     /// resumed").</summary>
     public required string RerankModelDirectory { get; set; }
