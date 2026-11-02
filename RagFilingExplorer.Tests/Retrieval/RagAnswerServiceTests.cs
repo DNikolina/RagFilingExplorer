@@ -293,6 +293,23 @@ public class RagAnswerServiceTests
         Assert.That(systemPrompt.Replace("\r\n", ""), Does.Not.Contain("\n"));
     }
 
+    // Excerpts took Environment.NewLine from AppendLine, so one question sent different bytes on Windows and macOS (MSFT's
+    // total assets, Q1: 2,045 input tokens against 2,039), and an answer cached on one missed the response cache on the other.
+    [Test]
+    public void BuildPrompt_Excerpts_HaveTheSameBytesOnEveryOs()
+    {
+        List<ChatMessage> prompt = RagAnswerService.BuildPrompt(
+            "What was total revenue?",
+            [Record(1, "MSFT-10K-2026.html", "Total revenues $331,839 million")]);
+
+        string userMessage = prompt.Single(m => m.Role == ChatRole.User).Text;
+        Assert.That(userMessage, Is.EqualTo(
+            "Context excerpts:\n\n"
+            + "--- Excerpt from MSFT-10K-2026.html, section PART II > Item 8 ---\r\n"
+            + "Total revenues $331,839 million\r\n\r\n"
+            + "\nQuestion: What was total revenue?"));
+    }
+
     // Baseline case: with ReasoningEffort configured as None and a non-synthesis question, ChatOptions.Reasoning
     // must still be explicitly set to Effort.None (not left null) - Microsoft.Extensions.AI's ChatOptions.
     // Reasoning maps through OllamaSharp to Ollama's think field, and leaving it unset lets a reasoning

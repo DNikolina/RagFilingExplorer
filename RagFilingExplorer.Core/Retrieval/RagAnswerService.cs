@@ -180,12 +180,15 @@ internal sealed class RagAnswerService(
         // Unnumbered labels in a form that isn't a citation: a numbered "[1] Source: X | Section: Y" label is
         // a second citation format the model copies ("According to excerpt [1], Source: ..."), sometimes as the
         // only citation - an excerpt number the reader never sees.
+        // CRLF on every OS, not AppendLine's Environment.NewLine: as with SystemPrompt, a line ending is part of what the
+        // model reads and of the evaluation's response cache key, so one prompt must be the same bytes everywhere.
+        const string LineEnd = "\r\n";
         StringBuilder contextBuilder = new();
         foreach (FilingChunkRecord record in excerpts)
         {
-            contextBuilder.AppendLine(ExcerptHeader(record.SourceFiling, record.Heading));
-            contextBuilder.AppendLine(record.Content);
-            contextBuilder.AppendLine();
+            contextBuilder.Append(ExcerptHeader(record.SourceFiling, record.Heading)).Append(LineEnd);
+            contextBuilder.Append(record.Content).Append(LineEnd);
+            contextBuilder.Append(LineEnd);
         }
 
         return
