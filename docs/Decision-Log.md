@@ -4978,3 +4978,54 @@ whatever the layout shows. A tool to look with, not part of the app or the evalu
   topic. Harmless to answers: a question naming a company searches only that company's chunks (`QueryIntentResolver`,
   the company filter), which is why that filter is a live constraint. Separate tables per filing would change nothing
   for vectors: a cosine distance doesn't depend on the other rows.
+
+
+## Follow-up: running on macOS as well as Windows (v5)
+
+The work moved to a Mac (Apple M5 Pro, 64 GB; llama on its GPU, Ollama 0.40.13) on 2026-11-02, with the requirement that the
+solution keeps running on both machines. Three things only ever worked, or only ever behaved this way, on Windows.
+
+**One question sent different bytes on each OS.** `RagAnswerService.BuildPrompt` built the excerpts with `AppendLine`, so
+they were CRLF on Windows and LF on the Mac: Q1 read 2,045 input tokens against 2,039, and an answer cached on one machine
+missed the response cache on the other. The system prompt was already pinned to CRLF; the excerpts now are too, with a test
+on the exact bytes. CRLF keeps Windows' prompts, baselines and cache as they were. Found by asking why the Mac's token total
+differed from the Windows baseline, after a first explanation had put the changed answers down to Ollama and the hardware.
+Fixing it changed 27 of the Mac's 102 answers.
+
+**The Mac's baseline is one lower, and not from the prompt.** All 102 questions, asked afresh, compared with
+`structured-hybrid-chunk-fixes` (Windows, CPU, Ollama 0.40.2, 85/102, 71 min):
+
+| Mac run | Reliable | Input tokens | Answers word for word as Windows | Grades as Windows | Time |
+|---|---|---|---|---|---|
+| Before the fix (`structured-hybrid-mac-m5pro-1`, not kept) | 84 | 249,227 | 70 | 100 | 4 min |
+| After it (`structured-hybrid-mac-m5pro-crlf-1`) | 84 | 249,850, equal on all 102 | 79 | 101 | 4 min |
+
+The one grade left is A24: the right sum, without "thousand". The other 22 answers that differ keep their grades. With the
+prompts now equal, what's left is the Ollama build or the hardware; these runs can't separate them. T5's prompt still differs:
+the same five excerpts, the last two swapped. Unexplained; its grade doesn't change. So the Mac's baseline is 84/102, Windows'
+stays 85/102, and a llama run is compared only with one from the same machine and Ollama build.
+
+**Answers repeat on the Mac, and Ollama's prompt cache doesn't change them.** With the chat model unloaded before every
+question (`structured-hybrid-mac-m5pro-crlf-unload-1`, 6 min), all 102 answers matched `-crlf-1` word for word. Not checked
+for Windows' baseline.
+
+**The evaluation scripts in C#.** `tools/run-variance.ps1` and `run-judge.ps1` needed PowerShell and ran `dotnet` through
+`cmd`. They're rewritten as .NET file-based apps (`tools/run-variance.cs`, `run-judge.cs`, sharing `eval-common.cs` through
+`#:include`, SDK 10.0.300+), so a clone needs only the .NET SDK. Same steps, overrides, execution names and log names.
+`dotnet` is started directly, with `Evaluation__*` variables set on that process alone, and its output is copied to the log
+as raw bytes: `dotnet test` writes in the console's code page on Windows, and decoding that as UTF-8 would replace what it
+can't read for good ("`Console.OutputEncoding` fixed"). The wait for output is bounded, because a build server left running
+can hold redirected output open. The `.ps1` files stay for now. Microsoft Learn: "File-based apps", CA2266. Checked by
+running, not from those pages: finding the script's folder through `AppContext.GetData("EntryPointFileDirectoryPath")`, and
+starting `dotnet test` from a file-based app.
+
+**The reranker's path.** `Retrieval:RerankModelDirectory` was `%USERPROFILE%/...`, which stays literal off Windows, so the
+local reranker never found its model there. It's now `~/...`, expanded in `CrossEncoderReranker.Load` from
+`SpecialFolder.UserProfile`. Run on the Mac with the local reranker on, one question.
+
+**Left as it is (user):** `.gitattributes` protects only `data/*.html`, so the taxonomy files are CRLF on a Windows checkout
+and LF on a Mac one, and the index manifest hashes their bytes. An index copied between machines stays current while the
+copied files stay as they are; a fresh clone or a re-checkout of `data/` reads it as stale, and startup asks for `--rebuild`.
+
+Checked: 511 + 210 offline tests; both scripts end to end on macOS, and their build, variance-pass and comparison failures (a failed judge or agreement step not forced); the three full runs above.
+Not yet run on Windows - the scripts, or the prompt and path fixes.
