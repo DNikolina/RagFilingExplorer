@@ -45,7 +45,7 @@ static async Task RunAsync(string[] args)
     string strategyName = ChunkingStrategies.FileName(settings.Chunking.Strategy);
     EmbeddingTemplates embeddingTemplates = EmbeddingTemplates.For(settings.Embedding.Model);
     embeddingTemplates.EnsureServedBy(settings.Providers.Embedding);
-    IndexFiles index = IndexFiles.For(repoRoot, strategyName, embeddingTemplates, settings.Chunking.MaxTokensPerChunk);
+    IndexFiles index = IndexFiles.For(repoRoot, strategyName, embeddingTemplates, settings.Chunking.MaxTokensPerChunk, settings.VectorStore.IndexTag);
     string reviewDirectoryPath = IndexFiles.ReviewDirectory(repoRoot, strategyName, settings.Chunking.MaxTokensPerChunk);
     bool verbose = args.Contains("--verbose");
     Console.WriteLine($"Chunking strategy: {settings.Chunking.Strategy} (index: {index.DbFileName})");

@@ -87,7 +87,7 @@ public class RetrievalRankRunTests
         }
 
         string index = IndexFiles.For(
-            Repo, ChunkingStrategies.FileName(settings.Chunking.Strategy), EmbeddingTemplates.For(settings.Embedding.Model), settings.Chunking.MaxTokensPerChunk).DbFileName;
+            Repo, ChunkingStrategies.FileName(settings.Chunking.Strategy), EmbeddingTemplates.For(settings.Embedding.Model), settings.Chunking.MaxTokensPerChunk, settings.VectorStore.IndexTag).DbFileName;
         StringBuilder report = new();
         // A reranked run reorders each company's top RerankCandidates; Voyage's reports the tokens it billed.
         string reranked = runtime.Reranker is null

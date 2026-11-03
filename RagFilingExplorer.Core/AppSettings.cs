@@ -229,6 +229,13 @@ internal sealed class VectorStoreSettings
     /// VectorStore.UpsertBatchSize 1?".
     /// </summary>
     public required int UpsertBatchSize { get; set; }
+
+    /// <summary>
+    /// A name put in the index's file name, usually the machine building it: "mac" gives rag.structured.mac.db, beside
+    /// the untagged index, so indexes built on different machines can be kept and compared. Empty for the untagged index.
+    /// Set per run with VectorStore__IndexTag. The chunk dumps aren't tagged: they don't depend on the machine.
+    /// </summary>
+    public required string IndexTag { get; set; }
 }
 
 internal sealed class RetrievalSettings

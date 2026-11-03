@@ -118,7 +118,7 @@ internal static class AppComposition
         FileInfo[] filings = FindFilings(repoRoot);
 
         EmbeddingTemplates templates = EmbeddingTemplates.For(settings.Embedding.Model);
-        IndexFiles index = IndexFiles.For(repoRoot, ChunkingStrategies.FileName(settings.Chunking.Strategy), templates, settings.Chunking.MaxTokensPerChunk);
+        IndexFiles index = IndexFiles.For(repoRoot, ChunkingStrategies.FileName(settings.Chunking.Strategy), templates, settings.Chunking.MaxTokensPerChunk, settings.VectorStore.IndexTag);
         if (!index.Exists)
         {
             throw new StartupException($"{index.DbPath} doesn't exist - build it by running the app once (dotnet run --project RagFilingExplorer.Cli).");

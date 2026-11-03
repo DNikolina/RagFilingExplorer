@@ -78,7 +78,7 @@ public class AppSettingsTests
     {
         string[] keys = AppSettings.RequiredConfigurationKeys().ToArray();
 
-        Assert.That(keys, Has.Length.EqualTo(25));
+        Assert.That(keys, Has.Length.EqualTo(26));
         Assert.That(keys, Does.Contain("Providers:Chat"));
         Assert.That(keys, Does.Contain("Providers:Rerank"));
         Assert.That(keys, Does.Contain("Ollama:ChatModel"));
