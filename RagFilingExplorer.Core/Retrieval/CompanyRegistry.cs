@@ -36,6 +36,7 @@ internal sealed class CompanyRegistry(IReadOnlyList<CompanyRegistration> registr
     {
         List<CompanyRegistration> registrations = [.. filings.Select(filing => Register(filing.Name, ReadXbrl(filing)))];
         EnsureOneFilingPerCompanyYear(registrations);
+
         return new(registrations);
     }
 
@@ -43,8 +44,8 @@ internal sealed class CompanyRegistry(IReadOnlyList<CompanyRegistration> registr
     {
         string name = CoverFacts.RegistrantName(xbrl)
             ?? throw new InvalidOperationException($"{filing} tags no dei:EntityRegistrantName, so questions naming its company can't be routed to it.");
-        
-        string? form = CoverFacts.Clean(xbrl.First("dei:DocumentType")?.Text);
+
+        string? form = CoverFacts.FormType(xbrl);
         if (form != "10-K")
         {
             throw new InvalidOperationException($"{filing} is {(form is null ? "untagged (no dei:DocumentType)" : $"a Form {form}")} - only 10-K annual reports can be indexed.");
@@ -56,8 +57,8 @@ internal sealed class CompanyRegistry(IReadOnlyList<CompanyRegistration> registr
             filing,
             [.. names.Distinct(StringComparer.OrdinalIgnoreCase)],
             CoverFacts.EmbeddingContext(xbrl),
-            CoverFacts.Clean(xbrl.First("dei:EntityCentralIndexKey")?.Text),
-            CoverFacts.Clean(xbrl.First("dei:DocumentFiscalYearFocus")?.Text)
+            CoverFacts.CentralIndexKey(xbrl),
+            CoverFacts.FiscalYear(xbrl)
         );
     }
 
@@ -68,7 +69,7 @@ internal sealed class CompanyRegistry(IReadOnlyList<CompanyRegistration> registr
             .GroupBy(r => (Company: r.Cik ?? r.Names[0], r.FiscalYear))
             .Where(g => g.Count() > 1)
             .Select(g => $"{string.Join(" and ", g.Select(r => r.Filing))} ({g.First().Names[0]}, fiscal year {g.Key.FiscalYear ?? "untagged"})")];
-        
+
         if (duplicates.Length > 0)
         {
             throw new InvalidOperationException(

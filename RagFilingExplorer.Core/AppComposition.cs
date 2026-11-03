@@ -128,6 +128,7 @@ internal static class AppComposition
         index.EnsureCurrent(IndexManifest.Create(settings, filings));
         CompanyRegistry companies = RegisterCompanies(filings);
         VectorStoreCollection<int, FilingChunkRecord> collection = await OpenCollectionAsync(index, embedding, templates);
+
         return CreateRuntime(settings, index, collection, embedding, templates, companies, chatClient, chatModel, providerReranker);
     }
 

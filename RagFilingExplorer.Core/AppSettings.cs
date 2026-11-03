@@ -40,10 +40,11 @@ internal sealed class AppSettings
             .AddEnvironmentVariables()
             .Build();
 
+        // Before binding: the binder's own error for a misspelled value doesn't list the valid ones.
+        EnsureKeysValid(configuration, typeof(AppSettings), prefix: null, "appsettings.json");
+
         AppSettings settings = configuration.Get<AppSettings>()
             ?? throw new InvalidOperationException("appsettings.json is missing or failed to bind to AppSettings.");
-
-        EnsureKeysValid(configuration, typeof(AppSettings), prefix: null, "appsettings.json");
 
         // Checked at load, before any provider is created - a paid reranker's startup check is billed.
         if (settings.Retrieval.Rerank && settings.Retrieval.Search != SearchMode.Hybrid)

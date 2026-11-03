@@ -27,10 +27,7 @@ string execution = options.Value("--execution", $"structured-hybrid-v3-judge-{ju
 
 EvalRun run = new("run-judge.log");
 run.Log($"Start: judges '{judges}', only '{only}', execution {execution}");
-if (only.Length == 0)
-{
-    EvalRun.RequireNoOnlyInSettings();
-}
+run.RestrictTo(only);
 
 if (run.Build("build-judge.log") != 0)
 {
@@ -46,13 +43,9 @@ run.Override("Execution", execution);
 run.Override("NoCache", "false");
 run.Override("UnloadEachQuestion", "false");
 run.Override("Sets", EvalRun.AllSets);
-if (only.Length > 0)
-{
-    run.Override("Only", only);
-}
 
 DateTime started = DateTime.Now;
-int exit = run.Test("FullyQualifiedName~EvaluationRunTests", $"{execution}.log", detailed: true);
+int exit = run.RunEvaluation($"{execution}.log");
 if (exit != 0)
 {
     run.Log($"Judge run failed (exit {exit}) - see {execution}.log");

@@ -165,6 +165,8 @@ public class AppSettingsTests
         Assert.That(ShippedJson(), Does.Contain(Shipped), "the shipped strategy this test misspells");
         WriteTempSettings(ShippedJson().Replace(Shipped, "\"Strategy\": \"Structred\""));
 
-        Assert.Throws<InvalidOperationException>(() => AppSettings.Load(_tempDirectory));
+        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => AppSettings.Load(_tempDirectory))!;
+
+        Assert.That(ex.Message, Does.Contain("Chunking:Strategy").And.Contain("Structred").And.Contain("Structured"));
     }
 }

@@ -20,6 +20,7 @@ internal static partial class FilingFile
     internal static string Read(FileInfo filing)
     {
         byte[] bytes = File.ReadAllBytes(filing.FullName);
+
         return DetectEncoding(bytes).GetString(bytes);
     }
 

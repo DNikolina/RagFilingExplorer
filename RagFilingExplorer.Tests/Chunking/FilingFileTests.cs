@@ -18,10 +18,10 @@ public class FilingFileTests
     [Test]
     public void DetectEncoding_MetaHttpEquivCharsetDeclaration_ReturnsThatEncoding()
     {
-        byte[] windows1252Bytes = Encoding.GetEncoding("windows-1252").GetBytes(
+        byte[] declaringWindows1252 = Encoding.ASCII.GetBytes(
             "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1252\"></head></html>");
 
-        Encoding result = FilingFile.DetectEncoding(windows1252Bytes);
+        Encoding result = FilingFile.DetectEncoding(declaringWindows1252);
 
         Assert.That(result.WebName, Is.EqualTo("windows-1252"));
     }

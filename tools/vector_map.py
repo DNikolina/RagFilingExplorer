@@ -81,7 +81,7 @@ circle{cursor:pointer}circle.nn{stroke:var(--fg);stroke-width:2.5}circle.sel{str
 <h3>Chunk vectors in 2D - __DB__</h3>
 <div id="legend"></div>
 <p style="color:var(--mute)">__METHOD__. Of each chunk's 5 true nearest, __KEPT__ are among its 5 nearest dots.
-Bigger dots are primary-statement chunks. Click a dot: red = it, black rings = its 5 true nearest (cosine, full vectors).</p>
+Bigger dots are primary-statement chunks. Click a dot: red = it, rings = its 5 true nearest (cosine, full vectors).</p>
 <div id="main"><svg id="plot" viewBox="0 0 1100 750"></svg><div id="info">Hover or click a dot.</div></div>
 <script>
 const P=__POINTS__, colors=["#2563eb","#ea580c","#16a34a","#9333ea","#0891b2","#ca8a04"];

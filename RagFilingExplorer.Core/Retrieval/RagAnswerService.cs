@@ -45,7 +45,7 @@ internal sealed class RagAnswerService(
     RetrievalSettings retrieval,
     ChatModelOptions chatModel,
     CompanyRegistry companies,
-    EmbeddingTemplates embedding,
+    EmbeddingTemplates templates,
     KeywordIndex? keywordIndex = null,
     IRelevanceScorer? reranker = null)
 {
@@ -95,7 +95,7 @@ internal sealed class RagAnswerService(
 
         // Embedded once and passed to every vector search: a string would be embedded again by each search the store
         // runs - per company, and again for the statement-type list - each a billed call with a paid embedder.
-        ReadOnlyMemory<float> questionVector = (await questionEmbedder.GenerateAsync(embedding.Query(question), cancellationToken: cancellationToken)).Vector;
+        ReadOnlyMemory<float> questionVector = await questionEmbedder.GenerateVectorAsync(templates.Query(question), cancellationToken: cancellationToken);
 
         List<VectorSearchResult<FilingChunkRecord>> results;
         if (targetFilings.Length <= 1)

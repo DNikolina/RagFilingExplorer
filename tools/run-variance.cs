@@ -6,8 +6,7 @@
 //
 // Each pass is one execution, <prefix>-<n> (or <prefix>-unload-<n> with --unload-each-question), stored in eval/v3-runs/
 // like any evaluation run, with its summary-<execution>.txt. The comparison is written to eval/v3-runs/<prefix>.txt. Needs
-// Ollama and the built index; about two hours per full pass on a CPU-only machine. Strict grade only: the judge needs
-// cached answers (run-judge.cs).
+// Ollama and the built index. Strict grade only: the judge needs cached answers (run-judge.cs).
 //
 //     dotnet tools/run-variance.cs -- --passes 1 --only Q1,A16 --prefix variance-smoke
 //
@@ -27,18 +26,24 @@
 
 ScriptOptions options = new(args, ["--passes", "--sets", "--only", "--prefix", "--baseline"], ["--unload-each-question"]);
 int passes = options.IntValue("--passes", 2);
-string sets = options.Value("--sets", "");
+string sets = options.Value("--sets", EvalRun.AllSets);
 string only = options.Value("--only", "");
 bool unload = options.Switch("--unload-each-question");
 string prefix = options.Value("--prefix", "structured-hybrid-v3-variance");
 string baseline = options.Value("--baseline", "structured-hybrid-v3-baseline");
+string executionPrefix = unload ? $"{prefix}-unload" : prefix;
+if (passes < 1)
+{
+    EvalRun.Stop("--passes needs at least 1: the comparison needs a pass to compare.");
+}
 
 EvalRun run = new("run-variance.log");
-run.Log($"Start: {passes} pass(es), sets '{(sets.Length > 0 ? sets : "all")}', only '{only}', unload {unload}, prefix {prefix}");
-if (only.Length == 0)
-{
-    EvalRun.RequireNoOnlyInSettings();
-}
+run.Log($"Start: {passes} pass(es), sets '{sets}', only '{only}', unload {unload}, prefix {prefix}");
+run.RestrictTo(only);
+run.Override("Graders", "strict");
+run.Override("NoCache", "true");
+run.Override("UnloadEachQuestion", unload ? "true" : "false");
+run.Override("Sets", sets);
 
 if (run.Build("build.log") != 0)
 {
@@ -50,22 +55,13 @@ if (run.Build("build.log") != 0)
 List<string> executions = [baseline];
 for (int pass = 1; pass <= passes; pass++)
 {
-    string name = unload ? $"{prefix}-unload-{pass}" : $"{prefix}-{pass}";
+    string name = $"{executionPrefix}-{pass}";
     run.Override("Execution", name);
-    run.Override("Graders", "strict");
-    run.Override("NoCache", "true");
-    run.Override("UnloadEachQuestion", unload ? "true" : "false");
-    run.Override("Sets", sets.Length > 0 ? sets : EvalRun.AllSets);
-    if (only.Length > 0)
-    {
-        run.Override("Only", only);
-    }
-
     run.Log($"Pass {pass} of {passes}: {name}");
     DateTime started = DateTime.Now;
 
-    // The run test passes, or warns on grades that differ from the baseline (expected here) - a failure is a broken run.
-    int exit = run.Test("FullyQualifiedName~EvaluationRunTests", $"{name}.log", detailed: true);
+    // The run test passes, or warns on grades that differ from v2's baseline (expected here) - a failure is a broken run.
+    int exit = run.RunEvaluation($"{name}.log");
     if (exit != 0)
     {
         run.Log($"Pass {pass} failed (exit {exit}) - see {name}.log");
@@ -77,9 +73,8 @@ for (int pass = 1; pass <= passes; pass++)
     executions.Add(name);
 }
 
-string compareName = unload ? $"{prefix}-unload" : prefix;
 run.Override("Compare", string.Join(',', executions));
-run.Override("CompareName", compareName);
+run.Override("CompareName", executionPrefix);
 if (run.Test("FullyQualifiedName~VarianceComparisonTests.Compare_Executions", "compare.log") != 0)
 {
     run.Log("Comparison failed - see compare.log");
@@ -87,6 +82,6 @@ if (run.Test("FullyQualifiedName~VarianceComparisonTests.Compare_Executions", "c
     return 1;
 }
 
-run.Log($"Done: eval/v3-runs/{compareName}.txt");
+run.Log($"Done: eval/v3-runs/{executionPrefix}.txt");
 
 return 0;

@@ -6,7 +6,7 @@ using System.Text.Json;
 
 /// <summary>The command line of a script: "--name value" pairs and bare "--name" switches, anything else refused. An
 /// empty value means the option's default.</summary>
-sealed class ScriptOptions
+internal sealed class ScriptOptions
 {
     private readonly Dictionary<string, string> _values = [];
     private readonly HashSet<string> _switches = [];
@@ -57,7 +57,7 @@ sealed class ScriptOptions
 }
 
 /// <summary>What a script does around each dotnet command: its log, its Evaluation__ overrides, the command's own log.</summary>
-sealed class EvalRun
+internal sealed class EvalRun
 {
     /// <summary>The three question sets, named explicitly: an unset Sets would fall back to the file's value.</summary>
     public const string AllSets = "Main,HeldOut,AnswerSide";
@@ -69,7 +69,7 @@ sealed class EvalRun
         Path.GetDirectoryName(AppContext.GetData("EntryPointFileDirectoryPath") as string
             ?? throw new InvalidOperationException("Run this as a file-based app: dotnet tools/<script>.cs"))!;
 
-    public static readonly string Project = Path.Combine(Repo, "RagFilingExplorer.Evaluation");
+    private static readonly string Project = Path.Combine(Repo, "RagFilingExplorer.Evaluation");
 
     private static readonly string Logs = Path.Combine(Repo, "eval", "v3-runs", "logs");
 
@@ -100,14 +100,24 @@ sealed class EvalRun
     /// <summary>evalsettings.json holds a run's defaults; an Evaluation__&lt;key&gt; variable overrides a key for this run.</summary>
     public void Override(string key, string value) => _overrides[$"Evaluation__{key}"] = value;
 
-    /// <summary>Only has no explicit "every question" value, so a script asking every question needs the file's Only empty.</summary>
-    public static void RequireNoOnlyInSettings()
+    /// <summary>The questions this run asks: <paramref name="only"/>'s, or with none named every question - and Only has
+    /// no explicit "every question" value, so that needs the file's Only empty. Comments are skipped, as the configuration
+    /// loader skips them.</summary>
+    public void RestrictTo(string only)
     {
-        using JsonDocument settings = JsonDocument.Parse(File.ReadAllText(Path.Combine(Project, "evalsettings.json")));
-        string? only = settings.RootElement.GetProperty("Evaluation").GetProperty("Only").GetString();
-        if (!string.IsNullOrEmpty(only))
+        if (only.Length > 0)
         {
-            Stop($"evalsettings.json sets Only to '{only}' - empty it, or pass --only, so this run asks what it says.");
+            Override("Only", only);
+
+            return;
+        }
+
+        JsonDocumentOptions readOptions = new() { CommentHandling = JsonCommentHandling.Skip };
+        using JsonDocument settings = JsonDocument.Parse(File.ReadAllText(Path.Combine(Project, "evalsettings.json")), readOptions);
+        string? inFile = settings.RootElement.GetProperty("Evaluation").GetProperty("Only").GetString();
+        if (!string.IsNullOrEmpty(inFile))
+        {
+            Stop($"evalsettings.json sets Only to '{inFile}' - empty it, or pass --only, so this run asks what it says.");
         }
     }
 
@@ -116,16 +126,13 @@ sealed class EvalRun
     public int Build(string logName) => Dotnet(["build", Project, "--nologo", "-v", "quiet", "-nodeReuse:false"], logName);
 
     /// <summary>The project's tests matching <paramref name="filter"/>, with no rebuild.</summary>
-    public int Test(string filter, string logName, bool detailed = false)
-    {
-        List<string> arguments = ["test", Project, "--no-build", "--nologo", "--filter", filter];
-        if (detailed)
-        {
-            arguments.AddRange(["--logger", "console;verbosity=detailed"]);
-        }
+    public int Test(string filter, string logName) => Dotnet(TestArguments(filter), logName);
 
-        return Dotnet(arguments, logName);
-    }
+    /// <summary>One evaluation run, with no rebuild; detailed, so its log shows each question as it's answered.</summary>
+    public int RunEvaluation(string logName) =>
+        Dotnet([.. TestArguments("FullyQualifiedName~EvaluationRunTests"), "--logger", "console;verbosity=detailed"], logName);
+
+    private static string[] TestArguments(string filter) => ["test", Project, "--no-build", "--nologo", "--filter", filter];
 
     /// <summary>
     /// Runs dotnet with its output in one log, and returns its exit code - which alone decides, since stderr lines aren't
@@ -135,17 +142,12 @@ sealed class EvalRun
     /// </summary>
     private int Dotnet(IEnumerable<string> arguments, string logName)
     {
-        ProcessStartInfo start = new("dotnet")
+        ProcessStartInfo start = new("dotnet", arguments)
         {
             WorkingDirectory = Repo,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
         };
-        foreach (string argument in arguments)
-        {
-            start.ArgumentList.Add(argument);
-        }
-
         foreach (string inherited in start.Environment.Keys.Where(k => k.StartsWith("Evaluation__", StringComparison.OrdinalIgnoreCase)).ToList())
         {
             start.Environment.Remove(inherited);
@@ -160,12 +162,9 @@ sealed class EvalRun
         using Process process = Process.Start(start)!;
         Task[] copies = [CopyToLog(process.StandardOutput.BaseStream), CopyToLog(process.StandardError.BaseStream)];
 
-        // Not WaitForExit() alone: with redirected output it also waits for the output to end, and a build server the
-        // command leaves running can hold that open indefinitely.
-        while (!process.WaitForExit(500))
-        {
-        }
+        process.WaitForExit();
 
+        // Bounded: a build server the command leaves running can hold the redirected output open indefinitely.
         Task.WaitAll(copies, OutputDrain);
 
         return process.ExitCode;

@@ -33,8 +33,8 @@ extend (e.g. `RagAnswerServiceTests.MakeMocks`, `CreateService`).
   measured (`FilingXbrlTests`, `StatementLabelsTests`, `CompanyRegistryTests`). Find the repo with
   `RepoPaths.FindRoot(...)`; in a `TestCaseSource` use `AppContext.BaseDirectory`, since `TestContext` isn't
   available while NUnit discovers tests. Never write there.
-- **Mock only the external boundaries:** `VectorStoreCollection<int, FilingChunkRecord>` and `IChatClient`,
-  via Moq (`RagAnswerServiceTests.MakeMocks`). Castle needs the `DynamicProxyGenAssembly2` grant, already
+- **Mock only the external boundaries:** `VectorStoreCollection<int, FilingChunkRecord>`, `IChatClient` and
+  `IEmbeddingGenerator`, via Moq (`RagAnswerServiceTests.MakeMocks`). Castle needs the `DynamicProxyGenAssembly2` grant, already
   in `AssemblyInfo.cs`. The reranker's model (`IRelevanceScorer`) is a boundary too, but stood in for by a
   hand-written fake (`RagAnswerServiceTests.ScoreFromText`): Castle proxies an internal interface into its
   unsigned assembly, which the strong-name-scoped grant doesn't cover. SQLite isn't a boundary: the keyword
