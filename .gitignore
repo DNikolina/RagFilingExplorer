@@ -24,3 +24,6 @@ __pycache__/
 eval/v3-runs/cache/
 # tools/run-variance.cs's console logs - its results and summaries are stored like any run.
 eval/v3-runs/logs/
+
+# Notes between machines, copied by hand: never public.
+*.local.md
