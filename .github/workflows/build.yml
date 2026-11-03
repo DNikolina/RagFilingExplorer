@@ -3,6 +3,7 @@ name: build
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -13,7 +14,9 @@ jobs:
       # One OS failing must not cancel the others: which OSes fail is the point of the matrix.
       fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
+        # A branch push runs on Windows alone: development is on a Mac, so that's the OS a mistake would go unseen on.
+        # main, pull requests and manual runs get all three.
+        os: ${{ github.event_name == 'push' && github.ref != 'refs/heads/main' && fromJSON('["windows-latest"]') || fromJSON('["windows-latest", "ubuntu-latest", "macos-latest"]') }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     steps:
