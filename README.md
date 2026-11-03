@@ -1,5 +1,9 @@
 # RagFilingExplorer
 
+[![build](https://github.com/DNikolina/RagFilingExplorer/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/DNikolina/RagFilingExplorer/actions/workflows/build.yml)
+[![.NET 10](https://img.shields.io/badge/.NET-10-512BD4)](https://dotnet.microsoft.com/download/dotnet/10.0)
+[![License: MIT](https://img.shields.io/github/license/DNikolina/RagFilingExplorer)](LICENSE)
+
 A local, retrieval-augmented Q&A tool for SEC 10-K filings, built in C#/.NET.
 
 **Zero cost, no API keys, no accounts.** Embedding, vector search, and answer generation all run
