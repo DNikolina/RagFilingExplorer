@@ -1,5 +1,9 @@
 # RagFilingExplorer
 
+[![build](https://github.com/DNikolina/RagFilingExplorer/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/DNikolina/RagFilingExplorer/actions/workflows/build.yml)
+[![.NET 10](https://img.shields.io/badge/.NET-10-512BD4)](https://dotnet.microsoft.com/download/dotnet/10.0)
+[![License: MIT](https://img.shields.io/github/license/DNikolina/RagFilingExplorer)](LICENSE)
+
 A local, retrieval-augmented Q&A tool for SEC 10-K filings, built in C#/.NET.
 
 **Zero cost, no API keys, no accounts.** Embedding, vector search, and answer generation all run
@@ -131,6 +135,7 @@ flowchart TB
     subgraph ask["Answer a question"]
         direction TB
         q["Question"]
+        qembed["Question embedded - once<br/>same model as the chunks,<br/>its query template"]
         company["Company filter<br/>names and tickers from each filing's cover"]
         statement["Statement type<br/>from keywords - a boost, not a filter"]
         vec["Vector search"]
@@ -144,6 +149,9 @@ flowchart TB
 
         q --> company
         q --> statement
+        q --> qembed
+        qembed --> vec
+        qembed --> vecst
         company --> vec
         company --> kw
         company --> vecst
@@ -416,7 +424,8 @@ reported as an error, not shown empty. For `llama3.1:8b` only the output cap app
 
 ### Adding a new filing
 
-Drop the `.html` into `data/` and the app asks for `--rebuild`. Then check - the `filer-onboarding-checker`
+Drop the `.html` into `data/` and the app asks for `--rebuild`. Only Form 10-K annual reports are accepted, one per
+company per fiscal year: anything else stops startup and names the file. Then check - the `filer-onboarding-checker`
 subagent in `.claude/agents/` runs these checks and reports with evidence:
 
 1. **Its XBRL taxonomy is in `data/` too** - the `.xsd`, plus the `_pre`/`_lab`/`_cal`/`_def.xml` linkbases when the
@@ -533,10 +542,10 @@ its entry - matched by the exact text - in `tools/expected-answers.json` (`kind`
 
 Three measurements built on it:
 
-- **Repeatability** (`tools/run-variance.ps1`): all 102 questions asked afresh twice came back word for word identical -
+- **Repeatability** (`tools/run-variance.cs`): all 102 questions asked afresh twice came back word for word identical -
   at temperature 0 the model repeats exactly on the same setup. Against answers from three days earlier, 100/102 grades
   matched; Ollama had updated itself in between (a newer llama.cpp), so runs are compared only on the same Ollama build.
-- **A local judge** (`tools/run-judge.ps1`): Microsoft's Equivalence evaluator, scored by `llama3.1:8b`, agreed with the
+- **A local judge** (`tools/run-judge.cs`): Microsoft's Equivalence evaluator, scored by `llama3.1:8b`, agreed with the
   strict grade on 87 of 101 answers - but passed 14 of the 18 wrong ones, rating $27,034 million against $26,445 million
   "a slight difference". It rates similarity, not the exact figure, so the strict grade stays the grade and the judge
   runs alongside it only when asked for.
@@ -564,10 +573,8 @@ data/                                   source 10-K filings (HTML, from sec.gov/
                                         extracted facts (_htm.xml) are gitignored - download them to run the XBRL
                                         reader's EDGAR comparison test, which skips without them
 chunk-review/<strategy>/                full per-chunk text dumps, one file per filing, for manual review
-tools/                                  the question files and expected-answers.json; run-variance.ps1 and
-                                        run-judge.ps1; grade_answers.py and replay_recall.py (the Python originals
-                                        of the strict grade and the rank, kept as the record); rerank_spike.py;
-                                        LinearizeSpike + xbrl_column_check.py
+tools/                                  the evaluation's questions and expected answers, scripts to run, the Python
+                                        records and spikes - what each is for in its README
 eval/                                   every measured run: logs, grades, replays, screens - mapped in its README;
                                         v3-runs/ holds the .NET evaluation's stored runs and reports
 .claude/                                Claude Code config: filer-onboarding-checker subagent, run-evaluation skill,

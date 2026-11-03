@@ -85,7 +85,7 @@ public class EmbeddingTemplatesTests
     [TestCase("voyage-finance-2", "rag.structured.voyage-finance-2.db")]
     public void IndexFilesFor_EachModel_HasItsOwnIndex(string model, string fileName)
     {
-        IndexFiles index = IndexFiles.For(new DirectoryInfo(Path.GetTempPath()), "structured", EmbeddingTemplates.For(model), IndexFiles.UnnamedChunkBudget);
+        IndexFiles index = IndexFiles.For(new DirectoryInfo(Path.GetTempPath()), "structured", EmbeddingTemplates.For(model), IndexFiles.UnnamedChunkBudget, indexTag: "");
 
         Assert.That(index.DbFileName, Is.EqualTo(fileName));
     }
@@ -97,7 +97,17 @@ public class EmbeddingTemplatesTests
     [TestCase("voyage-finance-2", 10000, "rag.structured.voyage-finance-2.10000tok.db")]
     public void IndexFilesFor_ChunkBudget_NamedUnlessTheUnnamedOne(string model, int maxTokensPerChunk, string fileName)
     {
-        IndexFiles index = IndexFiles.For(new DirectoryInfo(Path.GetTempPath()), "structured", EmbeddingTemplates.For(model), maxTokensPerChunk);
+        IndexFiles index = IndexFiles.For(new DirectoryInfo(Path.GetTempPath()), "structured", EmbeddingTemplates.For(model), maxTokensPerChunk, indexTag: "");
+
+        Assert.That(index.DbFileName, Is.EqualTo(fileName));
+    }
+
+    // A tagged index sits beside the untagged one, which keeps its name: indexes from two machines can be compared.
+    [TestCase("", "rag.structured.db")]
+    [TestCase("mac", "rag.structured.mac.db")]
+    public void IndexFilesFor_IndexTag_NamedOnlyWhenSet(string indexTag, string fileName)
+    {
+        IndexFiles index = IndexFiles.For(new DirectoryInfo(Path.GetTempPath()), "structured", EmbeddingTemplates.For("nomic-embed-text"), IndexFiles.UnnamedChunkBudget, indexTag);
 
         Assert.That(index.DbFileName, Is.EqualTo(fileName));
     }

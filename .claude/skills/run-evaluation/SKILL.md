@@ -103,9 +103,10 @@ errors. `eval/v3-runs/logs/` is gitignored. On macOS/Linux use `nohup ... > eval
 question writes one progress line (grade, rank, figure source, seconds); environment overrides set in the shell that
 starts the run are inherited by it.
 
-Two scripts wrap the longer measurements (Windows PowerShell; read their headers for parameters):
-- `tools/run-variance.ps1` - the questions asked afresh N times, then compared question by question with a reference run you name.
-- `tools/run-judge.ps1` - the local judge over cached answers, then its agreement with the strict grade.
+Two scripts wrap the longer measurements. They run on Windows, macOS and Linux with only the .NET SDK, as
+`dotnet tools/<script>.cs -- <options>` (read their headers for the options and how to start them detached):
+- `tools/run-variance.cs` - the questions asked afresh N times, then compared question by question with a reference run you name.
+- `tools/run-judge.cs` - the local judge over cached answers, then its agreement with the strict grade.
 
 ## Reading the results
 

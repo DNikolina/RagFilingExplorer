@@ -7,7 +7,7 @@ namespace RagFilingExplorer.Evaluation.Running;
 /// <summary>
 /// How an evaluation run is set up - <c>RagFilingExplorer.Evaluation/evalsettings.json</c>, the evaluation's
 /// counterpart of the app's appsettings.json - one configuration style for both. The file holds the defaults; an environment variable overrides one key for one run with
-/// the same name - <c>Evaluation__NoCache=true</c> - which is how tools/run-variance.ps1 and run-judge.ps1 set a pass.
+/// the same name - <c>Evaluation__NoCache=true</c> - which is how tools/run-variance.cs and run-judge.cs set a pass.
 /// Every key is required and checked at load, as AppSettings does: no default hides in code.
 ///
 /// Lists are comma-separated strings, not JSON arrays: an environment variable overrides an array item by item
@@ -101,7 +101,7 @@ internal sealed class EvaluationSettings
     /// <summary>The settings from a configuration - every key present, every value valid, or an error naming it.</summary>
     public static EvaluationSettings From(IConfiguration configuration)
     {
-        AppSettings.EnsureKeysPresent(configuration, typeof(EvaluationSettings), Section, FileName);
+        AppSettings.EnsureKeysValid(configuration, typeof(EvaluationSettings), Section, FileName);
         EvaluationSettings settings = configuration.GetSection(Section).Get<EvaluationSettings>()
             ?? throw new InvalidOperationException($"{FileName} failed to bind its {Section} section.");
         settings.Validate();

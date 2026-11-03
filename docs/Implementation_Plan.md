@@ -77,8 +77,8 @@ in Decision-Log.md, under the section named.
 
 **Where it stands:**
 - **Shipped defaults - free and local:** `Structured`, `Hybrid`, nomic-embed-text, llama3.1:8b at temperature 0 (so a
-  changed answer is a changed input, not sampling), reranking off. llama's baseline: 85/102,
-  `structured-hybrid-chunk-fixes`. Compare llama runs only on the same Ollama build - a new build can change answers.
+  changed answer is a changed input, not sampling), reranking off. llama's baseline: 85/102 on Windows,
+  `structured-hybrid-chunk-fixes`; 84/102 on the Mac, `structured-hybrid-mac-m5pro-crlf-1`. Compare llama runs only on the same machine and Ollama build - either can change answers.
 - **Best measured with Claude:** Opus 5.5 (medium) on `voyage-finance-2` + `rerank-3` at 5 excerpts, 102/102 strictly,
   ~$2.05 a run; Sonnet 5.5 the same, 100/102 strictly, ~$0.91. Without the reranker Opus needs 8 excerpts for 102/102
   (553K input tokens against 366K).
@@ -133,6 +133,7 @@ Indexing - at startup, rebuilt when the build manifest says the index is stale
 
 Answering - per question
   → QueryIntentResolver   company filter (CompanyRegistry) + statement type (keyword substring match)
+  → embedder              the question, once, in the model's query template; the vector goes to every vector search
   → Hybrid search         per named company: vector + FTS5 bm25 + vector-within-statement, 50 deep each,
                           fused by RRF (k = 60); two or more companies interleaved
   → [reranker, opt-in]    each company's top 25 reordered
@@ -181,7 +182,7 @@ Each project's `.csproj` lists them, with versions. Not obvious from the code:
 | Rule | If forgotten | Held by / how to check |
 |---|---|---|
 | Keep `VectorStore.UpsertBatchSize` at `1` while on SqliteVec `1.0.1-preview` | Multi-record upserts throw `UNIQUE constraint failed on vec_chunks primary key` (an upstream `sqlite-vec` bug fixed in a native build NuGet hasn't picked up) | Don't hand-swap `vec0.dll` - it wouldn't survive a clone |
-| A new filing registers its company from its cover facts (`CompanyRegistry`: registrant name without its legal form + the common stock's ticker) | An unregistered company's questions run unfiltered across every filing - this produced an invented NFLX figure | Startup's "Company filter:" line (a brand unlike the legal name still needs attention); its `chunk-review/<strategy>/*.chunks.txt` for `�` and a complete Item outline |
+| A new filing registers its company from its cover facts (`CompanyRegistry`: registrant name without its legal form + the common stock's ticker) | An unregistered company's questions run unfiltered across every filing - this produced an invented NFLX figure. Not silent: a file that isn't a Form 10-K, or a second filing of one company for the same fiscal year, stops startup naming the file | Startup's "Company filter:" line (a brand unlike the legal name still needs attention); its `chunk-review/<strategy>/*.chunks.txt` for `�` and a complete Item outline |
 | A new filing needs its XBRL taxonomy in `data/` (`Structured`): the `.xsd`, plus the `_pre`/`_lab`/`_cal`/`_def.xml` linkbases when the filer ships them separately (NDAQ and NFLX do), from its EDGAR folder | Not silent: chunking stops ("no taxonomy schema (.xsd)"), as it does for a Statement role it can't map - never a mislabel | - |
 | A new filer's statement titles must be detected (`Markdown`, `Linearized`) | No chunks of that statement type - every NDAQ equity question returned "(no results)" | One `StatementType` transition per primary statement plus the Notes reset: `SELECT Key, StatementType FROM chunks WHERE SourceFiling = ... ORDER BY Key` |
 | Statement-type regexes require "STATEMENTS" (except the balance sheet) | Bare headings like "OPERATIONS" or "Cash Flows" mistagged up to 96 consecutive chunks | - |
@@ -195,6 +196,7 @@ Each project's `.csproj` lists them, with versions. Not obvious from the code:
 | Rule | If forgotten | Held by / how to check |
 |---|---|---|
 | Never send a reasoning ("think") request to a model without the `thinking` capability | Ollama hard-errors rather than ignoring it | The capability comes from `/api/show` at startup, never the name |
+| A prompt is the same bytes on every OS: no `AppendLine` or `Environment.NewLine` in it | One question sends different text on Windows and the Mac - it changed 27 of 102 answers, and a cached answer misses on the other machine | `RagAnswerServiceTests.BuildPrompt_Excerpts_HaveTheSameBytesOnEveryOs`; compare a question's input tokens across machines |
 | Prompt + `Retrieval.MaxOutputTokens` must fit Ollama's `num_ctx` | Ollama silently drops the oldest tokens - the system prompt and the top-ranked chunks; its own default depends on the machine's VRAM (4K / 32K / 256K) and its settings | The app sends `Ollama:ContextLength` (4096) with every llama request; startup refuses an index whose largest prompt + answer won't fit (`PromptFit`; today ~3,121 + 768 of 4,096) and an Ollama embedding model whose context is under the chunk budget; embeddings sent with `truncate: false` |
 | The reranker's tokenization is Hugging Face's, reimplemented (`BertPairEncoder`) | `BertTokenizer`'s own basic tokenization drops line breaks, `\|`, `$` and unknown symbols - all 73,125 (question, chunk) pairs differed from what the spike measured | Another reranker model, or a `Microsoft.ML.Tokenizers` upgrade: re-run the token-for-token parity check against Python's `tokenizers` (Decision-Log.md, "Step 2b - build") |
 

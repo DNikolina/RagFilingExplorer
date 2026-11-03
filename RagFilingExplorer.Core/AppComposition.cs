@@ -33,7 +33,8 @@ internal static class AppComposition
     public static FileInfo[] FindFilings(DirectoryInfo repoRoot)
     {
         DirectoryInfo dataDirectory = new(Path.Combine(repoRoot.FullName, "data"));
-        FileInfo[] filings = dataDirectory.Exists ? dataDirectory.GetFiles("*.html").OrderBy(f => f.Name).ToArray() : [];
+        FileInfo[] filings = dataDirectory.Exists ? [.. dataDirectory.GetFiles("*.html").OrderBy(f => f.Name)] : [];
+
         return filings.Length > 0 ? filings : throw new StartupException($"No *.html filings found in {dataDirectory.FullName}.");
     }
 
@@ -65,12 +66,14 @@ internal static class AppComposition
         return collection;
     }
 
-    /// <summary>The answer service over a built index, its questions embedded as <paramref name="templates"/> say (the
-    /// templates that sized <paramref name="collection"/>), answering with <paramref name="chatClient"/> as
-    /// <paramref name="chatModel"/> describes. A provider's reranker (Providers:Rerank other than Local) is the caller's
-    /// to create and pass as <paramref name="providerReranker"/> - Core references no provider.</summary>
+    /// <summary>The answer service over a built index, its questions embedded by <paramref name="queryEmbedding"/> (the
+    /// generator <paramref name="collection"/> was opened with) as <paramref name="templates"/> say, answering with
+    /// <paramref name="chatClient"/> as <paramref name="chatModel"/> describes. A provider's reranker (Providers:Rerank
+    /// other than Local) is the caller's to create and pass as <paramref name="providerReranker"/> - Core references no
+    /// provider.</summary>
     public static RagRuntime CreateRuntime(
-        AppSettings settings, IndexFiles index, VectorStoreCollection<int, FilingChunkRecord> collection, EmbeddingTemplates templates,
+        AppSettings settings, IndexFiles index, VectorStoreCollection<int, FilingChunkRecord> collection,
+        IEmbeddingGenerator<string, Embedding<float>> queryEmbedding, EmbeddingTemplates templates,
         CompanyRegistry companies, IChatClient chatClient, ChatModelOptions chatModel, IRelevanceScorer? providerReranker = null)
     {
         // Company and statement-type filtering, search, prompt and generation are RagAnswerService's (see
@@ -99,7 +102,7 @@ internal static class AppComposition
         }
 
         RagAnswerService answerService = new(
-            collection, chatClient, settings.Retrieval, chatModel, companies, templates, keywordIndex, reranker);
+            collection, queryEmbedding, chatClient, settings.Retrieval, chatModel, companies, templates, keywordIndex, reranker);
         return new RagRuntime(answerService, companies, reranker);
     }
 
@@ -113,18 +116,20 @@ internal static class AppComposition
         IChatClient chatClient, ChatModelOptions chatModel, IRelevanceScorer? providerReranker = null)
     {
         FileInfo[] filings = FindFilings(repoRoot);
-        CompanyRegistry companies = RegisterCompanies(filings);
 
         EmbeddingTemplates templates = EmbeddingTemplates.For(settings.Embedding.Model);
-        IndexFiles index = IndexFiles.For(repoRoot, ChunkingStrategies.FileName(settings.Chunking.Strategy), templates, settings.Chunking.MaxTokensPerChunk);
+        IndexFiles index = IndexFiles.For(repoRoot, ChunkingStrategies.FileName(settings.Chunking.Strategy), templates, settings.Chunking.MaxTokensPerChunk, settings.VectorStore.IndexTag);
         if (!index.Exists)
         {
             throw new StartupException($"{index.DbPath} doesn't exist - build it by running the app once (dotnet run --project RagFilingExplorer.Cli).");
         }
 
+        // Registration reads every filing's inline XBRL; a missing or stale index is reported before that work.
         index.EnsureCurrent(IndexManifest.Create(settings, filings));
+        CompanyRegistry companies = RegisterCompanies(filings);
         VectorStoreCollection<int, FilingChunkRecord> collection = await OpenCollectionAsync(index, embedding, templates);
-        return CreateRuntime(settings, index, collection, templates, companies, chatClient, chatModel, providerReranker);
+
+        return CreateRuntime(settings, index, collection, embedding, templates, companies, chatClient, chatModel, providerReranker);
     }
 
     /// <summary>The reranker Providers:Rerank names: the local cross-encoder, loaded here, or the provider's the caller

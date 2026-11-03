@@ -45,7 +45,7 @@ static async Task RunAsync(string[] args)
     string strategyName = ChunkingStrategies.FileName(settings.Chunking.Strategy);
     EmbeddingTemplates embeddingTemplates = EmbeddingTemplates.For(settings.Embedding.Model);
     embeddingTemplates.EnsureServedBy(settings.Providers.Embedding);
-    IndexFiles index = IndexFiles.For(repoRoot, strategyName, embeddingTemplates, settings.Chunking.MaxTokensPerChunk);
+    IndexFiles index = IndexFiles.For(repoRoot, strategyName, embeddingTemplates, settings.Chunking.MaxTokensPerChunk, settings.VectorStore.IndexTag);
     string reviewDirectoryPath = IndexFiles.ReviewDirectory(repoRoot, strategyName, settings.Chunking.MaxTokensPerChunk);
     bool verbose = args.Contains("--verbose");
     Console.WriteLine($"Chunking strategy: {settings.Chunking.Strategy} (index: {index.DbFileName})");
@@ -67,6 +67,15 @@ static async Task RunAsync(string[] args)
         List<FilingChunk> chunks = await IndexBuilder.ChunkFilingsAsync(settings, filings, reviewDirectoryPath);
         Console.WriteLine($"Total chunks across all filings: {chunks.Count} (--chunks-only: index not touched)");
         return;
+    }
+
+    // A stale index stops the app here, before any provider is checked - Voyage's checks are billed. With --rebuild it's
+    // replaced anyway; it's deleted only after the providers pass, so a provider that's down doesn't cost the index.
+    bool rebuild = args.Contains("--rebuild");
+    IndexManifest currentManifest = IndexManifest.Create(settings, filings);
+    if (!rebuild && index.Exists)
+    {
+        index.EnsureCurrent(currentManifest);
     }
 
     // Each provider is checked before any build: Ollama for only the models it serves here (none with Voyage and Claude),
@@ -95,29 +104,19 @@ static async Task RunAsync(string[] args)
         ? $"Chat model: {settings.Ollama.ChatModel} (Ollama)"
         : $"Chat model: {claude.Model} (Claude API; effort {claude.LookupEffort} for lookups, {claude.SynthesisEffort} for synthesis; reads {claude.GenerationTopK} excerpts)");
 
-    if (args.Contains("--rebuild"))
+    if (rebuild)
     {
         index.Delete();
     }
 
-    IndexManifest currentManifest = IndexManifest.Create(settings, filings);
-    bool indexExists = index.Exists;
-    if (indexExists)
-    {
-        index.EnsureCurrent(currentManifest);
-    }
-    else
-    {
-        // A manifest without its index (e.g. the .db was deleted by hand) must not vouch for the next one.
-        index.Delete();
-    }
-
-    if (indexExists)
+    if (index.Exists)
     {
         Console.WriteLine($"Found an up-to-date {index.DbPath} - skipping chunking and embedding. Run with --rebuild to force a fresh build.");
     }
     else
     {
+        // A manifest without its index (e.g. the .db was deleted by hand) must not vouch for the next one.
+        index.Delete();
         try
         {
             await IndexBuilder.BuildAsync(
@@ -135,7 +134,7 @@ static async Task RunAsync(string[] args)
     }
 
     VectorStoreCollection<int, FilingChunkRecord> collection = await AppComposition.OpenCollectionAsync(index, queryEmbedding, embeddingTemplates);
-    using RagRuntime runtime = AppComposition.CreateRuntime(settings, index, collection, embeddingTemplates, companies, chat, chatModel, voyageReranker);
+    using RagRuntime runtime = AppComposition.CreateRuntime(settings, index, collection, queryEmbedding, embeddingTemplates, companies, chat, chatModel, voyageReranker);
 
     Console.WriteLine(runtime.Reranker is null
         ? $"Search: {settings.Retrieval.Search}"

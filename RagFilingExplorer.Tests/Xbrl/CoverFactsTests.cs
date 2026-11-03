@@ -27,6 +27,7 @@ public class CoverFactsTests
         new Dictionary<string, XbrlUnit>(),
         [
             Fact("dei:EntityRegistrantName", "d", "Alphabet Inc."),
+            Fact("dei:DocumentType", "d", "10-K"),
             .. Security("p", "Depositary Shares, each representing a 1/20th interest in a share of Series D Preferred Stock", "ABC PRD", "NASDAQ"),
             .. Security("a", "Class A Common Stock, $0.001 par value", "GOOGL", "NASDAQ"),
             .. Security("c", "Class C Capital Stock, $0.001 par value", "GOOG", "NASDAQ"),
@@ -81,7 +82,7 @@ public class CoverFactsTests
     {
         string path = Path.Combine(RepoPaths.FindRoot(TestContext.CurrentContext.TestDirectory).FullName, "data", filing);
         XbrlDocument xbrl = InlineXbrlReader.Read(new AngleSharp.Html.Parser.HtmlParser().ParseDocument(
-            RagFilingExplorer.Core.Chunking.MarkItDownConverter.ReadFiling(new FileInfo(path))));
+            RagFilingExplorer.Core.Chunking.FilingFile.Read(new FileInfo(path))));
 
         Assert.That(CoverFacts.EmbeddingContext(xbrl), Is.EqualTo(expected));
     }

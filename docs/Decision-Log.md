@@ -4908,3 +4908,124 @@ shipped default stays free. Next: batch 5, the Mac; then closing v4.
 bigger local model on better hardware - moves out of v4 and starts when the hardware is here (user). v4 stands on its
 four batches: Claude reads what llama misreads; Voyage's embeddings and reranker fix what's left, which is retrieval; the
 shipped default is unchanged and free. Merged to `main` (fast-forward), tag `v4.0`.
+
+## Follow-up: code walkthrough fixes (v5) - IN PROGRESS (branch `v5`, local)
+
+**Context (user, 2026-10-23, after v4.0):** fixes found while reading the code, part by part.
+
+**Startup checks.**
+- **The stale-index check runs before any provider is checked.** Before, Voyage's billed startup calls were made
+  before the app found the index out of date. `--rebuild` still deletes the index only after the providers pass, so a
+  provider that's down doesn't cost the index.
+- **The data folder is checked as it's registered.**
+  - A file without inline XBRL fails naming the file. Before, the error was "No `<ix:header>`" alone.
+  - Only Form 10-K registers, by `dei:DocumentType`. A 10-Q, a 10-K/A or an 8-K would have been indexed, its figures
+    answering beside the annual ones and its profile calling it an annual report.
+  - Two filings of one company (by CIK) for the same fiscal year are refused, naming both. Different years are not
+    refused (user), but they aren't supported yet either: a second MSFT year makes every MSFT question a two-filing
+    search. Multi-year support is on v5's list.
+- **An enum setting must be one of its names**, ignoring case as the binder does. `"Chat": "7"` bound as an undefined
+  provider and started Ollama without a word, and `"1"` chose Claude by its position in the enum. `EnsureKeysPresent`
+  is now `EnsureKeysValid`, for the app, Claude, Voyage and the evaluation.
+- 11 new tests (507).
+
+**Reading a filing moved out of `MarkItDownConverter`.** `ReadFiling` and `DetectEncoding` - how every strategy and
+the company registry open a filing - sat in the class that shells out to markitdown, which only `Markdown` uses. They
+are `FilingFile.Read` and `FilingFile.DetectEncoding` now, unchanged; their tests moved to `FilingFileTests`.
+
+**A filing's taxonomy must be the only schema matching it.** `TaxonomyReader.FindForFiling` took the first `.xsd` in
+`data/` whose namespace the page declares - but every page declares the standard ones too. The SEC's `dei-2025.xsd`,
+saved into `data/` as reference, sorted first and became all four filings' taxonomy: chunking stopped at "Primary
+statements don't map one to one", which names the statements, not the schema. The XBRL `types.xsd` matched MSFT and
+ORCL and was picked for neither only because it sorts after them. Several matches now fail, naming every schema.
+Neither standard schema is needed: the filers' own label files already label every us-gaap concept they use, and
+the one DEI concept the code lacked, `EntityLegalForm`, none of the four filings tags. 1 new test (508).
+
+**The evaluation checks its index before registering the companies.** `OpenExistingIndexAsync` read every filing's
+inline XBRL for the company registry before finding the index missing or stale, so the fix that error names came
+after the slowest step - or behind a registration error. Neither index check needs the registry, only the filing list;
+registration now follows them. The console keeps registering first: it builds the index, and a refused filing must
+stop it before a build.
+
+**A question is embedded once.** Each vector search passed the question as text, and the vector store embedded it again
+for every search: under `Hybrid`, a question naming a statement embedded twice per company - four times for two
+companies - for one vector. With Voyage each is a billed call and a round trip before the search can run (the tokens
+are a fraction of a cent a run; the waiting is what shows). `RagAnswerService` now embeds the question once, through
+the generator the collection was opened with, and passes the vector to every search - MEVD's `SearchAsync` takes a
+`ReadOnlyMemory<float>` as well as text (Microsoft Learn, `VectorStoreCollection.SearchAsync<TInput>`). Checked:
+`RetrievalRankRunTests` on nomic reproduced every stored rank; 1 new test (509).
+
+## Follow-up: a map of the chunk vectors (v5)
+
+**Context (user, 2026-10-28):** while reading `vec_chunks` in DB Browser (sqlite-vec's `vec0.dll` loaded as an
+extension after the database is opened), the user asked to see the vectors as dots, close chunks close together.
+
+**`tools/vector_map.py`** draws one index's chunk vectors in 2D as a standalone HTML page: a dot per chunk, coloured
+by filing; a click rings that chunk's 5 nearest by cosine distance over the full vectors, so closeness can be checked
+whatever the layout shows. A tool to look with, not part of the app or the evaluation.
+
+- **Two layouts, measured by how many of each chunk's 5 true nearest stay among its 5 nearest dots.** On
+  `rag.structured.db` (981 chunks, 768 dimensions): PCA 0.53 - its two axes hold only 15.2% + 10.7% of the variance;
+  t-SNE (cosine, perplexity 30, seeded) 3.14. On `rag.structured.voyage-finance-2.db`, t-SNE keeps 2.99. PCA is the
+  default since it needs only numpy; t-SNE is `--tsne`.
+- **No Microsoft package does t-SNE.** ML.NET has PCA (`ProjectToPrincipalComponents`), the same picture numpy draws,
+  and no t-SNE or UMAP; Microsoft Learn's RAG guidance ("RAG generate embeddings phase") points to scikit-learn or
+  PyTorch for t-SNE. scikit-learn 1.9.1 it is, for `--tsne` only, in a venv apart from the Python markitdown runs from.
+- **What the first map showed: the vectors group by topic, not by company.** NDAQ's #368 (AxiomSL's on-premises
+  license and support recognized ratably as one performance obligation) has MSFT's #108 (on-premises licenses with
+  Software Assurance, recognized ratably) third among its nearest, at cosine distance 0.105 - behind two NDAQ chunks,
+  ahead of the rest. Every chunk opens with its company line, but a few words of company lose to a paragraph of
+  topic. Harmless to answers: a question naming a company searches only that company's chunks (`QueryIntentResolver`,
+  the company filter), which is why that filter is a live constraint. Separate tables per filing would change nothing
+  for vectors: a cosine distance doesn't depend on the other rows.
+
+
+## Follow-up: running on macOS as well as Windows (v5)
+
+The work moved to a Mac (Apple M5 Pro, 64 GB; llama on its GPU, Ollama 0.40.13) on 2026-11-02, with the requirement that the
+solution keeps running on both machines. Three things only ever worked, or only ever behaved this way, on Windows.
+
+**One question sent different bytes on each OS.** `RagAnswerService.BuildPrompt` built the excerpts with `AppendLine`, so
+they were CRLF on Windows and LF on the Mac: Q1 read 2,045 input tokens against 2,039, and an answer cached on one machine
+missed the response cache on the other. The system prompt was already pinned to CRLF; the excerpts now are too, with a test
+on the exact bytes. CRLF keeps Windows' prompts, baselines and cache as they were. Found by asking why the Mac's token total
+differed from the Windows baseline, after a first explanation had put the changed answers down to Ollama and the hardware.
+Fixing it changed 27 of the Mac's 102 answers.
+
+**The Mac's baseline is one lower, and not from the prompt.** All 102 questions, asked afresh, compared with
+`structured-hybrid-chunk-fixes` (Windows, CPU, Ollama 0.40.2, 85/102, 71 min):
+
+| Mac run | Reliable | Input tokens | Answers word for word as Windows | Grades as Windows | Time |
+|---|---|---|---|---|---|
+| Before the fix (`structured-hybrid-mac-m5pro-1`, not kept) | 84 | 249,227 | 70 | 100 | 4 min |
+| After it (`structured-hybrid-mac-m5pro-crlf-1`) | 84 | 249,850, equal on all 102 | 79 | 101 | 4 min |
+
+The one grade left is A24: the right sum, without "thousand". The other 22 answers that differ keep their grades. With the
+prompts now equal, what's left is the Ollama build or the hardware; these runs can't separate them. T5's prompt still differs:
+the same five excerpts, the last two swapped. Unexplained; its grade doesn't change. So the Mac's baseline is 84/102, Windows'
+stays 85/102, and a llama run is compared only with one from the same machine and Ollama build.
+
+**Answers repeat on the Mac, and Ollama's prompt cache doesn't change them.** With the chat model unloaded before every
+question (`structured-hybrid-mac-m5pro-crlf-unload-1`, 6 min), all 102 answers matched `-crlf-1` word for word. Not checked
+for Windows' baseline.
+
+**The evaluation scripts in C#.** `tools/run-variance.ps1` and `run-judge.ps1` needed PowerShell and ran `dotnet` through
+`cmd`. They're rewritten as .NET file-based apps (`tools/run-variance.cs`, `run-judge.cs`, sharing `eval-common.cs` through
+`#:include`, SDK 10.0.300+), so a clone needs only the .NET SDK. Same steps, overrides, execution names and log names.
+`dotnet` is started directly, with `Evaluation__*` variables set on that process alone, and its output is copied to the log
+as raw bytes: `dotnet test` writes in the console's code page on Windows, and decoding that as UTF-8 would replace what it
+can't read for good ("`Console.OutputEncoding` fixed"). The wait for output is bounded, because a build server left running
+can hold redirected output open. The `.ps1` files stay for now. Microsoft Learn: "File-based apps", CA2266. Checked by
+running, not from those pages: finding the script's folder through `AppContext.GetData("EntryPointFileDirectoryPath")`, and
+starting `dotnet test` from a file-based app.
+
+**The reranker's path.** `Retrieval:RerankModelDirectory` was `%USERPROFILE%/...`, which stays literal off Windows, so the
+local reranker never found its model there. It's now `~/...`, expanded in `CrossEncoderReranker.Load` from
+`SpecialFolder.UserProfile`. Run on the Mac with the local reranker on, one question.
+
+**Left as it is (user):** `.gitattributes` protects only `data/*.html`, so the taxonomy files are CRLF on a Windows checkout
+and LF on a Mac one, and the index manifest hashes their bytes. An index copied between machines stays current while the
+copied files stay as they are; a fresh clone or a re-checkout of `data/` reads it as stale, and startup asks for `--rebuild`.
+
+Checked: 511 + 210 offline tests; both scripts end to end on macOS, and their build, variance-pass and comparison failures (a failed judge or agreement step not forced); the three full runs above.
+Not yet run on Windows - the scripts, or the prompt and path fixes.
