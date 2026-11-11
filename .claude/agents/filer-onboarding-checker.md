@@ -51,7 +51,9 @@ Run them in order; later checks depend on the dump from check 2.
    the company runs unfiltered across all filings (this caused a hallucinated NFLX figure). A registered name
    that also matches another filing's name (whole-word, case-insensitive) = FAIL: questions about one company
    go to both - check 7's tests catch it too. WARN if the registered name isn't how questions will name the
-   company (a brand unlike the legal name).
+   company (a brand unlike the legal name) and `data/company-aliases.json` has no entry for it. WARN, naming
+   them, if the line ends "(... only as written)": that name or ticker is an ordinary word in lowercase, so a
+   question must capitalise it as registered.
 2. **Taxonomy and chunk dump** - the shipped `Structured` strategy reads the filing's XBRL taxonomy from
    `data/`: its `.xsd`, plus the `_pre`/`_lab`/`_cal`/`_def.xml` linkbases it names if they're separate
    (downloaded from the filing's EDGAR folder next to the `.html`). A missing taxonomy = FAIL: the run stops
@@ -101,6 +103,6 @@ Run them in order; later checks depend on the dump from check 2.
 Lead with one line: READY, READY WITH WARNINGS, or NOT READY. Then a table - check, result
 (PASS / WARN / FAIL / NOT RUN), evidence (`file:line`, counts, the offending converted line). Then, for
 each FAIL/WARN, the smallest concrete fix to discuss (e.g. "the registered name is 'Alphabet' but questions
-say 'Google' - an alias rule in CompanyRegistry") - described, not applied. End with `git status --short` of
+say 'Google' - add `"GOOGL": ["Google"]` to data/company-aliases.json") - described, not applied. End with `git status --short` of
 `chunk-review/`, and the commands the user should run next (e.g. `--rebuild`, then re-run check 5
 against the index).

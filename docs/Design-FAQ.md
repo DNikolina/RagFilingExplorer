@@ -71,6 +71,20 @@ to the wrong statement can still reach its answer - the routing misses that were
 (e.g. "deferred revenue", routed to the income statement on "revenue") are answered (see the next answer).
 Decision-Log.md, "retrieval quality", "pre-manual-pass review" and "XBRL hybrid (v2)", step 2.
 
+### Why must some tickers be typed in capitals, and where do brand names come from?
+
+A question's company is found by name or ticker, as whole words, in any case - "msft" and "microsoft" work. A ticker
+that is an ordinary word in lowercase (ARE, COST, NOW) can't be matched that way: "What are Microsoft's revenues?"
+would name two companies, and each would get half of the excerpts. Such a name matches only as written. Which names
+those are is read from the filings' own text - a word they use in lowercase, standing alone - plus any name of one or
+two letters, so there's no word list to keep. Startup's "Company filter:" line says which names are affected.
+
+A name the cover facts can't give - "Google" for Alphabet - goes in the optional `data/company-aliases.json`, by
+ticker. It's a file beside the filings, not a table in the index: every index is a build output, deleted by
+`--rebuild`, one per strategy and embedding model, and not in git. The file only adds names, so a filing without an
+entry still registers from its cover - the hand-kept table v1 had, whose missing entry left a company unfiltered,
+isn't back. Decision-Log.md, "Company names: ordinary words and aliases".
+
 ### How are reranking and hybrid (keyword + vector) search done?
 
 Neither is available locally off the shelf. Ollama has no rerank endpoint, and `Microsoft.Extensions.AI` has no

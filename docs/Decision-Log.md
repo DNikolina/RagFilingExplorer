@@ -5029,3 +5029,28 @@ copied files stay as they are; a fresh clone or a re-checkout of `data/` reads i
 
 Checked: 511 + 210 offline tests; both scripts end to end on macOS, and their build, variance-pass and comparison failures (a failed judge or agreement step not forced); the three full runs above.
 Not yet run on Windows - the scripts, or the prompt and path fixes.
+
+**Company names: ordinary words and aliases (2026-11-11).** Found in a review of the code, on no question: every
+registered name, tickers included, matched as a whole word in any case. The four tickers are safe, but a filer whose
+ticker is an English word (ARE, COST, NOW) would match ordinary questions - "What are Microsoft's revenues?" would name
+two companies, and each gets half of the excerpts. Matching tickers only in capitals would fix it and lose "msft";
+the user types company names without capitals and wants that kept (user, 2026-11-11).
+- **A name that is an ordinary word in lowercase matches only as written; every other name in any case.** Ordinary:
+  a one-word name the filings' own text uses in lowercase, standing alone between spaces - or any of one or two
+  letters. Read from the filings at registration (the page is parsed there already), so there's no word list. A word
+  inside an address or file name doesn't count ("www.microsoft.com", "msft-20260630.htm"), and the hidden XBRL header
+  is left out ("msft:..." member names), or every company's own name would read as a word. It applies to names as to
+  tickers ("Target"). Startup's "Company filter:" line names the ones affected.
+- **`data/company-aliases.json`, optional: ticker -> extra names**, for a brand unlike the legal name ("Google") -
+  the gap "Registration from the cover facts" left open. Matched in any case, added to every year's filing of the
+  company. A key that is no registered company, an empty name, or an alias that matches another company's name
+  stops startup. It only adds names, so a filing with no entry still registers from its cover: v1's failure, a
+  forgotten entry leaving a company unfiltered, can't come back through it.
+- **Not in the index (user asked):** a `rag.*.db` is a build output - deleted by `--rebuild`, one per strategy,
+  embedding model and chunk budget, gitignored - and the registry is built before any index is opened. The file isn't
+  in the index manifest either: it changes routing, not chunks.
+- No file ships: none of the four filings needs an alias, and none of their names is an ordinary word - all eight
+  still match in lowercase, and every question in the three sets resolves to the same filings as before (the
+  existing test), so no answer can have moved and no evaluation was run.
+
+Checked: 539 + 210 offline tests. Not run: the app's startup with an aliases file in `data/`.

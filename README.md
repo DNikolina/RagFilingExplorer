@@ -263,7 +263,9 @@ exits with a one-line fix instead of a stack trace:
   (A changed embedding model is the worst case: query vectors from the new model compared against
   stored vectors from the old one retrieve noise with no error at all.)
 - Each filing registers its company for the company filter from its own tagged cover facts (name and
-  ticker); a filing that tags no registrant name stops startup with a message saying so.
+  ticker); a filing that tags no registrant name stops startup with a message saying so. Names match in any
+  case ("msft", "microsoft") - except one that is an ordinary word in lowercase (the ticker `ARE` or `COST`),
+  which matches only as written, so "What are Microsoft's revenues?" isn't also sent to that filing.
 
 ## Answering with Claude (v4, optional, paid)
 
@@ -432,7 +434,10 @@ subagent in `.claude/agents/` runs these checks and reports with evidence:
    filer ships them separately (from the filing's EDGAR folder). Without it the build stops and says so.
 2. **Its company registered** as questions will name it - startup prints each registration ("Company filter:
    Netflix / NFLX -> NFLX-10K-2025.html"). An unregistered company's questions run unfiltered across every filing,
-   which once produced a hallucinated figure.
+   which once produced a hallucinated figure. If questions will use a name the cover doesn't give - a brand
+   unlike the legal name, "Google" for Alphabet - add it to `data/company-aliases.json`, by ticker:
+   `{ "GOOGL": ["Google"] }`. The file is optional and only adds names; a wrong ticker in it, or a name that
+   would also match another company, stops startup.
 3. **Its chunks read correctly** - `chunk-review/<strategy>/<filing>.chunks.txt` has no stray `�` (a non-UTF-8
    download is detected, but check) and a complete Item outline.
 

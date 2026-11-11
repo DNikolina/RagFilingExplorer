@@ -56,7 +56,9 @@ static async Task RunAsync(string[] args)
 
     foreach (CompanyRegistration registration in companies.Registrations)
     {
-        Console.WriteLine($"Company filter: {string.Join(" / ", registration.Names)} -> {registration.Filing}");
+        // A name that's an ordinary word in lowercase matches only as written - said here, where registrations are checked.
+        string exactCase = registration.ExactCaseNames.Count == 0 ? "" : $" ({string.Join(", ", registration.ExactCaseNames)} only as written)";
+        Console.WriteLine($"Company filter: {string.Join(" / ", registration.Names)}{exactCase} -> {registration.Filing}");
     }
 
     // --chunks-only: chunk every filing and write chunk-review/<strategy>[.<n>tok]/, nothing else - no Ollama, no
