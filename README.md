@@ -551,7 +551,7 @@ Three measurements built on it:
   at temperature 0 the model repeats exactly on the same setup. Against answers from three days earlier, 100/102 grades
   matched; Ollama had updated itself in between (a newer llama.cpp), so runs are compared only on the same Ollama build.
 - **A local judge** (`tools/run-judge.cs`): Microsoft's Equivalence evaluator, scored by `llama3.1:8b`, agreed with the
-  strict grade on 87 of 101 answers - but passed 14 of the 18 wrong ones, rating $27,034 million against $26,445 million
+  strict grade on 88 of 102 answers - but passed 14 of the 18 it failed, 12 of the 14 wrong figures among them, rating $27,034 million against $26,445 million
   "a slight difference". It rates similarity, not the exact figure, so the strict grade stays the grade and the judge
   runs alongside it only when asked for.
 - **A paid judge** (v4): the same evaluator scored by Claude, over the same cached answers. Sonnet 5.5 agreed with the

@@ -3181,7 +3181,7 @@ Equivalence, judged by `llama3.1:8b`, over the baseline's 102 cached answers: 13
 - **Format:** the library read 15 of 102 replies - llama answers "...Therefore, the Equivalence metric should be 5." instead
   of the bare integer asked for. Recovered from the words, 101 of 102 have a score (the recovery pattern widened after
   reading the run's replies - "metric should be 5", "metric value is 5", a leading "4 "; a reply cut off before its score
-  stays unread: T7, which repeats the answer).
+  stays unread: T7, which repeats the answer - corrected in "The judge results checked": T7's reply does end with its score, in a form the pattern missed).
 - **Agreement 87/101, all disagreements one way:** the judge passes **14 of the 18 strict failures** it scored and fails no
   strict pass. It scores a wrong figure as close: A10's $27,034M against $26,445M - 4, "a slight difference in the amount";
   H25's $67,357M (total revenues) against $46,751M operating expenses - 5; A27's 25.9% against 25.4% - 5, "only a slight
@@ -5086,3 +5086,23 @@ these fails only with a mistyped setting, a new filing, or a network fault.
 Checked: 551 + 213 offline tests; the console started on the Mac's index and answered a lowercase question
 ("what was msft total revenue in fiscal 2026?", routed to MSFT). Not run: an evaluation with Claude and Voyage (no
 keys on this machine), so the Ollama-free path is untested end to end; the Voyage retry against the real API.
+
+**The judge results checked (2026-11-11, user: "be sure that the results that we have are correct").** The seven stored
+judge runs recounted from their raw result files by a separate script, not through `JudgeAgreement`: every count in the
+agreement reports matches. Also checked, over all 714 judged answers: each is its baseline run's answer with the same
+strict grade; the judge's request is the question alone; a verdict is the library's (a score under 4 fails) for every
+scored answer; and the 87 scores taken from a reply's words were each read against the reply - all right.
+- **T7 was never cut off.** llama's one unread reply ends "Therefore, the Equivalence score is: 5"; the pattern missed
+  the colon after "is". Widened; every stored reply re-read with it changes T7 alone. The report, regenerated from the
+  store with no model call: 87 scores from the words, none unread, **88/102** with the strict grade (was 87/101). T7 is a
+  strict pass, so "14 of the 18 strict failures passed" stands.
+- **"14 of 18 wrong answers" was loose.** The 18 are strict failures: 14 wrong figures, 2 declines, 1 check, 1 missing
+  unit. The llama judge passed 12 of the 14 wrong figures, and the check and the missing unit; it failed A8, T9 and the
+  two declines. The plan and the README now say so.
+- **The Claude judges' passes, read again:** on llama's answers a rounded figure (A14, H34; Opus also A11), a missing
+  unit (Q21), the inputs without the sum (V3); on Claude's answers only `check`s (H8, H11, H34, Q23, V1). No wrong
+  figure. A11 is the nearest: "$5.7 billion", MD&A's own figure, for $5,787 million - not its rounding.
+- **A12's ground truth in the stored judge runs is the one it had then** - a negative; it became a fact whose decline
+  passes afterwards ("A12 is a fact whose decline also passes"). The verdicts answer the question as it was; not re-judged.
+
+Checked: 551 + 215 offline tests; the llama agreement report regenerated.

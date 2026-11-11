@@ -126,6 +126,9 @@ public class JudgeSetupTests
     [TestCase(Unread + "The predicted answer is mostly similar to the correct answer, but with a slight difference in the amount. Therefore, the Equivalence score is 4.", 4)]
     [TestCase(Unread + "The predicted answer is mostly similar to the correct answer, as it provides the same numerical value and mentions the same date. However, it also includes additional information that is not present in the correct answer, such as the source of the data. Therefore, I would rate the Equivalence metric as 4 stars.", 4)]
     [TestCase(Unread + "Equivalence score: 2", 2)]
+    // T7's reply: a colon between "is" and the score left the one reply with a score in it unread.
+    [TestCase(Unread + "The predicted answer is almost identical to the correct answer, with the only difference being the additional information about the source of the data. Therefore, the Equivalence score is: 5", 5)]
+    [TestCase(Unread + "The ratio is: 4.2 times.", null)]   // a figure after the colon isn't a score
     [TestCase(Unread + "I'd give it 5/5.", 5)]
     [TestCase(Unread + "Rather than 5 stars, the score is 3.", 3)]   // the last phrase wins
     // The judge run's most common phrasings (structured-hybrid-v3-judge-equivalence), word for word.

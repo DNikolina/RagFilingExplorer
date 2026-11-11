@@ -58,13 +58,13 @@ in Decision-Log.md, under the section named.
 |---|---|---|---|
 | v1 (`v1.0`, 2026-09-28) | `Markdown` and `Linearized` chunking over markitdown, vector search with a statement-type filter, the citation prompt | Manual pass graded strictly: 22/24 reliable on both strategies | Steps 1-8, "manual pass (v1)" |
 | v2 (`v2.0`, 2026-10-02) | `Structured` chunking from the DOM and inline XBRL; `Hybrid` search (FTS5 + vectors, RRF); a fixed decline form; the local cross-encoder reranker, opt-in | Held-out H1-H15 10 -> 14/15 from hybrid search; reranking measured and left off (recall@5 85 vs hybrid's 86, of 94); granite4.1 tried, llama kept | "XBRL hybrid (v2)" |
-| v3 (`v3.0`, 2026-10-06) | The evaluation in .NET (`Microsoft.Extensions.AI.Evaluation`): strict grade, answer rank, figure source, reports, response cache; a local judge as a second view | v2's grades reproduced; llama's Equivalence judge passed 14 of 18 wrong answers, so the strict grade stays the grade | "evaluation in .NET (v3)" |
+| v3 (`v3.0`, 2026-10-06) | The evaluation in .NET (`Microsoft.Extensions.AI.Evaluation`): strict grade, answer rank, figure source, reports, response cache; a local judge as a second view | v2's grades reproduced; llama's Equivalence judge passed 14 of the 18 strict failures (12 of the 14 wrong figures), so the strict grade stays the grade | "evaluation in .NET (v3)" |
 | v4 (`v4.0`, 2026-10-22) | Paid providers beside the local stack: Core plus provider libraries, one app (`RagFilingExplorer.Cli`); Claude as chat model and judge; Voyage embeddings and reranker | Below | "paid services (v4)" |
 
 **v4, batch by batch:**
 1. **Claude as the chat model - complete.** Opus 5.5 and Sonnet 5.5 on the default index: every remaining miss a
    retrieval miss; wording varies between runs, answers don't.
-2. **A paid judge - complete.** Sonnet and Opus as judges pass no wrong figure (llama's passed 14 of 18) but are lenient
+2. **A paid judge - complete.** Sonnet and Opus as judges pass no wrong figure (llama's passed 12 of 14) but are lenient
    on rounding and units; the strict grade stays the grade, `JudgeModel` an optional second view.
 3. **Paid embeddings - complete.** First the chunks fixed (split statements cut at a row-group change, NDAQ's lines joined
    into paragraphs, row groups checked against the XBRL presentation trees). Retrieval-only over 94 questions, recall@5 /

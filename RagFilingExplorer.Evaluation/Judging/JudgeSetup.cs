@@ -139,10 +139,11 @@ internal static partial class JudgeSetup
 
     // The score as llama3.1:8b writes it instead of the bare integer asked for: "Therefore, the Equivalence score is 4.",
     // "I would rate the Equivalence metric as 4 stars.", "the Equivalence metric should be 5", "the Equivalence metric
-    // value is 5", "the Equivalence score should be 5" (JudgeSetupTests has the replies word for word). A
+    // value is 5", "the Equivalence score should be 5", "the Equivalence score is: 5" (JudgeSetupTests has the replies
+    // word for word). A
     // score word (score, metric, value, rating, rate) must come first: a reply cut off before its score (the evaluator caps
     // its length) can end on a figure ("$4 million"), which isn't a score. The last such phrase wins.
-    [GeneratedRegex(@"\b(?:score|metric|value|rating|rate[ds]?)\b[^.\d]{0,30}?\b(?:is|of|be|as|at)\s*(?:an?\s+)?\**([1-5])\b(?![.,]\d)"
+    [GeneratedRegex(@"\b(?:score|metric|value|rating|rate[ds]?)\b[^.\d]{0,30}?\b(?:is|of|be|as|at)\s*:?\s*(?:an?\s+)?\**([1-5])\b(?![.,]\d)"
         + @"|\b(?:score|metric|value|rating)\s*[:=]\s*\**([1-5])\b(?![.,]\d)|\b([1-5])\s*(?:/\s*5|out of 5|stars?)\b",
         RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
     private static partial Regex WrittenScoreRegex();
