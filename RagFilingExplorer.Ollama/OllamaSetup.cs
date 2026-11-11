@@ -73,14 +73,16 @@ internal static class OllamaSetup
     /// <see cref="AppComposition.OpenExistingIndexAsync"/> embedding questions with the configured Ollama model - or with
     /// <paramref name="queryEmbedding"/>, another provider's, when given - once Ollama is ready. The configured Ollama chat
     /// model answers unless <paramref name="chatClient"/> and <paramref name="chatModel"/> say otherwise - an evaluation
-    /// passes a client that caches the model's responses. A provider's reranker passes through to the runtime.
+    /// passes a client that caches the model's responses. A provider's reranker passes through to the runtime. Ollama is
+    /// asked only for what it serves: with <paramref name="chatModel"/> given, another provider's model answers, and with
+    /// <paramref name="queryEmbedding"/> too Ollama isn't contacted at all.
     /// </summary>
     public static async Task<RagRuntime> OpenExistingIndexAsync(
         AppSettings settings, DirectoryInfo repoRoot, IChatClient? chatClient = null, ChatModelOptions? chatModel = null,
         IEmbeddingGenerator<string, Embedding<float>>? queryEmbedding = null, IRelevanceScorer? providerReranker = null)
     {
         (OllamaApiClient embedding, OllamaApiClient chat) = CreateClients(settings);
-        await EnsureServesAsync(chat, settings, embeds: queryEmbedding is null, chats: true);
+        await EnsureServesAsync(chat, settings, embeds: queryEmbedding is null, chats: chatModel is null);
 
         return await AppComposition.OpenExistingIndexAsync(
             settings, repoRoot, queryEmbedding ?? EmbeddingGenerator(embedding), chatClient ?? ChatClient(chat, settings.Ollama),

@@ -84,6 +84,49 @@ public class VoyageEmbeddingGeneratorTests
         Assert.That(delays, Is.EqualTo(new[] { TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(2) }));
     }
 
+    // Voyage's endpoint dropping the connection a number of times before it answers.
+    private sealed class DroppedConnections(int drops, HttpResponseMessage then) : HttpMessageHandler
+    {
+        public int Requests { get; private set; }
+
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken) =>
+            ++Requests <= drops ? throw new HttpRequestException("Connection reset by peer") : Task.FromResult(then);
+    }
+
+    private static (VoyageEmbeddingGenerator Generator, List<TimeSpan> Delays) Create(DroppedConnections voyage)
+    {
+        List<TimeSpan> delays = [];
+        HttpClient http = new(voyage) { BaseAddress = new Uri("https://api.voyageai.com/v1/") };
+        return (new VoyageEmbeddingGenerator(http, "voyage-4-large", "document", 2, (d, _) => { delays.Add(d); return Task.CompletedTask; }), delays);
+    }
+
+    // An index build sends a request per chunk: one dropped connection ended it, and the rebuild pays for every chunk again.
+    [Test]
+    public async Task GenerateAsync_ConnectionDroppedThenOk_Retries()
+    {
+        DroppedConnections voyage = new(drops: 2, Ok((0, [1, 2])));
+        (VoyageEmbeddingGenerator generator, List<TimeSpan> delays) = Create(voyage);
+
+        GeneratedEmbeddings<Embedding<float>> embeddings = await generator.GenerateAsync(["first"]);
+
+        Assert.That(embeddings, Has.Count.EqualTo(1));
+        Assert.That(voyage.Requests, Is.EqualTo(3));
+        Assert.That(delays, Is.EqualTo(new[] { TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(2) }));
+    }
+
+    // With no network the startup check must say so soon, not after two minutes of back-off.
+    [Test]
+    public void GenerateAsync_ConnectionDroppedEveryTime_GivesUpAfterMaxTransportAttempts()
+    {
+        DroppedConnections voyage = new(drops: int.MaxValue, Ok((0, [1, 2])));
+        (VoyageEmbeddingGenerator generator, List<TimeSpan> delays) = Create(voyage);
+
+        HttpRequestException ex = Assert.ThrowsAsync<HttpRequestException>(() => generator.GenerateAsync(["first"]))!;
+
+        Assert.That(ex.Message, Is.EqualTo("Connection reset by peer"));
+        Assert.That(voyage.Requests, Is.EqualTo(VoyageApi.MaxTransportAttempts));
+    }
+
     [Test]
     public void GenerateAsync_RateLimitedEveryTime_GivesUpAfterMaxAttempts()
     {

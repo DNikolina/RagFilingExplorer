@@ -5054,3 +5054,35 @@ the user types company names without capitals and wants that kept (user, 2026-11
   existing test), so no answer can have moved and no evaluation was run.
 
 Checked: 539 + 210 offline tests. Not run: the app's startup with an aliases file in `data/`.
+
+**The rest of the code review (2026-11-11).** No answer of the four filings at the shipped settings was wrong; each of
+these fails only with a mistyped setting, a new filing, or a network fault.
+- **Numbers in `appsettings.json` are range-checked at load** (`AppSettings.EnsureInRange`), every fault named at once.
+  Presence and enum names were checked; values weren't: `VectorStore:UpsertBatchSize` 0 looped forever in the build,
+  `Retrieval:GenerationTopK` 0 sent a prompt with no excerpts (every answer a decline), a search depth or timeout of 0
+  threw on first use. `GenerationTopK` may not exceed either search depth - the model would read fewer excerpts than
+  asked, with nothing said (the rule `ClaudeSettings.ApplyTo` already held for Claude). `Ollama:BaseUrl` must be an address.
+- **Startup failures that printed a stack trace are messages:** a filing tagged with an inline XBRL format the reader
+  doesn't know (now naming the filing), the failures chunking raises on purpose under `--chunks-only` (the build path
+  wrapped them already), and the Claude API unreachable at the model check. Not a catch-all: an exception nobody
+  raised on purpose is a bug, and keeps its stack trace.
+- **An evaluation with Claude answering over Voyage embeddings doesn't contact Ollama**, as the console doesn't:
+  `OllamaSetup.OpenExistingIndexAsync` checked the Ollama chat model whatever answered, and the runner asked Ollama's
+  version for the `ollama:` tag. That run now carries no `ollama:` tag; one where Ollama embeds still does.
+- **A Voyage request that got no answer is retried**, up to 4 attempts (1, 2, 4 s). Only a 429 or 5xx was: one dropped
+  connection ended an index build of a request per chunk, and the rebuild is billed for every chunk again. Fewer
+  attempts than for a 429 so the startup check still fails within seconds without a network; a timeout isn't retried -
+  the client has waited two minutes for it.
+- **A question's own prompt is checked against the window** when asked (`PromptFit.EnsureQuestionFits`, Ollama only).
+  Startup's check allows a question 100 tokens; a pasted paragraph could still overflow, and Ollama would drop the
+  rules and the top excerpts. The largest prompt today leaves ~200 tokens spare, so no question of the sets is near it.
+- **Strict grader:** a filing name outside a citation was dropped from the stated figures only for a four-letter
+  ticker (`[A-Z]{4}-10K-...`); "IBM-10K-2025.html" would leave "10" as a figure and make a clean decline a check. Now
+  any ticker of up to six characters. `GraderParityTests` passes unchanged: no stored answer is regraded.
+- **Small:** the four literal non-breaking spaces in `HtmlTableLinearizer` and `IxTransformations` are written
+  `\u00A0`, as `FilingBlockReader` already said they should be; a table value in an XBRL context with no dates
+  ("forever") no longer throws in `PeriodLabels` (none of the four filings has one).
+
+Checked: 551 + 213 offline tests; the console started on the Mac's index and answered a lowercase question
+("what was msft total revenue in fiscal 2026?", routed to MSFT). Not run: an evaluation with Claude and Voyage (no
+keys on this machine), so the Ollama-free path is untested end to end; the Voyage retry against the real API.

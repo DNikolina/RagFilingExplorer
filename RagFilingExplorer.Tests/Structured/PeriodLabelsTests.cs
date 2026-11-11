@@ -39,6 +39,22 @@ public class PeriodLabelsTests
         Assert.That(labels, Is.EqualTo(new[] { "Balances as of May 31, 2024", "Cash dividends declared ($1.70 per share) (year ended May 31, 2025)" }));
     }
 
+    // A context with no dates (XBRL's "forever") has no period to name; describing it threw.
+    [Test]
+    public void Apply_ValueInAContextWithoutDates_CountsAsUntagged()
+    {
+        Dictionary<string, XbrlContext> contexts = new(Contexts) { ["forever"] = new("forever", null, null, null, []) };
+        LinearizedTable table = Table(
+            Row("Balances as of May 31, 2024", ("Accumulated Deficit", "end24")),
+            Row("Authorized shares", ("Shares", "forever")),
+            Row("Cash dividends declared", ("Accumulated Deficit", "fy25")));
+
+        List<string> labels = PeriodLabels.Apply(table, contexts).Rows.Select(r => r.Label).ToList();
+
+        Assert.That(labels[1], Is.EqualTo("Authorized shares"));
+        Assert.That(labels[2], Is.EqualTo("Cash dividends declared (year ended May 31, 2025)"));
+    }
+
     [Test]
     public void Apply_ColumnsThatArePeriods_LeaveTheRowAlone()
     {

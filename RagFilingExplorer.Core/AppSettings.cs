@@ -53,7 +53,67 @@ internal sealed class AppSettings
                 "Retrieval:Rerank needs Retrieval:Search = Hybrid - reranking was measured on hybrid candidates only (docs/Decision-Log.md, \"Step 2b spike - measured\").");
         }
 
+        EnsureInRange(settings);
+
         return settings;
+    }
+
+    /// <summary>
+    /// Fails naming every number outside the range it can work in. None of these fails by itself where the mistake is
+    /// made: an upsert batch of 0 never finishes the build, 0 excerpts turns every answer into a decline, and a search
+    /// depth or timeout of 0 throws on the first question or request.
+    /// </summary>
+    internal static void EnsureInRange(AppSettings settings)
+    {
+        List<string> errors = [];
+        void Positive(string key, int value)
+        {
+            if (value <= 0)
+            {
+                errors.Add($"{key} must be positive (it is {value})");
+            }
+        }
+
+        if (!Uri.TryCreate(settings.Ollama.BaseUrl, UriKind.Absolute, out _))
+        {
+            errors.Add($"Ollama:BaseUrl '{settings.Ollama.BaseUrl}' isn't an address such as http://localhost:11434/");
+        }
+
+        Positive("Ollama:TimeoutMinutes", settings.Ollama.TimeoutMinutes);
+        Positive("Ollama:ContextLength", settings.Ollama.ContextLength);
+        Positive("Chunking:MaxTokensPerChunk", settings.Chunking.MaxTokensPerChunk);
+        Positive("VectorStore:UpsertBatchSize", settings.VectorStore.UpsertBatchSize);
+        Positive("Retrieval:DefaultSearchTopK", settings.Retrieval.DefaultSearchTopK);
+        Positive("Retrieval:VerboseSearchTopK", settings.Retrieval.VerboseSearchTopK);
+        Positive("Retrieval:GenerationTopK", settings.Retrieval.GenerationTopK);
+        Positive("Retrieval:HybridCandidates", settings.Retrieval.HybridCandidates);
+        Positive("Retrieval:RerankCandidates", settings.Retrieval.RerankCandidates);
+        Positive("Retrieval:MaxOutputTokens", settings.Retrieval.MaxOutputTokens);
+
+        if (settings.Chunking.OverlapTokens < 0 || (settings.Chunking.MaxTokensPerChunk > 0 && settings.Chunking.OverlapTokens >= settings.Chunking.MaxTokensPerChunk))
+        {
+            errors.Add($"Chunking:OverlapTokens must be from 0 to less than Chunking:MaxTokensPerChunk (it is {settings.Chunking.OverlapTokens})");
+        }
+
+        if (settings.Retrieval.ChatTemperature < 0)
+        {
+            errors.Add($"Retrieval:ChatTemperature can't be negative (it is {settings.Retrieval.ChatTemperature})");
+        }
+
+        // The excerpts are the first GenerationTopK of the search's results: a shallower search gives the model fewer,
+        // with nothing said. The console searches DefaultSearchTopK deep, --verbose and the evaluation VerboseSearchTopK.
+        foreach ((string key, int depth) in new[] { ("DefaultSearchTopK", settings.Retrieval.DefaultSearchTopK), ("VerboseSearchTopK", settings.Retrieval.VerboseSearchTopK) })
+        {
+            if (depth > 0 && settings.Retrieval.GenerationTopK > depth)
+            {
+                errors.Add($"Retrieval:GenerationTopK ({settings.Retrieval.GenerationTopK}) is more than Retrieval:{key} ({depth}) - the model would read fewer excerpts than asked");
+            }
+        }
+
+        if (errors.Count > 0)
+        {
+            throw new InvalidOperationException($"appsettings.json: {string.Join("; ", errors)}.");
+        }
     }
 
     /// <summary>

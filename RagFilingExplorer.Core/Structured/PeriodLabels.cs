@@ -62,12 +62,14 @@ internal static class PeriodLabels
         };
     }
 
-    // The one period all of a row's tagged values share, or null (none tagged, or several - a row across years).
+    // The one period all of a row's tagged values share, or null (none tagged, or several - a row across years). A context
+    // with no dates (XBRL's "forever") names no period, so its value counts as untagged.
     private static XbrlContext? SinglePeriod(LinearizedRow row, IReadOnlyDictionary<string, XbrlContext> contexts)
     {
         List<XbrlContext> tagged = row.Values
             .Select(v => v.ContextRef is not null && contexts.TryGetValue(v.ContextRef, out XbrlContext? c) ? c : null)
             .OfType<XbrlContext>()
+            .Where(c => c.Instant is not null || (c.StartDate is not null && c.EndDate is not null))
             .ToList();
         return tagged.Count > 0 && tagged.Select(Key).Distinct().Count() == 1 ? tagged[0] : null;
     }

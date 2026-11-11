@@ -197,7 +197,7 @@ Each project's `.csproj` lists them, with versions. Not obvious from the code:
 |---|---|---|
 | Never send a reasoning ("think") request to a model without the `thinking` capability | Ollama hard-errors rather than ignoring it | The capability comes from `/api/show` at startup, never the name |
 | A prompt is the same bytes on every OS: no `AppendLine` or `Environment.NewLine` in it | One question sends different text on Windows and the Mac - it changed 27 of 102 answers, and a cached answer misses on the other machine | `RagAnswerServiceTests.BuildPrompt_Excerpts_HaveTheSameBytesOnEveryOs`; compare a question's input tokens across machines |
-| Prompt + `Retrieval.MaxOutputTokens` must fit Ollama's `num_ctx` | Ollama silently drops the oldest tokens - the system prompt and the top-ranked chunks; its own default depends on the machine's VRAM (4K / 32K / 256K) and its settings | The app sends `Ollama:ContextLength` (4096) with every llama request; startup refuses an index whose largest prompt + answer won't fit (`PromptFit`; today ~3,121 + 768 of 4,096) and an Ollama embedding model whose context is under the chunk budget; embeddings sent with `truncate: false` |
+| Prompt + `Retrieval.MaxOutputTokens` must fit Ollama's `num_ctx` | Ollama silently drops the oldest tokens - the system prompt and the top-ranked chunks; its own default depends on the machine's VRAM (4K / 32K / 256K) and its settings | The app sends `Ollama:ContextLength` (4096) with every llama request; startup refuses an index whose largest prompt + answer won't fit (`PromptFit`; today ~3,121 + 768 of 4,096), and a question long enough to push its own prompt past the window is refused when asked and an Ollama embedding model whose context is under the chunk budget; embeddings sent with `truncate: false` |
 | The reranker's tokenization is Hugging Face's, reimplemented (`BertPairEncoder`) | `BertTokenizer`'s own basic tokenization drops line breaks, `\|`, `$` and unknown symbols - all 73,125 (question, chunk) pairs differed from what the spike measured | Another reranker model, or a `Microsoft.ML.Tokenizers` upgrade: re-run the token-for-token parity check against Python's `tokenizers` (Decision-Log.md, "Step 2b - build") |
 
 ### The evaluation
@@ -211,7 +211,7 @@ Each project's `.csproj` lists them, with versions. Not obvious from the code:
 
 | Rule | If forgotten | Held by / how to check |
 |---|---|---|
-| Config values live only in `appsettings.json` (the evaluation's in `evalsettings.json`) - no duplicate defaults in code | Duplicates have drifted twice | Every key's presence is validated at load, since `required` doesn't apply to the binder; an environment variable overrides one key for one run, with the same name (`Evaluation__Graders=both`) |
+| Config values live only in `appsettings.json` (the evaluation's in `evalsettings.json`) - no duplicate defaults in code | Duplicates have drifted twice | Every key's presence is validated at load, since `required` doesn't apply to the binder, and every number's range (`AppSettings.EnsureInRange`); an environment variable overrides one key for one run, with the same name (`Evaluation__Graders=both`) |
 | After any package change, run `dotnet list package --vulnerable --include-transitive` | A vulnerable transitive package ships unnoticed | `Microsoft.Bcl.Memory` is pinned to `10.0.12` to avoid GHSA-73j8-2gch-69rq via a transitive `9.0.4` |
 | Don't compare `VectorSearchResult.Score` across vector-store providers | SqliteVec and InMemory use different scales | Only ranking is comparable |
 

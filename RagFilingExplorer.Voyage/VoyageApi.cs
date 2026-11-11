@@ -23,6 +23,11 @@ internal static class VoyageApi
     /// codes page advises; any other failure is not.</summary>
     internal const int MaxAttempts = 8;
 
+    /// <summary>Attempts for a request that never got an answer - a dropped connection, a failed name lookup. Fewer than
+    /// <see cref="MaxAttempts"/>: with no network the startup check should say so in seconds. Without any, one dropped
+    /// connection ends an index build of a request per chunk, and the rebuild is billed for every chunk again.</summary>
+    internal const int MaxTransportAttempts = 4;
+
     private static readonly Uri BaseAddress = new("https://api.voyageai.com/v1/");
 
     private static readonly TimeSpan MaxBackOff = TimeSpan.FromSeconds(60);
@@ -96,14 +101,30 @@ internal static class VoyageApi
     }
 
     /// <summary>POSTs <paramref name="request"/> as JSON to <paramref name="path"/>, retrying a 429 or 5xx after
-    /// <see cref="BackOff"/>; any other failure throws with Voyage's own detail.</summary>
+    /// <see cref="BackOff"/>, and a request that got no answer up to <see cref="MaxTransportAttempts"/>; any other failure
+    /// throws with Voyage's own detail. A timeout isn't retried: the client waits two minutes for it already.</summary>
     public static async Task<TResponse> PostAsync<TResponse>(
         HttpClient http, string path, object request, Func<TimeSpan, CancellationToken, Task> delay, CancellationToken cancellationToken)
     {
         for (int attempt = 1; ; attempt++)
         {
-            // Declared as object, the request is serialized as its runtime type.
-            using HttpResponseMessage response = await http.PostAsJsonAsync(path, request, Json, cancellationToken);
+            HttpResponseMessage? answered = null;
+            try
+            {
+                // Declared as object, the request is serialized as its runtime type.
+                answered = await http.PostAsJsonAsync(path, request, Json, cancellationToken);
+            }
+            catch (HttpRequestException ex) when (ex.StatusCode is null && attempt < MaxTransportAttempts)
+            {
+            }
+
+            if (answered is null)
+            {
+                await delay(BackOff(attempt), cancellationToken);
+                continue;
+            }
+
+            using HttpResponseMessage response = answered;
             if (response.IsSuccessStatusCode)
             {
                 try

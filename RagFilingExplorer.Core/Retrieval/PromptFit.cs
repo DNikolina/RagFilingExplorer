@@ -42,6 +42,26 @@ internal static class PromptFit
         }
     }
 
+    // The chat template's own tokens around the two messages (llama 3's role headers and end-of-turn marks).
+    internal const int ChatTemplateAllowance = 30;
+
+    /// <summary>
+    /// Refuses one question's prompt when it and the answer are more than the window. The startup check allows a question
+    /// <see cref="QuestionAllowance"/> tokens; a longer one - a pasted paragraph - can still push the prompt past the
+    /// window, and Ollama would drop the rules and the top-ranked excerpts and answer anyway.
+    /// </summary>
+    public static void EnsureQuestionFits(Tokenizer tokenizer, IEnumerable<ChatMessage> prompt, int maxOutputTokens, int contextWindow)
+    {
+        int promptTokens = prompt.Sum(m => tokenizer.CountTokens(m.Text)) + ChatTemplateAllowance;
+        if (promptTokens + maxOutputTokens > contextWindow)
+        {
+            throw new InvalidOperationException(
+                $"This question's prompt is ~{promptTokens:N0} tokens, plus {maxOutputTokens:N0} for the answer - more than the chat "
+                + $"model's window ({contextWindow:N0}). Past it Ollama silently drops the start of the prompt: the rules and the "
+                + "top-ranked excerpts. Ask a shorter question.");
+        }
+    }
+
     /// <summary>Every chunk in the index - only the text the prompt holds (the vectors aren't read).</summary>
     public static List<FilingChunkRecord> ReadChunks(IndexFiles index)
     {

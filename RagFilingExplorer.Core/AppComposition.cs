@@ -93,16 +93,18 @@ internal static class AppComposition
         // or the provider's the caller brings.
         IRelevanceScorer? reranker = settings.Retrieval.Rerank ? ChooseReranker(settings, providerReranker) : null;
 
-        // A small window (Ollama's) must hold the index's largest prompt and the answer - see PromptFit.
+        // A small window (Ollama's) must hold the index's largest prompt and the answer - see PromptFit. The answer service
+        // gets the tokenizer to check each question's own prompt, which a long question can still push past the window.
+        Tokenizer? tokenizer = null;
         if (chatModel.ContextWindow is int contextWindow)
         {
-            Tokenizer tokenizer = TiktokenTokenizer.CreateForModel(settings.Chunking.TokenizerModel);
+            tokenizer = TiktokenTokenizer.CreateForModel(settings.Chunking.TokenizerModel);
             int largestPrompt = PromptFit.LargestPromptTokens(tokenizer, PromptFit.ReadChunks(index), settings.Retrieval.GenerationTopK);
             PromptFit.EnsureFits(largestPrompt, chatModel.MaxOutputTokens, contextWindow, index.DbFileName, settings.Retrieval.GenerationTopK);
         }
 
         RagAnswerService answerService = new(
-            collection, queryEmbedding, chatClient, settings.Retrieval, chatModel, companies, templates, keywordIndex, reranker);
+            collection, queryEmbedding, chatClient, settings.Retrieval, chatModel, companies, templates, keywordIndex, reranker, tokenizer);
         return new RagRuntime(answerService, companies, reranker);
     }
 

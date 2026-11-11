@@ -202,7 +202,8 @@ internal sealed class CompanyRegistry(IReadOnlyList<CompanyRegistration> registr
     }
 
     // The filing's XBRL and the text a reader sees - without the hidden XBRL header, whose member names ("msft:...") would
-    // read as words. A file that isn't an inline XBRL filing fails inside the reader, which doesn't know the file's name.
+    // read as words. A file that isn't an inline XBRL filing, or one tagged with a format the reader doesn't know
+    // (IxTransformations), fails inside the reader, which doesn't know the file's name.
     private static (XbrlDocument Xbrl, string Text) ReadPage(FileInfo filing)
     {
         try
@@ -216,7 +217,7 @@ internal sealed class CompanyRegistry(IReadOnlyList<CompanyRegistration> registr
 
             return (xbrl, page.Body?.TextContent ?? string.Empty);
         }
-        catch (InvalidOperationException ex)
+        catch (Exception ex) when (ex is InvalidOperationException or FormatException or NotSupportedException)
         {
             throw new InvalidOperationException($"{filing.Name}: {ex.Message}", ex);
         }

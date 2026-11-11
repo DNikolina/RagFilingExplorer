@@ -66,7 +66,18 @@ static async Task RunAsync(string[] args)
     // instead of a ten-minute re-embed.
     if (args.Contains("--chunks-only"))
     {
-        List<FilingChunk> chunks = await IndexBuilder.ChunkFilingsAsync(settings, filings, reviewDirectoryPath);
+        // The failures chunking raises on purpose (no taxonomy, a Statement role it can't map, markitdown missing) are
+        // messages; anything else is a bug in the chunker, and keeps its stack trace.
+        List<FilingChunk> chunks;
+        try
+        {
+            chunks = await IndexBuilder.ChunkFilingsAsync(settings, filings, reviewDirectoryPath);
+        }
+        catch (Exception ex) when (ex is InvalidOperationException or FileNotFoundException or FormatException or NotSupportedException)
+        {
+            throw new StartupException($"Chunking failed: {ex.Message}", ex);
+        }
+
         Console.WriteLine($"Total chunks across all filings: {chunks.Count} (--chunks-only: index not touched)");
         return;
     }

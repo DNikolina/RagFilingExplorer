@@ -2,6 +2,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.VectorData;
+using Microsoft.ML.Tokenizers;
 using RagFilingExplorer.Core.VectorStore;
 
 namespace RagFilingExplorer.Core.Retrieval;
@@ -47,7 +48,8 @@ internal sealed class RagAnswerService(
     CompanyRegistry companies,
     EmbeddingTemplates templates,
     KeywordIndex? keywordIndex = null,
-    IRelevanceScorer? reranker = null)
+    IRelevanceScorer? reranker = null,
+    Tokenizer? promptTokenizer = null)
 {
     private readonly KeywordIndex? keywords = retrieval.Search == SearchMode.Hybrid
         ? keywordIndex ?? throw new ArgumentNullException(nameof(keywordIndex), "Hybrid search needs the keyword index.")
@@ -122,6 +124,12 @@ internal sealed class RagAnswerService(
         }
 
         List<ChatMessage> chatMessages = BuildPrompt(question, results.Take(retrieval.GenerationTopK).Select(r => r.Record));
+
+        // A small window (Ollama's) is checked per question too, when the composition passes the tokenizer - see PromptFit.
+        if (promptTokenizer is not null && chatModel.ContextWindow is int contextWindow)
+        {
+            PromptFit.EnsureQuestionFits(promptTokenizer, chatMessages, chatModel.MaxOutputTokens, contextWindow);
+        }
 
         // Reasoning is only worth its cost (extra latency, extra output-token budget) for questions that need
         // multi-step synthesis; which effort each kind gets is the chat model's (ChatModelOptions). The effort is set

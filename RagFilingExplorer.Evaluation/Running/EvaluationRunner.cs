@@ -218,7 +218,9 @@ internal sealed class EvaluationRunner(
         using RagRuntime runtime = await EvaluationIndex.OpenAsync(settings, repoRoot, scenarioChat, answerOptions);
         // The Ollama build serving this run, tagged on every case (QuestionTags) - an update can change answers. Asked
         // after OpenExistingIndexAsync, whose readiness check turns "Ollama isn't running" into a message naming the fix.
-        string ollamaVersion = (await chat.GetVersionAsync(cancellationToken)).ToString();
+        // No tag when Ollama serves nothing here (Claude answering over Voyage embeddings): it isn't asked at all.
+        bool ollamaServes = chatModel == ChatModel.Local || settings.Providers.Embedding == EmbeddingProvider.Ollama;
+        string? ollamaVersion = ollamaServes ? (await chat.GetVersionAsync(cancellationToken)).ToString() : null;
 
         List<QuestionOutcome> outcomes = [];
         foreach (QuestionSet set in sets)

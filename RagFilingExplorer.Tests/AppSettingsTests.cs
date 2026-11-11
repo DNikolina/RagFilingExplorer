@@ -115,6 +115,36 @@ public class AppSettingsTests
     }
 
     // At load, so a paid reranker's billed startup check is never made for settings that can't run.
+    // None of these fails where the mistake is made: a batch of 0 never finishes the build, 0 excerpts makes every answer
+    // a decline, the rest throw on the first question or request.
+    [TestCase("\"UpsertBatchSize\": 1", "\"UpsertBatchSize\": 0", "VectorStore:UpsertBatchSize must be positive")]
+    [TestCase("\"GenerationTopK\": 5,\r\n    \"ChatTemperature\"", "\"GenerationTopK\": 0,\r\n    \"ChatTemperature\"", "Retrieval:GenerationTopK must be positive")]
+    [TestCase("\"HybridCandidates\": 50", "\"HybridCandidates\": 0", "Retrieval:HybridCandidates must be positive")]
+    [TestCase("\"TimeoutMinutes\": 5", "\"TimeoutMinutes\": -1", "Ollama:TimeoutMinutes must be positive (it is -1)")]
+    [TestCase("\"OverlapTokens\": 50", "\"OverlapTokens\": 500", "Chunking:OverlapTokens must be from 0 to less than Chunking:MaxTokensPerChunk")]
+    [TestCase("\"DefaultSearchTopK\": 5", "\"DefaultSearchTopK\": 3", "Retrieval:GenerationTopK (5) is more than Retrieval:DefaultSearchTopK (3)")]
+    [TestCase("\"BaseUrl\": \"http://localhost:11434/\"", "\"BaseUrl\": \"localhost\"", "Ollama:BaseUrl 'localhost' isn't an address")]
+    public void Load_NumberOutOfRange_ThrowsNamingTheKey(string shipped, string changed, string expectedMessage)
+    {
+        string json = ShippedJson().ReplaceLineEndings("\r\n");
+        Assert.That(json, Does.Contain(shipped), "the shipped value this test changes");
+        WriteTempSettings(json.Replace(shipped, changed));
+
+        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => AppSettings.Load(_tempDirectory))!;
+
+        Assert.That(ex.Message, Does.StartWith("appsettings.json: ").And.Contain(expectedMessage));
+    }
+
+    [Test]
+    public void Load_SeveralNumbersOutOfRange_NamesEachOne()
+    {
+        WriteTempSettings(ShippedJson().Replace("\"UpsertBatchSize\": 1", "\"UpsertBatchSize\": 0").Replace("\"MaxOutputTokens\": 768", "\"MaxOutputTokens\": 0"));
+
+        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => AppSettings.Load(_tempDirectory))!;
+
+        Assert.That(ex.Message, Does.Contain("VectorStore:UpsertBatchSize").And.Contain("Retrieval:MaxOutputTokens"));
+    }
+
     [Test]
     public void Load_RerankWithVectorSearch_Throws()
     {

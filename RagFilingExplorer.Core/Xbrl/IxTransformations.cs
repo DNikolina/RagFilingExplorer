@@ -18,7 +18,7 @@ internal static partial class IxTransformations
         ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve",
          "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty"];
 
-    [GeneratedRegex(@"^\d{1,3}(?:[,  ]?\d{3})*(?:\.\d+)?$|^\d+(?:\.\d+)?$")]
+    [GeneratedRegex(@"^\d{1,3}(?:[, \u00A0]?\d{3})*(?:\.\d+)?$|^\d+(?:\.\d+)?$")]
     private static partial Regex NumDotDecimalRegex();
 
     [GeneratedRegex(@"\s+")]
@@ -42,7 +42,7 @@ internal static partial class IxTransformations
                     throw new FormatException($"'{text}' isn't valid for ixt:num-dot-decimal");
                 }
 
-                return decimal.Parse(t.Replace(",", "").Replace(" ", "").Replace(" ", ""), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+                return decimal.Parse(t.Replace(",", "").Replace(" ", "").Replace("\u00A0", ""), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
             case "fixed-zero":
                 return 0m;
             case "numwordsen":
@@ -79,7 +79,7 @@ internal static partial class IxTransformations
     private static string? Local(string? format) => format is null ? null : format[(format.IndexOf(':') + 1)..].ToLowerInvariant();
 
     private static DateOnly ParseDate(string text, string pattern) =>
-        DateOnly.ParseExact(WhitespaceRunRegex().Replace(text.Replace(" ", " "), " ").Trim(), pattern, CultureInfo.InvariantCulture);
+        DateOnly.ParseExact(WhitespaceRunRegex().Replace(text.Replace("\u00A0", " "), " ").Trim(), pattern, CultureInfo.InvariantCulture);
 
     // "three" -> 3, "15" -> 15; "no"/"none" -> 0 (ixt-sec numwordsen reads "No" as zero).
     private static decimal WordsToNumber(string text)
