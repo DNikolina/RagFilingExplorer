@@ -5159,3 +5159,12 @@ ones are kept as they were.
 - `vector_map.py` (maintained): sound. A chunk containing "</script>" would end the page's data early; no filing has one.
 
 Checked: 551 + 220 offline tests.
+
+**A run under the new figure-source rules (2026-11-12, `structured-hybrid-mac-figure-source-1`).** All 102 questions
+asked afresh on the Mac, 4 min, strict grade only, compared with the Mac baseline
+(`eval/v3-runs/structured-hybrid-mac-figure-source.txt`): **102/102 answers word for word the baseline's, 84/102
+strictly** - with Ollama 0.40.14 where the baseline had 0.40.13, so that update changed no answer here. The figure
+source differs on two questions, as the rules were meant to: A27's wrong ratio (25.3 for 25.4, with the inputs restated
+in dollars) is `untraced`, was `calculated`; Q21's right figure without its unit is no longer "a misreading". Every
+other verdict is the baseline's to the letter: 84 traced, 11 no figure stated, 5 calculated (A24, right result without
+its unit, among them), 2 untraced (A27, and Q14's unasked "4.9 times", untraced before too).
