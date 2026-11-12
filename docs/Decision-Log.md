@@ -3809,7 +3809,7 @@ is the judge to use here - slightly stricter at half the price. Batch 2's judgin
 ~$1.92).
 
 **Step 4 (Groundedness screen) - not run (user, 2026-10-08).** The figure source already traces every stated figure to
-its excerpt (no wrong answer of batch 1 states a figure missing from its excerpts), so Groundedness was left out; it stays
+its excerpt (no wrong answer of batch 1 states a figure missing from its excerpts - but for A11's unasked sum in the Opus runs, untraced as "Both untraced figures are correct arithmetic" above says), so Groundedness was left out; it stays
 available (`Judges: groundedness`), and the Claude judge client raises its 800-token limit for it.
 
 **Step 5 - done (2026-10-08).** The score reader also takes a score alone on the reply's last line after reasoning in
@@ -5106,3 +5106,56 @@ scored answer; and the 87 scores taken from a reply's words were each read again
   passes afterwards ("A12 is a fact whose decline also passes"). The verdicts answer the question as it was; not re-judged.
 
 Checked: 551 + 215 offline tests; the llama agreement report regenerated.
+
+**The figure source checked (2026-11-12).** Its rules re-implemented in a separate script and run over every stored
+result that has the metric and the excerpts the model was given: all 3,404 statuses match (719 older imported results
+have no such metric, 204 no stored excerpts). The 15 `untraced` flags read by hand: each a figure the model computed
+unasked (A11's sums, A16, H25, Q14's difference and "4.9 times") - no parsing false alarm, no invention. Three changes,
+none to a stored result (user: a new run will show the data under them):
+- **"A misreading" only when the answer doesn't state the expected figure.** The verdict opened with it whenever every
+  figure was in an excerpt and the strict grade didn't pass - also for 17 stored `no-unit` and 24 `check` answers, which
+  state the right figure and fail for the unit or a lookalike beside it.
+- **`calculated` needs the result.** Any unprinted figure on a calculation question was `calculated`, rated good: a
+  wrong result (A27's 25.9, 25.3 and 25.7 for 25.4; V3's 24,484,938) and a figure that is none of the inputs (A25's
+  1,219 and 618) alike. Now `calculated` only when the answer states the expected result or passes - the steps to it
+  may be unprinted; otherwise `untraced`. Under the new rule 24 stored results would read `untraced`, all of them
+  `wrong` answers to A25, A27 and V3. The strict grade failed them already, so no score changes.
+- The evaluator's own date-day rule removed: the strict grader has dropped a date's day since "the strict grader
+  extended", and the comment still said it kept them.
+"Traced" still means printed in an excerpt the model was given, not read from the right line: a small number matches
+by chance.
+
+Checked: 551 + 218 offline tests. No evaluation run (user: after the remaining files are checked).
+
+**Stored grades and comparisons checked (2026-11-12).** Every stored answer graded again by today's `StrictGrader`
+(a throwaway test, not kept): **4,320 of 4,327 stored strict grades are the grade it gives now**, across the 49 runs.
+The seven that aren't were right when stored:
+- `claude-opus55-medium-fresh`, six `check`s (A10, H6, Q2, Q10, Q23, V1) that "the strict grader extended" made
+  `reliable` (the lookalike named as the contrast). `claude-opus55-medium` was replayed from the cache under that rule
+  (97/102); the fresh pass was asked without a cache, so it wasn't, and still reads 90 - by today's rules 96. Its
+  comparison, `variance-claude-opus55-medium.txt`, says 101/102 same grade, as it was with both under the old rule;
+  regenerated from the store it would say 95/102, the rule's doing. By one rule the two differ on A16 alone.
+- `2026-10-01-v2-2b-reranked` H2, stored `wrong` as graded when it ran; "19.4%" has been an accepted alternative since
+  the chunk review, so it grades `reliable` now. Importing that run again would stop there.
+The variance comparisons' pair lines recounted from the store: 27 of 28 match, the 28th the one above.
+Read and found sound: `VarianceComparison`, `StrictGradeExplanation`, `tools/run-variance.cs`, `run-judge.cs`,
+`eval-common.cs`. `HistoricRunImporter` deletes a run's stored results before it has graded them, so an import that
+stops (H2, above) left that run out of the store until it was restored from git. Fixed the same day: every answer is
+graded first, and only then is the stored run replaced (two offline tests, against a store in a temp folder).
+
+**The Python tools read (2026-11-12).** Nothing in them puts a recorded result in doubt; none changed - the two ported
+ones are kept as they were.
+- `grade_answers.py`, `replay_recall.py`, `rerank_spike.py` no longer run as they stand, beyond "no longer reproduce
+  the app": they load `vec0.dll` from `RagFilingExplorer.Local/bin/.../win-x64/`, a project renamed to
+  `RagFilingExplorer.Cli` in v4, and their headers give that project's run command; `rerank_spike.py` also reads
+  `%USERPROFILE%`. Four one-off screens under `eval/` open `RagFilingExplorer.Local/Retrieval/RagAnswerService.cs` the
+  same way.
+- `replay_recall.py`: a question naming two companies is replayed 25 deep per company and merged, 50 in all, where the
+  app cuts the merged list at 25. A rank of 26-50 would print as that rank and add 1/rank to MRR, not the 0 its header
+  says. recall@1/3/5 can't be affected, and the .NET rank matched it on all 102 questions when ported.
+- `xbrl_column_check.py`: its count of aligned values isn't proof by itself. In a two-column table with one column
+  broken, the tie between aspects goes to one that is constant in both columns, so both columns' values count as
+  aligned - but the table is then reported INDISTINCT, so "tables with a problem" is the number to read.
+- `vector_map.py` (maintained): sound. A chunk containing "</script>" would end the page's data early; no filing has one.
+
+Checked: 551 + 220 offline tests.

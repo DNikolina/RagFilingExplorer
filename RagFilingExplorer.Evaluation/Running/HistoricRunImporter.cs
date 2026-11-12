@@ -53,7 +53,6 @@ internal static class HistoricRunImporter
 
         foreach (HistoricRun run in runs)
         {
-            await store.DeleteResultsAsync(run.ExecutionName);
             List<ScenarioRunResult> results = [];
             foreach ((string set, string grading) in run.Gradings)
             {
@@ -78,6 +77,8 @@ internal static class HistoricRunImporter
                 }
             }
 
+            // Replaced only once every answer has its grade: an import that stops on one leaves the stored run as it was.
+            await store.DeleteResultsAsync(run.ExecutionName);
             await store.WriteResultsAsync(results);
             imported[run.ExecutionName] = results.Count;
         }

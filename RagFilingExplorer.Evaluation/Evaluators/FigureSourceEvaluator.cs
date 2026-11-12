@@ -16,16 +16,19 @@ internal sealed record FigureSighting(int Position, RetrievedExcerpt Excerpt, st
 /// <summary>
 /// Which excerpt each figure in the answer came from. The excerpts are the ones the model was given - the top
 /// <c>generationTopK</c> retrieved chunks, exactly the prompt's - and the figures are the ones the strict grader reads as
-/// stated (<see cref="StrictGrader.StatedFigures"/>: years, citation text and the question's own numbers skipped), less
-/// the day of a date ("December 31" - common in answers, and found in nearly every excerpt). For each
+/// stated (<see cref="StrictGrader.StatedFigures"/>: years, citation text, the day of a date and the question's own
+/// numbers skipped). For each
 /// figure: every excerpt holding it, its statement type and section, and the line it sits on. A figure in two excerpts
 /// lists both - which one the model read can't be known.
 ///
 /// One string metric, "Figure source":
 ///   traced           every figure is in an excerpt
-///   calculated       a figure is in none, and the question asks for a calculation (its chunk_expect lists two or more
-///                    inputs and not the expected figure - H4, V3, A21-A27): the result isn't printed anywhere
-///   untraced         a figure is in none, on a question that doesn't ask for one - an invention to read (failed)
+///   calculated       a figure is in none, the question asks for a calculation (its chunk_expect lists two or more
+///                    inputs and not the expected figure - H4, V3, A21-A27) and the answer gives its result: the result
+///                    isn't printed anywhere, and the steps to it needn't be
+///   untraced         a figure is in none, otherwise - to read (failed): made by the model, on a question that asks for
+///                    no calculation, or on one whose result the answer doesn't give (a wrong result, a figure that is
+///                    none of its inputs)
 ///   no figure stated a text answer ("Austin") or a decline - nothing to trace (a text answer isn't matched against
 ///                    the expected text)
 /// Deterministic - no model is asked. A figure is matched as the grader tokenizes numbers, so "(26,445)" holds 26,445.
@@ -41,11 +44,6 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
     private const int MaxLineLength = 160;
 
     public IReadOnlyCollection<string> EvaluationMetricNames => [MetricName];
-
-    // The grader keeps these days as figures (grade_answers.py's rule, held by GraderParityTests); only the trace drops them.
-    [GeneratedRegex(@"\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}\b",
-        RegexOptions.CultureInvariant)]
-    private static partial Regex MonthDayRegex();
 
     [GeneratedRegex(@"\G\)?\s*(million|billion)\b", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
     private static partial Regex ScaleAfterRegex();
@@ -65,9 +63,25 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
         return expect.SelectMany(StrictGrader.Numbers).All(n => !inputNumbers.Contains(n));
     }
 
-    /// <summary>The figures traced: the strict grader's stated figures, less a date's day, distinct, in the answer's order.</summary>
+    /// <summary>The figures traced: the strict grader's stated figures, distinct, in the answer's order.</summary>
     public static List<string> Figures(string answer, string question) =>
-        StrictGrader.StatedFigures(MonthDayRegex().Replace(answer, m => m.Groups[1].Value), question).Distinct().ToList();
+        StrictGrader.StatedFigures(answer, question).Distinct().ToList();
+
+    // A figure matches as the grader reads numbers; a fact ("Austin", "2025-2030") as text.
+    private static bool IsNumber(string value) => StrictGrader.Numbers(value).ToList() is [string only] && only == value;
+
+    /// <summary>Whether the answer states every expected value - a figure as the grader reads numbers, a fact as text.</summary>
+    internal static bool StatesExpected(ExpectedAnswer expected, string answer)
+    {
+        if (expected.Expect is not { Count: > 0 } expect)
+        {
+            return false;
+        }
+
+        HashSet<string> stated = StrictGrader.Numbers(answer).ToHashSet();
+
+        return expect.All(value => IsNumber(value) ? stated.Contains(value) : answer.Contains(value, StringComparison.OrdinalIgnoreCase));
+    }
 
     /// <summary>Each distinct stated figure, in the answer's order, with the excerpts holding it.</summary>
     public static List<FigureSource> Trace(string answer, string question, IReadOnlyList<RetrievedExcerpt> excerpts)
@@ -172,9 +186,7 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
 
         foreach (string value in expect)
         {
-            // A figure matches as the grader reads numbers; a fact ("Austin", "2025-2030") as text.
-            List<string> numbers = StrictGrader.Numbers(value).ToList();
-            bool isNumber = numbers.Count == 1 && numbers[0] == value;
+            bool isNumber = IsNumber(value);
             List<string> found = [];
             List<string> foundShort = [];
             for (int i = 0; i < excerpts.Count; i++)
@@ -233,10 +245,18 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
         metric.Metadata is { Count: > 0 } metadata
             ? string.Join("\n", metadata.Where(kv => kv.Key.StartsWith(StatedKeyPrefix, StringComparison.Ordinal) || kv.Key.StartsWith(ExpectedKeyPrefix, StringComparison.Ordinal))
                 .Select(kv => $"{kv.Key}: {kv.Value}"))
-            : metric.Reason is { } reason && reason != Description ? reason : "";
+            : metric.Reason is { } reason && reason is not (Description or EarlierDescription) ? reason : "";
 
     /// <summary>What the metric measures - its reason, the report's "What this measures?".</summary>
     public const string Description =
+        "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), "
+        + "and - for an answer that doesn't pass - where the expected figure was: on a line the model misread, derived from "
+        + "figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless "
+        + "the question asks for a calculation and the answer gives its result. Deterministic - no model is asked.";
+
+    // The earlier wording of the description - still the reason of the runs stored with it, so it must not be read back
+    // as a trace.
+    private const string EarlierDescription =
         "Which of the excerpts the model was given hold each figure the answer states (their statement type, section and line), "
         + "and - for an answer that doesn't pass - where the expected figure was: on a line the model misread, derived from "
         + "figures it had (a calculation), or in no excerpt (a retrieval miss). A stated figure in no excerpt is flagged, unless "
@@ -280,6 +300,8 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
         string expectedPart = string.Join("; ", expectedAt.Select(l => l.Summary));
         string Joined(string first) => expectedPart.Length > 0 ? $"{first}; {expectedPart}." : $"{first}.";
 
+        bool statesExpected = StatesExpected(expected, answer);
+        bool asksForCalculation = AsksForCalculation(expected);
         string status;
         EvaluationMetricInterpretation interpretation;
         if (sources.Count == 0)
@@ -290,13 +312,15 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
         }
         else if (missing.Count == 0)
         {
+            // A misreading only when the expected figure was there and the answer doesn't state it: one that states it
+            // without its unit, or beside a lookalike, fails the strict grade for that, not for reading the wrong line.
             status = "traced";
             interpretation = new EvaluationMetricInterpretation(EvaluationRating.Good,
-                reason: expectedAt.Count > 0 && expectedAt.All(l => l.InAnExcerpt)
+                reason: expectedAt.Count > 0 && expectedAt.All(l => l.InAnExcerpt) && !statesExpected
                     ? Joined($"A misreading - every figure is in an excerpt: {stated}")
                     : Joined($"Every figure is in an excerpt: {stated}"));
         }
-        else if (AsksForCalculation(expected))
+        else if (asksForCalculation && (statesExpected || StrictGrader.Grade(expected, answer).Passed))
         {
             status = "calculated";
             interpretation = new EvaluationMetricInterpretation(EvaluationRating.Good,
@@ -304,9 +328,13 @@ internal sealed partial class FigureSourceEvaluator(int generationTopK) : IEvalu
         }
         else
         {
+            // On a calculation question too, when the answer doesn't give the result: the unprinted figure is then a wrong
+            // result or one of no input, which "calculated" would pass as if it were the sum asked for.
             status = "untraced";
             interpretation = new EvaluationMetricInterpretation(EvaluationRating.Unacceptable, failed: true,
-                reason: Joined($"{string.Join(", ", missing)} in none of the excerpts the model was given; {stated}"));
+                reason: Joined(asksForCalculation
+                    ? $"{string.Join(", ", missing)} in none of the excerpts the model was given, and the answer doesn't give the result of the calculation asked for; {stated}"
+                    : $"{string.Join(", ", missing)} in none of the excerpts the model was given; {stated}"));
         }
 
         StringMetric metric = new(MetricName, status, Description) { Interpretation = interpretation };
