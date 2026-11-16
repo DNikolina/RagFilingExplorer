@@ -167,6 +167,42 @@ public class FigureSourceEvaluatorTests
         Assert.That(metric.Interpretation!.Failed, Is.False);
     }
 
+    // llama's A27: 25.9% for 25.4%, and elsewhere a figure that was none of the inputs - each "calculated", rated good.
+    [Test]
+    public async Task EvaluateAsync_AskedForCalculationButNotItsResult_IsUntraced()
+    {
+        RetrievedExcerpt income = new(Filing, "PART II > Item 8 > Income Statements", "income_statement", "Net income — 2026: $133,749 | 2025: $101,832");
+
+        StringMetric metric = await SourceAsync(A26, "Net income rose by $32,917 million, from $101,832 million to $133,749 million.", [income]);
+
+        Assert.That(metric.Value, Is.EqualTo("untraced"));
+        Assert.That(metric.Interpretation!.Reason, Does.StartWith("32,917 in none of the excerpts the model was given, and the answer doesn't give the result of the calculation asked for"));
+        Assert.That(metric.Interpretation!.Failed, Is.True);
+    }
+
+    // The steps to the right result aren't printed either, and aren't flagged.
+    [Test]
+    public async Task EvaluateAsync_AskedForCalculation_ResultWithAnUnprintedStep_IsCalculated()
+    {
+        RetrievedExcerpt income = new(Filing, "PART II > Item 8 > Income Statements", "income_statement", "Net income — 2026: $133,749 | 2025: $101,832");
+
+        StringMetric metric = await SourceAsync(A26, "Net income rose by 31,917, from $101,832 million to $133,749 million - an increase of 31.3%.", [income]);
+
+        Assert.That(metric.Value, Is.EqualTo("calculated"));
+        Assert.That(metric.Interpretation!.Failed, Is.False);
+    }
+
+    // NFLX, Q21: the right figure without its unit was called a misreading - it read the right line.
+    [Test]
+    public async Task EvaluateAsync_ExpectedFigureStatedWithoutItsUnit_IsNotCalledAMisreading()
+    {
+        StringMetric metric = await SourceAsync(A10, "Microsoft paid $26,445 in common stock dividends.", [CashFlow, Equity]);
+
+        Assert.That(metric.Value, Is.EqualTo("traced"));
+        Assert.That(metric.Interpretation!.Reason, Is.EqualTo(
+            "Every figure is in an excerpt: 26,445 from excerpt 1 (cash_flow_statement); the expected 26,445 was in excerpt 1 (cash_flow_statement)."));
+    }
+
     [Test]
     public async Task EvaluateAsync_Decline_NoFigureStated()
     {

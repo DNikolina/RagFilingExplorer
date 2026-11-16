@@ -26,7 +26,7 @@ public class TokenChunkerTests
         string[] names = ["Alice Example", "Bob Example", "Carol Example", "Dan Example"];
         string body = "EXECUTIVE OFFICERS\n\n| Name | Background |\n| --- | --- |\n"
             + string.Join("\n", names.Select(n => $"| {n} | {cell} |"));
-        Assume.That(_tokenizer.CountTokens(body), Is.GreaterThan(500), "the table must be oversized");
+        Assert.That(_tokenizer.CountTokens(body), Is.GreaterThan(500), "precondition: the table must be oversized");
 
         List<(string Content, int Tokens)> chunks = TokenChunker.Chunk(body, _tokenizer, 500, 50);
 

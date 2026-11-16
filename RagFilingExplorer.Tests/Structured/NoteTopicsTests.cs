@@ -13,8 +13,6 @@ namespace RagFilingExplorer.Tests.Structured;
 [TestFixture]
 public class NoteTopicsTests
 {
-    private static readonly string[] Filings = ["MSFT-10K-2026.html", "NDAQ-10K-2025.html", "NFLX-10K-2025.html", "ORCL-10K-2026.html"];
-
     // Two notes and a part-role block ("(Tables)") inside the first; a form-taxonomy block (cyd:) outside them.
     private const string Page =
         "<html><body><div style=\"display:none\"><ix:header><xbrli:context id=\"c\"><xbrli:period><xbrli:instant>2026-06-30</xbrli:instant></xbrli:period></xbrli:context></ix:header></div>"
@@ -113,7 +111,7 @@ public class NoteTopicsTests
     public void Find_RealFiling_EveryNoteOnce(string filing, int notes)
     {
         DirectoryInfo data = new(Path.Combine(RepoPaths.FindRoot(TestContext.CurrentContext.TestDirectory).FullName, "data"));
-        IDocument page = new HtmlParser().ParseDocument(MarkItDownConverter.ReadFiling(new FileInfo(Path.Combine(data.FullName, filing))));
+        IDocument page = new HtmlParser().ParseDocument(FilingFile.Read(new FileInfo(Path.Combine(data.FullName, filing))));
 
         List<NoteSpan> found = NoteTopics.Find(page, InlineXbrlReader.Read(page), TaxonomyReader.Read(TaxonomyReader.FindForFiling(page, data)!));
 

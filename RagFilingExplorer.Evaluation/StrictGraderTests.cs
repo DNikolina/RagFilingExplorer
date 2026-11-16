@@ -21,6 +21,15 @@ public class StrictGraderTests
         Assert.That(Grade(id, answer), Is.EqualTo(new StrictGrade("reliable", $"names {lookalike} as the contrast")));
     }
 
+    // A filing named by a ticker that isn't four letters: its "10" (of "10K") read as a figure the decline states.
+    [TestCase("IBM-10K-2025.html")]
+    [TestCase("GOOGL-10K-2025.html")]
+    [TestCase("MSFT-10K-2026.html")]
+    public void StatedFigures_FilingNameOutsideACitation_IsNoFigure(string filing)
+    {
+        Assert.That(StrictGrader.StatedFigures($"The excerpts from {filing} don't contain the figure.", "What was the figure?"), Is.Empty);
+    }
+
     // llama states the right figure first, then concludes with the lookalike - it answered $620 million.
     [Test]
     public void Grade_LookalikeStatedAsTheConclusion_StaysACheck()

@@ -58,27 +58,12 @@ public class AppSettingsTests
         Assert.That(LoadShippedSettings().Embedding.Model, Is.EqualTo("nomic-embed-text"), "the file's value once unset");
     }
 
-    // MaxOutputTokens shipped as 4096 - Ollama's whole default context window, which the prompt shares, so
-    // the ceiling could never be reached: runaway llama3.1:8b answers (1,400-1,700 tokens, in Ollama's
-    // server log) filled the window first, and Ollama then dropped the oldest tokens - the system prompt
-    // and the top-ranked chunks. The largest prompt measured is ~3,100 tokens.
-    [Test]
-    public void Load_ShippedAppSettings_OutputCeilingLeavesRoomForThePromptInOllamasDefaultContext()
-    {
-        const int OllamaDefaultContextTokens = 4096;
-        const int LargestMeasuredPromptTokens = 3103;
-
-        AppSettings settings = LoadShippedSettings();
-
-        Assert.That(settings.Retrieval.MaxOutputTokens + LargestMeasuredPromptTokens, Is.LessThanOrEqualTo(OllamaDefaultContextTokens));
-    }
-
     [Test]
     public void RequiredConfigurationKeys_CoversEveryLeafSetting_AndNoSections()
     {
         string[] keys = AppSettings.RequiredConfigurationKeys().ToArray();
 
-        Assert.That(keys, Has.Length.EqualTo(25));
+        Assert.That(keys, Has.Length.EqualTo(26));
         Assert.That(keys, Does.Contain("Providers:Chat"));
         Assert.That(keys, Does.Contain("Providers:Rerank"));
         Assert.That(keys, Does.Contain("Ollama:ChatModel"));
@@ -115,6 +100,36 @@ public class AppSettingsTests
     }
 
     // At load, so a paid reranker's billed startup check is never made for settings that can't run.
+    // None of these fails where the mistake is made: a batch of 0 never finishes the build, 0 excerpts makes every answer
+    // a decline, the rest throw on the first question or request.
+    [TestCase("\"UpsertBatchSize\": 1", "\"UpsertBatchSize\": 0", "VectorStore:UpsertBatchSize must be positive")]
+    [TestCase("\"GenerationTopK\": 5,\r\n    \"ChatTemperature\"", "\"GenerationTopK\": 0,\r\n    \"ChatTemperature\"", "Retrieval:GenerationTopK must be positive")]
+    [TestCase("\"HybridCandidates\": 50", "\"HybridCandidates\": 0", "Retrieval:HybridCandidates must be positive")]
+    [TestCase("\"TimeoutMinutes\": 5", "\"TimeoutMinutes\": -1", "Ollama:TimeoutMinutes must be positive (it is -1)")]
+    [TestCase("\"OverlapTokens\": 50", "\"OverlapTokens\": 500", "Chunking:OverlapTokens must be from 0 to less than Chunking:MaxTokensPerChunk")]
+    [TestCase("\"DefaultSearchTopK\": 5", "\"DefaultSearchTopK\": 3", "Retrieval:GenerationTopK (5) is more than Retrieval:DefaultSearchTopK (3)")]
+    [TestCase("\"BaseUrl\": \"http://localhost:11434/\"", "\"BaseUrl\": \"localhost\"", "Ollama:BaseUrl 'localhost' isn't an address")]
+    public void Load_NumberOutOfRange_ThrowsNamingTheKey(string shipped, string changed, string expectedMessage)
+    {
+        string json = ShippedJson().ReplaceLineEndings("\r\n");
+        Assert.That(json, Does.Contain(shipped), "the shipped value this test changes");
+        WriteTempSettings(json.Replace(shipped, changed));
+
+        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => AppSettings.Load(_tempDirectory))!;
+
+        Assert.That(ex.Message, Does.StartWith("appsettings.json: ").And.Contain(expectedMessage));
+    }
+
+    [Test]
+    public void Load_SeveralNumbersOutOfRange_NamesEachOne()
+    {
+        WriteTempSettings(ShippedJson().Replace("\"UpsertBatchSize\": 1", "\"UpsertBatchSize\": 0").Replace("\"MaxOutputTokens\": 768", "\"MaxOutputTokens\": 0"));
+
+        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => AppSettings.Load(_tempDirectory))!;
+
+        Assert.That(ex.Message, Does.Contain("VectorStore:UpsertBatchSize").And.Contain("Retrieval:MaxOutputTokens"));
+    }
+
     [Test]
     public void Load_RerankWithVectorSearch_Throws()
     {
@@ -123,6 +138,29 @@ public class AppSettingsTests
         InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => AppSettings.Load(_tempDirectory));
 
         Assert.That(ex.Message, Does.Contain("Hybrid"));
+    }
+
+    // The binder takes an enum's number as well as its name: "7" bound as an undefined ChatProvider, and the app, testing
+    // for Claude, started on Ollama without a word; "1" chose Claude by its position in the enum.
+    [TestCase("7")]
+    [TestCase("1")]
+    public void Load_EnumGivenAsNumber_FailsNamingTheAcceptedNames(string number)
+    {
+        const string Shipped = "\"Chat\": \"Ollama\"";
+        Assert.That(ShippedJson(), Does.Contain(Shipped), "the shipped chat provider this test replaces");
+        WriteTempSettings(ShippedJson().Replace(Shipped, $"\"Chat\": \"{number}\""));
+
+        Assert.That(() => AppSettings.Load(_tempDirectory),
+            Throws.InvalidOperationException.With.Message.Contains($"Providers:Chat is \"{number}\" - one of Ollama, Claude"));
+    }
+
+    // Names are read ignoring case, as the binder reads them - the evaluation ships "Graders": "strict".
+    [Test]
+    public void Load_EnumNameInLowercase_Binds()
+    {
+        WriteTempSettings(ShippedJson().Replace("\"Chat\": \"Ollama\"", "\"Chat\": \"ollama\""));
+
+        Assert.That(AppSettings.Load(_tempDirectory).Providers.Chat, Is.EqualTo(ChatProvider.Ollama));
     }
 
     [Test]
@@ -142,6 +180,8 @@ public class AppSettingsTests
         Assert.That(ShippedJson(), Does.Contain(Shipped), "the shipped strategy this test misspells");
         WriteTempSettings(ShippedJson().Replace(Shipped, "\"Strategy\": \"Structred\""));
 
-        Assert.Throws<InvalidOperationException>(() => AppSettings.Load(_tempDirectory));
+        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => AppSettings.Load(_tempDirectory))!;
+
+        Assert.That(ex.Message, Does.Contain("Chunking:Strategy").And.Contain("Structred").And.Contain("Structured"));
     }
 }

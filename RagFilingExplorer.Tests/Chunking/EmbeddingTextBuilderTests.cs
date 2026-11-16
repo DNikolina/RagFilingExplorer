@@ -74,7 +74,7 @@ public class EmbeddingTextBuilderTests
         string result = EmbeddingTextBuilder.Build("Heading", table);
 
         int occurrences = System.Text.RegularExpressions.Regex.Matches(result, "Total revenues").Count;
-        // One in the summary line, one in the raw table content that follows - not two in the summary.
+        // One in the summary line, two in the raw table content that follows - not two in the summary.
         Assert.That(occurrences, Is.EqualTo(3));
     }
 

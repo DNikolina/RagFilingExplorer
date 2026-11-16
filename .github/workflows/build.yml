@@ -1,0 +1,29 @@
+name: build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      # One OS failing must not cancel the others: which OSes fail is the point of the matrix.
+      fail-fast: false
+      matrix:
+        # A branch push runs on Windows alone: development is on a Mac, so that's the OS a mistake would go unseen on.
+        # main, pull requests and manual runs get all three.
+        os: ${{ github.event_name == 'push' && github.ref != 'refs/heads/main' && fromJSON('["windows-latest"]') || fromJSON('["windows-latest", "ubuntu-latest", "macos-latest"]') }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+      # Offline tests only: anything needing Ollama, an API key or a built index is [Explicit], and
+      # FilingXbrlTests skips without EDGAR's _htm.xml files, which are gitignored.
+      - run: dotnet test RagFilingExplorer.slnx

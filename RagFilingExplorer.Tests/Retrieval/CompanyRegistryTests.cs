@@ -38,6 +38,18 @@ public class CompanyRegistryTests
 
     private static CompanyRegistry? _real;
 
+    private string _tempDir = null!;
+
+    [SetUp]
+    public void SetUp()
+    {
+        _tempDir = Path.Combine(Path.GetTempPath(), $"CompanyRegistryTests-{Guid.NewGuid():N}");
+        Directory.CreateDirectory(_tempDir);
+    }
+
+    [TearDown]
+    public void TearDown() => Directory.Delete(_tempDir, recursive: true);
+
     private static DirectoryInfo Repo => RepoPaths.FindRoot(TestContext.CurrentContext.TestDirectory);
 
     private static FileInfo[] DataFilings() =>
@@ -53,7 +65,7 @@ public class CompanyRegistryTests
     [TestCaseSource(nameof(DataFilingNames))]
     public void Register_EveryFilingInData_HasItsNameATickerAndItsCompanyLine(string filing)
     {
-        XbrlDocument xbrl = InlineXbrlReader.Read(new HtmlParser().ParseDocument(MarkItDownConverter.ReadFiling(new FileInfo(Path.Combine(Repo.FullName, "data", filing)))));
+        XbrlDocument xbrl = InlineXbrlReader.Read(new HtmlParser().ParseDocument(FilingFile.Read(new FileInfo(Path.Combine(Repo.FullName, "data", filing)))));
 
         CompanyRegistration registration = CompanyRegistry.Register(filing, xbrl);
 
@@ -93,7 +105,7 @@ public class CompanyRegistryTests
         Assert.That(registered, Is.EquivalentTo(HandWrittenV1));
     }
 
-    // The verification this step was defined by: the filter each question gets is unchanged.
+    // What the registry has to keep: the filter each question gets is the one v1's table gave it.
     [Test]
     public void ResolveFilings_EveryQuestionInTheQuestionFiles_SameFilingsAsTheHandWrittenTable()
     {
@@ -102,7 +114,7 @@ public class CompanyRegistryTests
             .Where(q => q.Trim().Length > 0)
             .ToArray();
 
-        Assert.That(questions, Has.Length.EqualTo(102), "40 main + 35 held-out (H16-H35 appended 2026-09-30) + 27 answer-side (A1-A27, 2026-10-01)");
+        Assert.That(questions, Has.Length.EqualTo(102), "40 main + 35 held-out + 27 answer-side");
         foreach (string question in questions)
         {
             string[] v1 = HandWrittenV1.Where(kvp => question.Contains(kvp.Key, StringComparison.OrdinalIgnoreCase))
@@ -176,4 +188,218 @@ public class CompanyRegistryTests
 
         Assert.Throws<InvalidOperationException>(() => CompanyRegistry.Register("AAPL-10K-2026.html", noCover));
     }
+
+    // With several files in data/, an error that doesn't name the file leaves the user to find it.
+    [Test]
+    public void FromFilings_FileWithoutInlineXbrl_FailsNamingTheFile()
+    {
+        string page = Path.Combine(_tempDir, "notes.html");
+        File.WriteAllText(page, "<html><body><p>Not a filing.</p></body></html>");
+
+        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => CompanyRegistry.FromFilings([new FileInfo(page)]))!;
+
+        Assert.That(ex.Message, Does.StartWith("notes.html: ").And.Contain("not an inline XBRL filing"));
+    }
+
+    [TestCase("10-Q")]
+    [TestCase("10-K/A")]
+    [TestCase("8-K")]
+    public void Register_FormOtherThan10K_FailsNamingTheForm(string form)
+    {
+        XbrlDocument cover = Cover(("dei:EntityRegistrantName", "Apple Inc."), ("dei:DocumentType", form));
+
+        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => CompanyRegistry.Register("AAPL.html", cover))!;
+
+        Assert.That(ex.Message, Does.Contain($"AAPL.html is a Form {form}"));
+    }
+
+    [Test]
+    public void Register_FormUntagged_Fails()
+    {
+        XbrlDocument cover = Cover(("dei:EntityRegistrantName", "Apple Inc."));
+
+        Assert.That(() => CompanyRegistry.Register("AAPL.html", cover), Throws.InvalidOperationException.With.Message.Contains("no dei:DocumentType"));
+    }
+
+    [Test]
+    public void Register_10K_RecordsItsCikAndFiscalYear()
+    {
+        XbrlDocument cover = Cover(("dei:EntityRegistrantName", "Apple Inc."), ("dei:DocumentType", "10-K"),
+            ("dei:EntityCentralIndexKey", "0000320193"), ("dei:DocumentFiscalYearFocus", "2026"));
+
+        CompanyRegistration registration = CompanyRegistry.Register("AAPL.html", cover);
+
+        Assert.That((registration.Cik, registration.FiscalYear), Is.EqualTo(("0000320193", "2026")));
+    }
+
+    [Test]
+    public void EnsureOneFilingPerCompanyYear_SameCompanySameYear_FailsNamingBothFilings()
+    {
+        CompanyRegistration[] registrations =
+        [
+            new("MSFT-10K-2026.html", ["Microsoft", "MSFT"], Cik: "0000789019", FiscalYear: "2026"),
+            new("MSFT-copy.html", ["Microsoft", "MSFT"], Cik: "0000789019", FiscalYear: "2026"),
+        ];
+
+        Assert.That(() => CompanyRegistry.EnsureOneFilingPerCompanyYear(registrations),
+            Throws.InvalidOperationException.With.Message.Contains("MSFT-10K-2026.html and MSFT-copy.html"));
+    }
+
+    // Another year of the same company is a filing to keep, not a duplicate.
+    [Test]
+    public void EnsureOneFilingPerCompanyYear_SameCompanyDifferentYears_Passes()
+    {
+        CompanyRegistration[] registrations =
+        [
+            new("MSFT-10K-2025.html", ["Microsoft", "MSFT"], Cik: "0000789019", FiscalYear: "2025"),
+            new("MSFT-10K-2026.html", ["Microsoft", "MSFT"], Cik: "0000789019", FiscalYear: "2026"),
+        ];
+
+        Assert.That(() => CompanyRegistry.EnsureOneFilingPerCompanyYear(registrations), Throws.Nothing);
+    }
+
+    // A ticker that is an English word, matched in any case, sent "What are Microsoft's revenues?" to that filing too:
+    // each named company then gets half of the excerpts.
+    [Test]
+    public void ResolveFilings_NameThatIsAnOrdinaryWord_MatchesOnlyAsWritten()
+    {
+        CompanyRegistry registry = new(
+        [
+            new CompanyRegistration("MSFT-10K-2026.html", ["Microsoft", "MSFT"]),
+            new CompanyRegistration("ARE-10K-2026.html", ["Alexandria Real Estate Equities", "ARE"]) { ExactCaseNames = ["ARE"] },
+        ]);
+
+        Assert.That(registry.ResolveFilings("What are Microsoft's revenues?"), Is.EqualTo(new[] { "MSFT-10K-2026.html" }));
+        Assert.That(registry.ResolveFilings("What was ARE's rental revenue?"), Is.EqualTo(new[] { "ARE-10K-2026.html" }));
+        Assert.That(registry.ResolveFilings("what was alexandria real estate equities' rental revenue?"), Is.EqualTo(new[] { "ARE-10K-2026.html" }));
+    }
+
+    // Questions are typed without capitals: none of the four filings' names or tickers is an ordinary word, so each
+    // still matches in lowercase. Their own addresses ("www.microsoft.com") must not make them read as one.
+    [TestCase("microsoft", "MSFT-10K-2026.html")]
+    [TestCase("msft", "MSFT-10K-2026.html")]
+    [TestCase("oracle", "ORCL-10K-2026.html")]
+    [TestCase("orcl", "ORCL-10K-2026.html")]
+    [TestCase("nasdaq", "NDAQ-10K-2025.html")]
+    [TestCase("ndaq", "NDAQ-10K-2025.html")]
+    [TestCase("netflix", "NFLX-10K-2025.html")]
+    [TestCase("nflx", "NFLX-10K-2025.html")]
+    public void FromFilings_FilingsInData_EveryNameMatchesInLowercase(string name, string filing)
+    {
+        Assert.That(Real.Registrations.SelectMany(r => r.ExactCaseNames), Is.Empty);
+        Assert.That(Real.ResolveFilings($"what was {name}'s total revenue?"), Is.EqualTo(new[] { filing }));
+    }
+
+    [Test]
+    public void FromFilings_TickerTheFilingsUseAsAWord_MatchesOnlyAsWritten()
+    {
+        FileInfo costco = WriteFiling("COST-10K-2026.html", "Costco Wholesale Corporation", "COST", "0000909832", "The cost of merchandise rose.");
+        FileInfo acme = WriteFiling("ACME-10K-2026.html", "Acme Corporation", "ACME", "0000000001", "See www.acme.com for more.");
+
+        CompanyRegistry registry = CompanyRegistry.FromFilings([costco, acme]);
+
+        Assert.That(registry.Registrations.Single(r => r.Filing == costco.Name).ExactCaseNames, Is.EqualTo(new[] { "COST" }));
+        Assert.That(registry.ResolveFilings("what was acme's cost of revenue?"), Is.EqualTo(new[] { acme.Name }));
+        Assert.That(registry.ResolveFilings("What was COST's revenue?"), Is.EqualTo(new[] { costco.Name }));
+        Assert.That(registry.ResolveFilings("what was costco wholesale's revenue?"), Is.EqualTo(new[] { costco.Name }));
+    }
+
+    [Test]
+    public void LowercaseWords_WordsInsideAddressesAndFileNames_AreNotWords()
+    {
+        string text = "Our cost (net) rose; see www.microsoft.com, ir@nasdaq.com and msft-20260630.htm. Cost of revenue fell\u00A0now.";
+
+        Assert.That(CompanyRegistry.LowercaseWords(text), Is.EquivalentTo(new[] { "cost", "net", "rose", "see", "and", "of", "revenue", "fell", "now" }));
+    }
+
+    [TestCase("COST", true)]
+    [TestCase("MSFT", false)]
+    [TestCase("IT", true)] // two letters: exact whatever the filings hold
+    [TestCase("GE", true)]
+    [TestCase("BRK.B", false)] // not one word of letters
+    [TestCase("Walt Disney", false)]
+    public void IsOrdinaryWord_OneWordNames_ByTheFilingsWordsAndLength(string name, bool expected)
+    {
+        Assert.That(CompanyRegistry.IsOrdinaryWord(name, new HashSet<string> { "cost", "walt" }), Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void FromFilings_AliasesFile_AddsNamesMatchedInAnyCase()
+    {
+        FileInfo alphabet = WriteFiling("GOOGL-10K-2026.html", "Alphabet Inc.", "GOOGL", "0001652044", "We build products.");
+        File.WriteAllText(Path.Combine(_tempDir, CompanyRegistry.AliasesFileName), """
+            {
+              // The brand questions use.
+              "GOOGL": ["Google"],
+            }
+            """);
+
+        CompanyRegistry registry = CompanyRegistry.FromFilings([alphabet]);
+
+        Assert.That(registry.Registrations.Single().Names, Is.EqualTo(new[] { "Alphabet", "GOOGL", "Google" }));
+        Assert.That(registry.ResolveFilings("what was google's revenue?"), Is.EqualTo(new[] { alphabet.Name }));
+    }
+
+    [Test]
+    public void FromFilings_AliasesFileMalformed_FailsNamingTheFile()
+    {
+        FileInfo alphabet = WriteFiling("GOOGL-10K-2026.html", "Alphabet Inc.", "GOOGL", "0001652044", "We build products.");
+        File.WriteAllText(Path.Combine(_tempDir, CompanyRegistry.AliasesFileName), """{ "GOOGL": "Google" }""");
+
+        Assert.That(() => CompanyRegistry.FromFilings([alphabet]),
+            Throws.InvalidOperationException.With.Message.StartsWith("company-aliases.json isn't a JSON object of ticker -> list of names"));
+    }
+
+    [Test]
+    public void AddAliases_KeyThatIsNoRegisteredCompany_FailsNamingIt()
+    {
+        Assert.That(() => CompanyRegistry.AddAliases(Fixture.Registrations, new Dictionary<string, string[]> { ["GOOGL"] = ["Google"] }),
+            Throws.InvalidOperationException.With.Message.Contains("'GOOGL' is no registered company"));
+    }
+
+    // "Meta" as Oracle's alias would send every Meta question to Oracle's filing too.
+    [TestCase("Meta")]
+    [TestCase("Meta Platforms")]
+    public void AddAliases_AliasMatchingAnotherCompanysName_Fails(string alias)
+    {
+        Assert.That(() => CompanyRegistry.AddAliases(Fixture.Registrations, new Dictionary<string, string[]> { ["ORCL"] = [alias] }),
+            Throws.InvalidOperationException.With.Message.Contains("match each other"));
+    }
+
+    [Test]
+    public void AddAliases_CompanyWithTwoYears_BothFilingsGetTheAlias()
+    {
+        CompanyRegistration[] registrations =
+        [
+            new("MSFT-10K-2025.html", ["Microsoft", "MSFT"]),
+            new("MSFT-10K-2026.html", ["Microsoft", "MSFT"]),
+        ];
+
+        CompanyRegistry registry = new(CompanyRegistry.AddAliases(registrations, new Dictionary<string, string[]> { ["msft"] = ["Redmond"] }));
+
+        Assert.That(registry.ResolveFilings("What was Redmond's revenue?"), Is.EqualTo(new[] { "MSFT-10K-2025.html", "MSFT-10K-2026.html" }));
+    }
+
+    // A 10-K reduced to its tagged cover facts and one sentence of text.
+    private FileInfo WriteFiling(string fileName, string registrant, string ticker, string cik, string text)
+    {
+        static string Fact(string concept, string value) => $"<ix:nonNumeric name=\"dei:{concept}\" contextRef=\"c1\">{value}</ix:nonNumeric>";
+        string path = Path.Combine(_tempDir, fileName);
+        File.WriteAllText(path, $"""
+            <html><body>
+            <div style="display:none"><ix:header><ix:resources><xbrli:context id="c1"></xbrli:context></ix:resources></ix:header></div>
+            <p>{Fact("EntityRegistrantName", registrant)} {Fact("DocumentType", "10-K")} {Fact("EntityCentralIndexKey", cik)}
+            {Fact("DocumentFiscalYearFocus", "2026")} {Fact("Security12bTitle", "Common Stock")} {Fact("TradingSymbol", ticker)}</p>
+            <p>{text}</p>
+            </body></html>
+            """);
+
+        return new FileInfo(path);
+    }
+
+    // A cover page holding only the given dei: facts, each in its own context.
+    private static XbrlDocument Cover(params (string Concept, string Text)[] facts) => new(
+        new Dictionary<string, XbrlContext>(),
+        new Dictionary<string, XbrlUnit>(),
+        facts.Select((f, i) => new XbrlFact(null, f.Concept, $"c{i}", null, false, false, null, 0, null, false, f.Text, null, f.Text, false, [])).ToList());
 }

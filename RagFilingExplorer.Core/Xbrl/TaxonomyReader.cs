@@ -19,7 +19,9 @@ internal static class TaxonomyReader
     /// <summary>
     /// The taxonomy schema in <paramref name="dataDirectory"/> whose targetNamespace is one the filing's page
     /// declares (xmlns:nflx="http://www.netflix.com/20251231") - by namespace rather than the page's schemaRef,
-    /// which NFLX's browser-saved copy no longer has. Null when none matches.
+    /// which NFLX's browser-saved copy no longer has. Null when none matches. Several matching fails: every page declares
+    /// the standard namespaces too (dei, us-gaap), so a standard schema such as dei-2025.xsd in data/ would match every
+    /// filing, and taking the first left each one without its own statements.
     /// </summary>
     public static FileInfo? FindForFiling(IDocument filing, DirectoryInfo dataDirectory)
     {
@@ -27,8 +29,14 @@ internal static class TaxonomyReader
             .Where(a => a.Name.StartsWith("xmlns:", StringComparison.OrdinalIgnoreCase))
             .Select(a => a.Value)
             .ToHashSet();
-        return dataDirectory.GetFiles("*.xsd")
-            .FirstOrDefault(f => XDocument.Load(f.FullName).Root?.Attribute("targetNamespace")?.Value is { } ns && declared.Contains(ns));
+        FileInfo[] matches = [.. dataDirectory.GetFiles("*.xsd")
+            .Where(f => XDocument.Load(f.FullName).Root?.Attribute("targetNamespace")?.Value is { } ns && declared.Contains(ns))];
+
+        return matches.Length <= 1
+            ? matches.SingleOrDefault()
+            : throw new InvalidOperationException(
+                $"{matches.Length} schemas in {dataDirectory.FullName} match the namespaces a filing declares: "
+                + $"{string.Join(", ", matches.Select(f => f.Name))} - keep only each filer's own taxonomy in data/.");
     }
 
     public static XbrlTaxonomy Read(FileInfo schema)

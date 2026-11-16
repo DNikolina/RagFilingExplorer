@@ -1,0 +1,85 @@
+Variance across 2 executions: structured-hybrid-chunk-fixes, structured-hybrid-mac-m5pro-crlf-1
+102 questions answered in every execution.
+
+All: identical 79  wording 19  figures 3  grade 1
+AnswerSide: identical 18  wording 6  figures 2  grade 1
+HeldOut: identical 31  wording 4  figures 0  grade 0
+Main: identical 30  wording 9  figures 1  grade 0
+
+Pairs (same text / same grade):
+  structured-hybrid-chunk-fixes vs structured-hybrid-mac-m5pro-crlf-1: 79/102 / 101/102
+
+Grade (1):
+  AnswerSide.A24
+    [structured-hybrid-chunk-fixes] reliable, figures 10,981,201 25,100,822 5,407,990 8,711,631 (calculated): The total net income for 2023, 2024, and 2025 is $10,981,201 + $8,711,631 + $5,407,990 = $25,100,822 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements)
+    [structured-hybrid-mac-m5pro-crlf-1] no-unit, figures 10,981,201 25,100,822 5,407,990 8,711,631 (calculated): The total net income for 2023, 2024, and 2025 is $10,981,201 + $8,711,631 + $5,407,990 = $25,100,822. (Source: NFLX-10K-2025.html, PART IV > Financial Statements)
+
+Figures (3):
+  AnswerSide.A16
+    [structured-hybrid-chunk-fixes] reliable, figures 1,087 471 616 (untraced): Nasdaq spent $616 million in total purchase price for repurchasing its common stock in 2025, and an additional $471 million was used for repurchases of common stock, as stated in the Net Cash Used in Financing Activities section of the Management’s Discussion and Analysis of Financial Condition and Results of Operations. Therefore, the total amount of cash spent repurchasing its common stock in 2025 is $616 million + $471 million = $1,087 million. (Source: NDAQ-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations and PART IV > Financial Statements > Nasdaq Stockholders’ Equity)
+    [structured-hybrid-mac-m5pro-crlf-1] reliable, figures 471 616 (traced): Nasdaq spent $616 million in total purchase price for repurchasing its common stock in 2025, and an additional $471 million in net cash used in financing activities for repurchases of common stock, which is a different metric that includes other financing activities.
+  AnswerSide.A8
+    [structured-hybrid-chunk-fixes] reliable, figures 2.00 (traced): Oracle declared cash dividends of $2.00 per share of its outstanding common stock in fiscal 2026 (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations).
+    [structured-hybrid-mac-m5pro-crlf-1] reliable, figures 0.50 2.00 (traced): Oracle declared cash dividends of $2.00 per share of its outstanding common stock in fiscal 2026 (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules). Additionally, in June 2026, the Board declared a quarterly cash dividend of $0.50 per share of its outstanding common stock (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations).
+  Main.Q14
+    [structured-hybrid-chunk-fixes] reliable, figures 331,839 67,357 (traced): Microsoft's total revenue for the year ended June 30, 2026 was $331,839 million (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data), while Oracle's total revenue for the year ended May 31, 2026 was $67,357 million (Source: ORCL-10K-2026.html, PART II > Item 8. Consolidated Statements of Operations). Therefore, Microsoft's total revenue was significantly higher than Oracle's total revenue.
+    [structured-hybrid-mac-m5pro-crlf-1] reliable, figures 331,839 4.9 67,357 (untraced): Microsoft's total revenue for the year ended June 30, 2026 was $331,839 million, while Oracle's total revenue for the year ended May 31, 2026 was $67,357 million. Microsoft's total revenue was approximately 4.9 times Oracle's total revenue. (Source: MSFT-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data; ORCL-10K-2026.html, PART II > Item 8. Financial Statements and Supplementary Data)
+
+Wording (19):
+  AnswerSide.A11
+    [structured-hybrid-chunk-fixes] wrong, figures 5.7 63 (traced): Oracle paid $63 million in dividends to its holders of Mandatory Convertible Preferred Stock and $5.7 billion in dividends to its holders of common stock in fiscal 2026. (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+    [structured-hybrid-mac-m5pro-crlf-1] wrong, figures 5.7 63 (traced): Oracle paid $63 million in dividends to its stockholders of its outstanding Mandatory Convertible Preferred Stock and $5.7 billion in dividends to its stockholders of its outstanding common stock in fiscal 2026 (Source: ORCL-10K-2026.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations).
+  AnswerSide.A19
+    [structured-hybrid-chunk-fixes] reliable, figures 10,980,930 (traced): Netflix's total current liabilities at December 31, 2025 were $10,980,930 thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements).
+    [structured-hybrid-mac-m5pro-crlf-1] reliable, figures 10,980,930 (traced): Netflix's total current liabilities at December 31, 2025 were $10,980,930 thousand. (Source: NFLX-10K-2025.html, PART IV > Financial Statements)
+  AnswerSide.A2
+    [structured-hybrid-chunk-fixes] reliable, figures 3.12 (traced): Nasdaq's basic earnings per share in 2025 was $3.12. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Earnings Per Share)
+    [structured-hybrid-mac-m5pro-crlf-1] reliable, figures 3.12 (traced): Nasdaq's basic earnings per share in 2025 were $3.12. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Earnings Per Share)
+  AnswerSide.A23
+    [structured-hybrid-chunk-fixes] reliable, figures 1.23 168,825 207,710 (calculated): Microsoft's total current assets as of June 30, 2026, were $207,710 million, and its total current liabilities as of June 30, 2026, were $168,825 million. Therefore, Microsoft's current ratio as of June 30, 2026, was $207,710 million / $168,825 million, which is approximately 1.23. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
+    [structured-hybrid-mac-m5pro-crlf-1] reliable, figures 1.23 168,825 207,710 (calculated): Microsoft's total current assets as of June 30, 2026, were $207,710 million, and its total current liabilities as of June 30, 2026, were $168,825 million. Therefore, Microsoft's current ratio as of June 30, 2026, was $207,710 million / $168,825 million, which equals 1.23. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
+  AnswerSide.A25
+    [structured-hybrid-chunk-fixes] reliable, figures 1,217 601 616 (calculated): The total amount paid of $601 million in dividends was recorded in retained earnings in the Consolidated Balance Sheets at December 31, 2025 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Nasdaq Stockholders’ Equity). The total purchase price of $616 million was paid for share repurchases in the year ended December 31, 2025 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Nasdaq Stockholders’ Equity). Therefore, Nasdaq returned $601 million + $616 million = $1,217 million to shareholders in 2025 through dividends paid and share repurchases combined.
+    [structured-hybrid-mac-m5pro-crlf-1] reliable, figures 1,217 601 616 (calculated): The total amount paid of $601 million in dividends was recorded in retained earnings in the Consolidated Balance Sheets at December 31, 2025 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Nasdaq Stockholders’ Equity). The total purchase price of $616 million was paid for share repurchases in the year ended December 31, 2025 (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Nasdaq Stockholders’ Equity). Therefore, Nasdaq returned a total of $601 million + $616 million = $1,217 million to shareholders in 2025 through dividends paid and share repurchases combined.
+  AnswerSide.A27
+    [structured-hybrid-chunk-fixes] wrong, figures 100 17,087 17,087,000,000 25.3 67,357 67,357,000,000 (calculated): Oracle's net income was $17,087 million and its total revenues were $67,357 million. To calculate the percentage, we divide the net income by the total revenues and multiply by 100: ($17,087,000,000 / $67,357,000,000) * 100 = 25.3%. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules, CONSOLIDATED STATEMENTS OF OPERATIONS)
+    [structured-hybrid-mac-m5pro-crlf-1] wrong, figures 100 17,087 17,087,000,000 25.3 67,357 67,357,000,000 (calculated): Oracle's net income was $17,087 million and its total revenues were $67,357 million in fiscal 2026. To calculate the percentage, we divide the net income by the total revenues and multiply by 100: ($17,087,000,000 / $67,357,000,000) * 100 = 25.3%. (Source: ORCL-10K-2026.html, PART IV > Item 15. Exhibits and Financial Statement Schedules, CONSOLIDATED STATEMENTS OF OPERATIONS)
+  HeldOut.H19
+    [structured-hybrid-chunk-fixes] reliable, figures 119,651 (traced): Microsoft's goodwill balance as of June 30, 2026, was $119,651 million. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > BALANCE SHEETS)
+    [structured-hybrid-mac-m5pro-crlf-1] reliable, figures 119,651 (traced): Microsoft's goodwill balance as of June 30, 2026, was $119,651 million (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA > BALANCE SHEETS).
+  HeldOut.H26
+    [structured-hybrid-chunk-fixes] reliable, figures 1,788 (traced): Net income attributable to Nasdaq was $1,788 million for the year ended December 31, 2025 (Source: NDAQ-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations).
+    [structured-hybrid-mac-m5pro-crlf-1] reliable, figures 1,788 (traced): Net income attributable to Nasdaq in 2025 was $1,788 million (Source: NDAQ-10K-2025.html, PART IV > Financial Statements, Consolidated Statements of Income).
+  HeldOut.H27
+    [structured-hybrid-chunk-fixes] wrong, figures 0.24 0.27 (traced): Nasdaq's cash dividends declared per common share in 2025 were $0.24, $0.27, $0.27, and $0.27 for the first, second, third, and fourth quarters, respectively (Source: NDAQ-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations and PART IV > Financial Statements > Nasdaq Stockholders’ Equity).
+    [structured-hybrid-mac-m5pro-crlf-1] wrong, figures 0.24 0.27 (traced): Nasdaq's cash dividends declared per common share in 2025 were $0.24, $0.27, $0.27, and $0.27 for the first, second, third, and fourth quarters, respectively (Source: NDAQ-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations).
+  HeldOut.H29
+    [structured-hybrid-chunk-fixes] wrong, figures 81 (traced): Nasdaq's Index business generated $81 million in Annual Average Revenue (ARR) in 2025, and index revenues increased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to higher average AUM in exchange traded products linked to Nasdaq indices and growth in trading volumes (Source: NDAQ-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations).
+    [structured-hybrid-mac-m5pro-crlf-1] wrong, figures 81 (traced): Nasdaq's Index business generated $81 million in Annual Average Revenue Run Rate (ARR) in 2025, and index revenues increased for the year ended December 31, 2025 compared with the same period in 2024 primarily due to higher average AUM in exchange traded products linked to Nasdaq indices and growth in trading volumes (Source: NDAQ-10K-2025.html, PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations).
+  Main.Q10
+    [structured-hybrid-chunk-fixes] reliable, figures 2,113 (traced): Nasdaq's total comprehensive income for 2025 was $2,113 million. (Source: NDAQ-10K-2025.html, PART IV > Financial Statements > Consolidated Statements of Comprehensive Income)
+    [structured-hybrid-mac-m5pro-crlf-1] reliable, figures 2,113 (traced): Nasdaq's total comprehensive income for 2025 was $2,113 million (Source: NDAQ-10K-2025.html, PART IV > Financial Statements, Consolidated Statements of Comprehensive Income).
+  Main.Q12
+    [structured-hybrid-chunk-fixes] reliable, figures 0.9 (traced): Oracle's headquarters facility is located in Austin, Texas, and it consists of approximately 0.9 million square feet, all of which Oracle owns. (Source: ORCL-10K-2026.html, PART I > Item 2. Properties)
+    [structured-hybrid-mac-m5pro-crlf-1] reliable, figures 0.9 (traced): Oracle's headquarters facility is located in Austin, Texas, and it consists of approximately 0.9 million square feet, all of which Oracle owns (Source: ORCL-10K-2026.html, PART I > Item 2. Properties).
+  Main.Q15
+    [structured-hybrid-chunk-fixes] decline-ok, figures - (no figure stated): The excerpts don't contain the total revenue for fiscal year 2030.
+    [structured-hybrid-mac-m5pro-crlf-1] decline-ok, figures - (no figure stated): The excerpts don't contain Nasdaq's total revenue in fiscal year 2030.
+  Main.Q16
+    [structured-hybrid-chunk-fixes] decline-ok, figures - (no figure stated): The excerpts don't contain Apple's revenue.
+    [structured-hybrid-mac-m5pro-crlf-1] decline-ok, figures - (no figure stated): The excerpts don't contain Apple's revenue for last year.
+  Main.Q20
+    [structured-hybrid-chunk-fixes] reliable, figures 10,149,273 (traced): Netflix's net cash provided by operating activities was $10,149,273 thousand for the year ended December 31, 2025 (Source: NFLX-10K-2025.html, PART IV > Financial Statements).
+    [structured-hybrid-mac-m5pro-crlf-1] reliable, figures 10,149,273 (traced): Netflix's net cash provided by operating activities was $10,149,273 thousand for the year ended December 31, 2025. (Source: NFLX-10K-2025.html, PART IV > Financial Statements and PART II > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations)
+  Main.Q4
+    [structured-hybrid-chunk-fixes] reliable, figures 182,935 (traced): Microsoft's net cash from operations was $182,935 million for the year ended June 30, 2026 (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA).
+    [structured-hybrid-mac-m5pro-crlf-1] reliable, figures 182,935 (traced): Microsoft's net cash from operations was $182,935 million for the year ended June 30, 2026. (Source: MSFT-10K-2026.html, PART II > Item 8. FINANCIAL STATEMENTS AND SUPPLEMENTARY DATA)
+  Main.T10
+    [structured-hybrid-chunk-fixes] wrong, figures 125,639 (traced): The amounts reclassified from accumulated other comprehensive income (loss) (year ended December 31, 2024) — Change in Unrealized Gains (Losses) on Cash Flow Hedges: (125,639) thousand (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Stockholders' Equity).
+    [structured-hybrid-mac-m5pro-crlf-1] wrong, figures 125,639 (traced): In Netflix's statement of comprehensive income, $125,639 thousand in cash flow hedge gains was reclassified in 2024 (Source: NFLX-10K-2025.html, PART IV > Financial Statements > Stockholders' Equity).
+  Main.T8
+    [structured-hybrid-chunk-fixes] reliable, figures 91.47 (traced): Nasdaq paid an average price per share of $91.47 for shares it repurchased in November 2025 (Source: NDAQ-10K-2025.html, PART II > Item 5. Market for Registrant’s Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities).
+    [structured-hybrid-mac-m5pro-crlf-1] reliable, figures 91.47 (traced): Nasdaq paid an average price per share of $91.47 for shares it repurchased in November 2025. (Source: NDAQ-10K-2025.html, PART II > Item 5. Market for Registrant’s Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities)
+  Main.V3
+    [structured-hybrid-chunk-fixes] wrong, figures 10,149,273 7,274,301 7,361,364 (traced): Netflix's net cash provided by operating activities for the years ended December 31, 2025, 2024, and 2023 were $10,149,273, $7,361,364, and $7,274,301, respectively.
+    [structured-hybrid-mac-m5pro-crlf-1] wrong, figures 10,149,273 7,274,301 7,361,364 (traced): Netflix's net cash provided by operating activities for the year ended December 31, 2025 was $10,149,273 thousand, for the year ended December 31, 2024 was $7,361,364 thousand, and for the year ended December 31, 2023 was $7,274,301 thousand.

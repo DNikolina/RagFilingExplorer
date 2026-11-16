@@ -59,7 +59,7 @@ public class RowGroupsXbrlTests
     public void RowGroups_RealFiling_AgreeWithTheFilersPresentationTree(string filing)
     {
         FileInfo file = new(Path.Combine(RepoPaths.FindRoot(TestContext.CurrentContext.TestDirectory).FullName, "data", filing));
-        IHtmlDocument document = new HtmlParser().ParseDocument(MarkItDownConverter.ReadFiling(file));
+        IHtmlDocument document = new HtmlParser().ParseDocument(FilingFile.Read(file));
         XbrlTaxonomy taxonomy = TaxonomyReader.Read(TaxonomyReader.FindForFiling(document, file.Directory!)!);
         StructuredFiling read = new StructuredChunkingStrategy(TiktokenTokenizer.CreateForModel("gpt-4"), 500, 50).Read(document, taxonomy);
 

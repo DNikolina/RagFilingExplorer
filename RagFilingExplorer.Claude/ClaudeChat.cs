@@ -46,6 +46,10 @@ internal static class ClaudeChat
         {
             throw new StartupException($"The Claude API refused the model check ({ex.Message.ReplaceLineEndings(" ")}).", ex);
         }
+        catch (Exception ex) when (ex is AnthropicException or HttpRequestException or TaskCanceledException)
+        {
+            throw new StartupException($"The Claude API couldn't be reached for the model check ({ex.Message.ReplaceLineEndings(" ")}).", ex);
+        }
 
         ChatModelOptions options = new(Temperature: null, claude.LookupEffort, claude.SynthesisEffort, claude.MaxOutputTokens);
         return (client.AsIChatClient(claude.Model, claude.MaxOutputTokens), options);

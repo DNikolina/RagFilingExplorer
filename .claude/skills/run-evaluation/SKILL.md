@@ -40,7 +40,8 @@ Check these first - each one otherwise costs a long run or a confusing failure:
 1. **The .NET SDK** pinned in `global.json` is installed (`dotnet --version`).
 2. **Ollama is running with the configured models** (`RagFilingExplorer.Cli/appsettings.json`: `nomic-embed-text`,
    `llama3.1:8b` by default). Note the Ollama version (`ollama --version`): every result is tagged `ollama:<version>`,
-   and an Ollama update can change answers at temperature 0 even with identical code.
+   and an Ollama update can change answers at temperature 0 even with identical code. Ollama isn't needed, and no
+   `ollama:` tag is written, when Claude answers and Voyage embeds.
 3. **The index is built and current.** The evaluation never builds one. If it's missing or stale the run stops with the
    fix; build it by running the app once: `dotnet run --project RagFilingExplorer.Cli` (then `exit`).
 4. **Nothing else is building or running the app** - a locked DLL fails the build.
@@ -103,9 +104,10 @@ errors. `eval/v3-runs/logs/` is gitignored. On macOS/Linux use `nohup ... > eval
 question writes one progress line (grade, rank, figure source, seconds); environment overrides set in the shell that
 starts the run are inherited by it.
 
-Two scripts wrap the longer measurements (Windows PowerShell; read their headers for parameters):
-- `tools/run-variance.ps1` - the questions asked afresh N times, then compared question by question with a reference run you name.
-- `tools/run-judge.ps1` - the local judge over cached answers, then its agreement with the strict grade.
+Two scripts wrap the longer measurements. They run on Windows, macOS and Linux with only the .NET SDK, as
+`dotnet tools/<script>.cs -- <options>` (read their headers for the options and how to start them detached):
+- `tools/run-variance.cs` - the questions asked afresh N times, then compared question by question with a reference run you name.
+- `tools/run-judge.cs` - the local judge over cached answers, then its agreement with the strict grade.
 
 ## Reading the results
 

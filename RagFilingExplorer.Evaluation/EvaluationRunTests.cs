@@ -10,7 +10,7 @@ namespace RagFilingExplorer.Evaluation;
 /// eval/v3-runs/ (one scenario per question; responses cached there, gitignored), with report-&lt;execution&gt;.html and
 /// summary-&lt;execution&gt;.txt written at the end. Each strict grade is compared with the v2 baselines' (structured-5a main
 /// and held-out, answer-side-norerank - the grader's own verdict, as GraderParityTests reads them); a difference is a
-/// warning, listed in the summary. [Explicit]: Ollama, the built index, and about two hours of CPU.
+/// warning, listed in the summary. [Explicit]: Ollama, the built index, and about two hours on a CPU-only machine.
 ///
 /// Set up by evalsettings.json (<see cref="EvaluationSettings"/>): the graders - strict, judge or both - the execution name,
 /// the sets and questions, fresh answers or cached; an environment variable overrides a key for one run with the same name
@@ -18,7 +18,7 @@ namespace RagFilingExplorer.Evaluation;
 ///   dotnet test RagFilingExplorer.Evaluation --filter "FullyQualifiedName~EvaluationRunTests"
 /// </summary>
 [TestFixture]
-[Explicit("Needs Ollama, the built index and about two hours.")]
+[Explicit("Needs Ollama, the built index and about two hours on a CPU-only machine.")]
 public class EvaluationRunTests
 {
     private static readonly DirectoryInfo Repo = RepoPaths.FindRoot(AppContext.BaseDirectory);

@@ -73,7 +73,7 @@ internal sealed class ClaudeSettings
     /// <summary>The settings from a configuration - every key present, every value valid, or an error naming it.</summary>
     public static ClaudeSettings From(IConfiguration configuration)
     {
-        AppSettings.EnsureKeysPresent(configuration, typeof(ClaudeSettings), Section, FileName);
+        AppSettings.EnsureKeysValid(configuration, typeof(ClaudeSettings), Section, FileName);
         ClaudeSettings settings = configuration.GetSection(Section).Get<ClaudeSettings>()
             ?? throw new InvalidOperationException($"{FileName} failed to bind its {Section} section.");
 

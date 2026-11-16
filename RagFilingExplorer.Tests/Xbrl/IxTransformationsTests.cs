@@ -47,6 +47,8 @@ public class IxTransformationsTests
     // "twenty-five years" was read as its last word - P5Y, silently wrong.
     [TestCase("twenty-five years", "P25Y")]
     [TestCase("twenty years", "P20Y")]
+    [TestCase("thirty years", "P30Y")]
+    [TestCase("ninety days", "P90D")]
     [TestCase("one year and six months", "P1Y6M")]
     [TestCase("a period of three years", "P3Y")]
     public void ToText_DurationInWords_CompoundNumbers(string text, string duration)
@@ -55,8 +57,9 @@ public class IxTransformationsTests
     }
 
     // "1.5 years" was read as "5 years"; it has no exact form in words, so it stops the build like an unknown code.
+    // So does a number in words past the ones read ("one hundred"), rather than be taken for its last word.
     [TestCase("1.5 years")]
-    [TestCase("thirty years")]
+    [TestCase("one hundred years")]
     public void ToText_DurationInWords_NotConvertibleExactly_Throws(string text)
     {
         Assert.Throws<FormatException>(() => IxTransformations.ToText("ixt-sec:durwordsen", text));

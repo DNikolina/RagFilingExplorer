@@ -31,13 +31,16 @@ internal sealed class CrossEncoderReranker : IRelevanceScorer, IDisposable
     public string Name { get; }
 
     /// <summary>
-    /// Loads <c>onnx/model.onnx</c> and <c>vocab.txt</c> from <paramref name="modelDirectory"/> (environment variables
-    /// expanded), after checking the model's SHA-256. Throws <see cref="FileNotFoundException"/> for a missing file and
+    /// Loads <c>onnx/model.onnx</c> and <c>vocab.txt</c> from <paramref name="modelDirectory"/> (a leading <c>~/</c> is
+    /// the user's home), after checking the model's SHA-256. Throws <see cref="FileNotFoundException"/> for a missing file and
     /// <see cref="InvalidOperationException"/> for a checksum mismatch - both before ONNX Runtime touches the file.
     /// </summary>
     public static CrossEncoderReranker Load(string modelDirectory, string expectedSha256)
     {
-        string directory = Environment.ExpandEnvironmentVariables(modelDirectory);
+        // Neither the OS nor .NET expands ~, and no one environment variable names the home folder on every OS.
+        string directory = modelDirectory.StartsWith("~/", StringComparison.Ordinal)
+            ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), modelDirectory[2..])
+            : modelDirectory;
         string modelPath = Path.Combine(directory, "onnx", "model.onnx");
         string vocabPath = Path.Combine(directory, "vocab.txt");
         foreach (string path in new[] { modelPath, vocabPath })

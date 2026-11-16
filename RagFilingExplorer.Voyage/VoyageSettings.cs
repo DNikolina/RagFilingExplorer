@@ -33,7 +33,7 @@ internal sealed class VoyageSettings
     /// <summary>The settings from a configuration - every key present, or an error naming it.</summary>
     public static VoyageSettings From(IConfiguration configuration)
     {
-        AppSettings.EnsureKeysPresent(configuration, typeof(VoyageSettings), Section, FileName);
+        AppSettings.EnsureKeysValid(configuration, typeof(VoyageSettings), Section, FileName);
         return configuration.GetSection(Section).Get<VoyageSettings>()
             ?? throw new InvalidOperationException($"{FileName} failed to bind its {Section} section.");
     }

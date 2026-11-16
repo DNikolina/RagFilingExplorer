@@ -1,5 +1,9 @@
 # RagFilingExplorer
 
+[![build](https://github.com/DNikolina/RagFilingExplorer/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/DNikolina/RagFilingExplorer/actions/workflows/build.yml)
+[![.NET 10](https://img.shields.io/badge/.NET-10-512BD4)](https://dotnet.microsoft.com/download/dotnet/10.0)
+[![License: MIT](https://img.shields.io/github/license/DNikolina/RagFilingExplorer)](LICENSE)
+
 A local, retrieval-augmented Q&A tool for SEC 10-K filings, built in C#/.NET.
 
 **Zero cost, no API keys, no accounts.** Embedding, vector search, and answer generation all run
@@ -131,6 +135,7 @@ flowchart TB
     subgraph ask["Answer a question"]
         direction TB
         q["Question"]
+        qembed["Question embedded - once<br/>same model as the chunks,<br/>its query template"]
         company["Company filter<br/>names and tickers from each filing's cover"]
         statement["Statement type<br/>from keywords - a boost, not a filter"]
         vec["Vector search"]
@@ -144,6 +149,9 @@ flowchart TB
 
         q --> company
         q --> statement
+        q --> qembed
+        qembed --> vec
+        qembed --> vecst
         company --> vec
         company --> kw
         company --> vecst
@@ -255,7 +263,9 @@ exits with a one-line fix instead of a stack trace:
   (A changed embedding model is the worst case: query vectors from the new model compared against
   stored vectors from the old one retrieve noise with no error at all.)
 - Each filing registers its company for the company filter from its own tagged cover facts (name and
-  ticker); a filing that tags no registrant name stops startup with a message saying so.
+  ticker); a filing that tags no registrant name stops startup with a message saying so. Names match in any
+  case ("msft", "microsoft") - except one that is an ordinary word in lowercase (the ticker `ARE` or `COST`),
+  which matches only as written, so "What are Microsoft's revenues?" isn't also sent to that filing.
 
 ## Answering with Claude (v4, optional, paid)
 
@@ -416,14 +426,18 @@ reported as an error, not shown empty. For `llama3.1:8b` only the output cap app
 
 ### Adding a new filing
 
-Drop the `.html` into `data/` and the app asks for `--rebuild`. Then check - the `filer-onboarding-checker`
+Drop the `.html` into `data/` and the app asks for `--rebuild`. Only Form 10-K annual reports are accepted, one per
+company per fiscal year: anything else stops startup and names the file. Then check - the `filer-onboarding-checker`
 subagent in `.claude/agents/` runs these checks and reports with evidence:
 
 1. **Its XBRL taxonomy is in `data/` too** - the `.xsd`, plus the `_pre`/`_lab`/`_cal`/`_def.xml` linkbases when the
    filer ships them separately (from the filing's EDGAR folder). Without it the build stops and says so.
 2. **Its company registered** as questions will name it - startup prints each registration ("Company filter:
    Netflix / NFLX -> NFLX-10K-2025.html"). An unregistered company's questions run unfiltered across every filing,
-   which once produced a hallucinated figure.
+   which once produced a hallucinated figure. If questions will use a name the cover doesn't give - a brand
+   unlike the legal name, "Google" for Alphabet - add it to `data/company-aliases.json`, by ticker:
+   `{ "GOOGL": ["Google"] }`. The file is optional and only adds names; a wrong ticker in it, or a name that
+   would also match another company, stops startup.
 3. **Its chunks read correctly** - `chunk-review/<strategy>/<filing>.chunks.txt` has no stray `�` (a non-UTF-8
    download is detected, but check) and a complete Item outline.
 
@@ -533,11 +547,11 @@ its entry - matched by the exact text - in `tools/expected-answers.json` (`kind`
 
 Three measurements built on it:
 
-- **Repeatability** (`tools/run-variance.ps1`): all 102 questions asked afresh twice came back word for word identical -
+- **Repeatability** (`tools/run-variance.cs`): all 102 questions asked afresh twice came back word for word identical -
   at temperature 0 the model repeats exactly on the same setup. Against answers from three days earlier, 100/102 grades
   matched; Ollama had updated itself in between (a newer llama.cpp), so runs are compared only on the same Ollama build.
-- **A local judge** (`tools/run-judge.ps1`): Microsoft's Equivalence evaluator, scored by `llama3.1:8b`, agreed with the
-  strict grade on 87 of 101 answers - but passed 14 of the 18 wrong ones, rating $27,034 million against $26,445 million
+- **A local judge** (`tools/run-judge.cs`): Microsoft's Equivalence evaluator, scored by `llama3.1:8b`, agreed with the
+  strict grade on 88 of 102 answers - but passed 14 of the 18 it failed, 12 of the 14 wrong figures among them, rating $27,034 million against $26,445 million
   "a slight difference". It rates similarity, not the exact figure, so the strict grade stays the grade and the judge
   runs alongside it only when asked for.
 - **A paid judge** (v4): the same evaluator scored by Claude, over the same cached answers. Sonnet 5.5 agreed with the
@@ -564,10 +578,8 @@ data/                                   source 10-K filings (HTML, from sec.gov/
                                         extracted facts (_htm.xml) are gitignored - download them to run the XBRL
                                         reader's EDGAR comparison test, which skips without them
 chunk-review/<strategy>/                full per-chunk text dumps, one file per filing, for manual review
-tools/                                  the question files and expected-answers.json; run-variance.ps1 and
-                                        run-judge.ps1; grade_answers.py and replay_recall.py (the Python originals
-                                        of the strict grade and the rank, kept as the record); rerank_spike.py;
-                                        LinearizeSpike + xbrl_column_check.py
+tools/                                  the evaluation's questions and expected answers, scripts to run, the Python
+                                        records and spikes - what each is for in its README
 eval/                                   every measured run: logs, grades, replays, screens - mapped in its README;
                                         v3-runs/ holds the .NET evaluation's stored runs and reports
 .claude/                                Claude Code config: filer-onboarding-checker subagent, run-evaluation skill,

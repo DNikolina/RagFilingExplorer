@@ -27,6 +27,18 @@ public class CrossEncoderRerankerTests
         Assert.Throws<FileNotFoundException>(() => CrossEncoderReranker.Load(_directory, new string('0', 64)));
     }
 
+    // %USERPROFILE% in the shipped setting stayed literal on macOS and Linux, so the model was never found there.
+    [Test]
+    public void Load_DirectoryStartingWithTilde_LooksInTheUsersHome()
+    {
+        string name = $"CrossEncoderRerankerTests-{Guid.NewGuid():N}";
+
+        FileNotFoundException ex = Assert.Throws<FileNotFoundException>(() => CrossEncoderReranker.Load($"~/{name}", new string('0', 64)))!;
+
+        string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        Assert.That(ex.FileName, Is.EqualTo(Path.Combine(home, name, "onnx", "model.onnx")));
+    }
+
     // A swapped or corrupted model is refused before ONNX Runtime parses it - the file was vetted once, by its hash.
     [Test]
     public void Load_ModelNotMatchingItsChecksum_IsRefusedBeforeLoading()

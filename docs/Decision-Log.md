@@ -3181,7 +3181,7 @@ Equivalence, judged by `llama3.1:8b`, over the baseline's 102 cached answers: 13
 - **Format:** the library read 15 of 102 replies - llama answers "...Therefore, the Equivalence metric should be 5." instead
   of the bare integer asked for. Recovered from the words, 101 of 102 have a score (the recovery pattern widened after
   reading the run's replies - "metric should be 5", "metric value is 5", a leading "4 "; a reply cut off before its score
-  stays unread: T7, which repeats the answer).
+  stays unread: T7, which repeats the answer - corrected in "The judge results checked": T7's reply does end with its score, in a form the pattern missed).
 - **Agreement 87/101, all disagreements one way:** the judge passes **14 of the 18 strict failures** it scored and fails no
   strict pass. It scores a wrong figure as close: A10's $27,034M against $26,445M - 4, "a slight difference in the amount";
   H25's $67,357M (total revenues) against $46,751M operating expenses - 5; A27's 25.9% against 25.4% - 5, "only a slight
@@ -3809,7 +3809,7 @@ is the judge to use here - slightly stricter at half the price. Batch 2's judgin
 ~$1.92).
 
 **Step 4 (Groundedness screen) - not run (user, 2026-10-08).** The figure source already traces every stated figure to
-its excerpt (no wrong answer of batch 1 states a figure missing from its excerpts), so Groundedness was left out; it stays
+its excerpt (no wrong answer of batch 1 states a figure missing from its excerpts - but for A11's unasked sum in the Opus runs, untraced as "Both untraced figures are correct arithmetic" above says), so Groundedness was left out; it stays
 available (`Judges: groundedness`), and the Claude judge client raises its 800-token limit for it.
 
 **Step 5 - done (2026-10-08).** The score reader also takes a score alone on the reply's last line after reasoning in
@@ -4908,3 +4908,263 @@ shipped default stays free. Next: batch 5, the Mac; then closing v4.
 bigger local model on better hardware - moves out of v4 and starts when the hardware is here (user). v4 stands on its
 four batches: Claude reads what llama misreads; Voyage's embeddings and reranker fix what's left, which is retrieval; the
 shipped default is unchanged and free. Merged to `main` (fast-forward), tag `v4.0`.
+
+## Follow-up: code walkthrough fixes (v5) - IN PROGRESS (branch `v5`, local)
+
+**Context (user, 2026-10-23, after v4.0):** fixes found while reading the code, part by part.
+
+**Startup checks.**
+- **The stale-index check runs before any provider is checked.** Before, Voyage's billed startup calls were made
+  before the app found the index out of date. `--rebuild` still deletes the index only after the providers pass, so a
+  provider that's down doesn't cost the index.
+- **The data folder is checked as it's registered.**
+  - A file without inline XBRL fails naming the file. Before, the error was "No `<ix:header>`" alone.
+  - Only Form 10-K registers, by `dei:DocumentType`. A 10-Q, a 10-K/A or an 8-K would have been indexed, its figures
+    answering beside the annual ones and its profile calling it an annual report.
+  - Two filings of one company (by CIK) for the same fiscal year are refused, naming both. Different years are not
+    refused (user), but they aren't supported yet either: a second MSFT year makes every MSFT question a two-filing
+    search. Multi-year support is on v5's list.
+- **An enum setting must be one of its names**, ignoring case as the binder does. `"Chat": "7"` bound as an undefined
+  provider and started Ollama without a word, and `"1"` chose Claude by its position in the enum. `EnsureKeysPresent`
+  is now `EnsureKeysValid`, for the app, Claude, Voyage and the evaluation.
+- 11 new tests (507).
+
+**Reading a filing moved out of `MarkItDownConverter`.** `ReadFiling` and `DetectEncoding` - how every strategy and
+the company registry open a filing - sat in the class that shells out to markitdown, which only `Markdown` uses. They
+are `FilingFile.Read` and `FilingFile.DetectEncoding` now, unchanged; their tests moved to `FilingFileTests`.
+
+**A filing's taxonomy must be the only schema matching it.** `TaxonomyReader.FindForFiling` took the first `.xsd` in
+`data/` whose namespace the page declares - but every page declares the standard ones too. The SEC's `dei-2025.xsd`,
+saved into `data/` as reference, sorted first and became all four filings' taxonomy: chunking stopped at "Primary
+statements don't map one to one", which names the statements, not the schema. The XBRL `types.xsd` matched MSFT and
+ORCL and was picked for neither only because it sorts after them. Several matches now fail, naming every schema.
+Neither standard schema is needed: the filers' own label files already label every us-gaap concept they use, and
+the one DEI concept the code lacked, `EntityLegalForm`, none of the four filings tags. 1 new test (508).
+
+**The evaluation checks its index before registering the companies.** `OpenExistingIndexAsync` read every filing's
+inline XBRL for the company registry before finding the index missing or stale, so the fix that error names came
+after the slowest step - or behind a registration error. Neither index check needs the registry, only the filing list;
+registration now follows them. The console keeps registering first: it builds the index, and a refused filing must
+stop it before a build.
+
+**A question is embedded once.** Each vector search passed the question as text, and the vector store embedded it again
+for every search: under `Hybrid`, a question naming a statement embedded twice per company - four times for two
+companies - for one vector. With Voyage each is a billed call and a round trip before the search can run (the tokens
+are a fraction of a cent a run; the waiting is what shows). `RagAnswerService` now embeds the question once, through
+the generator the collection was opened with, and passes the vector to every search - MEVD's `SearchAsync` takes a
+`ReadOnlyMemory<float>` as well as text (Microsoft Learn, `VectorStoreCollection.SearchAsync<TInput>`). Checked:
+`RetrievalRankRunTests` on nomic reproduced every stored rank; 1 new test (509).
+
+## Follow-up: a map of the chunk vectors (v5)
+
+**Context (user, 2026-10-28):** while reading `vec_chunks` in DB Browser (sqlite-vec's `vec0.dll` loaded as an
+extension after the database is opened), the user asked to see the vectors as dots, close chunks close together.
+
+**`tools/vector_map.py`** draws one index's chunk vectors in 2D as a standalone HTML page: a dot per chunk, coloured
+by filing; a click rings that chunk's 5 nearest by cosine distance over the full vectors, so closeness can be checked
+whatever the layout shows. A tool to look with, not part of the app or the evaluation.
+
+- **Two layouts, measured by how many of each chunk's 5 true nearest stay among its 5 nearest dots.** On
+  `rag.structured.db` (981 chunks, 768 dimensions): PCA 0.53 - its two axes hold only 15.2% + 10.7% of the variance;
+  t-SNE (cosine, perplexity 30, seeded) 3.14. On `rag.structured.voyage-finance-2.db`, t-SNE keeps 2.99. PCA is the
+  default since it needs only numpy; t-SNE is `--tsne`.
+- **No Microsoft package does t-SNE.** ML.NET has PCA (`ProjectToPrincipalComponents`), the same picture numpy draws,
+  and no t-SNE or UMAP; Microsoft Learn's RAG guidance ("RAG generate embeddings phase") points to scikit-learn or
+  PyTorch for t-SNE. scikit-learn 1.9.1 it is, for `--tsne` only, in a venv apart from the Python markitdown runs from.
+- **What the first map showed: the vectors group by topic, not by company.** NDAQ's #368 (AxiomSL's on-premises
+  license and support recognized ratably as one performance obligation) has MSFT's #108 (on-premises licenses with
+  Software Assurance, recognized ratably) third among its nearest, at cosine distance 0.105 - behind two NDAQ chunks,
+  ahead of the rest. Every chunk opens with its company line, but a few words of company lose to a paragraph of
+  topic. Harmless to answers: a question naming a company searches only that company's chunks (`QueryIntentResolver`,
+  the company filter), which is why that filter is a live constraint. Separate tables per filing would change nothing
+  for vectors: a cosine distance doesn't depend on the other rows.
+
+
+## Follow-up: running on macOS as well as Windows (v5)
+
+The work moved to a Mac (Apple M5 Pro, 64 GB; llama on its GPU, Ollama 0.40.13) on 2026-11-02, with the requirement that the
+solution keeps running on both machines. Three things only ever worked, or only ever behaved this way, on Windows.
+
+**One question sent different bytes on each OS.** `RagAnswerService.BuildPrompt` built the excerpts with `AppendLine`, so
+they were CRLF on Windows and LF on the Mac: Q1 read 2,045 input tokens against 2,039, and an answer cached on one machine
+missed the response cache on the other. The system prompt was already pinned to CRLF; the excerpts now are too, with a test
+on the exact bytes. CRLF keeps Windows' prompts, baselines and cache as they were. Found by asking why the Mac's token total
+differed from the Windows baseline, after a first explanation had put the changed answers down to Ollama and the hardware.
+Fixing it changed 27 of the Mac's 102 answers.
+
+**The Mac's baseline is one lower, and not from the prompt.** All 102 questions, asked afresh, compared with
+`structured-hybrid-chunk-fixes` (Windows, CPU, Ollama 0.40.2, 85/102, 71 min):
+
+| Mac run | Reliable | Input tokens | Answers word for word as Windows | Grades as Windows | Time |
+|---|---|---|---|---|---|
+| Before the fix (`structured-hybrid-mac-m5pro-1`, not kept) | 84 | 249,227 | 70 | 100 | 4 min |
+| After it (`structured-hybrid-mac-m5pro-crlf-1`) | 84 | 249,850, equal on all 102 | 79 | 101 | 4 min |
+
+The one grade left is A24: the right sum, without "thousand". The other 22 answers that differ keep their grades. With the
+prompts now equal, what's left is the Ollama build or the hardware; these runs can't separate them. T5's prompt still differs:
+the same five excerpts, the last two swapped. Unexplained; its grade doesn't change. So the Mac's baseline is 84/102, Windows'
+stays 85/102, and a llama run is compared only with one from the same machine and Ollama build.
+
+**Answers repeat on the Mac, and Ollama's prompt cache doesn't change them.** With the chat model unloaded before every
+question (`structured-hybrid-mac-m5pro-crlf-unload-1`, 6 min), all 102 answers matched `-crlf-1` word for word. Not checked
+for Windows' baseline.
+
+**The evaluation scripts in C#.** `tools/run-variance.ps1` and `run-judge.ps1` needed PowerShell and ran `dotnet` through
+`cmd`. They're rewritten as .NET file-based apps (`tools/run-variance.cs`, `run-judge.cs`, sharing `eval-common.cs` through
+`#:include`, SDK 10.0.300+), so a clone needs only the .NET SDK. Same steps, overrides, execution names and log names.
+`dotnet` is started directly, with `Evaluation__*` variables set on that process alone, and its output is copied to the log
+as raw bytes: `dotnet test` writes in the console's code page on Windows, and decoding that as UTF-8 would replace what it
+can't read for good ("`Console.OutputEncoding` fixed"). The wait for output is bounded, because a build server left running
+can hold redirected output open. The `.ps1` files stay for now. Microsoft Learn: "File-based apps", CA2266. Checked by
+running, not from those pages: finding the script's folder through `AppContext.GetData("EntryPointFileDirectoryPath")`, and
+starting `dotnet test` from a file-based app.
+
+**The reranker's path.** `Retrieval:RerankModelDirectory` was `%USERPROFILE%/...`, which stays literal off Windows, so the
+local reranker never found its model there. It's now `~/...`, expanded in `CrossEncoderReranker.Load` from
+`SpecialFolder.UserProfile`. Run on the Mac with the local reranker on, one question.
+
+**Left as it is (user):** `.gitattributes` protects only `data/*.html`, so the taxonomy files are CRLF on a Windows checkout
+and LF on a Mac one, and the index manifest hashes their bytes. An index copied between machines stays current while the
+copied files stay as they are; a fresh clone or a re-checkout of `data/` reads it as stale, and startup asks for `--rebuild`.
+
+Checked: 511 + 210 offline tests; both scripts end to end on macOS, and their build, variance-pass and comparison failures (a failed judge or agreement step not forced); the three full runs above.
+Not yet run on Windows - the scripts, or the prompt and path fixes.
+
+**Company names: ordinary words and aliases (2026-11-11).** Found in a review of the code, on no question: every
+registered name, tickers included, matched as a whole word in any case. The four tickers are safe, but a filer whose
+ticker is an English word (ARE, COST, NOW) would match ordinary questions - "What are Microsoft's revenues?" would name
+two companies, and each gets half of the excerpts. Matching tickers only in capitals would fix it and lose "msft";
+the user types company names without capitals and wants that kept (user, 2026-11-11).
+- **A name that is an ordinary word in lowercase matches only as written; every other name in any case.** Ordinary:
+  a one-word name the filings' own text uses in lowercase, standing alone between spaces - or any of one or two
+  letters. Read from the filings at registration (the page is parsed there already), so there's no word list. A word
+  inside an address or file name doesn't count ("www.microsoft.com", "msft-20260630.htm"), and the hidden XBRL header
+  is left out ("msft:..." member names), or every company's own name would read as a word. It applies to names as to
+  tickers ("Target"). Startup's "Company filter:" line names the ones affected.
+- **`data/company-aliases.json`, optional: ticker -> extra names**, for a brand unlike the legal name ("Google") -
+  the gap "Registration from the cover facts" left open. Matched in any case, added to every year's filing of the
+  company. A key that is no registered company, an empty name, or an alias that matches another company's name
+  stops startup. It only adds names, so a filing with no entry still registers from its cover: v1's failure, a
+  forgotten entry leaving a company unfiltered, can't come back through it.
+- **Not in the index (user asked):** a `rag.*.db` is a build output - deleted by `--rebuild`, one per strategy,
+  embedding model and chunk budget, gitignored - and the registry is built before any index is opened. The file isn't
+  in the index manifest either: it changes routing, not chunks.
+- No file ships: none of the four filings needs an alias, and none of their names is an ordinary word - all eight
+  still match in lowercase, and every question in the three sets resolves to the same filings as before (the
+  existing test), so no answer can have moved and no evaluation was run.
+
+Checked: 539 + 210 offline tests. Not run: the app's startup with an aliases file in `data/`.
+
+**The rest of the code review (2026-11-11).** No answer of the four filings at the shipped settings was wrong; each of
+these fails only with a mistyped setting, a new filing, or a network fault.
+- **Numbers in `appsettings.json` are range-checked at load** (`AppSettings.EnsureInRange`), every fault named at once.
+  Presence and enum names were checked; values weren't: `VectorStore:UpsertBatchSize` 0 looped forever in the build,
+  `Retrieval:GenerationTopK` 0 sent a prompt with no excerpts (every answer a decline), a search depth or timeout of 0
+  threw on first use. `GenerationTopK` may not exceed either search depth - the model would read fewer excerpts than
+  asked, with nothing said (the rule `ClaudeSettings.ApplyTo` already held for Claude). `Ollama:BaseUrl` must be an address.
+- **Startup failures that printed a stack trace are messages:** a filing tagged with an inline XBRL format the reader
+  doesn't know (now naming the filing), the failures chunking raises on purpose under `--chunks-only` (the build path
+  wrapped them already), and the Claude API unreachable at the model check. Not a catch-all: an exception nobody
+  raised on purpose is a bug, and keeps its stack trace.
+- **An evaluation with Claude answering over Voyage embeddings doesn't contact Ollama**, as the console doesn't:
+  `OllamaSetup.OpenExistingIndexAsync` checked the Ollama chat model whatever answered, and the runner asked Ollama's
+  version for the `ollama:` tag. That run now carries no `ollama:` tag; one where Ollama embeds still does.
+- **A Voyage request that got no answer is retried**, up to 4 attempts (1, 2, 4 s). Only a 429 or 5xx was: one dropped
+  connection ended an index build of a request per chunk, and the rebuild is billed for every chunk again. Fewer
+  attempts than for a 429 so the startup check still fails within seconds without a network; a timeout isn't retried -
+  the client has waited two minutes for it.
+- **A question's own prompt is checked against the window** when asked (`PromptFit.EnsureQuestionFits`, Ollama only).
+  Startup's check allows a question 100 tokens; a pasted paragraph could still overflow, and Ollama would drop the
+  rules and the top excerpts. The largest prompt today leaves ~200 tokens spare, so no question of the sets is near it.
+- **Strict grader:** a filing name outside a citation was dropped from the stated figures only for a four-letter
+  ticker (`[A-Z]{4}-10K-...`); "IBM-10K-2025.html" would leave "10" as a figure and make a clean decline a check. Now
+  any ticker of up to six characters. `GraderParityTests` passes unchanged: no stored answer is regraded.
+- **Small:** the four literal non-breaking spaces in `HtmlTableLinearizer` and `IxTransformations` are written
+  `\u00A0`, as `FilingBlockReader` already said they should be; a table value in an XBRL context with no dates
+  ("forever") no longer throws in `PeriodLabels` (none of the four filings has one).
+
+Checked: 551 + 213 offline tests; the console started on the Mac's index and answered a lowercase question
+("what was msft total revenue in fiscal 2026?", routed to MSFT). Not run: an evaluation with Claude and Voyage (no
+keys on this machine), so the Ollama-free path is untested end to end; the Voyage retry against the real API.
+
+**The judge results checked (2026-11-11, user: "be sure that the results that we have are correct").** The seven stored
+judge runs recounted from their raw result files by a separate script, not through `JudgeAgreement`: every count in the
+agreement reports matches. Also checked, over all 714 judged answers: each is its baseline run's answer with the same
+strict grade; the judge's request is the question alone; a verdict is the library's (a score under 4 fails) for every
+scored answer; and the 87 scores taken from a reply's words were each read against the reply - all right.
+- **T7 was never cut off.** llama's one unread reply ends "Therefore, the Equivalence score is: 5"; the pattern missed
+  the colon after "is". Widened; every stored reply re-read with it changes T7 alone. The report, regenerated from the
+  store with no model call: 87 scores from the words, none unread, **88/102** with the strict grade (was 87/101). T7 is a
+  strict pass, so "14 of the 18 strict failures passed" stands.
+- **"14 of 18 wrong answers" was loose.** The 18 are strict failures: 14 wrong figures, 2 declines, 1 check, 1 missing
+  unit. The llama judge passed 12 of the 14 wrong figures, and the check and the missing unit; it failed A8, T9 and the
+  two declines. The plan and the README now say so.
+- **The Claude judges' passes, read again:** on llama's answers a rounded figure (A14, H34; Opus also A11), a missing
+  unit (Q21), the inputs without the sum (V3); on Claude's answers only `check`s (H8, H11, H34, Q23, V1). No wrong
+  figure. A11 is the nearest: "$5.7 billion", MD&A's own figure, for $5,787 million - not its rounding.
+- **A12's ground truth in the stored judge runs is the one it had then** - a negative; it became a fact whose decline
+  passes afterwards ("A12 is a fact whose decline also passes"). The verdicts answer the question as it was; not re-judged.
+
+Checked: 551 + 215 offline tests; the llama agreement report regenerated.
+
+**The figure source checked (2026-11-12).** Its rules re-implemented in a separate script and run over every stored
+result that has the metric and the excerpts the model was given: all 3,404 statuses match (719 older imported results
+have no such metric, 204 no stored excerpts). The 15 `untraced` flags read by hand: each a figure the model computed
+unasked (A11's sums, A16, H25, Q14's difference and "4.9 times") - no parsing false alarm, no invention. Three changes,
+none to a stored result (user: a new run will show the data under them):
+- **"A misreading" only when the answer doesn't state the expected figure.** The verdict opened with it whenever every
+  figure was in an excerpt and the strict grade didn't pass - also for 17 stored `no-unit` and 24 `check` answers, which
+  state the right figure and fail for the unit or a lookalike beside it.
+- **`calculated` needs the result.** Any unprinted figure on a calculation question was `calculated`, rated good: a
+  wrong result (A27's 25.9, 25.3 and 25.7 for 25.4; V3's 24,484,938) and a figure that is none of the inputs (A25's
+  1,219 and 618) alike. Now `calculated` only when the answer states the expected result or passes - the steps to it
+  may be unprinted; otherwise `untraced`. Under the new rule 24 stored results would read `untraced`, all of them
+  `wrong` answers to A25, A27 and V3. The strict grade failed them already, so no score changes.
+- The evaluator's own date-day rule removed: the strict grader has dropped a date's day since "the strict grader
+  extended", and the comment still said it kept them.
+"Traced" still means printed in an excerpt the model was given, not read from the right line: a small number matches
+by chance.
+
+Checked: 551 + 218 offline tests. No evaluation run (user: after the remaining files are checked).
+
+**Stored grades and comparisons checked (2026-11-12).** Every stored answer graded again by today's `StrictGrader`
+(a throwaway test, not kept): **4,320 of 4,327 stored strict grades are the grade it gives now**, across the 49 runs.
+The seven that aren't were right when stored:
+- `claude-opus55-medium-fresh`, six `check`s (A10, H6, Q2, Q10, Q23, V1) that "the strict grader extended" made
+  `reliable` (the lookalike named as the contrast). `claude-opus55-medium` was replayed from the cache under that rule
+  (97/102); the fresh pass was asked without a cache, so it wasn't, and still reads 90 - by today's rules 96. Its
+  comparison, `variance-claude-opus55-medium.txt`, says 101/102 same grade, as it was with both under the old rule;
+  regenerated from the store it would say 95/102, the rule's doing. By one rule the two differ on A16 alone.
+- `2026-10-01-v2-2b-reranked` H2, stored `wrong` as graded when it ran; "19.4%" has been an accepted alternative since
+  the chunk review, so it grades `reliable` now. Importing that run again would stop there.
+The variance comparisons' pair lines recounted from the store: 27 of 28 match, the 28th the one above.
+Read and found sound: `VarianceComparison`, `StrictGradeExplanation`, `tools/run-variance.cs`, `run-judge.cs`,
+`eval-common.cs`. `HistoricRunImporter` deletes a run's stored results before it has graded them, so an import that
+stops (H2, above) left that run out of the store until it was restored from git. Fixed the same day: every answer is
+graded first, and only then is the stored run replaced (two offline tests, against a store in a temp folder).
+
+**The Python tools read (2026-11-12).** Nothing in them puts a recorded result in doubt; none changed - the two ported
+ones are kept as they were.
+- `grade_answers.py`, `replay_recall.py`, `rerank_spike.py` no longer run as they stand, beyond "no longer reproduce
+  the app": they load `vec0.dll` from `RagFilingExplorer.Local/bin/.../win-x64/`, a project renamed to
+  `RagFilingExplorer.Cli` in v4, and their headers give that project's run command; `rerank_spike.py` also reads
+  `%USERPROFILE%`. Four one-off screens under `eval/` open `RagFilingExplorer.Local/Retrieval/RagAnswerService.cs` the
+  same way.
+- `replay_recall.py`: a question naming two companies is replayed 25 deep per company and merged, 50 in all, where the
+  app cuts the merged list at 25. A rank of 26-50 would print as that rank and add 1/rank to MRR, not the 0 its header
+  says. recall@1/3/5 can't be affected, and the .NET rank matched it on all 102 questions when ported.
+- `xbrl_column_check.py`: its count of aligned values isn't proof by itself. In a two-column table with one column
+  broken, the tie between aspects goes to one that is constant in both columns, so both columns' values count as
+  aligned - but the table is then reported INDISTINCT, so "tables with a problem" is the number to read.
+- `vector_map.py` (maintained): sound. A chunk containing "</script>" would end the page's data early; no filing has one.
+
+Checked: 551 + 220 offline tests.
+
+**A run under the new figure-source rules (2026-11-12, `structured-hybrid-mac-figure-source-1`).** All 102 questions
+asked afresh on the Mac, 4 min, strict grade only, compared with the Mac baseline
+(`eval/v3-runs/structured-hybrid-mac-figure-source.txt`): **102/102 answers word for word the baseline's, 84/102
+strictly** - with Ollama 0.40.14 where the baseline had 0.40.13, so that update changed no answer here. The figure
+source differs on two questions, as the rules were meant to: A27's wrong ratio (25.3 for 25.4, with the inputs restated
+in dollars) is `untraced`, was `calculated`; Q21's right figure without its unit is no longer "a misreading". Every
+other verdict is the baseline's to the letter: 84 traced, 11 no figure stated, 5 calculated (A24, right result without
+its unit, among them), 2 untraced (A27, and Q14's unasked "4.9 times", untraced before too).

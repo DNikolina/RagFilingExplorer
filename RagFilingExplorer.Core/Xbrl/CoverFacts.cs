@@ -16,6 +16,15 @@ internal static partial class CoverFacts
     /// <summary>The registrant's name as tagged, cleaned ("Microsoft Corporation"), or null.</summary>
     public static string? RegistrantName(XbrlDocument xbrl) => Clean(xbrl.First("dei:EntityRegistrantName")?.Text);
 
+    /// <summary>The form as tagged ("10-K"), or null.</summary>
+    public static string? FormType(XbrlDocument xbrl) => Clean(xbrl.First("dei:DocumentType")?.Text);
+
+    /// <summary>The fiscal year as tagged ("2026"), or null.</summary>
+    public static string? FiscalYear(XbrlDocument xbrl) => Clean(xbrl.First("dei:DocumentFiscalYearFocus")?.Text);
+
+    /// <summary>The SEC's company number as tagged, or null.</summary>
+    public static string? CentralIndexKey(XbrlDocument xbrl) => Clean(xbrl.First("dei:EntityCentralIndexKey")?.Text);
+
     /// <summary>The name a question uses: the registrant name without a leading "The" or its legal form ("Microsoft",
     /// "Nasdaq", "Coca-Cola" for "The Coca-Cola Company") - questions don't say "The Coca-Cola's revenue".</summary>
     public static string ShortName(string registrantName)
@@ -76,8 +85,9 @@ internal static partial class CoverFacts
         }
 
         List<string> symbols = CommonStocks(xbrl).Select(c => c.Symbol).ToList();
-        string? form = Clean(xbrl.First("dei:DocumentType")?.Text);
-        string? year = Clean(xbrl.First("dei:DocumentFiscalYearFocus")?.Text);
+        string? form = FormType(xbrl);
+        string? year = FiscalYear(xbrl);
+
         return $"{name}{(symbols.Count == 0 ? "" : $" ({string.Join(", ", symbols)})")}"
             + $"{(form is null ? "" : $", Form {form}")}{(year is null ? "" : $" for fiscal year {year}")}.";
     }

@@ -68,7 +68,8 @@ internal static partial class StrictGrader
     [GeneratedRegex(@"\G\s*billion", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant)]
     private static partial Regex BillionAfterRegex();
 
-    [GeneratedRegex(@"\(Source:[^)]*\)|[A-Z]{4}-10K-\d{4}\.html|\b(?:Item|Note|PART)\s+\w+", RegexOptions.CultureInvariant)]
+    // A filing's name is its ticker's, of any length ("IBM-10K-2025.html", "GOOGL-..."): left in, its "10" is a stated figure.
+    [GeneratedRegex(@"\(Source:[^)]*\)|[A-Z][A-Z0-9.]{0,5}-10K-\d{4}\.html|\b(?:Item|Note|PART)\s+\w+", RegexOptions.CultureInvariant)]
     private static partial Regex CitationTextRegex();
 
     [GeneratedRegex(@"^(19|20)\d\d$", RegexOptions.CultureInvariant)]

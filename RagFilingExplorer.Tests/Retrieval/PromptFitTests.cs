@@ -30,6 +30,20 @@ public class PromptFitTests
         Assert.That(largest, Is.GreaterThan(1600), "both long excerpts counted");
     }
 
+    // The startup check allows a question 100 tokens; a pasted paragraph is more, and Ollama would drop the rules and the
+    // top excerpts to make room for it.
+    [Test]
+    public void EnsureQuestionFits_QuestionThatPushesThePromptPastTheWindow_Throws()
+    {
+        List<Microsoft.Extensions.AI.ChatMessage> fits = RagAnswerService.BuildPrompt("What was total revenue?", [Chunk(2000)]);
+        List<Microsoft.Extensions.AI.ChatMessage> tooLong = RagAnswerService.BuildPrompt(string.Join(' ', Enumerable.Repeat("revenue", 1500)), [Chunk(2000)]);
+
+        Assert.DoesNotThrow(() => PromptFit.EnsureQuestionFits(tokenizer, fits, maxOutputTokens: 768, contextWindow: 4096));
+        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() =>
+            PromptFit.EnsureQuestionFits(tokenizer, tooLong, maxOutputTokens: 768, contextWindow: 4096))!;
+        Assert.That(ex.Message, Does.Contain("Ask a shorter question").And.Contain("4,096"));
+    }
+
     [Test]
     public void EnsureFits_PromptAndAnswerWithinTheWindow_Passes()
     {

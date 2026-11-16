@@ -62,12 +62,15 @@ public class RelevanceHintScreenTests
     /// from the same excerpts in the same layout (RagAnswerService), so nothing else differs.</summary>
     private static List<ChatMessage> WithHint(string systemPrompt, IReadOnlyList<RetrievedExcerpt> excerpts, string question)
     {
+        // CRLF on every OS, as the app's own excerpts have (RagAnswerService.BuildPrompt): with AppendLine the variant
+        // would differ from the app's prompt by its line endings too, outside Windows.
+        const string LineEnd = "\r\n";
         StringBuilder context = new();
         for (int i = 0; i < excerpts.Count; i++)
         {
-            context.AppendLine($"--- Excerpt from {excerpts[i].SourceFiling}, section {excerpts[i].Heading} (relevance rank {i + 1} of {excerpts.Count}) ---");
-            context.AppendLine(excerpts[i].Content);
-            context.AppendLine();
+            context.Append($"--- Excerpt from {excerpts[i].SourceFiling}, section {excerpts[i].Heading} (relevance rank {i + 1} of {excerpts.Count}) ---").Append(LineEnd);
+            context.Append(excerpts[i].Content).Append(LineEnd);
+            context.Append(LineEnd);
         }
 
         return

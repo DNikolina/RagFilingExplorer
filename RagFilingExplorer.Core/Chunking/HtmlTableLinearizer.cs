@@ -722,7 +722,7 @@ internal static partial class HtmlTableLinearizer
     {
         StringBuilder text = new();
         Append(node);
-        return WhitespaceRegex().Replace(text.ToString().Replace(' ', ' '), " ").Trim();
+        return WhitespaceRegex().Replace(text.ToString().Replace('\u00A0', ' '), " ").Trim();
 
         void Append(INode current)
         {

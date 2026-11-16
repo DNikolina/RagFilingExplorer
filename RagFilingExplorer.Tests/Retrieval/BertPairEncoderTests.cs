@@ -42,10 +42,10 @@ public class BertPairEncoderTests
     }
 
     [TestCase("Café", "cafe", TestName = "Normalize_Accent_IsStrippedAndLowercased")]
-    [TestCase("a b", "a b", TestName = "Normalize_NonBreakingSpace_IsASpace")]
+    [TestCase("a\u00A0b", "a b", TestName = "Normalize_NonBreakingSpace_IsASpace")]
     [TestCase("it’s", "it ’ s", TestName = "Normalize_CurlyApostrophe_IsPunctuation")]
     [TestCase("x — y", "x — y", TestName = "Normalize_EmDash_IsPunctuation")]
-    [TestCase("a​b", "ab", TestName = "Normalize_ZeroWidthSpace_IsDropped")]
+    [TestCase("a\u200Bb", "ab", TestName = "Normalize_ZeroWidthSpace_IsDropped")]
     public void Normalize_Characters(string text, string expected)
     {
         Assert.That(BertPairEncoder.Normalize(text), Is.EqualTo(expected));
