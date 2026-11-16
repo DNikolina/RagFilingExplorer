@@ -62,7 +62,7 @@ public class GraderParityTests
         List<string> runs = GradedRuns().ToList();
         int answers = runs.Sum(r => ReadGrading(Path.Combine(Repo.FullName, r))!.Count);
 
-        Assert.That(runs, Has.Count.GreaterThanOrEqualTo(34), "the 34 graded runs of 2026-10-02, and any since");
+        Assert.That(runs, Has.Count.GreaterThanOrEqualTo(34), "the 34 graded runs v2 ended with, and any since");
         Assert.That(answers, Is.GreaterThanOrEqualTo(1029));
     }
 

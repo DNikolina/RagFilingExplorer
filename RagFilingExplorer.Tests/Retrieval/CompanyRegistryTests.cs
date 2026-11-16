@@ -105,7 +105,7 @@ public class CompanyRegistryTests
         Assert.That(registered, Is.EquivalentTo(HandWrittenV1));
     }
 
-    // The verification this step was defined by: the filter each question gets is unchanged.
+    // What the registry has to keep: the filter each question gets is the one v1's table gave it.
     [Test]
     public void ResolveFilings_EveryQuestionInTheQuestionFiles_SameFilingsAsTheHandWrittenTable()
     {
@@ -114,7 +114,7 @@ public class CompanyRegistryTests
             .Where(q => q.Trim().Length > 0)
             .ToArray();
 
-        Assert.That(questions, Has.Length.EqualTo(102), "40 main + 35 held-out (H16-H35 appended 2026-09-30) + 27 answer-side (A1-A27, 2026-10-01)");
+        Assert.That(questions, Has.Length.EqualTo(102), "40 main + 35 held-out + 27 answer-side");
         foreach (string question in questions)
         {
             string[] v1 = HandWrittenV1.Where(kvp => question.Contains(kvp.Key, StringComparison.OrdinalIgnoreCase))

@@ -17,7 +17,7 @@ namespace RagFilingExplorer.Evaluation;
 /// <summary>
 /// Every question's answer rank, retrieval only: the app's own search (AppComposition, as the evaluation asks it), the
 /// answer stream never read and the chat model never asked (<see cref="NoChatClient"/>) - so an
-/// embedder or retrieval change is measured in minutes, not llama's two hours. The rank is the evaluation's
+/// embedder or retrieval change is measured in minutes, not the time llama takes to answer. The rank is the evaluation's
 /// (<see cref="RetrievalRankEvaluator.RankOf"/>) among Retrieval:VerboseSearchTopK chunks. Writes
 /// eval/v3-runs/ranks-&lt;embedding model&gt;[-&lt;reranker&gt;].txt: recall@1, recall@5, recall@8 and MRR per set over the
 /// answerable questions, and each rank beside <see cref="Baseline"/>'s stored one, every move listed. The embedding model

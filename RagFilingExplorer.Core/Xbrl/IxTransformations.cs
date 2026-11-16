@@ -115,7 +115,7 @@ internal static partial class IxTransformations
 
     private static readonly string[] TensWords = ["twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
 
-    // "six years" -> P6Y, "15 years" -> P15Y, "one year and six months" -> P1Y6M, "twenty-five years" -> P25Y. A hyphen
+    // "six years" -> P6Y, "15 years" -> P15Y, "one year and six months" -> P1Y6M, "twenty-five years" -> P25Y, "thirty years" -> P30Y. A hyphen
     // counts as a space: "one-year", and NDAQ's "one- year" (hyphenated across a line break). The word before the number
     // is read too, so a compound number isn't taken for its last word ("twenty five" as 5); a decimal ("1.5 years") has
     // no exact Y/M/D form in words and throws rather than be cut to its last digits.
@@ -142,7 +142,8 @@ internal static partial class IxTransformations
             }
             else
             {
-                amount = WordsToNumber(number);
+                int bareTens = Array.IndexOf(TensWords, number);
+                amount = bareTens >= 0 ? (bareTens + 2) * 10 : WordsToNumber(number);
             }
             string value = amount.ToString(CultureInfo.InvariantCulture);
             switch (m.Groups[3].Value)

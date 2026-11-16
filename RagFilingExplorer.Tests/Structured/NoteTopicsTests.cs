@@ -13,8 +13,6 @@ namespace RagFilingExplorer.Tests.Structured;
 [TestFixture]
 public class NoteTopicsTests
 {
-    private static readonly string[] Filings = ["MSFT-10K-2026.html", "NDAQ-10K-2025.html", "NFLX-10K-2025.html", "ORCL-10K-2026.html"];
-
     // Two notes and a part-role block ("(Tables)") inside the first; a form-taxonomy block (cyd:) outside them.
     private const string Page =
         "<html><body><div style=\"display:none\"><ix:header><xbrli:context id=\"c\"><xbrli:period><xbrli:instant>2026-06-30</xbrli:instant></xbrli:period></xbrli:context></ix:header></div>"

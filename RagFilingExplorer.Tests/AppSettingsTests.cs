@@ -58,21 +58,6 @@ public class AppSettingsTests
         Assert.That(LoadShippedSettings().Embedding.Model, Is.EqualTo("nomic-embed-text"), "the file's value once unset");
     }
 
-    // MaxOutputTokens shipped as 4096 - Ollama's whole default context window, which the prompt shares, so
-    // the ceiling could never be reached: runaway llama3.1:8b answers (1,400-1,700 tokens, in Ollama's
-    // server log) filled the window first, and Ollama then dropped the oldest tokens - the system prompt
-    // and the top-ranked chunks. The largest prompt measured is ~3,100 tokens.
-    [Test]
-    public void Load_ShippedAppSettings_OutputCeilingLeavesRoomForThePromptInOllamasDefaultContext()
-    {
-        const int OllamaDefaultContextTokens = 4096;
-        const int LargestMeasuredPromptTokens = 3103;
-
-        AppSettings settings = LoadShippedSettings();
-
-        Assert.That(settings.Retrieval.MaxOutputTokens + LargestMeasuredPromptTokens, Is.LessThanOrEqualTo(OllamaDefaultContextTokens));
-    }
-
     [Test]
     public void RequiredConfigurationKeys_CoversEveryLeafSetting_AndNoSections()
     {

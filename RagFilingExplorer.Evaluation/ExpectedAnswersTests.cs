@@ -57,6 +57,7 @@ public class ExpectedAnswersTests
         Assert.That(missing, Is.Empty);
     }
 
+    // Here, not in EvaluationRunTests: that fixture is [Explicit] as a whole, so a test in it never runs offline.
     [Test]
     public void BaselineGrades_SetWithoutAV2Baseline_IsEmptyNotAFailure()
     {

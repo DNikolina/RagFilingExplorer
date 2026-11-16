@@ -77,13 +77,13 @@ public class FilingBlockReaderTests
         Assert.That(texts[4], Is.EqualTo("(a)"));
     }
 
-    // Non-breaking spaces are written as escapes here and in the reader: the step-1a converter's regex held a
+    // Non-breaking spaces are written as escapes here and in the reader: an earlier converter's regex held a
     // literal U+00A0, which looks like a space and was lost when the code moved into FilingBlockReader - runs of
     // ordinary spaces then survived (ORCL's cover page: "Securities Act.    Yes  ☒").
     [Test]
     public void Read_CollapsesWhitespace_ButKeepsNonBreakingSpaces()
     {
-        Assert.That(Texts("<p>Net   income\n  rose sharply</p>"), Is.EqualTo(new[] { "Net income rose sharply" }));
+        Assert.That(Texts("<p>Net   income\n  rose\u00A0sharply</p>"), Is.EqualTo(new[] { "Net income rose\u00A0sharply" }));
     }
 
     [Test]

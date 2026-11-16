@@ -49,7 +49,7 @@ public class FilingXbrlTests
         Assert.That(x.Facts.Where(f => !f.IsNil && f.IsNumeric && f.Number is null), Is.Empty);
     }
 
-    // Counted when 1b-i was built; a change means the reader or the filing changed. Continuation chains and
+    // Counted in each filing; a change means the reader or the filing changed. Continuation chains and
     // format codes are checked by Read itself - it throws on a broken chain or an unknown code.
     [TestCase("MSFT-10K-2026.html", 1869, 131, 96, 43)]
     [TestCase("NDAQ-10K-2025.html", 1807, 120, 96, 104)]

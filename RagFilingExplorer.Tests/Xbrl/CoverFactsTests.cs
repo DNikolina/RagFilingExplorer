@@ -78,7 +78,7 @@ public class CoverFactsTests
     [TestCase("NDAQ-10K-2025.html", "Nasdaq, Inc. (NDAQ), Form 10-K for fiscal year 2025.")]
     [TestCase("NFLX-10K-2025.html", "Netflix, Inc. (NFLX), Form 10-K for fiscal year 2025.")]
     [TestCase("ORCL-10K-2026.html", "Oracle Corporation (ORCL), Form 10-K for fiscal year 2026.")]
-    public void EmbeddingContext_RealFiling_IsTheLineStep1dWasMeasuredWith(string filing, string expected)
+    public void EmbeddingContext_RealFiling_IsTheLineItWasMeasuredWith(string filing, string expected)
     {
         string path = Path.Combine(RepoPaths.FindRoot(TestContext.CurrentContext.TestDirectory).FullName, "data", filing);
         XbrlDocument xbrl = InlineXbrlReader.Read(new AngleSharp.Html.Parser.HtmlParser().ParseDocument(
